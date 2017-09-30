@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const BundleTracker = require('webpack-bundle-tracker');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // See https://github.com/gaearon/react-hot-boilerplate/tree/next for details on prod settings too
 
@@ -22,6 +23,8 @@ module.exports = {
   },
 
   plugins: [
+    new ExtractTextPlugin('style.css'),
+
     new webpack.HotModuleReplacementPlugin(),
     // enable HMR globally
 
@@ -35,7 +38,47 @@ module.exports = {
   ],
 
   module: {
-    loaders: [{ test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' }],
+    loaders: [
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+
+          use: [
+            {
+              loader: 'css-loader',
+              query: {
+                modules: true,
+                localIdentName: '[name]__[local]___[hash:base64:5]',
+              },
+            },
+            'postcss-loader',
+          ],
+        }),
+      },
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+
+          use: [
+            {
+              loader: 'css-loader',
+              query: {
+                modules: true,
+                sourceMap: true,
+                importLoaders: 2,
+                localIdentName: '[name]__[local]___[hash:base64:5]',
+              },
+            },
+            'sass-loader',
+          ],
+        }),
+      },
+    ],
   },
 
   resolve: {
