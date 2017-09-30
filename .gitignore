@@ -1,0 +1,16 @@
+# NPM dependencies
+node_modules
+
+# Webpack artifacts
+webpack-stats.json
+webpack-stats-prod.json
+
+# Visual Studio Code files
+.vscode/*
+
+# Build/compilation output
+src/assets/bundles/*
+*.pyc
+
+# Local dev database
+*.sqlite3
