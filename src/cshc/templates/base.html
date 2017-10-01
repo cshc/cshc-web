@@ -1,0 +1,56 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>{% block title %}Cambridge South Hockey Club{% endblock title %}</title>
+
+  {% block meta %}
+  <!-- Required Meta Tags Always Come First -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge"> 
+  {% endblock meta %} 
+  
+  {% block link %}
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="favicon.ico">
+
+  <!-- CSS Global Compulsory -->
+  <link rel="stylesheet" href="{% static "vendor/bootstrap/bootstrap.min.css" %}">
+  
+  <link rel="stylesheet" href="{% static "vendor/hamburgers/hamburgers.min.css" %}">
+
+  <!-- CSS Unify -->
+  <link rel="stylesheet" href="{% static "vendor/unify/css/unify.css" %}">
+
+  <!-- CSS Customization -->
+  <link rel="stylesheet" href="{% static "vendor/unify/css/custom.css" %}"> 
+  <link rel="stylesheet" href="{% static "css/theme.css" %}"> 
+  
+  {% endblock link %} 
+  
+  {% block head_js %} {% endblock head_js %}
+</head>
+
+<body>
+  <main>
+    {% include "core/_header.html" %}
+    {% block main %}{% endblock main %}
+  </main>
+
+  {% block body_js %}
+  <!-- JS Global Compulsory -->
+  <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+  <script src="{% static "vendor/jquery-migrate/jquery-migrate.min.js" %}"></script>
+  <script src="{% static "vendor/jquery.easing/js/jquery.easing.js" %}"></script>
+  <script src="{% static "vendor/popper.min.js" %}"></script>
+  <script src="{% static "vendor/bootstrap/bootstrap.min.js" %}"></script>
+
+  <!-- JS Unify -->
+  <script src="{% static "vendor/unify/js/hs.core.js" %}"></script>
+  {% endblock body_js %}
+</body>
+
+</html>
