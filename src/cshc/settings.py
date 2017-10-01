@@ -60,7 +60,7 @@ ROOT_URLCONF = 'cshc.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'cshc', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,10 +125,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+
 STATICFILES_DIRS = (
     # We do this so that django's collectstatic copies our bundles to the
     # STATIC_ROOT or syncs them to whatever storage we use.
-    os.path.join(BASE_DIR, 'assets'),
+    os.path.join(BASE_DIR, 'frontend'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 WEBPACK_LOADER = {

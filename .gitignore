@@ -9,8 +9,11 @@ webpack-stats-prod.json
 .vscode/*
 
 # Build/compilation output
-src/assets/bundles/*
+src/static/bundles/*
 *.pyc
+
+# collectstatic output
+src/assets/*
 
 # Local dev database
 *.sqlite3

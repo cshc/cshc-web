@@ -13,13 +13,13 @@ module.exports = {
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
-    './src/assets/js/index',
+    './src/frontend/js/index',
   ],
 
   output: {
-    path: path.resolve('./src/assets/bundles/'),
+    path: path.resolve('./src/static/bundles/'),
     filename: '[name]-[hash].js',
-    publicPath: 'http://localhost:3000/assets/bundles/', // Tell django to use this URL to load packages and not use STATIC_URL + bundle_name
+    publicPath: 'http://localhost:3000/static/bundles/', // Tell django to use this URL to load packages and not use STATIC_URL + bundle_name
   },
 
   plugins: [
