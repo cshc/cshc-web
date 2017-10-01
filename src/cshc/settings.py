@@ -40,10 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webpack_loader',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -137,3 +139,6 @@ WEBPACK_LOADER = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+# Used by DJANGO_DEBUG_TOOLBAR - DEV ONLY
+INTERNAL_IPS = ['127.0.0.1']
