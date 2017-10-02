@@ -18,6 +18,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.conf.urls.static import static
 
+#pylint: disable=C0103
 urlpatterns = [
     url(r'^venues/', include('venues.urls')),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS

@@ -4,6 +4,7 @@
   "description": "Cambridge South Hockey Club website",
   "proxy": "http://localhost:8000",
   "scripts": {
+    "lint": "eslint ./src && pylint ./src/cshc",
     "dev": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
