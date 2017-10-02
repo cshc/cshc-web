@@ -1,26 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-import Temp from './Temp';
+import render from '../ReactRenderer';
+import style from './VenueDetails.scss';
 
-ReactDOM.render(
-  <AppContainer>
-    <Temp text="Venue Details" />
-  </AppContainer>,
-  document.getElementById('react-app'),
-);
+const VenueDetails = () => <h1 className={style.details}>Venue Details</h1>;
+
+render(VenueDetails);
 
 /* eslint-disable global-require */
 // Hot Module Replacement API
-if (module.hot) {
-  module.hot.accept('./Temp', () => {
-    const NextApp = require('./Temp').default;
-    ReactDOM.render(
-      <AppContainer>
-        <NextApp text="Venue Details" />
-      </AppContainer>,
-      document.getElementById('root'),
-    );
-  });
-}
+// if (module.hot) {
+//   module.hot.accept('./Temp', () => {
+//     const NextApp = require('./Temp').default;
+//     render(NextApp);
+//   });
+// }
 /* eslint-enable global-require */

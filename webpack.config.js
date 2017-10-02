@@ -30,7 +30,7 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin('style.css'),
+    new ExtractTextPlugin('[name]-[hash].css'),
 
     new webpack.HotModuleReplacementPlugin(),
     // enable HMR globally

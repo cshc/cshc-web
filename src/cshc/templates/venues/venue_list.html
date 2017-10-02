@@ -3,6 +3,8 @@
 
 {% block title %}{{ block.super }} | Venues{% endblock %}
 
+{% block link %}{{ block.super }}{% render_bundle 'venueList' 'css' %}{% endblock link %}
+
 {% block main %}
   <section class="container g-pt-100">
     <div id="react-app"></div>
@@ -11,5 +13,5 @@
 
 {% block body_js %}
   {{ block.super }}
-  {% render_bundle 'venueList' %}
+  {% render_bundle 'venueList' 'js' %}
 {% endblock body_js %}
