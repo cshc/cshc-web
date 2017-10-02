@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import App from './app';
+import Temp from './Temp';
 
 ReactDOM.render(
   <AppContainer>
-    <App />
+    <Temp text="Venue Details" />
   </AppContainer>,
   document.getElementById('react-app'),
 );
@@ -13,11 +13,11 @@ ReactDOM.render(
 /* eslint-disable global-require */
 // Hot Module Replacement API
 if (module.hot) {
-  module.hot.accept('./app', () => {
-    const NextApp = require('./app').default;
+  module.hot.accept('./Temp', () => {
+    const NextApp = require('./Temp').default;
     ReactDOM.render(
       <AppContainer>
-        <NextApp />
+        <NextApp text="Venue Details" />
       </AppContainer>,
       document.getElementById('root'),
     );

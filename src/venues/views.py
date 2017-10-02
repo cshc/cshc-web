@@ -4,12 +4,12 @@
 
 from django.http import HttpResponse
 from django.template import loader
+from django.views.generic import TemplateView
 
 
-def index(request):
-    """
-      Get the list of venues.
-    """
-    template = loader.get_template('venues/index.html')
-    context = {}
-    return HttpResponse(template.render(context, request))
+class VenueListView(TemplateView):
+    template_name = 'venues/venue_list.html'
+
+
+class VenueDetailsView(TemplateView):
+    template_name = 'venues/venue_details.html'

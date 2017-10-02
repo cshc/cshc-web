@@ -8,13 +8,20 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   context: __dirname,
 
-  entry: [
-    'babel-polyfill',
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
-    './src/frontend/js/index',
-  ],
+  entry: {
+    venueList: [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:3000',
+      'webpack/hot/only-dev-server',
+      './src/frontend/js/venues/VenueList.jsx',
+    ],
+    venueDetails: [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:3000',
+      'webpack/hot/only-dev-server',
+      './src/frontend/js/venues/VenueDetails.jsx',
+    ],
+  },
 
   output: {
     path: path.resolve('./src/static/bundles/'),
@@ -35,6 +42,10 @@ module.exports = {
     // do not emit compiled assets that include errors
 
     new BundleTracker({ filename: './webpack-stats.json' }),
+
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'common',
+    }),
   ],
 
   module: {
