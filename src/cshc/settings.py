@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'lib.apps.LibConfig',
     'venues.apps.VenuesConfig',
     'competitions.apps.CompetitionsConfig',
+    'opposition.apps.OppositionConfig',
     'jet',
     'django.contrib.admin',
     'django.contrib.auth',
