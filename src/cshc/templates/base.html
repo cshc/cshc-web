@@ -1,5 +1,10 @@
 {% load static from staticfiles %}
-{% load render_bundle from webpack_loader %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {% clear_breadcrumbs %}
+  {% breadcrumb "Home" "/" %}
+{% endblock %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +13,6 @@
   <title>{% block title %}Cambridge South Hockey Club{% endblock title %}</title>
 
   {% block meta %}
-  <!-- Required Meta Tags Always Come First -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge"> 
@@ -20,6 +24,7 @@
 
   <!-- CSS Global Compulsory -->
   <link rel="stylesheet" href="{% static "vendor/bootstrap/bootstrap.min.css" %}">
+  <link rel="stylesheet" href="{% static "vendor/icon-awesome/css/font-awesome.min.css" %}">
   
   <link rel="stylesheet" href="{% static "vendor/hamburgers/hamburgers.min.css" %}">
 
@@ -32,27 +37,36 @@
   
   {% endblock link %} 
   
-  {% block head_js %} {% endblock head_js %}
+  {% block head_js %}
+  <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+  <script src="{% static "vendor/jquery-migrate/jquery-migrate.min.js" %}"></script>
+  <script src="{% static "vendor/jquery.easing/js/jquery.easing.js" %}"></script>
+  {% endblock head_js %}
 </head>
 
 <body>
   <main>
     {% include "core/_header.html" %}
-    {% block main %}{% endblock main %}
+    <section class="container g-pt-120">
+      {% render_breadcrumbs %}
+      {% block main %}{% endblock main %}
+    </section>
   </main>
 
   {% block body_js %}
   <!-- JS Global Compulsory -->
-  <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
-  <script src="{% static "vendor/jquery-migrate/jquery-migrate.min.js" %}"></script>
-  <script src="{% static "vendor/jquery.easing/js/jquery.easing.js" %}"></script>
   <script src="{% static "vendor/popper.min.js" %}"></script>
   <script src="{% static "vendor/bootstrap/bootstrap.min.js" %}"></script>
 
   <!-- JS Unify -->
   <script src="{% static "vendor/unify/js/hs.core.js" %}"></script>
   
-  {% render_bundle 'common' %}
+  <script src="{% static "js/util.js" %}"></script>
+  <script >
+    $(function () {
+      $('[data-toggle="popover"]').popover();
+    });
+  </script>
   {% endblock body_js %}
 </body>
 

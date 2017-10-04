@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'lib.apps.LibConfig',
     'venues.apps.VenuesConfig',
     'jet',
     'django.contrib.admin',
@@ -44,6 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webpack_loader',
     'debug_toolbar',
+    'django_extensions',
+    'django_user_agents',
+    'geoposition',
+    'django_bootstrap_breadcrumbs',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 ROOT_URLCONF = 'cshc.urls'
@@ -149,3 +155,27 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Used by DJANGO_DEBUG_TOOLBAR - DEV ONLY
 INTERNAL_IPS = ['127.0.0.1']
+
+
+# Django User Agents
+# https://github.com/selwin/django-user_agents
+
+# Name of cache backend to cache user agents. If it not specified default
+# cache alias will be used. Set to `None` to disable caching.
+USER_AGENTS_CACHE = 'default'
+
+
+GMAPS_API_KEY = os.environ['GMAPS_API_KEY']
+GEOPOSITION_GOOGLE_MAPS_API_KEY = GMAPS_API_KEY
+GEOPOSITION_MAP_OPTIONS = {
+    'minZoom': 3,
+    'maxZoom': 15,
+    'scrollwheel': True,
+    'lat': 52.206133926014665,
+    'lng': 0.12531280517578125,
+}
+
+
+# Django Bootstrap Breadcrumbs
+# Ref: http://django-bootstrap-breadcrumbs.readthedocs.io/en/latest/
+BREADCRUMBS_TEMPLATE = "core/_breadcrumbs.html"

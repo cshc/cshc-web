@@ -5,3 +5,22 @@ pylint==1.7.3
 pylint-django==0.7.2
 django-jet==1.0.6
 django-debug-toolbar==1.8
+
+# Django extensions
+# Ref: https://django-extensions.readthedocs.io/en/latest/
+django-extensions==1.9.1
+
+# Django User Agents
+# Ref: https://github.com/selwin/django-user_agents
+pyYAML==3.12
+ua-parser==0.7.3
+user-agents==1.1.0
+django-user-agents==0.3.2
+
+# Django geoposition
+# Ref: https://django-geoposition.readthedocs.io/en/latest/
+django-geoposition==https://github.com/philippbosch/django-geoposition/archive/django-1.11.zip
+
+# Django Bootstrap Breadcrumbs
+# Ref: http://django-bootstrap-breadcrumbs.readthedocs.io/en/latest/
+django-bootstrap-breadcrumbs==0.8.2

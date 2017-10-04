@@ -1,0 +1,16 @@
+<div class="g-bg-cover__inner g-mb-20">
+  <ul class="u-list-inline">
+    {% for url, label in breadcrumbs %}
+      {% ifnotequal forloop.counter breadcrumbs_total %}
+        <li class="list-inline-item g-mr-7">
+          <a class="u-link-v5 g-color-main" href="{{ url }}">{{ label|safe }}</a>
+          <i class="fa fa-angle-right g-ml-7"></i>
+        </li>
+      {% else %}
+        <li class="list-inline-item g-color-primary">
+          <span>{{ label|safe }}</span>
+        </li>
+      {% endifnotequal %}
+    {% endfor %}
+  </ul>
+</div>

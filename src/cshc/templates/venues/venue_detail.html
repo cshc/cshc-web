@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | {{ venue.name }}{% endblock %}
+
+{% block head_js %}
+{{ block.super }}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ GMAPS_API_KEY }}&region=GB"></script>
+{% endblock head_js %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Venues" "venue_list" %}
+  {% breadcrumb venue.name "venue_detail" slug=v.slug %}
+{% endblock %}
+
+{% block main %}
+  {% url 'venue_list' as venue_list_url %}
+  
+  {% heading venue.name %}
+  
+  {% if venue.is_home %}<h4><i class="fa fa-home"></i> Home Ground</h4>{% endif %}
+
+  {% if venue.notes %}
+    <p class="lead">{{ venue.notes|safe }}</p>
+  {% endif %}
+
+  <div class="row">
+
+    {% if venue.distance %}
+    <div class="col-md-3 g-mb-20">
+      <div class="media">
+        <span class="d-flex g-color-primary g-font-size-40 mr-3">
+          <i class="fa fa-car fa-fw"></i>
+        </span>
+        <div class="media-body">
+          <h4 class="h6 g-color-black g-font-weight-600 text-uppercase g-mb-3">Distance</h4>
+          {{ venue.distance }} miles
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    
+    {% if not venue.is_home %}
+    <div class="col-md-3 g-mb-20">
+      <div class="media">
+        <span class="d-flex g-color-primary g-font-size-40 mr-3">
+          <i class="fa fa-money fa-fw"></i>
+        </span>
+        <div class="media-body">
+          <h4 class="h6 g-color-black g-font-weight-600 text-uppercase g-mb-3">Drivers Reimbursement</h4>
+          £{{ venue.round_trip_cost|floatformat:2 }}
+          <a href="#" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="bottom" data-content="{% include 'venues/_travel_costs.html' %}" title data-original-title="Travel Costs">
+            <i class="fa fa-question-circle"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  
+    {% if venue.address_known %}
+    <div class="col-md-3 g-mb-20">
+      <div class="media">
+        <span class="d-flex g-color-primary g-font-size-40 mr-3">
+          <i class="fa fa-map-marker fa-fw"></i>
+        </span>
+        <div class="media-body">
+          <h4 class="h6 g-color-black g-font-weight-600 text-uppercase g-mb-3">Address</h4>
+          {{ venue.full_address }}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if venue.phone %}
+    <div class="col-md-3 g-mb-20">
+      <div class="media">
+        <span class="d-flex g-color-primary g-font-size-40 mr-3">
+          <i class="fa fa-phone fa-fw"></i>
+        </span>
+        <div class="media-body">
+          <h4 class="h6 g-color-black g-font-weight-600 text-uppercase g-mb-3">Phone</h4>
+          {{ venue.phone }}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+  
+  {% if venue.url %}
+  <a href="{{ venue.url }}" title="View this venue on the East Leagues website" class="btn btn-xl u-btn-outline-primary u-btn-content g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-2 g-mr-10 g-mb-15">
+    <i class="fa fa-external-link pull-left g-font-size-42 g-mr-10"></i>
+    <span class="float-right text-left">
+        East Leagues
+      <span class="d-block g-font-size-11">More details about this venue</span>
+    </span>
+  </a>
+  {% endif %}
+
+  {% if venue.address_known %}
+    {% include 'maps/_maps_app_link.html' with address=venue.full_address %}
+    {% include 'maps/_directions_link.html' with address=venue.full_address %}
+  {% endif %}
+
+  {% if venue.address_known %}
+  <div id="map" class="js-g-map embed-responsive embed-responsive-21by9 g-min-height-60vh"></div>
+  {% endif %}
+
+{% endblock %}
+
+{% block body_js %}
+  {{ block.super }}
+  <script type="text/javascript" src="{% static "vendor/gmap3/gmap3.min.js" %}"></script>
+  <script >
+    $(function () {
+      var address = "{{ venue.full_address }}";
+      
+      $('#map')
+      .gmap3({
+        address:address,
+        zoom: 14,
+        scrollwheel: true,
+        mapTypeId : google.maps.MapTypeId.ROADMAP
+      })
+      .marker({address: address});
+    });
+  </script>
+{% endblock body_js %}

@@ -7,7 +7,7 @@ from . import views
 
 #pylint: disable=C0103
 urlpatterns = [
-    url(r'^$', views.VenueListView.as_view(), name='venue-list'),
+    url(r'^$', views.VenueListView.as_view(), name='venue_list'),
     url(r'^(?P<slug>[-\w]+)/$',
-        views.VenueDetailsView.as_view(), name='venue-details'),
+        views.VenueDetailsView.as_view(), name='venue_detail'),
 ]

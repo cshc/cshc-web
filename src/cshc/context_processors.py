@@ -18,5 +18,6 @@ def utils(request):
     """ Returns common context items. """
     context = {
         'VERSION': settings.VERSION,
+        "GMAPS_API_KEY": settings.GMAPS_API_KEY,
     }
     return context
