@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from os.path import abspath, dirname, join, normpath
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+BASE_DIR = dirname(dirname(abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -24,6 +24,9 @@ SECRET_KEY = 'lw*s+7y@xsrl-9f(f^%wm(_!8choix2%ljvoccf9(^mh*uckk5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+VERSION_FILE = normpath(join(BASE_DIR, '..', 'version.txt'))
+VERSION = open(VERSION_FILE).read().lstrip('v').rstrip()
 
 ALLOWED_HOSTS = []
 
@@ -60,7 +63,7 @@ ROOT_URLCONF = 'cshc.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'cshc', 'templates')],
+        'DIRS': [join(BASE_DIR, 'cshc', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cshc.context_processors.utils',
             ],
         },
     },
@@ -82,7 +86,7 @@ WSGI_APPLICATION = 'cshc.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -125,19 +129,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATIC_ROOT = join(BASE_DIR, 'assets')
 
 STATICFILES_DIRS = (
     # We do this so that django's collectstatic copies our bundles to the
     # STATIC_ROOT or syncs them to whatever storage we use.
-    os.path.join(BASE_DIR, 'frontend'),
-    os.path.join(BASE_DIR, 'static'),
+    join(BASE_DIR, 'frontend'),
+    join(BASE_DIR, 'static'),
 )
 
 WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': 'bundles/',
-        'STATS_FILE': os.path.join(BASE_DIR, '..', 'webpack-stats.json'),
+        'STATS_FILE': join(BASE_DIR, '..', 'webpack-stats.json'),
     }
 }
 
