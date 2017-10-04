@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'lib.apps.LibConfig',
     'venues.apps.VenuesConfig',
+    'competitions.apps.CompetitionsConfig',
     'jet',
     'django.contrib.admin',
     'django.contrib.auth',
