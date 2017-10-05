@@ -24,3 +24,7 @@ django-geoposition==https://github.com/philippbosch/django-geoposition/archive/d
 # Django Bootstrap Breadcrumbs
 # Ref: http://django-bootstrap-breadcrumbs.readthedocs.io/en/latest/
 django-bootstrap-breadcrumbs==0.8.2
+
+# Documentation Generation
+sphinx==1.6.4
+sphinx-autobuild==0.7.1
