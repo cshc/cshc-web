@@ -17,3 +17,6 @@ src/assets/*
 
 # Local dev database
 *.sqlite3
+
+# Docs output
+docs/_build/*
