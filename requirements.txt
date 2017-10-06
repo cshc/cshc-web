@@ -28,3 +28,5 @@ django-bootstrap-breadcrumbs==0.8.2
 # Documentation Generation
 sphinx==1.6.4
 sphinx-autobuild==0.7.1
+restructuredtext-lint==1.1.1
+sphinx_rtd_theme==0.2.4
