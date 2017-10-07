@@ -6,6 +6,10 @@ pylint-django==0.7.2
 django-jet==1.0.6
 django-debug-toolbar==1.8
 
+# Django CKEditor (wysiwyg editor support)
+# Ref: https://django-ckeditor.readthedocs.io/en/latest/
+django-ckeditor==5.3.0
+
 # Django extensions
 # Ref: https://django-extensions.readthedocs.io/en/latest/
 django-extensions==1.9.1

@@ -46,7 +46,7 @@ class ClubTeamSeasonParticipationAdmin(admin.ModelAdmin):
     # form = ClubTeamSeasonParticipationForm
     search_fields = ('team__short_name', 'team__long_name', 'division__name')
     list_filter = ('team', 'season')
-    list_display = ('__unicode__', 'team', 'season', 'division', 'division_tables_url',
+    list_display = ('__str__', 'team', 'season', 'division', 'division_tables_url',
                     'final_pos', 'division_result')
     fieldsets = [
         ('Basics', {

@@ -29,7 +29,7 @@ class SquadMembershipAdmin(admin.ModelAdmin):
     model = SquadMembership
     search_fields = ('member__first_name', 'member__last_name')
     list_filter = ('member', 'team', 'season')
-    list_display = ('__unicode__', 'member', 'team', 'season')
+    list_display = ('__str__', 'member', 'team', 'season')
 
 
 @admin.register(CommitteePosition)
@@ -38,7 +38,7 @@ class CommitteePositionAdmin(admin.ModelAdmin):
     model = CommitteePosition
     search_fields = ('name',)
     list_filter = ('name', 'gender')
-    list_display = ('__unicode__', 'name', 'gender')
+    list_display = ('__str__', 'name', 'gender')
 
 
 @admin.register(CommitteeMembership)
@@ -47,4 +47,4 @@ class CommitteeMembershipAdmin(admin.ModelAdmin):
     model = CommitteeMembership
     search_fields = ('member__first_name', 'member__last_name')
     list_filter = ('member', 'position', 'season')
-    list_display = ('__unicode__', 'member', 'position', 'season')
+    list_display = ('__str__', 'member', 'position', 'season')

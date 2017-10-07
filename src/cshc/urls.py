@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^venues/', include('venues.urls')),
     url(r'^teams/', include('teams.urls')),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),  # CKEditor Urls
     url(r'^admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

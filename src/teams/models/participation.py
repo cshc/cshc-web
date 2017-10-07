@@ -9,6 +9,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django_resized import ResizedImageField
 from image_cropping import ImageRatioField
+from ckeditor.fields import RichTextField
 from core.utils import ordinal
 from core.models import make_unique_filename, DivisionResult
 from competitions.models import Season, Division, Cup
@@ -64,7 +65,7 @@ class ClubTeamSeasonParticipation(models.Model):
     cropping = ImageRatioField('team_photo', '900x600')
     """ Image cropping for the team photo """
 
-    team_photo_caption = models.TextField(blank=True)
+    team_photo_caption = RichTextField(blank=True)
     """Caption for the team photo. Could include a list of who's who."""
 
     final_pos = models.PositiveSmallIntegerField("Final position", null=True,
@@ -92,7 +93,7 @@ class ClubTeamSeasonParticipation(models.Model):
                                   help_text="Where did the team get to in the cup? (Enter once cup participation is complete)")
     """How the team got on in the cup"""
 
-    blurb = models.TextField(blank=True)
+    blurb = RichTextField(blank=True)
     """Some optional comments about the team this season."""
 
     # Statistics (updated with a script on a regular basis for the current season)

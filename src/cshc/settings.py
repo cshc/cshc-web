@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'opposition.apps.OppositionConfig',
     'teams.apps.TeamsConfig',
     'members.apps.MembersConfig',
+    'training.apps.TrainingConfig',
+    'matches.apps.MatchesConfig',
+    'awards.apps.AwardsConfig',
     'jet',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -57,6 +60,8 @@ INSTALLED_APPS = [
     'django_bootstrap_breadcrumbs',
     'easy_thumbnails',
     'image_cropping',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -202,3 +207,8 @@ THUMBNAIL_PROCESSORS = (
     'image_cropping.thumbnail_processors.crop_corners',
 ) + thumbnail_settings.THUMBNAIL_PROCESSORS
 IMAGE_CROPPING_BACKEND = 'core.backends.image_backend.ResizedImageEasyThumbnailsBackend'
+
+
+# ckeditor
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_FILENAME_GENERATOR = 'core.models.make_unique_filename'
