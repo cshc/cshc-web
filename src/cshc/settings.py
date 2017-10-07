@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 from os.path import abspath, dirname, join, normpath
+from easy_thumbnails.conf import Settings as thumbnail_settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = dirname(dirname(abspath(__file__)))
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'competitions.apps.CompetitionsConfig',
     'opposition.apps.OppositionConfig',
     'teams.apps.TeamsConfig',
+    'members.apps.MembersConfig',
     'jet',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,6 +55,8 @@ INSTALLED_APPS = [
     'django_user_agents',
     'geoposition',
     'django_bootstrap_breadcrumbs',
+    'easy_thumbnails',
+    'image_cropping',
 ]
 
 MIDDLEWARE = [
@@ -133,6 +137,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+# MEDIA CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+MEDIA_ROOT = normpath(join(BASE_DIR, 'media'))
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = '/media/'
+# END MEDIA CONFIGURATION
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -183,3 +194,11 @@ GEOPOSITION_MAP_OPTIONS = {
 # Django Bootstrap Breadcrumbs
 # Ref: http://django-bootstrap-breadcrumbs.readthedocs.io/en/latest/
 BREADCRUMBS_TEMPLATE = "core/_breadcrumbs.html"
+
+
+# Django Image Cropping
+# Ref: https://github.com/jonasundderwolf/django-image-cropping
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + thumbnail_settings.THUMBNAIL_PROCESSORS
+IMAGE_CROPPING_BACKEND = 'core.backends.image_backend.ResizedImageEasyThumbnailsBackend'

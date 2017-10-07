@@ -30,3 +30,8 @@ sphinx==1.6.4
 sphinx-autobuild==0.7.1
 restructuredtext-lint==1.1.1
 sphinx_rtd_theme==0.2.4
+
+# Image Utils
+easy-thumbnails==2.4.2
+django-resized==0.3.7
+django-image-cropping==1.1.0
