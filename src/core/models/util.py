@@ -13,6 +13,18 @@ def make_unique_filename(filename):
     return "%s.%s" % (uuid.uuid4(), ext)
 
 
+class DivisionResult(object):
+    """ Enumeration of division results """
+    Promoted = 'Promoted'
+    Relegated = 'Relegated'
+    Champions = 'Champions'
+    Choices = [
+        ('Promoted', 'Promoted'),
+        ('Relegated', 'Relegated'),
+        ('Champions', 'Champions'),
+    ]
+
+
 class TeamGender(object):
     """ Enumeration of genders for teams """
     Mens = 'Mens'

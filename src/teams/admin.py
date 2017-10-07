@@ -1,15 +1,64 @@
-""" 
+"""
 Configuration of Teams models for the admin interface.
 """
 
 from django.contrib import admin
-from teams.models import ClubTeam
+from teams.models import ClubTeam, TeamCaptaincy, ClubTeamSeasonParticipation
+# from teams.forms import ClubTeamSeasonParticipationForm
+
+
+class TeamCaptaincyInline(admin.TabularInline):
+    """ Inline for team captaincy - allows quick editing of captains in a team"""
+
+    model = TeamCaptaincy
+    extra = 0
+    verbose_name_plural = 'Captains'
+    ordering = ('-start',)
+
+
+@admin.register(TeamCaptaincy)
+class TeamCaptaincyAdmin(admin.ModelAdmin):
+    """ Admin interface for the TeamCaptaincy model. """
+    list_display = ('member', 'team', 'season', 'start', 'is_vice')
+    search_fields = ('member__first_name', 'member__last_name',
+                     'team__short_name', 'team__long_name',
+                     'season__slug')
+    list_filter = ('season', 'is_vice', 'team')
 
 
 @admin.register(ClubTeam)
 class ClubTeamAdmin(admin.ModelAdmin):
     """ Admin interface for the ClubTeam model. """
     readonly_fields = ('slug',)
-    # inlines = (TeamCaptaincyInline, )
+    inlines = (TeamCaptaincyInline, )
     list_display = ('short_name', 'long_name', 'slug', 'active', 'southerners',
                     'rivals', 'fill_blanks', 'personal_stats')
+
+
+@admin.register(ClubTeamSeasonParticipation)
+class ClubTeamSeasonParticipationAdmin(admin.ModelAdmin):
+    """ Admin interface for the ClubTeamSeasonParticipation model.
+
+        Note - the customized fieldset deliberately omits the automatically
+        generated stats fields as these should not be manually edited in
+        the admin interface!
+    """
+    # form = ClubTeamSeasonParticipationForm
+    search_fields = ('team__short_name', 'team__long_name', 'division__name')
+    list_filter = ('team', 'season')
+    list_display = ('__unicode__', 'team', 'season', 'division', 'division_tables_url',
+                    'final_pos', 'division_result')
+    fieldsets = [
+        ('Basics', {
+            'fields': ['team', 'season', 'division', 'blurb', 'team_photo', 'team_photo_caption']
+        }),
+        ('Links', {
+            'fields': ['division_tables_url', 'division_fixtures_url']
+        }),
+        ('Cup', {
+            'fields': ['cup', 'cup_result']
+        }),
+        ('Result', {
+            'fields': ['final_pos', 'division_result']
+        }),
+    ]
