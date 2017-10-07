@@ -1,12 +1,12 @@
 # NPM dependencies
 node_modules
 
+# Virtual Environment
+venv/*
+
 # Webpack artifacts
 webpack-stats.json
 webpack-stats-prod.json
-
-# Visual Studio Code files
-.vscode/*
 
 # Build/compilation output
 src/static/bundles/*
