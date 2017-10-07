@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 #pylint: disable=C0103
 urlpatterns = [
     url(r'^venues/', include('venues.urls')),
+    url(r'^teams/', include('teams.urls')),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

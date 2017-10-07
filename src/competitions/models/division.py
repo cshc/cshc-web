@@ -2,8 +2,8 @@
 """
 
 from django.db import models
-from lib.models import TeamGender
-from competitions.models.league import League
+from core.models import TeamGender
+from .league import League
 
 
 class Division(models.Model):

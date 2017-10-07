@@ -5,6 +5,7 @@ from django.contrib import admin
 from venues.models import Venue
 
 
+@admin.register(Venue)
 class VenueAdmin(admin.ModelAdmin):
     """
     ModelAdmin for the Venue model 
@@ -14,6 +15,3 @@ class VenueAdmin(admin.ModelAdmin):
     list_filter = ('is_home',)
     list_display = ('name', 'short_name',
                     'approx_round_trip_distance', 'url', 'is_home')
-
-
-admin.site.register(Venue, VenueAdmin)

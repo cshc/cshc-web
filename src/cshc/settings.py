@@ -30,11 +30,12 @@ VERSION = open(VERSION_FILE).read().lstrip('v').rstrip()
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'core.CshcUser'
 
 # Application definition
 
 INSTALLED_APPS = [
-    'lib.apps.LibConfig',
+    'core.apps.CoreConfig',
     'venues.apps.VenuesConfig',
     'competitions.apps.CompetitionsConfig',
     'opposition.apps.OppositionConfig',

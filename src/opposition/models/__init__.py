@@ -1,2 +1,3 @@
-from opposition.models.club import Club
-from opposition.models.team import Team
+from .club import Club
+from .team import Team
+from .club_stats import ClubStats

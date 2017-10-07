@@ -6,7 +6,7 @@
 
 from django.db import models
 from django.template.defaultfilters import slugify
-from lib.models import TeamGender
+from core.models import TeamGender
 from venues.models import Venue
 
 

@@ -5,7 +5,8 @@ import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.views.generic import ListView, DetailView
 from django.urls import reverse
-from venues.models import Venue
+
+from .models import Venue
 
 
 class VenueListView(ListView):

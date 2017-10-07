@@ -25,8 +25,10 @@
   <!-- CSS Global Compulsory -->
   <link rel="stylesheet" href="{% static "vendor/bootstrap/bootstrap.min.css" %}">
   <link rel="stylesheet" href="{% static "vendor/icon-awesome/css/font-awesome.min.css" %}">
+  <link rel="stylesheet" href="{% static "vendor/icon-hs/style.css" %}">
   
   <link rel="stylesheet" href="{% static "vendor/hamburgers/hamburgers.min.css" %}">
+  <link rel="stylesheet" href="{% static "vendor/hs-megamenu/src/hs.megamenu.css" %}">
 
   <!-- CSS Unify -->
   <link rel="stylesheet" href="{% static "vendor/unify/css/unify.css" %}">
@@ -47,10 +49,11 @@
 <body>
   <main>
     {% include "core/_header.html" %}
-    <section class="container g-pt-120">
+    <section class="container g-pt-120 g-pb-40">
       {% render_breadcrumbs %}
       {% block main %}{% endblock main %}
     </section>
+    {% include "core/_footer.html" %}
   </main>
 
   {% block body_js %}
@@ -60,11 +63,19 @@
 
   <!-- JS Unify -->
   <script src="{% static "vendor/unify/js/hs.core.js" %}"></script>
+  <script src="{% static "vendor/unify/js/components/hs.header.js" %}"></script>
+  <script src="{% static "vendor/unify/js/helpers/hs.hamburgers.js" %}"></script>
+  <script src="{% static "vendor/hs-megamenu/src/hs.megamenu.js" %}"></script>
   
   <script src="{% static "js/util.js" %}"></script>
   <script >
     $(function () {
       $('[data-toggle="popover"]').popover();
+      // initialization of header
+      $.HSCore.components.HSHeader.init($('#js-header'));
+      $.HSCore.helpers.HSHamburgers.init('.hamburger');
+      // Initialization of HSMegaMenu component
+      $('.js-mega-menu').HSMegaMenu();
     });
   </script>
   {% endblock body_js %}

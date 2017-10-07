@@ -3,7 +3,7 @@
 
 from django.db import models
 from django.template.defaultfilters import slugify
-from lib.models import TeamGender, TeamOrdinal, ordinal_from_TeamOrdinal
+from core.models import TeamGender, TeamOrdinal, ordinal_from_TeamOrdinal
 
 
 # pylint: disable=C0103

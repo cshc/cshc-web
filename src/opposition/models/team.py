@@ -6,8 +6,8 @@
 
 from django.db import models
 from django.template.defaultfilters import slugify
-from lib.models import TeamGender
-from opposition.models.club import Club
+from core.models import TeamGender
+from .club import Club
 
 
 class TeamManager(models.Manager):

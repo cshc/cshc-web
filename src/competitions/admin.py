@@ -7,6 +7,7 @@ from django.forms import ModelForm, widgets
 from competitions.models import Season, League, Division, Cup
 
 
+@admin.register(Season)
 class SeasonAdmin(admin.ModelAdmin):
     """Admin interface definition for the Season model"""
     model = Season
@@ -42,6 +43,7 @@ class DivisionInline(admin.TabularInline):
     extra = 0
 
 
+@admin.register(Division)
 class DivisionAdmin(admin.ModelAdmin):
     """ Admin interface definition for the Division model."""
     model = Division
@@ -50,6 +52,7 @@ class DivisionAdmin(admin.ModelAdmin):
     search_fields = ('league__name', 'name')
 
 
+@admin.register(League)
 class LeagueAdmin(admin.ModelAdmin):
     """Admin interface definition for the League model"""
     model = League
@@ -57,9 +60,3 @@ class LeagueAdmin(admin.ModelAdmin):
     inlines = (DivisionInline, CupInline)
     list_display = ('name', 'url')
     search_fields = ('name',)
-
-
-admin.site.register(Season, SeasonAdmin)
-admin.site.register(League, LeagueAdmin)
-admin.site.register(Division, DivisionAdmin)
-admin.site.register(Cup)

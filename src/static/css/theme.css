@@ -1515,3 +1515,19 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
     opacity: 0;
   }
 }
+/* GBM additions */
+.u-header__section--dark .navbar .u-main-nav-v5 .nav-item.active > .nav-link,
+.u-header__section--dark .navbar .u-main-nav-v5 .nav-item:hover > .nav-link,
+.u-header__section--dark .navbar .u-main-nav-v5 .nav-item:focus > .nav-link,
+.u-header__section--dark .navbar .u-main-nav-v5 .nav-item.show > .nav-link,
+.u-header__section--dark
+  .navbar
+  .u-main-nav-v5
+  .nav-item.hs-sub-menu-opened
+  > .nav-link,
+.u-header__section--dark .navbar .u-main-nav-v5 .nav-item .nav-link:focus {
+  border-color: #fff;
+}
+/* .g-bg-primary .navbar .u-sub-menu-v1 .hs-mega-menu {
+  background-color: #6639b6;
+} */

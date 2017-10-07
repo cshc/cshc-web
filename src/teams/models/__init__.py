@@ -1,1 +1,1 @@
-from teams.models.club_team import ClubTeam
+from .club_team import ClubTeam

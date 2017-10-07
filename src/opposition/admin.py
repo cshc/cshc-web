@@ -28,6 +28,7 @@ class TeamInline(admin.TabularInline):
     exclude = ('slug',)
 
 
+@admin.register(Club)
 class ClubAdmin(admin.ModelAdmin):
     """ Admin interface definition for the Club model"""
 
@@ -38,6 +39,7 @@ class ClubAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
+@admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
     """ Admin interface definition for the Team model"""
 
@@ -45,8 +47,3 @@ class TeamAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_filter = ('club', 'gender')
     list_display = ('name', 'short_name', 'club', 'gender')
-
-
-# Register all opposition models with the admin interface
-admin.site.register(Club, ClubAdmin)
-admin.site.register(Team, TeamAdmin)
