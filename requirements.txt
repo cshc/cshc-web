@@ -19,7 +19,7 @@ django-user-agents==0.3.2
 
 # Django geoposition
 # Ref: https://django-geoposition.readthedocs.io/en/latest/
-django-geoposition==https://github.com/philippbosch/django-geoposition/archive/django-1.11.zip
+-e git+https://github.com/philippbosch/django-geoposition.git@a212ca66f635c61b9ac777f1d8f92caccff56612#egg=django-geoposition
 
 # Django Bootstrap Breadcrumbs
 # Ref: http://django-bootstrap-breadcrumbs.readthedocs.io/en/latest/
