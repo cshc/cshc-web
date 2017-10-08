@@ -3,7 +3,6 @@
 
 from django.contrib import admin
 from django.forms import ModelForm, widgets
-# from suit.widgets import NumberInput, AutosizedTextarea
 from awards.models import MatchAwardWinner
 from matches.models import Match, Appearance
 
@@ -15,11 +14,6 @@ class MatchAwardWinnerInlineForm(ModelForm):
         """ Meta-info for the form."""
         model = MatchAwardWinner
         exclude = [],
-        widgets = {
-            # 'comment': AutosizedTextarea(
-            #    attrs={'class': 'input-large', 'rows': 3,
-            #           'style': 'width:95%'}),
-        }
 
 
 class MatchAwardWinnerInline(admin.TabularInline):

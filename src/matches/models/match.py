@@ -5,7 +5,7 @@
 from datetime import datetime, time, timedelta
 from django.db import models
 from django.core.exceptions import ValidationError
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from teams.models import ClubTeam, ClubTeamSeasonParticipation
 from opposition.models import Team
 from members.models import Member
@@ -157,7 +157,7 @@ class Match(models.Model):
 
     # A short paragraph that can be used to hype up the match before its played - can be HTML
     # TODO: Prevent entering pre-match hype for matches in the past?
-    pre_match_hype = RichTextField("Pre-match hype", blank=True)
+    pre_match_hype = RichTextUploadingField("Pre-match hype", blank=True)
 
     # The (optional) title of the match report
     report_title = models.CharField(
@@ -168,7 +168,7 @@ class Match(models.Model):
                                       on_delete=models.SET_NULL, related_name="match_reports")
 
     # The actual match report text - can be HTML
-    report_body = RichTextField("Match report", blank=True)
+    report_body = RichTextUploadingField("Match report", blank=True)
 
     # The datetime at which the report was first published
     report_pub_timestamp = models.DateTimeField("Match report publish timestamp", editable=False,
