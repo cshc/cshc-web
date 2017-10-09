@@ -40,9 +40,6 @@
   {% endblock link %} 
   
   {% block head_js %}
-  <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
-  <script src="{% static "vendor/jquery-migrate/jquery-migrate.min.js" %}"></script>
-  <script src="{% static "vendor/jquery.easing/js/jquery.easing.js" %}"></script>
   {% endblock head_js %}
 </head>
 
@@ -58,6 +55,9 @@
 
   {% block body_js %}
   <!-- JS Global Compulsory -->
+  <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+  <script src="{% static "vendor/jquery-migrate/jquery-migrate.min.js" %}"></script>
+  <script src="{% static "vendor/jquery.easing/js/jquery.easing.js" %}"></script>
   <script src="{% static "vendor/popper.min.js" %}"></script>
   <script src="{% static "vendor/bootstrap/bootstrap.min.js" %}"></script>
 

@@ -101,8 +101,8 @@
   {% endif %}
 
   {% if venue.address_known %}
-    {% include 'maps/_maps_app_link.html' with address=venue.full_address %}
-    {% include 'maps/_directions_link.html' with address=venue.full_address %}
+    {% include 'maps/_maps_app_link.html' %}
+    {% include 'maps/_directions_link.html' %}
   {% endif %}
 
   {% if venue.address_known %}
@@ -128,4 +128,8 @@
       .marker({address: address});
     });
   </script>
+  {% if venue.address_known %}
+    {% include 'maps/_maps_app_link_js.html' with address=venue.full_address %}
+    {% include 'maps/_directions_link_js.html' with address=venue.full_address %}
+  {% endif %}
 {% endblock body_js %}

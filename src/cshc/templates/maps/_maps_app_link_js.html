@@ -1,0 +1,21 @@
+{% load user_agents %}
+
+{% if request|is_mobile %}
+  <script >
+    $(function () {
+      var address = "{{ address }}";
+      
+      var venue_link_prefix = '//maps.google.com/?q=';
+
+      if ( isMobile.iOS()) {
+        venue_link_prefix = '//maps.apple.com/?q=';
+      }
+      else if ( isMobile.Android()) {
+        venue_link_prefix = 'geo:0,0?q=';
+      } 
+
+      var map_link = $(".gmap-link");
+      map_link.attr('href',  venue_link_prefix + address);
+    });
+  </script>
+{% endif %}

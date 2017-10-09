@@ -1,0 +1,16 @@
+<script >
+  $(function () {
+    var address = "{{ address }}";
+    var directions_link_prefix = '//maps.google.com/?saddr=Cambridge,UK&daddr=';
+
+    if ( isMobile.iOS()) {
+      directions_link_prefix = '//maps.apple.com/?saddr=Cambridge,UK&daddr=';
+    }
+    else if ( isMobile.Android()) {
+      directions_link_prefix = 'geo:0,0?saddr=Cambridge,UK&daddr=';
+    }
+
+    var directions_link = $(".gmap-dir-link");
+    directions_link.attr('href',  directions_link_prefix + address);
+  });
+</script>
