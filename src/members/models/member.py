@@ -42,7 +42,7 @@ class Member(models.Model):
                                     upload_to=get_file_name, null=True, blank=True)
 
     # Image cropping support
-    cropping = ImageRatioField('profile_pic', '400x400')
+    profile_pic_cropping = ImageRatioField('profile_pic', '400x400')
 
     # The member's gender
     gender = models.CharField("Gender", max_length=6,

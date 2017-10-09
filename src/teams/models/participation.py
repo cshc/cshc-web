@@ -62,7 +62,7 @@ class ClubTeamSeasonParticipation(models.Model):
                                    upload_to=get_file_name, null=True, blank=True)
     """A team photo (if available) from this sesason"""
 
-    cropping = ImageRatioField('team_photo', '900x600')
+    team_photo_cropping = ImageRatioField('team_photo', '900x600')
     """ Image cropping for the team photo """
 
     team_photo_caption = RichTextField(blank=True)
