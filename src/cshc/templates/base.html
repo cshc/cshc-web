@@ -46,7 +46,11 @@
 
 <body>
   <main>
-    {% include "core/_header.html" %}
+    <header id="js-header" class="u-header {% block header_class %}u-header--static{% endblock %}" data-header-fix-moment="100">
+      <div class="u-header__section u-header__section--dark g-transition-0_3 g-py-10 {% block header_section_class %}g-bg-primary{% endblock %}" data-header-fix-moment-exclude="g-py-10" data-header-fix-moment-classes="u-shadow-v18 g-py-0">
+        {% include "core/_nav.html" %}
+      </div>
+    </header>
     {% block main %}
       <section class="container g-pt-120 g-pb-40">
         {% render_breadcrumbs %}

@@ -1543,7 +1543,12 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
   color: #fff;
 }
 .nav-item .hs-mega-menu h4 {
-  padding: 0.21429rem 1.57143rem;
+  padding: 0.21429rem 1.07143rem;
+}
+@media (min-width: 992px) {
+  .nav-item .hs-mega-menu h4 {
+    padding: 0.21429rem 1.57143rem;
+  }
 }
 .g-bg-primary .dropdown-item:focus,
 .g-bg-primary .dropdown-item:hover,
