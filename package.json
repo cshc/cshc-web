@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint ./src && pylint ./src/cshc",
     "dev": "webpack-dev-server",
-    "doc": "cd ./docs && make html",
+    "doc": "cd ./docs && sphinx-apidoc -o ./api/ ../src && make html",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --config webpack.config.js --watch",
