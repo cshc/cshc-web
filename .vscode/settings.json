@@ -24,7 +24,8 @@
     "**/.DS_Store": true
   },
   "html.format.enable": false,
-  "restructuredtext.linter.executablePath": "${workspaceRoot}/venv/Scripts",
+  "restructuredtext.linter.executablePath":
+    "${workspaceRoot}/venv/Scripts/restructuredtext-lint.exe",
   "restructuredtext.linter.run": "onSave",
   "restructuredtext.builtDocumentationPath":
     "${workspaceRoot}/docs/_build/html",
