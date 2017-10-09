@@ -15,15 +15,15 @@ from . import ClubTeam
 class SouthernerManager(models.Manager):
     """ Model manager for the Southerner model"""
 
-    def get_query_set(self):
+    def get_queryset(self):
         """ Gets the QuerySet, also selecting the related team and season models"""
-        return super(SouthernerManager, self).get_query_set().select_related('team', 'season')
+        return super(SouthernerManager, self).get_queryset().select_related('team', 'season')
 
     def by_season(self, season):
         """ Filters the Southerner entries by the specified season - and orders them
             in descending average points per game.
         """
-        return self.get_query_set().filter(season=season).order_by('-avg_points_per_game')
+        return self.get_queryset().filter(season=season).order_by('-avg_points_per_game')
 
 
 class Southerner(models.Model):

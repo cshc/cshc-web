@@ -4,6 +4,7 @@
 
 from datetime import datetime, time, timedelta
 from django.db import models
+from django.db.models.query import QuerySet
 from django.core.exceptions import ValidationError
 from ckeditor_uploader.fields import RichTextUploadingField
 from teams.models import ClubTeam, ClubTeamSeasonParticipation
@@ -51,16 +52,16 @@ class FixtureType(object):
     )
 
 
-class MatchManager(models.Manager):
+class MatchQuerySet(QuerySet):
     """ Queries that relate to Matches"""
 
     def fixtures(self):
         """ Returns only matches in the future, ordered by date"""
-        return self.get_query_set().filter(date__gte=datetime.now().date()).order_by('date', 'time')
+        return self.filter(date__gte=datetime.now().date()).order_by('date', 'time')
 
     def results(self):
         """ Returns only matches in the past, ordered by date"""
-        return self.get_query_set().filter(date__lt=datetime.now().date()).order_by('date', 'time')
+        return self.filter(date__lt=datetime.now().date()).order_by('date', 'time')
 
     def reports(self):
         """ Returns only results with match reports"""
@@ -72,15 +73,15 @@ class MatchManager(models.Manager):
 
     def by_season(self, season):
         """ Returns only matches in the specified season"""
-        return self.get_query_set().filter(season=season)
+        return self.filter(season=season)
 
     def by_date(self, date):
         """ Returns only matches on the specified date"""
-        return self.get_query_set().filter(date=date).order_by('our_team__position')
+        return self.filter(date=date).order_by('our_team__position')
 
     def by_report_author(self, member):
         """ Returns only matches whose match report was written by the specified member"""
-        return self.get_query_set().filter(report_author=member)
+        return self.filter(report_author=member)
 
 
 class Match(models.Model):
@@ -204,7 +205,7 @@ class Match(models.Model):
     players = models.ManyToManyField(
         'members.Member', through="Appearance", related_name="matches")
 
-    objects = MatchManager()
+    objects = MatchQuerySet.as_manager()
 
     class Meta:
         """ Meta-info for the Match model."""
@@ -222,20 +223,20 @@ class Match(models.Model):
 
     def clean(self):
         # If its a walkover, check the score is a valid walkover score
-        if (self.alt_outcome == Match.ALTERNATIVE_OUTCOME.Walkover and
+        if (self.alt_outcome == AlternativeOutcome.Walkover and
                 not Match.is_walkover_score(self.our_score, self.opp_score)):
             raise ValidationError(
                 "A walk-over score must be 3-0, 5-0, 0-3 or 0-5. Score = {}-{}".format(self.our_score, self.opp_score))
 
         # If its cancelled or postponed or BYE, check the scores are not entered
-        if((self.alt_outcome == Match.ALTERNATIVE_OUTCOME.Cancelled or
-            self.alt_outcome == Match.ALTERNATIVE_OUTCOME.Postponed or
-            self.alt_outcome == Match.ALTERNATIVE_OUTCOME.BYE) and
+        if((self.alt_outcome == AlternativeOutcome.Cancelled or
+            self.alt_outcome == AlternativeOutcome.Postponed or
+            self.alt_outcome == AlternativeOutcome.BYE) and
            (self.our_score is not None or self.opp_score is not None or self.our_ht_score is not None or self.opp_ht_score is not None)):
             raise ValidationError(
                 "A cancelled or postponed match should not have scores")
 
-        if self.alt_outcome is None or self.alt_outcome == Match.ALTERNATIVE_OUTCOME.Abandoned:
+        if self.alt_outcome is None or self.alt_outcome == AlternativeOutcome.Abandoned:
             # You can't specify one score without the other
             if((self.our_score is not None and self.opp_score is None) or
                (self.our_score is None and self.opp_score is not None)):
@@ -265,7 +266,7 @@ class Match(models.Model):
             raise ValidationError(
                 "This date appears to be outside of any recognised season.")
 
-        if self.fixture_type == Match.FIXTURE_TYPE.League:
+        if self.fixture_type == FixtureType.League:
             # Automatically set the division based on the team and season
             try:
                 self.division = ClubTeamSeasonParticipation.objects.get(
@@ -276,7 +277,7 @@ class Match(models.Model):
         else:
             self.division = None    # Clear the division field
 
-        if self.fixture_type == Match.FIXTURE_TYPE.Cup:
+        if self.fixture_type == FixtureType.Cup:
             # Automatically set the cup based on the team and season
             try:
                 self.cup = ClubTeamSeasonParticipation.objects.get(
@@ -298,7 +299,7 @@ class Match(models.Model):
     @property
     def is_home(self):
         """ Returns True if this is a home fixture"""
-        return self.home_away == Match.HOME_AWAY.Home
+        return self.home_away == HomeAway.Home
 
     def home_away_abbrev(self):
         """ Returns an abbreviated representation of the home/away status ('H'/'A') """
@@ -337,8 +338,8 @@ class Match(models.Model):
 
     def is_off(self):
         """ Returns True if the match is postponed or cancelled."""
-        return self.alt_outcome in (Match.ALTERNATIVE_OUTCOME.Postponed,
-                                    Match.ALTERNATIVE_OUTCOME.Cancelled)
+        return self.alt_outcome in (AlternativeOutcome.Postponed,
+                                    AlternativeOutcome.Cancelled)
 
     def is_in_past(self):
         """ Returns True if the match date/datetime is in the past."""
@@ -393,11 +394,11 @@ class Match(models.Model):
             Fixtures:- "M1 vs St Neots Men's 1sts"
             Results:-  "M1 3-0 St Neots Men's 1sts"
         """
-        if self.alt_outcome == Match.ALTERNATIVE_OUTCOME.Walkover:
+        if self.alt_outcome == AlternativeOutcome.Walkover:
             return "{} {}-{} {} (WALK-OVER)".format(self.our_team, self.our_score,
                                                     self.opp_score, self.opp_team)
 
-        elif self.alt_outcome == Match.ALTERNATIVE_OUTCOME.Abandoned:
+        elif self.alt_outcome == AlternativeOutcome.Abandoned:
             return "{} {}-{} {} (Abandoned)".format(self.our_team, self.our_score,
                                                     self.opp_score, self.opp_team)
 

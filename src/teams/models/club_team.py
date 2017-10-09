@@ -3,69 +3,70 @@
 
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.db.models.query import QuerySet
 from core.models import TeamGender, TeamOrdinal, ordinal_from_TeamOrdinal
 
 
 # pylint: disable=C0103
 
-class ClubTeamManager(models.Manager):
-    """ Model manager for the ClubTeam model"""
+class ClubTeamQuerySet(QuerySet):
+    """ Queries relating to the ClubTeam model"""
 
     def active(self):
         """ Returns only active teams (currently playing)"""
-        return self.get_query_set().filter(active=True)
+        return self.filter(active=True)
 
     def mens(self):
         """ Returns only men's teams"""
-        return self.get_query_set().filter(gender=TeamGender.Mens)
+        return self.filter(gender=TeamGender.Mens)
 
     def ladies(self):
         """ Returns only ladies teams"""
-        return self.get_query_set().filter(gender=TeamGender.Ladies)
+        return self.filter(gender=TeamGender.Ladies)
 
     def m1(self):
         """ Returns the Men's 1sts team"""
-        return self.get_query_set().get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T1)
+        return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T1)
 
     def m2(self):
         """ Returns the Men's 2nds team"""
-        return self.get_query_set().get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T2)
+        return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T2)
 
     def m3(self):
         """ Returns the Men's 3rds team"""
-        return self.get_query_set().get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T3)
+        return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T3)
 
     def m4(self):
         """ Returns the Men's 4ths team"""
-        return self.get_query_set().get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T4)
+        return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T4)
 
     def l1(self):
         """ Returns the Ladies 1sts team"""
-        return self.get_query_set().get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T1)
+        return self.get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T1)
 
     def l2(self):
         """ Returns the Ladies 2nds team"""
-        return self.get_query_set().get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T2)
+        return self.get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T2)
 
     def l3(self):
         """ Returns the Ladies 3rds team"""
-        return self.get_query_set().get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T3)
+        return self.get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T3)
 
     def l4(self):
         """ Returns the Ladies 4ths team"""
-        return self.get_query_set().get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T4)
+        return self.get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T4)
 
     def mixed(self):
         """ Return the mixed team"""
-        return self.get_query_set().get(gender=TeamGender.Mixed, ordinal=TeamOrdinal.TOther)
+        return self.get(gender=TeamGender.Mixed, ordinal=TeamOrdinal.TOther)
 
     def indoor(self):
         """ Return the indoor team"""
-        return self.get_query_set().get(gender=TeamGender.Mixed, ordinal=TeamOrdinal.TIndoor)
+        return self.get(gender=TeamGender.Mixed, ordinal=TeamOrdinal.TIndoor)
 
     def vets(self):
         """ Return the vets team"""
-        return self.get_query_set().get(gender=TeamGender.Mens, ordinal=TeamOrdinal.TVets)
+        return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.TVets)
 
 
 class ClubTeam(models.Model):
@@ -118,7 +119,7 @@ class ClubTeam(models.Model):
     blurb = models.TextField(blank=True)
     """ Some current detail about the team. """
 
-    objects = ClubTeamManager()
+    objects = ClubTeamQuerySet.as_manager()
 
     class Meta:
         """ Meta-info for the ClubTeam model. """

@@ -27,21 +27,21 @@ LOG = logging.getLogger(__name__)
 class GoalKingManager(models.Manager):
     """ Model manager for the GoalKing model"""
 
-    def get_query_set(self):
+    def get_queryset(self):
         """ Gets the QuerySet, also selecting the related member (and user) and season models"""
-        return super(GoalKingManager, self).get_query_set().select_related('member__user', 'season')
+        return super(GoalKingManager, self).get_queryset().select_related('member__user', 'season')
 
     def by_season(self, season):
         """ Filters the GoalKing entries by the specified season - and orders them in
             descending total number of goals.
         """
-        return self.get_query_set().filter(season=season).order_by('-total_goals')
+        return self.get_queryset().filter(season=season).order_by('-total_goals')
 
     def accidental_tourist(self, season):
         """ Filters the GoalKing entries by the specified season - and orders them in
             descending total number of miles travelled.
         """
-        return self.get_query_set().filter(season=season).order_by('-total_miles')
+        return self.get_queryset().filter(season=season).order_by('-total_miles')
 
 
 class GoalKing(models.Model):

@@ -3,6 +3,7 @@
 """
 
 from django.db import models
+from django.db.models.query import QuerySet
 from django.template.defaultfilters import slugify
 from geoposition.fields import GeopositionField
 
@@ -12,16 +13,16 @@ def rounded(value, base=5):
     return int(base * round(float(value) / base))
 
 
-class VenueManager(models.Manager):
+class VenueQuerySet(QuerySet):
     """Model manager for the Venue model"""
 
     def home_venues(self):
         """Returns only home venues"""
-        return super(VenueManager, self).get_query_set().filter(is_home=True)
+        return self.filter(is_home=True)
 
     def away_venues(self):
         """ Returns only away venues """
-        return super(VenueManager, self).get_query_set().filter(is_home=False)
+        return self.filter(is_home=False)
 
 
 class Venue(models.Model):
@@ -74,7 +75,7 @@ class Venue(models.Model):
     position = GeopositionField(null=True)
     """ Lat/Long location of the venue - used for Google Maps etc """
 
-    objects = VenueManager()
+    objects = VenueQuerySet.as_manager()
 
     class Meta:
         """ Meta-info for the Venue model."""

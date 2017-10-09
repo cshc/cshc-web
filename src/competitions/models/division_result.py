@@ -23,17 +23,18 @@
 """
 
 from django.db import models
+from django.db.models.query import QuerySet
 from django.core.exceptions import ValidationError
 
 #pylint: disable=E1101
 
 
-class DivisionResultManager(models.Manager):
+class DivisionResultQuerySet(QuerySet):
     """ Queries that relate to Division Results"""
 
     def league_table(self, division, season):
         """Returns all teams in the division in that season, ordered by position"""
-        return super(DivisionResultManager, self).get_query_set().filter(division=division, season=season).select_related('our_team', 'opp_team', 'division__club', 'season').order_by('position')
+        return self.filter(division=division, season=season).select_related('our_team', 'opp_team', 'division__club', 'season').order_by('position')
 
 
 class DivisionResult(models.Model):
@@ -63,7 +64,7 @@ class DivisionResult(models.Model):
     notes = models.TextField(blank=True,
                              help_text="E.g. C for champion, P for promoted, R for relegated")
 
-    objects = DivisionResultManager()
+    objects = DivisionResultQuerySet.as_manager()
 
     class Meta:
         """ Meta-info for the DivisionResult model."""

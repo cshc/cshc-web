@@ -23,7 +23,7 @@ class ClubStatsManager(models.Manager):
 
     def totals(self):
         """Returns a list of all the club totals"""
-        return self.get_query_set().select_related('club').filter(team__isnull=True)
+        return super(ClubStatsManager, self).get_queryset().select_related('club').filter(team__isnull=True)
 
 
 class ClubStats(models.Model):

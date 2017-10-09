@@ -4,20 +4,21 @@
 """
 
 from django.db import models
+from django.db.models.query import QuerySet
 from members.models import Member
 from .match import Match
 
 
-class AppearanceManager(models.Manager):
+class AppearanceQuerySet(QuerySet):
     """ Queries that relate to an appearance"""
 
     def by_member(self, member):
         """ Returns only the appearances for a specific member"""
-        return self.get_query_set().filter(member=member)
+        return self.filter(member=member)
 
     def by_season(self, season):
         """ Returns only the appearances for a particular season"""
-        return self.get_query_set().select_related('match__season').filter(match__season=season)
+        return self.select_related('match__season').filter(match__season=season)
 
 
 class Appearance(models.Model):
@@ -45,7 +46,7 @@ class Appearance(models.Model):
     red_card = models.NullBooleanField(default=None,
                                        help_text="Did the player receive a red card in the match?")
 
-    objects = AppearanceManager()
+    objects = AppearanceQuerySet.as_manager()
 
     class Meta:
         """ Meta-info for the Appearance model."""

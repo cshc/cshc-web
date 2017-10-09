@@ -6,6 +6,7 @@
 """
 
 from django.db import models
+from django.db.models.query import QuerySet
 from django.core.exceptions import ValidationError
 from competitions.models import Season
 from teams.models import ClubTeam
@@ -24,24 +25,24 @@ def validate_squad(team_id):
         raise ValidationError("Team not found")
 
 
-class SquadMembershipManager(models.Manager):
+class SquadMembershipQuerySet(QuerySet):
     """ Queries that relate to Squad Membership"""
 
     def by_member(self, member):
         """Returns only squad membership for the specified member"""
-        return self.get_query_set().filter(member=member)
+        return self.filter(member=member)
 
     def by_team(self, team):
         """Returns only squad membership for the specified team"""
-        return self.get_query_set().filter(team=team)
+        return self.filter(team=team)
 
     def by_season(self, season):
         """Returns only squad membership for the specified season"""
-        return self.get_query_set().filter(season=season)
+        return self.filter(season=season)
 
     def current(self):
         """ Returns only current squad membership, if any."""
-        return self.get_query_set().filter(season=Season.current())
+        return self.filter(season=Season.current())
 
 
 class SquadMembership(models.Model):
@@ -57,7 +58,7 @@ class SquadMembership(models.Model):
     # The season in which the club member was in the team
     season = models.ForeignKey('competitions.Season')
 
-    objects = SquadMembershipManager()
+    objects = SquadMembershipQuerySet.as_manager()
 
     class Meta:
         """ Meta-info for the SquadMembership model."""

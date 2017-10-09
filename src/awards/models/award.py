@@ -22,7 +22,7 @@ class Award(models.Model):
         return str(self.name)
 
 
-class MatchAwardQuerySet(models.Manager):
+class MatchAwardManager(models.Manager):
     """ Queries that relate to any Match Award Winners"""
 
     def mom(self):
@@ -43,7 +43,7 @@ class MatchAwardQuerySet(models.Manager):
 class MatchAward(Award):
     """ An award that should be associated with a particular match"""
 
-    objects = MatchAwardQuerySet()
+    objects = MatchAwardManager()
 
     # Constants - these awards should always exist
     MOM = "Man of the Match"

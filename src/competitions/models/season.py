@@ -5,6 +5,7 @@
 import logging
 from datetime import datetime
 from django.db import models
+from django.db.models.query import QuerySet
 from django.core.exceptions import ValidationError
 
 # Define the default season start/end dates
@@ -16,32 +17,32 @@ SEASON_END_DAY = 31
 LOG = logging.getLogger(__name__)
 
 
-class SeasonManager(models.Manager):
+class SeasonQuerySet(QuerySet):
     """ Model Manager for Season models"""
 
     def by_date(self, date):
         """ Returns the season in which the specified date falls"""
-        return super(SeasonManager, self).get_query_set().get(start__lte=date, end__gte=date)
+        return self.get(start__lte=date, end__gte=date)
 
     def reversed(self):
         """ Returns the seasons in reverse chronological order."""
-        return super(SeasonManager, self).get_query_set().order_by('-start')
+        return self.order_by('-start')
 
     def latest(self):
         """ Returns the latest season (this may be 'next season')"""
-        return super(SeasonManager, self).get_query_set().order_by('-start').first()
+        return self.order_by('-start').first()
 
     def previous(self, season):
         """ Returns the previous season to the given one (or None if the given
             season is the first one)
         """
-        return super(SeasonManager, self).get_query_set().filter(end__lt=season.start).order_by('-start').first()
+        return self.filter(end__lt=season.start).order_by('-start').first()
 
     def next(self, season):
         """ Returns the next season to the given one (or None if the given
             season is the last one)
         """
-        return super(SeasonManager, self).get_query_set().filter(start__gt=season.end).order_by('start').first()
+        return self.filter(start__gt=season.end).order_by('start').first()
 
 
 class Season(models.Model):
@@ -59,7 +60,7 @@ class Season(models.Model):
     # This field is most often used in urls.
     slug = models.SlugField()
 
-    objects = SeasonManager()
+    objects = SeasonQuerySet.as_manager()
 
     class Meta:
         """ Meta-info for the Season  model."""

@@ -6,6 +6,7 @@
 
 import os
 from django.db import models
+from django.db.models.query import QuerySet
 from django.core.exceptions import ValidationError
 from django_resized import ResizedImageField
 from image_cropping import ImageRatioField
@@ -25,20 +26,20 @@ def get_file_name(instance, filename):
     return os.path.join(TEAM_PHOTO_DIR, filename)
 
 
-class ClubTeamSeasonParticipationManager(models.Manager):
+class ClubTeamSeasonParticipationQuerySet(QuerySet):
     """ Queries relating to the ClubTeamSeasonParticipation model"""
 
     def current(self):
         """ Returns just the participations for the current season"""
-        return self.get_query_set().filter(season=Season.current())
+        return self.filter(season=Season.current())
 
     def by_season(self, season):
         """ Returns just the participations for the specified season"""
-        return self.get_query_set().filter(season=season)
+        return self.filter(season=season)
 
     def by_team(self, team):
         """ Returns just the participations for the specified team"""
-        return self.get_query_set().filter(team=team)
+        return self.filter(team=team)
 
 
 class ClubTeamSeasonParticipation(models.Model):
@@ -135,7 +136,7 @@ class ClubTeamSeasonParticipation(models.Model):
     league_goals_against = models.PositiveSmallIntegerField(
         "League goals against", default=0)
 
-    objects = ClubTeamSeasonParticipationManager()
+    objects = ClubTeamSeasonParticipationQuerySet.as_manager()
 
     class Meta:
         """ Meta-info for the ClubTeamSeasonParticipation model."""

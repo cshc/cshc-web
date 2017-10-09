@@ -3,30 +3,31 @@
 """
 
 from django.db import models
+from django.db.models.query import QuerySet
 
 
-class TeamCaptaincyManager(models.Manager):
+class TeamCaptaincyQuerySet(QuerySet):
     """ Queries relating to the TeamCaptaincy model. """
 
     def by_team(self, team):
         """ Returns only entries for the specified team. """
-        return self.get_query_set().filter(team=team)
+        return self.filter(team=team)
 
     def by_member(self, member):
         """ Returns only entries for the specified member. """
-        return self.get_query_set().filter(member=member)
+        return self.filter(member=member)
 
     def by_season(self, season):
         """ Returns only entries for the specified season. """
-        return self.get_query_set().filter(season=season)
+        return self.filter(season=season)
 
     def captains(self):
         """ Returns only captains (as opposed to vice-captains). """
-        return self.get_query_set().filter(is_vice=False)
+        return self.filter(is_vice=False)
 
     def vice_captains(self):
         """ Returns only vice-captains (as opposed to captains). """
-        return self.get_query_set().filter(is_vice=True)
+        return self.filter(is_vice=True)
 
 
 class TeamCaptaincy(models.Model):
@@ -46,7 +47,7 @@ class TeamCaptaincy(models.Model):
 
     season = models.ForeignKey('competitions.Season', null=True, blank=True)
 
-    objects = TeamCaptaincyManager()
+    objects = TeamCaptaincyQuerySet.as_manager()
 
     class Meta:
         """ Meta-info for the TeamCaptaincy model. """

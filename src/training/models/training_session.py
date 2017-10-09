@@ -10,6 +10,7 @@
 
 from django.utils import timezone
 from django.db import models
+from django.db.models.query import QuerySet
 from venues.models import Venue
 from competitions.models import Season
 
@@ -24,21 +25,21 @@ class TrainingSessionStatus(object):
     )
 
 
-class TrainingSessionManager(models.Manager):
+class TrainingSessionQuerySet(QuerySet):
     """Common queries relating to the TrainingSession model"""
 
     def upcoming(self):
         """Returns only training sessions in the future, sorted by date"""
-        return self.get_query_set().filter(datetime__gte=timezone.now()).order_by('datetime')
+        return self.filter(datetime__gte=timezone.now()).order_by('datetime')
 
     def before(self, dt):
         """ Returns all training sessions scheduled prior to the specified date/time."""
-        return self.get_query_set().filter(datetime__lt=dt).order_by('datetime')
+        return self.filter(datetime__lt=dt).order_by('datetime')
 
     def this_season(self):
         """Returns only training sessions for this season"""
         season = Season.current()
-        return self.get_query_set().filter(datetime__gte=season.start, datetime__lte=season.end).order_by('datetime')
+        return self.filter(datetime__gte=season.start, datetime__lte=season.end).order_by('datetime')
 
 
 class TrainingSession(models.Model):
@@ -62,7 +63,7 @@ class TrainingSession(models.Model):
         'Status', max_length=20, choices=TrainingSessionStatus.Choices, default=TrainingSessionStatus.Scheduled)
     """The status of the training session (e.g. cancelled/scheduled)"""
 
-    objects = TrainingSessionManager()
+    objects = TrainingSessionQuerySet.as_manager()
 
     class Meta:
         """ Meta-info for the TrainingSession model."""
