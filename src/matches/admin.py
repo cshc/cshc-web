@@ -4,7 +4,8 @@
 from django.contrib import admin
 from django.forms import ModelForm, widgets
 from awards.models import MatchAwardWinner
-from matches.models import Match, Appearance
+from .models import Match, Appearance
+from .forms import MatchAdminForm
 
 
 class MatchAwardWinnerInlineForm(ModelForm):
@@ -51,7 +52,7 @@ class AppearanceInline(admin.TabularInline):
 @admin.register(Match)
 class MatchAdmin(admin.ModelAdmin):
     """Model Admin for matches"""
-
+    form = MatchAdminForm
     inlines = (
         MatchAwardWinnerInline,
         AppearanceInline,

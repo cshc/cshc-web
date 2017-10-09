@@ -5,6 +5,7 @@ pylint==1.7.3
 pylint-django==0.7.2
 django-jet==1.0.6
 django-debug-toolbar==1.8
+django-model-utils==3.0.0
 
 # Django CKEditor (wysiwyg editor support)
 # Ref: https://django-ckeditor.readthedocs.io/en/latest/
