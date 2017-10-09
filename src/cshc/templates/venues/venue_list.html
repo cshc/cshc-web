@@ -15,7 +15,7 @@
   {% breadcrumb "Venues" "venue_list" %}
 {% endblock %}
 
-{% block main %}
+{% block content %}
   {% heading 'Match Venues' %}
   
   <div class="form-group g-mb-20">
@@ -42,7 +42,7 @@
 
   <div id="map" class="js-g-map embed-responsive embed-responsive-1by1 g-min-height-60vh"></div>
   
-{% endblock %}
+{% endblock content %}
 
 {% block body_js %}
   {{ block.super }}

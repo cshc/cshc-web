@@ -16,7 +16,7 @@
   {% breadcrumb venue.name "venue_detail" slug=v.slug %}
 {% endblock %}
 
-{% block main %}
+{% block content %}
   {% url 'venue_list' as venue_list_url %}
   
   {% heading venue.name %}
@@ -109,7 +109,7 @@
   <div id="map" class="js-g-map embed-responsive embed-responsive-21by9 g-min-height-60vh"></div>
   {% endif %}
 
-{% endblock %}
+{% endblock content %}
 
 {% block body_js %}
   {{ block.super }}

@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="{% static "vendor/bootstrap/bootstrap.min.css" %}">
   <link rel="stylesheet" href="{% static "vendor/icon-awesome/css/font-awesome.min.css" %}">
   <link rel="stylesheet" href="{% static "vendor/icon-hs/style.css" %}">
+  <link rel="stylesheet" href="{% static "vendor/animate.css" %}">
   
   <link rel="stylesheet" href="{% static "vendor/hamburgers/hamburgers.min.css" %}">
   <link rel="stylesheet" href="{% static "vendor/hs-megamenu/src/hs.megamenu.css" %}">
@@ -46,10 +47,12 @@
 <body>
   <main>
     {% include "core/_header.html" %}
-    <section class="container g-pt-120 g-pb-40">
-      {% render_breadcrumbs %}
-      {% block main %}{% endblock main %}
-    </section>
+    {% block main %}
+      <section class="container g-pt-120 g-pb-40">
+        {% render_breadcrumbs %}
+        {% block content %}{% endblock content %}
+      </section>
+    {% endblock main %}
     {% include "core/_footer.html" %}
   </main>
 

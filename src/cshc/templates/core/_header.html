@@ -1,8 +1,8 @@
 {% load static from staticfiles %}
 
-<header id="js-header" class="u-header u-header--sticky-top u-header--toggle-section u-header--change-appearance" data-header-fix-moment="300">
-  <div class="u-header__section u-header__section--dark g-bg-primary g-transition-0_3 g-py-10" data-header-fix-moment-exclude="g-py-10" data-header-fix-moment-classes="g-py-0">
-    <nav class="js-mega-menu navbar navbar-expand-lg">
+<header id="js-header" class="u-header u-header--sticky-top u-header--toggle-section u-header--change-appearance" data-header-fix-moment="100">
+  <div class="u-header__section u-header__section--dark g-bg-black-opacity-0_7 g-transition-0_3 g-py-10" data-header-fix-moment-exclude="g-py-10" data-header-fix-moment-classes="u-shadow-v18 g-py-0">
+    <nav class="js-mega-menu navbar navbar-expand-lg hs-menu-horizontal">
       <div class="container">
         <!-- Responsive Toggle Button -->
         <button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-3 g-right-0" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar" data-toggle="collapse" data-target="#navBar">
@@ -21,54 +21,129 @@
         <!-- End Logo -->
 
         <!-- Navigation -->
-        <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
-          <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto u-main-nav-v5 u-sub-menu-v1">
-            <li class="hs-has-mega-menu nav-item g-mx-20--lg" data-animation-in="fadeIn" data-animation-out="fadeOut" data-position="right">
-              <a id="mega-menu-label-teams" href="#" class="nav-link px-0" aria-haspopup="true" aria-expanded="false">Teams
-                <i class="hs-icon hs-icon-arrow-bottom g-font-size-11 g-ml-7"></i>
+        <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg g-mr-40--lg" id="navBar">
+          <ul class="navbar-nav text-uppercase g-pos-rel g-font-weight-600 ml-auto">
+            
+            <!-- Teams -->
+            <li class="hs-has-mega-menu nav-item  g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn" data-animation-out="fadeOut" data-position="left" data-max-width="70%">
+              <a id="mega-menu-label-teams" href="#" class="nav-link g-py-7 g-px-0" aria-haspopup="true" aria-expanded="false">Teams
+                  <i class="hs-icon hs-icon-arrow-bottom g-font-size-11 g-ml-7"></i>
               </a>
-              <div class="hs-mega-menu g-bg-primary u-shadow-v11 g-text-transform-none font-weight-normal g-brd-top g-brd-primary g-brd-top-2 g-mt-17 g-mt-7--lg--scrolling" aria-labelledby="mega-menu-label-teams" style="display: none;">
-                  <div class="row align-items-stretch">
+              <div class="w-100 hs-mega-menu u-shadow-v11 font-weight-normal g-brd-top g-brd-primary g-brd-top-2 g-bg-black g-mt-21 g-mt-11--lg--scrolling" aria-labelledby="mega-menu-label-teams" style="display: none;">
+                  <div class="row align-items-stretch no-gutters">
                     {% for team in TEAMS %}
-                    <div class="col-lg-4 {% if not forloop.first %}g-brd-left--lg g-brd-gray-light-v5{% endif %}">
-                      <section class="g-pa-20 {% if not forloop.first %}g-pl-5--lg{% endif %}">
-                        <h4 class="h5 text-uppercase g-font-weight-600">{{ team.title }}</h4>
-                        <ul class="list-unstyled">
-                          {% for item in team.list %}
-                          <li>
-                            <a href="{% url 'team_detail' item.0 %}" class="nav-link g-px-0 g-color-primary--hover">{{ item.1 }}</a>
-                          </li>
-                          {% endfor %}
+                    <div class="col-lg-4 g-mt-10 {% if not forloop.first %}g-brd-left--lg g-brd-gray-light-v5{% endif %}">
+                      <h4 class="h5 text-uppercase g-font-weight-600">{{ team.title }}</h4>
+                      <ul class="list-unstyled">
+                        {% for item in team.list %}
+                        <li class="dropdown-item">
+                          <a href="{% url 'team_detail' item.0 %}" class="nav-link">{{ item.1 }}</a>
+                        </li>
+                        {% endfor %}
                         </ul>
-                      </section>
                     </div>
                     {% endfor %}
                   </div>
               </div>
             </li>
-            <li class="nav-item g-mx-20--lg active">
-              <a href="#" class="nav-link px-0">Club
-              <span class="sr-only">(current)</span>
-          </a>
+
+            <!-- Club -->
+            <li class="hs-has-mega-menu nav-item g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn" data-animation-out="fadeOut" data-position="left"  data-max-width="55%">
+              <a id="mega-menu-label-club" href="#" class="nav-link g-py-7 g-px-0" aria-haspopup="true" aria-expanded="false">Club
+                <i class="hs-icon hs-icon-arrow-bottom g-font-size-11 g-ml-7"></i>
+              </a>
+              <div class="w-100 hs-mega-menu u-shadow-v11 font-weight-normal g-brd-top g-brd-primary g-brd-top-2 g-bg-black g-mt-21 g-mt-11--lg--scrolling" aria-labelledby="mega-menu-label-club" style="display: none;">
+                <div class="row align-items-stretch no-gutters">
+                  <div class="col-lg-6 g-mt-10">
+                      <h4 class="h5 text-uppercase g-font-weight-600">Playing</h4>
+                      <ul class="list-unstyled">
+                        <li class="dropdown-item">
+                          <a href="#" class="nav-link">Join Us</a>
+                        </li>
+                        <li class="dropdown-item">
+                          <a href="#" class="nav-link">Directions</a>
+                        </li>
+                        <li class="dropdown-item">
+                          <a href="#" class="nav-link">Training</a>
+                        </li>
+                        <li class="dropdown-item">
+                          <a href="#" class="nav-link">Fees</a>
+                        </li>
+                        <li class="dropdown-item">
+                          <a href="#" class="nav-link">Kit</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-lg-6 g-mt-10 g-brd-left--lg g-brd-gray-light-v5">
+                      <h4 class="h5 text-uppercase g-font-weight-600">Club Info</h4>
+                      <ul class="list-unstyled">
+                        <li class="dropdown-item">
+                          <a href="#" class="nav-link">About Us</a>
+                        </li>
+                        <li class="dropdown-item">
+                          <a href="#" class="nav-link">News</a>
+                        </li>
+                        <li class="dropdown-item">
+                          <a href="#" class="nav-link">Social</a>
+                        </li>
+                        <li class="dropdown-item">
+                          <a href="#" class="nav-link">Committee</a>
+                        </li>
+                        <li class="dropdown-item">
+                          <a href="#" class="nav-link">Calendar</a>
+                        </li>
+                        <li class="dropdown-item">
+                          <a href="#" class="nav-link">Members Offers</a>
+                        </li>
+                      </ul>
+                    </div>
+                </div>
+              </div>
             </li>
-            <li class="nav-item g-mx-20--lg">
-              <a href="#" class="nav-link px-0">Juniors
-          </a>
+
+            <li class="nav-item g-mx-10--lg g-mx-15--xl">
+              <a href="#" class="nav-link g-py-7 g-px-0">Juniors
+              </a>
             </li>
-            <li class="nav-item g-mx-20--lg">
-              <a href="#" class="nav-link px-0">Matches
+
+            <li class="nav-item g-mx-10--lg g-mx-15--xl">
+              <a href="#" class="nav-link g-py-7 g-px-0">Matches
             
-          </a>
+              </a>
             </li>
-            <li class="nav-item g-mx-20--lg">
-              <a href="#" class="nav-link px-0">Stats
-            
-          </a>
+
+            <li class="nav-item hs-has-sub-menu  g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn" data-animation-out="fadeOut">
+              <a id="nav-link--stats" href="#" class="nav-link g-py-7 g-px-0" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu--stats">Stats
+              </a>
+              <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-bg-black g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling" id="nav-submenu--stats" aria-labelledby="nav-link--stats" style="display: none;">
+                <li class="dropdown-item g-brd-bottom g-brd-primary-bottom">
+                  <a href="#" class="nav-link">Stats Overview</a>
+                </li>
+                <li class="dropdown-item">
+                  <a href="#" class="nav-link">Goal King</a>
+                </li>
+                <li class="dropdown-item">
+                  <a href="#" class="nav-link">Southerners League</a>
+                </li>
+                <li class="dropdown-item">
+                  <a href="#" class="nav-link">Rivals</a>
+                </li>
+                <li class="dropdown-item">
+                  <a href="#" class="nav-link">Accidental Tourist</a>
+                </li>
+                <li class="dropdown-item">
+                  <a href="#" class="nav-link">Playing Records</a>
+                </li>
+                <li class="dropdown-item">
+                  <a href="#" class="nav-link">The Naughty Step</a>
+                </li>
+              </ul>
             </li>
-            <li class="nav-item g-ml-20--lg g-mr-0--lg">
-              <a href="#" class="nav-link px-0">Contact Us
+
+            <li class="nav-item g-mx-10--lg g-mx-15--xl">
+              <a href="#" class="nav-link g-py-7 g-px-0">Contact Us
             
-          </a>
+              </a>
             </li>
           </ul>
         </div>

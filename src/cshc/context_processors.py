@@ -40,7 +40,7 @@ def utils(request):
                 ],
             },
             {
-                'title': 'Other Teams',
+                'title': 'Other',
                 'list': [
                     ('mixed', 'Mixed',),
                     ('indoor', 'Indoor',),

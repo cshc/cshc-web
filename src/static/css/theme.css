@@ -1528,6 +1528,26 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
 .u-header__section--dark .navbar .u-main-nav-v5 .nav-item .nav-link:focus {
   border-color: #fff;
 }
-/* .g-bg-primary .navbar .u-sub-menu-v1 .hs-mega-menu {
-  background-color: #6639b6;
-} */
+.g-bg-primary h1,
+.g-bg-primary h2,
+.g-bg-primary h3,
+.g-bg-primary h4,
+.g-bg-primary h5,
+.g-bg-primary h6,
+.g-bg-black h1,
+.g-bg-black h2,
+.g-bg-black h3,
+.g-bg-black h4,
+.g-bg-black h5,
+.g-bg-black h6 {
+  color: #fff;
+}
+.nav-item .hs-mega-menu h4 {
+  padding: 0.21429rem 1.57143rem;
+}
+.g-bg-primary .dropdown-item:focus,
+.g-bg-primary .dropdown-item:hover,
+.g-bg-black .dropdown-item:focus,
+.g-bg-black .dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+}

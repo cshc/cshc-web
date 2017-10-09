@@ -18,8 +18,13 @@ from django.conf import settings
 from django.contrib import admin
 from django.conf.urls.static import static
 
+from .views import HomeView
+
 #pylint: disable=C0103
 urlpatterns = [
+    # The main landing page
+    url(r'^$', HomeView.as_view(), name='homepage'),
+
     url(r'^venues/', include('venues.urls')),
     url(r'^teams/', include('teams.urls')),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS

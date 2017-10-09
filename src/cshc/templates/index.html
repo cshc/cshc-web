@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+
+
+{% block breadcrumbs %}
+{{ block.super }}
+{% clear_breadcrumbs %}
+{% endblock %}
+
+{% block head_js %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "vendor/dzsparallaxer/dzsparallaxer.css" %}">
+{% endblock head_js %}
+
+{% block main %}
+<section class="dzsparallaxer auto-init height-is-based-on-content use-loading g-min-height-100vh mode-scroll is-touch dzsprx-readyall loaded" data-options="{direction: &quot;reverse&quot;, settings_mode_oneelement_max_offset: &quot;150&quot;}">
+    <div class="divimage dzsparallaxer--target w-100 g-bg-cover g-bg-img-hero" style="height: 130%; background-image: url(&quot;/static/img/blue-astro.jpg&quot;); transform: translate3d(0px, -117.768px, 0px);"></div>
+
+    <div class="g-absolute-centered--y w-100">
+        <div class="container g-bg-cover__inner g-py-30">
+          <div class="row">
+            <div class="col-lg-6 g-bg-green-gradient-opacity-v1--after">
+              <h4>Latest Results</h4>
+            </div>
+            <div class="col-lg-6 g-bg-green-gradient-opacity-v1--after">
+              <h4>Next Fixtures</h4>
+            </div>
+          </div>
+        </div>
+    </div>
+</section>  
+{% endblock main %}
+
+{% block body_js %}
+{{ block.super }}
+<script src="{% static "vendor/dzsparallaxer/dzsparallaxer.js" %}"></script>
+{% endblock body_js %}
