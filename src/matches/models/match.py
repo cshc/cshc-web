@@ -114,7 +114,7 @@ class Match(models.Model):
 
     # The match venue
     venue = models.ForeignKey(
-        Venue, null=True, blank=True, on_delete=models.SET_NULL)
+        Venue, null=True, blank=True, on_delete=models.SET_NULL, related_name="matches")
 
     # Is the match a home or away fixture for South
     home_away = models.CharField("Home/Away", max_length=5, choices=HomeAway.Choices,

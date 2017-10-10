@@ -6,7 +6,6 @@
 """
 
 from django.db import models
-from django.db.models.query import QuerySet
 from competitions.models import Season
 from core.models import TeamGender
 
@@ -36,24 +35,27 @@ class CommitteePosition(models.Model):
         return str("{} ({})".format(self.name, self.gender))
 
 
-class CommitteeMembershipQuerySet(QuerySet):
+class CommitteeMembershipManager(models.Manager):
     """ Queries that relate to Committee Membership"""
+
+    def get_queryset(self):
+        return super(CommitteeMembershipManager, self).get_queryset().select_related('season', 'member', 'position')
 
     def by_member(self, member):
         """Returns only committee membership for the specified member"""
-        return self.filter(member=member)
+        return self.get_queryset().filter(member=member)
 
     def by_position(self, position):
         """Returns only committee membership for the specified position"""
-        return self.filter(position=position)
+        return self.get_queryset().filter(position=position)
 
     def by_season(self, season):
         """Returns only committee membership for the specified season"""
-        return self.filter(season=season).order_by('position__index')
+        return self.get_queryset().filter(season=season).order_by('position__index')
 
     def current(self):
         """ Returns only current committee membership, if any."""
-        return self.filter(season=Season.current()).order_by('position__index')
+        return self.get_queryset().filter(season=Season.current()).order_by('position__index')
 
 
 class CommitteeMembership(models.Model):
@@ -73,7 +75,7 @@ class CommitteeMembership(models.Model):
     # The committee position
     position = models.ForeignKey('CommitteePosition')
 
-    objects = CommitteeMembershipQuerySet.as_manager()
+    objects = CommitteeMembershipManager()
 
     class Meta:
         """ Meta-info for the CommitteeMembership model."""

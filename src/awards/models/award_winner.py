@@ -4,43 +4,45 @@
 
 from django.db import models
 from django.core.exceptions import ValidationError
-from django.db.models.query import QuerySet
 from matches.models import Match
 from members.models import Member
 from competitions.models import Season
 from .award import MatchAward, EndOfSeasonAward
 
 
-class AwardWinnerQuerySet(QuerySet):
-    """ Queries that relate to any Award Winners"""
+class AwardWinnerManager(models.Manager):
+    """ AwardWinner base model mananger """
+
+    def get_queryset(self):
+        return super(AwardWinnerManager, self).get_queryset().select_related('member')
 
     def by_member(self, member):
         """ Returns only items for the specified member"""
-        return self.filter(member=member)
+        return self.get_queryset().filter(member=member)
 
 
-class MatchAwardWinnerQuerySet(AwardWinnerQuerySet):
-    """ Queries that relate to Match Award Winners"""
+class MatchAwardWinnerManager(AwardWinnerManager):
+    """ Model manager for Match Award Winners """
 
     def mom(self):
         """Returns only Man of the Match award winners"""
-        return self.filter(award__name=MatchAward.MOM)
+        return self.get_queryset().filter(award__name=MatchAward.MOM)
 
     def lom(self):
         """Returns only Lemon of the Match award winners"""
-        return self.filter(award__name=MatchAward.LOM)
+        return self.get_queryset().filter(award__name=MatchAward.LOM)
 
     def by_match(self, match):
         """Returns only award winners for the specified match"""
-        return self.filter(match=match)
+        return self.get_queryset().filter(match=match)
 
 
-class EndOfSeasonAwardWinnerQuerySet(AwardWinnerQuerySet):
-    """ Queries that relate to End of Season Award Winners"""
+class EndOfSeasonAwardWinnerManager(AwardWinnerManager):
+    """ Model manager for End Of Season Award Winners """
 
     def by_season(self, season):
         """Returns only award winners for the specified season"""
-        return self.filter(season=season)
+        return self.get_queryset().filter(season=season)
 
 
 class AwardWinner(models.Model):
@@ -90,7 +92,7 @@ class MatchAwardWinner(AwardWinner):
     # The award that was won
     award = models.ForeignKey(MatchAward, related_name="winners")
 
-    objects = MatchAwardWinnerQuerySet.as_manager()
+    objects = MatchAwardWinnerManager()
 
     def __str__(self):
         return str("{} - {} ({})".format(self.award, self.awardee_name(), self.match.date))
@@ -105,7 +107,7 @@ class EndOfSeasonAwardWinner(AwardWinner):
     # The award that was won
     award = models.ForeignKey(EndOfSeasonAward, related_name="winners")
 
-    objects = EndOfSeasonAwardWinnerQuerySet.as_manager()
+    objects = EndOfSeasonAwardWinnerManager()
 
     def __str__(self):
         return str("{} - {} ({})".format(self.award, self.awardee_name(), self.season))

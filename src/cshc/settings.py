@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     'image_cropping',
     'ckeditor',
     'ckeditor_uploader',
+    'graphene_django',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -212,3 +214,12 @@ IMAGE_CROPPING_BACKEND = 'core.backends.image_backend.ResizedImageEasyThumbnails
 # ckeditor
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_FILENAME_GENERATOR = 'core.models.make_unique_filename'
+
+# Graphene
+GRAPHENE = {
+    'SCHEMA': 'cshc.schema.schema',  # Where your Graphene schema lives
+    'SCHEMA_INDENT': 2,
+    'MIDDLEWARE': [
+        'graphene_django.debug.DjangoDebugMiddleware',
+    ]
+}

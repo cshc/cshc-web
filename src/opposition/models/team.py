@@ -5,26 +5,28 @@
 """
 
 from django.db import models
-from django.db.models.query import QuerySet
 from django.template.defaultfilters import slugify
 from core.models import TeamGender
 from .club import Club
 
 
-class TeamQuerySet(QuerySet):
+class TeamManager(models.Manager):
     """Model manager for the Team model"""
+
+    def get_queryset(self):
+        return super(TeamManager, self).get_queryset().select_related('club')
 
     def mens(self):
         """Returns only men's teams"""
-        return self.filter(gender=TeamGender.Mens)
+        return self.get_queryset().filter(gender=TeamGender.Mens)
 
     def ladies(self):
         """Returns only ladies teams"""
-        return self.filter(gender=TeamGender.Ladies)
+        return self.get_queryset().filter(gender=TeamGender.Ladies)
 
     def mixed(self):
         """Returns only mixed teams"""
-        return self.filter(gender=TeamGender.Mixed)
+        return self.get_queryset().filter(gender=TeamGender.Mixed)
 
 
 class Team(models.Model):
@@ -46,7 +48,7 @@ class Team(models.Model):
     # Auto-generated slug
     slug = models.SlugField("Slug")
 
-    objects = TeamQuerySet.as_manager()
+    objects = TeamManager()
 
     class Meta:
         """ Meta-info for the Team model."""

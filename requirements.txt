@@ -6,6 +6,7 @@ pylint-django==0.7.2
 django-jet==1.0.6
 django-debug-toolbar==1.8
 django-model-utils==3.0.0
+django-filter==1.0.4
 
 # Django CKEditor (wysiwyg editor support)
 # Ref: https://django-ckeditor.readthedocs.io/en/latest/
@@ -40,3 +41,7 @@ sphinx_rtd_theme==0.2.4
 easy-thumbnails==2.4.2
 django-resized==0.3.7
 django-image-cropping==1.1.0
+
+# GraphQL support
+# Ref: https://github.com/graphql-python/graphene-django
+graphene-django>=2.0.dev

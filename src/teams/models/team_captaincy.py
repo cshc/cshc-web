@@ -3,31 +3,33 @@
 """
 
 from django.db import models
-from django.db.models.query import QuerySet
 
 
-class TeamCaptaincyQuerySet(QuerySet):
+class TeamCaptaincyManager(models.Manager):
     """ Queries relating to the TeamCaptaincy model. """
+
+    def get_queryset(self):
+        return super(TeamCaptaincyManager, self).get_queryset().select_related('member', 'team', 'season')
 
     def by_team(self, team):
         """ Returns only entries for the specified team. """
-        return self.filter(team=team)
+        return self.get_queryset().filter(team=team)
 
     def by_member(self, member):
         """ Returns only entries for the specified member. """
-        return self.filter(member=member)
+        return self.get_queryset().filter(member=member)
 
     def by_season(self, season):
         """ Returns only entries for the specified season. """
-        return self.filter(season=season)
+        return self.get_queryset().filter(season=season)
 
     def captains(self):
         """ Returns only captains (as opposed to vice-captains). """
-        return self.filter(is_vice=False)
+        return self.get_queryset().filter(is_vice=False)
 
     def vice_captains(self):
         """ Returns only vice-captains (as opposed to captains). """
-        return self.filter(is_vice=True)
+        return self.get_queryset().filter(is_vice=True)
 
 
 class TeamCaptaincy(models.Model):
@@ -47,7 +49,7 @@ class TeamCaptaincy(models.Model):
 
     season = models.ForeignKey('competitions.Season', null=True, blank=True)
 
-    objects = TeamCaptaincyQuerySet.as_manager()
+    objects = TeamCaptaincyManager()
 
     class Meta:
         """ Meta-info for the TeamCaptaincy model. """
