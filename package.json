@@ -10,10 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --config webpack.config.js --watch",
-    "flow start": "flow start",
-    "flow stop": "flow stop",
-    "flow status": "flow status",
-    "flow coverage": "flow coverage"
+    "flow": "flow; test $? -eq 0 -o $? -eq 2",
+    "flow-check": "flow check"
   },
   "author": "",
   "license": "ISC",
@@ -38,6 +36,7 @@
     "eslint-plugin-react": "^7.1.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "flow-bin": "^0.56.0",
+    "flow-typed": "2.1.0",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.6",
     "prettier-eslint": "^8.2.0",
