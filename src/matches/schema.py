@@ -4,13 +4,27 @@ GraphQL Schema for matches etc
 
 import graphene
 from graphene_django import DjangoObjectType
+from graphene_django.filter import DjangoFilterConnectionField
+from django.db.models import Prefetch
+from core import schema_helper
+from awards.models import MatchAwardWinner
 from .models import Match, Appearance, GoalKing
 
+match_field_map = {
+    "venue": ("venue", "select"),
+    "ourTeam": ("our_team", "select"),
+    "oppTeam": ("opp_team__club", "select"),
+    "awardWinners": ("award_winners", "prefetch"),
+    "players": ("players", "prefetch"),
+}
 
-class MatchType(DjangoObjectType):
+
+class MatchNode(DjangoObjectType):
     """ GraphQL node representing a match/fixture """
     class Meta:
         model = Match
+        interfaces = (graphene.relay.Node, )
+        filter_fields = ['venue__name', 'opp_team__name']
 
 
 class AppearanceType(DjangoObjectType):
@@ -25,20 +39,26 @@ class GoalKingType(DjangoObjectType):
         model = GoalKing
 
 
-class Query(graphene.AbstractType):
+class Query(graphene.ObjectType):
     """ GraphQL query for members etc """
-    matches = graphene.List(MatchType)
+    matches = schema_helper.OptimizableFilterConnectionField(MatchNode)
     appearances = graphene.List(AppearanceType)
     goal_king_entries = graphene.List(GoalKingType)
 
-    @graphene.resolve_only_args
-    def resolve_matches(self):
-        return Match.objects.all()
+    def resolve_matches(self, info, **kwargs):
+        appearancesQS = Appearance.objects.select_related('member')
+        appearancesPrefetch = Prefetch('appearances', queryset=appearancesQS)
+        awardWinnersQS = MatchAwardWinner.objects.select_related(
+            'member', 'award')
+        awardWinnerPrefetch = Prefetch(
+            'award_winners', queryset=awardWinnersQS)
+        return Match.objects.filter(**kwargs).select_related('our_team', 'opp_team__club', 'venue').prefetch_related(appearancesPrefetch, awardWinnerPrefetch)
+        # return schema_helper.optimize(Match.objects.filter(**kwargs),
+        #                               info,
+        #                               match_field_map)
 
-    @graphene.resolve_only_args
     def resolve_appearances(self):
         return Appearance.objects.all()
 
-    @graphene.resolve_only_args
     def resolve_goal_king_entries(self):
         return GoalKing.objects.all()

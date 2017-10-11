@@ -38,8 +38,8 @@ class LeagueNode(DjangoObjectType):
 
     divisions = schema_helper.OptimizableFilterConnectionField(DivisionNode)
 
-    def resolve_divisions(self, args, context, info):
-        return schema_helper.optimize(Division.objects.filter(league=self, **args),
+    def resolve_divisions(self, info, *args):
+        return schema_helper.optimize(Division.objects.filter(league=self, *args),
                                       info,
                                       division_field_map)
 
@@ -52,7 +52,7 @@ class CupNode(DjangoObjectType):
         filter_fields = ['name', 'league__name']
 
 
-class Query(graphene.AbstractType):
+class Query(graphene.ObjectType):
     """ GraphQL query for competitions """
     season = graphene.Node.Field(SeasonNode)
     league = graphene.Node.Field(LeagueNode)
@@ -64,22 +64,18 @@ class Query(graphene.AbstractType):
     divisions = schema_helper.OptimizableFilterConnectionField(DivisionNode)
     cups = DjangoFilterConnectionField(CupNode)
 
-    def resolve_divisions(self, args, context, info):
-        return schema_helper.optimize(Division.objects.filter(**args),
+    def resolve_divisions(self, info, **kwargs):
+        return schema_helper.optimize(Division.objects.filter(**kwargs),
                                       info,
                                       division_field_map)
-    # @graphene.resolve_only_args
     # def resolve_seasons(self):
     #     return Season.objects.all()
 
-    # @graphene.resolve_only_args
     # def resolve_leagues(self):
     #     return League.objects.all()
 
-    # @graphene.resolve_only_args
     # def resolve_divisions(self):
     #     return Division.objects.all()
 
-    # @graphene.resolve_only_args
     # def resolve_cups(self):
     #     return Cup.objects.all()

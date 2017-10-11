@@ -25,7 +25,6 @@ def get_fields(info):
 
 def optimize(qs, info, field_map):
     fields = get_fields(info)
-    print(fields)
     for field in fields:
         if field in field_map:
             field_name, opt = field_map[field]

@@ -21,10 +21,9 @@ class VenueType(DjangoObjectType):
         model = Venue
 
 
-class Query(graphene.AbstractType):
+class Query(graphene.ObjectType):
     """ GraphQL query for venues """
     venues = graphene.List(VenueType)
 
-    @graphene.resolve_only_args
     def resolve_venues(self):
         return Venue.objects.all()

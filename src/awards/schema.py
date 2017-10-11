@@ -31,25 +31,21 @@ class EndOfSeasonAwardWinnerType(DjangoObjectType):
         model = EndOfSeasonAwardWinner
 
 
-class Query(graphene.AbstractType):
+class Query(graphene.ObjectType):
     """ GraphQL query for awards and award winners """
     match_awards = graphene.List(MatchAwardType)
     end_of_season_awards = graphene.List(EndOfSeasonAwardType)
     match_award_winners = graphene.List(MatchAwardWinnerType)
     end_of_season_award_winners = graphene.List(EndOfSeasonAwardWinnerType)
 
-    @graphene.resolve_only_args
     def resolve_match_awards(self):
         return MatchAward.objects.all()
 
-    @graphene.resolve_only_args
     def resolve_end_of_season_awards(self):
         return EndOfSeasonAward.objects.all()
 
-    @graphene.resolve_only_args
     def resolve_match_award_winners(self):
         return MatchAwardWinner.objects.all()
 
-    @graphene.resolve_only_args
     def resolve_end_of_season_award_winners(self):
         return EndOfSeasonAwardWinner.objects.all()

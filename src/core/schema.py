@@ -19,15 +19,13 @@ class ClubInfoType(DjangoObjectType):
         model = ClubInfo
 
 
-class Query(graphene.AbstractType):
+class Query(graphene.ObjectType):
     """ GraphQL query for Core models """
     users = graphene.List(CshcUserType)
     all_club_info = graphene.List(ClubInfoType)
 
-    @graphene.resolve_only_args
     def resolve_users(self):
         return CshcUser.objects.all()
 
-    @graphene.resolve_only_args
     def resolve_all_club_info(self):
         return ClubInfo.objects.all()

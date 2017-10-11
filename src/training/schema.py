@@ -13,10 +13,9 @@ class TrainingSessionType(DjangoObjectType):
         model = TrainingSession
 
 
-class Query(graphene.AbstractType):
+class Query(graphene.ObjectType):
     """ GraphQL query for members etc """
     training_sessions = graphene.List(TrainingSessionType)
 
-    @graphene.resolve_only_args
     def resolve_training_sessions(self):
         return TrainingSession.objects.all()

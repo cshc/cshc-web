@@ -31,25 +31,21 @@ class MemberType(DjangoObjectType):
         model = Member
 
 
-class Query(graphene.AbstractType):
+class Query(graphene.ObjectType):
     """ GraphQL query for members etc """
     committee_positions = graphene.List(CommitteePositionType)
     committee_memberships = graphene.List(CommitteeMembershipType)
     squad_memberships = graphene.List(SquadMembershipType)
     members = graphene.List(MemberType)
 
-    @graphene.resolve_only_args
     def resolve_committee_positions(self):
         return CommitteePosition.objects.all()
 
-    @graphene.resolve_only_args
     def resolve_committee_memberships(self):
         return CommitteeMembership.objects.all()
 
-    @graphene.resolve_only_args
     def resolve_squad_memberships(self):
         return SquadMembership.objects.all()
 
-    @graphene.resolve_only_args
     def resolve_members(self):
         return Member.objects.all()

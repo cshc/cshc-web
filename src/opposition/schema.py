@@ -19,15 +19,13 @@ class TeamType(DjangoObjectType):
         model = Team
 
 
-class Query(graphene.AbstractType):
+class Query(graphene.ObjectType):
     """ GraphQL query for members etc """
     opposition_clubs = graphene.List(ClubType)
     opposition_teams = graphene.List(TeamType)
 
-    @graphene.resolve_only_args
     def resolve_opposition_clubs(self):
         return Club.objects.all()
 
-    @graphene.resolve_only_args
     def resolve_opposition_teams(self):
         return Team.objects.all()

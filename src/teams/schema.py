@@ -25,20 +25,17 @@ class TeamCaptaincyType(DjangoObjectType):
         model = TeamCaptaincy
 
 
-class Query(graphene.AbstractType):
+class Query(graphene.ObjectType):
     """ GraphQL query for club teams etc """
     club_teams = graphene.List(ClubTeamType)
     participations = graphene.List(ClubTeamSeasonParticipationType)
     captaincies = graphene.List(TeamCaptaincyType)
 
-    @graphene.resolve_only_args
     def resolve_club_teams(self):
         return ClubTeam.objects.all()
 
-    @graphene.resolve_only_args
     def resolve_participations(self):
         return ClubTeamSeasonParticipation.objects.all()
 
-    @graphene.resolve_only_args
     def resolve_captaincies(self):
         return TeamCaptaincy.objects.all()

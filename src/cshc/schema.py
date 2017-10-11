@@ -14,6 +14,8 @@ import opposition.schema
 import training.schema
 import matches.schema
 
+# pylint: disable=too-many-ancestors
+
 
 class Query(awards.schema.Query,
             venues.schema.Query,
@@ -25,6 +27,7 @@ class Query(awards.schema.Query,
             training.schema.Query,
             matches.schema.Query,
             graphene.ObjectType):
+    """ GraphQL query for all CSHC data """
     debug = graphene.Field(DjangoDebug, name='__debug')
 
 

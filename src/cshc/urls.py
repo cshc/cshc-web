@@ -32,7 +32,9 @@ urlpatterns = [
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),  # CKEditor Urls
     url(r'^graphql', GraphQLView.as_view(graphiql=True)),   # GraphQL Urls
     url(r'^admin/', admin.site.urls),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + \
+    static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
+    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar
