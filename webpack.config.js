@@ -9,17 +9,11 @@ module.exports = {
   context: __dirname,
 
   entry: {
-    venueList: [
+    venueDetail: [
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:3000',
       'webpack/hot/only-dev-server',
-      './src/frontend/js/venues/VenueList.jsx',
-    ],
-    venueDetails: [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:3000',
-      'webpack/hot/only-dev-server',
-      './src/frontend/js/venues/VenueDetails.jsx',
+      './src/frontend/js/apps/VenueDetail.jsx',
     ],
   },
 
@@ -93,7 +87,7 @@ module.exports = {
   },
 
   resolve: {
-    modules: ['node_modules', './src'],
+    modules: ['node_modules', './src/frontend/js'],
     extensions: ['.js', '.jsx'],
   },
 

@@ -24,12 +24,15 @@
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-loader": "^7.1.2",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^7.0.0-beta.2",
     "css-loader": "^0.28.7",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^15.1.0",
+    "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
@@ -45,9 +48,18 @@
     "webpack-dev-server": "^2.9.1"
   },
   "dependencies": {
+    "apollo-client": "^1.9.3",
     "babel-polyfill": "^6.26.0",
+    "graphql-tag": "^2.4.2",
+    "lodash": "^4.17.4",
     "react": "^16.0.0",
+    "react-apollo": "^1.4.16",
     "react-dom": "^16.0.0",
-    "react-hot-loader": "^3.0.0-beta.7"
+    "react-hot-loader": "^3.0.0-beta.7",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
+    "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1"
   }
 }

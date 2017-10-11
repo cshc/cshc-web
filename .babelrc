@@ -1,5 +1,9 @@
 {
   "presets": ["env", "react", "flow"],
-  "plugins": ["react-hot-loader/babel"],
+  "plugins": [
+    "react-hot-loader/babel",
+    "transform-es2015-destructuring",
+    "transform-object-rest-spread"
+  ],
   "retainLines": true
 }
