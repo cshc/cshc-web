@@ -83,6 +83,8 @@
       $.HSCore.helpers.HSHamburgers.init('.hamburger');
       // Initialization of HSMegaMenu component
       $('.js-mega-menu').HSMegaMenu();
+      // Initialize tooltips everywhere
+      $('[data-toggle="tooltip"]').tooltip();
     });
   </script>
   {% endblock body_js %}

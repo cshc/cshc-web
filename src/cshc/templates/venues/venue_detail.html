@@ -8,6 +8,7 @@
 
 {% block link %}
   {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
   {% render_bundle 'venueDetail' 'css' %}
 {% endblock link %}
 
@@ -123,9 +124,10 @@
   {{ block.super }}
   <script>
     window.props = {
+      venueName: '{{ venue.name }}',
       matchFilters: {
         venue_Name: '{{ venue.name }}',
-      }
+      },
     };  
     window.react_mount = document.getElementById('react-match-list');
   </script>

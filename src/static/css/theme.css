@@ -1556,3 +1556,76 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
 .g-bg-black .dropdown-item:hover {
   background: rgba(255, 255, 255, 0.15);
 }
+/* Timeline left section is 1/6th (col-2) */
+@media (min-width: 768px) {
+  .u-timeline-v2-wrap::before {
+    left: 16.7%;
+  }
+}
+.g-text-center {
+  text-align: center;
+}
+.no-break {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.shirt-number {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: top;
+  line-height: 40px;
+}
+.shirt-number.female {
+  background-image: url('../img/kit/Ladies%20shirt.png');
+}
+.shirt-number.male {
+  background-image: url('../img/kit/Mens%20shirt.png');
+}
+/* Mens: w: 182 h: 164 */
+.shirt-number.male.shirt-number-sm {
+  height: 2.85714rem;
+  width: 3.17072rem;
+}
+.shirt-number.male.shirt-number-md {
+  height: 3.92857rem;
+  width: 4.35975rem;
+}
+.shirt-number.male.shirt-number-lg {
+  height: 5rem;
+  width: 5.54878rem;
+}
+.shirt-number.male.shirt-number-xl {
+  height: 6.42857rem;
+  width: 7.13414rem;
+}
+.shirt-number.male.shirt-number-2xl {
+  height: 7.14286rem;
+  width: 7.92683rem;
+}
+/* Ladies: w: 182 h: 234 */
+.shirt-number.female.shirt-number-sm {
+  height: 2.85714rem;
+  width: 2.22222rem;
+}
+.shirt-number.female.shirt-number-md {
+  height: 3.92857rem;
+  width: 3.05555rem;
+}
+.shirt-number.female.shirt-number-lg {
+  height: 5rem;
+  width: 3.88888rem;
+}
+.shirt-number.female.shirt-number-xl {
+  height: 6.42857rem;
+  width: 5rem;
+}
+.shirt-number.female.shirt-number-2xl {
+  height: 7.14286rem;
+  width: 5.55555rem;
+}

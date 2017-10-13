@@ -10,27 +10,32 @@ from core import schema_helper
 from awards.models import MatchAwardWinner
 from .models import Match, Appearance, GoalKing
 
-match_field_map = {
-    "venue": ("venue", "select"),
-    "ourTeam": ("our_team", "select"),
-    "oppTeam": ("opp_team__club", "select"),
-    "awardWinners": ("award_winners", "prefetch"),
-    "players": ("players", "prefetch"),
-}
-
 
 class MatchNode(DjangoObjectType):
     """ GraphQL node representing a match/fixture """
+    has_report = graphene.Boolean()
+    kit_clash = graphene.Boolean()
+
     class Meta:
         model = Match
         interfaces = (graphene.relay.Node, )
         filter_fields = ['venue__name', 'opp_team__name']
 
+    def resolve_has_report(self, info):
+        return self.has_report()
 
-class AppearanceType(DjangoObjectType):
+    def resolve_kit_clash(self, info):
+        return self.kit_clash()
+
+
+class AppearanceNode(DjangoObjectType):
     """ GraphQL node representing a member's appearance in a match """
     class Meta:
         model = Appearance
+        # interfaces = (graphene.relay.Node, )
+        # filter_fields = {
+        #     'goals': ['gte'],
+        # }
 
 
 class GoalKingType(DjangoObjectType):
@@ -42,20 +47,17 @@ class GoalKingType(DjangoObjectType):
 class Query(graphene.ObjectType):
     """ GraphQL query for members etc """
     matches = schema_helper.OptimizableFilterConnectionField(MatchNode)
-    appearances = graphene.List(AppearanceType)
+    appearances = graphene.List(AppearanceNode)
     goal_king_entries = graphene.List(GoalKingType)
 
     def resolve_matches(self, info, **kwargs):
-        appearancesQS = Appearance.objects.select_related('member')
-        appearancesPrefetch = Prefetch('appearances', queryset=appearancesQS)
-        awardWinnersQS = MatchAwardWinner.objects.select_related(
+        appearances_qs = Appearance.objects.select_related('member')
+        appearances_prefetch = Prefetch('appearances', queryset=appearances_qs)
+        award_winners_qs = MatchAwardWinner.objects.select_related(
             'member', 'award')
-        awardWinnerPrefetch = Prefetch(
-            'award_winners', queryset=awardWinnersQS)
-        return Match.objects.filter(**kwargs).select_related('our_team', 'opp_team__club', 'venue').prefetch_related(appearancesPrefetch, awardWinnerPrefetch)
-        # return schema_helper.optimize(Match.objects.filter(**kwargs),
-        #                               info,
-        #                               match_field_map)
+        award_winner_prefetch = Prefetch(
+            'award_winners', queryset=award_winners_qs)
+        return Match.objects.filter(**kwargs).select_related('our_team', 'opp_team__club', 'venue').prefetch_related(appearances_prefetch, award_winner_prefetch)
 
     def resolve_appearances(self):
         return Appearance.objects.all()

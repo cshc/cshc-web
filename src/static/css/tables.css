@@ -1,0 +1,17 @@
+@media only screen and (max-width: 768px) {
+  .table th.priority2,
+  .table td.priority2 {
+    display: none;
+  }
+  .table th.priority3,
+  .table td.priority3 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .table th.priority4,
+  .table td.priority4 {
+    display: none;
+  }
+}

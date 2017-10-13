@@ -1,0 +1,22 @@
+.heading {
+  display: flex;
+}
+.headingMain {
+  flex: 1;
+}
+.headingRight {
+  align-self: flex-end;
+  flex: 0;
+}
+.cardContent {
+  display: flex;
+  flex-direction: column;
+}
+.details {
+  align-self: flex-end;
+}
+.flexWrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}

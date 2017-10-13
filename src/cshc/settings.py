@@ -210,6 +210,12 @@ THUMBNAIL_PROCESSORS = (
 ) + thumbnail_settings.THUMBNAIL_PROCESSORS
 IMAGE_CROPPING_BACKEND = 'core.backends.image_backend.ResizedImageEasyThumbnailsBackend'
 
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (50, 50), 'crop': True},
+        'member-link': {'size': (30, 30), 'crop': True},
+    },
+}
 
 # ckeditor
 CKEDITOR_UPLOAD_PATH = 'uploads/'

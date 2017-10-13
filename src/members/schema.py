@@ -3,6 +3,7 @@ GraphQL Schema for Members etc
 """
 
 import graphene
+from easy_thumbnails.files import get_thumbnailer
 from graphene_django import DjangoObjectType
 from .models import CommitteePosition, Member, CommitteeMembership, SquadMembership
 
@@ -27,8 +28,18 @@ class SquadMembershipType(DjangoObjectType):
 
 class MemberType(DjangoObjectType):
     """ GraphQL node representing a club member """
+    thumb_url = graphene.String(profile=graphene.String())
+
     class Meta:
         model = Member
+
+    def resolve_thumb_url(self, info, profile='avatar'):
+        if not self.profile_pic:
+            return None
+        try:
+            return get_thumbnailer(self.profile_pic)[profile].url
+        except:
+            return None
 
 
 class Query(graphene.ObjectType):

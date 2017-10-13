@@ -1,13 +1,13 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
 /* eslint-disable no-underscore-dangle */
-const buildStore = (reducers, client) =>
+const buildStore = (reducers, initialState, client) =>
   createStore(
     combineReducers({
       ...reducers,
       apollo: client.reducer(),
     }),
-    {}, // initial state
+    initialState,
     compose(
       applyMiddleware(client.middleware()),
       // If you are using the devToolsExtension, you can add it here also

@@ -1,11 +1,5 @@
-/* @flow */
-
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-
-type Props = {
-  matchFilters: Object,
-};
 
 export const MATCH_LIST_QUERY = gql`
   query MatchList($venue_Name: String) {
@@ -14,10 +8,12 @@ export const MATCH_LIST_QUERY = gql`
         node {
           id
           ourTeam {
+            id
             longName
             shortName
             gender
             ordinal
+            position
           }
           oppTeam {
             name
@@ -39,8 +35,12 @@ export const MATCH_LIST_QUERY = gql`
           }
           awardWinners {
             member {
+              id
               firstName
               lastName
+              gender
+              thumbUrl(profile: "member-link")
+              shirtNumber
             }
             awardee
             comment
@@ -50,8 +50,12 @@ export const MATCH_LIST_QUERY = gql`
           }
           appearances {
             member {
+              id
               firstName
               lastName
+              gender
+              thumbUrl(profile: "member-link")
+              shirtNumber
             }
             goals
             greenCard
@@ -59,6 +63,8 @@ export const MATCH_LIST_QUERY = gql`
             redCard
           }
           homeAway
+          hasReport
+          kitClash
           fixtureType
           date
           time
@@ -72,13 +78,14 @@ export const MATCH_LIST_QUERY = gql`
 `;
 
 export const matchListOptions = {
-  options: ({ matchFilters }: Props) => ({
+  options: ({ matchFilters }) => ({
     variables: matchFilters,
   }),
-  props: ({ data: { networkStatus, error, matches } }) => ({
+  props: ({ data: { networkStatus, error, matches }, ...props }) => ({
     networkStatus,
     error,
     matches,
+    ...props,
   }),
 };
 

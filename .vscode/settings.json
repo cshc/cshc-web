@@ -1,5 +1,4 @@
 {
-  "flow.useNPMPackagedFlow": true,
   "prettier.singleQuote": true,
   "prettier.trailingComma": "es5",
   "javascript.validate.enable": false,
@@ -8,7 +7,10 @@
   "prettier.eslintIntegration": true,
   "python.venvPath": "${workspaceRoot}/venv",
   "python.pythonPath": "${workspaceRoot}/venv/Scripts/python.exe",
-  "python.autoComplete.extraPaths": ["${workspaceRoot}/venv/Lib/site-packages"],
+  "python.autoComplete.extraPaths": [
+    "${workspaceRoot}/venv/Lib/site-packages",
+    "${workspaceRoot}/src/frontend/js"
+  ],
   "python.linting.pylintArgs": ["--load-plugins", "pylint_django"],
   "git.ignoreLimitWarning": true,
   "files.exclude": {
