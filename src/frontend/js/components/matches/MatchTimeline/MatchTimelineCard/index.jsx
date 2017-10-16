@@ -76,7 +76,7 @@ const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
                         <i className="fa fa-lg fa-star-o g-mr-5 g-mt-7" title="Man of the Match" />
                         {moms.map(awardWinner => (
                           <MemberLink
-                            key={awardWinner.member.id}
+                            key={awardWinner.member.modelId}
                             member={awardWinner.member}
                             className="g-mr-10 g-mb-15"
                             useFullName
@@ -93,7 +93,7 @@ const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
                         />
                         {loms.map(awardWinner => (
                           <MemberLink
-                            key={awardWinner.member.id}
+                            key={awardWinner.member.modelId}
                             member={awardWinner.member}
                             className="g-mr-10 g-mb-15"
                             useFullName
@@ -107,7 +107,7 @@ const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
                         <span className="g-mr-10 g-mt-4">Scorers:</span>
                         {scorers.map(scorer => (
                           <MemberLink
-                            key={scorer.member.id}
+                            key={scorer.member.modelId}
                             member={scorer.member}
                             badgeCount={scorer.goals}
                             className="g-mr-10 g-mb-15"

@@ -19,6 +19,7 @@ class VenueListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(VenueListView, self).get_context_data(**kwargs)
 
+        # TODO: Don't fetch all venues twice (once manually, once automatically)
         venues = Venue.objects.all()
 
         venue_details = map(lambda v: {

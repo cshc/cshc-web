@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Teams{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Teams" "clubteam_list" %}
+{% endblock %}
+
+
+{% block content %}
+  {% heading 'Teams' %}
+
+{% endblock content %}

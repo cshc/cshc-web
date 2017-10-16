@@ -1629,3 +1629,30 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
   height: 7.14286rem;
   width: 5.55555rem;
 }
+.shirt-number.shirt-number-2xl {
+  font-size: 24px;
+  line-height: 60px;
+}
+.btn-group.link-dropdown .btn-link {
+  padding-left: 0;
+}
+.btn-group.title-dropdown .btn-link {
+  font-size: 2rem;
+  color: black;
+  font-weight: 500;
+}
+.btn-group.title-dropdown .btn-link::after {
+  font-size: 16px;
+}
+.btn-group.subtitle-dropdown .btn-link {
+  font-size: 1rem;
+  color: grey;
+  font-weight: 500;
+}
+.btn-group.subtitle-dropdown .btn-link::after {
+  font-size: 12px;
+}
+.btn-group.link-dropdown .btn-link:focus,
+.btn-group.link-dropdown .btn-link:hover {
+  text-decoration: none;
+}

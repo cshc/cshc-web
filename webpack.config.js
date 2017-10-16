@@ -15,6 +15,13 @@ module.exports = {
       'webpack/hot/only-dev-server',
       './src/frontend/js/apps/VenueDetail.jsx',
     ],
+
+    teamDetail: [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:3000',
+      'webpack/hot/only-dev-server',
+      './src/frontend/js/apps/TeamDetail.jsx',
+    ],
   },
 
   output: {
@@ -103,5 +110,5 @@ module.exports = {
     // enable HMR on the server
   },
 
-  // devtool: 'source-map',
+  devtool: 'source-map',
 };

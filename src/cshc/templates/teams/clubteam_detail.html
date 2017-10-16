@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+{% load render_bundle from webpack_loader %}
+{% load cropping %}
+
+{% block title %}{{ block.super }} | {{ team.long_name }}{% endblock %}
+
+{% block link %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
+  {% render_bundle 'common' 'css' %}
+  {% render_bundle 'teamDetail' 'css' %}
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+
+{% block main %}
+
+  {% url 'clubteam_detail' team.slug as base_team_url %}
+
+  <section class="container g-pb-40">
+    {% if participation and participation.team_photo %}
+    <div class="u-block-hover g-pos-rel">
+      <figure><img class="u-block-hover__main--zoom-v1 g-mb-20 g-width-100x--lg" src="{% get_media_prefix %}{{participation.team_photo}}"></figure>
+      <figcaption class="u-block-hover__additional--fade g-bg-black-opacity-0_5 g-pa-30">
+        <div class="u-block-hover__additional--fade u-block-hover__additional--fade-up g-flex-middle g-pa-30">
+          <div class="text-center g-flex-middle-item--bottom g-color-white">{{ participation.team_photo_caption|safe }}</div>
+        </div>
+      </figcaption>
+    </div>
+    {% endif %}
+    <div class="g-pb-10">
+      <div class="btn-group link-dropdown title-dropdown">
+        <button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ team.long_name }}
+        </button>
+        <div class="dropdown-menu">
+          {% for team in TEAMS %}
+            {% for item in team.list %}
+              <a class="dropdown-item {% if item.1 == team.long_name %}active{% endif %}" href="{% url 'clubteam_season_detail' item.0 season.slug %}">{{item.1}}</a>
+            {% endfor %}
+            {% if not forloop.last %}<div class="dropdown-divider"></div>{% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="btn-group link-dropdown subtitle-dropdown g-mt-10">
+        <button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ season }}
+        </button>
+        <div class="dropdown-menu">
+          {% for s in season_list %}
+          <a class="dropdown-item {% if s == season %}active{% endif %}" href="{{base_team_url}}{{s.slug}}">{{s}}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% if participation and participation.division %}
+      <p class="lead">{{ participation.division }}
+      {% if participation.final_pos %}
+        <strong>- finished {{ participation.final_pos|ordinal }}</strong>
+      {% endif %}
+      {% if participation.division_result %}
+        <strong> ({{ participation.get_division_result_display }})</strong>
+      {% endif %}
+      </p>
+    {% endif %}
+    {% if participation and participation.blurb %}
+      {{ participation.blurb|safe }}
+    {% elif team.blurb %}
+      {{ team.blurb|safe }}
+    {% endif %}
+    {% if participation %}
+    <div class="card g-brd-primary rounded-0 g-mb-40">
+      <h3 class="card-header g-bg-primary g-brd-transparent g-color-white g-font-size-16 rounded-0 mb-0">
+        Playing Record
+      </h3>
+      
+      <div class="table-responsive">
+        <table class="table u-table--v1 mb-0">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>
+                  <abbr title="Played">P</abbr>
+                </th>
+                <th>
+                  <abbr title="Won">W</abbr>
+                </th>
+                <th>
+                  <abbr title="Drawn">D</abbr>
+                </th>
+                <th>
+                  <abbr title="Lost">L</abbr>
+                </th>
+                <th>
+                  <abbr title="Goals for">GF</abbr>
+                </th>
+                <th>
+                  <abbr title="Goals against">GA</abbr>
+                </th>
+                <th>
+                  <abbr title="Goals per game">GPG</abbr>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td class="left-align">Friendly</td>
+                  <td>{{ participation.friendly_played }}</td>
+                  <td>{{ participation.friendly_won }}</td>
+                  <td>{{ participation.friendly_drawn }}</td>
+                  <td>{{ participation.friendly_lost }}</td>
+                  <td>{{ participation.friendly_goals_for }}</td>
+                  <td>{{ participation.friendly_goals_against }}</td>
+                  <td>{{ participation.friendly_goals_per_game|floatformat:1 }}</td>
+                </tr>
+                <tr>
+                  <td class="left-align">Cup</td>
+                  <td>{{ participation.cup_played }}</td>
+                  <td>{{ participation.cup_won }}</td>
+                  <td>{{ participation.cup_drawn }}</td>
+                  <td>{{ participation.cup_lost }}</td>
+                  <td>{{ participation.cup_goals_for }}</td>
+                  <td>{{ participation.cup_goals_against }}</td>
+                  <td>{{ participation.cup_goals_per_game|floatformat:1 }}</td>
+                </tr>
+                <tr>
+                  <td class="left-align">League</td>
+                  <td>{{ participation.league_played }}</td>
+                  <td>{{ participation.league_won }}</td>
+                  <td>{{ participation.league_drawn }}</td>
+                  <td>{{ participation.league_lost }}</td>
+                  <td>{{ participation.league_goals_for }}</td>
+                  <td>{{ participation.league_goals_against }}</td>
+                  <td>{{ participation.league_goals_per_game|floatformat:1 }}</td>
+                </tr>
+                <tr class="info total">
+                  <td class="left-align">Total</td>
+                  <td>{{ participation.total_played }}</td>
+                  <td>{{ participation.total_won }}</td>
+                  <td>{{ participation.total_drawn }}</td>
+                  <td>{{ participation.total_lost }}</td>
+                  <td>{{ participation.total_goals_for }}</td>
+                  <td>{{ participation.total_goals_against }}</td>
+                  <td>{{ participation.total_goals_per_game|floatformat:1 }}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+    {% endif %}
+    <div id="react-team-detail"></div>
+  </section>
+{% endblock main %}
+
+
+{% block body_js %}
+  {{ block.super }}
+  <script>
+    window.props = {
+      teamId: {{ team.id }},
+      seasonId: {{ season.id }},
+      division: {
+        id: '{{ participation.division.id|graphQLId:"Division" }}',
+        name: '{{ participation.division }}',
+        fixturesUrl: '{{ participation.division_fixtures_url }}',
+        leagueTableUrl: '{{ participation.division_tables_url }}',
+      },
+      matchFilters: {
+        ourTeam_Slug: '{{ team.slug }}',
+        season_Slug: '{{ season.slug }}',
+      },
+    };  
+    window.react_mount = document.getElementById('react-team-detail');
+  </script>
+  {% render_bundle 'common' 'js' %}
+  {% render_bundle 'teamDetail' 'js' %}
+  
+{% endblock body_js %}

@@ -9,6 +9,11 @@ from .models import ClubTeam, ClubTeamSeasonParticipation, TeamCaptaincy
 
 class ClubTeamType(DjangoObjectType):
     """ GraphQL node representing a club team """
+    genderless_abbr_name = graphene.String()
+
+    def resolve_genderless_abbr_name(self, info):
+        return self.genderless_abbr_name()
+
     class Meta:
         model = ClubTeam
 

@@ -53,7 +53,7 @@ const MatchTableRow = ({ match, excludeColumns, dateFormat }) => {
           <div className={styles.flexWrap}>
             {Match.scorers(match).map(scorer => (
               <MemberLink
-                key={scorer.member.id}
+                key={scorer.member.modelId}
                 member={scorer.member}
                 badgeCount={scorer.goals}
                 className="g-mr-10"
@@ -67,7 +67,7 @@ const MatchTableRow = ({ match, excludeColumns, dateFormat }) => {
           <div className={styles.flexWrap}>
             {Match.mom(match).map(awardWinner => (
               <MemberLink
-                key={awardWinner.member.id}
+                key={awardWinner.member.modelId}
                 member={awardWinner.member}
                 className="g-mr-10"
               />
@@ -80,7 +80,7 @@ const MatchTableRow = ({ match, excludeColumns, dateFormat }) => {
           <div className={styles.flexWrap}>
             {Match.lom(match).map(awardWinner => (
               <MemberLink
-                key={awardWinner.member.id}
+                key={awardWinner.member.modelId}
                 member={awardWinner.member}
                 className="g-mr-10"
               />

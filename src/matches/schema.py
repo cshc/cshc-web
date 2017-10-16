@@ -19,7 +19,8 @@ class MatchNode(DjangoObjectType):
     class Meta:
         model = Match
         interfaces = (graphene.relay.Node, )
-        filter_fields = ['venue__name', 'opp_team__name']
+        filter_fields = ['venue__name', 'opp_team__name',
+                         'our_team__slug', 'season__slug']
 
     def resolve_has_report(self, info):
         return self.has_report()

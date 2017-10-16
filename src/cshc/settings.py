@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'webpack_loader',
     'debug_toolbar',
     'django_extensions',
@@ -214,6 +215,7 @@ THUMBNAIL_ALIASES = {
     '': {
         'avatar': {'size': (50, 50), 'crop': True},
         'member-link': {'size': (30, 30), 'crop': True},
+        'squad-list': {'size': (255, 255), 'crop': True},
     },
 }
 

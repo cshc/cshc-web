@@ -1,0 +1,47 @@
+.imageContainer {
+  position: relative;
+}
+.imageWrapper {
+  position: relative;
+}
+.image {
+  width: 100%;
+}
+.imageOverlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.imageOverlayFront {
+  composes: imageOverlay;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  color: white;
+}
+.imageOverlayBack {
+  composes: imageOverlay;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: #f1f1f1;
+}
+.imageContainer:hover .imageOverlayBack {
+  opacity: 1;
+}
+.shirt {
+  transform: scale(2);
+}
+.awardRow {
+  text-align: center;
+}
+.flexRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}

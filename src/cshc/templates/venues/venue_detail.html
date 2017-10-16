@@ -9,6 +9,7 @@
 {% block link %}
   {{ block.super }}
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
+  {% render_bundle 'common' 'css' %}
   {% render_bundle 'venueDetail' 'css' %}
 {% endblock link %}
 
