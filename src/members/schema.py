@@ -7,6 +7,7 @@ from easy_thumbnails.files import get_thumbnailer
 from graphene_django import DjangoObjectType
 from matches.models import Appearance
 from awards.models import MatchAwardWinner
+from teams.models import TeamCaptaincy
 from .stats import SquadPlayingStats
 from .models import CommitteePosition, Member, CommitteeMembership, SquadMembership
 
@@ -63,6 +64,8 @@ class MemberStatsType(graphene.ObjectType):
     clean_sheets = graphene.Int()
     lom = graphene.Int()
     mom = graphene.Int()
+    is_captain = graphene.Boolean()
+    is_vice_captain = graphene.Boolean()
 
     def resolve_member(self, info):
         return self.member
@@ -95,11 +98,13 @@ class Query(graphene.ObjectType):
         # Get playing stats for the team, including squad members
         app_qs = Appearance.objects.select_related('member', 'match')
         award_winners_qs = MatchAwardWinner.objects.select_related('award')
+        qs_captains = TeamCaptaincy.objects
 
         if 'team' in kwargs:
             app_qs = app_qs.filter(match__our_team_id=kwargs['team'])
             award_winners_qs = award_winners_qs.filter(
                 match__our_team_id=kwargs['team'])
+            qs_captains = qs_captains.filter(team_id=kwargs['team'])
         else:
             app_qs = app_qs.select_related('match__our_team')
             award_winners_qs = award_winners_qs.select_related(
@@ -109,6 +114,7 @@ class Query(graphene.ObjectType):
             app_qs = app_qs.filter(match__season_id=kwargs['season'])
             award_winners_qs = award_winners_qs.filter(
                 match__season_id=kwargs['season'])
+            qs_captains = qs_captains.filter(season_id=kwargs['season'])
         else:
             app_qs = app_qs.select_related('match__season')
             award_winners_qs = award_winners_qs.select_related('match__season')
@@ -120,6 +126,8 @@ class Query(graphene.ObjectType):
 
         for award_winner in award_winners_qs:
             squad_stats.add_award_winner(award_winner)
+
+        squad_stats.add_captains(qs_captains)
 
         return SquadStatsType(totals=squad_stats.totals, squad=squad_stats.squad())
 

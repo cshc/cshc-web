@@ -18,6 +18,8 @@ class MemberPlayingStats(object):
         self.clean_sheets = 0
         self.mom = 0
         self.lom = 0
+        self.is_captain = False
+        self.is_vice_captain = False
 
     def add_appearance(self, appearance):
         """ Add the specified appearance to the member's stats"""
@@ -91,3 +93,12 @@ class SquadPlayingStats(object):
         if award_winner.member_id in self.squad_lookup:
             self.squad_lookup[award_winner.member_id].add_award(
                 award_winner.award)
+
+    def add_captains(self, captains):
+        """ Updates the relevant squad members with whether they are a captain/vice-captain or not """
+        for captain in captains:
+            if captain.member_id in self.squad_lookup:
+                if captain.is_vice:
+                    self.squad_lookup[captain.member_id].is_vice_captain = True
+                else:
+                    self.squad_lookup[captain.member_id].is_captain = True

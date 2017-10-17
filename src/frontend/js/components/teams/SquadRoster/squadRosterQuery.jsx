@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
 export const SQUAD_ROSTER_QUERY = gql`
-  query SquadStats($season:Int, $team:Int) {
+  query SquadStats($season: Int, $team: Int) {
     squadStats(season: $season, team: $team) {
       totals {
         played
@@ -21,6 +21,8 @@ export const SQUAD_ROSTER_QUERY = gql`
         cleanSheets
         mom
         lom
+        isCaptain
+        isViceCaptain
         member {
           modelId
           firstName
