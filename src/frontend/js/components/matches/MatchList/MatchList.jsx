@@ -10,65 +10,55 @@ export const ViewType = {
   grid: 'grid',
 };
 
-class MatchList extends React.Component {
-  componentDidMount() {
-    $('[data-toggle="tooltip"]').tooltip();
-  }
-
-  render() {
-    const {
-      viewType,
-      matches,
-      onSelectViewType,
-      exclude,
-      dateFormat,
-      showViewTypeSwitcher,
-    } = this.props;
-    const listClassName = classnames('btn  g-mr-10 g-mb-15', {
-      'u-btn-outline-primary': viewType === ViewType.grid,
-      'u-btn-primary': viewType === ViewType.list,
-    });
-    const gridClassName = classnames('btn g-mr-10 g-mb-15', {
-      'u-btn-outline-primary': viewType === ViewType.list,
-      'u-btn-primary': viewType === ViewType.grid,
-    });
-    return (
-      <div>
-        {showViewTypeSwitcher && (
-          <div className={styles.viewTypes}>
-            <a
-              role="button"
-              tabIndex={0}
-              className={listClassName}
-              onClick={() => onSelectViewType(ViewType.list)}
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Timeline display"
-            >
-              <i className="fa fa-list" />
-            </a>
-            <a
-              role="button"
-              tabIndex={0}
-              className={gridClassName}
-              onClick={() => onSelectViewType(ViewType.grid)}
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Table display"
-            >
-              <i className="fa fa-table" />
-            </a>
-          </div>
-        )}
-        {viewType === ViewType.list ? (
-          <MatchTimeline matches={matches} exclude={exclude} dateFormat={dateFormat} />
-        ) : (
-          <MatchTable matches={matches} excludeColumns={exclude} dateFormat={dateFormat} />
-        )}
-      </div>
-    );
-  }
-}
+const MatchList = ({
+  viewType,
+  matches,
+  onSelectViewType,
+  exclude,
+  dateFormat,
+  showViewTypeSwitcher,
+}) => {
+  const listClassName = classnames('btn  g-mr-10', {
+    'u-btn-outline-primary': viewType === ViewType.grid,
+    'u-btn-primary': viewType === ViewType.list,
+  });
+  const gridClassName = classnames('btn g-mr-10', {
+    'u-btn-outline-primary': viewType === ViewType.list,
+    'u-btn-primary': viewType === ViewType.grid,
+  });
+  return (
+    <div>
+      {showViewTypeSwitcher && (
+        <div className={styles.viewTypes}>
+          <span className="g-mr-10">Display:</span>
+          <a
+            role="button"
+            tabIndex={0}
+            className={listClassName}
+            onClick={() => onSelectViewType(ViewType.list)}
+          >
+            <i className="fa fa-list g-mr-5" />
+            Timeline
+          </a>
+          <a
+            role="button"
+            tabIndex={0}
+            className={gridClassName}
+            onClick={() => onSelectViewType(ViewType.grid)}
+          >
+            <i className="fa fa-table g-mr-5" />
+            Table
+          </a>
+        </div>
+      )}
+      {viewType === ViewType.list ? (
+        <MatchTimeline matches={matches} exclude={exclude} dateFormat={dateFormat} />
+      ) : (
+        <MatchTable matches={matches} excludeColumns={exclude} dateFormat={dateFormat} />
+      )}
+    </div>
+  );
+};
 
 MatchList.propTypes = {
   viewType: PropTypes.string.isRequired,
