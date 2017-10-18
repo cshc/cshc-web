@@ -80,6 +80,7 @@ export const MATCH_LIST_QUERY = gql`
 export const matchListOptions = {
   options: ({ matchFilters }) => ({
     variables: matchFilters,
+    fetchPolicy: 'cache-first',
   }),
   props: ({ data: { networkStatus, error, matches }, ...props }) => ({
     networkStatus,

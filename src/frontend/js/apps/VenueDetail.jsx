@@ -1,13 +1,13 @@
 import VenueDetail from 'components/venues/VenueDetail';
-import matches, { initialMatchViewState } from 'redux/reducers/matchReducers';
+import ui, { initialViewState } from 'redux/reducers/uiReducers';
 import render from '../ReactRenderer';
 
 const reducers = {
-  matches,
+  ui,
 };
 
 const initialState = {
-  matches: initialMatchViewState,
+  ui: initialViewState,
 };
 
 render(VenueDetail, reducers, initialState);

@@ -11,45 +11,47 @@ import MatchVenue from '../../MatchVenue';
 import MatchLink from '../../MatchLink';
 import styles from './style.scss';
 
-const MatchTableRow = ({ match, excludeColumns, dateFormat }) => {
+const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
   const incl = columnName => !excludeColumns.includes(columnName);
+  const priority = (columnName, defaultPriority = 1) =>
+    `align-middle priority${priorities[columnName] || defaultPriority}`;
   return (
     <tr>
       {incl('fixtureType') && (
-        <td className="align-middle priority3">
+        <td className={priority('fixtureType', 3)}>
           <FixtureTypeIcon fixtureType={match.fixtureType} />
         </td>
       )}
       {incl('date') && (
-        <td className="align-middle no-break">
+        <td className={`${priority('date')} no-break`}>
           <MatchDate date={match.date} format={dateFormat} />
         </td>
       )}
       {incl('opposition') && (
-        <td className="align-middle">
+        <td className={priority('opposition')}>
           <OppositionTeam team={match.oppTeam} />
           <KitClash match={match} />
         </td>
       )}
       {incl('time') && (
-        <td className="align-middle priority2">
+        <td className={priority('time', 2)}>
           {match.time && format(Match.datetime(match), 'H:mm')}
         </td>
       )}
       {incl('venue') && (
-        <td className="align-middle priority2">
+        <td className={priority('venue', 2)}>
           <MatchVenue match={match} />
         </td>
       )}
       {incl('result') && (
-        <td className="align-middle g-text-center">
+        <td className={`${priority('result')} g-text-center`}>
           <span className={`${Match.resultClass(match)} g-py-5 g-px-8`}>
             {Match.scoreDisplay(match)}
           </span>
         </td>
       )}
       {incl('scorers') && (
-        <td className="align-middle priority3">
+        <td className={priority('scorers', 3)}>
           <div className={styles.flexWrap}>
             {Match.scorers(match).map(scorer => (
               <MemberLink
@@ -63,7 +65,7 @@ const MatchTableRow = ({ match, excludeColumns, dateFormat }) => {
         </td>
       )}
       {incl('awards') && (
-        <td className="align-middle priority3">
+        <td className={priority('awards', 3)}>
           <div className={styles.flexWrap}>
             {Match.mom(match).map(awardWinner => (
               <MemberLink
@@ -76,7 +78,7 @@ const MatchTableRow = ({ match, excludeColumns, dateFormat }) => {
         </td>
       )}
       {incl('awards') && (
-        <td className="align-middle priority3">
+        <td className={priority('awards', 3)}>
           <div className={styles.flexWrap}>
             {Match.lom(match).map(awardWinner => (
               <MemberLink
@@ -89,7 +91,7 @@ const MatchTableRow = ({ match, excludeColumns, dateFormat }) => {
         </td>
       )}
       {incl('report') && (
-        <td className="align-middle g-text-center">
+        <td className={`${priority('report')} g-text-center`}>
           <MatchLink match={match} />
         </td>
       )}
@@ -100,11 +102,13 @@ const MatchTableRow = ({ match, excludeColumns, dateFormat }) => {
 MatchTableRow.propTypes = {
   match: PropTypes.shape().isRequired,
   excludeColumns: PropTypes.arrayOf(PropTypes.string),
+  priorities: PropTypes.shape(),
   dateFormat: PropTypes.string,
 };
 
 MatchTableRow.defaultProps = {
   excludeColumns: [],
+  priorities: {},
   dateFormat: 'Do MMM',
 };
 

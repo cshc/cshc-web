@@ -62,7 +62,11 @@ const TeamDetail = ({ networkStatus, error, matches, division, teamId, seasonId 
         title="Fixtures"
         rightIcon={fixturesLink}
       >
-        <MatchList matches={fixtures} exclude={['result', 'scorers', 'awards']} />
+        <MatchList
+          matches={fixtures}
+          exclude={['result', 'scorers', 'awards']}
+          priorities={{ time: 1 }}
+        />
       </AccordionCard>
       <AccordionCard
         cardId="league-table"

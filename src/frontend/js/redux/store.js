@@ -1,4 +1,5 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { autoRehydrate } from 'redux-persist';
 
 /* eslint-disable no-underscore-dangle */
 const buildStore = (reducers, initialState, client) =>
@@ -10,6 +11,7 @@ const buildStore = (reducers, initialState, client) =>
     initialState,
     compose(
       applyMiddleware(client.middleware()),
+      autoRehydrate(),
       // If you are using the devToolsExtension, you can add it here also
       typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined'
         ? window.__REDUX_DEVTOOLS_EXTENSION__()

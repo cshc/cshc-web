@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
-import { setMatchViewType } from 'redux/actions/matchActions';
+import { setViewType } from 'redux/actions/uiActions';
+import { SwitchableView } from 'util/constants';
 import MatchList from './MatchList';
 
 const mapStateToProps = state => ({
-  viewType: state.matches.viewType,
+  viewType: state.ui.viewTypes[SwitchableView.MatchList],
 });
 
 const mapDispatchToProps = dispatch => ({
   onSelectViewType: (viewType) => {
-    dispatch(setMatchViewType(viewType));
+    dispatch(setViewType(SwitchableView.MatchList, viewType));
   },
 });
 

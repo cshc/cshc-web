@@ -14,8 +14,21 @@ const MatchAward = {
   LOM: 'Lemon of the Match',
 };
 
+const SwitchableView = {
+  SquadRoster: 'squad-roster',
+  MatchList: 'match-list',
+};
+
+const ViewType = {
+  Table: 'Table',
+  Timeline: 'Timeline',
+  Cards: 'Cards',
+};
+
 module.exports = {
   FixtureType,
   HomeAway,
   MatchAward,
+  ViewType,
+  SwitchableView,
 };
