@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { VictoryPie, VictoryTooltip } from 'victory';
+import { VictoryPie } from 'victory';
 import Member from 'models/member';
 import ProgressBar from 'components/common/ProgressBar';
 import IconList from 'components/common/IconList';
@@ -28,41 +28,26 @@ const SquadRosterCard = ({ memberStats, teamTotals }) => {
   return (
     <div className="col-md-6 col-lg-3 g-mb-30">
       <article className="g-bg-white">
-        <div className={styles.imageFlipContainer}>
-          <figure className={styles.imageContainer}>
-            <div className={styles.front}>
-              <div className={styles.frontContent}>
-                <img className={styles.image} src={imgSrc} alt="Member profile pic" />
-                <div className={styles.imageOverlayFront}>
-                  <IconList
-                    className={styles.awardRow}
-                    iconClass="fa fa-star g-mr-5"
-                    count={memberStats.mom}
-                  />
-                  <IconList
-                    className={`${styles.awardRow} g-pb-10`}
-                    iconClass="fa fa-lemon-o g-mr-5"
-                    count={memberStats.lom}
-                  />
-                  {(memberStats.isCaptain || memberStats.isViceCaptain) && (
-                    <div className={styles.captain}>
-                      {memberStats.isCaptain ? 'Captain' : 'Vice Captain'}
-                    </div>
-                  )}
-                </div>
+        <figure className={styles.imageContainer}>
+          <img className={styles.image} src={imgSrc} alt="Member profile pic" />
+          <div className={styles.imageOverlay}>
+            <IconList
+              className={styles.awardRow}
+              iconClass="fa fa-star g-mr-5"
+              count={memberStats.mom}
+            />
+            <IconList
+              className={`${styles.awardRow} g-pb-10`}
+              iconClass="fa fa-lemon-o g-mr-5"
+              count={memberStats.lom}
+            />
+            {(memberStats.isCaptain || memberStats.isViceCaptain) && (
+              <div className={styles.captain}>
+                {memberStats.isCaptain ? 'Captain' : 'Vice Captain'}
               </div>
-            </div>
-            <div className={styles.back}>
-              <div className={styles.backContent}>
-                <span
-                  className={`${styles.shirt} shirt-number shirt-number-2xl ${memberStats.member.gender.toLowerCase()}`}
-                >
-                  {memberStats.member.shirtNumber}
-                </span>
-              </div>
-            </div>
-          </figure>
-        </div>
+            )}
+          </div>
+        </figure>
         <div className="u-shadow-v24 g-pa-25">
           <h3 className="h5 g-mb-5 text-center">{Member.fullName(memberStats.member)}</h3>
           <p className="text-center g-mb-5">

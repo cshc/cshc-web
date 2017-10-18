@@ -1,57 +1,5 @@
-/* entire container, keeps perspective */
-.imageFlipContainer {
-  perspective: 1000px;
-}
-/* flip the pane when hovered */
-.imageFlipContainer:hover .imageContainer,
-.imageFlipContainer.hover .imageContainer {
-  transform: rotateY(180deg);
-}
-
-.imageFlipContainer,
-.front,
-.back {
-  width: 255px;
-  height: 255px;
-}
-
-/* flip speed goes here */
 .imageContainer {
-  transition: 0.6s;
-  transform-style: preserve-3d;
-
   position: relative;
-}
-
-/* hide back of pane during swap */
-.front,
-.back {
-  backface-visibility: hidden;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-/* front pane, placed above back */
-.front {
-  z-index: 2;
-  /* for firefox 31 */
-  transform: rotateY(0deg);
-}
-
-/* back, initially hidden pane */
-.back {
-  transform: rotateY(180deg);
-}
-.backContent {
-  width: 255px;
-  height: 255px;
-  background-color: #f1f1f1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 .image {
   width: 100%;
@@ -62,22 +10,12 @@
   top: 0;
   right: 0;
   bottom: 0;
-}
-.imageOverlayFront {
-  composes: imageOverlay;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
   color: white;
 }
-.imageOverlayBack {
-  composes: imageOverlay;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .shirt {
   transform: scale(2);
 }
@@ -89,7 +27,6 @@
   align-items: flex-end;
   justify-content: space-between;
 }
-
 .captain {
   align-self: stretch;
   background-color: rgba(0, 0, 0, 0.5);
