@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const IconList = ({ className, iconClass, count }) => {
   const icons = [];
   for (let i = 0; i < count; i += 1) {
-    icons.push(<i className={iconClass} />);
+    icons.push(<i key={i} className={iconClass} />);
   }
   return <div className={className}>{icons}</div>;
 };

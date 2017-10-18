@@ -1633,6 +1633,9 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
   font-size: 24px;
   line-height: 60px;
 }
+.btn-group.link-dropdown {
+  display: inline-flex;
+}
 .btn-group.link-dropdown .btn-link {
   padding-left: 0;
 }
