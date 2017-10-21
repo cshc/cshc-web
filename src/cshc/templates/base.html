@@ -1,5 +1,6 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
 
 {% block breadcrumbs %}
   {% clear_breadcrumbs %}
@@ -26,6 +27,7 @@
   <link rel="stylesheet" href="{% static "vendor/bootstrap/bootstrap.min.css" %}">
   <link rel="stylesheet" href="{% static "vendor/icon-awesome/css/font-awesome.min.css" %}">
   <link rel="stylesheet" href="{% static "vendor/icon-hs/style.css" %}">
+  <link rel="stylesheet" href="{% static "vendor/icon-line/css/simple-line-icons.css" %}">
   <link rel="stylesheet" href="{% static "vendor/animate.css" %}">
   
   <link rel="stylesheet" href="{% static "vendor/hamburgers/hamburgers.min.css" %}">
@@ -51,6 +53,13 @@
         {% include "core/_nav.html" %}
       </div>
     </header>
+    {% if messages %}
+    <section class="cshc-messages container g-mt-10">
+        {% for message in messages %}
+          {% message_alert message=message %}
+        {% endfor %}
+    </section>
+    {% endif %}
     {% block main %}
       <section class="container g-pt-20 g-pb-40">
         {% render_breadcrumbs %}
@@ -73,7 +82,7 @@
   <script src="{% static "vendor/unify/js/components/hs.header.js" %}"></script>
   <script src="{% static "vendor/unify/js/helpers/hs.hamburgers.js" %}"></script>
   <script src="{% static "vendor/hs-megamenu/src/hs.megamenu.js" %}"></script>
-  
+
   <script src="{% static "js/util.js" %}"></script>
   <script >
     $(function () {

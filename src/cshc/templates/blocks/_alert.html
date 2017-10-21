@@ -1,0 +1,15 @@
+<div class="alert alert-{{ alert_class }} {% if dismissable %}alert-dismissible{% endif %} fade show" role="alert">
+  {% if dismissable %}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+  {% endif %}
+  <div class="media">
+    <span class="d-flex mr-2 g-mt-5">
+      <i class="{{ icon_class }}"></i>
+    </span>
+    <div class="media-body">
+      <strong>{{ bold_text }}</strong> {{ message }}
+    </div>
+  </div>
+</div>

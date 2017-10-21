@@ -1,0 +1,29 @@
+{% load account socialaccount %}
+
+<ul class="list-inline text-center mb-4">
+  <li class="list-inline-item g-mx-2">
+    <a class="u-icon-v1 u-icon-size--sm u-icon-slide-up--hover g-color-white g-bg-facebook rounded-circle" href="{% provider_login_url "facebook" method="js_sdk" %}">
+      <i class="g-font-size-default g-line-height-1 u-icon__elem-regular fa fa-facebook"></i>
+      <i class="g-font-size-default g-line-height-0_8 u-icon__elem-hover fa fa-facebook"></i>
+    </a>
+  </li>
+  <li class="list-inline-item g-mx-2">
+    <a class="u-icon-v1 u-icon-size--sm u-icon-slide-up--hover g-color-white g-bg-twitter rounded-circle" href="{% provider_login_url "twitter" method="oauth2" %}">
+      <i class="g-font-size-default g-line-height-1 u-icon__elem-regular fa fa-twitter"></i>
+      <i class="g-font-size-default g-line-height-0_8 u-icon__elem-hover fa fa-twitter"></i>
+    </a>
+  </li>
+  <li class="list-inline-item g-mx-2">
+    <a class="u-icon-v1 u-icon-size--sm u-icon-slide-up--hover g-color-white g-bg-google-plus rounded-circle" href="{% provider_login_url "google" method="oauth2" %}">
+      <i class="g-font-size-default g-line-height-1 u-icon__elem-regular fa fa-google"></i>
+      <i class="g-font-size-default g-line-height-0_8 u-icon__elem-hover fa fa-google"></i>
+    </a>
+  </li>
+  <li class="list-inline-item g-mx-2">
+    <a class="u-icon-v1 u-icon-size--sm u-icon-slide-up--hover g-color-white g-bg-linkedin rounded-circle" href="{% provider_login_url "linkedin_oauth2" method="oauth2" %}">
+      <i class="g-font-size-default g-line-height-1 u-icon__elem-regular fa fa-linkedin"></i>
+      <i class="g-font-size-default g-line-height-0_8 u-icon__elem-hover fa fa-linkedin"></i>
+    </a>
+  </li>
+</ul>
+{% include "socialaccount/snippets/login_extra.html" %}

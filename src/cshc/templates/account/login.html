@@ -1,0 +1,94 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block title %}{{ block.super }} - Sign In{% endblock %}
+
+{% block main %}
+
+{% get_providers as socialaccount_providers %}
+
+<section class="g-bg-secondary">
+  <section class="container g-py-150">
+    <div class="row justify-content-center">
+      <div class="col-sm-8 col-lg-6">
+        <div class="u-shadow-v21 g-bg-white g-brd-around g-brd-gray-light-v4 rounded g-pa-50">
+            <header class="text-center mb-4">
+              <h2 class="h2 g-color-black g-font-weight-600">Sign In</h2>
+            </header>
+
+            <!-- Form -->
+            <form class="g-py-15" method="POST" action="{% url 'account_login' %}">
+              {% if form.non_field_errors %}
+                <div class="u-has-error-v1">
+                  <small class="form-control-feedback">
+                    {{ form.non_field_errors }}
+                  </small>
+                </div>
+              {% endif %}
+              {% csrf_token %}
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              <div class="mb-4 {% if form.errors.login %}u-has-error-v1{% endif %}">
+                <div class="input-group g-brd-primary--focus">
+                  <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
+                      <i class="fa fa-user"></i>
+                    </span>
+                  <input class="form-control g-color-black g-brd-gray-light-v4 g-py-15 g-px-15" type="email" name="login"  placeholder="Email" />
+                </div>
+                {% if form.errors.login %}<small class="form-control-feedback">{{ form.errors.login }}</small>{% endif %}
+              </div>
+
+              <div class="g-mb-35 {% if form.errors.password %}u-has-error-v1{% endif %}">
+                <div class="input-group g-brd-primary--focus">
+                  <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
+                      <i class="fa fa-lock"></i>
+                    </span>
+                  <input class="form-control g-color-black g-brd-gray-light-v4 g-py-15 g-px-15" type="password" name="password" placeholder="Password" />
+                </div>
+                {% if form.errors.password %}<small class="form-control-feedback">{{ form.errors.password }}</small>{% endif %}
+                <div class="row justify-content-between mt-4">
+                  <div class="col align-self-center">
+                    <label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-12 g-pl-25 mb-0">
+                      <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox" name="remember" />
+                      <div class="u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0">
+                        <i class="fa g-rounded-2" data-check-icon=""></i>
+                      </div>
+                      Keep signed in
+                    </label>
+                  </div>
+                  <div class="col align-self-center text-right">
+                    <a class="g-font-size-12" href="{% url 'account_reset_password' %}">Forgot password?</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-5">
+                <button class="btn btn-md btn-block u-btn-primary g-py-13" type="submit">Sign In</button>
+              </div>
+
+              
+              {% if socialaccount_providers %}
+              <div class="d-flex justify-content-center text-center g-mb-30">
+                <div class="d-inline-block align-self-center g-width-50 g-height-1 g-bg-gray-light-v1"></div>
+                <span class="align-self-center g-color-gray-dark-v3 mx-4">OR</span>
+                <div class="d-inline-block align-self-center g-width-50 g-height-1 g-bg-gray-light-v1"></div>
+              </div>
+              {% include 'account/_social_auth.html' %}         
+              {% endif %}
+            </form>
+            <!-- End Form -->
+
+            <footer class="text-center">
+              <p class="g-color-gray-dark-v5 g-font-size-13 mb-0">Don't have an account? <a class="g-font-weight-600" href="{{ signup_url }}">Create an account</a>
+              </p>
+            </footer>
+          </div>
+      </div>
+    </div>
+  </section>
+</section>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load cshc_tags %}
+{% load django_bootstrap_breadcrumbs %}
+{% load account socialaccount %}
+
+{% block title %}{{ block.super }} - {% trans "Verify Your E-mail Address" %}{% endblock %}
+
+{% block breadcrumbs %}
+{{ block.super }}
+{% clear_breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+{% heading "Verify Your E-mail Address" %}
+
+{% url 'account_email' as email_url %}
+
+<p>{% blocktrans %}This part of the site requires us to verify that
+you are who you claim to be. For this purpose, we require that you
+verify ownership of your e-mail address. {% endblocktrans %}</p>
+
+<p>{% blocktrans %}We have sent an e-mail to you for
+verification. Please click on the link inside this e-mail. Please
+contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}<strong>Note:</strong> you can still <a href="{{ email_url }}">change your e-mail address</a>.{% endblocktrans %}</p>
+
+{% endblock content %}
+

@@ -54,3 +54,9 @@ class CshcUser(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+    def get_full_name(self):
+        return u"{} {}".format(self.first_name, self.last_name).strip()
+
+    def get_short_name(self):
+        return str(self.first_name.strip())

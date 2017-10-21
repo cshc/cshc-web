@@ -1,0 +1,84 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load cshc_tags %}
+{% load django_bootstrap_breadcrumbs %}
+{% load account socialaccount %}
+
+{% block title %}{{ block.super }} - Email Addresses{% endblock %}
+
+{% block breadcrumbs %}
+{{ block.super }}
+{% clear_breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+{% heading 'Email Addresses' %}
+
+{% if user.emailaddress_set.all %}
+<p class="lead">{% trans 'The following e-mail addresses are associated with your account:' %}</p>
+
+<form action="{% url 'account_email' %}" class="email_list" method="post">
+{% csrf_token %}
+<fieldset class="blockLabels">
+
+  {% for emailaddress in user.emailaddress_set.all %}
+    <div class="form-group g-mb-10">
+      <label for="email_radio_{{forloop.counter}}" class="u-check g-pl-25 {% if emailaddress.primary %}primary_email{%endif%}">
+        <input id="email_radio_{{forloop.counter}}" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="email" type="radio" {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked="checked"{% endif %} value="{{emailaddress.email}}" />
+        <div class="u-check-icon-font g-absolute-centered--y g-left-0">
+          <i class="fa" data-check-icon="" data-uncheck-icon=""></i>
+        </div>
+        {{ emailaddress.email }}
+        {% if emailaddress.verified %}
+          <span class="verified">{% trans "Verified" %}</span>
+        {% else %}
+          <span class="unverified">{% trans "Unverified" %}</span>
+        {% endif %}
+        {% if emailaddress.primary %}<span class="primary">{% trans "Primary" %}</span>{% endif %}
+      </label>
+    </div>
+  {% endfor %}
+
+  <div class="buttonHolder">
+    <button class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
+    <button class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
+    <button class="btn btn-md u-btn-primary g-mr-10 g-mb-15" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
+  </div>
+
+</fieldset>
+</form>
+
+{% else %}
+  {% alert alert_class="warning" icon_class="fa fa-exclamation-triangle" bold_text="Warning!" message="You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc." %}
+{% endif %}
+
+<div class="u-heading-v1-4 g-bg-main g-brd-gray-light-v2 g-mb-20">
+  <h2 class="h3 u-heading-v1__title">{% trans "Add E-mail Address" %}</h2>
+</div>
+
+<form method="post" action="{% url 'account_email' %}" class="add_email">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-md u-btn-primary" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
+</form>
+
+{% endblock content %}
+
+
+{% block body_js %}
+{{ block.super }}
+<script type="text/javascript">
+(function() {
+  var message = "{% trans 'Do you really want to remove the selected e-mail address?' %}";
+  var actions = document.getElementsByName('action_remove');
+  if (actions.length) {
+    actions[0].addEventListener("click", function(e) {
+      if (! confirm(message)) {
+        e.preventDefault();
+      }
+    });
+  }
+})();
+</script>
+{% endblock body_js %}

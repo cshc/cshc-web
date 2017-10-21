@@ -1,4 +1,5 @@
 {% load static from staticfiles %}
+{% load account socialaccount %}
 
 <nav class="js-mega-menu navbar navbar-expand-lg hs-menu-horizontal">
   <div class="container">
@@ -114,9 +115,6 @@
           <a id="nav-link--stats" href="#" class="nav-link g-py-7 g-px-0" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu--stats">Stats
           </a>
           <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-bg-black g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling" id="nav-submenu--stats" aria-labelledby="nav-link--stats" style="display: none;">
-            <li class="dropdown-item g-brd-bottom g-brd-primary-bottom">
-              <a href="#" class="nav-link">Stats Overview</a>
-            </li>
             <li class="dropdown-item">
               <a href="#" class="nav-link">Goal King</a>
             </li>
@@ -158,37 +156,67 @@
             </li>
             {% endif %}
             <li class="dropdown-item">
-              <a href="{{ logout }}?next={{ request.get_full_path }}" target="_blank" class="nav-link">Log out</a>
+                <form id="logout_form" method="post" action="{% url 'account_logout' %}">{% csrf_token %}
+                  <input type="hidden" name="next" value="{{ request.get_full_path }}"/>
+                  <a class="nav-link" href="javascript:{}" onclick="document.getElementById('logout_form').submit();">Log out</a>
+                </form>
             </li>
           </ul>
         </li>
         {% else %}
+        {% get_providers as socialaccount_providers %}
         <li class="hs-has-mega-menu nav-item g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn" data-animation-out="fadeOut" data-position="left">
-          <a id="mega-menu-label-login" href="#" class="nav-link g-py-7 g-px-0" aria-haspopup="true" aria-expanded="false">Login
+          <a id="mega-menu-label-login" href="#" class="nav-link g-py-7 g-px-0" aria-haspopup="true" aria-expanded="false">Sign In
             <i class="hs-icon hs-icon-arrow-bottom g-font-size-11 g-ml-7"></i>
           </a>
           <div class="w-100 g-bg-black hs-mega-menu u-shadow-v11 font-weight-normal g-brd-top g-brd-primary g-brd-top-2 g-mt-21 g-mt-11--lg--scrolling" aria-labelledby="mega-menu-label-login" style="display: none;">
-            <form class="g-pa-30" action="" method="post">{% csrf_token %}
+            <form class="g-pa-30" action="{% url 'account_login' %}" method="post">{% csrf_token %}
+              <input type="hidden" name="next" value="{{ request.get_full_path }}"/>
               <div class="g-max-width-780 mx-auto">
                 <div class="row">
                   <div class="col-lg-5 g-mb-20 g-mb-0--lg">
-                      <input class="form-control g-color-white g-color-white--focus g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_3 g-brd-white--focus g-py-13 g-px-15" type="email" placeholder="Email">
+                      <input class="form-control g-color-white g-color-white--focus g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_3 g-brd-white--focus g-py-13 g-px-15" type="email" name="login" placeholder="Email" tabindex="1">
                       <small class="d-block g-px-15 g-py-5">
-                      <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Create a new account</a>
+                      <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{% url 'account_signup' %}">Create a new account</a>
                     </small>
                   </div>
         
                   <div class="col-lg-5 g-mb-20 g-mb-0--lg">
-                    <input class="form-control g-color-white g-color-white--focus g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_3 g-brd-white--focus g-py-13 g-px-15" type="password" placeholder="Password">
+                    <input class="form-control g-color-white g-color-white--focus g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_3 g-brd-white--focus g-py-13 g-px-15" type="password" name="password" placeholder="Password" tabindex="2">
                     <small class="d-block g-px-15 g-py-5">
-                      <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{{ password_reset }}">Forgotten password?</a>
+                      <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{% url 'account_reset_password' %}">Forgotten password?</a>
                      </small>
                   </div>
         
                   <div class="col-lg-2 text-md-right text-lg-left">
-                    <button class="btn u-btn-primary text-uppercase g-py-13 g-px-15" type="submit">Log In</button>
+                    <button class="btn u-btn-primary text-uppercase g-py-13 g-px-15" type="submit" tabindex="3">Sign In</button>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-lg-5">
+                    <div class="d-block g-pt-15">
+                      <label class="u-check g-pl-25 g-color-white-opacity-0_8 g-color-white--hover">
+                        <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox" name="remember"  checked="">
+                        <div class="u-check-icon-checkbox-v4 g-color-white g-color-white--focus g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_3 g-brd-white--focus g-absolute-centered--y g-left-0">
+                          <i class="fa" data-check-icon=""></i>
+                        </div>
+                        Keep signed in
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                {% if socialaccount_providers %}
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="d-flex justify-content-center text-center g-mb-30">
+                      <div class="d-inline-block align-self-center g-width-50 g-height-1 g-bg-gray-light-v1"></div>
+                      <span class="align-self-center g-color-gray-dark-v3 mx-4">OR</span>
+                      <div class="d-inline-block align-self-center g-width-50 g-height-1 g-bg-gray-light-v1"></div>
+                    </div>
+                    {% include 'account/_social_auth.html' %}    
+                  </div>              
+                </div>
+                {% endif %}
               </div>
             </form>
           </div>

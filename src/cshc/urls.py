@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from graphene_django.views import GraphQLView
 
 from .views import HomeView
+from members.views import ProfileView
 
 #pylint: disable=C0103
 urlpatterns = [
@@ -30,6 +31,8 @@ urlpatterns = [
     url(r'^teams/', include('teams.urls')),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),  # CKEditor Urls
+    url(r'^accounts/profile/$', ProfileView.as_view(), name='user_profile'),
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^graphql', GraphQLView.as_view(graphiql=True)),   # GraphQL Urls
     url(r'^admin/', admin.site.urls),
 ] + \

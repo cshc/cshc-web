@@ -1659,3 +1659,7 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
 .btn-group.link-dropdown .btn-link:hover {
   text-decoration: none;
 }
+.form-control-feedback ul {
+  list-style: none;
+  padding-left: 0;
+}
