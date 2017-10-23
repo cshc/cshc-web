@@ -7,6 +7,7 @@ django-jet==1.0.6
 django-debug-toolbar==1.8
 django-model-utils==3.0.0
 django-filter==1.0.4
+django-braces==1.11.0
 
 # Django CKEditor (wysiwyg editor support)
 # Ref: https://django-ckeditor.readthedocs.io/en/latest/

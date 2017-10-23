@@ -1,0 +1,4 @@
+{% if match.get_fixture_type_display == 'League' %}<i class="fa fa-table" title="League match"></i>
+{% elif match.get_fixture_type_display == 'Cup' %}<i class="fa fa-trophy" title="Cup match"></i>
+{% elif match.get_fixture_type_display == 'Friendly' %}<i class="fa fa-smile-o" title="Friendly match"></i>
+{% endif %}

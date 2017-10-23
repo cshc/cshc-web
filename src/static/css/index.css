@@ -1,0 +1,25 @@
+.home-banner .g-color-white a {
+  color: rgb(216, 221, 255);
+}
+.home-banner .g-color-white a:hover {
+  color: rgb(177, 186, 252);
+}
+
+.home-banner .table thead th {
+  border-top: none;
+}
+.home-banner .table td {
+  border-top: 1px solid rgba(233, 236, 239, 0.42);
+}
+@media (max-width: 768px) {
+  .home-banner .container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+@media (min-width: 768px) {
+  .home-banner .container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}

@@ -67,6 +67,7 @@
       </section>
     {% endblock main %}
     {% include "core/_footer.html" %}
+    {% include "blocks/_go_to.html" %}
   </main>
 
   {% block body_js %}
@@ -80,6 +81,7 @@
   <!-- JS Unify -->
   <script src="{% static "vendor/unify/js/hs.core.js" %}"></script>
   <script src="{% static "vendor/unify/js/components/hs.header.js" %}"></script>
+  <script src="{% static "vendor/unify/js/components/hs.go-to.js" %}"></script>
   <script src="{% static "vendor/unify/js/helpers/hs.hamburgers.js" %}"></script>
   <script src="{% static "vendor/hs-megamenu/src/hs.megamenu.js" %}"></script>
 
@@ -94,6 +96,8 @@
       $('.js-mega-menu').HSMegaMenu();
       // Initialize tooltips everywhere
       $('[data-toggle="tooltip"]').tooltip();
+      // initialization of go to
+      $.HSCore.components.HSGoTo.init('.js-go-to');
     });
   </script>
   {% endblock body_js %}

@@ -11,31 +11,153 @@
 {% block head_js %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static "vendor/dzsparallaxer/dzsparallaxer.css" %}">
+<link rel="stylesheet" href="{% static "css/tables.css" %}">
+<link rel="stylesheet" href="{% static "css/index.css" %}">
 {% endblock head_js %}
 
 {% block header_class %}u-header--sticky-top u-header--toggle-section u-header--change-appearance{% endblock header_class %}
 {% block header_section_class %}g-bg-black-opacity-0_7{% endblock header_section_class %}
 
 {% block main %}
-<section class="dzsparallaxer auto-init height-is-based-on-content use-loading g-min-height-100vh mode-scroll is-touch dzsprx-readyall loaded" data-options="{direction: &quot;reverse&quot;, settings_mode_oneelement_max_offset: &quot;150&quot;}">
-    <div class="divimage dzsparallaxer--target w-100 g-bg-cover g-bg-img-hero" style="height: 130%; background-image: url(&quot;/static/img/blue-astro.jpg&quot;); transform: translate3d(0px, -117.768px, 0px);"></div>
+<section class="home-banner dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll is-touch dzsprx-readyall loaded" data-options="{direction: &quot;reverse&quot;, settings_mode_oneelement_max_offset: &quot;150&quot;}">
+    <div class="divimage dzsparallaxer--target w-100 g-bg-cover g-bg-img-hero" style="height: 130%; background-image: url(&quot;{% static "img/blue-astro.jpg" %}&quot;); transform: translate3d(0px, -117.768px, 0px);"></div>
 
-    <div class="g-absolute-centered--y w-100">
-        <div class="container g-bg-cover__inner g-py-30">
+    <div class="w-100">
+        <div class="container g-bg-cover__inner g-pt-90">
           <div class="row">
-            <div class="col-lg-6 g-bg-green-gradient-opacity-v1--after">
-              <h4>Latest Results</h4>
+            <div class="col-lg-6">
+              <div class="g-pa-10 g-bg-black-opacity-0_7 g-color-white">
+                <h4>Latest Results</h4>
+                {% include 'matches/_latest_results.html' %}
+              </div>
             </div>
-            <div class="col-lg-6 g-bg-green-gradient-opacity-v1--after">
-              <h4>Next Fixtures</h4>
+            <div class="col-lg-6">
+              <div class="g-pa-10 g-bg-black-opacity-0_7 g-color-white">
+                <h4>Next Fixtures</h4>
+                {% include 'matches/_next_fixtures.html' %}
+              </div>
             </div>
           </div>
         </div>
     </div>
 </section>  
+<div id="sub-navigation" class="g-pos-rel g-z-index-4 g-hidden-sm-down">
+  <div class="u-secondary-navigation u-shadow-v19 g-bg-white g-line-height-1_3 g-py-20 g-m-reset">
+    <div class="container">
+      <ul id="js-scroll-nav" class="nav flex-column flex-sm-row justify-content-sm-center text-center text-uppercase">
+        <li class="nav-item g-brd-right--sm g-brd-gray-light-v4 g-color-primary--active">
+          <a href="#training" class="nav-link g-px-20">Next Training</a>
+        </li>
+        <li class="nav-item g-brd-right--sm g-brd-gray-light-v4 g-color-primary--active">
+          <a href="#comments" class="nav-link g-px-20">Recent Comments</a>
+        </li>
+        <li class="nav-item g-brd-right--sm g-brd-gray-light-v4 g-color-primary--active">
+          <a href="#news" class="nav-link g-px-20">Latest News</a>
+        </li>
+        <li class="nav-item g-brd-right--sm g-brd-gray-light-v4 g-color-primary--active">
+          <a href="#tweets" class="nav-link g-px-20">Tweets</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<section class="g-bg-secondary">
+  <section class="container g-pt-100 g-pb-70">
+    <div class="row justify-content-center text-center g-mb-50">
+      <div class="col-lg-9">
+        <h1 class="h2 g-color-black g-font-weight-600 mb-2">Welcome to Cambridge South Hockey Club</h1>
+        <div class="d-inline-block g-width-30 g-height-2 g-bg-primary mb-2"></div>
+        <p class="lead">We are a friendly, lively, Cambridge-based club who run five men's and four ladies' teams as well as a mixed side, indoor team and a growing junior section.</p>
+        <p class="lead mb-0">We offer something for everyone; whether you are experienced or new to the sport you will be very welcome at the club.</p>
+      </div>
+    </div>
+  </section>
+</section>
+<section>
+  <div class="row align-items-stretch no-gutters g-bg-primary g-color-white">
+    <div class="col-lg-6 g-bg-img-hero" style="background-image: url(&quot;{% static "img/l1-1.jpg" %}&quot;);"></div>
+
+    <div class="col-lg-6 g-pa-100">
+      <h2 class="h1 g-mb-40">Improve your hockey skills</h2>
+      <ul class="fa-ul g-mb-40 g-font-size-20 g-line-height-1">
+        <li class="g-mb-20"><i class="fa-li fa fa-check-square g-mr-5"></i>Free coached men's and ladies' sessions</li>
+        <li class="g-mb-20"><i class="fa-li fa fa-check-square g-mr-5"></i>Junior hockey for players age 6-14</li>
+        <li class="g-mb-20"><i class="fa-li fa fa-check-square g-mr-5"></i>All levels from beginners upwards</li>
+        <li class="g-mb-20"><i class="fa-li fa fa-check-square g-mr-5"></i>Dedicated goalkeeper training</li>
+      </ul>
+      <a class="btn btn-lg u-btn-outline-white rounded-0" href="#">COME TRAIN WITH US</a>
+    </div>
+  </div>
+  <div class="row align-items-stretch no-gutters g-bg-secondary">
+    <div class="col-lg-6 g-pa-100">
+      <h2 class="h1 g-mb-40">Meet new people</h2>
+      <div class="g-font-size-20 g-mb-40">
+        <p>Stay for match teas then grab a drink from the bar and watch the other South teams playing.</p>
+        <p>In fact, why not just hang out all afternoon!</p>
+        <p>And then there's the legendary nights outs...</p>
+      </div>
+      <a class="btn btn-lg u-btn-outline-black rounded-0" href="#">JOIN IN THE FUN</a>
+    </div>
+    <div class="col-lg-6 g-bg-img-hero" style="background-image: url(&quot;{% static "img/l1-2.jpg" %}&quot;);"></div>    
+  </div>
+  <div class="row align-items-stretch no-gutters g-bg-primary g-color-white">
+    <div class="col-lg-6 g-bg-img-hero" style="background-image: url(&quot;{% static "img/l1-1.jpg" %}&quot;);"></div>
+
+    <div class="col-lg-6 g-pa-100">
+      <h2 class="h1 g-mb-40">Great facilities and value for money</h2>
+      <ul class="fa-ul g-mb-40 g-font-size-20 g-line-height-1">
+        <li class="g-mb-20"><i class="fa-li fa fa-check-square g-mr-5"></i>Lowest playing fees in Cambridge</li>
+        <li class="g-mb-20"><i class="fa-li fa fa-check-square g-mr-5"></i>Cheapest student rates</li>
+        <li class="g-mb-20"><i class="fa-li fa fa-check-square g-mr-5"></i>New floodlit all-weather home pitch</li>
+      </ul>
+      <a class="btn btn-lg u-btn-outline-white rounded-0" href="#">GET IN TOUCH</a>
+    </div>
+  </div>
+</section>
+<section id="training" class="container g-pt-40 g-pb-40">
+  <div class="text-center g-mb-40">
+    <h1 class="h2 g-color-black g-font-weight-600 mb-2">Upcoming Training Sessions</h1>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+      {% include 'training/_next_training.html' %}
+    </div>
+  </div>
+</section>
+<section id="comments">
+  
+</section>
+<section id="news">
+
+</section>
+<section class="g-bg-secondary">
+  <section id="tweets" class="container g-pt-40 g-pb-40">
+    <div class="text-center g-mb-40">
+      <h1 class="h2 g-color-black g-font-weight-600 mb-2">Twitterings</h1>
+      <a class='twitter-follow-button' data-show-count='true' href='https://twitter.com/CambSouthHC'>Follow us on Twitter</a>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <a class="twitter-timeline" data-tweet-limit="9" data-chrome="nofooter noheader noborders noscrollbar transparent" href="https://twitter.com/cambsouthhc?ref_src=twsrc%5Etfw">Tweets by cambsouthhc</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </div>
+    </div>
+    {% comment %} <a class='twitter-timeline' data-chrome='nofooter noheader noborders noscrollbar transparent' data-screen-id='cambsouthhc' data-widget-id='352741775741444096' href='https://twitter.com/twitterapi'>Tweets by @cambsouthhc</a> {% endcomment %}
+  </section>
+</section>
 {% endblock main %}
 
 {% block body_js %}
 {{ block.super }}
 <script src="{% static "vendor/dzsparallaxer/dzsparallaxer.js" %}"></script>
+<script src="{% static "vendor/unify/js/components/hs.scroll-nav.js" %}"></script>
+<script>
+  $(window).on('load', function () {
+    // initialization of HSScrollNav
+    $.HSCore.components.HSScrollNav.init($('#js-scroll-nav'), {
+      duration: 700,
+      easing: 'easeOutExpo',
+      over: $('.u-secondary-navigation')
+    });
+  })
+</script>
 {% endblock body_js %}
