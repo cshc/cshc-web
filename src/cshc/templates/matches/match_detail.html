@@ -11,10 +11,17 @@
 {% breadcrumb match.match_title_text "match_detail" slug=match.pk %}
 {% endblock %}
 
+{% block link %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/match_detail.css" %}">
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
+{% endblock link %}
+
 {% block head_js %}
-{{ block.super }}
-<link rel="stylesheet" href="{% static "css/match_detail.css" %}">
-<link rel="stylesheet" href="{% static "css/tables.css" %}">
+  {{ block.super }}
+  {% if not match.is_in_past %}
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ GMAPS_API_KEY }}&region=GB"></script>
+  {% endif %}
 {% endblock head_js %}
 
 {% block main %}
@@ -73,6 +80,9 @@
 </section>
 <section class="container g-pt-20 g-pb-40">
   <div id="match-accordion" class="u-accordion u-accordion-color-primary u-accordion-brd-primary" role="tablist" aria-multiselectable="true">
+    {% if not match.is_in_past %}
+      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='venue' cardTitle='Venue' cardContent='matches/_venue.html' %}
+    {% endif %}
     {% if appearances %}
       {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='team' cardTitle='Team' cardContent='matches/_players.html' %}
     {% endif %}
@@ -94,4 +104,7 @@
       jQuery(".shirt-wrapper .shirt-number").fitText(0.8);
     })
 </script>
+{% if not match.is_in_past %}
+  {% include 'maps/_map_body_js.html' with venue=match.venue mapId="map" %}
+{% endif %}
 {% endblock body_js %}

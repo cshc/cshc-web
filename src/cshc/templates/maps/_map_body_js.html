@@ -1,0 +1,25 @@
+{% comment %} 
+JavaScript initialization of a map or maps
+
+Expects context containing:
+  mapId - the ID of the map div element
+  venue - a Venue model instance
+{% endcomment %}
+ 
+{% load static %}
+
+<script type="text/javascript" src="{% static "vendor/gmap3/gmap3.min.js" %}"></script>
+<script >
+  $(function () {
+    var address = "{{ venue.full_address }}";
+    
+    $('#{{ mapId }}')
+    .gmap3({
+      address:address,
+      zoom: 14,
+      scrollwheel: true,
+      mapTypeId : google.maps.MapTypeId.ROADMAP
+    })
+    .marker({address: address});
+  });
+</script>

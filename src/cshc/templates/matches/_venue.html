@@ -1,0 +1,26 @@
+{% comment %} 
+Re-usable template that renders the venue details for a match.
+
+Notes: 
+1. The following script must be included in the head:
+   https://maps.googleapis.com/maps/api/js?key={{ GMAPS_API_KEY }}&region=GB
+2. The map must be initialized 
+{% endcomment %}
+
+{% load cshc_tags %}
+
+<p class="lead"><a href="{{ match.venue.get_absolute_url }}" title="Venue Details">{{ match.venue.name }}</a></p>
+<address>
+  <strong>
+    {% if match.venue.addr1 %}{{ match.venue.addr1 }}<br/>{% endif %}
+    {% if match.venue.addr2 %}{{ match.venue.addr2 }}<br/>{% endif %}
+    {% if match.venue.addr3 %}{{ match.venue.addr3 }}<br/>{% endif %}
+    {% if match.venue.addr_city %}{{ match.venue.addr_city }}<br/>{% endif %}
+    {% if match.venue.addr_postcode %}{{ match.venue.addr_postcode }}<br/><br/>{% endif %}
+  </strong>
+  {% if match.venue.phone %}<i class="fa fa-phone g-mr-5"></i>{{ match.venue.phone }}<br/>{% endif %}
+  {% if match.venue.url %}<i class="fa fa-globe g-mr-5"></i>{{ match.venue.url|urlize }}{% endif %}
+</address>
+{% if match.venue.address_known %}
+  {% include 'maps/_map.html' with mapId="map" %}
+{% endif %}

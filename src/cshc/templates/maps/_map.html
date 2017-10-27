@@ -1,0 +1,12 @@
+{% comment %} 
+Embedded Google Map. 
+
+Expects context containing:
+mapId - the id to assign to the map div. Must be unique on the page. Will also need to be
+        passed to 'maps/_map_body_js.html'
+mapClass - optional class for the map div
+
+Note: This must be initialized using the 'maps/_map_body_js.html' template
+{% endcomment %}
+
+<div id="{{ mapId }}" class="js-g-map embed-responsive embed-responsive-21by9 g-min-height-60vh {{ mapClass }}"></div>
