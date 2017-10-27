@@ -2,8 +2,18 @@ import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
 export const MATCH_LIST_QUERY = gql`
-  query MatchList($venue_Name: String, $season_Slug: String, $ourTeam_Slug: String) {
-    matches(venue_Name: $venue_Name, season_Slug: $season_Slug, ourTeam_Slug: $ourTeam_Slug) {
+  query MatchList(
+    $venue_Name: String
+    $season_Slug: String
+    $ourTeam_Slug: String
+    $oppTeam_Club_Slug: String
+  ) {
+    matches(
+      venue_Name: $venue_Name
+      season_Slug: $season_Slug
+      ourTeam_Slug: $ourTeam_Slug
+      oppTeam_Club_Slug: $oppTeam_Club_Slug
+    ) {
       edges {
         node {
           id

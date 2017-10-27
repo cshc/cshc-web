@@ -1,7 +1,9 @@
 /**
- * The TeamDetail app adds asynchronously-loaded content to the Team Details page ('/teams/<team_slug>').
+ * The TeamDetail app adds asynchronously-loaded content to the Team Details 
+ * page ('/teams/<team_slug>').
  * 
- * This also applies to the team details page for previous seasons ('/teams/<team_slug>/<season_slug>')
+ * This also applies to the team details page for previous seasons 
+ * ('/teams/<team_slug>/<season_slug>')
  * 
  * This includes Results, Fixtures, the League Table and the Squad Roster.
  */

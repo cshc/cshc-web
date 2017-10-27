@@ -20,7 +20,7 @@ class MatchNode(DjangoObjectType):
     class Meta:
         model = Match
         interfaces = (graphene.relay.Node, )
-        filter_fields = ['venue__name', 'opp_team__name',
+        filter_fields = ['venue__name', 'opp_team__name', 'opp_team__club__slug',
                          'our_team__slug', 'season__slug']
 
     def resolve_model_id(self, info):

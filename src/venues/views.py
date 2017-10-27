@@ -52,8 +52,3 @@ class VenueDetailsView(DetailView):
     """
     context_object_name = 'venue'
     model = Venue
-
-    def get_context_data(self, **kwargs):
-        context = super(VenueDetailsView, self).get_context_data(**kwargs)
-        # TODO: Add upcoming (and previous?) matches at this venue
-        return context

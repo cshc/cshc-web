@@ -11,15 +11,22 @@ import MatchList from 'components/matches/MatchList';
 import Match from 'models/match';
 import Accordion from 'components/common/Accordion';
 import AccordionCard from 'components/common/Accordion/AccordionCard';
+import ClubStatsSummary from '../ClubStatsSummary';
 
 /**
- * Wrapper component for components relating to a particular venue.
+ * Wrapper component for components relating to a particular opposition club.
  * 
  * Includes:
- * - Previous results at this venue (organised by our team)
- * - Upcoming fixtures at this venue (organised by our team)
+ * - Previous results against this opposition club (organised by our team)
+ * - Upcoming fixtures against this opposition club (organised by our team)
  */
-const VenueDetail = ({ networkStatus, error, matches, venueName }) => {
+const OppositionClubDetail = ({
+  networkStatus,
+  error,
+  matches,
+  clubName,
+  matchFilters: { oppTeam_Club_Slug },
+}) => {
   if (networkStatus === NS.loading) return <Loading message="Loading matches..." />;
   if (error) return <ErrorDisplay errorMessage="Failed to load matches" />;
 
@@ -48,7 +55,20 @@ const VenueDetail = ({ networkStatus, error, matches, venueName }) => {
 
   return (
     <div>
-      <Subheading>Past results at {venueName}</Subheading>
+      <div className="card g-brd-primary rounded-0 g-mt-40">
+        <h3 className="card-header g-bg-primary g-brd-transparent g-color-white g-font-size-16 rounded-0 mb-0">
+          <i className="fa fa-table g-mr-5" />Playing Records
+        </h3>
+
+        <div className="card-block g-pa-15">
+          <p className="card-text">
+            This table summarises Cambridge South performances against {clubName}.
+          </p>
+        </div>
+
+        <ClubStatsSummary clubSlug={oppTeam_Club_Slug} />
+      </div>
+      <Subheading>Past results against {clubName}</Subheading>
       {matchStructure.results.length > 0 ? (
         <Accordion accordionId="results">
           {matchStructure.results.map(m => (
@@ -58,14 +78,18 @@ const VenueDetail = ({ networkStatus, error, matches, venueName }) => {
               accordionId="results"
               title={m.team.longName}
             >
-              <MatchList matches={m.matches} exclude={['venue']} dateFormat="Do MMM YY" />
+              <MatchList
+                matches={m.matches}
+                exclude={[MatchItem.opposition]}
+                dateFormat="Do MMM YY"
+              />
             </AccordionCard>
           ))}
         </Accordion>
       ) : (
-        <p className="lead">No previous matches at this venue</p>
+        <p className="lead">No previous matches against {clubName}</p>
       )}
-      <Subheading>Upcoming fixtures at {venueName}</Subheading>
+      <Subheading>Upcoming fixtures against {clubName}</Subheading>
       {matchStructure.fixtures.length > 0 ? (
         <Accordion accordionId="fixtures">
           {matchStructure.fixtures.map(m => (
@@ -77,28 +101,37 @@ const VenueDetail = ({ networkStatus, error, matches, venueName }) => {
             >
               <MatchList
                 matches={m.matches}
-                exclude={[MatchItem.venue, MatchItem.result, MatchItem.scorers, MatchItem.awards]}
+                exclude={[
+                  MatchItem.opposition,
+                  MatchItem.result,
+                  MatchItem.scorers,
+                  MatchItem.awards,
+                ]}
+                priorities={{ [MatchItem.time]: 1, [MatchItem.venue]: 1 }}
               />
             </AccordionCard>
           ))}
         </Accordion>
       ) : (
-        <p className="lead">No upcoming fixtures at this venue</p>
+        <p className="lead">No upcoming fixtures against {clubName}</p>
       )}
     </div>
   );
 };
 
-VenueDetail.propTypes = {
-  venueName: PropTypes.string.isRequired,
+OppositionClubDetail.propTypes = {
+  clubName: PropTypes.string.isRequired,
   networkStatus: PropTypes.number.isRequired,
+  matchFilters: PropTypes.shape({
+    oppTeam_Club_Slug: PropTypes.string,
+  }).isRequired,
   error: PropTypes.instanceOf(Error),
   matches: PropTypes.shape(),
 };
 
-VenueDetail.defaultProps = {
+OppositionClubDetail.defaultProps = {
   error: undefined,
   matches: undefined,
 };
 
-export default VenueDetail;
+export default OppositionClubDetail;

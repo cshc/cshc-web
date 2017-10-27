@@ -81,7 +81,7 @@
 <section class="container g-pt-20 g-pb-40">
   <div id="match-accordion" class="u-accordion u-accordion-color-primary u-accordion-brd-primary" role="tablist" aria-multiselectable="true">
     {% if not match.is_in_past %}
-      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='venue' cardTitle='Venue' cardContent='matches/_venue.html' %}
+      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='venue' cardTitle='Venue' cardContent='matches/_venue.html' venue=match.venue %}
     {% endif %}
     {% if appearances %}
       {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='team' cardTitle='Team' cardContent='matches/_players.html' %}

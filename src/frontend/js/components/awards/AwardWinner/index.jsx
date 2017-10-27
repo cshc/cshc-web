@@ -25,7 +25,7 @@ AwardWinner.propTypes = {
     member: PropTypes.shape({
       firstName: PropTypes.string,
       lastName: PropTypes.string,
-      modelId: PropTypes.number,
+      modelId: PropTypes.string,
       gender: PropTypes.string,
       thumbUrl: PropTypes.string,
     }),

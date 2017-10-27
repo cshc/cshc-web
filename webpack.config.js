@@ -22,6 +22,13 @@ module.exports = {
       'webpack/hot/only-dev-server',
       './src/frontend/js/apps/TeamDetail.jsx',
     ],
+
+    oppositionClubDetail: [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:3000',
+      'webpack/hot/only-dev-server',
+      './src/frontend/js/apps/OppositionClubDetail.jsx',
+    ],
   },
 
   output: {
