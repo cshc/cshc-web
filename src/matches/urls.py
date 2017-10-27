@@ -4,7 +4,7 @@
 """
 
 from django.conf.urls import url
-from . import views
+from . import views, feeds
 
 urlpatterns = [
 
@@ -93,18 +93,18 @@ urlpatterns = [
     #     name="naughty_step"
     # ),
 
-    # # Feeds
-    # url(r'^feed/rss/$',                          # RSS feed of match reports
-    #     feeds.RssMatchReportsFeed(),
-    #     name="match_report_rss_feed"
-    # ),
-    # url(r'feed/atom/$',                         # Atom feed of match reports
-    #     feeds.AtomMatchReportsFeed(),
-    #     name="match_report_atom_feed"
-    # ),
-    # # E.g. '/matches/cshc_matches.ics'
-    # url(r'^cshc_matches.ics$',                  # Calendar feed of this season's matches
-    #     feeds.MatchICalFeed(),
-    #     name="match_ical_feed"
-    # ),
+    # Feeds
+    url(r'^feed/rss/$',                          # RSS feed of match reports
+        feeds.RssMatchReportsFeed(),
+        name="match_report_rss_feed"
+        ),
+    url(r'feed/atom/$',                         # Atom feed of match reports
+        feeds.AtomMatchReportsFeed(),
+        name="match_report_atom_feed"
+        ),
+    # E.g. '/matches/cshc_matches.ics'
+    url(r'^cshc_matches.ics$',                  # Calendar feed of this season's matches
+        feeds.MatchICalFeed(),
+        name="match_ical_feed"
+        ),
 ]

@@ -3,7 +3,7 @@
 """
 from django.conf.urls import url
 
-from . import views
+from . import views, feeds
 
 #pylint: disable=C0103
 urlpatterns = [
@@ -18,5 +18,11 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/$',
         views.TrainingSessionDetailView.as_view(),
         name="trainingsession_detail"
+        ),
+
+    # E.g. '/training/cshc_training.ics'    - Automatically generated ical calendar feed of training sessions
+    url(r'^cshc_training.ics$',
+        feeds.TrainingSessionICalFeed(),
+        name="trainingsession_ical_feed"
         ),
 ]

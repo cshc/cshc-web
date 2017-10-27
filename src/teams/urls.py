@@ -3,7 +3,7 @@
 """
 from django.conf.urls import url
 
-from . import views
+from . import views, feeds
 
 #pylint: disable=C0103
 urlpatterns = [
@@ -16,5 +16,17 @@ urlpatterns = [
     url(r'^(?P<slug>[-\w]+)/(?P<season_slug>[-\w]+)/$',
         views.ClubTeamDetailView.as_view(),
         name="clubteam_season_detail"
+        ),
+
+    # E.g. /teams/m1.ics'                       - Calendar feed of a particular team's matches
+    url(r'^(?P<slug>[-\w]+).ics$',
+        feeds.ClubTeamMatchICalFeed(),
+        name="clubteam_ical_feed"
+        ),
+
+    # E.g. /teams/m1.rss'                       - RSS feed of a particular team's match reports
+    url(r'^(?P<slug>[-\w]+).rss$',
+        feeds.RssClubTeamMatchReportsFeed(),
+        name="clubteam_match_rss_feed"
         ),
 ]
