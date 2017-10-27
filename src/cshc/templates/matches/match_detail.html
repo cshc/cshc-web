@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | {{ match.match_title_text }}{% endblock %}
+
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Matches" "match_list" %}
+{% breadcrumb match.match_title_text "match_detail" slug=match.pk %}
+{% endblock %}
+
+{% block head_js %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "css/match_detail.css" %}">
+<link rel="stylesheet" href="{% static "css/tables.css" %}">
+{% endblock head_js %}
+
+{% block main %}
+<section class="g-bg-cover g-bg-size-cover g-bg-black-opacity-0_5--after" data-bg-img-src="{% static "img/l1-3.jpg" %}" style="background-image: url(&quot;{% static "img/l1-3.jpg" %}&quot;);">
+  <div class="container g-pos-rel g-z-index-1 g-py-20">
+    <div class="g-py-40 g-color-white-opacity-0_8 text-center g-font-size-14 g-font-size-16--md g-font-size-18--lg">
+      <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{% if prev_match %}{{ prev_match.get_absolute_url }}{% else %}#{% endif %}" {% if prev_match %}title="{{ prev_match.fixture_title }}"{% endif %}>
+        <i class="fa fa-fw fa-chevron-circle-left g-mr-10"></i>
+      </a>
+      {{ match.date|date:"D, d M Y"}}
+      <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{% if next_match %}{{ next_match.get_absolute_url }}{% else %}#{% endif %}" {% if next_match %}title="{{ next_match.fixture_title }}"{% endif %}>
+        <i class="fa fa-fw fa-chevron-circle-right g-ml-10"></i>
+      </a>
+    </div>
+    <div class="d-flex justify-content-center align-items-center g-font-size-18 g-font-size-24--md g-font-size-35--lg">
+      <div class="team-name d-flex justify-content-end align-items-center text-right g-mr-20">
+        <div class="text-center">
+          <a href="{{ match.our_team.get_absolute_url }}">{{ match.our_team.abbr_name }}</a>
+        </div>
+      </div>
+      <div class="team-score text-center g-color-white">
+        {% if match.final_scores_provided %}
+          <span class="team-score-box">{{ match.our_score }}</span>
+          <span class="team-score-box">{{ match.opp_score }}</span>
+        {% elif match.is_off %}
+          <span class="alt-score">{{ match.get_alt_outcome_display }}</span>
+        {% else %}
+          <span class="alt-score">vs</span>
+        {% endif %}
+      </div>
+      <div class="team-name d-flex justify-content-start align-items-center text-right g-ml-20">
+        <div class="text-center">
+          <a href="{{ match.opp_team.club.get_absolute_url }}">{{ match.opp_team.genderless_name }}</a>
+        </div>
+      </div>
+    </div>
+    <div class="g-color-white-opacity-0_8 g-pt-20 g-font-size-14 g-font-size-16--md g-font-size-18--lg">
+      {% for scorer in scorers %}
+        <div class="scoring-player"><i class="fa fa-circle g-ml-3 g-mr-7"></i>{{ scorer.member.full_name }}{% if scorer.goals > 1 %}&nbsp;({{ scorer.goals }}){% endif %}</div>
+      {% endfor %}
+      {% for carded in green_cards %}
+        <div class="carded-player"><img class="g-mr-5" src="{% static 'img/green_card.png' %}" title="Green card" />{{ carded.full_name }}</div>
+      {% endfor %}
+      {% for carded in yellow_cards %}
+        <div class="carded-player"><img class="g-mr-5" src="{% static 'img/yellow_card.png' %}" title="Yellow card" />{{ carded.full_name }}</div>
+      {% endfor %}
+      {% for carded in red_cards %}
+        <div class="carded-player"><img class="g-mr-5" src="{% static 'img/red_card.png' %}" title="Red card" />{{ carded.full_name }}</div>
+      {% endfor %}
+    </div>
+    <div class="text-right g-color-white-opacity-0_8 g-pt-60">
+      {% if match.time %}<div>{{ match.time_display }}<i class="fa fa-clock-o fa-fw g-ml-5"></i></div>{% endif %}
+      {% if match.venue %}<div><a class="g-color-white-opacity-0_8 g-color-white--hover" href="{{ match.venue.get_absolute_url }}" title="Venue details">{{ match.venue }}</a><i class="fa fa-map-marker fa-fw g-ml-5"></i></div>{% endif %}
+    </div>
+  </div>
+</section>
+<section class="container g-pt-20 g-pb-40">
+  <div id="match-accordion" class="u-accordion u-accordion-color-primary u-accordion-brd-primary" role="tablist" aria-multiselectable="true">
+    {% if appearances %}
+      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='team' cardTitle='Team' cardContent='matches/_players.html' %}
+    {% endif %}
+    {% if mom_winners or lom_winners %}
+      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='awards' cardTitle='Awards' cardContent='matches/_awards.html' %}
+    {% endif %}
+    {% if match.report_body.content %}
+      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='report' cardTitle='Match Report' cardContent='matches/_report.html' %}
+    {% endif %}
+  </div>
+</section>
+{% endblock main %}
+
+{% block body_js %}
+{{ block.super }}
+<script src="{% static "vendor/jquery.fittext.js" %}"></script>
+<script>
+    $(function () {
+      jQuery(".shirt-wrapper .shirt-number").fitText(0.8);
+    })
+</script>
+{% endblock body_js %}
