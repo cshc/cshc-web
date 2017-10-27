@@ -50,21 +50,26 @@ const VenueDetail = ({ networkStatus, error, matches, venueName }) => {
       <div className="u-heading-v1-6 g-bg-main g-brd-gray-light-v2 g-mb-20 g-mt-20">
         <h2 className="h3 u-heading-v1__title">Past results at {venueName}</h2>
       </div>
-      <Accordion accordionId="results">
-        {matchStructure.results.map(m => (
-          <AccordionCard
-            key={m.team.id}
-            cardId={m.team.id}
-            accordionId="results"
-            title={m.team.longName}
-          >
-            <MatchList matches={m.matches} exclude={['venue']} dateFormat="Do MMM YY" />
-          </AccordionCard>
-        ))}
-      </Accordion>
+      {matchStructure.results.length > 0 ? (
+        <Accordion accordionId="results">
+          {matchStructure.results.map(m => (
+            <AccordionCard
+              key={m.team.id}
+              cardId={m.team.id}
+              accordionId="results"
+              title={m.team.longName}
+            >
+              <MatchList matches={m.matches} exclude={['venue']} dateFormat="Do MMM YY" />
+            </AccordionCard>
+          ))}
+        </Accordion>
+      ) : (
+        <p className="lead">No previous matches at this venue</p>
+      )}
       <div className="u-heading-v1-6 g-bg-main g-brd-gray-light-v2 g-mb-20 g-mt-20">
         <h2 className="h3 u-heading-v1__title">Upcoming fixtures at {venueName}</h2>
       </div>
+      {matchStructure.fixtures.length > 0 ? 
       <Accordion accordionId="fixtures">
         {matchStructure.fixtures.map(m => (
           <AccordionCard
@@ -80,6 +85,9 @@ const VenueDetail = ({ networkStatus, error, matches, venueName }) => {
           </AccordionCard>
         ))}
       </Accordion>
+      ) : (
+        <p className="lead">No upcoming fixtures at this venue</p>
+      )}
     </div>
   );
 };
