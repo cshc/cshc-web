@@ -5,6 +5,13 @@ import { ViewType } from 'util/constants';
 import MatchTable from '../MatchTable';
 import MatchTimeline from '../MatchTimeline';
 
+/**
+ * Wrapper component for a list of matches. Supports different representations of the matches:
+ * - Table
+ * - Timeline
+ * 
+ * Also supports excluding columns by name and setting priorities for columns (for responsive display)
+ */
 const MatchList = ({
   viewType,
   matches,

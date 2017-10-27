@@ -4,8 +4,13 @@ import { VictoryPie } from 'victory';
 import Member from 'models/member';
 import ProgressBar from 'components/common/ProgressBar';
 import IconList from 'components/common/IconList';
+import Urls from 'util/urls';
 import styles from './style.scss';
 
+/**
+ * 'Card' representation of a club member, with profile pic, stats about games played, goals scored and
+ * win/draw/loss record and a link to their profile.
+ */
 const SquadRosterCard = ({ memberStats, teamTotals }) => {
   const imgSrc = memberStats.member.thumbUrl || '/static/img/avatar-placeholder.jpg';
   const playedPercentage = 100 * (memberStats.played / teamTotals.played);
@@ -73,7 +78,7 @@ const SquadRosterCard = ({ memberStats, teamTotals }) => {
             />
             <a
               className="btn btn-md u-btn-primary g-color-primary--hover g-bg-white--hover g-font-weight-600 g-font-size-11 text-uppercase"
-              href="#"
+              href={Urls.member_detail(memberStats.member.modelId)}
             >
               Profile
             </a>

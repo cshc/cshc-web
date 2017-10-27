@@ -1,0 +1,14 @@
+{% comment %} 
+Renders the match report, with title and author.
+{% endcomment %}
+{% load cshc_tags %}
+
+<div class="g-mb-20">
+  <h3>{{ match.match_title_text }}</h3>
+  {% if match.report_author %}
+    <i class="fa fa-pencil g-mr-5"></i>{{ match.report_author|urlise_model }}
+  {% endif %}
+</div>
+<div class="g-mb-20">
+  {{ match.report_body|strip_new_lines|safe }}
+</div>

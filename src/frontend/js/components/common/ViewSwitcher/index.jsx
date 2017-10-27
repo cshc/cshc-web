@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './style.scss';
 
+/**
+ * Switches between various view states. 
+ * 
+ * Each view must define an iconClass, a label and an onSelect callback function.
+ */
 const ViewSwitcher = ({ className, label, currentView, views }) => {
   views.forEach((view) => {
     view.className =

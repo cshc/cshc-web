@@ -1,0 +1,22 @@
+{% comment %}
+Reusable snippet that displays a thumbnail of the member's profile picture if they have one, or
+the default member avatar if not.
+
+Expected context:
+'member' - the member model instance
+'size' - the required size of the thumbnail
+'class' the class to apply to the image wrapper
+{% endcomment %}
+{% load thumbnail %}
+{% thumbnail member.profile_pic size crop="center" as im %}
+<div class="{{ class }} g-pos-rel">
+  {% if im %}
+    <img class="u-shadow-v29 w-100 rounded-circle" src="{{ im.url }}">
+  {% else %}
+    <div class="u-shadow-v29 w-100 rounded-circle shirt-wrapper">
+      <img class="w-100" src="{{ fallbackImage }}">
+      <div class="g-pos-abs text-center shirt-number">{{ member.shirt_number|default:"" }}</div>
+    </div>
+  {% endif %}
+  
+</div>

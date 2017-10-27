@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^matches/', include('matches.urls')),
     url(r'^opposition/', include('opposition.urls')),
     url(r'^venues/', include('venues.urls')),
+    url(r'^members/', include('members.urls')),
     url(r'^teams/', include('teams.urls')),
     url(r'^training/', include('training.urls')),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS

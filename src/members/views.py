@@ -4,6 +4,7 @@ Views relating to CSHC Members
 
 import logging
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import DetailView
 from django.views.generic.edit import UpdateView
 from django.core.urlresolvers import reverse_lazy
 from django.conf import settings
@@ -76,3 +77,13 @@ class ProfileView(LoginRequiredMixin, UpdateView):
                 "Failed to update profile. Errors: {}".format(form.errors))
 
         return super(ProfileView, self).form_invalid(form)
+
+
+class MemberDetailView(DetailView):
+    """ View of a particular member"""
+    model = Member
+
+    def get_context_data(self, **kwargs):
+        context = super(MemberDetailView, self).get_context_data(**kwargs)
+
+        return context

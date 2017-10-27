@@ -56,6 +56,26 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
         appearances = match.appearances.select_related('member__user').all()
         appearances = appearances.order_by('member__pref_position')
 
+        scorers = []
+        green_cards = []
+        yellow_cards = []
+        red_cards = []
+
+        for app in appearances:
+            if app.goals > 0:
+                scorers.append(app)
+            if app.green_card:
+                green_cards.append(app.member)
+            if app.yellow_card:
+                yellow_cards.append(app.member)
+            if app.red_card:
+                red_cards.append(app.member)
+
+        context['scorers'] = scorers
+        context['green_cards'] = green_cards
+        context['yellow_cards'] = yellow_cards
+        context['red_cards'] = red_cards
+
         match_qs = Match.objects.select_related(
             'our_team', 'opp_team__club').filter(our_team=match.our_team)
 

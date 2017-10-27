@@ -7,8 +7,10 @@ export const MATCH_LIST_QUERY = gql`
       edges {
         node {
           id
+          modelId
           ourTeam {
             id
+            slug
             longName
             shortName
             gender

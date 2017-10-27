@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * React implementation of a Unify/Bootstrap progress bar.
+ * 
+ * Ref: https://htmlstream.com/preview/unify-v2.2/unify-main/shortcodes/shortcode-base-progress-bars.html#shortcode16
+ */
 const ProgressBar = ({ label, value, progressValue, min, max, color }) => (
   <div className="g-mb-10">
     <h6>

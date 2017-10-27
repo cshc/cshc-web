@@ -1,0 +1,16 @@
+{% comment %} 
+Reuseable template for a MOM/LOM award
+Expects context:
+'award_winner' - the award winner model object
+{% endcomment %}
+
+{% load cshc_tags %}
+
+<div class="media award-card g-rounded-4 g-brd-bottom g-brd-3 g-brd-gray-light-v4 g-bg-secondary g-pa-10 g-mb-20 {{ award_winner.award.name|slugify }}">
+  {% profile_pic member=award_winner.member size="200x200" className="mr-3 award-image" %}
+  <div class="media-body award-content">
+    <h5><a title="View profile" href="{{ award_winner.member.get_absolute_url }}">{{ award_winner.member.full_name }}</a></h5>
+    <div class="award-title g-mb-10">{{ award_winner.award }}</div>
+    <p class="award-comment">{{ award_winner.comment }}</p>
+  </div>
+</div>

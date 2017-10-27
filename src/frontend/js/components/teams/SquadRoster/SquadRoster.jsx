@@ -8,6 +8,12 @@ import ViewSwitcher from 'components/common/ViewSwitcher';
 import SquadRosterCard from '../SquadRosterCard';
 import SquadRosterTable from '../SquadRosterTable';
 
+/**
+ * Represents a list of club members (typically this is filtered by season and team). 
+ * 
+ * The list of club members can be represented in a table or 'cards' - with a view switcher
+ * to switch between these views.
+ */
 const SquadRoster = ({ networkStatus, error, squadStats, viewType, onSelectViewType }) => {
   if (networkStatus === NS.loading) return <Loading message="Fetching squad roster..." />;
   if (error) return <ErrorDisplay errorMessage="Failed to load squad roster" />;

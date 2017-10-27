@@ -1,0 +1,19 @@
+{% comment %} 
+Re-usable template for rendering a list of match awards
+
+Expects context containing:
+  mom_winners - a list of AwardWinner model instances
+  lom_winners - a list of AwardWinner model instances
+{% endcomment %}
+<div class="row g-my-20">
+  {% for award_winner in mom_winners %}
+    <div class="col-12 col-md-6 col-lg-6">
+      {% include 'matches/_match_award_card.html' %}
+    </div>
+  {% endfor %}
+  {% for award_winner in lom_winners %}
+    <div class="col-12 col-md-6 col-lg-6">
+      {% include 'matches/_match_award_card.html' %}
+    </div>
+  {% endfor %}
+</div>

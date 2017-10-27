@@ -1,0 +1,35 @@
+.team-name {
+  flex: 1;
+}
+.team-score {
+  flex: 0 auto;
+  white-space: nowrap;
+}
+.team-name a {
+  color: white;
+  line-height: 1.2;
+  font-weight: 600;
+}
+.team-name a:hover {
+  color: white;
+}
+.team-score-box {
+  background-color: #6639b6;
+  padding: 5px 10px;
+}
+.award-card.man-of-the-match {
+  border-color: #07d807 !important;
+}
+.award-card.lemon-of-the-match {
+  border-color: #e2e277 !important;
+}
+.award-title {
+  font-style: italic;
+  font-weight: bold;
+}
+.award-image {
+  flex: 1;
+}
+.award-content {
+  flex: 3;
+}

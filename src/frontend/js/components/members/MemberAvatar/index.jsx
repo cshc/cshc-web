@@ -1,12 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Member from 'models/member';
+import Urls from 'util/urls';
 
+/**
+ * Avatar representation of a club member, hyperlinked to their profile.
+ * 
+ * If no profile picture is available, the appropriate mens/ladies shirt is shown, 
+ * with the member's shirt number - if known.
+ */
 const MemberAvatar = ({ member, size, badgeCount, className }) => {
   const title = `${Member.fullName(member)} - view profile`;
-
   return (
-    <a className={`${className} align-middle g-pos-rel d-inline-block`} href="#" title={title}>
+    <a
+      className={`${className} align-middle g-pos-rel d-inline-block`}
+      href={Urls.member_detail(member.modelId)}
+      title={title}
+    >
       {badgeCount && (
         <span className="u-badge-v1 g-bg-primary g-color-white g-rounded-50x g-mt-5 g-mr-5">
           {badgeCount}

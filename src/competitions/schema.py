@@ -72,7 +72,7 @@ class DivisionResultNode(DjangoObjectType):
     class Meta:
         model = DivisionResult
         interfaces = (graphene.Node, )
-        filter_fields = ['season__slug', 'division__id']
+        filter_fields = ['season__slug', 'division__id', 'season_id']
 
 
 class Query(graphene.ObjectType):
@@ -88,7 +88,7 @@ class Query(graphene.ObjectType):
     divisions = schema_helper.OptimizableFilterConnectionField(DivisionNode)
     cups = DjangoFilterConnectionField(CupNode)
     division_results = DjangoFilterConnectionField(
-        DivisionResultNode, ['division__name', 'division__id'])
+        DivisionResultNode, ['division__name', 'division__id', 'season__id'])
 
     def resolve_divisions(self, info, **kwargs):
         return schema_helper.optimize(Division.objects.filter(**kwargs),

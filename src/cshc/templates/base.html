@@ -100,7 +100,23 @@
       $.HSCore.components.HSGoTo.init('.js-go-to');
     });
   </script>
-  {% endblock body_js %}
+  
+  {% comment %} 
+    The Django urls are passed into a JavaScript object, with placeholder values for
+    parameters. These can then be used to construct actual urls - see '/frontend/js/util/urls.js'
+  {% endcomment %}
+  <script>
+    window.cshcUrls = {
+      pkPlaceholder: 999,
+      slugPlaceholder: 'slug',
+      member_detail: "{% url 'member_detail' 999 %}",
+      match_detail: "{% url 'match_detail' 999 %}",
+      venue_detail: "{% url 'venue_detail' 'slug' %}",
+      clubteam_detail: "{% url 'clubteam_detail' 'slug' %}",
+      opposition_club_detail: "{% url 'opposition_club_detail' 'slug' %}",
+    };
+  </script>
+{% endblock body_js %}
 </body>
 
 </html>

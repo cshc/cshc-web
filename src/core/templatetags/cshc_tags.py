@@ -2,42 +2,39 @@
 Template tags for the CSHC Website
 """
 from django import template
+from django.template import Context
 from django.contrib import messages
+from django.templatetags.static import static
 from django.utils.safestring import mark_safe
 from graphql_relay.node.node import to_global_id
+from core.models import Gender
 
 register = template.Library()
 
-HEADING_TEMPLATE = "core/_page_heading.html"
-ALERT_TEMPLATE = "blocks/_alert.html"
 
-
-@register.simple_tag()
+@register.inclusion_tag("core/_page_heading.html")
 def heading(text):
     """
     Render breadcrumbs html using bootstrap css classes.
     """
-    return mark_safe(template.loader.render_to_string(
-        HEADING_TEMPLATE, {'title': text}))
+    return {'title': text}
 
 
-@register.simple_tag()
+@register.inclusion_tag("blocks/_alert.html")
 def alert(alert_class, icon_class, bold_text, message, dismissable=True):
     """
     Render alert html using bootstrap css classes.
     """
-    return mark_safe(template.loader.render_to_string(
-        ALERT_TEMPLATE, {
-            'alert_class': alert_class,
-            'icon_class': icon_class,
-            'bold_text': bold_text,
-            'message': message,
-            'dismissable': dismissable,
-        }
-    ))
+    return {
+        'alert_class': alert_class,
+        'icon_class': icon_class,
+        'bold_text': bold_text,
+        'message': message,
+        'dismissable': dismissable,
+    }
 
 
-@register.simple_tag()
+@register.inclusion_tag("blocks/_alert.html")
 def message_alert(message):
     """
     Render alert html for a Django Message using bootstrap css classes.
@@ -53,16 +50,7 @@ def message_alert(message):
     elif message.level == messages.ERROR:
         icon_class = "fa fa-minus-circle"
         bold_text = "Uh-oh!"
-
-    return mark_safe(template.loader.render_to_string(
-        ALERT_TEMPLATE, {
-            'alert_class': message.level_tag,
-            'icon_class': icon_class,
-            'bold_text': bold_text,
-            'message': message.message,
-            'dismissable': True,
-        }
-    ))
+    return alert(message.level_tag, icon_class, bold_text, message.message, True)
 
 
 @register.filter
@@ -75,3 +63,43 @@ def addstr(arg1, arg2):
 def graphQLId(id, type):
     """ Returns the GraphQL ID from a node type and a model ID """
     return to_global_id(type, id)
+
+
+@register.filter()
+def urlise_model(model, linktext=None):
+    """
+    Given a model object,
+    returns an <a> link to the model (using the model's get_absolute_url() method)
+
+    Accepts an optional argument to use as the link text;
+    otherwise uses the model's string representation
+    """
+    if linktext is None:
+        linktext = "%s" % model
+
+    return mark_safe("<a href='{}' title='{}'>{}</a>".format(model.get_absolute_url(), model, linktext))
+
+
+@register.inclusion_tag("members/_profile_pic_thumbnail.html")
+def profile_pic(member, size, className):
+    """
+    Given a member model, returns the HTML for a profile pic of that member.
+
+    Parameters:
+        member - the member model instance
+        size - the required size of the picture (e.g. "200x200")
+        className - the class to assign to the wrapper div
+    """
+    fallback_image = 'img/kit/Ladies%20shirt.png' if member.gender == Gender.Female else 'img/kit/Mens%20shirt.png'
+    fallback_image_url = static(fallback_image)
+    return {
+        'member': member,
+        'size': size,
+        'class': className,
+        'fallbackImage': fallback_image_url,
+    }
+
+
+@register.filter()
+def strip_new_lines(text_field):
+    return mark_safe(text_field.content.replace("\\r\\n", ""))

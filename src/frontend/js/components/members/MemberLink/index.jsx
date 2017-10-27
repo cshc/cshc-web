@@ -2,14 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Member from 'models/member';
+import Urls from 'util/urls';
 import styles from './style.scss';
 
+/**
+ * Text representation of a club member, hyperlinked to their profile.
+ */
 const MemberLink = ({ member, badgeCount, className, useFullName }) => {
   const linkClassName = classnames(className, styles.memberLink);
   const title = `${Member.fullName(member)} - view profile`;
   const label = useFullName ? Member.fullName(member) : Member.firstNameAndInitial(member);
   return (
-    <a className={linkClassName} href="#" title={title}>
+    <a className={linkClassName} href={Urls.member_detail(member.modelId)} title={title}>
       {badgeCount && (
         <span className="u-badge-v1 g-bg-primary g-color-white g-rounded-50x">{badgeCount}</span>
       )}

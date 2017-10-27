@@ -3,6 +3,9 @@ import sortBy from 'lodash/sortBy';
 import { toTitleCase } from 'util/cshc';
 import { HomeAway, MatchAward } from 'util/constants';
 
+/**
+ * Utility object for common logic related to a match.
+ */
 const Match = {
   isHome(match) {
     return match.homeAway === HomeAway.Home;

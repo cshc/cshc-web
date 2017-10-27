@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { MatchItem as TC } from 'util/constants';
 import MatchTableRow from './MatchTableRow';
 
+/**
+ * Tabular representation of a list of matches
+ */
 const MatchTable = ({ matches, excludeColumns, dateFormat, priorities }) => {
   const incl = columnName => !excludeColumns.includes(columnName);
   const priority = (columnName, defaultPriority = 1) =>
@@ -10,33 +14,33 @@ const MatchTable = ({ matches, excludeColumns, dateFormat, priorities }) => {
     <table className="table table-sm table-hover table-responsive">
       <thead>
         <tr>
-          {incl('fixtureType') && <th className={priority('fixtureType', 3)}>&nbsp;</th>}
-          {incl('date') && <th className={priority('date')}>Date</th>}
-          {incl('opposition') && <th className={priority('opposition')}>Opposition</th>}
-          {incl('time') && <th className={priority('time', 2)}>Time</th>}
-          {incl('venue') && <th className={priority('venue', 2)}>Venue</th>}
-          {incl('result') && (
-            <th className={`g-text-center ${priority('result')}`}>
+          {incl(TC.fixtureType) && <th className={priority(TC.fixtureType, 3)}>&nbsp;</th>}
+          {incl(TC.date) && <th className={priority(TC.date)}>Date</th>}
+          {incl(TC.opposition) && <th className={priority(TC.opposition)}>Opposition</th>}
+          {incl(TC.time) && <th className={priority(TC.time, 2)}>Time</th>}
+          {incl(TC.venue) && <th className={priority(TC.venue, 2)}>Venue</th>}
+          {incl(TC.result) && (
+            <th className={`g-text-center ${priority(TC.result)}`}>
               Result<br />(CS-Op)
             </th>
           )}
-          {incl('scorers') && <th className={priority('scorers', 3)}>Scorers</th>}
-          {incl('awards') && (
-            <th className={priority('awards', 3)}>
+          {incl(TC.scorers) && <th className={priority(TC.scorers, 3)}>Scorers</th>}
+          {incl(TC.awards) && (
+            <th className={priority(TC.awards, 3)}>
               <abbr title="Man of the Match">
                 <i className="fa fa-star-o" />
               </abbr>
             </th>
           )}
-          {incl('awards') && (
-            <th className={priority('awards', 3)}>
+          {incl(TC.awards) && (
+            <th className={priority(TC.awards, 3)}>
               <abbr title="Lemon of the Match">
                 <i className="fa fa-lemon-o" />
               </abbr>
             </th>
           )}
-          {incl('report') && (
-            <th className={`g-text-center ${priority('report')}`}>
+          {incl(TC.report) && (
+            <th className={`g-text-center ${priority(TC.report)}`}>
               Match<br />Details
             </th>
           )}

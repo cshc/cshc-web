@@ -1,0 +1,28 @@
+{% comment %} 
+A re-usable Accordion Card template.
+
+Expects context containing:
+  accordionId - the ID of the accordion component that wraps this card
+  cardId = a unique identifier for this card
+  cardTitle = the title of the accordion card
+  cardContent = a path to a template that contains the card content
+{% endcomment %}
+
+<div class="card rounded-0 g-brd-none">
+    <div id="{{ cardId }}-accordion-heading" class="u-accordion__header g-pa-0" role="tab">
+      <h4 class="mb-0 g-font-weight-600">
+        <a class="d-block g-color-main g-text-underline--none--hover g-brd-bottom g-brd-gray-light-v4 g-pa-15-0" href="#{{ cardId }}-accordion-body" data-toggle="collapse" data-parent="#{{ accordionId }}-accordion" aria-expanded="true" aria-controls="{{ cardId }}-accordion-body">
+          <span class="float-right u-accordion__control-icon g-ml-10">
+            <i class="fa fa-angle-right"></i>
+            <i class="fa fa-angle-down"></i>
+          </span>
+          <span class="g-valign-middle">{{ cardTitle }}</span>
+        </a>
+      </h4>
+    </div>
+    <div id="{{ cardId }}-accordion-body" class="collapse show" role="tabpanel" aria-labelledby="{{ cardId }}-accordion-heading">
+      <div class="u-accordion__body g-color-gray-dark-v5 g-pa-15-0">
+          {% include cardContent %}
+      </div>
+    </div>
+  </div>

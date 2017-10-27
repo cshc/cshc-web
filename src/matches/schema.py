@@ -13,6 +13,7 @@ from .models import Match, Appearance, GoalKing
 
 class MatchNode(DjangoObjectType):
     """ GraphQL node representing a match/fixture """
+    model_id = graphene.String()
     has_report = graphene.Boolean()
     kit_clash = graphene.Boolean()
 
@@ -21,6 +22,9 @@ class MatchNode(DjangoObjectType):
         interfaces = (graphene.relay.Node, )
         filter_fields = ['venue__name', 'opp_team__name',
                          'our_team__slug', 'season__slug']
+
+    def resolve_model_id(self, info):
+        return self.id
 
     def resolve_has_report(self, info):
         return self.has_report()

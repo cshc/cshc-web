@@ -178,7 +178,9 @@
   <script>
     window.props = {
       teamId: {{ team.id }},
+      teamGenderlessName: '{{ team.genderless_abbr_name }}',
       seasonId: {{ season.id }},
+      seasonGraphQLId: '{{ season.id|graphQLId:"Season" }}',
       division: {
         id: '{{ participation.division.id|graphQLId:"Division" }}',
         name: '{{ participation.division }}',

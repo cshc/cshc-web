@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import Match from 'models/match';
 import MemberLink from 'components/members/MemberLink';
+import AwardWinner from 'components/awards/AwardWinner';
+import { MatchItem as TC } from 'util/constants';
 import FixtureTypeIcon from '../../FixtureTypeIcon';
 import MatchDate from '../../MatchDate';
 import OppositionTeam from '../../OppositionTeam';
@@ -11,47 +13,50 @@ import MatchVenue from '../../MatchVenue';
 import MatchLink from '../../MatchLink';
 import styles from './style.scss';
 
+/**
+ * Represents a single row in a table of matches.
+ */
 const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
   const incl = columnName => !excludeColumns.includes(columnName);
   const priority = (columnName, defaultPriority = 1) =>
     `align-middle priority${priorities[columnName] || defaultPriority}`;
   return (
     <tr>
-      {incl('fixtureType') && (
-        <td className={priority('fixtureType', 3)}>
+      {incl(TC.fixtureType) && (
+        <td className={priority(TC.fixtureType, 3)}>
           <FixtureTypeIcon fixtureType={match.fixtureType} />
         </td>
       )}
-      {incl('date') && (
-        <td className={`${priority('date')} no-break`}>
+      {incl(TC.date) && (
+        <td className={`${priority(TC.date)} no-break`}>
           <MatchDate date={match.date} format={dateFormat} />
         </td>
       )}
-      {incl('opposition') && (
-        <td className={priority('opposition')}>
+      {incl(TC.opposition) && (
+        <td className={priority(TC.opposition)}>
           <OppositionTeam team={match.oppTeam} />
           <KitClash match={match} />
         </td>
       )}
-      {incl('time') && (
-        <td className={priority('time', 2)}>
+      {incl(TC.time) && (
+        <td className={priority(TC.time, 2)}>
           {match.time && format(Match.datetime(match), 'H:mm')}
         </td>
       )}
-      {incl('venue') && (
-        <td className={priority('venue', 2)}>
+      {incl(TC.venue) && (
+        <td className={priority(TC.venue, 2)}>
           <MatchVenue match={match} />
         </td>
       )}
-      {incl('result') && (
-        <td className={`${priority('result')} g-text-center`}>
+      {incl(TC.result) && (
+        <td className={`${priority(TC.result)} g-text-center`}>
           <span className={`${Match.resultClass(match)} g-py-5 g-px-8`}>
             {Match.scoreDisplay(match)}
           </span>
         </td>
       )}
-      {incl('scorers') && (
-        <td className={priority('scorers', 3)}>
+      {incl(TC.scorers) && (
+        <td className={priority(TC.scorers, 3)}>
           <div className={styles.flexWrap}>
             {Match.scorers(match).map(scorer => (
               <MemberLink
@@ -64,34 +69,26 @@ const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
           </div>
         </td>
       )}
-      {incl('awards') && (
-        <td className={priority('awards', 3)}>
+      {incl(TC.awards) && (
+        <td className={priority(TC.awards, 3)}>
           <div className={styles.flexWrap}>
-            {Match.mom(match).map(awardWinner => (
-              <MemberLink
-                key={awardWinner.member.modelId}
-                member={awardWinner.member}
-                className="g-mr-10"
-              />
+            {Match.mom(match).map((awardWinner, index) => (
+              <AwardWinner key={index} awardWinner={awardWinner} className="g-mr-10" />
             ))}
           </div>
         </td>
       )}
-      {incl('awards') && (
-        <td className={priority('awards', 3)}>
+      {incl(TC.awards) && (
+        <td className={priority(TC.awards, 3)}>
           <div className={styles.flexWrap}>
-            {Match.lom(match).map(awardWinner => (
-              <MemberLink
-                key={awardWinner.member.modelId}
-                member={awardWinner.member}
-                className="g-mr-10"
-              />
+            {Match.lom(match).map((awardWinner, index) => (
+              <AwardWinner key={index} awardWinner={awardWinner} className="g-mr-10" />
             ))}
           </div>
         </td>
       )}
-      {incl('report') && (
-        <td className={`${priority('report')} g-text-center`}>
+      {incl(TC.report) && (
+        <td className={`${priority(TC.report)} g-text-center`}>
           <MatchLink match={match} />
         </td>
       )}

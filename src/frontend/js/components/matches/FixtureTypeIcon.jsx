@@ -4,6 +4,9 @@ import classnames from 'classnames';
 import { toTitleCase } from 'util/cshc';
 import { FixtureType } from 'util/constants';
 
+/**
+ * Icon representation of a fixture (friendly/league/cup etc).
+ */
 const FixtureTypeIcon = ({ fixtureType }) => {
   const className = classnames('fa', {
     'fa-table': fixtureType === FixtureType.League,

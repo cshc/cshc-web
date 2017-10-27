@@ -1,3 +1,9 @@
+/**
+ * The VenueDetail app adds asynchronously loaded content to the venue details page ('/venues/<venue_slug>')
+ * 
+ * This includes past and upcoming fixtures at this venue.
+ */
+
 import VenueDetail from 'components/venues/VenueDetail';
 import ui, { initialViewState } from 'redux/reducers/uiReducers';
 import render from '../ReactRenderer';

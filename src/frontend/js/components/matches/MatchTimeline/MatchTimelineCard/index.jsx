@@ -2,12 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Match from 'models/match';
 import MemberLink from 'components/members/MemberLink';
+import AwardWinner from 'components/awards/AwardWinner';
+import Urls from 'util/urls';
+import { MatchItem } from 'util/constants';
 import MatchDate from '../../MatchDate';
 import OppositionTeam from '../../OppositionTeam';
 import MatchVenue from '../../MatchVenue';
 import FixtureTypeIcon from '../../FixtureTypeIcon';
 import styles from './style.scss';
 
+/** 
+ * Representation of a single match as an item on a timeline.
+ * 
+ * Ref: https://htmlstream.com/preview/unify-v2.2/unify-main/shortcodes/shortcode-blocks-timelines.html#shortcode2
+ */
 const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
   const incl = item => !exclude.includes(item);
   const moms = Match.mom(match);
@@ -17,8 +25,8 @@ const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
     <li className="col-md-12 g-mb-40">
       <div className="row">
         <div className="col-md-2 text-md-right g-pt-20--md g-pr-40--md g-mb-20">
-          {incl('time') && <h5 className="h6 mb-0">{match.time}</h5>}
-          {incl('date') && (
+          {incl(MatchItem.time) && <h5 className="h6 mb-0">{match.time}</h5>}
+          {incl(MatchItem.date) && (
             <h4 className="h5">
               <MatchDate date={match.date} format={dateFormat} />
             </h4>
@@ -62,46 +70,44 @@ const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
             </header>
 
             <div className={styles.cardContent}>
-              {incl('venue') && (
+              {incl(MatchItem.venue) && (
                 <div className="g-mb-20">
                   <i className="fa fa-map-o g-pr-10" />
                   <MatchVenue match={match} />
                 </div>
               )}
-              {(incl('awards') || incl('scorers')) && (
+              {(incl(MatchItem.awards) || incl(MatchItem.scorers)) && (
                 <div className={`${styles.flexWrap} g-mb-10`}>
-                  {incl('awards') &&
+                  {incl(MatchItem.awards) &&
                     moms.length > 0 && (
                       <span className={styles.flexWrap}>
                         <i className="fa fa-lg fa-star-o g-mr-5 g-mt-7" title="Man of the Match" />
-                        {moms.map(awardWinner => (
-                          <MemberLink
-                            key={awardWinner.member.modelId}
-                            member={awardWinner.member}
+                        {moms.map((awardWinner, index) => (
+                          <AwardWinner
+                            key={index}
+                            awardWinner={awardWinner}
                             className="g-mr-10 g-mb-15"
-                            useFullName
                           />
                         ))}
                       </span>
                     )}
-                  {incl('awards') &&
+                  {incl(MatchItem.awards) &&
                     loms.length > 0 && (
                       <span className={styles.flexWrap}>
                         <i
                           className="fa fa-lg fa-lemon-o g-mr-5 g-mt-7"
                           title="Lemon of the Match"
                         />
-                        {loms.map(awardWinner => (
-                          <MemberLink
-                            key={awardWinner.member.modelId}
-                            member={awardWinner.member}
+                        {loms.map((awardWinner, index) => (
+                          <AwardWinner
+                            key={index}
+                            awardWinner={awardWinner}
                             className="g-mr-10 g-mb-15"
-                            useFullName
                           />
                         ))}
                       </span>
                     )}
-                  {incl('scorers') &&
+                  {incl(MatchItem.scorers) &&
                     scorers.length > 0 && (
                       <span className={styles.flexWrap}>
                         <span className="g-mr-10 g-mt-4">Scorers:</span>
@@ -118,9 +124,9 @@ const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
                     )}
                 </div>
               )}
-              {incl('report') && (
+              {incl(MatchItem.report) && (
                 <a
-                  href="#"
+                  href={Urls.match_detail(match.modelId)}
                   title="Match details"
                   className={`btn btn-md u-btn-primary ${styles.details}`}
                 >

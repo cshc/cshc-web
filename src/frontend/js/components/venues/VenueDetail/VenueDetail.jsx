@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import reduce from 'lodash/reduce';
 import sortBy from 'lodash/sortBy';
 import { NetworkStatus as NS } from 'apollo-client';
+import { MatchItem } from 'util/constants';
 import ErrorDisplay from 'components/common/ErrorDisplay';
 import Loading from 'components/common/Loading';
 import MatchList from 'components/matches/MatchList';
@@ -10,6 +11,13 @@ import Match from 'models/match';
 import Accordion from 'components/common/Accordion';
 import AccordionCard from 'components/common/Accordion/AccordionCard';
 
+/**
+ * Wrapper component for components relating to a particular venue.
+ * 
+ * Includes:
+ * - Previous results at this venue (organised by our team)
+ * - Upcoming fixtures at this venue (organised by our team)
+ */
 const VenueDetail = ({ networkStatus, error, matches, venueName }) => {
   if (networkStatus === NS.loading) return <Loading message="Loading matches..." />;
   if (error) return <ErrorDisplay errorMessage="Failed to load matches" />;
@@ -65,7 +73,10 @@ const VenueDetail = ({ networkStatus, error, matches, venueName }) => {
             accordionId="fixtures"
             title={m.team.longName}
           >
-            <MatchList matches={m.matches} exclude={['venue', 'result', 'scorers', 'awards']} />
+            <MatchList
+              matches={m.matches}
+              exclude={[MatchItem.venue, MatchItem.result, MatchItem.scorers, MatchItem.awards]}
+            />
           </AccordionCard>
         ))}
       </Accordion>

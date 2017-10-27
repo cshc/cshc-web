@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * A React implementation of the Unify Accordion component. 
+ * 
+ * Ref: https://htmlstream.com/preview/unify-v2.2/unify-main/shortcodes/shortcode-base-accordions.html#shortcode10
+ */
 const Accordion = ({ children, accordionId }) => (
   <div
     id={accordionId}

@@ -3,8 +3,14 @@ import PropTypes from 'prop-types';
 import { NetworkStatus as NS } from 'apollo-client';
 import ErrorDisplay from 'components/common/ErrorDisplay';
 import Loading from 'components/common/Loading';
+import Urls from 'util/urls';
 
-const LeagueTable = ({ networkStatus, error, divisionResults }) => {
+/**
+ * Represents a League Table. 
+ * 
+ * Teams are either Opposition.Team or Team.ClubTeam instances.
+ */
+const LeagueTable = ({ networkStatus, error, divisionResults, teamName }) => {
   if (networkStatus === NS.loading) return <Loading message="Fetching league table..." />;
   if (error) return <ErrorDisplay errorMessage="Failed to load league table" />;
   return (
@@ -42,11 +48,16 @@ const LeagueTable = ({ networkStatus, error, divisionResults }) => {
       <tbody>
         {divisionResults.edges.map((rowEdge) => {
           const row = rowEdge.node;
-          const rowClass = row.ourTeam ? 'table-success' : '';
+          const isOurTeam = row.teamName === teamName;
+          const rowClass = isOurTeam ? 'table-success' : '';
           return (
             <tr key={row.teamName} className={rowClass}>
               <td>
-                <a href="#">{row.teamName}</a>
+                {isOurTeam ? (
+                  row.teamName
+                ) : (
+                  <a href={Urls.opposition_club_detail(row.oppTeam.club.slug)}>{row.teamName}</a>
+                )}
               </td>
               <td>{row.played}</td>
               <td>{row.won}</td>
@@ -69,6 +80,7 @@ LeagueTable.propTypes = {
   networkStatus: PropTypes.number.isRequired,
   error: PropTypes.instanceOf(Error),
   divisionResults: PropTypes.shape(),
+  teamName: PropTypes.string.isRequired,
 };
 
 LeagueTable.defaultProps = {

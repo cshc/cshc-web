@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * A React implementation of the Unify Accordion card component. 
+ * 
+ * Ref: https://htmlstream.com/preview/unify-v2.2/unify-main/shortcodes/shortcode-base-accordions.html#shortcode10
+ */
 const AccordionCard = ({ cardId, title, leftIcon, rightIcon, accordionId, ...props }) => (
   <div className="card rounded-0 g-brd-none">
     <div id={`${accordionId}-heading-${cardId}`} className="u-accordion__header g-pa-0" role="tab">

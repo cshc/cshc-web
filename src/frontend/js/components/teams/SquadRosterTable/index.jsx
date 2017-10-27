@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MemberAvatar from 'components/members/MemberAvatar';
 import Member from 'models/member';
+import Urls from 'util/urls';
 
+/**
+ * Tabular representation of a Squad Roster. Each member is a row on the table.
+ */
 const SquadRosterTable = ({ squadStats: { squad } }) => (
   <table className="table table-sm table-hover table-responsive">
     <thead>
@@ -29,7 +33,7 @@ const SquadRosterTable = ({ squadStats: { squad } }) => (
             <MemberAvatar member={memberStats.member} />
           </td>
           <td className="align-middle">
-            <a href="#" title="View Profile">
+            <a href={Urls.member_detail(memberStats.member.modelId)} title="View Profile">
               {Member.fullName(memberStats.member)}
             </a>
           </td>

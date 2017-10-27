@@ -1,3 +1,15 @@
+import reduce from 'lodash/reduce';
+
+const toDict = keys =>
+  reduce(
+    keys,
+    (acc, key) => {
+      acc[key] = key;
+      return acc;
+    },
+    {},
+  );
+
 const FixtureType = {
   Friendly: 'FRIENDLY',
   League: 'LEAGUE',
@@ -25,10 +37,23 @@ const ViewType = {
   Cards: 'Cards',
 };
 
+const MatchItem = toDict([
+  'fixtureType',
+  'date',
+  'opposition',
+  'time',
+  'venue',
+  'result',
+  'scorers',
+  'awards',
+  'report',
+]);
+
 module.exports = {
   FixtureType,
   HomeAway,
   MatchAward,
   ViewType,
   SwitchableView,
+  MatchItem,
 };
