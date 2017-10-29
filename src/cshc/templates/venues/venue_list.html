@@ -50,14 +50,14 @@
   <script >
       $(function () {
         var markers = {{ venues_json|safe }}.filter(v => !!v.addr_postcode).map(v => ({
-          position: v.position ? [v.position.latitude, v.position.longitude] : null,
-          address: v.addr_postcode ? full_address(v) : null,
+          position: v.position ? v.position : null,
+          address: !v.position && v.addr_postcode ? full_address(v) : null,
           title: v.name,
           url: v.url,
           icon: v.is_home ?
             "http://maps.google.com/mapfiles/marker_green.png" :
             "http://maps.google.com/mapfiles/marker_grey.png",
-        })).slice(0, 10); // TODO: Remove slice once lat/long is populated
+        }));
         $('#map')
         .gmap3({
           address:'Cambridge, UK',
