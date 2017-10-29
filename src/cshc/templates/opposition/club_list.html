@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Opposition Clubs{% endblock %}
+
+{% block link %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
+{% endblock link %}
+
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Opposition Clubs" "opposition_club_list" %}
+{% endblock %}
+
+{% block content %}
+
+{% heading "Opposition Clubs" %}
+
+<p class="lead">This table shows Cambridge South's playing record against all our opposition clubs.</p>
+<p class="priority3">Included in the stats are the average points (3 points for a Win, 1 point for a Draw) that South Teams have taken 
+  off rival clubs. The higher the average, the better is South's record against that club.</p>
+<p>You can click on a club name to see a breakdown of the matches played and then drill into Match Reports.</p>
+
+<div class="table-responsive">
+  <table class="table table-sm table-hover">
+    <thead>
+      <tr>
+        <th rowspan="2">Club</th>
+        <th rowspan="2" class="text-right"><abbr title="Played">P</abbr></th>
+        <th rowspan="2" class="text-right"><abbr title="Won">W</abbr></th>
+        <th rowspan="2" class="text-right"><abbr title="Drawn">D</abbr></th>
+        <th rowspan="2" class="text-right"><abbr title="Lost">L</abbr></th>
+        <th colspan="3" class="priority3 text-center"><abbr title="Average goals per game">Avg. Goals</abbr></th>
+        <th rowspan="2" class="priority3 text-center"><abbr title="Average points per game">Avg. Points</abbr></th>
+      </tr>
+      <tr>
+        <th class="priority3 text-right"><abbr title="Goals For">GF</abbr></th>
+        <th class="priority3 text-right"><abbr title="Goals Against">GA</abbr></th>
+        <th class="priority3 text-right"><abbr title="Goal Difference">GD</abbr></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for c in clubstats_list %}
+      <tr>
+        <td>{{ c.club|urlise_model }}</td>
+        <td class="text-right">{{ c.total_played }}</td>
+        <td class="text-right">{{ c.total_won }}</td>
+        <td class="text-right">{{ c.total_drawn }}</td>
+        <td class="text-right">{{ c.total_lost }}</td>
+        <td class="priority3 text-right">{{ c.avg_gf|floatformat:1 }}</td>
+        <td class="priority3 text-right">{{ c.avg_ga|floatformat:1 }}</td>
+        <td class="priority3 text-right">{{ c.avg_gd|stringformat:"+.1f" }}</td>
+        <td class="priority3 text-center">{{ c.avg_points|floatformat:1 }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}

@@ -1610,3 +1610,21 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
   list-style: none;
   padding-left: 0;
 }
+/* Small devices (landscape phones, 576px and below) */
+@media (max-width: 576px) {
+  .priority2 {
+    display: none;
+  }
+}
+/* Medium devices (tablets, 768px and below) */
+@media (max-width: 768px) {
+  .priority3 {
+    display: none;
+  }
+}
+/* Large devices (desktops, 992px and below) */
+@media (max-width: 992px) {
+}
+/* Extra large devices (large desktops, 1200px and below) */
+@media (max-width: 1200px) {
+}
