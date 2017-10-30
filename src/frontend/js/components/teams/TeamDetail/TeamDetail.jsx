@@ -30,8 +30,10 @@ const TeamDetail = ({
   seasonId,
   seasonGraphQLId,
 }) => {
-  if (networkStatus === NS.loading) return <Loading message="Loading team details..." />;
   if (error) return <ErrorDisplay errorMessage="Failed to load team details" />;
+  if (!matches || networkStatus === NS.loading) {
+    return <Loading message="Loading team details..." />;
+  }
   const results = [];
   const fixtures = [];
   matches.edges.forEach((match) => {

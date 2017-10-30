@@ -27,8 +27,8 @@ const OppositionClubDetail = ({
   clubName,
   matchFilters: { oppTeam_Club_Slug },
 }) => {
-  if (networkStatus === NS.loading) return <Loading message="Loading matches..." />;
   if (error) return <ErrorDisplay errorMessage="Failed to load matches" />;
+  if (!matches || networkStatus === NS.loading) return <Loading message="Loading matches..." />;
 
   const matchStructure = {
     results: [],

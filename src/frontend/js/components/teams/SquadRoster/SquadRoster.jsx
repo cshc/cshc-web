@@ -15,8 +15,10 @@ import SquadRosterTable from '../SquadRosterTable';
  * to switch between these views.
  */
 const SquadRoster = ({ networkStatus, error, squadStats, viewType, onSelectViewType }) => {
-  if (networkStatus === NS.loading) return <Loading message="Fetching squad roster..." />;
   if (error) return <ErrorDisplay errorMessage="Failed to load squad roster" />;
+  if (!squadStats || networkStatus === NS.loading) {
+    return <Loading message="Fetching squad roster..." />;
+  }
   const views = [
     {
       iconClass: 'fa fa-th-large',

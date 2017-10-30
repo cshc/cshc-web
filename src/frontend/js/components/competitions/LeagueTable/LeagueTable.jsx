@@ -11,8 +11,10 @@ import Urls from 'util/urls';
  * Teams are either Opposition.Team or Team.ClubTeam instances.
  */
 const LeagueTable = ({ networkStatus, error, divisionResults, teamName }) => {
-  if (networkStatus === NS.loading) return <Loading message="Fetching league table..." />;
   if (error) return <ErrorDisplay errorMessage="Failed to load league table" />;
+  if (!divisionResults || networkStatus === NS.loading) {
+    return <Loading message="Fetching league table..." />;
+  }
   return (
     <div className="table-responsive">
       <table className="table table-sm table-hover">
