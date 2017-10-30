@@ -3,9 +3,6 @@ Views for Opposition Clubs etc
 """
 from braces.views import SelectRelatedMixin
 from django.views.generic import TemplateView, DetailView
-from matches.models import Match, Appearance
-from awards.models import MatchAwardWinner
-from core.stats import MatchStats
 from .models import Club, ClubStats
 
 

@@ -62,9 +62,10 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
-    "redux-persist": "^4.10.1",
+    "redux-persist": "^5.1.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
+    "slugify": "^1.2.1",
     "victory": "^0.23.1"
   }
 }

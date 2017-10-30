@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ViewSwitcher from 'components/common/ViewSwitcher';
-import { ViewType } from 'util/constants';
+import { SwitchableView, ViewType } from 'util/constants';
 import MatchTable from '../MatchTable';
 import MatchTimeline from '../MatchTimeline';
 
@@ -25,12 +25,12 @@ const MatchList = ({
     {
       iconClass: 'fa fa-list',
       label: ViewType.Timeline,
-      onSelect: () => onSelectViewType(ViewType.Timeline),
+      onSelect: () => onSelectViewType(SwitchableView.MatchList, ViewType.Timeline),
     },
     {
       iconClass: 'fa fa-table',
       label: ViewType.Table,
-      onSelect: () => onSelectViewType(ViewType.Table),
+      onSelect: () => onSelectViewType(SwitchableView.MatchList, ViewType.Table),
     },
   ];
   return (

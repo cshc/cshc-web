@@ -5,7 +5,8 @@ import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.views.generic import ListView, DetailView
 from django.urls import reverse
-
+from competitions.models import Season, Division
+from teams.models import ClubTeam
 from .models import Venue
 
 
@@ -19,30 +20,19 @@ class VenueListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(VenueListView, self).get_context_data(**kwargs)
 
-        # TODO: Don't fetch all venues twice (once manually, once automatically)
-        venues = Venue.objects.all()
+        current_season = Season.current()
 
-        venue_details = map(lambda v: {
-            'name': v.name,
-            'short_name': v.short_name,
-            'slug': v.slug,
-            'url': v.url,
-            'is_home': v.is_home,
-            'phone': v.phone,
-            'addr1': v.addr1,
-            'addr2': v.addr2,
-            'addr3': v.addr3,
-            'addr_city': v.addr_city,
-            'addr_postcode': v.addr_postcode,
-            'full_address': v.full_address(),
-            'notes': v.notes,
-            'distance': v.distance,
-            'position': v.position_list(),
-            'url': reverse('venue_detail', kwargs={'slug': v.slug}),
-        }, venues)
+        current_divisions = Division.objects.filter(
+            clubteamseasonparticipation__season=current_season).order_by('clubteamseasonparticipation__team__position')
 
-        context['venues_json'] = json.dumps(
-            list(venue_details), cls=DjangoJSONEncoder)
+        divisions = [{'id': x.id, 'name': "{}".format(
+            x)} for x in current_divisions]
+
+        context['props'] = {
+            'currentSeason': current_season.slug,
+            'teams': list(ClubTeam.objects.active().values('long_name', 'slug')),
+            'divisions': divisions,
+        }
         return context
 
 

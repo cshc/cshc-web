@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NetworkStatus as NS } from 'apollo-client';
-import { ViewType } from 'util/constants';
+import { SwitchableView, ViewType } from 'util/constants';
 import ErrorDisplay from 'components/common/ErrorDisplay';
 import Loading from 'components/common/Loading';
 import ViewSwitcher from 'components/common/ViewSwitcher';
@@ -23,12 +23,12 @@ const SquadRoster = ({ networkStatus, error, squadStats, viewType, onSelectViewT
     {
       iconClass: 'fa fa-th-large',
       label: ViewType.Cards,
-      onSelect: () => onSelectViewType(ViewType.Cards),
+      onSelect: () => onSelectViewType(SwitchableView.SquadRoster, ViewType.Cards),
     },
     {
       iconClass: 'fa fa-table',
       label: ViewType.Table,
-      onSelect: () => onSelectViewType(ViewType.Table),
+      onSelect: () => onSelectViewType(SwitchableView.SquadRoster, ViewType.Table),
     },
   ];
   return (

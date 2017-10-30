@@ -16,6 +16,13 @@ module.exports = {
       './src/frontend/js/apps/VenueDetail.jsx',
     ],
 
+    venueList: [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:3000',
+      'webpack/hot/only-dev-server',
+      './src/frontend/js/apps/VenueList.jsx',
+    ],
+
     teamDetail: [
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:3000',

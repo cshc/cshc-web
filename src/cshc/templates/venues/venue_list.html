@@ -2,8 +2,16 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
+{% load render_bundle from webpack_loader %}
 
 {% block title %}{{ block.super }} | Venues{% endblock %}
+
+{% block link %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "css/tables.css" %}">
+{% render_bundle 'common' 'css' %}
+{% render_bundle 'venueList' 'css' %}
+{% endblock link %}
 
 {% block head_js %}
 {{ block.super }}
@@ -18,61 +26,16 @@
 {% block content %}
   {% heading 'Match Venues' %}
   
-  <div class="form-group g-mb-20">
-    <div class="input-group g-brd-primary--focus">
-      <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-        <i class="fa fa-search"></i>
-      </div>
-      <input class="form-control form-control-md border-left-0 rounded-0 pl-0" type="text" placeholder="Search by venue name">
-    </div>
-    <div class="input-group">
-      <div class="btn-group justified-content">
-        <label class="u-check">
-          <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio" checked="">
-          <span class="btn btn-md btn-block u-btn-outline-lightgray g-color-white--checked g-bg-primary--checked rounded-0">All Venues</span>
-        </label>
-        <label class="u-check">
-          <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radGroupBtn1_1" type="radio">
-          <span class="btn btn-md btn-block u-btn-outline-lightgray g-color-white--checked g-bg-primary--checked g-brd-left-none--md rounded-0">Home Grounds</span>
-        </label>
-      </div>
-    </div>
-  </div>
-  
+  <div id="react-app"></div>
 
-  <div id="map" class="js-g-map embed-responsive embed-responsive-1by1 g-min-height-60vh"></div>
-  
 {% endblock content %}
 
 {% block body_js %}
   {{ block.super }}
-  <script type="text/javascript" src="{% static "vendor/gmap3/gmap3.min.js" %}"></script>
-  <script >
-      $(function () {
-        var markers = {{ venues_json|safe }}.filter(v => !!v.addr_postcode).map(v => ({
-          position: v.position ? v.position : null,
-          address: !v.position && v.addr_postcode ? full_address(v) : null,
-          title: v.name,
-          url: v.url,
-          icon: v.is_home ?
-            "http://maps.google.com/mapfiles/marker_green.png" :
-            "http://maps.google.com/mapfiles/marker_grey.png",
-        }));
-        $('#map')
-        .gmap3({
-          address:'Cambridge, UK',
-          zoom: 9,
-          scrollwheel: true,
-          mapTypeId : google.maps.MapTypeId.ROADMAP
-        })
-        .marker(markers)
-        .on('click', function(marker) {
-            window.location.href = marker.url;
-        })
-        
-      });
-
-
-      
-    </script>
+  <script>
+    window.props = {{ props|json }};
+    window.react_mount = document.getElementById('react-app');
+  </script>
+  {% render_bundle 'common' 'js' %}
+  {% render_bundle 'venueList' 'js' %}
 {% endblock body_js %}

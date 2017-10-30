@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
 import { AppContainer } from 'react-hot-loader';
 import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/es/integration/react';
+import Loading from 'components/common/Loading';
 import client from './network/client';
 import buildStore from './redux/store';
 
@@ -14,11 +16,13 @@ import buildStore from './redux/store';
  */
 export default (Component, reducers = {}, initialState, props = window.props) => {
   const store = buildStore(reducers, initialState, client);
-  persistStore(store);
+
   ReactDOM.render(
     <AppContainer>
       <ApolloProvider store={store} client={client}>
-        <Component {...props} />
+        <PersistGate loading={<Loading />} persistor={persistStore(store)}>
+          <Component {...props} />
+        </PersistGate>
       </ApolloProvider>
     </AppContainer>,
     window.react_mount,

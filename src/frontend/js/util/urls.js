@@ -34,6 +34,20 @@ const Urls = {
     Urls.buildUrl('opposition_club_detail', {
       [window.cshcUrls.slugPlaceholder]: slug,
     }),
+
+  /**
+   * Gets a URL paramter by name. 
+   * 
+   * Ref: https://stackoverflow.com/a/901144
+   */
+  getParameterByName: (name) => {
+    const toSearch = name.replace(/[\[\]]/g, '\\$&');
+    const regex = new RegExp(`[?&]${toSearch}(=([^&#]*)|&|#|$)`);
+    const results = regex.exec(window.location.href);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  },
 };
 
 export default Urls;
