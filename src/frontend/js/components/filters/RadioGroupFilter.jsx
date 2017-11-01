@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import RadioGroup from 'components/common/RadioGroup';
-import styles from './style.scss';
 
 const RadioGroupFilter = ({ options, filterName, filterValue, onSetFilter }) => {
-  const wrapperClass = classnames('g-py-10');
   const onChange = (value) => {
     onSetFilter(filterName, value);
   };
   return (
     <RadioGroup
-      className={wrapperClass}
+      className="g-py-10"
       options={options}
       name={filterName}
       selectedValue={filterValue}

@@ -96,6 +96,9 @@
 
   <script src="{% static "js/util.js" %}"></script>
   <script >
+    
+    window.gmapsApiKey = "{{ GMAPS_API_KEY }}";
+
     $(function () {
       $('[data-toggle="popover"]').popover();
       // initialization of header

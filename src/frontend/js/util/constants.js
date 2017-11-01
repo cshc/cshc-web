@@ -54,6 +54,15 @@ const FilterName = {
   VenueDivision: 'venueDivision',
 };
 
+/**
+ * These coordinatees represent the approximate center of Cambridge.
+ * Used as the default center of Google Maps.
+ */
+const DefaultMapCenter = {
+  lat: 52.206133926014665,
+  lng: 0.12531280517578125,
+};
+
 module.exports = {
   FixtureType,
   HomeAway,
@@ -62,4 +71,5 @@ module.exports = {
   SwitchableView,
   MatchItem,
   FilterName,
+  DefaultMapCenter,
 };

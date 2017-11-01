@@ -3,13 +3,12 @@ import { persistCombineReducers, purgeStoredState } from 'redux-persist';
 import storage from 'redux-persist/es/storage'; // default: localStorage if web, AsyncStorage if react-native
 import Urls from 'util/urls';
 
-const persistConfig = {
-  key: 'root',
-  storage,
-};
-
 /* eslint-disable no-underscore-dangle */
-const buildStore = (reducers, initialState, client) => {
+const buildStore = (key, reducers, initialState, client) => {
+  const persistConfig = {
+    key,
+    storage,
+  };
   if (Urls.getParameterByName('purge')) {
     purgeStoredState(persistConfig);
   }

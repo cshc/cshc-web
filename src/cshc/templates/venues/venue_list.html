@@ -13,11 +13,6 @@
 {% render_bundle 'venueList' 'css' %}
 {% endblock link %}
 
-{% block head_js %}
-{{ block.super }}
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ GMAPS_API_KEY }}&region=GB"></script>
-{% endblock head_js %}
-
 {% block breadcrumbs %}
   {{ block.super }}
   {% breadcrumb "Venues" "venue_list" %}

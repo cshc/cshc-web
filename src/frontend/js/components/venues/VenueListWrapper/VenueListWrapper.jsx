@@ -6,6 +6,7 @@ import Loading from 'components/common/Loading';
 import { SwitchableView, ViewType } from 'util/constants';
 import ViewSwitcher from 'components/common/ViewSwitcher';
 import VenueTable from '../VenueTable';
+import VenueMap from '../VenueMap';
 
 const VenueListWrapper = ({ networkStatus, error, venues, viewType, onSelectViewType }) => {
   if (error) return <ErrorDisplay errorMessage="Failed to load venues" />;
@@ -27,7 +28,7 @@ const VenueListWrapper = ({ networkStatus, error, venues, viewType, onSelectView
   return (
     <div>
       <ViewSwitcher views={views} currentView={viewType} />
-      {viewType === ViewType.List ? <VenueTable venues={venues} /> : <div>Map</div>}
+      {viewType === ViewType.List ? <VenueTable venues={venues} /> : <VenueMap venues={venues} />}
     </div>
   );
 };

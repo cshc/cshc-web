@@ -11,15 +11,20 @@ Expects context containing:
 <script type="text/javascript" src="{% static "vendor/gmap3/gmap3.min.js" %}"></script>
 <script >
   $(function () {
-    var address = "{{ venue.full_address }}";
+    var position = [{{ venue.position }}];
+    var address = position.length ? null : "{{ venue.full_address }}";
     
     $('#{{ mapId }}')
     .gmap3({
       address:address,
+      center: position.length ? position : null,
       zoom: 14,
       scrollwheel: true,
       mapTypeId : google.maps.MapTypeId.ROADMAP
     })
-    .marker({address: address});
+    .marker({
+      address: address, 
+      position: position.length ? position : null,
+    });
   });
 </script>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import uniqBy from 'lodash/uniqBy';
 import { FilterName } from 'util/constants';
 import Subheading from 'components/common/Subheading';
-import { BooleanFilter, TextFilter, RadioGroupFilter } from 'components/filters';
+import { BooleanFilter, TextFilter, RadioGroupFilter, SelectFilter } from 'components/filters';
 import filtered from 'components/filters/filterContainer';
 
 const VenueFilterSet = ({ currentSeason, teams, divisions }) => {
@@ -12,14 +12,13 @@ const VenueFilterSet = ({ currentSeason, teams, divisions }) => {
   const CurrentSeasonFilter = filtered(FilterName.Season)(BooleanFilter);
   const TeamFilter = filtered(FilterName.VenueTeam)(RadioGroupFilter);
   const teamOptions = teams.map(team => ({ value: team.slug, label: team.long_name }));
-  const DivisionFilter = filtered(FilterName.VenueDivision)(RadioGroupFilter);
+  const DivisionFilter = filtered(FilterName.VenueDivision)(SelectFilter);
   const divisionOptions = uniqBy(divisions, 'id').map(division => ({
     value: division.id,
     label: division.name,
   }));
 
   teamOptions.unshift({ value: undefined, label: 'All' });
-  divisionOptions.unshift({ value: undefined, label: 'Any' });
   return (
     <div>
       <SearchFilter />
@@ -28,7 +27,7 @@ const VenueFilterSet = ({ currentSeason, teams, divisions }) => {
       <Subheading>Team</Subheading>
       <TeamFilter options={teamOptions} />
       <Subheading>Division</Subheading>
-      <DivisionFilter options={divisionOptions} />
+      <DivisionFilter options={divisionOptions} placeholder="Select a division..." openUpwards />
     </div>
   );
 };

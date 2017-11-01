@@ -15,7 +15,7 @@ import buildStore from './redux/store';
  * located in a 'window.props' object.
  */
 export default (Component, reducers = {}, initialState, props = window.props) => {
-  const store = buildStore(reducers, initialState, client);
+  const store = buildStore(Component.name, reducers, initialState, client);
 
   ReactDOM.render(
     <AppContainer>

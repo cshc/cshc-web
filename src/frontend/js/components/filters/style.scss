@@ -9,4 +9,22 @@
 
 .filterControl {
   flex: 0;
+  display: flex;
+}
+
+// Import react-select styles
+.select {
+  :global {
+    @import 'node_modules/react-select/scss/default.scss';
+  }
+}
+
+// If this style is applied to a SelectFitler, the dropdown menu will always open upwards
+.upwards {
+  :global {
+    .Select-menu-outer {
+      top: auto;
+      bottom: 100%;
+    }
+  }
 }
