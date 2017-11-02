@@ -103,18 +103,6 @@ class Venue(models.Model):
         """
         return True if self.addr_postcode else False
 
-    def position_dict(self):
-        """ Dictionary representation of the position field """
-        if not self.position:
-            return None
-        return {'lat': self.position.latitude, 'lon': self.position.longitude}
-
-    def position_list(self):
-        """ List representation of the position field """
-        if not self.position:
-            return None
-        return [self.position.latitude, self.position.longitude]
-
     def full_address(self):
         """ Returns the full address with (not None) address items separated by commas.
 

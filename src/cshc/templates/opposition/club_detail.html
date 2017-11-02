@@ -2,15 +2,13 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
-{% load render_bundle from webpack_loader %}
 
 {% block title %}{{ block.super }} | {{ club.name }}{% endblock %}
 
 {% block link %}
   {{ block.super }}
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
-  {% render_bundle 'common' 'css' %}
-  {% render_bundle 'oppositionClubDetail' 'css' %}
+  {% include 'react/react_css.html' with bundle_name='OppositionClubDetail' %}
 {% endblock link %}
 
 {% block head_js %}
@@ -45,17 +43,7 @@
 
 {% block body_js %}
 {{ block.super }}
-<script>
-  window.props = {
-    clubName: '{{ club.name|safe }}',
-    matchFilters: {
-      oppTeam_Club_Slug: '{{ club.slug }}',
-    },
-  };  
-  window.react_mount = document.getElementById('react-app');
-</script>
-{% render_bundle 'common' 'js' %}
-{% render_bundle 'oppositionClubDetail' 'js' %}
+{% include 'react/react_js.html' with bundle_name='OppositionClubDetail' %}
 
 {% if club.default_venue %}
   {% include 'maps/_map_body_js.html' with venue=club.default_venue mapId="map" %}

@@ -2,15 +2,13 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
-{% load render_bundle from webpack_loader %}
 
 {% block title %}{{ block.super }} | Venues{% endblock %}
 
 {% block link %}
-{{ block.super }}
-<link rel="stylesheet" href="{% static "css/tables.css" %}">
-{% render_bundle 'common' 'css' %}
-{% render_bundle 'venueList' 'css' %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
+  {% include 'react/react_css.html' with bundle_name='VenueList' %}
 {% endblock link %}
 
 {% block breadcrumbs %}
@@ -27,10 +25,5 @@
 
 {% block body_js %}
   {{ block.super }}
-  <script>
-    window.props = {{ props|json }};
-    window.react_mount = document.getElementById('react-app');
-  </script>
-  {% render_bundle 'common' 'js' %}
-  {% render_bundle 'venueList' 'js' %}
+  {% include 'react/react_js.html' with bundle_name='VenueList' %}
 {% endblock body_js %}

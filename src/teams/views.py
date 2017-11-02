@@ -58,4 +58,21 @@ class ClubTeamDetailView(TemplateView):
             raise Http404
 
         add_season_selector(context, season, part_seasons)
+
+        context['props'] = {
+            'teamId': team.id,
+            'teamGenderlessName': team.genderless_abbr_name(),
+            'seasonId': season.id,
+            'division': {
+                'id': participation.division.id,
+                'name': "{}".format(participation.division),
+                'fixturesUrl': participation.division_fixtures_url,
+                'leagueTableUrl': participation.division_tables_url,
+            },
+            'matchFilters': {
+                'ourTeam_Slug': team.slug,
+                'season_Slug': season.slug,
+            },
+        }
+
         return context

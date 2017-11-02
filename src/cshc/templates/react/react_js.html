@@ -1,0 +1,9 @@
+{% load render_bundle from webpack_loader %}
+{% load cshc_tags %}
+
+<script>
+  window.props = {{ props|json }};
+  window.react_mount = document.getElementById('react-app');
+</script>
+{% render_bundle 'common' 'js' %}
+{% render_bundle bundle_name 'js' %}

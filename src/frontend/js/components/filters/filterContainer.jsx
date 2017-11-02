@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { setDataFilter } from 'redux/actions/uiActions';
 
-const mapStateToProps = filterName => state => ({
-  filterValue: state.ui.activeFilters[filterName],
-  filterName,
+const mapStateToProps = (state, ownProps) => ({
+  filterValue: state.ui.activeFilters[ownProps.filterName],
+  ...ownProps,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -12,4 +12,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default filterName => connect(mapStateToProps(filterName), mapDispatchToProps);
+export default connect(mapStateToProps, mapDispatchToProps);

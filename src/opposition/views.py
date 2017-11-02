@@ -28,3 +28,15 @@ class ClubDetailView(SelectRelatedMixin, DetailView):
     model = Club
     context_object_name = 'club'
     select_related = ['default_venue']
+
+    def get_context_data(self, **kwargs):
+        context = super(ClubDetailView, self).get_context_data(**kwargs)
+
+        club = context['club']
+        context['props'] = {
+            'clubName': club.name,
+            'matchFilters': {
+                'oppTeam_Club_Slug': club.slug,
+            },
+        }
+        return context

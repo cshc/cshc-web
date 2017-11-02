@@ -37,6 +37,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "flow-bin": "^0.56.0",
     "flow-typed": "2.1.0",
+    "glob": "^7.1.2",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.6",
     "prettier-eslint": "^8.2.0",

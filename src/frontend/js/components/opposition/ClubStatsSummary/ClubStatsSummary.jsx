@@ -90,10 +90,10 @@ const ClubStatsSummary = ({ networkStatus, error, oppositionClubStats }) => {
         <tbody>
           {oppositionClubStats.edges
             .filter(stats => stats.node.team)
-            .map(stats => <ClubStatsSummaryRow stats={stats.node} />)}
+            .map(stats => <ClubStatsSummaryRow key={stats.node.team.slug} stats={stats.node} />)}
           {oppositionClubStats.edges
             .filter(stats => !stats.node.team)
-            .map(stats => <ClubStatsSummaryRow stats={stats.node} isTotal />)}
+            .map(stats => <ClubStatsSummaryRow key="All" stats={stats.node} isTotal />)}
         </tbody>
       </table>
     </div>

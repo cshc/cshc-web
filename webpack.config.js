@@ -2,41 +2,31 @@ const path = require('path');
 const webpack = require('webpack');
 const BundleTracker = require('webpack-bundle-tracker');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const glob = require('glob');
+
+const apps = glob.sync('./src/frontend/js/apps/*.jsx');
+
+const entry = {};
+
+// Automatically create entry points for each top-level React app
+for (let i = 0; i < apps.length; i += 1) {
+  const splitApp = apps[i].split('/');
+  const appFilename = splitApp[splitApp.length - 1];
+  const appName = appFilename.split('.')[0];
+  entry[appName] = [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
+    apps[i],
+  ];
+}
 
 // See https://github.com/gaearon/react-hot-boilerplate/tree/next for details on prod settings too
 
 module.exports = {
   context: __dirname,
 
-  entry: {
-    venueDetail: [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:3000',
-      'webpack/hot/only-dev-server',
-      './src/frontend/js/apps/VenueDetail.jsx',
-    ],
-
-    venueList: [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:3000',
-      'webpack/hot/only-dev-server',
-      './src/frontend/js/apps/VenueList.jsx',
-    ],
-
-    teamDetail: [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:3000',
-      'webpack/hot/only-dev-server',
-      './src/frontend/js/apps/TeamDetail.jsx',
-    ],
-
-    oppositionClubDetail: [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:3000',
-      'webpack/hot/only-dev-server',
-      './src/frontend/js/apps/OppositionClubDetail.jsx',
-    ],
-  },
+  entry,
 
   output: {
     path: path.resolve('./src/static/bundles/'),

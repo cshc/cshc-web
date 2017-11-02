@@ -2,15 +2,13 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
-{% load render_bundle from webpack_loader %}
 
 {% block title %}{{ block.super }} | {{ venue.name }}{% endblock %}
 
 {% block link %}
   {{ block.super }}
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
-  {% render_bundle 'common' 'css' %}
-  {% render_bundle 'venueDetail' 'css' %}
+  {% include 'react/react_css.html' with bundle_name='VenueDetail' %}
 {% endblock link %}
 
 {% block head_js %}
@@ -117,23 +115,13 @@
     {% include 'maps/_map.html' with mapId="map" %}
   {% endif %}
 
-  <div id="react-match-list"></div>
+  <div id="react-app"></div>
 
 {% endblock content %}
 
 {% block body_js %}
   {{ block.super }}
-  <script>
-    window.props = {
-      venueName: '{{ venue.name }}',
-      matchFilters: {
-        venue_Name: '{{ venue.name }}',
-      },
-    };  
-    window.react_mount = document.getElementById('react-match-list');
-  </script>
-  {% render_bundle 'common' 'js' %}
-  {% render_bundle 'venueDetail' 'js' %}
+  {% include 'react/react_js.html' with bundle_name='VenueDetail' %}
 
   {% include 'maps/_map_body_js.html' with mapId="map" venue=venue %}
   {% if venue.address_known %}

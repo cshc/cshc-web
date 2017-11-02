@@ -5,10 +5,10 @@ const mapStateToProps = viewName => state => ({
   viewType: state.ui.viewTypes[viewName],
 });
 
-const mapDispatchToProps = dispatch => ({
-  onSelectViewType: (viewName, viewType) => {
+const mapDispatchToProps = viewName => dispatch => ({
+  onSelectViewType: (viewType) => {
     dispatch(setViewType(viewName, viewType));
   },
 });
 
-export default viewName => connect(mapStateToProps(viewName), mapDispatchToProps);
+export default viewName => connect(mapStateToProps(viewName), mapDispatchToProps(viewName));

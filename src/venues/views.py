@@ -36,9 +36,20 @@ class VenueListView(ListView):
         return context
 
 
-class VenueDetailsView(DetailView):
+class VenueDetailView(DetailView):
     """
     Details of a particular venue.
     """
     context_object_name = 'venue'
     model = Venue
+
+    def get_context_data(self, **kwargs):
+        context = super(VenueDetailView, self).get_context_data(**kwargs)
+        venue = context['venue']
+        context['props'] = {
+            'venueName': venue.name,
+            'matchFilters': {
+                'venue_Name': venue.name,
+            },
+        }
+        return context

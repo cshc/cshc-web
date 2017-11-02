@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import filtered from './filterContainer';
 import styles from './style.scss';
 
 class TextFilter extends React.Component {
@@ -87,4 +88,4 @@ TextFilter.defaultProps = {
   filterValue: '',
 };
 
-export default TextFilter;
+export default filtered(TextFilter);

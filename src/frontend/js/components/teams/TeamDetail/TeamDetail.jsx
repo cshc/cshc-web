@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { NetworkStatus as NS } from 'apollo-client';
 import Match from 'models/match';
 import { MatchItem } from 'util/constants';
+import { toGraphQLId } from 'util/cshc';
 import ErrorDisplay from 'components/common/ErrorDisplay';
 import Loading from 'components/common/Loading';
 import MatchList from 'components/matches/MatchList';
@@ -28,7 +29,6 @@ const TeamDetail = ({
   teamId,
   teamGenderlessName,
   seasonId,
-  seasonGraphQLId,
 }) => {
   if (error) return <ErrorDisplay errorMessage="Failed to load team details" />;
   if (!matches || networkStatus === NS.loading) {
@@ -58,8 +58,8 @@ const TeamDetail = ({
       ) : null}
       <AccordionCard cardId="league-table" accordionId="team-details" title="League Table">
         <LeagueTable
-          divisionId={division.id}
-          seasonId={seasonGraphQLId}
+          divisionId={toGraphQLId('Division', division.id)}
+          seasonId={toGraphQLId('Season', seasonId)}
           teamName={teamGenderlessName}
         />
       </AccordionCard>
@@ -77,9 +77,8 @@ TeamDetail.propTypes = {
   teamId: PropTypes.number.isRequired,
   teamGenderlessName: PropTypes.string.isRequired,
   seasonId: PropTypes.number.isRequired,
-  seasonGraphQLId: PropTypes.string.isRequired,
   division: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     name: PropTypes.string,
     fixturesUrl: PropTypes.string,
     leagueTableUrl: PropTypes.string,

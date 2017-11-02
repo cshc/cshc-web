@@ -12,7 +12,7 @@ const VenueTableRow = ({ venue }) => (
       {venue.isHome && <i className="g-ml-5 fa fa-home" title="Home venue" />}
     </td>
     <td>{Venue.full_address(venue)}</td>
-    <td>{venue.phone}</td>
+    <td>{venue.distance}</td>
   </tr>
 );
 

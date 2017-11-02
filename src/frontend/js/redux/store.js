@@ -8,6 +8,7 @@ const buildStore = (key, reducers, initialState, client) => {
   const persistConfig = {
     key,
     storage,
+    blacklist: ['ui'],
   };
   if (Urls.getParameterByName('purge')) {
     purgeStoredState(persistConfig);

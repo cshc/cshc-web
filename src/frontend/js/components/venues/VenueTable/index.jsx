@@ -9,7 +9,9 @@ const VenueTable = ({ venues }) => (
         <tr>
           <th>Venue</th>
           <th>Address</th>
-          <th>Phone</th>
+          <th>
+            <abbr title="Distance in miles from Cambridge">Distance</abbr>
+          </th>
         </tr>
       </thead>
       <tbody>

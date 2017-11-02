@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RadioGroup from 'components/common/RadioGroup';
+import filtered from './filterContainer';
 
 const RadioGroupFilter = ({ options, filterName, filterValue, onSetFilter }) => {
   const onChange = (value) => {
@@ -35,4 +36,4 @@ RadioGroupFilter.defaultProps = {
   filterValue: undefined,
 };
 
-export default RadioGroupFilter;
+export default filtered(RadioGroupFilter);

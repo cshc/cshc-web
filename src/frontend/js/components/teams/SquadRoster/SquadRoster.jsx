@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NetworkStatus as NS } from 'apollo-client';
-import { SwitchableView, ViewType } from 'util/constants';
+import { ViewType } from 'util/constants';
 import ErrorDisplay from 'components/common/ErrorDisplay';
 import Loading from 'components/common/Loading';
-import ViewSwitcher from 'components/common/ViewSwitcher';
+import { ViewSwitcher, ViewSwitcherView } from 'components/common/ViewSwitcher';
 import SquadRosterCard from '../SquadRosterCard';
 import SquadRosterTable from '../SquadRosterTable';
 
@@ -19,21 +19,12 @@ const SquadRoster = ({ networkStatus, error, squadStats, viewType, onSelectViewT
   if (!squadStats || networkStatus === NS.loading) {
     return <Loading message="Fetching squad roster..." />;
   }
-  const views = [
-    {
-      iconClass: 'fa fa-th-large',
-      label: ViewType.Cards,
-      onSelect: () => onSelectViewType(SwitchableView.SquadRoster, ViewType.Cards),
-    },
-    {
-      iconClass: 'fa fa-table',
-      label: ViewType.Table,
-      onSelect: () => onSelectViewType(SwitchableView.SquadRoster, ViewType.Table),
-    },
-  ];
   return (
     <div>
-      <ViewSwitcher className="g-mb-15" views={views} currentView={viewType} />
+      <ViewSwitcher className="g-mb-15" currentView={viewType} onSelectViewType={onSelectViewType}>
+        <ViewSwitcherView iconClass="fa fa-th-large" label={ViewType.Cards} />
+        <ViewSwitcherView iconClass="fa fa-table" label={ViewType.Table} />
+      </ViewSwitcher>
       {viewType === ViewType.Cards ? (
         <div className="row">
           {squadStats.squad.map(memberStats => (

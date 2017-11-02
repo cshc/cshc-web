@@ -9,5 +9,5 @@ from . import views
 urlpatterns = [
     url(r'^$', views.VenueListView.as_view(), name='venue_list'),
     url(r'^(?P<slug>[-\w]+)/$',
-        views.VenueDetailsView.as_view(), name='venue_detail'),
+        views.VenueDetailView.as_view(), name='venue_detail'),
 ]
