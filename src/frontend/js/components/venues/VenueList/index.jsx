@@ -1,17 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import FilterableList from 'components/common/FilterableList';
 import VenueFilterSet from '../VenueFilterSet';
 import VenueListWrapper from '../VenueListWrapper';
 
 const VenueList = props => (
-  <div className="row">
-    <div className="col-12 col-lg-4">
-      <VenueFilterSet {...props} />
-    </div>
-    <div className="col-12 col-lg-8">
-      <VenueListWrapper />
-    </div>
-  </div>
+  <FilterableList filterSet={<VenueFilterSet {...props} />} listWrapper={<VenueListWrapper />} />
 );
 
 VenueList.propTypes = {

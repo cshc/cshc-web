@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Select from 'react-select';
+import { FilterValuePropType } from 'components/common/PropTypes';
 import filtered from './filterContainer';
 import styles from './style.scss';
 
@@ -28,16 +29,14 @@ const SelectFilter = ({ options, filterName, filterValue, onSetFilter, openUpwar
   );
 };
 
-const valueType = PropTypes.oneOfType([PropTypes.bool, PropTypes.string, PropTypes.number]);
-
 SelectFilter.propTypes = {
   filterName: PropTypes.string.isRequired,
   onSetFilter: PropTypes.func.isRequired,
-  filterValue: valueType,
+  filterValue: FilterValuePropType,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      value: FilterValuePropType,
     }),
   ).isRequired,
   openUpwards: PropTypes.bool,

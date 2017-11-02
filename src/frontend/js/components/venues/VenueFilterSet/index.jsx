@@ -28,11 +28,11 @@ const VenueFilterSet = ({ currentSeason, teams, divisions }) => {
         trueValue={currentSeason}
       />
       <FilterGroup title="Team">
-        <RadioGroupFilter filterName={FilterName.VenueTeam} options={teamOptions} />
+        <RadioGroupFilter filterName={FilterName.Team} options={teamOptions} />
       </FilterGroup>
       <FilterGroup title="Division">
         <SelectFilter
-          filterName={FilterName.VenueDivision}
+          filterName={FilterName.Division}
           options={divisionOptions}
           placeholder="Select a division..."
           openUpwards

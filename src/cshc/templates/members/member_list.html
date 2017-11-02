@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Club Members{% endblock %}
+
+{% block link %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
+  {% include 'react/react_css.html' with bundle_name='MemberList' %}
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Members" "member_list" %}
+{% endblock %}
+
+{% block content %}
+  {% heading 'Club Members' %}
+  
+  <div id="react-app"></div>
+
+{% endblock content %}
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'react/react_js.html' with bundle_name='MemberList' %}
+{% endblock body_js %}

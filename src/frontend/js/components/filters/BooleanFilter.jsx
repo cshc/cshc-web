@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { FilterValuePropType } from 'components/common/PropTypes';
 import filtered from './filterContainer';
 import styles from './style.scss';
 
@@ -32,15 +33,13 @@ const BooleanFilter = ({ label, filterName, filterValue, onSetFilter, falseValue
   );
 };
 
-const valueType = PropTypes.oneOfType([PropTypes.bool, PropTypes.string, PropTypes.number]);
-
 BooleanFilter.propTypes = {
   label: PropTypes.string.isRequired,
   filterName: PropTypes.string.isRequired,
   onSetFilter: PropTypes.func.isRequired,
-  filterValue: valueType,
-  falseValue: valueType,
-  trueValue: valueType,
+  filterValue: FilterValuePropType,
+  falseValue: FilterValuePropType,
+  trueValue: FilterValuePropType,
 };
 
 BooleanFilter.defaultProps = {

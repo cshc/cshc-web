@@ -4,17 +4,34 @@ Views relating to CSHC Members
 
 import logging
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import UpdateView
 from django.core.urlresolvers import reverse_lazy
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.sites.models import Site
 from templated_email import send_templated_mail
-from .models import Member
+from competitions.models import Season
+from teams.models import ClubTeam
+from .models import Member, SquadMembership
 from .forms import ProfileEditForm
 
 LOG = logging.getLogger(__name__)
+
+
+class MemberListView(TemplateView):
+    """ View with a list of all members"""
+    template_name = 'members/member_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MemberListView, self).get_context_data(**kwargs)
+
+        current_season = Season.current()
+        context['props'] = {
+            'currentSeason': current_season.slug,
+            'teams': list(ClubTeam.objects.active().exclude(slug__in=['indoor', 'mixed']).values('long_name', 'slug')),
+        }
+        return context
 
 
 class ProfileView(LoginRequiredMixin, UpdateView):

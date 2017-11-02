@@ -8,6 +8,7 @@ export const initialViewState = {
     [SwitchableView.MatchList]: ViewType.Table,
     [SwitchableView.SquadRoster]: ViewType.Cards,
     [SwitchableView.VenueList]: ViewType.Map,
+    [SwitchableView.MemberList]: ViewType.List,
   },
   activeFilters: {},
 };

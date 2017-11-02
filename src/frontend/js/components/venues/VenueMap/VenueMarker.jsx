@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Marker } from 'react-google-maps';
-import Venue from 'models/venue';
+import { getPosition } from 'util/cshc';
 import VenueInfoWindow from './VenueInfoWindow';
 
 const VenueMarker = ({ venue, isOpen, onToggleOpen }) => (
   <Marker
-    position={Venue.getPosition(venue)}
+    position={getPosition(venue.position)}
     title={venue.name}
     onClick={() => onToggleOpen(venue)}
   >

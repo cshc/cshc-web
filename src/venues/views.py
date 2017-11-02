@@ -3,19 +3,18 @@ Venue views
 """
 import json
 from django.core.serializers.json import DjangoJSONEncoder
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView, TemplateView
 from django.urls import reverse
 from competitions.models import Season, Division
 from teams.models import ClubTeam
 from .models import Venue
 
 
-class VenueListView(ListView):
+class VenueListView(TemplateView):
     """
     List of all the match venues.
     """
-    context_object_name = 'venues'
-    model = Venue
+    template_name = 'venues/venue_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(VenueListView, self).get_context_data(**kwargs)

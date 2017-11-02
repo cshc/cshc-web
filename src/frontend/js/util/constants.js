@@ -10,6 +10,11 @@ const toDict = keys =>
     {},
   );
 
+const Gender = {
+  MALE: 'Male',
+  FEMALE: 'Female',
+};
+
 const FixtureType = {
   Friendly: 'FRIENDLY',
   League: 'LEAGUE',
@@ -26,14 +31,22 @@ const MatchAward = {
   LOM: 'Lemon of the Match',
 };
 
-const SwitchableView = {
-  SquadRoster: 'squad-roster',
-  MatchList: 'match-list',
-  VenueList: 'venue-list',
-};
+/**
+ * Identifiers for particular views. The 'viewTypes' Redux store object uses
+ * these identifiers as keys.
+ */
+const SwitchableView = toDict(['SquadRoster', 'MatchList', 'VenueList', 'MemberList']);
 
+/**
+ * Identifiers for various view types. Used by the ViewSwitcher component. The 
+ * 'viewTypes' Redux store object uses these identifiers as values.
+ */
 const ViewType = toDict(['Table', 'Timeline', 'Cards', 'List', 'Map']);
 
+/**
+ * Identifiers for items related to a match. Used for specifying visibility/behaviour of
+ * particular items.
+ */
 const MatchItem = toDict([
   'fixtureType',
   'date',
@@ -46,12 +59,39 @@ const MatchItem = toDict([
   'report',
 ]);
 
-const FilterName = {
-  HomeGround: 'onlyHomeGrounds',
-  Season: 'season',
-  TextSearch: 'textSearch',
-  VenueTeam: 'venueTeam',
-  VenueDivision: 'venueDivision',
+/**
+ * Identifying names for filters. These form the keys within the 'activeFilters' Redux store object.
+ */
+const FilterName = toDict([
+  'HomeGround',
+  'Season',
+  'TextSearch',
+  'Team',
+  'Division',
+  'Current',
+  'Captains',
+  'Gender',
+  'Position',
+]);
+
+/**
+ * Playing positions - used as filter values 
+ * 
+ * See core/models/utils.py for the definitions of Preferred Positions.
+ */
+const Position = toDict(['Goalkeeper', 'Defence', 'Midfield', 'Forward', 'Unknown']);
+
+/**
+ * Mapping of positions to the set of 'pref_position' values that they relate to.
+ * 
+ * See core/models/utils.py for the definitions of Preferred Positions.
+ */
+const PositionOptions = {
+  [Position.Goalkeeper]: [0, 1, 2, 3],
+  [Position.Defence]: [1, 4, 5],
+  [Position.Midfield]: [2, 5, 6, 7],
+  [Position.Forward]: [3, 7, 8],
+  [Position.Unknown]: [9],
 };
 
 /**
@@ -64,6 +104,7 @@ const DefaultMapCenter = {
 };
 
 module.exports = {
+  Gender,
   FixtureType,
   HomeAway,
   MatchAward,
@@ -72,4 +113,6 @@ module.exports = {
   MatchItem,
   FilterName,
   DefaultMapCenter,
+  Position,
+  PositionOptions,
 };

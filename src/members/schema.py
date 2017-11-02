@@ -3,13 +3,35 @@ GraphQL Schema for Members etc
 """
 
 import graphene
+import django_filters
 from easy_thumbnails.files import get_thumbnailer
 from graphene_django import DjangoObjectType
 from matches.models import Appearance
 from awards.models import MatchAwardWinner
 from teams.models import TeamCaptaincy
+from core import schema_helper
 from .stats import SquadPlayingStats
 from .models import CommitteePosition, Member, CommitteeMembership, SquadMembership
+
+
+member_field_map = {
+    "squadmembership_set": ("squadmembership_set", "prefetch"),
+    "teamcaptaincy_set": ("teamcaptaincy_set", "prefetch"),
+}
+
+
+class NumberInFilter(django_filters.BaseInFilter, django_filters.CharFilter):
+    pass
+
+
+class MemberFilter(django_filters.FilterSet):
+    # Do 'in' lookups on 'pref_position'
+    pref_position__in = NumberInFilter(name='pref_position', lookup_expr='in')
+
+    class Meta:
+        model = Member
+        fields = ['is_current', 'gender', 'pref_position',
+                  'appearances__match__season__slug', 'appearances__match__our_team__slug']
 
 
 class CommitteePositionType(DjangoObjectType):
@@ -38,6 +60,16 @@ class MemberType(DjangoObjectType):
 
     class Meta:
         model = Member
+        interfaces = (graphene.Node, )
+        filter_fields = {
+            'first_name': ['exact', 'icontains', 'istartswith'],
+            'last_name': ['exact', 'icontains', 'istartswith'],
+            'is_current': ['exact'],
+            'pref_position': ['in'],
+            'gender': ['exact'],
+            'appearances__match__season__slug': ['exact'],
+            'appearances__match__our_team__slug': ['exact'],
+        }
 
     def resolve_model_id(self, info):
         return self.id
@@ -90,9 +122,19 @@ class Query(graphene.ObjectType):
     committee_positions = graphene.List(CommitteePositionType)
     committee_memberships = graphene.List(CommitteeMembershipType)
     squad_memberships = graphene.List(SquadMembershipType)
-    members = graphene.List(MemberType)
+    members = schema_helper.OptimizableFilterConnectionField(
+        MemberType, filterset_class=MemberFilter)
     squad_stats = graphene.Field(
         SquadStatsType, season=graphene.Int(), team=graphene.Int())
+
+    def resolve_members(self, info, **kwargs):
+        # Slight hack to manually convert a comma-separated list of pref_position ints to an array of ints
+        if 'pref_position__in' in kwargs:
+            kwargs['pref_position__in'] = [
+                int(x) for x in kwargs['pref_position__in'].split(",")]
+        return schema_helper.optimize(Member.objects.filter(**kwargs),
+                                      info,
+                                      member_field_map).distinct()
 
     def resolve_squad_stats(self, info, **kwargs):
         # Get playing stats for the team, including squad members
@@ -139,6 +181,3 @@ class Query(graphene.ObjectType):
 
     def resolve_squad_memberships(self):
         return SquadMembership.objects.all()
-
-    def resolve_members(self):
-        return Member.objects.all()
