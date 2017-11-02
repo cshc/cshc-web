@@ -1,6 +1,7 @@
 """ Model utils """
 
 import uuid
+from model_utils import Choices
 
 # pylint: disable=C0103
 
@@ -106,6 +107,10 @@ class Position(object):
         (7, 'Midfielder/Forward'),
         (8, 'Forward'),
         (9, 'Not known'))
+
+
+EmergencyContactRelationship = Choices(
+    'Spouse', 'Partner', 'Parent', 'Sibling', 'Friend', 'Other')
 
 
 def ordinal_from_TeamOrdinal(team_ordinal):

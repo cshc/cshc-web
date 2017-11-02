@@ -21,6 +21,16 @@ class MemberAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_filter = ('is_current', 'gender', 'pref_position')
     list_display = ('__str__', 'user', 'gender',
                     'pref_position', 'is_current')
+    fieldsets = [
+        ('Personal', {'fields': ['user', 'first_name', 'last_name',
+                                 'gender', 'profile_pic', 'profile_pic_cropping']}),
+        ('Playing', {'fields': ['is_current', 'shirt_number',
+                                'pref_position', 'is_umpire', 'is_coach']}),
+        ('Contact', {'fields': ['email', 'phone', 'addr_street',
+                                'addr_line2', 'addr_town', 'addr_postcode', 'addr_position']}),
+        ('Medical', {'fields': ['dob', 'emergency_contact',
+                                'emergency_relationship', 'emergency_phone', 'medical_notes']}),
+    ]
 
 
 @admin.register(SquadMembership)
