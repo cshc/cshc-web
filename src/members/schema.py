@@ -4,6 +4,7 @@ GraphQL Schema for Members etc
 
 import graphene
 import django_filters
+from django.db.models import (Count, Sum)
 from easy_thumbnails.files import get_thumbnailer
 from graphene_django import DjangoObjectType
 from matches.models import Appearance
@@ -57,6 +58,8 @@ class MemberType(DjangoObjectType):
     model_id = graphene.String()
     thumb_url = graphene.String(profile=graphene.String())
     pref_position = graphene.String()
+    num_appearances = graphene.Int()
+    goals = graphene.Int()
 
     class Meta:
         model = Member
@@ -73,6 +76,12 @@ class MemberType(DjangoObjectType):
 
     def resolve_model_id(self, info):
         return self.id
+
+    def resolve_num_appearances(self, info):
+        return self.num_appearances
+
+    def resolve_goals(self, info):
+        return self.goals
 
     def resolve_thumb_url(self, info, profile='avatar'):
         if not self.profile_pic:
@@ -132,7 +141,7 @@ class Query(graphene.ObjectType):
         if 'pref_position__in' in kwargs:
             kwargs['pref_position__in'] = [
                 int(x) for x in kwargs['pref_position__in'].split(",")]
-        return schema_helper.optimize(Member.objects.filter(**kwargs),
+        return schema_helper.optimize(Member.objects.annotate(num_appearances=Count('appearances'), goals=Sum('appearances__goals')).filter(**kwargs),
                                       info,
                                       member_field_map).distinct()
 

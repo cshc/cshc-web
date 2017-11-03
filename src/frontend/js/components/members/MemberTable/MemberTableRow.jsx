@@ -5,8 +5,10 @@ const MemberTableRow = ({ member }) => (
   <tr>
     <td>{member.firstName}</td>
     <td>{member.lastName}</td>
-    <td>{member.gender[0]}</td>
-    <td>{member.prefPosition}</td>
+    <td className="priority3">{member.gender[0]}</td>
+    <td className="priority3">{member.prefPosition}</td>
+    <td>{member.numAppearances}</td>
+    <td>{member.goals}</td>
   </tr>
 );
 

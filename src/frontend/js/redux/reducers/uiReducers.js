@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
 
-import { ViewType, SwitchableView } from 'util/constants';
+import { ViewType, SwitchableView, FilterName, NoFilter } from 'util/constants';
 import { SET_VIEW_TYPE, SET_DATA_FILTER } from '../actions/uiActions';
 
 export const initialViewState = {
@@ -10,7 +10,11 @@ export const initialViewState = {
     [SwitchableView.VenueList]: ViewType.Map,
     [SwitchableView.MemberList]: ViewType.List,
   },
-  activeFilters: {},
+  activeFilters: {
+    [FilterName.Gender]: NoFilter,
+    [FilterName.Team]: NoFilter,
+    [FilterName.Current]: true,
+  },
 };
 
 export default handleActions(

@@ -9,8 +9,10 @@ const MemberTable = ({ members }) => (
         <tr>
           <th>First Name</th>
           <th>Last Name</th>
-          <th>M/F</th>
-          <th>Position</th>
+          <th className="priority3">M/F</th>
+          <th className="priority3">Position</th>
+          <th>Appearances</th>
+          <th>Goals</th>
         </tr>
       </thead>
       <tbody>

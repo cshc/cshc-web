@@ -27,6 +27,8 @@ export const MEMBER_LIST_QUERY = gql`
           gender
           prefPosition
           addrPosition
+          numAppearances
+          goals
         }
       }
     }
