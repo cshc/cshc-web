@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NetworkStatus as NS } from 'apollo-client';
+import { Marker } from 'react-google-maps';
 import ErrorDisplay from 'components/common/ErrorDisplay';
 import Loading from 'components/common/Loading';
+import GoogleMap from 'components/common/GoogleMap';
+import Member from 'models/member';
+import { getPosition } from 'util/cshc';
 import { ViewType } from 'util/constants';
 import { ViewSwitcher, ViewSwitcherView } from 'components/common/ViewSwitcher';
 import MemberTable from '../MemberTable';
-import MemberMap from '../MemberMap';
 
 const MemberListWrapper = ({ networkStatus, error, members, viewType, onSelectViewType }) => {
   if (error) return <ErrorDisplay errorMessage="Failed to load members" />;
@@ -22,7 +25,15 @@ const MemberListWrapper = ({ networkStatus, error, members, viewType, onSelectVi
       {viewType === ViewType.List ? (
         <MemberTable members={members} />
       ) : (
-        <MemberMap members={members} />
+        <GoogleMap
+          markers={members.edges.map(memberEdge => (
+            <Marker
+              key={memberEdge.node.modelId}
+              position={getPosition(memberEdge.node.addrPosition)}
+              title={Member.fullName(memberEdge.node)}
+            />
+          ))}
+        />
       )}
     </div>
   );

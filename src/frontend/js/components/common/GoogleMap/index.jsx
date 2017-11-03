@@ -14,24 +14,28 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.items) {
-      if (nextProps.items.edges.length === 1) {
+    if (nextProps.markers) {
+      if (nextProps.markers.length === 1) {
         this.setState({ openIndex: 0 });
-      } else if (this.props.items.edges.length !== nextProps.items.edges.length) {
+      } else if (this.props.markers.length !== nextProps.markers.length) {
         this.setState({ openIndex: undefined });
       }
     }
   }
 
   onToggleItemOpen(index) {
-    this.setState({ openIndex: index });
+    if (!this.state.openIndex) {
+      this.setState({ openIndex: index });
+    } else {
+      this.setState({ openIndex: undefined });
+    }
   }
 
   render() {
-    const childrenWithProps = React.Children.map(this.props.children, (child, index) =>
+    const markersWithProps = React.Children.map(this.props.markers, (child, index) =>
       React.cloneElement(child, {
         isOpen: this.state.openIndex === index || false,
-        onToggleOpen: this.onToggleItemOpen,
+        onClick: () => this.onToggleItemOpen(index),
       }),
     );
     return (
@@ -40,15 +44,21 @@ class Map extends React.Component {
         defaultCenter={DefaultMapCenter}
         onClick={() => this.onToggleItemOpen(null)}
       >
-        {childrenWithProps}
+        {markersWithProps}
+        {this.props.children}
       </GoogleMap>
     );
   }
 }
 
 Map.propTypes = {
-  items: PropTypes.shape().isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
+  markers: PropTypes.node,
+};
+
+Map.defaultProps = {
+  children: undefined,
+  markers: undefined,
 };
 
 const ComposedMap = compose(

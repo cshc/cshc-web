@@ -11,6 +11,7 @@ const toDict = keys =>
   );
 
 const Gender = {
+  EITHER: '',
   MALE: 'Male',
   FEMALE: 'Female',
 };
@@ -103,6 +104,13 @@ const DefaultMapCenter = {
   lng: 0.12531280517578125,
 };
 
+/**
+ * A constant value to represent the absense of a filter. 
+ * 
+ * Used for the value of a default option in a list of options.
+ */
+const NoFilter = 'None';
+
 module.exports = {
   Gender,
   FixtureType,
@@ -115,4 +123,5 @@ module.exports = {
   DefaultMapCenter,
   Position,
   PositionOptions,
+  NoFilter,
 };

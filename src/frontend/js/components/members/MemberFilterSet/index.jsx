@@ -1,19 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FilterName, Gender, Position } from 'util/constants';
-import {
-  FilterGroup,
-  BooleanFilter,
-  TextFilter,
-  RadioGroupFilter,
-  OptionListFilter,
-} from 'components/filters';
+import { FilterName, Gender, Position, NoFilter } from 'util/constants';
+import { FilterGroup, BooleanFilter, TextFilter, OptionListFilter } from 'components/filters';
 
 const MemberFilterSet = ({ teams }) => {
   const teamOptions = teams.map(team => ({ value: team.slug, label: team.long_name }));
-  teamOptions.unshift({ value: undefined, label: 'All' });
+  teamOptions.unshift({ value: NoFilter, label: 'All' });
   const genderOptions = [
-    { value: undefined, label: 'Men & Ladies' },
+    { value: NoFilter, label: 'Men & Ladies' },
     { value: Gender.MALE, label: 'Men' },
     { value: Gender.FEMALE, label: 'Ladies' },
   ];
@@ -30,10 +24,10 @@ const MemberFilterSet = ({ teams }) => {
       <BooleanFilter filterName={FilterName.Current} label="Current" />
       <BooleanFilter filterName={FilterName.Captains} label="Captains/Vice-Captains only" />
       <FilterGroup title="Gender">
-        <RadioGroupFilter filterName={FilterName.Gender} options={genderOptions} />
+        <OptionListFilter filterName={FilterName.Gender} options={genderOptions} />
       </FilterGroup>
       <FilterGroup title="Current Squad">
-        <RadioGroupFilter filterName={FilterName.Team} options={teamOptions} />
+        <OptionListFilter filterName={FilterName.Team} options={teamOptions} />
       </FilterGroup>
       <FilterGroup title="Position">
         <OptionListFilter filterName={FilterName.Position} options={positionOptions} multiselect />

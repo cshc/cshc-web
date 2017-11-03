@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import uniqBy from 'lodash/uniqBy';
-import { FilterName } from 'util/constants';
+import { FilterName, NoFilter } from 'util/constants';
 import {
   FilterGroup,
   BooleanFilter,
   TextFilter,
-  RadioGroupFilter,
+  OptionListFilter,
   SelectFilter,
 } from 'components/filters';
 
@@ -17,7 +17,7 @@ const VenueFilterSet = ({ currentSeason, teams, divisions }) => {
     label: division.name,
   }));
 
-  teamOptions.unshift({ value: undefined, label: 'All' });
+  teamOptions.unshift({ value: NoFilter, label: 'All' });
   return (
     <div>
       <TextFilter filterName={FilterName.TextSearch} />
@@ -28,7 +28,7 @@ const VenueFilterSet = ({ currentSeason, teams, divisions }) => {
         trueValue={currentSeason}
       />
       <FilterGroup title="Team">
-        <RadioGroupFilter filterName={FilterName.Team} options={teamOptions} />
+        <OptionListFilter filterName={FilterName.Team} options={teamOptions} />
       </FilterGroup>
       <FilterGroup title="Division">
         <SelectFilter
