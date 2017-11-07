@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.templatetags.static import static
 from django.utils.safestring import mark_safe
 from graphql_relay.node.node import to_global_id
-from core.models import Gender
+from core.models import Gender, DivisionResult
 
 register = template.Library()
 
@@ -123,3 +123,21 @@ def json(value):
             'JSON contains a quote or escape sequence that was unable to be stripped')
 
     return mark_safe(clean)
+
+
+@register.inclusion_tag("teams/_division_result_label.html")
+def division_result(part, size=None):
+    """
+    Render a division result
+    """
+    class_name = 'g-bg-black-opacity-0_1 g-color-black'
+    if part.division_result in [DivisionResult.Champions, DivisionResult.Promoted]:
+        class_name = 'g-bg-green'
+    elif part.division_result == DivisionResult.Relegated:
+        class_name = 'g-bg-red'
+    if size == 'lg':
+        class_name += ' u-label--lg'
+    return {
+        'class_name': class_name,
+        'part': part,
+    }

@@ -21,7 +21,7 @@ import AccordionCard from 'components/common/Accordion/AccordionCard';
  */
 const VenueDetail = ({ networkStatus, error, matches, venueName }) => {
   if (error) return <ErrorDisplay errorMessage="Failed to load matches" />;
-  if (!matches || networkStatus === NS.loading) return <Loading message="Loading matches..." />;
+  if (!matches && networkStatus === NS.loading) return <Loading message="Loading matches..." />;
 
   const matchStructure = {
     results: [],

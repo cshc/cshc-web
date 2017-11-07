@@ -7,7 +7,7 @@ import ClubStatsSummaryRow from './ClubStatsSummaryRow';
 
 const ClubStatsSummary = ({ networkStatus, error, oppositionClubStats }) => {
   if (error) return <ErrorDisplay errorMessage="Failed to load playing records" />;
-  if (!oppositionClubStats || networkStatus === NS.loading) {
+  if (!oppositionClubStats && networkStatus === NS.loading) {
     return <Loading message="Fetching playing records..." />;
   }
   const totalsClass = 'g-font-weight-600 text-right';

@@ -5,6 +5,7 @@
 
 .filterLabel {
   flex: 1 auto;
+  padding-right: 10px;
 }
 
 .filterControl {
@@ -12,8 +13,21 @@
   display: flex;
 }
 
+.inline + .inline {
+  margin-left: 10px;
+}
+
 // Import react-select styles
 .select {
+  .filterLabel {
+    flex: 0 auto;
+  }
+
+  .filterControl {
+    flex: 1 auto;
+    display: block;
+  }
+
   :global {
     @import 'node_modules/react-select/scss/default.scss';
   }

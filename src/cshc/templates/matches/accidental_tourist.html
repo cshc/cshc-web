@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Accidental Tourist{% endblock %}
+
+{% block link %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Stats" "stats" %}
+  {% breadcrumb "Accidental Tourist" "accidental_tourist" %}
+{% endblock %}
+
+{% block content %}
+
+{% url 'accidental_tourist' as base_accidental_tourist_url %}
+
+<header class="g-mb-20">
+  <h2 class="h1 g-font-weight-300 text-uppercase">Accidental Tourist
+    {% include 'blocks/_season_selector.html' with class='g-mt-7 g-ml-10' base_url=base_accidental_tourist_url %}
+  </h2>
+</header>
+
+<p class="lead">This table shows the total miles and miles-per-game travelled by each player during the season.</p>
+
+<p class="lead">Ranking for ladies is in <span class="u-label g-bg-blue">blue</span> and men in <span class="u-label g-bg-green">green</span>. 'MPG' is the average number of miles travelled (there and back) per game played.</p>
+
+<div class="table-responsive">
+  <table class="table table-sm table-hover">
+    <thead>
+      <tr>
+        <th class="text-center">Rank</th>
+        <th>Name</th>
+        <th class="priority2 text-center"><abbr title="Total games played">Played</abbr></th>
+        <th class="text-center"><abbr title="Total miles travelled">Miles</abbr></th>
+        <th class="text-center"><abbr title="Miles per game">MPG</abbr></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for gk in goalking_list %}
+        <tr>
+          <td class="text-center"><span class="u-label g-bg-{% if gk.member.gender == 'Male' %}green{% else %}blue{% endif %}">{{ gk.rank }}</span></td>
+          <td>{{ gk.member|urlise_model }}</td>
+          <td class="priority2 text-center">{{ gk.games_played }}</td>
+          <td class="text-center">{{ gk.total_miles }}</td>
+          <td class="text-center">{{ gk.miles_per_game|floatformat:1 }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}

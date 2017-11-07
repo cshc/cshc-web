@@ -11,7 +11,7 @@ import VenueMarker from '../VenueMarker';
 
 const VenueListWrapper = ({ networkStatus, error, venues, viewType, onSelectViewType }) => {
   if (error) return <ErrorDisplay errorMessage="Failed to load venues" />;
-  if (!venues || networkStatus === NS.loading) {
+  if (!venues && networkStatus === NS.loading) {
     return <Loading message="Fetching venues..." />;
   }
   return (

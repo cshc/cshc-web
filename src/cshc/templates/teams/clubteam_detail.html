@@ -48,26 +48,12 @@
           {% endfor %}
         </div>
       </div>
-      <div class="btn-group link-dropdown subtitle-dropdown g-mt-10">
-        <button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ season }}
-        </button>
-        <div class="dropdown-menu">
-          {% for s in season_list %}
-          <a class="dropdown-item {% if s == season %}active{% endif %}" href="{{base_team_url}}{{s.slug}}">{{s}}</a>
-          {% endfor %}
-        </div>
-      </div>
+      {% include 'blocks/_season_selector.html' with class='g-mt-10' base_url=base_team_url %}
     </div>
     {% if participation and participation.division %}
       <p class="lead">
         <span class="g-mr-10" style="line-height: 2">{{ participation.division }}
-          {% if participation.final_pos %}
-            <strong>- finished {{ participation.final_pos|ordinal }}</strong>
-          {% endif %}
-          {% if participation.division_result %}
-            <strong> ({{ participation.get_division_result_display }})</strong>
-          {% endif %}
+            {% if participation.final_pos %}<span class="g-mx-10">{% division_result part=participation size='lg' %}</span>{% endif %}
         </span>
         {% if participation.division_tables_url %}
           <a href="{{ participation.division_tables_url }}" target="_blank" title="{{ participation.division }} league table" class="btn u-btn-outline-primary g-mr-10">

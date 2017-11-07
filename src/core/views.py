@@ -19,6 +19,19 @@ def kwargs_or_none(key, **dict):
         return None
 
 
+def get_season_from_kwargs(kwargs):
+    """ Many URLs have an optional 'season_slug' parameter, specifying
+        a particular season. If not specified, we default to the current
+        season.
+    """
+    season_slug = kwargs_or_none('season_slug', **kwargs)
+    if season_slug is not None:
+        season = Season.objects.get(slug=season_slug)
+    else:
+        season = Season.current()
+    return season
+
+
 def add_season_selector(context, season, season_list):
     """ Adds season information to the given context, facilitating
         the use of the core/_season_selector.html template.

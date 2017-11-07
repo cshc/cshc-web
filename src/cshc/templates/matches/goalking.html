@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Goal King{% endblock %}
+
+{% block link %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
+  {% include 'react/react_css.html' with bundle_name='GoalKing' %}
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Stats" "stats" %}
+  {% breadcrumb "Goal King" "goal_king" %}
+{% endblock %}
+
+{% block content %}
+  {% heading 'Goal King' %}
+  
+  <p class="lead">This table includes all goals scored outdoors and indoors in competitive and friendly matches against external teams.</p>
+  
+  <p class="lead">Ranking for ladies is in <span class="u-label g-bg-blue">Blue</span> and men in <span class="u-label g-bg-green g-mr-10 g-mb-15">Green</span>. 'GPG' is the average number of goals scored per game played.</p>
+
+  <div id="react-app"></div>
+
+{% endblock content %}
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'react/react_js.html' with bundle_name='GoalKing' %}
+{% endblock body_js %}

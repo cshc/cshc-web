@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-import { FilterName } from 'util/constants';
+import { FilterName, NoFilter } from 'util/constants';
 
 export const VENUE_LIST_QUERY = gql`
   query VenueList(
@@ -44,10 +44,11 @@ export const venueListOptions = {
       isHome: activeFilters[FilterName.HomeGround],
       matches_Season_Slug: activeFilters[FilterName.Season] || undefined,
       name_Icontains: activeFilters[FilterName.TextSearch] || undefined,
-      matches_OurTeam_Slug: activeFilters[FilterName.Team] || undefined,
+      matches_OurTeam_Slug:
+        activeFilters[FilterName.Team] !== NoFilter ? activeFilters[FilterName.Team] : undefined,
       matches_Division: activeFilters[FilterName.Division] || undefined,
     },
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
   }),
   props: ({ data: { networkStatus, error, venues }, ...props }) => ({
     networkStatus,

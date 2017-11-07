@@ -39,7 +39,7 @@ export const clubStatsOptions = {
     variables: {
       club_Slug: clubSlug,
     },
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
   }),
   props: ({ data: { networkStatus, error, oppositionClubStats }, ...props }) => ({
     networkStatus,

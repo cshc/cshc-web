@@ -38,48 +38,23 @@ urlpatterns = [
     #     name="matches_by_season"
     # ),
 
+    # E.g. '/matches/goal-king/'            - Goal King table
+    url(r'^goal-king/$',
+        views.GoalKingView.as_view(),
+        name="goal_king"
+        ),
 
-    # # E.g. '/matches/latest-results/'       - List of the latest result for each team
-    # url(r'^latest-results/$',
-    #     views.LatestResultsView.as_view(),
-    #     name="latest_results"
-    # ),
+    # E.g. '/matches/accidental-tourist/'   - Accidental Tourist table for the current season
+    url(r'^accidental-tourist/$',
+        views.AccidentalTouristSeasonView.as_view(),
+        name="accidental_tourist"
+        ),
 
-    # # E.g. '/matches/next-fixtures/'        - List of the next fixture for each team
-    # url(r'^next-fixtures/$',
-    #     views.NextFixturesView.as_view(),
-    #     name="next_fixtures"
-    # ),
-
-    # # E.g. '/matches/goal-king/'            - Goal King table for the current season
-    # url(r'^goal-king/$',
-    #     views.GoalKingSeasonView.as_view(),
-    #     name="goal_king"
-    # ),
-
-    # # E.g. '/matches/goal-king/2011-2012/'  - Goal King table for previous seasons
-    # url(r'^goal-king/(?P<season_slug>[-\w]+)/$',
-    #     views.GoalKingSeasonView.as_view(),
-    #     name="goal_king_season"
-    # ),
-
-    # # E.g. '/matches/goal-king/2011-2012/ajax/'     - AJAX-only: Updates and refreshes Goal King stats
-    # url(r'^goal-king/(?P<season_slug>[-\w]+)/ajax/$',
-    #     views.GoalKingSeasonUpdateView.as_view(),
-    #     name="goal_king_season_update"
-    # ),
-
-    # # E.g. '/matches/accidental-tourist/'   - Accidental Tourist table for the current season
-    # url(r'^accidental-tourist/$',
-    #     views.AccidentalTouristSeasonView.as_view(),
-    #     name="accidental_tourist"
-    # ),
-
-    # # E.g. '/matches/accidental-tourist/2011-2012/'     - Accidental Tourist table for previous seasons
-    # url(r'^accidental-tourist/(?P<season_slug>[-\w]+)/$',
-    #     views.AccidentalTouristSeasonView.as_view(),
-    #     name="accidental_tourist_season"
-    # ),
+    # E.g. '/matches/accidental-tourist/2011-2012/'     - Accidental Tourist table for previous seasons
+    url(r'^accidental-tourist/(?P<season_slug>[-\w]+)/$',
+        views.AccidentalTouristSeasonView.as_view(),
+        name="accidental_tourist_season"
+        ),
 
     # # E.g. '/matches/accidental-tourist/2011-2012/ajax/'    - AJAX-only: Updates and refreshes Accidental Tourist stats
     # url(r'^accidental-tourist/(?P<season_slug>[-\w]+)/ajax/$',
@@ -87,11 +62,11 @@ urlpatterns = [
     #     name="accidental_tourist_season_update"
     # ),
 
-    # # E.g. '/matches/naughty-step/'         - Statistics on the number of cards (red/yellow/green) received by members
-    # url(r'^naughty-step/$',
-    #     views.NaughtyStepView.as_view(),
-    #     name="naughty_step"
-    # ),
+    # E.g. '/matches/naughty-step/'         - Statistics on the number of cards (red/yellow/green) received by members
+    url(r'^naughty-step/$',
+        views.NaughtyStepView.as_view(),
+        name="naughty_step"
+        ),
 
     # Feeds
     url(r'^feed/rss/$',                          # RSS feed of match reports

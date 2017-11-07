@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import without from 'lodash/without';
 import concat from 'lodash/concat';
 import { FilterValuePropType } from 'components/common/PropTypes';
 import OptionList from 'components/common/OptionList';
 import filtered from './filterContainer';
+import styles from './style.scss';
 
-const OptionListFilter = ({ options, filterName, filterValue, onSetFilter, multiselect }) => {
+const OptionListFilter = ({
+  options,
+  filterName,
+  filterValue,
+  onSetFilter,
+  multiselect,
+  inline,
+}) => {
   const onChange = (ev) => {
     let newValue = ev.target.value;
     if (multiselect) {
@@ -16,14 +25,18 @@ const OptionListFilter = ({ options, filterName, filterValue, onSetFilter, multi
     }
     onSetFilter(filterName, newValue);
   };
+  const filterClass = classnames('g-py-10', {
+    [styles.inline]: inline,
+  });
   return (
     <OptionList
-      className="g-py-10"
-      options={options}
+      className={filterClass}
       name={filterName}
       selectedValue={filterValue}
       onChange={onChange}
+      options={options}
       multiselect={multiselect}
+      inline={inline}
     />
   );
 };
@@ -39,11 +52,13 @@ OptionListFilter.propTypes = {
     }),
   ).isRequired,
   multiselect: PropTypes.bool,
+  inline: PropTypes.bool,
 };
 
 OptionListFilter.defaultProps = {
   filterValue: undefined,
   multiselect: false,
+  inline: false,
 };
 
 export default filtered(OptionListFilter);

@@ -16,7 +16,7 @@ import SquadRosterTable from '../SquadRosterTable';
  */
 const SquadRoster = ({ networkStatus, error, squadStats, viewType, onSelectViewType }) => {
   if (error) return <ErrorDisplay errorMessage="Failed to load squad roster" />;
-  if (!squadStats || networkStatus === NS.loading) {
+  if (!squadStats && networkStatus === NS.loading) {
     return <Loading message="Fetching squad roster..." />;
   }
   return (

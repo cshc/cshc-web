@@ -44,7 +44,7 @@ export const leagueTableOptions = {
       division_Id: divisionId,
       season_Id: seasonId,
     },
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
   }),
   props: ({ data: { networkStatus, error, divisionResults }, ...props }) => ({
     networkStatus,

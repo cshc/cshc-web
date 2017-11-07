@@ -1,0 +1,37 @@
+{% load cshc_tags %}
+
+<div class="table-responsive">
+  <table class="table table-sm table-hover">
+    <thead>
+      <tr>
+        <th>Season</th>
+        <th class="text-center"><abbr title="Played">P</abbr></th>
+        <th class="text-center"><abbr title="Won">W</abbr></th>
+        <th class="text-center"><abbr title="Drawn">D</abbr></th>
+        <th class="text-center"><abbr title="Lost">L</abbr></th>
+        <th class="priority2 text-center"><abbr title="Goals for">GF</abbr></th>
+        <th class="priority2 text-center"><abbr title="Goals against">GA</abbr></th>
+        <th class="priority2 text-center"><abbr title="Goals per game">GPG</abbr></th>
+        <th class="priority4"><abbr title="Division">Div</abbr></th>
+        <th class="priority4">Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for part in seasons %}
+        {% url 'clubteam_season_detail' team.slug part.season as season_link %}
+        <tr>
+          <td><a href="{{ season_link }}">{{ part.season }}</a></td>
+          <td class="text-center">{{ part.total_played }}</td>
+          <td class="text-center">{{ part.total_won }}</td>
+          <td class="text-center">{{ part.total_drawn }}</td>
+          <td class="text-center">{{ part.total_lost }}</td>
+          <td class="priority2 text-center">{{ part.total_goals_for }}</td>
+          <td class="priority2 text-center">{{ part.total_goals_against }}</td>
+          <td class="priority2 text-center">{{ part.total_goals_per_game|floatformat:1 }}</td>
+          <td class="priority4">{% if part.division %}{{ part.div_abbr }}{% endif %}</td>
+          <td class="priority4">{% if part.final_pos %}{% division_result part=part %}{% endif %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

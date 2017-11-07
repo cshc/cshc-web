@@ -9,7 +9,9 @@ const MemberTable = ({ members }) => (
         <tr>
           <th>First Name</th>
           <th>Last Name</th>
-          <th className="priority3">M/F</th>
+          <th className="priority3">
+            <abbr title="Male/Female">M/F</abbr>
+          </th>
           <th className="priority3">Position</th>
           <th>Appearances</th>
           <th>Goals</th>

@@ -11,9 +11,9 @@ const toDict = keys =>
   );
 
 const Gender = {
-  EITHER: '',
-  MALE: 'Male',
-  FEMALE: 'Female',
+  Either: '',
+  Male: 'MALE',
+  Female: 'FEMALE',
 };
 
 const FixtureType = {
@@ -73,6 +73,7 @@ const FilterName = toDict([
   'Captains',
   'Gender',
   'Position',
+  'GoalKingGender',
 ]);
 
 /**

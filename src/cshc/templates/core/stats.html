@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load cshc_tags %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% comment %}
+Static landing page for stats - mainly a redirect from the old site.
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Stats{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Stats" "stats" %}
+{% endblock %}
+
+{% block content %}
+
+{% comment %} 
+{% url 'clubteam_list' as team_list %}
+{% endcomment %}
+{% heading 'Club Statistics' %}
+
+
+<div class="row g-mb-40">
+  <div class="col-12 col-lg-8">
+    <blockquote class="blockquote g-bg-gray-light-v5 g-brd-primary g-font-size-16 g-pa-40 g-mb-30">
+      <p>Life is not just a series of calculations and a sum total of statistics,
+        it's about experience, it's about participation, it is something more complex
+        and more interesting than what is obvious.</p>
+        <footer class="blockquote-footer">Daniel Libeskind</footer>
+    </blockquote>
+
+    <p class="lead">...that being said, we like our statistics here at Cambridge South! You'll find statistics
+    on each <a href="{% url 'member_list' %}">club member</a>, on the various <a href="{{ team_list }}">Cambridge
+    South teams</a> and on all the <a href="{% url 'opposition_club_list' %}">opposition clubs</a> we've played against.</p>
+
+    <p class="lead">In addition, we have some special statistics - and the collection is growing!</p>
+  </div>
+  <div class="col-12 col-lg-4">
+    <img class="img-fluid img-thumbnail pull-right" src="{% static "img/statistics.jpg" %}">
+  </div>
+</div>
+
+<div class="btn-group" role="group">
+  <a class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" href="{% url 'goal_king' %}">Goal King</a>
+  <a class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" href="{% url 'southerners_league' %}">Southerners League</a>
+  <a class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" href="{% url 'accidental_tourist' %}">Accidental Tourist</a>
+  <a class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" href="{% url 'playing_record' %}">Team Playing Records</a>
+  <a class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" href="{% url 'naughty_step' %}">The Naughty Step</a>
+</div>
+{% endblock %}
+

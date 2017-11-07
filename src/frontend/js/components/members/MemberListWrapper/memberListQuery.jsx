@@ -49,7 +49,7 @@ export const memberListOptions = {
       appearances_Match_Season_Slug:
         activeFilters[FilterName.Team] !== NoFilter ? currentSeason : undefined,
     },
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
   }),
   props: ({ data: { networkStatus, error, members }, ...props }) => ({
     networkStatus,

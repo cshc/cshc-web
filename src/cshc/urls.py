@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.conf import settings
+from django.views.generic import TemplateView
 from django.contrib import admin
 from django.conf.urls.static import static
 from graphene_django.views import GraphQLView
@@ -26,6 +27,9 @@ from members.views import ProfileView
 urlpatterns = [
     # The main landing page
     url(r'^$', HomeView.as_view(), name='homepage'),
+
+    # Stats landing page
+    url(r'^stats/$', TemplateView.as_view(template_name='core/stats.html'), name='stats'),
 
     url(r'^matches/', include('matches.urls')),
     url(r'^opposition/', include('opposition.urls')),

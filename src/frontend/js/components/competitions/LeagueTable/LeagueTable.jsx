@@ -12,7 +12,7 @@ import Urls from 'util/urls';
  */
 const LeagueTable = ({ networkStatus, error, divisionResults, teamName }) => {
   if (error) return <ErrorDisplay errorMessage="Failed to load league table" />;
-  if (!divisionResults || networkStatus === NS.loading) {
+  if (!divisionResults && networkStatus === NS.loading) {
     return <Loading message="Fetching league table..." />;
   }
   return (

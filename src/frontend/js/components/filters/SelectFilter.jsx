@@ -6,30 +6,44 @@ import { FilterValuePropType } from 'components/common/PropTypes';
 import filtered from './filterContainer';
 import styles from './style.scss';
 
-const SelectFilter = ({ options, filterName, filterValue, onSetFilter, openUpwards, ...props }) => {
-  const wrapperStyle = classnames(styles.select, 'g-py-10', {
+const SelectFilter = ({
+  label,
+  options,
+  filterName,
+  filterValue,
+  onSetFilter,
+  openUpwards,
+  inline,
+  ...props
+}) => {
+  const wrapperStyle = classnames(styles.filter, styles.select, 'g-py-10', {
     [styles.upwards]: openUpwards,
+    [styles.inline]: inline,
   });
   const onChange = (value) => {
     onSetFilter(filterName, value);
   };
   return (
     <div className={wrapperStyle}>
-      <Select
-        options={options}
-        simpleValue
-        clearable
-        searchable
-        name={filterName}
-        value={filterValue}
-        onChange={onChange}
-        {...props}
-      />
+      {label && <div className={styles.filterLabel}>{label}</div>}
+      <div className={styles.filterControl}>
+        <Select
+          options={options}
+          simpleValue
+          clearable
+          searchable
+          name={filterName}
+          value={filterValue}
+          onChange={onChange}
+          {...props}
+        />
+      </div>
     </div>
   );
 };
 
 SelectFilter.propTypes = {
+  label: PropTypes.string,
   filterName: PropTypes.string.isRequired,
   onSetFilter: PropTypes.func.isRequired,
   filterValue: FilterValuePropType,
@@ -40,11 +54,14 @@ SelectFilter.propTypes = {
     }),
   ).isRequired,
   openUpwards: PropTypes.bool,
+  inline: PropTypes.bool,
 };
 
 SelectFilter.defaultProps = {
   filterValue: undefined,
   openUpwards: false,
+  label: undefined,
+  inline: false,
 };
 
 export default filtered(SelectFilter);

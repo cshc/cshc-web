@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FilterName, Gender, Position, NoFilter } from 'util/constants';
+import { FilterName, Position, NoFilter } from 'util/constants';
 import { FilterGroup, BooleanFilter, TextFilter, OptionListFilter } from 'components/filters';
 
 const MemberFilterSet = ({ teams }) => {
@@ -8,8 +8,8 @@ const MemberFilterSet = ({ teams }) => {
   teamOptions.unshift({ value: NoFilter, label: 'All' });
   const genderOptions = [
     { value: NoFilter, label: 'Men & Ladies' },
-    { value: Gender.MALE, label: 'Men' },
-    { value: Gender.FEMALE, label: 'Ladies' },
+    { value: 'Male', label: 'Men' },
+    { value: 'Female', label: 'Ladies' },
   ];
   const positionOptions = [
     { value: Position.Goalkeeper, label: Position.Goalkeeper },

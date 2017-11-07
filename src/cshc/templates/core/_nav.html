@@ -115,23 +115,26 @@
           <a id="nav-link--stats" href="#" class="nav-link g-py-7 g-px-0" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu--stats">Stats
           </a>
           <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-bg-black g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling" id="nav-submenu--stats" aria-labelledby="nav-link--stats" style="display: none;">
-            <li class="dropdown-item">
-              <a href="#" class="nav-link">Goal King</a>
+            <li class="dropdown-item g-brd-bottom g-brd-white">
+              <a href="{% url 'stats' %}" class="nav-link">Overview</a>
             </li>
             <li class="dropdown-item">
-              <a href="#" class="nav-link">Southerners League</a>
+              <a href="{% url 'goal_king' %}" class="nav-link">Goal King</a>
             </li>
             <li class="dropdown-item">
-              <a href="#" class="nav-link">Rivals</a>
+              <a href="{% url 'southerners_league' %}" class="nav-link">Southerners League</a>
             </li>
             <li class="dropdown-item">
-              <a href="#" class="nav-link">Accidental Tourist</a>
+              <a href="{% url 'opposition_club_list' %}" class="nav-link">Rivals</a>
             </li>
             <li class="dropdown-item">
-              <a href="#" class="nav-link">Playing Records</a>
+              <a href="{% url 'accidental_tourist' %}" class="nav-link">Accidental Tourist</a>
             </li>
             <li class="dropdown-item">
-              <a href="#" class="nav-link">The Naughty Step</a>
+              <a href="{% url 'playing_record' %}" class="nav-link">Playing Records</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="{% url 'naughty_step' %}" class="nav-link">The Naughty Step</a>
             </li>
           </ul>
         </li>

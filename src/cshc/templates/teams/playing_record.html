@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% comment %}
+Formatted display of the 'Naughty Step' tables for all members.
+This displays the red, yellow and green cards received by all players.
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Playing Records{% endblock %}
+
+{% block link %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Stats" "stats" %}
+  {% breadcrumb "Playing Records" "playing_record" %}
+{% endblock %}
+
+{% block content %}
+
+{% heading "Team Playing Records" %}
+
+<p class="lead">Below is a summary of each team's performance over the years.</p>
+
+<div id="team-accordion" class="u-accordion u-accordion-color-primary u-accordion-brd-primary" role="tablist" aria-multiselectable="true">
+    
+  {% for part in participation %}
+    {% with part.0 as team %}
+    {% with part.1 as seasons %}
+      {% include 'blocks/_accordion_card.html' with accordionId='team' cardId=team.slug cardTitle=team.long_name cardContent='teams/_team_playing_record.html' %}
+    {% endwith %}
+    {% endwith %}
+  {% endfor %}
+
+</div>
+</div>
+{% endblock content %}

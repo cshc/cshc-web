@@ -81,16 +81,16 @@
 <section class="container g-pt-20 g-pb-40">
   <div id="match-accordion" class="u-accordion u-accordion-color-primary u-accordion-brd-primary" role="tablist" aria-multiselectable="true">
     {% if not match.is_in_past %}
-      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='venue' cardTitle='Venue' cardContent='matches/_venue.html' venue=match.venue %}
+      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='venue' show='show' cardTitle='Venue' cardContent='matches/_venue.html' venue=match.venue %}
     {% endif %}
     {% if appearances %}
-      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='team' cardTitle='Team' cardContent='matches/_players.html' %}
+      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='team' show='show' cardTitle='Team' cardContent='matches/_players.html' %}
     {% endif %}
     {% if mom_winners or lom_winners %}
-      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='awards' cardTitle='Awards' cardContent='matches/_awards.html' %}
+      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='awards' show='show' cardTitle='Awards' cardContent='matches/_awards.html' %}
     {% endif %}
     {% if match.report_body.content %}
-      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='report' cardTitle='Match Report' cardContent='matches/_report.html' %}
+      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='report' show='show' cardTitle='Match Report' cardContent='matches/_report.html' %}
     {% endif %}
   </div>
 </section>

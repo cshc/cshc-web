@@ -31,7 +31,7 @@ const TeamDetail = ({
   seasonId,
 }) => {
   if (error) return <ErrorDisplay errorMessage="Failed to load team details" />;
-  if (!matches || networkStatus === NS.loading) {
+  if (!matches && networkStatus === NS.loading) {
     return <Loading message="Loading team details..." />;
   }
   const results = [];

@@ -43,17 +43,38 @@ class AppearanceNode(DjangoObjectType):
         # }
 
 
+goalking_field_map = {
+    "member": ("member", "select"),
+}
+
+
 class GoalKingType(DjangoObjectType):
     """ GraphQL node representing an entry in the Goal King stats """
+    gender = graphene.String()
+    goals_per_game = graphene.Float()
+    miles_per_game = graphene.Float()
+
     class Meta:
         model = GoalKing
+        interfaces = (graphene.Node, )
+        filter_fields = ['member__gender', 'season__slug']
+
+    def resolve_gender(self, info):
+        return self.member.gender
+
+    def resolve_goals_per_game(self, info):
+        return self.goals_per_game()
+
+    def resolve_miles_per_game(self, info):
+        return self.miles_per_game()
 
 
 class Query(graphene.ObjectType):
     """ GraphQL query for members etc """
     matches = schema_helper.OptimizableFilterConnectionField(MatchNode)
     appearances = graphene.List(AppearanceNode)
-    goal_king_entries = graphene.List(GoalKingType)
+    goal_king_entries = schema_helper.OptimizableFilterConnectionField(
+        GoalKingType)
 
     def resolve_matches(self, info, **kwargs):
         appearances_qs = Appearance.objects.select_related('member')
@@ -67,5 +88,5 @@ class Query(graphene.ObjectType):
     def resolve_appearances(self):
         return Appearance.objects.all()
 
-    def resolve_goal_king_entries(self):
-        return GoalKing.objects.all()
+    def resolve_goal_king_entries(self, info, **kwargs):
+        return schema_helper.optimize(GoalKing.objects.filter(total_goals__gt=0).filter(**kwargs).order_by('-total_goals'), info, goalking_field_map)

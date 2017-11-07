@@ -3,18 +3,10 @@ import PropTypes from 'prop-types';
 import Option from './Option';
 import { FilterValuePropType } from '../PropTypes';
 
-const OptionList = ({ name, onChange, selectedValue, options, className, multiselect }) => (
+const OptionList = ({ options, className, ...props }) => (
   <div className={className}>
     {options.map(option => (
-      <Option
-        key={option.value || 'All'}
-        name={name}
-        label={option.label}
-        value={option.value}
-        onChange={onChange}
-        selectedValue={selectedValue}
-        multiselect={multiselect}
-      />
+      <Option key={option.value || 'All'} label={option.label} value={option.value} {...props} />
     ))}
   </div>
 );
@@ -31,12 +23,14 @@ OptionList.propTypes = {
   ).isRequired,
   className: PropTypes.string,
   multiselect: PropTypes.bool,
+  inline: PropTypes.bool,
 };
 
 OptionList.defaultProps = {
   selectedValue: undefined,
   className: undefined,
   multiselect: false,
+  inline: false,
 };
 
 export default OptionList;

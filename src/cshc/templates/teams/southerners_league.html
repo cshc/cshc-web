@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Southerners League{% endblock %}
+
+{% block link %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Stats" "stats" %}
+  {% breadcrumb "Southerners League" "southerners_league" %}
+{% endblock %}
+
+{% block content %}
+
+{% url 'southerners_league' as base_league_url %}
+
+<header class="g-mb-20">
+  <h2 class="h1 g-font-weight-300 text-uppercase">Southerners League
+    {% include 'blocks/_season_selector.html' with class='g-mt-7 g-ml-10' base_url=base_league_url %}
+  </h2>
+</header>
+
+<div class="row g-mb-40">
+  <div class="col-12 col-lg-7">
+    <p class="lead">The Southerners League is a fun comparison between the teams in the club giving a quick view of how they're all doing in relation to each other.</p>
+    <p class="lead">Cancelled friendlies, matches awarded as walkovers and tournament games have been ignored, as have games where the scores are not known.</p>
+  </div>
+  <div class="col-12 col-lg-5">
+    <div class="card card-outline-info rounded-0">
+      <h3 class="card-header h5 text-white bg-info g-brd-transparent rounded-0">
+        Scoring
+      </h3>
+      <div class="card-block">
+        <p>The points are based on the following system:</p>
+        <div class="table-responsive"></div>
+          <table class="table table-sm">
+            <thead>
+              <tr><th>Result</th><th class="text-center">Points</th><th>Bonus</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Win</td><td class="text-center">3</td><td>+1 if goal difference > 2</td></tr>
+              <tr><td>Draw</td><td class="text-center">1</td><td></td></tr>
+              <tr><td>Loss</td><td class="text-center">0</td><td>-1 if goal difference > 2</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-sm table-hover">
+    <thead>
+      <tr>
+        <th class="priority2 text-center">Rank</th>
+        <th>Team</th>
+        <th class="text-center"><abbr title="Played">P</abbr></th>
+        <th class="text-center"><abbr title="Won">W</abbr></th>
+        <th class="text-center"><abbr title="Drawn">D</abbr></th>
+        <th class="text-center"><abbr title="Lost">L</abbr></th>
+        <th class="priority2 text-center"><abbr title="Goals For">GF</abbr></th>
+        <th class="priority2 text-center"><abbr title="Goals Against">GA</abbr></th>
+        <th class="priority2 text-center">Result Points</th>
+        <th class="priority2 text-center">Bonus Points</th>
+        <th class="text-center">Total Points</th>
+        <th class="text-center">Avg Points/Game</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for team in team_list %}
+      <tr>
+        <td class="priority2 text-center">{{ team.rank }}</td>
+        <td>{{ team.team }}</td>
+        <td class="text-center">{{ team.played }}</td>
+        <td class="text-center">{{ team.won }}</td>
+        <td class="text-center">{{ team.drawn }}</td>
+        <td class="text-center">{{ team.lost }}</td>
+        <td class="priority2 text-center">{{ team.goals_for }}</td>
+        <td class="priority2 text-center">{{ team.goals_against }}</td>
+        <td class="priority2 text-center">{{ team.result_points }}</td>
+        <td class="priority2 text-center">{{ team.bonus_points }}</td>
+        <td class="text-center">{{ team.total_points }}</td>
+        <td class="text-center">{{ team.avg_points_per_game|floatformat:1 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}

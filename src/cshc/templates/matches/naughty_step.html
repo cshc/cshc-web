@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% comment %}
+Formatted display of the 'Naughty Step' tables for all members.
+This displays the red, yellow and green cards received by all players.
+{% endcomment %}
+
+{% block title %}{{ block.super }} | The Naughty Step{% endblock %}
+
+{% block link %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Stats" "stats" %}
+  {% breadcrumb "Naughty Step" "naughty_step" %}
+{% endblock %}
+
+{% block content %}
+
+{% heading "The Naughty Step" %}
+
+<div class="row g-mb-40">
+  <div class="col-12 col-lg-8">
+    <p class="lead">So - who are the naughty ones? The players who can't help but accumulate cards. Find out here!</p>
+    <p class="lead">The following table orders players first by the number of red cards they've received, then yellow 
+      and finally green. If your name is not on the list - well done!</p>
+    <p class="lead"><em>Note: data on cards has only been recorded since the 2013-2014 season.</em></p>          
+  </div>
+  <div class="col-12 col-lg-4">
+      <img class="img-fluid img-thumbnail pull-right" src="{% static "img/naughty-step.jpg" %}">    
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-condensed table-hover">
+    <thead>
+      <tr>
+        <th class="g-width-200--lg">Player</th>
+        <th>Cards</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in players %}
+        <tr>
+          <td class="g-width-200--lg">{{ p.member|urlise_model }}</td>
+          <td>
+            {% for red_card_app in p.red_cards %}
+              <a href="{{ red_card_app.match.get_absolute_url }}" title="Match report...">
+                <img src="{% static "img/red_card.png" %}">
+              </a>
+            {% endfor %}
+            {% for yellow_card_app in p.yellow_cards %}
+              <a href="{{ yellow_card_app.match.get_absolute_url }}" title="Match report...">
+                <img src="{% static "img/yellow_card.png" %}">
+              </a>
+            {% endfor %}
+            {% for green_card_app in p.green_cards %}
+              <a href="{{ green_card_app.match.get_absolute_url }}" title="Match report...">
+                <img src="{% static "img/green_card.png" %}">
+              </a>
+            {% endfor %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

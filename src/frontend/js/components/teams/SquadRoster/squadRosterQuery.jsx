@@ -43,7 +43,7 @@ export const squadRosterOptions = {
       team: teamId,
       season: seasonId,
     },
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
   }),
   props: ({ data: { networkStatus, error, squadStats }, ...props }) => ({
     networkStatus,

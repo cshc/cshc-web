@@ -1,0 +1,10 @@
+<div class="btn-group link-dropdown subtitle-dropdown {{ class }}">
+  <button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {{ season }}
+  </button>
+  <div class="dropdown-menu">
+    {% for s in season_list %}
+    <a class="dropdown-item {% if s == season %}active{% endif %}" href="{{ base_url }}{{ s.slug }}">{{s}}</a>
+    {% endfor %}
+  </div>
+</div>

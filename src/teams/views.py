@@ -1,12 +1,13 @@
 """
 Venue views
 """
+from itertools import groupby
 from django.views.generic import ListView, TemplateView
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from competitions.models import Season
-from core.views import kwargs_or_none, add_season_selector
-from .models import ClubTeam, ClubTeamSeasonParticipation
+from core.views import kwargs_or_none, add_season_selector, get_season_from_kwargs
+from .models import ClubTeam, ClubTeamSeasonParticipation, Southerner
 
 
 class ClubTeamListView(ListView):
@@ -75,4 +76,76 @@ class ClubTeamDetailView(TemplateView):
             },
         }
 
+        return context
+
+
+class SouthernersSeasonView(TemplateView):
+    """ View for displaying the Southerners League stats for a particular season"""
+
+    template_name = 'teams/southerners_league.html'
+
+    def get_southerners_list(self, season):
+        """ Returns a list of Southerners League items for the specified season"""
+
+        # We convert the queryset to a list so we can add a 'rank' attribute to each item
+        team_list = list(Southerner.objects.by_season(season))
+
+        # Apply ranking
+        if len(team_list) > 0:
+            rank = 1
+            previous = team_list[0]
+            previous.rank = 1
+            for i, entry in enumerate(team_list[1:]):
+                if entry.avg_points_per_game != previous.avg_points_per_game:
+                    rank = i + 2
+                    entry.rank = str(rank)
+                else:
+                    entry.rank = "%s=" % rank
+                    previous.rank = entry.rank
+                previous = entry
+
+        return team_list
+
+    def get_context_data(self, **kwargs):
+        """ Gets the context data for the view.
+
+            In addition to the 'team_list' item, the following are also added to the context:
+            - season:               the season these stats applies to
+            - season_list:          a list of all seasons
+            - is_current_season:    True if season == Season.current()
+        """
+        context = super(SouthernersSeasonView, self).get_context_data(**kwargs)
+        season = get_season_from_kwargs(kwargs)
+
+        context['team_list'] = self.get_southerners_list(season)
+
+        add_season_selector(context, season, Season.objects.reversed())
+
+        return context
+
+
+class PlayingRecordView(TemplateView):
+    """ View of the playing record stats for each team in the club"""
+
+    template_name = 'teams/playing_record.html'
+
+    def get_all_playing_records(self):
+        """ Returns a dictionary of Playing Records, keyed by team """
+
+        # Get all participation entries
+        participations = ClubTeamSeasonParticipation.objects.select_related(
+            'team', 'season').order_by('team', '-season')
+
+        grouped_by_team = groupby(participations, lambda x: x.team)
+        parts = []
+        for team, seasons in grouped_by_team:
+            team_parts = []
+            for participation in seasons:
+                team_parts.append(participation)
+            parts.append([team, team_parts])
+        return parts
+
+    def get_context_data(self, **kwargs):
+        context = super(PlayingRecordView, self).get_context_data(**kwargs)
+        context['participation'] = self.get_all_playing_records()
         return context

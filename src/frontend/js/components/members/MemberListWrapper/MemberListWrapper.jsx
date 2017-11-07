@@ -13,7 +13,7 @@ import MemberTable from '../MemberTable';
 
 const MemberListWrapper = ({ networkStatus, error, members, viewType, onSelectViewType }) => {
   if (error) return <ErrorDisplay errorMessage="Failed to load members" />;
-  if (!members || networkStatus === NS.loading) {
+  if (!members && networkStatus === NS.loading) {
     return <Loading message="Fetching members..." />;
   }
   return (
