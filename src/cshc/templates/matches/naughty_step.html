@@ -23,7 +23,22 @@ This displays the red, yellow and green cards received by all players.
 
 {% block content %}
 
-{% heading "The Naughty Step" %}
+<header class="g-mb-20">
+    <h2 class="h1 g-font-weight-300 text-uppercase">The Naughty Step
+      <div class="btn-group link-dropdown subtitle-dropdown g-mt-7 g-ml-10">
+        <button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ season_slug }}
+        </button>
+        <div class="dropdown-menu">
+          {% for s in season_slug_list %}
+          <a class="dropdown-item {% if s == season_slug %}active{% endif %}" href="{% url 'naughty_step' %}{% if s != "All seasons" %}{{ s }}{% endif %}">{{s}}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </h2>
+  </header>
+  
+
 
 <div class="row g-mb-40">
   <div class="col-12 col-lg-8">

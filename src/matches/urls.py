@@ -64,8 +64,14 @@ urlpatterns = [
 
     # E.g. '/matches/naughty-step/'         - Statistics on the number of cards (red/yellow/green) received by members
     url(r'^naughty-step/$',
-        views.NaughtyStepView.as_view(),
+        views.NaughtyStepSeasonView.as_view(),
         name="naughty_step"
+        ),
+
+    # E.g. '/matches/naughty-step/2011-2012/'     - Statistics on the number of cards (red/yellow/green) received by members for particular seasons
+    url(r'^naughty-step/(?P<season_slug>[-\w]+)/$',
+        views.NaughtyStepSeasonView.as_view(),
+        name="naughty_step_season"
         ),
 
     # Feeds

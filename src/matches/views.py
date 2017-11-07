@@ -1,13 +1,14 @@
 """
 Views related to matches
 """
+from functools import reduce
 from braces.views import SelectRelatedMixin
 from django.views.generic import DetailView, ListView, TemplateView
 from django.db.models import Q
 from awards.models import MatchAward
 from competitions.models import Season
 from core.models import ClubInfo, Gender
-from core.views import get_season_from_kwargs, add_season_selector
+from core.views import get_season_from_kwargs, add_season_selector, kwargs_or_none
 from .models import Match, GoalKing, Appearance
 
 
@@ -117,7 +118,7 @@ class GoalKingView(TemplateView):
         return context
 
 
-class NaughtyStepView(TemplateView):
+class NaughtyStepSeasonView(TemplateView):
     """ Table of all players who have received cards, ordered by:
         i) most red cards
         ii) most yellow cards
@@ -127,11 +128,22 @@ class NaughtyStepView(TemplateView):
     template_name = 'matches/naughty_step.html'
 
     def get_context_data(self, **kwargs):
-        context = super(NaughtyStepView, self).get_context_data(**kwargs)
+        context = super(NaughtyStepSeasonView, self).get_context_data(**kwargs)
 
         query = Q(red_card=True) | Q(yellow_card=True) | Q(green_card=True)
-        card_apps = Appearance.objects.select_related(
-            'match', 'member').filter(query).order_by('match__date')
+        qs = Appearance.objects.select_related('match', 'member').filter(query)
+
+        season_slug = kwargs_or_none('season_slug', **kwargs)
+        if season_slug is not None:
+            qs = qs.filter(match__season__slug=season_slug)
+
+        card_apps = qs.order_by('match__date')
+
+        season_list = list(Appearance.objects.filter(
+            query).order_by('-match__date').values_list('match__season__slug', flat=True))
+
+        seasons = reduce(lambda l, x: l +
+                         [x] if x not in l else l, season_list, [])
 
         players = {}
         for app in card_apps:
@@ -147,6 +159,9 @@ class NaughtyStepView(TemplateView):
             p.yellow_cards), reverse=True)
         players = sorted(players, key=lambda p: len(p.red_cards), reverse=True)
         context['players'] = players
+
+        context['season_slug'] = season_slug if season_slug else 'All seasons'
+        context['season_slug_list'] = ['All seasons'] + seasons
         return context
 
 
