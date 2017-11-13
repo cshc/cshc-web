@@ -1635,3 +1635,6 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
 .g-bg-away {
   background-color: #ffff01;
 }
+.cshc-icon-zoom:hover i {
+  transform: scale(1.1);
+}

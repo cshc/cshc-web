@@ -10,8 +10,7 @@ def make_unique_filename(filename):
     """ Produces a unique filename, combining the given filename
         and a uuid.
     """
-    ext = filename.split('.')[-1]
-    return "%s.%s" % (uuid.uuid4(), ext)
+    return "%s-%s" % (uuid.uuid4(), filename)
 
 
 class DivisionResult(object):

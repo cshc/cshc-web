@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags documents %}
+
+{% block title %}{{ block.super }} | Meeting Minutes{% endblock %}
+
+
+{% block link %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
+{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Committee" "about_committee" %}
+  {% breadcrumb "Minutes" "about_minutes" %}
+{% endblock %}
+
+
+{% block content %}
+
+{% heading "CSHC Committee Meeting Minutes" %}
+
+<p class="lead">
+    CSHC is a not-for-profit organisation run by its own members in accordance with the club Constitution. Prior to 
+    the 2009/10 season the Men's and Ladies' clubs were seperate entities but since then the two have merged and a 
+    single Committee now administers the club, with sub-committees for men's and ladies' playing matters. The Committee 
+    is appointed at the Annual General Meeting and appointments run for a single season.
+</p>
+
+{% document title="CSHC Constitution" category="Committee" %}
+
+<p>Listed below are the minutes from previous club general meetings and committee meetings as well as the club accounts.</p>
+
+<div class="row g-py-40">
+  <div class="col-md-6 col-lg-4">
+    {% document_list category="Club General Meetings" %}
+  </div>
+  <div class="col-md-6 col-lg-4">
+    {% document_list category="Committee Meetings" %}
+  </div>
+  <div class="col-md-6 col-lg-4">
+    {% document_list category="Club Accounts" %}
+  </div>
+  
+</div>
+{% endblock %}

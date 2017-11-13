@@ -1,0 +1,24 @@
+{% if documents %}
+<div class="card card-outline-primary rounded-0 g-mb-20">
+  <h3 class="card-header h5 text-white g-bg-primary g-brd-transparent rounded-0">
+    {{ category }}
+  </h3>
+  <div class="m-0 list-group">
+    {% for document in documents %}
+      <a href="{{ document.file.url }}" target="_blank" title="Download" class="cshc-icon-zoom g-brd-around g-brd-gray-light-v4 g-pa-10 g-mb-minus-1 list-group-item list-group-item-action">
+        <div class="media">
+          <span class="d-flex g-color-primary g-font-size-30 mr-3">
+            <i class="icon-education-087 u-line-icon-pro"></i>
+          </span>
+          <div class="media-body d-flex flex-column align-self-center">
+            <h4 class="h6 g-color-black g-font-weight-600 text-uppercase {% if document.description %}g-mb-3{% endif %}">
+              {{ document.title }}
+            </h4>
+            {{ document.description|safe }}
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

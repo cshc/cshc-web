@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
-{% load cshc_tags %}
+{% load cshc_tags documents %}
 
 {% block title %}{{ block.super }} | Join Us{% endblock %}
 
@@ -33,20 +33,9 @@
   </div>
 </div>
 
-<div id="reg-form" class="media g-my-20">
-    <div class="d-flex align-self-center mr-3">
-      <span class="u-icon-v2 g-color-white g-bg-cyan-gradient-opacity-v1 g-rounded-5">
-        <i class="icon-education-087 u-line-icon-pro"></i>
-      </span>
-    </div>
-    <div class="media-body align-self-center">
-      <h3 class="h5 g-color-black g-line-height-1_6 mb-0">
-        <a href="{% static "documents/CSHC_Player_Registration.pdf" %}?v=2" target="_blank">Registration and Consent form</a>
-      </h3>
-      <span class="d-block g-color-gray-dark-v5">Return by email to <a href="mailto:join@cambridgesouthhockeyclub.co.uk">join@cambridgesouthhockeyclub.co.uk</a> or hand to a club officer or team captain at any match or training session.</span>
-    </div>
-  </div>
-</div>
+<div id="reg-form">
+  {% document title="Registration and Consent Form" %}  
+</div> 
 
 <div class="alert fade show g-bg-primary g-color-white rounded-0 g-my-40" role="alert">
   <div class="media">

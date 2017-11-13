@@ -49,7 +49,7 @@ urlpatterns = [
         ),
 
     url(r'^archive/minutes/$', TemplateView.as_view(
-        template_name='club_info/meeting_minutes.html'), name='about_minutes'),
+        template_name='club_info/minutes.html'), name='about_minutes'),
 
     # Stats landing page
     url(r'^stats/$', TemplateView.as_view(template_name='core/stats.html'), name='stats'),

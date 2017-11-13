@@ -1,0 +1,23 @@
+{% comment %}
+A link to a single document.
+
+Note: The following css is required:
+<link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
+
+{% endcomment %}
+
+<a class="g-text-underline--none--hover" href="{{ document.file.url }}" target="_blank" title="Download">
+  <div class="media g-mb-20">
+    <div class="d-flex align-self-center mr-3">
+      <span class="u-icon-v2 g-color-white g-bg-cyan-gradient-opacity-v1 g-rounded-5">
+        <i class="icon-education-087 u-line-icon-pro"></i>
+      </span>
+    </div>
+    <div class="media-body align-self-center">
+      <h3 class="h5 g-line-height-1_6 mb-0">
+        {{ document.title }}
+      </h3>
+      {% if document.description %}<span class="d-block g-color-gray-dark-v5">{{ document.description|safe }}</span>{% endif %}
+    </div>
+  </div>
+</a>

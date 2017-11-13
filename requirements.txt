@@ -57,3 +57,7 @@ graphene-django>=2.0.dev
 # Django Templated Email
 # Ref: https://github.com/vintasoftware/django-templated-email
 django-templated-email==2.2.0
+
+# Tagging support
+# Ref: https://django-taggit.readthedocs.io/en/latest/
+django-taggit==0.22.1
