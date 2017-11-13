@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Calendar{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+
+{% url 'match_ical_feed' as all_fixtures_cal %}
+{% url 'clubteam_ical_feed' 'm1' as m1_cal %}
+{% url 'clubteam_ical_feed' 'm2' as m2_cal %}
+{% url 'clubteam_ical_feed' 'm3' as m3_cal %}
+{% url 'clubteam_ical_feed' 'm4' as m4_cal %}
+{% url 'clubteam_ical_feed' 'm5' as m5_cal %}
+{% url 'clubteam_ical_feed' 'l1' as l1_cal %}
+{% url 'clubteam_ical_feed' 'l2' as l2_cal %}
+{% url 'clubteam_ical_feed' 'l3' as l3_cal %}
+{% url 'clubteam_ical_feed' 'l4' as l4_cal %}
+{% url 'trainingsession_ical_feed' as training_cal %}
+
+{% heading "Calendar" %}
+
+{% comment %} Embedded Google Calendar {% endcomment %}
+<iframe frameborder="0" height="900" scrolling="no" src="https://www.google.com/calendar/embed?showTitle=0&amp;showCalendars=0&amp;showTz=0&amp;
+mode={% if request.user_agent.is_mobile %}AGENDA{% else %}MONTH{% endif %}&amp;
+height800&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;
+{% for team in teams %}{% if team.google_calendar_url %}src={{ team.google_calendar_url }}&amp;color=%{% if team.gender == 'Male' %}23125A12{% else %}232952A3{% endif %}&amp;{% endif %}{% endfor %}
+src={{ training_gcal }}&amp;color=%23000000&amp;
+src={{ events_gcal }}&amp;color=%23000000&amp;
+src={{ juniors_gcal }}&amp;color=%23FF0000&amp;
+ctz=Europe%2FLondon" style="border-right-width: 0px; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" width="100%"></iframe>
+
+
+<section id="feeds" class="g-pt-40">
+    {% subheading "Calendar Feeds" %}
+    
+    <p>There are a series of calendars that you can link into your normal calendar client (Outlook, iPhone etc). The addresses are in the table below.</p>
+    <div class="table-responsive">
+      <table class="table table-hover">
+      <thead>
+          <tr>
+              <th>Calendar</th>
+              <th>Address / Link</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% include 'club_info/_cal_feed_row.html' with title="All fixtures" link_title="Calendar of fixtures for all teams" cal_link=all_fixtures_cal %}
+          {% for team in teams %}
+            {% url 'clubteam_ical_feed' team.slug as cal %}
+            {% include 'club_info/_cal_feed_row.html' with title=team.long_name|addstr:" fixtures" link_title=team.long_name|addstr:" fixture calendar" cal_link=cal %}
+          {% endfor %}
+          {% include 'club_info/_cal_feed_row.html' with title="Training" link_title="Training calendar" cal_link=training_cal %}
+          {% include 'club_info/_cal_feed_row.html' with title="Club events calendar" link_title="Training calendar" cal_link="https://calendar.google.com/calendar/ical/t7dhl1k54rqb6mmt0huu778ac8%40group.calendar.google.com/public/basic.ics" %}
+          {% include 'club_info/_cal_feed_row.html' with title="Juniors" link_title="uniors events calendar" cal_link="https://calendar.google.com/calendar/ical/4oati7ee6231hb6gtajift5hvs%40group.calendar.google.com/public/basic.ics" %}
+      </tbody>
+      </table>
+    </div>
+</section>
+
+<section id="instructions">
+
+    <p>How you actually subscribe to the calendar depends on the device that you are using. Below are instructions for iOS, Apple Mac and Outlook 2007. Otherwise, you can try clicking on the links above and see if your OS will automatically start the subscription.</p>
+    
+    <h4 class="g-mt-30"><i class="fa fa-apple g-mr-5"></i>iOS (iPhones and iPads)</h4>
+    <ol>
+    <li>
+        Copy the iCal link.</li>
+    <li>
+        Go to &quot;Settings&quot; on your iPhone or iPad and choose &quot;Mail, Contacts, Calendars&quot;</li>
+    <li>
+        Under &quot;Accounts&quot; select &quot;Add Account...&quot;</li>
+    <li>
+        Select &quot;Other&quot;</li>
+    <li>
+        Under &quot;Calendars&quot; select &quot;Add Subscribed Calendar&quot;</li>
+    <li>
+        Paste the iCal link into the &quot;Server&quot; box and select &quot;Next&quot;.</li>
+    <li>
+        The calendar is now viewable in the pre-installed &quot;Calendar&quot; app.</li>
+    </ol>
+    
+    <h4 class="g-mt-30"><i class="fa fa-android g-mr-5"></i>Android</h4>
+    <ol>
+    <li>
+        <em>On your PC</em>, go to <a href="http://calendar.google.com" target="_blank">http://calendar.google.com</a> using a browser such as Chrome or Internet Explorer.</li>
+    <li>
+        Log in using your Gmail account, e.g. fred.bloggs@gmail.com.  (Note: If you are already logged into Gmail, you can choose the Calendar app by clicking the Apps button  or using the &quot;More...&quot; menu on old browsers).</li>
+    <li>
+        Choose: &quot;Other calendars->Add by URL&quot;, from the left-hand-side menus.</li>
+    <li>
+        Paste in the South fixtures calendar, e.g. www.cambridgesouthhockeyclub.co.uk/matches/cshc_matches.ics</li>
+    <li>
+        <em>On your Android device(s)</em>, start Google's &quot;Calendar&quot; app.</li>
+    <li>
+        Choose: &quot;Menu->Calendars to display->Calendars to sync&quot;.</li>
+    <li>
+        Tick &quot;CSHC fixtures&quot;, which is listed under your gmail calendar, and click &quot;OK&quot; to synchronise and view the fixtures.</li>
+    </ol>
+    
+    <h4 class="g-mt-30"><i class="fa fa-apple g-mr-5"></i>Apple Mac</h4>
+    <ol>
+    <li>
+        Copy the iCal link.</li>
+    <li>
+        Launch the Calendar application, click on &quot;File&quot; in the top menu bar and choose &quot;New Calendar Subscription...&quot;.</li>
+    <li>
+        Paste the iCal link into the &quot;Calendar URL&quot; box and click &quot;Subscribe&quot;.</li>
+    <li>
+        From the &quot;Location&quot; menu choose &quot;iCloud&quot;.</li>
+    <li>
+        Click the &quot;Auto-refresh&quot; drop down menu and choose a frequency for the calendar to check for updates (&quot;Every day&quot; is probably sufficient).</li>
+    <li>
+        Click OK.</li>
+    <li>
+        The calendar will now appear in the Calendar app and also in the calendars of any other iCloud-connected Apple devices you have.</li>
+    </ol>
+    
+    <h4 class="g-mt-30"><i class="fa fa-laptop g-mr-5"></i>Outlook 2007</h4>
+    <ol>
+    <li>
+        Select Tools &gt; Account Settings</li>
+    <li>
+        Select the Internet Calendars tab</li>
+    <li>
+        Press New</li>
+    <li>
+        Copy the iCal link from the table above and paste it into the New Internet Calendar Subscription screen that appears.</li>
+    <li>
+        Press Add.</li>
+    <li>
+        In the screen that appears type &quot;CSHC&quot; into the Folder Name box (it currently says &quot;basic&quot;) and press OK</li>
+    <li>
+        Press Close</li>
+    <li>
+        Go to the Calendar view in Outlook and on the left hand side you should now see, under &quot;Other Calendars&quot; a check box for &quot;CSHC&quot;. If you don&#39;t see it then wait a few minutes and it should refresh (try closing Outlook and reopening if necessary). Tick the check box when you see it and the calendar should appear.</li>
+    </ol>
+
+</section>
+
+{% endblock content %}

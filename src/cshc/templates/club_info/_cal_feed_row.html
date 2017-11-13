@@ -1,0 +1,8 @@
+<tr>
+    <td>{{ title }}</td>
+    <td>
+      <a href="{{ cal_link }}" title="{{ link_title }}">
+        {{ request.get_host }}{% if request.user_agent.is_mobile %}{{ cal_link|truncatechars:20 }}{% else %}{{ cal_link }}{% endif %}
+      </a>
+    </td>
+</tr>

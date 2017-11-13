@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Kit{% endblock %}
+
+{% block link %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
+  <link rel="stylesheet" href="{% static "vendor/icon-line/css/simple-line-icons.css" %}">
+{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+
+{% heading "Club Colours and Kit" %}
+
+<p class="lead">Playing shirts are custom manufactured for the club by special order. New members are required to purchase a home 
+  shirt on joining the club. These are offered at a subsidised price. Away shirts are provided by the club.</p>
+
+<div class="row">
+  <div class="col-12 col-lg-6">
+    {% include 'club_info/_kit_panel.html' with gender="Men" home_url="img/kit/men_home.png" away_url="img/kit/men_away.png" %}
+  </div>
+  <div class="col-12 col-lg-6">
+    {% include 'club_info/_kit_panel.html' with gender="Ladies" home_url="img/kit/ladies_home.png" away_url="img/kit/ladies_away.png" %}
+  </div>
+</div>
+
+{% subheading "Ordering Kit" %}
+
+<p>In addition to the playing shirts, the club also offers a variety of official playing and training kit available to order on our <strong>
+  <a href="http://groupspaces.com/cambridgesouthhockeyclub/public/pay/shop/" target="_blank">Group Spaces shop</a></strong>.</p>
+<p>The playing kit items are all constructed out of high performance fabrics and are selected to complement your club shirt. The training 
+  wear is smart and practical and incorporates the club crest and personalised embroidery and printing options.</p>
+
+
+<div class="row table-responsive g-mt-40">
+  <div class="col-12 col-md-8 col-lg-6">
+    <div class="card g-brd-primary rounded-0">
+      <h3 class="card-header g-bg-primary g-brd-transparent g-color-white g-font-size-16 rounded-0 mb-0">
+        <i class="fa fa-user g-mr-5"></i>
+        Colour Clashes
+      </h3>
+    
+      <div class="card-block g-pa-15">
+        <p class="card-text">The away kit is used when we play the following clubs away from home.</p>
+      </div>
+    
+      <div class="table-responsive">
+        <table class="table u-table--v1 mb-0">
+          <thead>
+            <tr><th>Team</th><th>Colours (shirts/shorts or skirts/socks)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Bourne Deeping</td><td>Black/White/Black</td></tr>
+            <tr><td>Huntingdon (Ladies only)</td><td>Black/Black/Black</td></tr>
+            <tr><td>Leadenham</td><td>Black/Black/Black</td></tr>
+            <tr class="g-font-style-italic"><td>Royston</td><td>Black/Black/Black</td></tr>
+            <tr class="g-font-style-italic"><td>Saffron Walden*</td><td>Purple/Navy/Amber</td></tr>
+            <tr class="g-font-style-italic"><td>Shefford & Sandy</td><td>Black/Black/Green-Black</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-block g-pa-15 g-bg-gray-light-v5 g-brd-top g-brd-gray-light-v3">
+          <p class="card-text">Teams in normal text are league opponents; in <em>italics</em> are other local teams.</p>
+          <p class="card-text">* Away shirts to be worn with home socks</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}

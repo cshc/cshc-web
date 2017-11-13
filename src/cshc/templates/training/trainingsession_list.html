@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Training{% endblock %}
+
+{% block link %}
+  {{ block.super }}
+  <link  rel="stylesheet" href="{% static "vendor/dzsparallaxer/dzsparallaxer.css" %}">
+  <link  rel="stylesheet" href="{% static "vendor/dzsparallaxer/dzsscroller/scroller.css" %}">
+  <link  rel="stylesheet" href="{% static "vendor/dzsparallaxer/advancedscroller/plugin.css" %}">
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Training" "upcoming_trainingsession_list" %}
+{% endblock %}
+
+
+{% block main %}
+
+{% url 'calendar' as calendar %}
+{% url 'venue_detail' 'long-road' as long_road_url %}
+{% url 'venue_detail' 'wilberforce-road' as uni_url %}
+{% url 'trainingsession_create' as create_training_session %}
+{% url 'juniors_index' as juniors %}
+
+{% get_clubinfo 'SecretaryName' as sec_name %}
+{% get_clubinfo 'InSeason' as in_season %}
+
+<div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll is-touch" data-options="{
+  settings_mode_oneelement_max_offset: '150'
+ }">
+  <!-- Parallax Image -->
+  <div class="divimage dzsparallaxer--target w-100" style="height: 140%; background-image: url(&quot;{% static "img/training-banner.jpg" %}&quot;); transform: translate3d(0px, 0px, 0px);"></div>
+  <section class="g-flex-centered g-height-500 g-color-white u-bg-overlay g-bg-black-opacity-0_6--after g-py-20">
+    <div class="container text-center u-bg-overlay__inner">
+      <h2 class="g-font-size-60 g-mb-80">Training</h2>
+      <p class="g-font-size-32 g-font-style-italic">It never gets easier, you just get better</p>
+    </div>
+  </section>
+</div>
+
+<section class="container g-mt-20 g-mb-40">
+  {% render_breadcrumbs %}
+  {% subheading "Squad Training" %}
+
+  <p class="g-mb-40">Cambridge South runs professionally coached training sessions for men and women of all standards throughout the season from September to March at
+  <a href="{{ long_road_url }}">Long Road Sixth Form College</a>. All training sessions are free to attend, for club members and newcomers, with no booking required.</p>
+
+  <figure class="row flex-md-row align-items-center">
+    <div class="col-md-6 px-0">
+      <div class="u-ns-bg-v1-bottom u-ns-bg-v1-right--md g-bg-white g-py-30 g-px-50 text-center">
+        <h4 class="h4 g-color-black g-mb-15">Ladies' Squads</h4>
+        <div class="g-color-secondary g-mb-10"><a href="{{ long_road_url }}" title="Venue details">Long Road Sixth Form College</a></div>
+        <div class="g-color-secondary g-font-style-italic  g-mb-20">Thursdays, 7:30pm - 9:30pm</div>
+        <p class="lead g-color-gray-dark-v5 g-font-weight-600">The ladies' teams train on Thursday nights. Training is slightly staggered by squads: the L2s, L3s and L4s train from 
+          7:30pm to 9pm and the L1s from 8pm to 9:30pm.</p>
+      </div>
+    </div>
+    <div class="col-md-6 px-0">
+      <img class="w-100" src="{% static "img/training.jpg" %}" alt="Ladies training">
+    </div>
+  </figure>
+
+  <figure class="row flex-md-row align-items-center">
+    <div class="col-md-6 order-md-2 px-0">
+      <div class="u-ns-bg-v1-bottom u-ns-bg-v1-left--md g-bg-white g-py-30 g-px-50 text-center">
+        <div class="g-mb-25">
+          <h4 class="h4 g-color-black g-mb-15">Mens Squads</h4>
+          <div class="g-color-secondary g-mb-10"><a href="{{ long_road_url }}" title="Venue details">Long Road Sixth Form College</a></div>
+          <div class="g-color-secondary g-font-style-italic  g-mb-20">Tuesdays, 7:30pm - 9:30pm</div>
+          <p class="lead g-color-gray-dark-v5 g-font-weight-600">The men's teams train on Tuesday nights, meeting at 7:15pm to warm-up with training from 7:30pm until 9:00pm. 
+            The M1s/M2s stay on for an extra half hour until 9:30pm.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 order-md-1 px-0">
+      <img class="w-100" src="{% static "img/training.jpg" %}" alt="Mens training">
+    </div>
+  </figure>
+
+  <div class="alert fade show g-bg-primary g-color-white rounded-0 g-my-40" role="alert">
+    <div class="media">
+      <span class="d-flex g-mr-10 g-mt-5">
+        <i class="icon-info g-font-size-25"></i>
+      </span>
+      <span class="media-body align-self-center">
+        <strong>Note:</strong> Both men’s and ladies’ training sessions are split into higher and lower team sections, to ensure level-appropriate training for all players.
+      </span>
+    </div>
+  </div>
+    
+</section>
+
+<section class="g-bg-secondary">
+  <div class="container g-py-40">
+    <h3>Beginners Training and Back to Hockey</h3>
+    <p class="lead">
+      For newcomers to hockey or those wanting to refresh their skills, we have separately-coached sessions alongside our regular squad training.
+    </p>
+    <p class="lead">
+      For women looking to try out hockey or coming back to the sport, we have Back to Hockey basic skills sessions on Thursdays 7.30-9pm.
+    </p>
+    <div class="u-divider u-divider-solid u-divider-center g-brd-gray-light-v3 g-my-40">
+      <i class="fa fa-circle u-divider__icon g-bg-secondary g-color-gray-light-v3"></i>
+    </div>
+    <h3>Juniors' Training</h3>
+    <p class="lead">
+      For details of Juniors training, including upcoming session dates and times, check out the dedicated <a href="{{ juniors }}">Juniors page</a>.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="container g-py-40">
+    {% if in_season == 'in' %}
+      {% subheading "Pay and Play" %}
+      <p class="lead">
+        Cambridge South also offers informal weekly hockey on Wednesday evenings from 7:30pm to 8:30pm at
+        <a href="{{ long_road_url }}">Long Road Sixth Form College</a> during the season.
+      </p>
+      <p class="lead">
+        A typical session consists of a couple of small-sided knock-around games, each on a half pitch. The sessions are mixed men's 
+        and ladies' hockey and open to everyone. You don't have to be a club member to come along and new players are very welcome.
+      </p>
+      <p class="lead">
+        If you&#39;d like to play, either contact {% clubinfo_email 'SecretaryEmail' sec_name %} any time during the week prior to 
+        the session you wish to attend or else just turn up at the pitch and introduce yourself. The cost is &pound;4 or &pound;2 for 
+        students and the unwaged. If you're new to the club, your first session is free!
+      </p>
+    {% else %}
+      {% subheading "Summer Hockey" %}
+      <p class="lead">
+        Cambridge South also offers informal weekly hockey on Wednesday evenings year-round, including over the summer off-season, from 7:30-8:30pm at
+        <a href="{{ long_road_url }}">Long Road Sixth Form College</a>.
+      </p>
+      <p class="lead">
+        A typical session consists of a couple of small-sided knock-around games, each on a half pitch. The sessions are mixed men's and ladies' 
+        hockey and open to everyone. You don't have to be a club member to come along and new players are very welcome.
+      </p>
+      {% alert alert_class="warning" icon_class="fa fa-exclamation-triangle" bold_text="Note:" message="From May through August, additional sessions run on Tuesday and Thursdays evenings (not Thursdays in June). Tuesday and Thursday summer sessions are restricted to club members, or new players not affiliated to any club, only." %}
+      <p class="lead">
+        If you build up a thirst then there is usually a group of us going on for a drink or two afterwards at a nearby pub - a great way to get 
+        to know people in the club!
+      </p>
+      <p class="lead">
+        If you'd like to play, either contact {% clubinfo_email 'SecretaryEmail' sec_name %} any time during the week prior to the session 
+        you wish to attend or else just turn up at the pitch and introduce yourself. The cost is &pound;4 or &pound;2 for students and the 
+        unwaged. If you're new to the club, your first session is free!
+      </p>
+    {% endif %}
+  </div>
+</section>
+
+<section>
+  <div class="container g-mb-40">
+    <div class="row">
+      <div class="col-12 col-lg-8 g-mb-20">
+        <div class="card g-brd-primary rounded-0">
+          <h3 class="card-header g-bg-primary g-brd-transparent g-color-white g-font-size-16 rounded-0 mb-0">
+            Next Training Sessions
+          </h3>
+          {% include 'training/_next_training.html' %}
+        </div>
+      </div>
+      <div class="col-12 col-lg-4 g-mb-20">
+        <div class="g-bg-gray-light-v5 g-pa-30 text-center">
+          <h4>Make it easy for yourself!</h4>
+          <p class="lead g-py-20">
+            All Cambridge South training sessions are available as a <strong>.ics calendar feed</strong> that you can link into your own 
+            calendar client (Outlook, iPhone etc).
+          </p>
+          <a class="btn btn-md u-btn-outline-primary g-brd-2 rounded-0" href="{{ calendar }}#feeds"><i class="fa fa-calendar g-mr-5"></i>Subscribe</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock main %}
+
+
+{% block body_js %}
+  {{ block.super }}
+  <script src="{% static "vendor/dzsparallaxer/dzsparallaxer.js" %}"></script>
+  <script  src="{% static "vendor/dzsparallaxer/dzsscroller/scroller.js" %}"></script>
+  <script  src="{% static "vendor/dzsparallaxer/advancedscroller/plugin.js" %}"></script>
+  <script>
+    $(document).on('ready', function () {
+      // initialization of parallax
+      $('.dzsparallaxer').dzsparallaxer();
+    });
+  </script>
+{% endblock %}

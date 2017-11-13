@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | About Us{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+
+{% heading "Cambridge South Hockey Club" %}
+
+{% url 'venue_detail' 'long-road' as long_road_url %}
+{% url 'venue_detail' 'cantabs' as cantabs_url %}
+
+
+{% endblock content %}

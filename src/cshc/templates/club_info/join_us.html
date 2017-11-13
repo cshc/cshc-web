@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Join Us{% endblock %}
+
+{% block link %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
+  <link rel="stylesheet" href="{% static "vendor/icon-line/css/simple-line-icons.css" %}">
+{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+
+{% heading "New Players" %}
+
+<div class="row">
+  <div class="col-12 col-lg-6">
+    <p>Cambridge South has men’s and ladies’ teams across a range of levels from beginner upwards. We welcome anyone interested in playing hockey, whatever your standard or experience. In line with England Hockey regulations, the minimum age for participation in senior training and matches is 13.</p>
+    <p>New players who wish to train or play with Cambridge South must complete and return the <a href="#reg-form">Player Registration and Consent form</a> available on this page. Forms can be returned by email to <a href="mailto:join@cambridgesouthhockeyclub.co.uk">join@cambridgesouthhockeyclub.co.uk</a> or handed to a club officer or team captain at any match or training session.</p>
+    <p>You can attend up to three games or training sessions with Cambridge South to try us out before deciding whether to pay your annual subscription and join the club to continue playing. Current subscriptions rates and information about how to pay can be found under <a href="#fees">Annual Subscriptions.</a></p>
+    <p>For players who join part way through the season, a proportional reduction will be made to the annual subscription due. If you join after the New Year then you will usually pay 50% of the normal subscription.</p>
+    <p>Of course, we're sure you'll be champing at the bit to join us and hand over your subscription after your first game!</p>
+  </div>
+  <div class="col-12 col-lg-6">
+    <img class="img-fluid" src="{% static "img/new_players.jpg" %}"/>
+  </div>
+</div>
+
+<div id="reg-form" class="media g-my-20">
+    <div class="d-flex align-self-center mr-3">
+      <span class="u-icon-v2 g-color-white g-bg-cyan-gradient-opacity-v1 g-rounded-5">
+        <i class="icon-education-087 u-line-icon-pro"></i>
+      </span>
+    </div>
+    <div class="media-body align-self-center">
+      <h3 class="h5 g-color-black g-line-height-1_6 mb-0">
+        <a href="{% static "documents/CSHC_Player_Registration.pdf" %}?v=2" target="_blank">Registration and Consent form</a>
+      </h3>
+      <span class="d-block g-color-gray-dark-v5">Return by email to <a href="mailto:join@cambridgesouthhockeyclub.co.uk">join@cambridgesouthhockeyclub.co.uk</a> or hand to a club officer or team captain at any match or training session.</span>
+    </div>
+  </div>
+</div>
+
+<div class="alert fade show g-bg-primary g-color-white rounded-0 g-my-40" role="alert">
+  <div class="media">
+    <span class="d-flex g-mr-10 g-mt-5">
+      <i class="icon-info g-font-size-25"></i>
+    </span>
+    <span class="media-body align-self-center">
+      <strong>Note:</strong> Young players who wish to join the club junior section should use the Juniors 
+      Registration form found on the <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{{ juniors_url }}">Juniors</a> page
+    </span>
+  </div>
+</div>
+
+{% subheading "Annual Subscriptions" id="fees" %}
+<div class="row">
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="u-shadow-v1-5 g-bg-cyan-gradient-opacity-v1 g-color-white g-line-height-2 g-pa-40 g-mb-30">
+        <h3 class="h2 g-font-weight-300 g-mb-20">Waged</h3>
+      <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
+        <span class="g-valign-top g-font-size-default">&pound;</span>
+        100
+        <span class="g-font-size-default">/ year</span>
+      </strong>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="u-shadow-v1-5 g-line-height-2 g-pa-40 g-mb-30">
+        <h3 class="h2 g-font-weight-300 g-mb-20">Students/Unwaged</h3>
+      <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
+        <span class="g-valign-top g-font-size-default">&pound;</span>
+        40
+        <span class="g-font-size-default">/ year</span>
+      </strong>
+    </div>
+  </div>
+</div>
+
+
+{% subheading "Match Fees*" %}
+
+<div class="row">
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="u-shadow-v1-5 g-bg-cyan-gradient-opacity-v1 g-color-white g-line-height-2 g-pa-40 g-mb-30">
+        <h3 class="h2 g-font-weight-300 g-mb-20">Waged</h3>
+      <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
+        <span class="g-valign-top g-font-size-default">&pound;</span>
+        9
+        <span class="g-font-size-default">/ match**</span>
+      </strong>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="u-shadow-v1-5 g-line-height-2 g-pa-40 g-mb-30">
+        <h3 class="h2 g-font-weight-300 g-mb-20">Students/Unwaged</h3>
+      <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
+        <span class="g-valign-top g-font-size-default">&pound;</span>
+        4.50
+        <span class="g-font-size-default">/ match**</span>
+      </strong>
+    </div>
+  </div>
+</div>
+
+<p>* Match fees are reduced proportionally for substitutes playing part of a game</p>
+<p>** Ladies 2nd XI and below pay match fees of £8/£4 to reflect lower travel costs</p>
+
+{% get_clubinfo 'TreasurerName' as treasurer_name %}
+<div class="g-brd-around g-brd-gray-light-v4 g-brd-left-4 g-brd-primary-left g-line-height-1_8 g-rounded-3 g-pa-20 g-mb-30" role="alert">
+  <h3 class="g-color-primary g-font-weight-600">Payment of annual subscriptions</h3>
+  <p class="g-font-size-16">Annual subscriptions should be given to your team captain or the Club Treasurer ({{ treasurer_name }}). 
+      Payment can be made by cheque payable to <q>Cambridge South Hockey Club</q> or directly by bank transfer: 
+      contact {% clubinfo_email 'TreasurerEmail' treasurer_name %} for bank details and to notify them of your payment.
+  </p>
+  <p class="mb-0"><strong>Note: Players who have not paid their subscription by 31st October will no longer be covered by our members' 
+    insurance and so will not able to be selected until they have paid.</strong></p>
+</div>
+
+
+{% subheading "Umpires" %}
+
+<p>Players who umpire receive a fee of &pound;8 per game and for away games can claim fuel expenses if they take 
+  a team player in accordance with the Travel Costs on the relevant venue page.</p>
+
+
+{% endblock content %}

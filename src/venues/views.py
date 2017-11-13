@@ -21,7 +21,7 @@ class VenueListView(TemplateView):
 
         current_season = Season.current()
 
-        current_divisions = Division.objects.filter(
+        current_divisions = Division.objects.select_related('league').filter(
             clubteamseasonparticipation__season=current_season).order_by('clubteamseasonparticipation__team__position')
 
         divisions = [{'id': x.id, 'name': "{}".format(
@@ -51,4 +51,16 @@ class VenueDetailView(DetailView):
                 'venue_Name': venue.name,
             },
         }
+        return context
+
+
+class DirectionsView(TemplateView):
+    """ A simple view with an overview of the home venue and match tea locations.
+    """
+    template_name = "club_info/directions.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(DirectionsView, self).get_context_data(**kwargs)
+        homePitch = Venue.objects.get(slug='long-road')
+        context['homePitch'] = homePitch
         return context

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Committee{% endblock %}
+
+
+{% block link %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
+{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+
+{% block content %}
+
+{% url 'about_minutes' as minutes_url %}
+{% url 'about_committee' as base_committee_url %}
+
+<header class="g-mb-20">
+  <h2 class="h1 g-font-weight-300 text-uppercase">CSHC Committee and Constitution
+    {% include 'blocks/_season_selector.html' with base_url=base_committee_url %}
+  </h2>
+</header>
+
+<div class="row">
+  <div class="col-lg-6">
+    <p class="lead">
+      CSHC is a not-for-profit organisation run by its own members in accordance with the club Constitution. The club committee
+      administers the club, with a sub-committee to manage the club junior section. The committee is appointed at the
+      Annual General Meeting and appointments run for a single season.
+    </p>
+    
+    <div class="row g-my-20">
+      <div class="col-md-6">
+        <div class="media g-mb-20">
+          <div class="d-flex align-self-center mr-3">
+            <span class="u-icon-v2 g-color-white g-bg-cyan-gradient-opacity-v1 g-rounded-5">
+              <i class="icon-education-087 u-line-icon-pro"></i>
+            </span>
+          </div>
+          <div class="media-body align-self-center">
+            <h3 class="h5 g-color-black g-line-height-1_6 mb-0">
+              <a href="{% static "documents/CSHC_Constitution_June_2017.pdf" %}?v=1" target="_blank">Club Constitution</a>
+            </h3>
+            <span class="d-block g-color-gray-dark-v5">The boring but important stuff!</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="media g-mb-20">
+          <div class="d-flex align-self-center mr-3">
+            <span class="u-icon-v2 g-color-white g-bg-cyan-gradient-opacity-v1 g-rounded-5">
+              <i class="icon-education-087 u-line-icon-pro"></i>
+            </span>
+          </div>
+          <div class="media-body align-self-center">
+            <h3 class="h5 g-color-black g-line-height-1_6 mb-0">
+              <a href="{% url 'about_minutes' %}" target="_blank">Meeting Minutes</a>
+            </h3>
+            <span class="d-block g-color-gray-dark-v5">AGM and committee meetings notes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="g-brd-around g-brd-gray-light-v4 g-brd-5 g-line-height-2 g-pa-20 g-mb-30" role="alert">
+      <h3 class="h2 text-uppercase g-font-weight-600 g-mb-20">CSHC Board</h3>
+      <dl class="row">
+        <dt class="col-sm-3">President</dt>
+        <dd class="col-sm-9">Stephen Fleck</dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Hon. Life Members</dt>
+        <dd class="col-sm-9">Frank Allen, Mick Beasley, Roger Craigen, Mike Gronow, Eric Jacobs, Richard Jacobs, Peter Mercer, Stephen Parker, Kevin Pride, Harry Rider, Noel Sutcliffe, Keith Westley, Colin Worboys</dd>
+      </dl>
+      </p>
+    </div>
+  </div>
+</div>
+
+{% subheading "General Committee" %}
+<div class="row g-my-20">
+  {% for member in general_committee %}
+    <div class="col-6 col-md-4 col-lg-3 col-xl-3 g-mb-20">
+      <div class="text-center g-mb-20">
+        {% profile_pic member=member.member size="200x200" className="w-100 g-mb-10 g-px-10" %}
+        <h4 class="h5 g-font-weight-600 mb-1 g-pt-10"><a title="View profile" href="{{ member.member.get_absolute_url }}">{{ member.member.full_name}}</a></h4>
+        <div class="g-color-gray-dark-v4 g-font-size-18 g-font-weight-600">{{ member.position.name }}</div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+
+{% subheading "Men's Captains" %}
+
+<div class="row text-center">
+  {% for team in mens_captains %}
+    <div class="col-lg-4">
+      {% include 'club_info/_captain_panel.html' with captain_title="Captain" vice_captain_title="Vice-Captain" %}
+    </div>
+  {% endfor %}
+</div>
+
+{% subheading "Ladies' Captains" %}
+
+<div class="row text-center">
+  {% for team in ladies_captains %}
+    <div class="col-lg-4">
+      {% include 'club_info/_captain_panel.html' with captain_title="Captain" vice_captain_title="Vice-Captain" %}
+    </div>
+  {% endfor %}
+</div>
+
+{% subheading "Mixed Captains" %}
+
+<div class="row text-center">
+  <div class="col-lg-4">
+    {% include 'club_info/_captain_panel.html' with team=mixed_captains captain_title="Mens Co-Captain" vice_captain_title="Ladies Co-Captain" %}
+  </div>
+</div>
+{% endblock content %}

@@ -346,10 +346,14 @@ a:hover {
 .g-bg-primary-dark-v3 {
   background-color: #502d8f !important;
 }
-/*.g-bg-primary-gradient-opacity-v1,
+.g-bg-primary-gradient-opacity-v1,
 .g-bg-primary-gradient-opacity-v1--after::after {
-  background: linear-gradient(to bottom, rgba(red(@customColor), green(@customColor), blue(@customColor), .5), rgba(red(@customColor), green(@customColor), blue(@customColor), 1));
-}*/
+  background: linear-gradient(
+    to bottom,
+    rgba(red(@customColor), green(@customColor), blue(@customColor), 0.5),
+    rgba(red(@customColor), green(@customColor), blue(@customColor), 1)
+  );
+}
 /*------------------------------------
   Border colors
 ------------------------------------*/
@@ -1627,4 +1631,7 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
 }
 /* Extra large devices (large desktops, 1200px and below) */
 @media (max-width: 1200px) {
+}
+.g-bg-away {
+  background-color: #ffff01;
 }

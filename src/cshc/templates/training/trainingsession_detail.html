@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | {{ trainingsession.description }}{% endblock %}
+
+{% block head_js %}
+  {{ block.super }}
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ GMAPS_API_KEY }}&region=GB"></script>
+{% endblock head_js %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Training" "upcoming_trainingsession_list" %}
+  {% breadcrumb trainingsession.description "trainingsession_detail" %}
+{% endblock %}
+
+{% block content %}
+
+{% url 'calendar' as calendar %}
+
+<header class="g-mb-20">
+  <h2 class="h1 g-font-weight-300 text-uppercase">{{ trainingsession.description }}
+    <span class="g-color-dark-gray-v5 g-font-size-18 g-pl-20">{{ trainingsession.datetime|date:"jS M" }} at {{ trainingsession.datetime|time }}</span>
+  </h2>
+</header>
+
+<p class="lead">{{ trainingsession.description }} takes place at {{ trainingsession.venue|urlise_model }}.</p>
+
+{% include 'maps/_map.html' with mapId="map" %}
+
+<section class="g-bg-gray-light-v5 g-pa-30 g-mt-40">
+  <div class="row">
+    <div class="col-md-9 align-self-center">
+      <h3 class="h4">Make it easy for yourself!</h3>
+      <p class="lead g-mb-20 g-mb-0--md">All Cambridge South training sessions are available as a <strong>.ics calendar feed</strong> that you 
+        can link into your own calendar client (Outlook, iPhone etc).
+      </p>
+    </div>
+
+    <div class="col-md-3 align-self-center text-md-right">
+      <a class="btn btn-md u-btn-outline-primary g-brd-2 rounded-0" href="{{ calendar }}#feeds"><i class="fa fa-calendar g-mr-5"></i>Subscribe</a>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'maps/_map_body_js.html' with mapId="map" venue=trainingsession.venue %}
+{% endblock body_js %}
