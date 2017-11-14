@@ -14,9 +14,12 @@ def document(title, category=None):
     """
     Render a document link.
     """
-    document = Document.objects.get(title=title) if category is None else Document.objects.get(
-        title=title, category__name=category)
-    return {'document': document}
+    try:
+        document_instance = Document.objects.get(title=title) if category is None else Document.objects.get(
+            title=title, category__name=category)
+    except Document.DoesNotExist:
+        document_instance = None
+    return {'document': document_instance}
 
 
 @register.inclusion_tag("documents/_document_list.html")

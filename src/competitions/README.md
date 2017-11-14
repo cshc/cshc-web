@@ -12,6 +12,19 @@ This app contains no views but the models are some of the most fundamental. The 
 |**Cup**                    |Represents the cup competitions in which CSHC compete|
 |**DivisionResult**         |Stores the playing records of teams (CSHC and opposition) over the years. See the divisionresult.py module docstring for a fuller description.|
 
+### GraphQL
+
+The following GraphQL queries are provided for the opposition app:
+|Query                        |Filter Options                    |Description                                              |
+|-----------------------------|----------------------------------|---------------------------------------------------------|
+|**seasons**                  |_slug_                            |List of Season edges                                     |
+|**leagues**                  |_name_                            |List of League edges                                     |
+|**divisions**                |_name_, _league\_Name_            |List of Division edges                                   |
+|**cups**                     |_name_, _league\_Name_            |List of Cup edges                                        |
+|**divisionResults**          |_season\_Slug_, _division\_Id_, _season\_Id_ |List of DivisionResult edges                  |
+
+
+
 ### Admin Interface
 
 You can add/edit/remove seasons, leagues, divisions and cup competitions through the [admin interface](//www.cambridgesouthhockeyclub.co.uk/admin/competitions/). Note - DivisionResult is deliberately hidden from the admin interface as it is handled programmatically.
