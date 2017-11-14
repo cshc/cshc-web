@@ -5,7 +5,7 @@
   </h3>
   <div class="m-0 list-group">
     {% for document in documents %}
-      <a href="{{ document.file.url }}" target="_blank" title="Download" class="cshc-icon-zoom g-brd-around g-brd-gray-light-v4 g-pa-10 g-mb-minus-1 list-group-item list-group-item-action">
+      <a href="{{ document.file.url }}" target="_blank" title="Download ({{ document.file.size|filesizeformat }})" class="cshc-icon-zoom g-brd-around g-brd-gray-light-v4 g-pa-10 g-mb-minus-1 list-group-item list-group-item-action">
         <div class="media">
           <span class="d-flex g-color-primary g-font-size-30 mr-3">
             <i class="icon-education-087 u-line-icon-pro"></i>
