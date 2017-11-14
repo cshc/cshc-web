@@ -1638,3 +1638,9 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
 .cshc-icon-zoom:hover i {
   transform: scale(1.1);
 }
+.umpire-card {
+  border-bottom: 2px solid transparent;
+}
+.umpire-card.league-card {
+  border-bottom: 2px solid red;
+}
