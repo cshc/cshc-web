@@ -134,7 +134,7 @@ class Query(graphene.ObjectType):
     members = schema_helper.OptimizableFilterConnectionField(
         MemberType, filterset_class=MemberFilter)
     squad_stats = graphene.Field(
-        SquadStatsType, season=graphene.Int(), team=graphene.Int())
+        SquadStatsType, season=graphene.Int(), team=graphene.Int(), fixture_Type=graphene.String())
 
     def resolve_members(self, info, **kwargs):
         # Slight hack to manually convert a comma-separated list of pref_position ints to an array of ints
@@ -169,6 +169,11 @@ class Query(graphene.ObjectType):
         else:
             app_qs = app_qs.select_related('match__season')
             award_winners_qs = award_winners_qs.select_related('match__season')
+
+        if 'fixture_Type' in kwargs:
+            app_qs = app_qs.filter(match__fixture_type=kwargs['fixture_Type'])
+            award_winners_qs = award_winners_qs.filter(
+                match__fixture_type=kwargs['fixture_Type'])
 
         squad_stats = SquadPlayingStats()
 

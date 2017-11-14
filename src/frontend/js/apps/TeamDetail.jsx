@@ -10,14 +10,22 @@
 
 import TeamDetail from 'components/teams/TeamDetail';
 import ui, { initialViewState } from 'redux/reducers/uiReducers';
+import { FilterName, NoFilter } from 'util/constants';
 import render from '../ReactRenderer';
 
 const reducers = {
   ui,
 };
 
+// Set the FixtureType filter to the 'All' option
 const initialState = {
-  ui: initialViewState,
+  ui: {
+    ...initialViewState,
+    activeFilters: {
+      ...initialViewState.activeFilters,
+      [FilterName.FixtureType]: NoFilter,
+    },
+  },
 };
 
 render(TeamDetail, reducers, initialState);

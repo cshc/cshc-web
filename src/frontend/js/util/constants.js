@@ -74,6 +74,7 @@ const FilterName = toDict([
   'Gender',
   'Position',
   'GoalKingGender',
+  'FixtureType',
 ]);
 
 /**

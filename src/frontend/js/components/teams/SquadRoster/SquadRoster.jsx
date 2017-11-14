@@ -4,7 +4,6 @@ import { NetworkStatus as NS } from 'apollo-client';
 import { ViewType } from 'util/constants';
 import ErrorDisplay from 'components/common/ErrorDisplay';
 import Loading from 'components/common/Loading';
-import { ViewSwitcher, ViewSwitcherView } from 'components/common/ViewSwitcher';
 import SquadRosterCard from '../SquadRosterCard';
 import SquadRosterTable from '../SquadRosterTable';
 
@@ -14,17 +13,13 @@ import SquadRosterTable from '../SquadRosterTable';
  * The list of club members can be represented in a table or 'cards' - with a view switcher
  * to switch between these views.
  */
-const SquadRoster = ({ networkStatus, error, squadStats, viewType, onSelectViewType }) => {
+const SquadRoster = ({ networkStatus, error, squadStats, viewType }) => {
   if (error) return <ErrorDisplay errorMessage="Failed to load squad roster" />;
   if (!squadStats && networkStatus === NS.loading) {
     return <Loading message="Fetching squad roster..." />;
   }
   return (
     <div>
-      <ViewSwitcher className="g-mb-15" currentView={viewType} onSelectViewType={onSelectViewType}>
-        <ViewSwitcherView iconClass="fa fa-th-large" label={ViewType.Cards} />
-        <ViewSwitcherView iconClass="fa fa-table" label={ViewType.Table} />
-      </ViewSwitcher>
       {viewType === ViewType.Cards ? (
         <div className="row">
           {squadStats.squad.map(memberStats => (
@@ -50,7 +45,6 @@ SquadRoster.propTypes = {
     squad: PropTypes.arrayOf(PropTypes.shape()),
   }),
   viewType: PropTypes.string.isRequired,
-  onSelectViewType: PropTypes.func.isRequired,
 };
 
 SquadRoster.defaultProps = {

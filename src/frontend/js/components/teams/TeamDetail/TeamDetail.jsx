@@ -10,7 +10,7 @@ import MatchList from 'components/matches/MatchList';
 import LeagueTable from 'components/competitions/LeagueTable';
 import Accordion from 'components/common/Accordion';
 import AccordionCard from 'components/common/Accordion/AccordionCard';
-import SquadRoster from '../SquadRoster';
+import SquadRosterWrapper from '../SquadRosterWrapper';
 
 /**
  * Wrapper component for various components displayed for a particular club team (in a particular season).
@@ -64,7 +64,7 @@ const TeamDetail = ({
         />
       </AccordionCard>
       <AccordionCard cardId="squad-roster" accordionId="team-details" title="Squad Roster">
-        <SquadRoster teamId={teamId} seasonId={seasonId} />
+        <SquadRosterWrapper teamId={teamId} seasonId={seasonId} />
       </AccordionCard>
     </Accordion>
   );

@@ -1,9 +1,10 @@
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
+import { NoFilter } from 'util/constants';
 
 export const SQUAD_ROSTER_QUERY = gql`
-  query SquadStats($season: Int, $team: Int) {
-    squadStats(season: $season, team: $team) {
+  query SquadStats($season: Int, $team: Int, $fixtureType: String) {
+    squadStats(season: $season, team: $team, fixtureType: $fixtureType) {
       totals {
         played
         won
@@ -38,10 +39,11 @@ export const SQUAD_ROSTER_QUERY = gql`
 `;
 
 export const squadRosterOptions = {
-  options: ({ teamId, seasonId }) => ({
+  options: ({ teamId, seasonId, fixtureType }) => ({
     variables: {
       team: teamId,
       season: seasonId,
+      fixtureType: fixtureType !== NoFilter ? fixtureType : undefined,
     },
     fetchPolicy: 'cache-and-network',
   }),

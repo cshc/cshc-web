@@ -40,7 +40,7 @@ The following GraphQL queries are provided for the teams app:
 |**committee_positions**      |                                  |List of Committee Position nodes                         |
 |**committee_memberships**    |                                  |List of Committee Membership nodes                       |
 |**squad_memberships**        |                                  |List of Squad Membership nodes                           |
-|**squad\_stats**             |_team_, _season_                  |Custom node that provides stats for the team as a whole (```totals```) and each squad member (```squad```).   |
+|**squad\_stats**             |_team_, _season_, _fixture\_Type_ |Custom node that provides stats for the team as a whole (```totals```) and each squad member (```squad```).   |
 
 ### React Apps
 
