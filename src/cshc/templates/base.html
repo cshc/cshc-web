@@ -62,14 +62,9 @@
         {% include "core/_nav.html" %}
       </div>
     </header>
-    {% if messages %}
-    <section class="cshc-messages container g-mt-10">
-        {% for message in messages %}
-          {% message_alert message=message %}
-        {% endfor %}
-    </section>
-    {% endif %}
+    
     {% block main %}
+      {% include 'core/_messages.html' %}
       <section class="container g-pt-20 g-pb-40">
         {% render_breadcrumbs %}
         {% block content %}{% endblock content %}

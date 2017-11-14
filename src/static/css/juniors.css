@@ -1,0 +1,10 @@
+.jnr-table--heading {
+  font-weight: bold;
+}
+
+.jnr-table--details .jnr-table--heading {
+  text-decoration: underline;
+}
+.jnr-table--details .jnr-table--context {
+  font-style: italic;
+}

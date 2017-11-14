@@ -1,0 +1,9 @@
+{% load cshc_tags %}
+
+{% if messages %}
+<section class="cshc-messages container">
+    {% for message in messages %}
+      {% message_alert message=message %}
+    {% endfor %}
+</section>
+{% endif %}

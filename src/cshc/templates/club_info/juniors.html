@@ -1,0 +1,314 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags documents %}
+
+{% block title %}{{ block.super }} | Juniors{% endblock %}
+
+{% block link %}
+  {{ block.super }}
+  {% include 'blocks/_dszparallaxer_css.html' %}
+  <link rel="stylesheet" href="{% static "css/juniors.css" %}?v=1">
+  <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block main %}
+
+{% url 'venue_detail' 'long-road' as long_road_url %}
+{% url 'juniors_index' as juniors_index %}
+{% url 'upcoming_trainingsession_list' as training %}
+{% url 'join_us' as join_us %}
+{% get_clubinfo 'InSeason' as in_season %}
+
+<div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll is-touch" data-options="{
+  settings_mode_oneelement_max_offset: '150'
+ }">
+  <!-- Parallax Image -->
+  <div class="divimage dzsparallaxer--target w-100" style="height: 140%; background-image: url(&quot;{% static "img/hockey-sticks-flat.jpg" %}&quot;); transform: translate3d(0px, 0px, 0px);"></div>
+  <section class="g-flex-centered g-height-500 g-color-white u-bg-overlay g-bg-black-opacity-0_6--after g-py-20">
+    <div class="container text-center u-bg-overlay__inner">
+      <h2 class="g-font-size-60 g-mb-80">Juniors</h2>
+      <p class="g-font-size-32 g-font-style-italic">Hockey training for boys and girls aged 6 - 14<br/>on Saturday mornings</p>
+    </div>
+  </section>
+</div>
+
+{% include 'core/_messages.html' %}
+
+{% include 'blocks/_sub_navigation.html' %}
+
+<section class="container g-mt-20 g-mb-40">
+    <p class="lead">
+      Cambridge South Hockey Club’s junior section trains weekly on Saturday mornings during the hockey season between September 
+      and March. Training sessions are led by a professional coach assisted by club player-coaches.
+    </p>
+    <p class="lead">
+      The sessions are for boys and girls, aimed at ages 6-14 (please contact us for ages outside this range). Training is based 
+      around the <a href="http://www.playquicksticks.co.uk" target="_blank"/>‘Quicksticks’</a> (for younger children) and 
+      <a href="http://in2hockey.englandhockey.co.uk/">In2Hockey</a> (for older players) forms of the game played in schools. The 
+      junior sessions are focused on teaching and developing basic skills and team play, ultimately providing a pathway towards 
+      senior team hockey (minimum age 13).
+    </p>
+    <p class="lead">
+      Full season or ‘taster programme’ subscriptions are available. The ‘taster’ subscription covers 3 Saturdays, for new players 
+      wanting to try out hockey before committing to a full membership. Upgrade simply by paying the balance!
+    </p>
+
+    <div class="row g-py-40">
+      <div class="col-md-8">
+        <table class="table table-responsive">
+          <tbody>
+            <tr>
+              <td class="jnr-table--heading">Location</td>
+              <td class="jnr-table--details"><a href="{{ long_road_url }}" title="Pitch details">Long Road Sixth Form College</a></td>
+            </tr>
+            <tr>
+              <td class="jnr-table--heading">Time</td>
+              <td class="jnr-table--details">Saturdays 9-10am</td>
+            </tr>
+            <tr>
+              <td class="jnr-table--heading">Dates</td>
+              <td class="jnr-table--details">
+                <div class="jnr-table--title">2017/18</div><br/>
+                <div class="jnr-table--heading">Autumn term (12 weeks)</div>
+                <div class="jnr-table--context">9th September - 9th December (half term break 21st - 28th October)</div><br/>
+                <div class="jnr-table--heading">Spring term (10 weeks)</div>
+                <div class="jnr-table--context">6th January - 24th March (half term break 10th - 17th February)</div>
+              </td>
+            </tr>
+            <tr>
+              <td class="jnr-table--heading">Cost</td>
+              <td class="jnr-table--details">
+                <div class="jnr-table--heading">3 week ‘taster’ programme</div>
+                <div class="jnr-table--context">£15</div><br/>
+                <div class="jnr-table--heading">Full season subscription</div>
+                <div class="jnr-table--context">£100 (or £85 upgrade from ‘taster’ programme)</div>
+                <div class="jnr-table--context">25% discount for players starting after 22nd October break</div>
+                <div class="jnr-table--context">50% discount for players starting after Christmas break</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-4">
+        <div class="u-shadow-v5 g-bg-white g-brd-around g-brd-gray-light-v4 g-pa-20 g-mb-30 text-center" role="alert">
+          <p>Full season membership includes a<br/><strong>free club T-shirt</strong></p>
+          <img class="w-100" src="{% static "img/kit/juniors_shirt.png" %}"/>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      No previous hockey experience is necessary and beginners are welcomed. All sticks, balls and equipment are provided, but players 
+      may bring their own stick if they have one (please label clearly in permanent marker). Players require comfortable sportswear and 
+      trainers with grippy soles. <strong>Mouthguards and shinguards are strongly recommended for all players.</strong>
+    </p>
+    <p>
+      Junior players who are eligible and also wish to <a href="{{ training }}" title="Seniors Training">play or train with the club’s 
+        senior section</a> (age 13+) are not required to pay separate <a href="{{ join_us }}#fees" title="Fees">senior membership subs</a>. 
+        Usual senior match fees will be payable.        
+    </p>
+    <p>
+      To apply for a place, or for more information, please fill in the contact form on this page. Following confirmation of a place, a 
+      Registration and Consent form must be completed and returned, together with payment, before a player may attend a session.
+    </p>
+</section>
+
+
+{% static "img/members/neil_sneade.jpg" as neil_pic %}
+{% static "img/avatar-placeholder.jpg" as jack_pic %}
+{% static "img/members/colin_hulett.jpg" as colin_pic %}
+<section id="contacts" class="g-bg-secondary">
+  <div class="container g-py-40">
+    <h3 class="g-pb-20">Contacts</h3>
+
+    <div class="row justify-content-md-center">
+      <div class="col-lg-3 col-sm-6 g-mb-30">
+        {% include 'club_info/_junior_contact.html' with thumbnail=neil_pic name="Neil Sneade" email="juniors@cambridgesouthhockeyclub.co.uk" position="Juniors Secretary" blurb="As well as turning out for the Men’s 3rd XI, Neil acts as Club Secretary and now also Junior Secretary. He has two daughters aged 8 and 6 and will be assisting with junior coaching." %}
+      </div>
+
+      <div class="col-lg-3 col-sm-6 g-mb-30">
+        {% include 'club_info/_junior_contact.html' with thumbnail=jack_pic name="Jack Chalk" email="welfare@cambridgesouthhockeyclub.co.uk" position="Welfare Officer" blurb="The Welfare Officer is a member of the club committee and represents the interests of junior members during Cambridge South Hockey Club committee meetings, to ensure that club policies decided at these meetings comply to those outlined by England Hockey." %}
+      </div>
+
+      <div class="col-lg-3 col-sm-6 g-mb-30">
+        {% include 'club_info/_junior_contact.html' with thumbnail=colin_pic name="Colin Hulett" position="Juniors Coach" blurb="An experienced PE teacher and qualified hockey coach, he has coached children of various ages in numerous sports and also acts as one of the club’s senior team coaches." %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="resources" class="container g-py-40">
+  <div class="row">
+    <div class="col-md-6 col-lg-8">
+      <h3 class="g-pb-20">Resources</h3>
+      {% document title="Registration and Consent Form" category="Juniors" %}
+      {% document title="Safeguarding and Protecting Policy" category="Juniors" %}
+      {% document title="Safeguarding and Protecting Commitment" category="Juniors" %}
+      {% document title="Reporting concerns about a child's welfare" category="Juniors" %}
+      {% document title="Photography Best Practice Guidance" category="Juniors" %}
+    </div>
+    <div id="calendar" class="col-md-6 col-lg-4">
+      <span class="pull-right">
+        <a href="https://calendar.google.com/calendar/ical/4oati7ee6231hb6gtajift5hvs%40group.calendar.google.com/public/basic.ics" title="Subscribe to the CSHC Juniors calendar" class="btn u-btn-primary">
+          <i class="fa fa-calendar g-mr-10"></i>Subscribe
+        </a>
+      </span>
+      <h3 class="g-mb-20">Juniors Calendar</h3>
+      <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=800&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=4oati7ee6231hb6gtajift5hvs%40group.calendar.google.com&amp;color=%23853104&amp;ctz=Europe%2FLondon" 
+      style="border-width:0" width="100%" height="400" frameborder="0" scrolling="no"></iframe>
+    </div>
+  </div>
+
+  <div class="u-divider u-divider-solid u-divider-center g-brd-gray-light-v3 g-my-40">
+    <i class="fa fa-circle u-divider__icon g-bg-white g-color-gray-light-v3"></i>
+  </div>
+  
+  <p class="lead">
+    If you're interested in Juniors hockey at Cambridge South, just fill in this form and we'll get back to you!
+  </p>
+
+  <form id="contact-us" class="g-brd-around g-brd-gray-light-v4 g-pa-30 g-mb-30" action="{{ juniors_index }}" method="post">
+    {% csrf_token %}
+    <h5 class="g-mb-20">Your details</h5>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="sr-only" for="id_first_name">First Name</label>
+          <div class="input-group g-brd-primary--focus">
+            <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+              <i class="fa fa-user"></i>
+            </div>
+            <input id="id_first_name" maxlength="255"  name="first_name" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="text" placeholder="First Name*">
+          </div>
+          {% if form.errors.first_name %}<small class="form-control-feedback">{{ form.errors.first_name }}</small>{% endif %}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+            <label class="sr-only" for="id_last_name">Last Name</label>
+          <div class="input-group g-brd-primary--focus">
+            <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+              <i class="fa fa-user"></i>
+            </div>
+            <input id="id_last_name" maxlength="255"  name="last_name" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="text" placeholder="Last Name*">
+          </div>
+          {% if form.errors.last_name %}<small class="form-control-feedback">{{ form.errors.last_name }}</small>{% endif %}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+            <label class="sr-only" for="id_email">Email</label>
+          <div class="input-group g-brd-primary--focus">
+            <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+              <i class="fa fa-envelope"></i>
+            </div>
+            <input id="id_email" maxlength="255"  name="email" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="email" placeholder="Email*">
+          </div>
+          {% if form.errors.email %}<small class="form-control-feedback">{{ form.errors.email }}</small>{% endif %}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+            <label class="sr-only" for="id_phone">Phone</label>
+          <div class="input-group g-brd-primary--focus">
+            <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+              <i class="fa fa-phone"></i>
+            </div>
+            <input id="id_phone" maxlength="25"  name="phone" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="tel" placeholder="Phone">
+          </div>
+          {% if form.errors.phone %}<small class="form-control-feedback">{{ form.errors.phone }}</small>{% endif %}
+        </div>
+      </div>
+    </div>
+    
+    <hr class="g-brd-gray-light-v4 g-mx-minus-30">
+
+    <h5 class="g-mb-20">Your child's details</h5>
+
+    <div class="form-inline align-items-start">
+      <div class="form-group flex-column align-items-start">
+        <label class="sr-only" for="id_child_name">Name</label>
+        <div class="input-group g-brd-primary--focus g-mr-20">
+          <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+            <i class="fa fa-user"></i>
+          </div>
+          <input id="id_child_name" maxlength="255"  name="child_name" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="text" placeholder="Name*">
+        </div>
+        {% if form.errors.child_name %}<small class="form-control-feedback">{{ form.errors.child_name }}</small>{% endif %}
+      </div>
+      <div class="form-group">
+        <label for="id_child_gender">Gender:</label>
+        <select class="custom-select g-ml-10 g-mr-20" id="id_child_gender" name="child_gender">
+          <option selected="selected" value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="id_child_age">Age:</label>
+        <select id="id_child_age" class="custom-select g-ml-10" name="child_age">
+          <option value="A6" selected="selected">6</option>
+          <option value="A7">7</option>
+          <option value="A8">8</option>
+          <option value="A9">9</option>
+          <option value="A10">10</option>
+          <option value="A11">11</option>
+          <option value="A12">12</option>
+          <option value="A13">13</option>
+          <option value="A14">14</option>
+          <option value="AGT14">&gt; 14</option>
+        </select>
+      </div>
+    </div>
+   
+    <hr class="g-brd-gray-light-v4 g-mx-minus-30">
+    
+    <div class="form-group">
+      <label class="sr-only" for="id_message">Message</label>
+      <textarea id="id_message" name="message" class="form-control form-control-md g-resize-none rounded-0" rows="3" placeholder="Message"></textarea>
+      {% if form.errors.message %}<small class="form-control-feedback">{{ form.errors.message }}</small>{% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="id_mailing_list" class="u-check g-pl-25">
+        <input id="id_mailing_list" name="mailing_list" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox" checked="checked">
+        <div class="u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
+          <i class="fa" data-check-icon=""></i>
+        </div>
+        I would like to join the Club mailing lists 
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label for="id_trigger" class="g-mr-10">How did you hear about Cambridge South Junior Hockey?</label>
+      <select id="id_trigger" class="custom-select" name="trigger">
+        <option value="not_selected" selected="selected">Select one...</option>
+        <option value="web_search">Web search (e.g. Google)</option>
+        <option value="social_media">Social media</option>
+        <option value="school_notice">School notice</option>
+        <option value="promotional_flyer">Promotional flyer</option>
+        <option value="advertising_banner">Advertising banner</option>
+        <option value="word_of_mouth">Word of mouth</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <input class="btn btn-md u-btn-primary rounded-0" type="submit" value="Submit">
+    <p class="g-font-size-12 g-font-style-italic g-mt-20">* required fields</p>
+  </form>
+</section>
+
+{% endblock main %}
+
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'blocks/_dszparallaxer_js.html' %}
+  {% include 'blocks/_scroll_nav_js.html' %}
+  {% include 'blocks/_focus_state_js.html' %}
+{% endblock %}

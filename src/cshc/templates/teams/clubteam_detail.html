@@ -21,6 +21,8 @@
 
 {% block main %}
 
+  {% include 'core/_messages.html' %}
+
   {% url 'clubteam_detail' team.slug as base_team_url %}
 
   <section class="container g-pb-40">

@@ -41,26 +41,11 @@
         </div>
     </div>
 </section>  
-<div id="sub-navigation" class="g-pos-rel g-z-index-4 g-hidden-sm-down">
-  <div class="u-secondary-navigation u-shadow-v19 g-bg-white g-line-height-1_3 g-py-20 g-m-reset">
-    <div class="container">
-      <ul id="js-scroll-nav" class="nav flex-column flex-sm-row justify-content-sm-center text-center text-uppercase">
-        <li class="nav-item g-brd-right--sm g-brd-gray-light-v4 g-color-primary--active">
-          <a href="#training" class="nav-link g-px-20">Next Training</a>
-        </li>
-        <li class="nav-item g-brd-right--sm g-brd-gray-light-v4 g-color-primary--active">
-          <a href="#comments" class="nav-link g-px-20">Recent Comments</a>
-        </li>
-        <li class="nav-item g-brd-right--sm g-brd-gray-light-v4 g-color-primary--active">
-          <a href="#news" class="nav-link g-px-20">Latest News</a>
-        </li>
-        <li class="nav-item g-brd-right--sm g-brd-gray-light-v4 g-color-primary--active">
-          <a href="#tweets" class="nav-link g-px-20">Tweets</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+
+{% include 'core/_messages.html' %}
+
+{% include 'blocks/_sub_navigation.html' %}
+
 <section class="g-bg-secondary">
   <section class="container g-pt-100 g-pb-70">
     <div class="row justify-content-center text-center g-mb-50">
@@ -147,17 +132,7 @@
 {% endblock main %}
 
 {% block body_js %}
-{{ block.super }}
-<script src="{% static "vendor/dzsparallaxer/dzsparallaxer.js" %}"></script>
-<script src="{% static "vendor/unify/js/components/hs.scroll-nav.js" %}"></script>
-<script>
-  $(window).on('load', function () {
-    // initialization of HSScrollNav
-    $.HSCore.components.HSScrollNav.init($('#js-scroll-nav'), {
-      duration: 700,
-      easing: 'easeOutExpo',
-      over: $('.u-secondary-navigation')
-    });
-  })
-</script>
+  {{ block.super }}
+  <script src="{% static "vendor/dzsparallaxer/dzsparallaxer.js" %}"></script>
+  {% include 'blocks/_scroll_nav_js.html' %}
 {% endblock body_js %}

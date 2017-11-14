@@ -1,22 +1,33 @@
-from django.shortcuts import render
+""" Common Django views and view utilities
+"""
+
+import traceback
+import logging
+from django.views.generic.edit import CreateView
+from django.contrib import messages
+from templated_email import send_templated_mail
 from competitions.models import Season
+from .models import JuniorsContactSubmission
+from .forms import JuniorsContactSubmissionForm
 
 
-def valid_kwarg(key, **dict):
+LOG = logging.getLogger(__name__)
+
+
+def valid_kwarg(key, **dictionary):
     """ Given a key and a dictionary, returns True if the given key is in
         the dictionary and its value is not None or an empty string.
     """
-    return key in dict and dict[key] is not None and dict[key] != ""
+    return key in dictionary and dictionary[key] is not None and dictionary[key] != ""
 
 
-def kwargs_or_none(key, **dict):
+def kwargs_or_none(key, **dictionary):
     """ Given a key and a dictionary, returns the key's value, or None
         if the key is not valid.
     """
-    if valid_kwarg(key, **dict):
-        return dict[key]
-    else:
-        return None
+    if valid_kwarg(key, **dictionary):
+        return dictionary[key]
+    return None
 
 
 def get_season_from_kwargs(kwargs):
@@ -42,3 +53,80 @@ def add_season_selector(context, season, season_list):
     context['season_list'] = season_list
     context['is_current_season'] = Season.is_current_season(season.id)
     return context
+
+
+class JuniorsContactSubmissionCreateView(CreateView):
+    """ This is the enquery form for juniors. """
+
+    model = JuniorsContactSubmission
+    form_class = JuniorsContactSubmissionForm
+    template_name = "club_info/juniors.html"
+    success_url = '/juniors/'
+
+    def get_context_data(self, **kwargs):
+        context = super(JuniorsContactSubmissionCreateView,
+                        self).get_context_data(**kwargs)
+
+        # Sub-navigation elements
+        context['sub_nav_items'] = [
+            {'id': 'contacts', 'label': 'Contacts'},
+            {'id': 'resources', 'label': 'Resources'},
+            {'id': 'calendar', 'label': 'Calendar'},
+            {'id': 'contact-us', 'label': 'Contact Us'},
+        ]
+
+        return context
+
+    def email_to_juniors(self, form):
+        """ Send an email to juniors@cambridgesouthhockeyclub.co.uk with the form data. """
+        email = form.cleaned_data['email']
+        trigger = form.cleaned_data['trigger']
+        trigger_text = JuniorsContactSubmission.TRIGGER[
+            trigger] if trigger != JuniorsContactSubmission.TRIGGER.not_selected else None
+        context = {
+            'name': u"{} {}".format(form.cleaned_data['first_name'], form.cleaned_data['last_name']),
+            'phone': form.cleaned_data['phone'],
+            'sender_email': email,
+            'child_name': form.cleaned_data['child_name'],
+            'child_age': JuniorsContactSubmission.AGE[form.cleaned_data['child_age']],
+            'child_gender': JuniorsContactSubmission.GENDER[form.cleaned_data['child_gender']],
+            'trigger': trigger_text,
+            'join_mail_list': form.cleaned_data['mailing_list'],
+            'message': str(form.cleaned_data['message']),
+        }
+
+        recipient_email = 'juniors@cambridgesouthhockeyclub.co.uk'
+        send_templated_mail(
+            from_email=email,
+            recipient_list=[recipient_email],
+            template_name='juniors_report',
+            context=context,
+        )
+
+    def email_to_enquirer(self, form):
+        """ Send a confirmation email to the person submitting the form. """
+        context = {
+            'first_name': str(form.cleaned_data['first_name']),
+            'message': str(form.cleaned_data['message']),
+        }
+
+        recipient_email = form.cleaned_data['email']
+        send_templated_mail(
+            from_email='juniors@cambridgesouthhockeyclub.co.uk',
+            recipient_list=[recipient_email],
+            template_name='juniors_sender',
+            context=context,
+        )
+
+    def form_valid(self, form):
+        try:
+            self.email_to_juniors(form)
+            self.email_to_enquirer(form)
+            messages.info(
+                self.request, "Thanks for your message. We'll be in touch shortly!")
+        except:
+            LOG.warn("Failed to send juniors email", exc_info=True)
+            traceback.print_exc()
+            messages.error(
+                self.request, "Sorry - we were unable to send your message. Please try again later.")
+        return super(JuniorsContactSubmissionCreateView, self).form_valid(form)

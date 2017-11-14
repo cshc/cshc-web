@@ -301,3 +301,7 @@ SOCIALACCOUNT_PROVIDERS = {
         ]
     }
 }
+
+# Ref: https://github.com/vintasoftware/django-templated-email
+TEMPLATED_EMAIL_TEMPLATE_DIR = 'emails/'
+TEMPLATED_EMAIL_FILE_EXTENSION = 'html'

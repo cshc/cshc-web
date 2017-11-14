@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SelectFilter } from 'components/filters';
+import { SelectFilter, OptionListFilter } from 'components/filters';
 import { FilterName, Gender } from 'util/constants';
-import OptionListFilter from 'components/filters/OptionListFilter';
 import GoalKingTable from './GoalKingTable';
 
 const genderOptions = [

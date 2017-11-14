@@ -20,9 +20,11 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from graphene_django.views import GraphQLView
 
-from .views import HomeView, CalendarView, CommitteeSeasonView
+from core.views import JuniorsContactSubmissionCreateView
 from members.views import ProfileView
 from venues.views import DirectionsView
+from .views import HomeView, CalendarView, CommitteeSeasonView
+
 
 #pylint: disable=C0103
 urlpatterns = [
@@ -37,7 +39,7 @@ urlpatterns = [
     url(r'^about/kit/$',
         TemplateView.as_view(template_name='club_info/kit.html'), name='about_kit'),
 
-    url(r'^calendar/$', CalendarView.as_view(),  name='calendar'),
+    url(r'^calendar/$', CalendarView.as_view(), name='calendar'),
     url(r'^join-us/$',
         TemplateView.as_view(template_name='club_info/join_us.html'), name='join_us'),
 
@@ -45,11 +47,14 @@ urlpatterns = [
     # E.g. '/about/committee/2011-2012/'
     url(r'^about/committee/(?P<season_slug>[-\w]+)/$',
         CommitteeSeasonView.as_view(),
-        name="about_committee_season"
+        name="about_committee_season",
         ),
 
     url(r'^archive/minutes/$', TemplateView.as_view(
         template_name='club_info/minutes.html'), name='about_minutes'),
+
+    url(r'^juniors/$', JuniorsContactSubmissionCreateView.as_view(),
+        name='juniors_index'),
 
     # Stats landing page
     url(r'^stats/$', TemplateView.as_view(template_name='core/stats.html'), name='stats'),

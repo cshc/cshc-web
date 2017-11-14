@@ -57,6 +57,7 @@ def message_alert(message):
     """
     icon_class = "fa fa-info-circle"
     bold_text = "Heads Up!"
+    level_tag = message.level_tag
     if message.level == messages.SUCCESS:
         icon_class = "fa fa-check-circle-o"
         bold_text = "Success!"
@@ -66,7 +67,8 @@ def message_alert(message):
     elif message.level == messages.ERROR:
         icon_class = "fa fa-minus-circle"
         bold_text = "Uh-oh!"
-    return alert(message.level_tag, icon_class, bold_text, message.message, True)
+        level_tag = "danger"
+    return alert(level_tag, icon_class, bold_text, message.message, True)
 
 
 @register.filter

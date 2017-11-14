@@ -2,6 +2,7 @@
 Forms for general CSHC app use
 """
 from django import forms
+from .models import JuniorsContactSubmission
 
 
 class SignupForm(forms.Form):
@@ -17,3 +18,13 @@ class SignupForm(forms.Form):
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
         user.save()
+
+
+class JuniorsContactSubmissionForm(forms.ModelForm):
+    """ Form used for the contact form"""
+
+    class Meta:
+        """ Meta-info for the form. """
+        model = JuniorsContactSubmission
+        # our_notes is only to be used by staff/admin
+        exclude = ('our_notes',)

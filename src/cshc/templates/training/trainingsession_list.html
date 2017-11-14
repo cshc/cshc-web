@@ -7,9 +7,7 @@
 
 {% block link %}
   {{ block.super }}
-  <link  rel="stylesheet" href="{% static "vendor/dzsparallaxer/dzsparallaxer.css" %}">
-  <link  rel="stylesheet" href="{% static "vendor/dzsparallaxer/dzsscroller/scroller.css" %}">
-  <link  rel="stylesheet" href="{% static "vendor/dzsparallaxer/advancedscroller/plugin.css" %}">
+  {% include 'blocks/_dszparallaxer_css.html' %}
 {% endblock link %}
 
 {% block breadcrumbs %}
@@ -41,6 +39,8 @@
     </div>
   </section>
 </div>
+
+{% include 'core/_messages.html' %}
 
 <section class="container g-mt-20 g-mb-40">
   {% render_breadcrumbs %}
@@ -185,13 +185,5 @@
 
 {% block body_js %}
   {{ block.super }}
-  <script src="{% static "vendor/dzsparallaxer/dzsparallaxer.js" %}"></script>
-  <script  src="{% static "vendor/dzsparallaxer/dzsscroller/scroller.js" %}"></script>
-  <script  src="{% static "vendor/dzsparallaxer/advancedscroller/plugin.js" %}"></script>
-  <script>
-    $(document).on('ready', function () {
-      // initialization of parallax
-      $('.dzsparallaxer').dzsparallaxer();
-    });
-  </script>
+  {% include 'blocks/_dszparallaxer_js.html' %}
 {% endblock %}

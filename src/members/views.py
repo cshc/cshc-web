@@ -13,7 +13,7 @@ from django.contrib.sites.models import Site
 from templated_email import send_templated_mail
 from competitions.models import Season
 from teams.models import ClubTeam
-from .models import Member, SquadMembership
+from .models import Member
 from .forms import ProfileEditForm
 
 LOG = logging.getLogger(__name__)
@@ -72,7 +72,7 @@ class ProfileView(LoginRequiredMixin, UpdateView):
                 send_templated_mail(
                     from_email=settings.SERVER_EMAIL,
                     recipient_list=[settings.SERVER_EMAIL],
-                    template_name='emails/req_player_link',
+                    template_name='req_player_link',
                     context={
                         'user': self.request.user,
                         'base_url': "//" + Site.objects.get_current().domain

@@ -1,0 +1,11 @@
+{% load static from staticfiles %}
+
+<script src="{% static "vendor/dzsparallaxer/dzsparallaxer.js" %}"></script>
+<script  src="{% static "vendor/dzsparallaxer/dzsscroller/scroller.js" %}"></script>
+<script  src="{% static "vendor/dzsparallaxer/advancedscroller/plugin.js" %}"></script>
+<script>
+  $(document).on('ready', function () {
+    // initialization of parallax
+    $('.dzsparallaxer').dzsparallaxer();
+  });
+</script>

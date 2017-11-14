@@ -1,0 +1,31 @@
+{% block subject %}[CSHC] Activate your Cambridge South Hockey Club account{% endblock subject %}
+
+{% block plain %}
+Hi {{ user.first_name }},
+
+Welcome to Cambridge South Hockey Club!
+
+Before you can sign in, you just need to activate your account by clicking on the link below:
+
+{{ base_url }}{% url 'registration_activate' activation_key=activation_key %}
+
+Don't delay! This activation link is only valid for {{ expiration_days }} days.
+
+Thanks,
+Cambridge South Hockey Club
+{% endblock plain %}
+
+{% block html %}
+<p>Hi {{ user.first_name }},</p>
+
+<p class="lead">Welcome to Cambridge South Hockey Club!</p>
+
+<p>Before you can sign in, you just need to activate your account by clicking on the link below:</p>
+
+<p><a href="{{  base_url }}{% url 'registration_activate' activation_key=activation_key %}"><strong>Activate my account</strong></a></p>
+
+<p>Don't delay! This activation link is only valid for {{ expiration_days }} days.</p>
+
+<p>Thanks,</p>
+<p><strong>Cambridge South Hockey Club</strong></p>
+{% endblock html %}

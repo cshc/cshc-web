@@ -25,6 +25,14 @@ class HomeView(TemplateView):
         # Upcoming Training
         UpcomingTrainingSessionsView.addUpcomingTrainingToContext(context)
 
+        # Sub-navigation elements
+        context['sub_nav_items'] = [
+            {'id': 'training', 'label': 'Next Training'},
+            {'id': 'comments', 'label': 'Recent Comments'},
+            {'id': 'news', 'label': 'Latest News'},
+            {'id': 'tweets', 'label': 'Tweets'},
+        ]
+
         return context
 
     def addLatestResultsToContext(self, context):
