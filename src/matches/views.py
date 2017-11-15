@@ -9,6 +9,7 @@ from awards.models import MatchAward
 from competitions.models import Season
 from core.models import ClubInfo, Gender
 from core.views import get_season_from_kwargs, add_season_selector, kwargs_or_none
+from teams.models import ClubTeam
 from .models import Match, GoalKing, Appearance
 
 
@@ -113,6 +114,7 @@ class GoalKingView(TemplateView):
         context = super(GoalKingView, self).get_context_data(**kwargs)
         context['props'] = {
             'seasons':  list(GoalKing.objects.order_by('-season').values_list('season__slug', flat=True).distinct()),
+            'teams': list(ClubTeam.objects.active().values('long_name', 'slug')),
             'current_season': Season.current().slug,
         }
         return context

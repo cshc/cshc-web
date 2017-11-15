@@ -1,10 +1,10 @@
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-import { FilterName } from 'util/constants';
+import { FilterName, NoFilter } from 'util/constants';
 
 export const GOAL_KING_QUERY = gql`
-  query GoalKing($member_Gender: String, $season_Slug: String) {
-    goalKingEntries(member_Gender: $member_Gender, season_Slug: $season_Slug) {
+  query GoalKing($member_Gender: String, $season_Slug: String, $team: String) {
+    goalKingEntries(member_Gender: $member_Gender, season_Slug: $season_Slug, team: $team) {
       edges {
         node {
           member {
@@ -36,6 +36,8 @@ export const goalKingOptions = {
   options: ({ activeFilters }) => ({
     variables: {
       season_Slug: activeFilters[FilterName.Season] || undefined,
+      team:
+        activeFilters[FilterName.Team] !== NoFilter ? activeFilters[FilterName.Team] : undefined,
     },
     fetchPolicy: 'cache-and-network',
   }),

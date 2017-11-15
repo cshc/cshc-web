@@ -3,12 +3,30 @@ GraphQL Schema for matches etc
 """
 
 import graphene
+import django_filters
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from django.db.models import Prefetch
 from core import schema_helper
 from awards.models import MatchAwardWinner
 from .models import Match, Appearance, GoalKing
+
+
+class GoalKingFilter(django_filters.FilterSet):
+    """ Goal King Filters """
+    team = django_filters.CharFilter(name='team', method='filter_team')
+
+    def filter_team(self, queryset, name, value):
+        # filter for entries where the player has scored for the corresponding team.
+        filter_name = "{}_goals__gt".format(value)
+        kwargs = {
+            filter_name: 0
+        }
+        return queryset.filter(**kwargs).order_by("-{}_goals".format(value))
+
+    class Meta:
+        model = GoalKing
+        fields = ['team', 'member__gender', 'season__slug']
 
 
 class MatchNode(DjangoObjectType):
@@ -74,7 +92,7 @@ class Query(graphene.ObjectType):
     matches = schema_helper.OptimizableFilterConnectionField(MatchNode)
     appearances = graphene.List(AppearanceNode)
     goal_king_entries = schema_helper.OptimizableFilterConnectionField(
-        GoalKingType)
+        GoalKingType, filterset_class=GoalKingFilter)
 
     def resolve_matches(self, info, **kwargs):
         appearances_qs = Appearance.objects.select_related('member')
@@ -89,4 +107,10 @@ class Query(graphene.ObjectType):
         return Appearance.objects.all()
 
     def resolve_goal_king_entries(self, info, **kwargs):
-        return schema_helper.optimize(GoalKing.objects.filter(total_goals__gt=0).filter(**kwargs).order_by('-total_goals'), info, goalking_field_map)
+        order_field = '-total_goals'
+        if 'team' in kwargs:
+            order_field = '-{}_goals'.format(kwargs['team'])
+            kwargs["{}_goals__gt".format(kwargs['team'])] = 0
+            del kwargs['team']
+
+        return schema_helper.optimize(GoalKing.objects.filter(total_goals__gt=0).filter(**kwargs).order_by(order_field), info, goalking_field_map)

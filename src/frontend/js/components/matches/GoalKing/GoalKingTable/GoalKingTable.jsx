@@ -5,7 +5,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import ErrorDisplay from 'components/common/ErrorDisplay';
 import Loading from 'components/common/Loading';
 import { FilterName } from 'util/constants';
-import GoalKingTableRow from './GoalKingTableRow';
+import GoalKingTableRow from '../GoalKingTableRow';
 
 const GoalKingTable = ({ networkStatus, error, entries, activeFilters }) => {
   if (error) return <ErrorDisplay errorMessage="Failed to load goal king entries" />;
