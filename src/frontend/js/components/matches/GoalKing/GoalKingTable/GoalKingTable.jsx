@@ -34,6 +34,8 @@ const GoalKingTable = ({ networkStatus, error, entries, activeFilters }) => {
     }
   }
 
+  const teamFilter = activeFilters[FilterName.Team];
+
   return (
     <div className="table-responsive">
       <table className="table table-sm table-hover">
@@ -64,7 +66,11 @@ const GoalKingTable = ({ networkStatus, error, entries, activeFilters }) => {
         </thead>
         <tbody>
           {filteredEntries.map(entry => (
-            <GoalKingTableRow key={entry.node.member.modelId} entry={entry.node} />
+            <GoalKingTableRow
+              key={entry.node.member.modelId}
+              entry={entry.node}
+              teamFilter={teamFilter}
+            />
           ))}
         </tbody>
       </table>
