@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load cshc_tags %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% comment %}
+Contact Us page with contact form
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Contact Us{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+
+{% url 'upcoming_trainingsession_list' as training %}
+{% url 'contact_us' as contact_us %}
+
+<div class="text-center g-pt-80--md">
+  <div class="u-heading-v2-5--bottom g-brd-primary g-mb-40">
+    <h2 class="text-uppercase u-heading-v2__title g-mb-10">We'd like to hear from you</h2>
+    <h4 class="g-font-weight-200">We are always looking for new players, whether experienced or new to the sport!</h4>
+  </div> 
+</div>
+
+<div class="row text-center justify-content-md-center">
+  <div class="col-md-8">
+    <p class="lead">
+      If you're interested in playing hockey with us, whether casually or competitively, or would just like more information about the club, 
+      simply fill in this form. Joining the club mailing lists means you will receive email alerts about games, training, socials etc.
+    </p>
+    <p class="lead">
+      Alternatively, come along to our evening <a href="{{ training }}">club training</a> and introduce yourself.
+    </p>
+  </div>
+</div>
+
+<form class="g-pt-40" action="{{ contact_us }}" method="post">{% csrf_token %}
+<div class="row justify-content-md-center">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label class="sr-only" for="id_first_name">First Name</label>
+      <div class="input-group g-brd-primary--focus">
+        <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+          <i class="fa fa-user"></i>
+        </div>
+        <input id="id_first_name" maxlength="255"  name="first_name" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="text" placeholder="First Name*">
+      </div>
+      {% if form.errors.first_name %}<small class="form-control-feedback">{{ form.errors.first_name }}</small>{% endif %}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label class="sr-only" for="id_last_name">Last Name</label>
+      <div class="input-group g-brd-primary--focus">
+        <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+          <i class="fa fa-user"></i>
+        </div>
+        <input id="id_last_name" maxlength="255"  name="last_name" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="text" placeholder="Last Name*">
+      </div>
+      {% if form.errors.last_name %}<small class="form-control-feedback">{{ form.errors.last_name }}</small>{% endif %}
+    </div>
+  </div>
+</div>
+<div class="row justify-content-md-center">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label class="sr-only" for="id_email">Email</label>
+      <div class="input-group g-brd-primary--focus">
+        <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+          <i class="fa fa-envelope"></i>
+        </div>
+        <input id="id_email" maxlength="255"  name="email" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="email" placeholder="Email*">
+      </div>
+      {% if form.errors.email %}<small class="form-control-feedback">{{ form.errors.email }}</small>{% endif %}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label class="sr-only" for="id_phone">Phone</label>
+      <div class="input-group g-brd-primary--focus">
+        <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+          <i class="fa fa-phone"></i>
+        </div>
+        <input id="id_phone" maxlength="25"  name="phone" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="tel" placeholder="Phone">
+      </div>
+      {% if form.errors.phone %}<small class="form-control-feedback">{{ form.errors.phone }}</small>{% endif %}
+    </div>
+  </div>
+</div>
+<div class="row justify-content-md-center">
+  <div class="col-md-8">
+    <div class="form-group">
+      <label class="sr-only" for="id_message">Message</label>
+      <textarea id="id_message" name="message" class="form-control form-control-md g-resize-none rounded-0" rows="5" placeholder="Message"></textarea>
+      {% if form.errors.message %}<small class="form-control-feedback">{{ form.errors.message }}</small>{% endif %}
+    </div>
+  </div>
+</div>
+<div class="row justify-content-md-center">
+  <div class="col-md-8">
+    <div class="form-group">
+      <label for="id_mailing_list" class="u-check g-pl-25">
+        <input id="id_mailing_list" name="mailing_list" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox" checked="checked">
+        <div class="u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
+          <i class="fa" data-check-icon=""></i>
+        </div>
+        I would like to join the Club mailing lists 
+      </label>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-md-center">
+  <div class="col-md-8">
+    <input class="btn btn-md u-btn-primary rounded-0" type="submit" value="Submit">
+    <p class="g-font-size-12 g-font-style-italic g-mt-20">* required fields</p>
+  </div>
+</div>
+</form>
+
+{% endblock %}
+
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'blocks/_focus_state_js.html' %}
+{% endblock %}

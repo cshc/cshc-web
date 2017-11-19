@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from graphene_django.views import GraphQLView
 
-from core.views import JuniorsContactSubmissionCreateView
+from core.views import JuniorsContactSubmissionCreateView, ContactSubmissionCreateView
 from members.views import ProfileView
 from venues.views import DirectionsView
 from .views import HomeView, CalendarView, CommitteeSeasonView
@@ -55,6 +55,9 @@ urlpatterns = [
 
     url(r'^juniors/$', JuniorsContactSubmissionCreateView.as_view(),
         name='juniors_index'),
+
+    url(r'^contact/$', ContactSubmissionCreateView.as_view(), name='contact_us'),
+
 
     # Stats landing page
     url(r'^stats/$', TemplateView.as_view(template_name='core/stats.html'), name='stats'),

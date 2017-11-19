@@ -7,8 +7,8 @@ from django.views.generic.edit import CreateView
 from django.contrib import messages
 from templated_email import send_templated_mail
 from competitions.models import Season
-from .models import JuniorsContactSubmission
-from .forms import JuniorsContactSubmissionForm
+from .models import JuniorsContactSubmission, ContactSubmission, ClubInfo
+from .forms import JuniorsContactSubmissionForm, ContactSubmissionForm
 
 
 LOG = logging.getLogger(__name__)
@@ -53,6 +53,73 @@ def add_season_selector(context, season, season_list):
     context['season_list'] = season_list
     context['is_current_season'] = Season.is_current_season(season.id)
     return context
+
+
+class ContactSubmissionCreateView(CreateView):
+    """ This is essentially the 'Contact Us' form view. """
+
+    model = ContactSubmission
+    form_class = ContactSubmissionForm
+    template_name = "core/contact.html"
+    success_url = '/contact/'
+
+    def email_to_secretary(self, form):
+        """ Send an email to the secretary with the form data. """
+        email = form.cleaned_data['email']
+        context = {
+            'name': u"{} {}".format(form.cleaned_data['first_name'], form.cleaned_data['last_name']),
+            'phone': form.cleaned_data['phone'],
+            'sender_email': email,
+            'join_mail_list': form.cleaned_data['mailing_list'],
+            'message': str(form.cleaned_data['message']),
+        }
+
+        try:
+            recipient_email = ClubInfo.objects.get(key='SecretaryEmail').value
+        except ClubInfo.DoesNotExist:
+            recipient_email = 'secretary@cambridgesouthhockeyclub.co.uk'
+
+        send_templated_mail(
+            from_email=email,
+            recipient_list=[recipient_email],
+            template_name='contact_secretary',
+            context=context,
+        )
+
+    def email_to_enquirer(self, form):
+        """ Send a confirmation email to the person submitting the form. """
+        context = {
+            'first_name': str(form.cleaned_data['first_name']),
+            'message': str(form.cleaned_data['message']),
+        }
+        try:
+            context['secretary_name'] = ClubInfo.objects.get(
+                key='SecretaryName').value
+            context['secretary_email'] = ClubInfo.objects.get(
+                key='SecretaryEmail').value
+        except ClubInfo.DoesNotExist:
+            context['secretary_name'] = ""
+            context['secretary_email'] = 'secretary@cambridgesouthhockeyclub.co.uk'
+
+        recipient_email = form.cleaned_data['email']
+        send_templated_mail(
+            from_email=context['secretary_email'],
+            recipient_list=[recipient_email],
+            template_name='contact_sender',
+            context=context,
+        )
+
+    def form_valid(self, form):
+        try:
+            self.email_to_secretary(form)
+            self.email_to_enquirer(form)
+            messages.info(
+                self.request, "Thanks for your message. We'll be in touch shortly!")
+        except:
+            LOG.warn("Failed to send contact us email", exc_info=True)
+            messages.error(
+                self.request, "Sorry - we were unable to send your message. Please try again later.")
+        return super(ContactSubmissionCreateView, self).form_valid(form)
 
 
 class JuniorsContactSubmissionCreateView(CreateView):
