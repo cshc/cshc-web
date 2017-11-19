@@ -80,7 +80,7 @@ class ProfileView(LoginRequiredMixin, UpdateView):
                 )
             except:
                 LOG.error("Failed to send player link request email for {}".format(
-                    self.request.user), exc_info=True)
+                    self.request.user), exc_info=True, extra={'request': self.request})
                 messages.error(
                     self.request,
                     "Sorry - we were unable to handle your request. Please try again later.")

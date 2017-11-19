@@ -2,6 +2,7 @@
 {% load cshc_tags %}
 
 <script>
+  window.CSHC_VERSION = '{{ VERSION }}';
   window.props = {{ props|json }};
   window.react_mount = document.getElementById('react-app');
 </script>
