@@ -5,6 +5,7 @@
  * This includes previous results and upcoming fixtures against this club
  */
 
+import 'util/monitoring';
 import OppositionClubDetail from 'components/opposition/OppositionClubDetail';
 import ui, { initialViewState } from 'redux/reducers/uiReducers';
 import render from '../ReactRenderer';

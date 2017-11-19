@@ -3,6 +3,7 @@
  * and list views
  */
 
+import 'util/monitoring';
 import MemberList from 'components/members/MemberList';
 import ui, { initialViewState } from 'redux/reducers/uiReducers';
 import render from '../ReactRenderer';

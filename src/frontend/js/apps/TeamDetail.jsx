@@ -8,6 +8,7 @@
  * This includes Results, Fixtures, the League Table and the Squad Roster.
  */
 
+import 'util/monitoring';
 import TeamDetail from 'components/teams/TeamDetail';
 import ui, { initialViewState } from 'redux/reducers/uiReducers';
 import { FilterName, NoFilter } from 'util/constants';

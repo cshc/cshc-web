@@ -4,6 +4,7 @@
  * This includes past and upcoming fixtures at this venue.
  */
 
+import 'util/monitoring';
 import VenueDetail from 'components/venues/VenueDetail';
 import ui, { initialViewState } from 'redux/reducers/uiReducers';
 import render from '../ReactRenderer';

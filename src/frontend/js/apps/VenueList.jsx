@@ -3,6 +3,7 @@
  * and list views
  */
 
+import 'util/monitoring';
 import VenueList from 'components/venues/VenueList';
 import ui, { initialViewState } from 'redux/reducers/uiReducers';
 import render from '../ReactRenderer';

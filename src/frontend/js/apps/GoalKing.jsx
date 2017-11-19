@@ -1,7 +1,7 @@
 /**
  * The GoalKing app provides a filterable/searchable list of Goal King entries.
  */
-
+import 'util/monitoring';
 import GoalKing from 'components/matches/GoalKing';
 import ui, { initialViewState } from 'redux/reducers/uiReducers';
 import { FilterName, Gender } from 'util/constants';

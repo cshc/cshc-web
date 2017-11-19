@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import raven
 from os.path import abspath, dirname, join, normpath
 from easy_thumbnails.conf import Settings as thumbnail_settings
 
@@ -75,6 +76,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.linkedin_oauth2',
+    'raven.contrib.django.raven_compat',
 ]
 
 MIDDLEWARE = [
@@ -305,3 +307,10 @@ SOCIALACCOUNT_PROVIDERS = {
 # Ref: https://github.com/vintasoftware/django-templated-email
 TEMPLATED_EMAIL_TEMPLATE_DIR = 'emails/'
 TEMPLATED_EMAIL_FILE_EXTENSION = 'html'
+
+# raven CONFIGRATION
+# Ref: https://sentry.io/onboarding/cambridge-south-hockey-club/cshc-django/configure/python-django
+RAVEN_CONFIG = {
+    'dsn': os.environ['SENTRY_DNS'],
+    'release': VERSION,
+}

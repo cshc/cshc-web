@@ -61,3 +61,7 @@ django-templated-email==2.2.0
 # Tagging support
 # Ref: https://django-taggit.readthedocs.io/en/latest/
 django-taggit==0.22.1
+
+# Monitoring with Sentry
+# Ref: https://docs.sentry.io/clients/python/integrations/django/
+raven==6.3.0
