@@ -2,6 +2,8 @@
 Forms for general CSHC app use
 """
 from django import forms
+from django.contrib.flatpages.models import FlatPage
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from .models import JuniorsContactSubmission, ContactSubmission
 
 
@@ -38,3 +40,12 @@ class JuniorsContactSubmissionForm(forms.ModelForm):
         model = JuniorsContactSubmission
         # our_notes is only to be used by staff/admin
         exclude = ('our_notes',)
+
+
+class FlatPageAdminForm(forms.ModelForm):
+    """ Form for editing matches in the admin interface """
+    content = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = FlatPage
+        exclude = []

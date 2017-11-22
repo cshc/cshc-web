@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.conf import settings
 from django.views.generic import TemplateView
+from django.contrib.flatpages import views as flatpage_views
 from django.contrib import admin
 from django.conf.urls.static import static
 from graphene_django.views import GraphQLView
@@ -78,6 +79,13 @@ urlpatterns = [
 ] + \
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+# Static pages - use the flatpage app
+urlpatterns += [
+    url(r'^(?P<url>.*/)$', flatpage_views.flatpage),
+]
+
 
 if settings.DEBUG:
     import debug_toolbar

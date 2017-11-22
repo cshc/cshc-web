@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}{{ block.super }} | {{ flatpage.title }}{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+
+{{ flatpage.content }}
+
+{% endblock content %}

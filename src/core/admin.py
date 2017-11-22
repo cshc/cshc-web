@@ -3,10 +3,13 @@ Admin configuration for Core Models
 """
 
 from django.contrib import admin
+from django.contrib.flatpages.admin import FlatPageAdmin
+from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import ugettext_lazy as _
 
 from .models import CshcUser, ClubInfo, JuniorsContactSubmission, ContactSubmission
+from .forms import FlatPageAdminForm
 
 
 @admin.register(CshcUser)
@@ -51,3 +54,20 @@ class JuniorsContactSubmissionAdmin(admin.ModelAdmin):
     search_fields = ('full_name', 'child_name', 'email')
     list_display = ('full_name', 'email', 'child_name',
                     'child_age', 'child_gender', 'submitted')
+
+
+admin.site.unregister(FlatPage)
+
+
+@admin.register(FlatPage)
+class CKEditorFlatPageAdmin(FlatPageAdmin):
+    """ Override for the FlatPage admin interface - uses a CK Editor widget"""
+
+    form = FlatPageAdminForm
+    fieldsets = [
+        ('Config', {'fields': ['url', 'title', 'sites', 'content']}),
+        ('Advanced options', {
+            'classes': ('collapse',),
+            'fields': ('enable_comments', 'registration_required', 'template_name')
+        }),
+    ]
