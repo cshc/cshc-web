@@ -78,6 +78,12 @@ def addstr(arg1, arg2):
 
 
 @register.filter
+def formatstr(token, text):
+    """ Replace '{}' with the token value """
+    return text.replace("{}", token)
+
+
+@register.filter
 def graphQLId(id, type):
     """ Returns the GraphQL ID from a node type and a model ID """
     return to_global_id(type, id)

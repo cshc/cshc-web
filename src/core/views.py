@@ -5,6 +5,7 @@ import traceback
 import logging
 from django.views.generic.edit import CreateView
 from django.contrib import messages
+from django.core.urlresolvers import reverse_lazy
 from templated_email import send_templated_mail
 from competitions.models import Season
 from .models import JuniorsContactSubmission, ContactSubmission, ClubInfo
@@ -61,7 +62,7 @@ class ContactSubmissionCreateView(CreateView):
     model = ContactSubmission
     form_class = ContactSubmissionForm
     template_name = "core/contact.html"
-    success_url = '/contact/'
+    success_url = reverse_lazy('contact_us')
 
     def email_to_secretary(self, form):
         """ Send an email to the secretary with the form data. """
@@ -128,7 +129,7 @@ class JuniorsContactSubmissionCreateView(CreateView):
     model = JuniorsContactSubmission
     form_class = JuniorsContactSubmissionForm
     template_name = "club_info/juniors.html"
-    success_url = '/juniors/'
+    success_url = reverse_lazy('juniors_index')
 
     def get_context_data(self, **kwargs):
         context = super(JuniorsContactSubmissionCreateView,

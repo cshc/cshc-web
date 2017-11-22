@@ -17,17 +17,5 @@ Your message:
 {% endblock plain %}
 
 {% block html %}
-<p>Hi {{ first_name }},</p>
-
-<p>Thanks for contacting us about junior hockey. We'll get back to you with more information as soon as possible.</p>
-
-<p>Best regards,</p>
-
-<p>Neil Sneade<br/>
-<em>Juniors Secretary</em></p>
-
-{% if message %}
-<p><em>Your message:</em></p>
-<p>{{ message }}</p>
-{% endif %}
+{% include 'emails/html/juniors_sender.html' %}
 {% endblock html %}

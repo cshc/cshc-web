@@ -6,11 +6,12 @@ import logging
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import UpdateView
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.sites.models import Site
 from templated_email import send_templated_mail
+from core.models import CshcUser
 from competitions.models import Season
 from teams.models import ClubTeam
 from .models import Member
@@ -53,8 +54,39 @@ class ProfileView(LoginRequiredMixin, UpdateView):
         except Member.DoesNotExist:
             return None
 
+    def send_link_req(self):
+        try:
+            send_templated_mail(
+                from_email=settings.SERVER_EMAIL,
+                recipient_list=[settings.SERVER_EMAIL],
+                template_name='req_player_link',
+                context={
+                    'user': self.request.user,
+                    'base_url': "//" + Site.objects.get_current().domain
+                },
+            )
+        except:
+            LOG.error("Failed to send player link request email for {}".format(
+                self.request.user), exc_info=True, extra={'request': self.request})
+            messages.error(
+                self.request,
+                "Sorry - we were unable to handle your request. Please try again later.")
+        else:
+            messages.success(
+                self.request,
+                "Thanks - your request to be linked to a player/club member has been sent to the website administrator.")
+
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
+        # if req_link is supplied in the url params, trigger the player link request now
+        req_link_id = self.request.GET.get('req_link_id')
+        if req_link_id:
+            try:
+                self.send_link_req()
+                context['link_req_sent'] = True
+            except CshcUser.DoesNotExist:
+                pass
+
         # Differentiates between this view and MemberDetailView
         context['is_profile'] = True
         context['member'] = self.get_object()
@@ -68,26 +100,7 @@ class ProfileView(LoginRequiredMixin, UpdateView):
         # HACK: Make use of the invalid form for handling the 'Connect my account
         # to a player' request
         if self.request.POST.get('request_link') == '1':
-            try:
-                send_templated_mail(
-                    from_email=settings.SERVER_EMAIL,
-                    recipient_list=[settings.SERVER_EMAIL],
-                    template_name='req_player_link',
-                    context={
-                        'user': self.request.user,
-                        'base_url': "//" + Site.objects.get_current().domain
-                    },
-                )
-            except:
-                LOG.error("Failed to send player link request email for {}".format(
-                    self.request.user), exc_info=True, extra={'request': self.request})
-                messages.error(
-                    self.request,
-                    "Sorry - we were unable to handle your request. Please try again later.")
-            else:
-                messages.success(
-                    self.request,
-                    "Thanks - your request to be linked to a player/club member has been sent to the website administrator.")
+            self.send_link_req()
         else:
             messages.error(
                 self.request,

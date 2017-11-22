@@ -75,8 +75,6 @@ urlpatterns = [
     url(r'^graphql', GraphQLView.as_view(graphiql=True)),   # GraphQL Urls
     url(r'^admin/', admin.site.urls),
 
-    url(r'^test-template/(?P<template>.+)/$',
-        templateTestView, name='template_test'),
 ] + \
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
@@ -85,4 +83,7 @@ if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
         url(r'^__debug__/', include(debug_toolbar.urls)),
+        # Debug utility for viewing templates (useful for viewing email templates)
+        url(r'^test-template/(?P<template>.+)/$',
+            templateTestView, name='template_test'),
     ] + urlpatterns

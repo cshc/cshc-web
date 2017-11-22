@@ -4,7 +4,6 @@
 {% block title %}CSHC - Activate your account{% endblock title %}
 
 {% block content %}
-{% url 'registration_activate' activation_key=activation_key as reg_link %}
 {% url 'user_profile' as user_profile %}
 {% url 'calendar' as calendar_link %}
 {% static "img/link_account.png" as link_account %}
@@ -14,21 +13,21 @@
 
 <tr>
   <td>
-    {% include 'emails/html/_image.html' with src=club_night width="100%" %}
+    {% include 'emails/html/_image.html' with base_url=current_site.domain src=club_night width="100%" %}
   </td>
 </tr>
 <tr bgcolor="#ffffff">
   <td align="center">
     <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
       {% include 'emails/html/_title.html' with text="Welcome to Cambridge South Hockey Club!" %}
-      {% include 'emails/html/_paragraph.html' with text=user.first_name|formatstr:"Hi {}," %}
+      {% include 'emails/html/_paragraph.html' with text=user_display|formatstr:"Hi {}," %}
       {% include 'emails/html/_paragraph.html' with text="Before you can sign in, you just need to activate your account by clicking on the button below:" %}
       <tr>
         <td align="center" valign="center">
-          {% include 'emails/html/_button.html' with label="Activate my account" link=reg_link %}
+          {% include 'emails/html/_button.html' with label="Activate my account" link=activate_url %}
         </td>
       </tr>
-      {% include 'emails/html/_paragraph.html' with text=expiration_days|formatstr:"Don't delay! This activation link is only valid for {} days" %}
+      {% include 'emails/html/_paragraph.html' with text="Don't delay! This activation link is only valid for 3 days" %}
     </table>
   </td>
 </tr>
@@ -42,14 +41,14 @@
     <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
       <tr>
         <td width="200" class="mobile" align="center" valign="top">
-            {% include 'emails/html/_image.html' with src=link_account width="100" height="100" %}
+            {% include 'emails/html/_image.html' with base_url=current_site.domain src=link_account width="100" height="100" %}
         </td>
         <td width="400" class="mobile" align="center" valign="top">
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
             {% include 'emails/html/_paragraph.html' with text="If you have played (or intend to play) for Cambridge South, we need to connect your new user account to your player details. Please click the button below to initiate this process:" %}
             <tr>
               <td align="center" valign="center">
-                {% include 'emails/html/_secondary_button.html' with label="Link my account" link=activation_url %}
+                {% include 'emails/html/_secondary_button.html' with label="Link my account" link=user_profile|addstr:"?req_link_id=true" %}
               </td>
             </tr>
           </table>
@@ -58,7 +57,7 @@
       {% include 'emails/html/_spacer.html' %}
       <tr>
         <td width="200" class="mobile" align="center" valign="top">
-          {% include 'emails/html/_image.html' with src=edit_account width="100" height="100" %}
+          {% include 'emails/html/_image.html' with base_url=current_site.domain src=edit_account width="100" height="100" %}
         </td>
         <td width="400" class="mobile" align="center" valign="top">
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -74,7 +73,7 @@
       {% include 'emails/html/_spacer.html' %}
       <tr>
         <td width="200" class="mobile" align="center" valign="top">
-          {% include 'emails/html/_image.html' with src=calendar width="100" height="100" %}
+          {% include 'emails/html/_image.html' with base_url=current_site.domain src=calendar width="100" height="100" %}
         </td>
         <td width="400" class="mobile" align="center" valign="top">
           <table width="100%" cellpadding="0" cellspacing="0" border="0">

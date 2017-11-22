@@ -167,5 +167,13 @@ class CommitteeSeasonView(TemplateView):
 
 @user_passes_test(lambda u: u.is_superuser)
 def templateTestView(request, template):
-    print(template)
-    return render(request, template, {})
+    """
+    This is a debug utility, restricted to super-users. It lets you enter a url like 
+    '/test-template/my-template.html' and view the rendered HTML in the browser.
+
+    You can enter simple key/value context items as URL params. For example:
+    '/test-template/my-template.html?key1=value1&key2=value2'
+
+    """
+    context = dict(request.GET.items())
+    return render(request, template, context)
