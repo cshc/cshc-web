@@ -48,7 +48,7 @@
           <td>{{ gk.member|urlise_model }}</td>
           <td class="priority2 text-center">{{ gk.games_played }}</td>
           <td class="text-center">{{ gk.total_miles }}</td>
-          <td class="text-center">{{ gk.miles_per_game|floatformat:1 }}</td>
+          <td class="text-center">{{ gk.mpg|floatformat:1 }}</td>
         </tr>
       {% endfor %}
     </tbody>

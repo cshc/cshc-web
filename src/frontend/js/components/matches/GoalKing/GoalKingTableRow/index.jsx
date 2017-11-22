@@ -36,7 +36,7 @@ const GoalKingTableRow = ({ entry, teamFilter }) => {
       <td className={teamClass('mixed')}>{entry.mixedGoals}</td>
       <td className={teamClass('indoor')}>{entry.indoorGoals}</td>
       <td className={teamFilter === NoFilter ? 'g-font-weight-600' : ''}>{entry.totalGoals}</td>
-      <td>{round(entry.goalsPerGame, 2)}</td>
+      <td>{round(entry.gpg, 2)}</td>
     </tr>
   );
 };

@@ -25,7 +25,7 @@ export const GOAL_KING_QUERY = gql`
           mixedGoals
           indoorGoals
           totalGoals
-          goalsPerGame
+          gpg
         }
       }
     }

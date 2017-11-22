@@ -41,7 +41,7 @@ class GoalKingManager(models.Manager):
         """ Filters the GoalKing entries by the specified season - and orders them in
             descending total number of miles travelled.
         """
-        return self.get_queryset().filter(season=season).order_by('-total_miles')
+        return self.get_queryset().filter(season=season).order_by('-total_miles', '-mpg')
 
 
 class GoalKing(models.Model):
@@ -87,6 +87,8 @@ class GoalKing(models.Model):
         "Goals for Mixed team", default=0)
     indoor_goals = models.PositiveSmallIntegerField(
         "Goals for the Indoor team", default=0)
+    vets_goals = models.PositiveSmallIntegerField(
+        "Goals for the Vets team", default=0)
 
     # Own-goal tallies for each team
     m1_own_goals = models.PositiveSmallIntegerField(
@@ -111,6 +113,8 @@ class GoalKing(models.Model):
         "Own goals for Mixed team", default=0)
     indoor_own_goals = models.PositiveSmallIntegerField(
         "Own goals for the Indoor team", default=0)
+    vets_own_goals = models.PositiveSmallIntegerField(
+        "Own goals for the Vets team", default=0)
 
     # These are attributes (db fields) rather than just methods so that we can take advantage of
     # SQL ordering - we typically want to order goal king entries by total goals.
@@ -118,6 +122,12 @@ class GoalKing(models.Model):
         "Total goals", editable=False)
     total_own_goals = models.PositiveSmallIntegerField(
         "Total own goals", editable=False)
+
+    gpg = models.FloatField("Goals per Game", editable=False, null=True)
+    """ Average number of goals per game """
+
+    mpg = models.FloatField("Miles per Game", editable=False, null=True)
+    """ Average number of miles travelled per game """
 
     objects = GoalKingManager()
 
@@ -135,11 +145,14 @@ class GoalKing(models.Model):
         # Calculate non-editable, derived fields
         self.total_goals = (self.m1_goals + self.m2_goals + self.m3_goals + self.m4_goals +
                             self.m5_goals + self.l1_goals + self.l2_goals + self.l3_goals +
-                            self.l4_goals + self.mixed_goals + self.indoor_goals)
+                            self.l4_goals + self.mixed_goals + self.indoor_goals + self.vets_goals)
         self.total_own_goals = (self.m1_own_goals + self.m2_own_goals + self.m3_own_goals +
                                 self.m4_own_goals + self.m5_own_goals + self.l1_own_goals +
                                 self.l2_own_goals + self.l3_own_goals + self.l4_own_goals +
-                                self.mixed_own_goals + self.indoor_own_goals)
+                                self.mixed_own_goals + self.indoor_own_goals + self.vets_own_goals)
+
+        self.gpg = self.goals_per_game()
+        self.mpg = self.miles_per_game()
 
         super(GoalKing, self).save(*args, **kwargs)
 
@@ -175,6 +188,7 @@ class GoalKing(models.Model):
         self.l4_goals = 0
         self.mixed_goals = 0
         self.indoor_goals = 0
+        self.vets_goals = 0
         self.m1_own_goals = 0
         self.m2_own_goals = 0
         self.m3_own_goals = 0
@@ -186,6 +200,7 @@ class GoalKing(models.Model):
         self.l4_own_goals = 0
         self.mixed_own_goals = 0
         self.indoor_own_goals = 0
+        self.vets_own_goals = 0
 
     def add_appearance(self, appearance):
         """ Adds the details of an appearance to the GoalKing stat"""
@@ -226,6 +241,9 @@ class GoalKing(models.Model):
             elif ordinal == TeamOrdinal.TIndoor:
                 self.indoor_goals += appearance.goals
                 self.indoor_own_goals += appearance.own_goals
+            elif ordinal == TeamOrdinal.TVets:
+                self.vets_goals += appearance.goals
+                self.vets_own_goals += appearance.own_goals
             else:
                 raise AssertionError(
                     "Unexpected mens team: {}".format(ordinal))
@@ -270,7 +288,7 @@ class GoalKing(models.Model):
 
         # We just want the member id, the match team, the number of goals scored (and own goals)
         appearances = Appearance.objects.by_season(season).select_related('match__our_team', 'match__venue').filter(
-            match__ignore_for_goal_king=False).only('member', 'goals', 'own_goals', 'match__our_team', 'match__venue')
+            match__ignore_for_goal_king=False).only('match__season', 'member', 'goals', 'own_goals', 'match__our_team', 'match__venue')
 
         for appearance in appearances:
             if appearance.member_id not in gk_lookup:

@@ -37,40 +37,24 @@ class TeamGender(object):
     )
 
 
-class TeamOrdinal(object):
-    """ Enumeration of choices for a team's ordinal. Used in multiple apps. """
-    T1 = '1sts'
-    T2 = '2nds'
-    T3 = '3rds'
-    T4 = '4ths'
-    T5 = '5ths'
-    T6 = '6ths'
-    T7 = '7ths'
-    T8 = '8ths'
-    T9 = '9ths'
-    T10 = '10ths'
-    T11 = '11ths'
-    T12 = '12ths'
-    TVets = 'Vets'
-    TIndoor = 'Indoor'
-    TOther = 'Other'
-    Choices = (
-        ('T1', '1sts'),
-        ('T2', '2nds'),
-        ('T3', '3rds'),
-        ('T4', '4ths'),
-        ('T5', '5ths'),
-        ('T6', '6ths'),
-        ('T7', '7ths'),
-        ('T8', '8ths'),
-        ('T9', '9ths'),
-        ('T10', '10ths'),
-        ('T11', '11ths'),
-        ('T12', '12ths'),
-        ('TVets', 'Vets'),
-        ('TIndoor', 'Indoor'),
-        ('TOther', 'Other'),
-    )
+# Enumeration of choices for a team's ordinal. Used in multiple apps.
+TeamOrdinal = Choices(
+    ('T1', '1sts'),
+    ('T2', '2nds'),
+    ('T3', '3rds'),
+    ('T4', '4ths'),
+    ('T5', '5ths'),
+    ('T6', '6ths'),
+    ('T7', '7ths'),
+    ('T8', '8ths'),
+    ('T9', '9ths'),
+    ('T10', '10ths'),
+    ('T11', '11ths'),
+    ('T12', '12ths'),
+    ('TVets', 'Vets'),
+    ('TIndoor', 'Indoor'),
+    ('TOther', 'Other')
+)
 
 
 class Gender(object):

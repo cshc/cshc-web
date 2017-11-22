@@ -83,7 +83,7 @@ class ClubTeam(models.Model):
     """The team gender (mens/ladies/mixed)"""
 
     ordinal = models.CharField(
-        "Team ordinal (1sts/2nds etc)", max_length=10, choices=TeamOrdinal.Choices)
+        "Team ordinal (1sts/2nds etc)", max_length=10, choices=TeamOrdinal)
     """The team ordinal (1sts/2nds/Vets/Indoor etc)"""
 
     position = models.PositiveSmallIntegerField(
@@ -155,12 +155,13 @@ class ClubTeam(models.Model):
         return ('clubteam_detail', [self.slug])
 
     def abbr_name(self):
-        """ Returns an abbreviated name, including the club (e.g. 'Cambridge South 1')"""
-        if self.short_name == 'Mixed':
-            return "Cambridge South Mixed"
+        """ Returns an abbreviated name, including the club (e.g. 'Cambridge South Mens 1')"""
+        if self.short_name in ['Mixed', 'Indoor']:
+            return "Cambridge South {}".format(self.short_name)
         elif self.gender == TeamGender.Ladies:
             return "Cambridge South Ladies {}".format(ordinal_from_TeamOrdinal(self.ordinal))
-        return "Cambridge South {}".format(ordinal_from_TeamOrdinal(self.ordinal))
+        else:
+            return "Cambridge South Mens {}".format(ordinal_from_TeamOrdinal(self.ordinal))
 
     def genderless_abbr_name(self):
         """ Returns the abbreviated team name without either 'Ladies' or 'Mens'. """
