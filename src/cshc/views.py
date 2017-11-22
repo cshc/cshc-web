@@ -4,6 +4,8 @@
 from datetime import datetime
 from django.views.generic import TemplateView
 from django.utils import timezone
+from django.shortcuts import render
+from django.contrib.auth.decorators import user_passes_test
 from training.views import UpcomingTrainingSessionsView
 from core.models import TeamGender
 from core.views import get_season_from_kwargs, add_season_selector
@@ -161,3 +163,9 @@ class CommitteeSeasonView(TemplateView):
 
         add_season_selector(context, season, Season.objects.reversed())
         return context
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def templateTestView(request, template):
+    print(template)
+    return render(request, template, {})

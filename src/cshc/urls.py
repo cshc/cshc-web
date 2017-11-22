@@ -23,7 +23,7 @@ from graphene_django.views import GraphQLView
 from core.views import JuniorsContactSubmissionCreateView, ContactSubmissionCreateView
 from members.views import ProfileView
 from venues.views import DirectionsView
-from .views import HomeView, CalendarView, CommitteeSeasonView
+from .views import HomeView, CalendarView, CommitteeSeasonView, templateTestView
 
 
 #pylint: disable=C0103
@@ -74,6 +74,9 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^graphql', GraphQLView.as_view(graphiql=True)),   # GraphQL Urls
     url(r'^admin/', admin.site.urls),
+
+    url(r'^test-template/(?P<template>.+)/$',
+        templateTestView, name='template_test'),
 ] + \
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
