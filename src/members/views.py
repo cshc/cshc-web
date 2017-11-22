@@ -78,9 +78,10 @@ class ProfileView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
+        context['member'] = self.get_object()
         # if req_link is supplied in the url params, trigger the player link request now
         req_link_id = self.request.GET.get('req_link_id')
-        if req_link_id:
+        if not context['member'] and req_link_id:
             try:
                 self.send_link_req()
                 context['link_req_sent'] = True
@@ -89,7 +90,6 @@ class ProfileView(LoginRequiredMixin, UpdateView):
 
         # Differentiates between this view and MemberDetailView
         context['is_profile'] = True
-        context['member'] = self.get_object()
         return context
 
     def form_valid(self, form):
