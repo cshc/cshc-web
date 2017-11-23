@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
     'django.contrib.humanize',
     'webpack_loader',
     'debug_toolbar',
