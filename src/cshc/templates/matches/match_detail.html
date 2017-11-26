@@ -19,6 +19,7 @@
 
 {% block head_js %}
   {{ block.super }}
+  <script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5a197be106d3310011e612b3&product=inline-share-buttons"></script>
   {% if not match.is_in_past %}
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ GMAPS_API_KEY }}&region=GB"></script>
   {% endif %}
@@ -97,6 +98,7 @@
     {% endif %}
   </div>
   <div id="comments g-py-40">
+      <div class="sharethis-inline-share-buttons"></div>
     {% include 'core/_disqus_comments.html' with title=match.fixture_title %}
   </div>
 </section>
