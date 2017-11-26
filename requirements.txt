@@ -65,3 +65,7 @@ django-taggit==0.22.1
 # Monitoring with Sentry
 # Ref: https://docs.sentry.io/clients/python/integrations/django/
 raven==6.3.0
+
+# Disqus integration
+# Ref: https://django-disqus.readthedocs.io/en/latest
+django-disqus==0.5

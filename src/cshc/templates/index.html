@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+{% load disqus_tags %}
 
 
 {% block breadcrumbs %}
@@ -115,20 +117,28 @@
 <section id="news">
 
 </section>
-<section class="g-bg-secondary">
-  <section id="tweets" class="container g-pt-40 g-pb-40">
-    <div class="text-center g-mb-40">
-      <h1 class="h2 g-color-black g-font-weight-600 mb-2">Twitterings</h1>
-      <a class='twitter-follow-button' data-show-count='true' href='https://twitter.com/CambSouthHC'>Follow us on Twitter</a>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-lg-7">
-        <a class="twitter-timeline" data-tweet-limit="9" data-chrome="nofooter noheader noborders noscrollbar transparent" href="https://twitter.com/cambsouthhc?ref_src=twsrc%5Etfw">Tweets by cambsouthhc</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<section class="container g-py-60">
+  <div class="row">
+    <div id="comments" class="col-md-6">
+      <div class="u-shadow-v2 g-brd-around g-brd-gray-light-v4 g-line-height-2 g-pa-40 g-mb-30">
+        <h1 class="h2 g-color-black g-font-weight-600 text-center g-mb-40">Recent Comments</h1>
+        {% disqus_recent_comments DISQUS_WEBSITE_SHORTNAME 8 100 0 80 %}
       </div>
     </div>
-    {% comment %} <a class='twitter-timeline' data-chrome='nofooter noheader noborders noscrollbar transparent' data-screen-id='cambsouthhc' data-widget-id='352741775741444096' href='https://twitter.com/twitterapi'>Tweets by @cambsouthhc</a> {% endcomment %}
-  </section>
+    <div id="tweets" class="col-md-6">
+      <div class="u-shadow-v2 g-brd-around g-brd-gray-light-v4 g-line-height-2 g-pa-40 g-mb-30">
+        <h1 class="h2 g-color-black g-font-weight-600 text-center g-mb-40">Twitterings</h1>
+        <div class="text-center">
+          <a class='text-center twitter-follow-button' data-show-count='true' href='https://twitter.com/CambSouthHC'>Follow us on Twitter</a>  
+        </div>
+        <a class="twitter-timeline" data-tweet-limit="6" data-chrome="nofooter noheader noborders noscrollbar transparent" href="https://twitter.com/cambsouthhc?ref_src=twsrc%5Etfw">Tweets by cambsouthhc</a> 
+        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </div>
+    </div>
+  </div>
 </section>
+
 {% endblock main %}
 
 {% block body_js %}

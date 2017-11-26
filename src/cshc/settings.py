@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'graphene_django',
     'django_filters',
+    'disqus',
     'taggit',
     'allauth',
     'allauth.account',
@@ -360,3 +361,11 @@ LOGGING = {
         },
     },
 }
+
+# django-disqus CONFIGURATION
+# Ref: https://django-disqus.readthedocs.io/en/latest
+
+DISQUS_API_KEY = os.environ['DISQUS_API_KEY']
+DISQUS_WEBSITE_SHORTNAME = 'cshc-local'     # Need to change for prod
+
+# END django-disqus CONFIGURATION

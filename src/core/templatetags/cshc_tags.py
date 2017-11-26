@@ -6,6 +6,7 @@ import codecs
 import json as jsonlib
 import bleach
 from django import template
+from django.conf import settings
 from django.contrib import messages
 from django.templatetags.static import static
 from django.utils.html import conditional_escape
@@ -257,3 +258,39 @@ def clubinfo_email(key, linktext=None):
 
 
 clubinfo_email.needs_autoescape = True
+
+
+############################################################################################
+# DISQUS SUPPORT
+
+
+def get_config(context):
+    """
+    return the formatted javascript for any disqus config variables
+    """
+    conf_vars = ['disqus_developer', 'disqus_identifier',
+                 'disqus_url', 'disqus_title']
+
+    output = []
+    for item in conf_vars:
+        if item in context:
+            output.append('\tvar %s = "%s";' % (item, context[item]))
+    return '\n'.join(output)
+
+
+@register.inclusion_tag('disqus/recent_comments.html', takes_context=True)
+def cshc_disqus_recent_comments(context, shortname='', num_items=5, excerpt_length=200, hide_avatars=0, avatar_size=32):
+    """
+    Return the HTML/js code which shows recent comments.
+
+    """
+    shortname = getattr(settings, 'DISQUS_WEBSITE_SHORTNAME', shortname)
+
+    return {
+        'shortname': shortname,
+        'num_items': num_items,
+        'hide_avatars': hide_avatars,
+        'avatar_size': avatar_size,
+        'excerpt_length': excerpt_length,
+        'config': get_config(context),
+    }
