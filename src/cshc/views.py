@@ -30,8 +30,8 @@ class HomeView(TemplateView):
         # Sub-navigation elements
         context['sub_nav_items'] = [
             {'id': 'training', 'label': 'Next Training'},
-            {'id': 'comments', 'label': 'Recent Comments'},
             {'id': 'news', 'label': 'Latest News'},
+            {'id': 'comments', 'label': 'Recent Comments'},
             {'id': 'tweets', 'label': 'Tweets'},
         ]
 

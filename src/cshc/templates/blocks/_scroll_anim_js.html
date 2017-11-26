@@ -1,0 +1,10 @@
+{% load static from staticfiles %}
+
+<script  src="{% static "vendor/appear.js" %}"></script>
+<script  src="{% static "vendor/unify/js/components/hs.onscroll-animation.js" %}"></script>
+<script >
+  $(document).ready(function () {
+    // initialization of scroll animation
+    $.HSCore.components.HSOnScrollAnimation.init('[data-animation]');
+  });
+</script>

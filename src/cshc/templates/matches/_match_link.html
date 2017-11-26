@@ -1,4 +1,6 @@
 {% comment %}
 Inserts an appropriate icon/link to the details of a match
 {% endcomment %}
-<a href="{{ match.get_absolute_url }}" title="Match details"><i class="fa {% if match.has_report %}fa-file-text{% elif match.final_scores_provided %}fa-file{% else %}fa-file-o{% endif %}"></i></a>
+<a href="{{ match.get_absolute_url }}" title="Match details">
+  <i class="fa {% if match.has_report %}fa-file-text{% elif match.final_scores_provided %}fa-file{% else %}fa-file-o{% endif %}"></i>
+</a>

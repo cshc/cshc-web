@@ -19,11 +19,8 @@ Contact Us page with contact form
 {% url 'upcoming_trainingsession_list' as training %}
 {% url 'contact_us' as contact_us %}
 
-<div class="text-center g-pt-80--md">
-  <div class="u-heading-v2-5--bottom g-brd-primary g-mb-40">
-    <h2 class="text-uppercase u-heading-v2__title g-mb-10">We'd like to hear from you</h2>
-    <h4 class="g-font-weight-200">We are always looking for new players, whether experienced or new to the sport!</h4>
-  </div> 
+<div class="g-pt-80--md">
+  {% include 'blocks/_middle_heading.html' with title="We'd like to hear from you" subtitle="We are always looking for new players, whether experienced or new to the sport!" %}
 </div>
 
 <div class="row text-center justify-content-md-center">
