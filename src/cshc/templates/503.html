@@ -1,0 +1,6 @@
+{% extends "error_base.html" %}
+
+{% block title %}{{ block.super }} | 503{% endblock title %}
+
+{% block status_code %}503{% endblock %}
+{% block status_text %}503&nbsp;Service&nbsp;Unavailable{% endblock %}
