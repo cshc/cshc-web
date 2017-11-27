@@ -30,7 +30,6 @@ DEBUG = True
 VERSION_FILE = normpath(join(BASE_DIR, '..', 'version.txt'))
 VERSION = open(VERSION_FILE).read().lstrip('v').rstrip()
 
-ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'core.CshcUser'
