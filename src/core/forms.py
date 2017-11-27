@@ -4,6 +4,8 @@ Forms for general CSHC app use
 from django import forms
 from django.contrib.flatpages.models import FlatPage
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
+from zinnia.models import Entry, Category
+from zinnia.admin.forms import EntryAdminForm, CategoryAdminForm
 from .models import JuniorsContactSubmission, ContactSubmission
 
 
@@ -48,4 +50,28 @@ class FlatPageAdminForm(forms.ModelForm):
 
     class Meta:
         model = FlatPage
+        exclude = []
+
+
+class ZinniaEntryAdminForm(EntryAdminForm):
+    """ Overrides the default admin form, adding a couple of redactor
+        editor widget.
+    """
+    content = forms.CharField(widget=CKEditorUploadingWidget())
+    excerpt = forms.CharField(widget=CKEditorUploadingWidget())
+    lead = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        """ Meta-info for the form. """
+        model = Entry
+        exclude = []
+
+
+class ZinniaCategoryAdminForm(CategoryAdminForm):
+    """ Overrides the default admin form, adding a redactor editor widget. """
+    description = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        """ Meta-info for the form. """
+        model = Category
         exclude = []

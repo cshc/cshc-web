@@ -69,3 +69,14 @@ raven==6.3.0
 # Disqus integration
 # Ref: https://django-disqus.readthedocs.io/en/latest
 django-disqus==0.5
+
+# Zinnia blog
+# Ref: http://docs.django-blog-zinnia.com/en/latest
+Pillow==4.3.0
+django-mptt==0.8.7
+django-tagging==0.4.6
+beautifulsoup4==4.6.0
+mots-vides==2015.5.11
+regex==2017.11.9
+django-contrib-comments==1.8.0
+django-blog-zinnia==0.19

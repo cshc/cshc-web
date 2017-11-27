@@ -31,6 +31,7 @@ VERSION_FILE = normpath(join(BASE_DIR, '..', 'version.txt'))
 VERSION = open(VERSION_FILE).read().lstrip('v').rstrip()
 
 ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'core.CshcUser'
 
@@ -70,6 +71,10 @@ INSTALLED_APPS = [
     'graphene_django',
     'django_filters',
     'disqus',
+    'django_comments',
+    'mptt',
+    'tagging',
+    'zinnia',
     'taggit',
     'allauth',
     'allauth.account',
@@ -108,6 +113,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.i18n',
                 'django.contrib.messages.context_processors.messages',
                 'cshc.context_processors.utils',
             ],
@@ -243,6 +249,7 @@ THUMBNAIL_ALIASES = {
         'avatar': {'size': (50, 50), 'crop': True},
         'member-link': {'size': (30, 30), 'crop': True},
         'squad-list': {'size': (255, 255), 'crop': True},
+        'news-list': {'size': (350, 233), 'crop': True},
     },
 }
 
@@ -369,3 +376,13 @@ DISQUS_API_KEY = os.environ['DISQUS_API_KEY']
 DISQUS_WEBSITE_SHORTNAME = 'cshc-local'     # Need to change for prod
 
 # END django-disqus CONFIGURATION
+
+# Zinnia CONFIGURATION
+# Ref: http://docs.django-blog-zinnia.com/en/latest/getting-started/configuration.html
+ZINNIA_PING_EXTERNAL_URLS = False
+ZINNIA_SAVE_PING_DIRECTORIES = False
+# disable comments, pingbacks and trackbacks completely (we'll use disqus)
+ZINNIA_AUTO_CLOSE_COMMENTS_AFTER = 0
+ZINNIA_AUTO_CLOSE_PINGBACKS_AFTER = 0
+ZINNIA_AUTO_CLOSE_TRACKBACKS_AFTER = 0
+# END Zinnia CONFIGURATION

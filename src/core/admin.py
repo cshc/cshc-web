@@ -7,9 +7,11 @@ from django.contrib.flatpages.admin import FlatPageAdmin
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import ugettext_lazy as _
+from zinnia.models import Entry, Category
+from zinnia.admin import EntryAdmin, CategoryAdmin
 
 from .models import CshcUser, ClubInfo, JuniorsContactSubmission, ContactSubmission
-from .forms import FlatPageAdminForm
+from .forms import FlatPageAdminForm, ZinniaEntryAdminForm, ZinniaCategoryAdminForm
 
 
 @admin.register(CshcUser)
@@ -71,3 +73,41 @@ class CKEditorFlatPageAdmin(FlatPageAdmin):
             'fields': ('enable_comments', 'registration_required', 'template_name')
         }),
     ]
+
+
+admin.site.unregister(Entry)
+
+
+@admin.register(Entry)
+class ZinniaEntryAdmin(EntryAdmin):
+    """ Override the provided admin interface for blog entries - simplify it a bit
+        and add support (via a custom form) for WYSIWYG entry.
+    """
+    form = ZinniaEntryAdminForm
+
+    fieldsets = (
+        (_('Content'), {
+            'fields': (('title', 'status'), 'lead', 'content', 'featured', 'excerpt')}),
+        (_('Illustration'), {
+            'fields': ('image', 'image_caption'),
+            'classes': ('collapse', 'collapse-closed')}),
+        (_('Publication'), {
+            'fields': ('publication_date',
+                       ('start_publication', 'end_publication'), 'sites'),
+            'classes': ('collapse', 'collapse-closed')}),
+        # (_('Templates'), {
+        #     'fields': ('content_template', 'detail_template'),
+        #     'classes': ('collapse', 'collapse-closed')}),
+        (_('Metadata'), {
+            'fields': ('authors', 'related'),
+            'classes': ('collapse', 'collapse-closed')}),
+        (None, {'fields': ('comment_enabled', 'categories', 'tags', 'slug')}))
+
+
+admin.site.unregister(Category)
+
+
+@admin.register(Category)
+class ZinniaCategoryAdmin(CategoryAdmin):
+    """ Override the CategoryAdmin interface, specifying our own form. """
+    form = ZinniaCategoryAdminForm

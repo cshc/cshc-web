@@ -8,7 +8,6 @@
 {% block title %}{{ block.super }} | {{ team.long_name }}{% endblock %}
 
 {% block link %}
-  {{ block.super }}
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
   {% include 'react/react_css.html' with bundle_name='TeamDetail' %}
 {% endblock link %}

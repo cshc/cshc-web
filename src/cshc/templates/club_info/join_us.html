@@ -6,10 +6,9 @@
 {% block title %}{{ block.super }} | Join Us{% endblock %}
 
 {% block link %}
-  {{ block.super }}
   <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
   <link rel="stylesheet" href="{% static "vendor/icon-line/css/simple-line-icons.css" %}">
-{% endblock %}
+{% endblock link %}
 
 {% block breadcrumbs %}
   {{ block.super }}

@@ -3,6 +3,7 @@
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
 {% load disqus_tags %}
+{% load zinnia %}
 
 
 {% block breadcrumbs %}
@@ -11,11 +12,10 @@
 {% endblock %}
 
 {% block link %}
-{{ block.super }}
-<link rel="stylesheet" href="{% static "vendor/dzsparallaxer/dzsparallaxer.css" %}">
-<link rel="stylesheet" href="{% static "vendor/animate.css" %}">
-<link rel="stylesheet" href="{% static "css/tables.css" %}">
-<link rel="stylesheet" href="{% static "css/index.css" %}">
+  <link rel="stylesheet" href="{% static "vendor/dzsparallaxer/dzsparallaxer.css" %}">
+  <link rel="stylesheet" href="{% static "vendor/animate.css" %}">
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
+  <link rel="stylesheet" href="{% static "css/index.css" %}">
 {% endblock link %}
 
 {% block header_class %}u-header--sticky-top u-header--toggle-section u-header--change-appearance{% endblock header_class %}
@@ -141,30 +141,40 @@
   </div>
 </section>
 
-<section id="news">
-    
+<section id="news" class="container g-py-60">
+  {% include 'blocks/_middle_heading.html' with title="Latest News" %}
+  {% get_recent_entries 3 'core/_recent_articles.html' %}
+  <div class="text-center">
+    <a class="text-uppercase btn btn-lg u-btn-outline-primary rounded-0" title="More from the blog" href="{% url 'zinnia:entry_archive_index' %}">
+      More from the blog...
+    </a>
+  </div>
 </section>
 
-<section class="container g-py-60">
-  <div class="row">
-    <div id="comments" class="col-md-6">
-      <div class="u-shadow-v2 g-brd-around g-brd-gray-light-v4 g-line-height-2 g-pa-40 g-mb-30">
-        <h1 class="h2 g-color-black g-font-weight-600 text-center g-mb-40">Recent Comments</h1>
-        {% disqus_recent_comments DISQUS_WEBSITE_SHORTNAME 8 100 0 80 %}
-      </div>
-    </div>
-    <div id="tweets" class="col-md-6">
-      <div class="u-shadow-v2 g-brd-around g-brd-gray-light-v4 g-line-height-2 g-pa-40 g-mb-30">
-        <h1 class="h2 g-color-black g-font-weight-600 text-center g-mb-40">Twitterings</h1>
-        <div class="text-center">
-          <a class='text-center twitter-follow-button' data-show-count='true' href='https://twitter.com/CambSouthHC'>Follow us on Twitter</a>  
+<section class="g-py-60 g-bg-gray-light-v5">
+  <div class="container">
+    <div class="row">
+      <div id="comments" class="col-md-6">
+        <div class="u-shadow-v2 g-bg-white g-brd-around g-brd-gray-light-v4 g-line-height-2 g-pa-40 g-mb-30">
+          <h1 class="h2 g-color-black g-font-weight-600 text-center g-mb-40">Recent Comments</h1>
+          {% disqus_recent_comments DISQUS_WEBSITE_SHORTNAME 8 100 0 80 %}
         </div>
-        <a class="twitter-timeline" data-tweet-limit="6" data-chrome="nofooter noheader noborders noscrollbar transparent" href="https://twitter.com/cambsouthhc?ref_src=twsrc%5Etfw">Tweets by cambsouthhc</a> 
-        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </div>
+      <div id="tweets" class="col-md-6">
+        <div class="u-shadow-v2 g-bg-white g-brd-around g-brd-gray-light-v4 g-line-height-2 g-pa-40 g-mb-30">
+          <h1 class="h2 g-color-black g-font-weight-600 text-center g-mb-40">Twitterings</h1>
+          <div class="text-center">
+            <a class='text-center twitter-follow-button' data-show-count='true' href='https://twitter.com/CambSouthHC'>Follow us on Twitter</a>  
+          </div>
+          <a class="twitter-timeline" data-tweet-limit="6" data-chrome="nofooter noheader noborders noscrollbar transparent" href="https://twitter.com/cambsouthhc?ref_src=twsrc%5Etfw">Tweets by cambsouthhc</a> 
+          <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+{% disqus_num_replies %}
 
 {% endblock main %}
 
@@ -173,4 +183,5 @@
   <script src="{% static "vendor/dzsparallaxer/dzsparallaxer.js" %}"></script>
   {% include 'blocks/_scroll_nav_js.html' %}
   {% include 'blocks/_scroll_anim_js.html' %}
+  {% include }
 {% endblock body_js %}

@@ -59,6 +59,7 @@ urlpatterns = [
 
     url(r'^contact/$', ContactSubmissionCreateView.as_view(), name='contact_us'),
 
+    url(r'^blog/', include('zinnia.urls', namespace="zinnia")),
 
     # Stats landing page
     url(r'^stats/$', TemplateView.as_view(template_name='core/stats.html'), name='stats'),

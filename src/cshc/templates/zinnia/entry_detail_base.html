@@ -1,0 +1,115 @@
+{% extends "zinnia/base.html" %}
+{% load i18n %}
+{% load zinnia %}
+{% load comments %}
+
+{% block title %}{{ object.title }}{% endblock title %}
+
+{% block meta-description %}{{ object.excerpt|safe }}{% endblock meta-description %}
+
+{% block meta-keywords %}{% if object.tags %}{{ object.tags }}{% else %}{{ block.super }}{% endif %}{% endblock meta-keywords %}
+
+{% block link %}
+  {{ block.super }}
+  <script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5a197be106d3310011e612b3&product=inline-share-buttons"></script>
+  {% with previous_entry=object.previous_entry %}{% if previous_entry %}
+  <link rel="prev" title="{{ previous_entry.title }}" href="{{ previous_entry.get_absolute_url }}" />
+  {% endif %}{% endwith %}
+  {% with next_entry=object.next_entry %}{% if next_entry %}
+  <link rel="next" title="{{ next_entry.title }}" href="{{ next_entry.get_absolute_url }}" />
+  {% endif %}{% endwith %}
+  <link rel="shortlink" href="{{ object.short_url }}" />
+  <link rel="canonical" href="{{ object.get_absolute_url }}" />
+  {% with year=object.publication_date|date:"Y" month=object.publication_date|date:"m" day=object.publication_date|date:"d" %}
+  <link rel="alternate" type="application/rss+xml" title="{% blocktrans with object=object.title %}RSS feed of discussions on {{ object }}{% endblocktrans %}"
+        href="{% url 'zinnia:entry_discussion_feed' year month day object.slug %}" />
+  <link rel="alternate" type="application/rss+xml" title="{% blocktrans with object=object.title %}RSS feed of comments on {{ object }}{% endblocktrans %}"
+        href="{% url 'zinnia:entry_comment_feed' year month day object.slug %}" />
+  <link rel="alternate" type="application/rss+xml" title="{% blocktrans with object=object.title %}RSS feed of pingbacks on {{ object }}{% endblocktrans %}"
+        href="{% url 'zinnia:entry_pingback_feed' year month day object.slug %}" />
+  <link rel="alternate" type="application/rss+xml" title="{% blocktrans with object=object.title %}RSS feed of trackbacks on {{ object }}{% endblocktrans %}"
+        href="{% url 'zinnia:entry_trackback_feed' year month day object.slug %}" />
+  {% endwith %}
+{% endblock link %}
+
+{% block body-class %}entry entry-{{ object.pk }}{% if object.featured %} featured{% endif %} year-{{ object.publication_date|date:"Y" }} month-{{ object.publication_date|date:"m" }} week-{{ object.publication_date|date:"W" }} day-{{ object.publication_date|date:"d" }}{% endblock body-class %}
+
+{% block content %}
+
+{% block entry-content %}
+  {% include object.content_template with object_content=object.html_content %}
+{% endblock entry-content %}
+
+{% block entry-widgets %}
+<aside role="complementary" class="entry-widgets">
+  {% block entry-next-entry %}
+  {% with next_entry=object.next_entry %}
+  {% if next_entry %}
+  <div class="entry-next">
+    <h3>{% trans "Next entry" %}</h3>
+    <p>
+      <a href="{{ next_entry.get_absolute_url }}" title="{{ next_entry.title }}" rel="next">
+        {{ next_entry.title }}
+      </a>
+    </p>
+  </div>
+  {% endif %}
+  {% endwith %}
+  {% endblock entry-next-entry %}
+  {% block entry-previous-entry %}
+  {% with previous_entry=object.previous_entry %}
+  {% if previous_entry %}
+  <div class="entry-previous">
+    <h3>{% trans "Previous entry" %}</h3>
+    <p>
+      <a href="{{ previous_entry.get_absolute_url }}" title="{{ previous_entry.title }}" rel="prev">
+        {{ previous_entry.title }}
+      </a>
+    </p>
+  </div>
+  {% endif %}
+  {% endwith %}
+  {% endblock entry-previous-entry %}
+  {% block entry-related-entries %}
+  {% with entry_related=object.related_published %}
+  {% if entry_related %}
+  <div class="entry-related">
+    <h3>{% trans "Related entries" %}</h3>
+    <ul>
+      {% for entry in entry_related %}
+      <li>
+	<a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" rel="bookmark">{{ entry.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% endwith %}
+  {% endblock entry-related-entries %}
+  {% block entry-similar-entries %}
+  <div class="entry-similar">
+    <h3>{% trans "Similar entries" %}</h3>
+    {% get_similar_entries %}
+  </div>
+  {% endblock entry-similar-entries %}
+</aside>
+{% endblock entry-widgets %}
+
+{% block entry-comments %}
+  <div class="g-py-20">
+    <div class="sharethis-inline-share-buttons"></div>
+    {% include 'core/_disqus_comments.html' with title=object.title %}
+  </div>
+{% endblock entry-comments %}
+
+{% endblock content %}
+
+{% block admin-tools %}
+{% if perms.zinnia.change_entry %}
+<li>
+  <a target="_blank" href="{% url 'admin:zinnia_entry_change' object.pk %}" title="{% trans "Edit the entry" %}">
+    {% trans "Edit the entry" %}
+  </a>
+</li>
+{% endif %}
+{% endblock admin-tools %}

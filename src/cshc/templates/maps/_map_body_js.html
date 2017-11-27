@@ -10,6 +10,8 @@ Expects context containing:
 
 <script type="text/javascript" src="{% static "vendor/gmap3/gmap3.min.js" %}"></script>
 <script >
+  window.gmapsApiKey = "{{ GMAPS_API_KEY }}";
+    
   $(function () {
     var position = [{{ venue.position }}];
     var address = position.length ? null : "{{ venue.full_address }}";

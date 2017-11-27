@@ -13,13 +13,12 @@
 <head>
   <title>{% block title %}Cambridge South Hockey Club{% endblock title %}</title>
 
-  {% block meta %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge"> 
-  {% endblock meta %} 
+  <meta name="keywords" content="Cambridge, Hockey, Club, {% block meta-keywords %}{% endblock meta-keywords %}">
+  {% block meta %}{% endblock meta %} 
   
-  {% block link %}
   <!-- Favicon and touch icons -->
   <link rel="shortcut icon" href="{% static "ico/favicon.ico" %}">
   <link rel="apple-touch-icon-precomposed" href="{% static "ico/apple-touch-icon.png" %}" />
@@ -49,10 +48,9 @@
   <link rel="stylesheet" href="{% static "vendor/unify/css/custom.css" %}"> 
   <link rel="stylesheet" href="{% static "css/theme.css" %}"> 
   
-  {% endblock link %} 
+  {% block link %}{% endblock link %} 
   
-  {% block head_js %}
-  {% endblock head_js %}
+  {% block head_js %}{% endblock head_js %}
 </head>
 
 <body>
@@ -74,7 +72,6 @@
     {% include "blocks/_go_to.html" %}
   </main>
 
-  {% block body_js %}
   <!-- JS Global Compulsory -->
   <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
   <script src="{% static "vendor/jquery-migrate/jquery-migrate.min.js" %}"></script>
@@ -92,8 +89,6 @@
   <script src="{% static "js/util.js" %}"></script>
   <script >
     
-    window.gmapsApiKey = "{{ GMAPS_API_KEY }}";
-
     $(function () {
       $('[data-toggle="popover"]').popover();
       // initialization of header
@@ -123,7 +118,8 @@
       opposition_club_detail: "{% url 'opposition_club_detail' 'slug' %}",
     };
   </script>
-{% endblock body_js %}
+  
+  {% block body_js %}{% endblock body_js %}
 </body>
 
 </html>

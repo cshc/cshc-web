@@ -6,7 +6,6 @@
 {% block title %}{{ block.super }} | Juniors{% endblock %}
 
 {% block link %}
-  {{ block.super }}
   {% include 'blocks/_dszparallaxer_css.html' %}
   <link rel="stylesheet" href="{% static "css/juniors.css" %}?v=1">
   <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
@@ -165,9 +164,7 @@
     </div>
   </div>
 
-  <div class="u-divider u-divider-solid u-divider-center g-brd-gray-light-v3 g-my-40">
-    <i class="fa fa-circle u-divider__icon g-bg-white g-color-gray-light-v3"></i>
-  </div>
+  {% include 'blocks/_divider.html' %}
   
   <p class="lead">
     If you're interested in Juniors hockey at Cambridge South, just fill in this form and we'll get back to you!

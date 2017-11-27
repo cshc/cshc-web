@@ -12,7 +12,6 @@
 {% endblock %}
 
 {% block link %}
-  {{ block.super }}
   <link rel="stylesheet" href="{% static "css/match_detail.css" %}">
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
 {% endblock link %}
@@ -98,7 +97,7 @@
     {% endif %}
   </div>
   <div id="comments g-py-40">
-      <div class="sharethis-inline-share-buttons"></div>
+    <div class="sharethis-inline-share-buttons"></div>
     {% include 'core/_disqus_comments.html' with title=match.fixture_title %}
   </div>
 </section>

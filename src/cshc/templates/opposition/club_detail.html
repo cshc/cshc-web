@@ -6,7 +6,6 @@
 {% block title %}{{ block.super }} | {{ club.name }}{% endblock %}
 
 {% block link %}
-  {{ block.super }}
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
   {% include 'react/react_css.html' with bundle_name='OppositionClubDetail' %}
 {% endblock link %}

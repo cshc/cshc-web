@@ -6,10 +6,9 @@
 {% block title %}{{ block.super }} | About Us{% endblock %}
 
 {% block link %}
-{{ block.super }}
-{% include 'blocks/_dszparallaxer_css.html' %}
-<link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
-<link rel="stylesheet" href="{% static "vendor/icon-line/css/simple-line-icons.css" %}">
+  {% include 'blocks/_dszparallaxer_css.html' %}
+  <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
+  <link rel="stylesheet" href="{% static "vendor/icon-line/css/simple-line-icons.css" %}">
 {% endblock link %}
 
 {% block breadcrumbs %}

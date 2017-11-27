@@ -6,13 +6,11 @@
 <head>
   <title>{% block title %}Cambridge South Hockey Club{% endblock title %}</title>
 
-  {% block meta %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge"> 
-  {% endblock meta %} 
+  {% block meta %}{% endblock meta %} 
   
-  {% block link %}
   <!-- Favicon and touch icons -->
   <link rel="shortcut icon" href="{% static "ico/favicon.ico" %}">
   <link rel="apple-touch-icon-precomposed" href="{% static "ico/apple-touch-icon.png" %}" />
@@ -35,10 +33,9 @@
   <link rel="stylesheet" href="{% static "vendor/unify/css/custom.css" %}"> 
   <link rel="stylesheet" href="{% static "css/theme.css" %}"> 
   
-  {% endblock link %} 
+  {% block link %}{% endblock link %} 
   
-  {% block head_js %}
-  {% endblock head_js %}
+  {% block head_js %}{% endblock head_js %}
 </head>
 
 <body>

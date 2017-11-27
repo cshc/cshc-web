@@ -1,0 +1,20 @@
+<div class="g-bg-cover__inner g-mb-20">
+  <ul class="u-list-inline">
+    <li class="list-inline-item g-mr-7">
+      <a class="u-link-v5 g-color-main" href="/" title="Home">Home</a>
+      <i class="fa fa-angle-right g-ml-7"></i>
+    </li>
+    {% for crumb in breadcrumbs %}
+      {% if crumb.url %}
+        <li class="list-inline-item g-mr-7">
+          <a class="u-link-v5 g-color-main" href="{{ crumb.url }}" title="{{ crumb.name }}">{{ crumb.name }}</a>
+          <i class="fa fa-angle-right g-ml-7"></i>
+        </li>
+      {% else %}
+        <li class="list-inline-item g-color-primary">
+          <span>{{ crumb.name }}</span>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
