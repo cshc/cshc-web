@@ -256,6 +256,13 @@ THUMBNAIL_ALIASES = {
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_FILENAME_GENERATOR = 'core.models.make_unique_filename'
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'removePlugins': 'stylesheetparser',
+        'allowedContent': True,
+    },
+}
+
 # Graphene
 GRAPHENE = {
     'SCHEMA': 'cshc.schema.schema',  # Where your Graphene schema lives

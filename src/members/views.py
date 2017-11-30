@@ -44,7 +44,7 @@ class ProfileView(LoginRequiredMixin, UpdateView):
         Most player stats are loaded via a separate AJAX call.
     """
     model = Member
-    template_name = 'account/profile.html'
+    template_name = 'members/member_detail.html'
     form_class = ProfileEditForm
     success_url = reverse_lazy('user_profile')
 

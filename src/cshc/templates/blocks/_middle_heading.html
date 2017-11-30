@@ -1,4 +1,4 @@
-<div class="text-center u-heading-v2-5--bottom g-brd-primary g-mb-40">
+<div {% if id %}id="{{ id }}" {% endif %}class="text-center u-heading-v2-5--bottom g-brd-primary g-mb-40">
   {% if title %}<h2 class="text-uppercase u-heading-v2__title g-mb-10">{{ title }}</h2>{% endif %}
   {% if subtitle %}<h4 class="g-font-weight-200">{{ subtitle }}</h4>{% endif %}
 </div>

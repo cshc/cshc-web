@@ -20,20 +20,20 @@
 {% heading "New Players" %}
 
 <div class="row">
-  <div class="col-12 col-lg-6">
+  <div class="col-12 col-lg-7">
     <p>Cambridge South has men’s and ladies’ teams across a range of levels from beginner upwards. We welcome anyone interested in playing hockey, whatever your standard or experience. In line with England Hockey regulations, the minimum age for participation in senior training and matches is 13.</p>
     <p>New players who wish to train or play with Cambridge South must complete and return the <a href="#reg-form">Player Registration and Consent form</a> available on this page. Forms can be returned by email to <a href="mailto:join@cambridgesouthhockeyclub.co.uk">join@cambridgesouthhockeyclub.co.uk</a> or handed to a club officer or team captain at any match or training session.</p>
     <p>You can attend up to three games or training sessions with Cambridge South to try us out before deciding whether to pay your annual subscription and join the club to continue playing. Current subscriptions rates and information about how to pay can be found under <a href="#fees">Annual Subscriptions.</a></p>
     <p>For players who join part way through the season, a proportional reduction will be made to the annual subscription due. If you join after the New Year then you will usually pay 50% of the normal subscription.</p>
     <p>Of course, we're sure you'll be champing at the bit to join us and hand over your subscription after your first game!</p>
   </div>
-  <div class="col-12 col-lg-6">
+  <div class="col-12 col-lg-5">
     <img class="img-fluid" src="{% static "img/new_players.jpg" %}"/>
   </div>
 </div>
 
 <div id="reg-form">
-  {% document title="Registration and Consent Form" %}  
+  {% document title="Registration and Consent Form" category="General" %}  
 </div> 
 
 <div class="alert fade show g-bg-primary g-color-white rounded-0 g-my-40" role="alert">
@@ -48,10 +48,10 @@
   </div>
 </div>
 
-{% subheading "Annual Subscriptions" id="fees" %}
-<div class="row">
+{% include 'blocks/_middle_heading.html' with title="Annual Subscriptions" id="fees" %}
+<div class="row justify-content-center">
   <div class="col-12 col-md-6 col-lg-4">
-    <div class="u-shadow-v1-5 g-bg-cyan-gradient-opacity-v1 g-color-white g-line-height-2 g-pa-40 g-mb-30">
+    <div class="u-shadow-v1-5 g-bg-cyan-gradient-opacity-v1 g-color-white g-line-height-2 g-pa-40 g-mb-30 text-center">
         <h3 class="h2 g-font-weight-300 g-mb-20">Waged</h3>
       <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
         <span class="g-valign-top g-font-size-default">&pound;</span>
@@ -61,7 +61,7 @@
     </div>
   </div>
   <div class="col-12 col-md-6 col-lg-4">
-    <div class="u-shadow-v1-5 g-line-height-2 g-pa-40 g-mb-30">
+    <div class="u-shadow-v1-5 g-line-height-2 g-pa-40 g-mb-30 text-center">
         <h3 class="h2 g-font-weight-300 g-mb-20">Students/Unwaged</h3>
       <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
         <span class="g-valign-top g-font-size-default">&pound;</span>
@@ -73,11 +73,11 @@
 </div>
 
 
-{% subheading "Match Fees*" %}
+{% include 'blocks/_middle_heading.html' with title="Match Fees*" %}
 
-<div class="row">
+<div class="row justify-content-center">
   <div class="col-12 col-md-6 col-lg-4">
-    <div class="u-shadow-v1-5 g-bg-cyan-gradient-opacity-v1 g-color-white g-line-height-2 g-pa-40 g-mb-30">
+    <div class="u-shadow-v1-5 g-bg-cyan-gradient-opacity-v1 g-color-white g-line-height-2 g-pa-40 g-mb-30 text-center">
         <h3 class="h2 g-font-weight-300 g-mb-20">Waged</h3>
       <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
         <span class="g-valign-top g-font-size-default">&pound;</span>
@@ -87,7 +87,7 @@
     </div>
   </div>
   <div class="col-12 col-md-6 col-lg-4">
-    <div class="u-shadow-v1-5 g-line-height-2 g-pa-40 g-mb-30">
+    <div class="u-shadow-v1-5 g-line-height-2 g-pa-40 g-mb-30 text-center">
         <h3 class="h2 g-font-weight-300 g-mb-20">Students/Unwaged</h3>
       <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
         <span class="g-valign-top g-font-size-default">&pound;</span>

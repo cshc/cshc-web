@@ -43,9 +43,9 @@
 
 <section class="container g-mt-20 g-mb-40">
   {% render_breadcrumbs %}
-  {% subheading "Squad Training" %}
+  {% include 'blocks/_middle_heading.html' with title="Squad Training" %}
 
-  <p class="g-mb-40">Cambridge South runs professionally coached training sessions for men and women of all standards throughout the season from September to March at
+  <p class="lead g-mb-40">Cambridge South runs professionally coached training sessions for men and women of all standards throughout the season from September to March at
   <a href="{{ long_road_url }}">Long Road Sixth Form College</a>. All training sessions are free to attend, for club members and newcomers, with no booking required.</p>
 
   <figure class="row flex-md-row align-items-center">
@@ -96,17 +96,15 @@
 
 <section class="g-bg-secondary">
   <div class="container g-py-40">
-    <h3>Beginners Training and Back to Hockey</h3>
+    {% include 'blocks/_middle_heading.html' with title="Beginners Training and Back to Hockey" %}
     <p class="lead">
       For newcomers to hockey or those wanting to refresh their skills, we have separately-coached sessions alongside our regular squad training.
     </p>
     <p class="lead">
       For women looking to try out hockey or coming back to the sport, we have Back to Hockey basic skills sessions on Thursdays 7.30-9pm.
     </p>
-    <div class="u-divider u-divider-solid u-divider-center g-brd-gray-light-v3 g-my-40">
-      <i class="fa fa-circle u-divider__icon g-bg-secondary g-color-gray-light-v3"></i>
-    </div>
-    <h3>Juniors' Training</h3>
+    {% include 'blocks/_divider.html' %}
+    {% include 'blocks/_middle_heading.html' with title="Juniors' Training" %}
     <p class="lead">
       For details of Juniors training, including upcoming session dates and times, check out the dedicated <a href="{{ juniors }}">Juniors page</a>.
     </p>
@@ -116,7 +114,7 @@
 <section>
   <div class="container g-py-40">
     {% if in_season == 'in' %}
-      {% subheading "Pay and Play" %}
+      {% include 'blocks/_middle_heading.html' with title="Pay and Play" %}
       <p class="lead">
         Cambridge South also offers informal weekly hockey on Wednesday evenings from 7:30pm to 8:30pm at
         <a href="{{ long_road_url }}">Long Road Sixth Form College</a> during the season.

@@ -13,7 +13,7 @@ const ClubStatsSummary = ({ networkStatus, error, oppositionClubStats }) => {
   const totalsClass = 'g-font-weight-600 text-right';
   const haClass = 'priority3 text-right';
   return (
-    <div className="table-responsive">
+    <div className="table-responsive g-pt-15 g-px-15">
       <table className="table table-sm table-hover">
         <thead>
           <tr>
