@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load django_bootstrap_breadcrumbs %}
+{% load member_offers %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Members Offers{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+{% heading "Members Offers" %}
+
+<div class="g-mb-40">
+  <p class="lead">
+    Cambridge South has negotiated special deals for club members with affiliated businesses, local sports equipment suppliers and sports injuries clinics.
+  </p>
+
+  <p>
+    Mention you are a club member or show your Membership Card (available from the Club Secretary) when purchasing or booking.
+  </p>
+</div>
+
+{% list_offers template="club_info/_member_offers.html" %}
+
+{% endblock content %}

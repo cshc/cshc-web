@@ -14,12 +14,13 @@ from django_resized import ResizedImageField
 from image_cropping import ImageRatioField
 from geoposition.fields import GeopositionField
 from core.models import make_unique_filename, Gender, Position, EmergencyContactRelationship
+from members import settings as member_settings
 
 
 def get_file_name(instance, filename):
     """ Returns a unique filename for profile pictures."""
     filename = make_unique_filename(filename)
-    return os.path.join('uploads/profile_pics', filename)
+    return os.path.join(member_settings.MEMBERS_PHOTO_DIR, filename)
 
 
 class Member(models.Model):

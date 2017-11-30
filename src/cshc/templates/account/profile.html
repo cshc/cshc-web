@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-{% heading member.full_name %}
+{% heading request.user.get_full_name %}
 
 
 {% endblock content %}

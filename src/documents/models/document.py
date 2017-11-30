@@ -11,12 +11,13 @@ from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
 from core.models import make_unique_filename
 from .document_category import DocumentCategory
+from documents import settings
 
 
 def get_file_name(instance, filename):
     """ Returns a unique filename for uploaded documents."""
     filename = make_unique_filename(filename)
-    return os.path.join('uploads/documents', filename)
+    return os.path.join(settings.DOCUMENTS_DIR, filename)
 
 
 class DocumentManager(models.Manager):

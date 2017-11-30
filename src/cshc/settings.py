@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'matches.apps.MatchesConfig',
     'awards.apps.AwardsConfig',
     'documents.apps.DocumentsConfig',
+    'offers.apps.OffersConfig',
     'jet',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -256,10 +257,12 @@ THUMBNAIL_ALIASES = {
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_FILENAME_GENERATOR = 'core.models.make_unique_filename'
 
+# IMPORTANT: This will need to be placed *after* any change to the STATIC_URL (e.g. moved to prod.py settings)
 CKEDITOR_CONFIGS = {
     'default': {
         'removePlugins': 'stylesheetparser',
         'allowedContent': True,
+        'customConfig': "{}js/ckeditor-custom.js".format(STATIC_URL),
     },
 }
 

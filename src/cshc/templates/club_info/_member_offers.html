@@ -1,0 +1,20 @@
+{% load static from staticfiles %}
+<div class="row">
+  {% for offer in offers %}
+  <div class="col-md-6 g-mb-30">
+    <div class="text-center u-shadow-v1-5 g-height-100x g-bg-white g-brd-around g-brd-gray-light-v4 g-line-height-2 g-pa-40" role="alert">
+      {% if offer.image %}
+        <img class="img-fluid g-h-100 g-mb-40" src="{{ MEDIA_URL }}{{ offer.image.url }}" alt="{{ offer.title }}">
+      {% endif %}
+      <h3 class="h4 g-font-weight-600 g-mb-20">
+        {% if offer.url %}
+          <a href="{{ offer.url }}" target="_blank">{{ offer.title }}</a>
+        {% else %}
+          {{ offer.title }}
+        {% endif %}
+      </h3>
+      {% if offer.description %}{{ offer.description|safe }}{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>

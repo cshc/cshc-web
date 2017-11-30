@@ -14,15 +14,13 @@ from core.utils import ordinal
 from core.models import make_unique_filename, DivisionResult
 from competitions.models import Season, Division, Cup
 from teams.models.club_team import ClubTeam
-
-# The directory where uploaded team photos should be stored (within MEDIA_URL)
-TEAM_PHOTO_DIR = 'uploads/team_photos'
+from teams import settings
 
 
 def get_file_name(instance, filename):
     """ Returns a unique filename for uploaded team photos. """
     filename = make_unique_filename(filename)
-    return os.path.join(TEAM_PHOTO_DIR, filename)
+    return os.path.join(settings.TEAMS_PHOTO_DIR, filename)
 
 
 class ClubTeamSeasonParticipationManager(models.Manager):
