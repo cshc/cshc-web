@@ -12,6 +12,7 @@ from django.contrib import messages
 from django.contrib.sites.models import Site
 from templated_email import send_templated_mail
 from core.models import CshcUser
+from core.utils import get_thumbnail_url
 from competitions.models import Season
 from teams.models import ClubTeam
 from .models import Member
@@ -115,5 +116,21 @@ class MemberDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(MemberDetailView, self).get_context_data(**kwargs)
+        member = context['member']
 
+        current_squad = member.current_squad()
+        squad = dict(slug=current_squad.team.slug,
+                     name=current_squad.team.long_name) if current_squad is not None else None
+
+        context['props'] = dict(
+            member=dict(
+                id=member.id,
+                firstName=member.first_name,
+                lastName=member.last_name,
+                profilePicUrl=get_thumbnail_url(
+                    member.profile_pic, 'member_detail'),
+                prefPosition=member.get_pref_position_display(),
+                squad=squad,
+            ),
+        )
         return context

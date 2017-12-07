@@ -1,23 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import MemberLink from 'components/members/MemberLink';
-import styles from './style.scss';
 
 const AwardWinner = ({ awardWinner, className }) => {
-  const awardWinnerClassName = classnames(className, styles.awardWinner);
-
   if (awardWinner.member) {
-    return (
-      <MemberLink
-        key={awardWinner.member.modelId}
-        member={awardWinner.member}
-        className={className}
-        useFullName
-      />
-    );
+    return <MemberLink key={awardWinner.member.modelId} member={awardWinner.member} useFullName />;
   }
-  return <div className={awardWinnerClassName}>{awardWinner.awardee}</div>;
+  return <div className={className}>{awardWinner.awardee}</div>;
 };
 
 AwardWinner.propTypes = {

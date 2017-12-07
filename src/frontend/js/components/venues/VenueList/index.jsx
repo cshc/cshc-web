@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilterableList from 'components/common/FilterableList';
-import VenueFilterSet from '../VenueFilterSet';
-import VenueListWrapper from '../VenueListWrapper';
+import VenueFilterSet from './VenueFilterSet';
+import VenueListWrapper from './VenueListWrapper';
 
 const VenueList = props => (
   <FilterableList filterSet={<VenueFilterSet {...props} />} listWrapper={<VenueListWrapper />} />

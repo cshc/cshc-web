@@ -1,0 +1,38 @@
+.imageContainer {
+  position: relative;
+  background-color: #f7f7f7;
+}
+.image {
+  width: 100%;
+}
+.imageOverlay {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  font-weight: bold;
+}
+.mom {
+  composes: imageOverlay;
+  left: 0;
+}
+.captain {
+  composes: imageOverlay;
+  left: 0;
+  right: 0;
+}
+.lom {
+  composes: imageOverlay;
+  right: 0;
+}
+.progress {
+  flex: 2;
+  padding-right: 10px;
+}
+.pie {
+  flex: 1;
+}

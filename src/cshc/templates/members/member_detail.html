@@ -3,15 +3,26 @@
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
 
-{% block title %}{{ block.super }} | {% if is_profile %}Profile{% else %}{{ member.full_name }}{% endif %}{% endblock %}
+{% block title %}{{ block.super }} | {{ member.full_name }}{% endblock %}
+
+{% block link %}
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
+  <link rel="stylesheet" href="{% static "vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css" %}">
+  {% include 'react/react_css.html' with bundle_name='MemberDetail' %}
+{% endblock link %}
 
 {% block breadcrumbs %}
-{{ block.super }}
-{% clear_breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Members" "member_list" %}
+  {% breadcrumb member.full_name "member_detail" pk=member.id %}
 {% endblock %}
 
 {% block content %}
-{% heading member.full_name %}
-
-
+  <div id="react-app"></div>
 {% endblock content %}
+
+{% block body_js %}
+  {{ block.super }}
+  <script src="{% static "vendor/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js" %}"></script>
+  {% include 'react/react_js.html' with bundle_name='MemberDetail' %}
+{% endblock body_js %}

@@ -52,7 +52,7 @@ django-image-cropping==1.1.0
 
 # GraphQL support
 # Ref: https://github.com/graphql-python/graphene-django
-graphene-django>=2.0.dev
+graphene-django-=2.0.0
 
 # Django Templated Email
 # Ref: https://github.com/vintasoftware/django-templated-email

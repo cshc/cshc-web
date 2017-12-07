@@ -4,24 +4,14 @@
 import 'util/monitoring';
 import GoalKing from 'components/matches/GoalKing';
 import ui, { initialViewState } from 'redux/reducers/uiReducers';
-import { FilterName, Gender } from 'util/constants';
 import render from '../ReactRenderer';
 
 const reducers = {
   ui,
 };
 
-// Set the Season filter to the current season and
-// the gender options to both men and ladies
 const initialState = {
-  ui: {
-    ...initialViewState,
-    activeFilters: {
-      ...initialViewState.activeFilters,
-      [FilterName.Season]: window.props.current_season,
-      [FilterName.GoalKingGender]: [Gender.Male, Gender.Female],
-    },
-  },
+  ui: initialViewState,
 };
 
 render(GoalKing, reducers, initialState);

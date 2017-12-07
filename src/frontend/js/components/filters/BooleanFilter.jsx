@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { FilterValuePropType } from 'components/common/PropTypes';
-import filtered from './filterContainer';
 import styles from './style.scss';
 
 const BooleanFilter = ({ label, filterName, filterValue, onSetFilter, falseValue, trueValue }) => {
@@ -48,4 +47,4 @@ BooleanFilter.defaultProps = {
   trueValue: true,
 };
 
-export default filtered(BooleanFilter);
+export default BooleanFilter;

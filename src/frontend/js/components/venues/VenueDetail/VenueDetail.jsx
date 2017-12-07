@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import reduce from 'lodash/reduce';
-import sortBy from 'lodash/sortBy';
-import { NetworkStatus as NS } from 'apollo-client';
 import { MatchItem } from 'util/constants';
-import ErrorDisplay from 'components/common/ErrorDisplay';
-import Loading from 'components/common/Loading';
-import Subheading from 'components/common/Subheading';
+import { Subheading } from 'components/Unify';
 import MatchList from 'components/matches/MatchList';
 import Match from 'models/match';
 import Accordion from 'components/common/Accordion';
@@ -19,36 +14,12 @@ import AccordionCard from 'components/common/Accordion/AccordionCard';
  * - Previous results at this venue (organised by our team)
  * - Upcoming fixtures at this venue (organised by our team)
  */
-const VenueDetail = ({ networkStatus, error, matches, venueName }) => {
-  if (error) return <ErrorDisplay errorMessage="Failed to load matches" />;
-  if (!matches && networkStatus === NS.loading) return <Loading message="Loading matches..." />;
-
-  const matchStructure = {
-    results: [],
-    fixtures: [],
-  };
-  // Sort by past results vs future fixtures and by team
-  reduce(
-    matches.edges,
-    (acc, matchEdge) => {
-      const list = Match.isPast(matchEdge.node) ? acc.results : acc.fixtures;
-      let teamMatches = list.find(md => md.team.id === matchEdge.node.ourTeam.id);
-      if (!teamMatches) {
-        teamMatches = { team: matchEdge.node.ourTeam, matches: [] };
-        list.push(teamMatches);
-      }
-      teamMatches.matches.push(matchEdge.node);
-      return acc;
-    },
-    matchStructure,
-  );
-  // Sort by team position
-  matchStructure.results = sortBy(matchStructure.results, ['team.position']);
-  matchStructure.fixtures = sortBy(matchStructure.fixtures, ['team.position']);
+const VenueDetail = ({ data, venueName }) => {
+  const matchStructure = Match.toResultsAndFixtures(data);
 
   return (
     <div>
-      <Subheading>Past results at {venueName}</Subheading>
+      <Subheading text={`Past results at ${venueName}`} />
       {matchStructure.results.length > 0 ? (
         <Accordion accordionId="results">
           {matchStructure.results.map(m => (
@@ -65,7 +36,7 @@ const VenueDetail = ({ networkStatus, error, matches, venueName }) => {
       ) : (
         <p className="lead">No previous matches at this venue</p>
       )}
-      <Subheading>Upcoming fixtures at {venueName}</Subheading>
+      <Subheading text={`Upcoming fixtures at ${venueName}`} />
       {matchStructure.fixtures.length > 0 ? (
         <Accordion accordionId="fixtures">
           {matchStructure.fixtures.map(m => (
@@ -91,14 +62,11 @@ const VenueDetail = ({ networkStatus, error, matches, venueName }) => {
 
 VenueDetail.propTypes = {
   venueName: PropTypes.string.isRequired,
-  networkStatus: PropTypes.number.isRequired,
-  error: PropTypes.instanceOf(Error),
-  matches: PropTypes.shape(),
+  data: PropTypes.shape(),
 };
 
 VenueDetail.defaultProps = {
-  error: undefined,
-  matches: undefined,
+  data: undefined,
 };
 
 export default VenueDetail;

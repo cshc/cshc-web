@@ -160,6 +160,7 @@
 
 {% block body_js %}
   {{ block.super }}
+  <script src="{% static "vendor/jquery.fittext.js" %}"></script>
   {% include 'react/react_js.html' with bundle_name='TeamDetail' %}
   
 {% endblock body_js %}

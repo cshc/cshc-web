@@ -39,7 +39,7 @@ class MatchNode(DjangoObjectType):
         model = Match
         interfaces = (graphene.relay.Node, )
         filter_fields = ['venue__name', 'opp_team__name', 'opp_team__club__slug',
-                         'our_team__slug', 'season__slug']
+                         'our_team__slug', 'season__slug', 'appearances__member__id', 'report_author__id']
 
     def resolve_model_id(self, info):
         return self.id
@@ -101,8 +101,8 @@ class Query(graphene.ObjectType):
     def resolve_goal_king_entries(self, info, **kwargs):
         order_field = '-total_goals'
         if 'team' in kwargs:
-            order_field = '-{}_goals'.format(kwargs['team'])
-            kwargs["{}_goals__gt".format(kwargs['team'])] = 0
-            del kwargs['team']
+            team = kwargs.pop('team')
+            order_field = '-{}_goals'.format(team)
+            kwargs["{}_goals__gt".format(team)] = 0
 
         return schema_helper.optimize(GoalKing.objects.filter(total_goals__gt=0).filter(**kwargs).order_by(order_field, '-gpg'), info, goalking_field_map)

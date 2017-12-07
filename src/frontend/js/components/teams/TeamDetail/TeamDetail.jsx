@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NetworkStatus as NS } from 'apollo-client';
 import Match from 'models/match';
 import { MatchItem } from 'util/constants';
 import { toGraphQLId } from 'util/cshc';
-import ErrorDisplay from 'components/common/ErrorDisplay';
-import Loading from 'components/common/Loading';
 import MatchList from 'components/matches/MatchList';
 import LeagueTable from 'components/competitions/LeagueTable';
 import Accordion from 'components/common/Accordion';
 import AccordionCard from 'components/common/Accordion/AccordionCard';
-import SquadRosterWrapper from '../SquadRosterWrapper';
+import SquadRosterWrapper from './SquadRosterWrapper';
 
 /**
  * Wrapper component for various components displayed for a particular club team (in a particular season).
@@ -21,22 +18,10 @@ import SquadRosterWrapper from '../SquadRosterWrapper';
  * - League Table
  * - Squad Roster
  */
-const TeamDetail = ({
-  networkStatus,
-  error,
-  matches,
-  division,
-  teamId,
-  teamGenderlessName,
-  seasonId,
-}) => {
-  if (error) return <ErrorDisplay errorMessage="Failed to load team details" />;
-  if (!matches && networkStatus === NS.loading) {
-    return <Loading message="Loading team details..." />;
-  }
+const TeamDetail = ({ data, division, teamId, teamGenderlessName, seasonId }) => {
   const results = [];
   const fixtures = [];
-  matches.edges.forEach((match) => {
+  data.edges.forEach((match) => {
     if (Match.isPast(match.node)) results.push(match.node);
     else fixtures.push(match.node);
   });
@@ -71,9 +56,7 @@ const TeamDetail = ({
 };
 
 TeamDetail.propTypes = {
-  networkStatus: PropTypes.number.isRequired,
-  error: PropTypes.instanceOf(Error),
-  matches: PropTypes.shape(),
+  data: PropTypes.shape(),
   teamId: PropTypes.number.isRequired,
   teamGenderlessName: PropTypes.string.isRequired,
   seasonId: PropTypes.number.isRequired,
@@ -86,8 +69,7 @@ TeamDetail.propTypes = {
 };
 
 TeamDetail.defaultProps = {
-  error: undefined,
-  matches: undefined,
+  data: undefined,
 };
 
 export default TeamDetail;

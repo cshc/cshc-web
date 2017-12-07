@@ -1,5 +1,6 @@
 import { isPast } from 'date-fns';
 import sortBy from 'lodash/sortBy';
+import reduce from 'lodash/reduce';
 import { toTitleCase } from 'util/cshc';
 import { HomeAway, MatchAward } from 'util/constants';
 
@@ -66,6 +67,32 @@ const Match = {
   lom(match) {
     if (!match.awardWinners) return [];
     return match.awardWinners.filter(aw => aw.award.name === MatchAward.LOM);
+  },
+
+  toResultsAndFixtures(matches) {
+    const matchStructure = {
+      results: [],
+      fixtures: [],
+    };
+    // Sort by past results vs future fixtures and by team
+    reduce(
+      matches.edges,
+      (acc, matchEdge) => {
+        const list = Match.isPast(matchEdge.node) ? acc.results : acc.fixtures;
+        let teamMatches = list.find(md => md.team.id === matchEdge.node.ourTeam.id);
+        if (!teamMatches) {
+          teamMatches = { team: matchEdge.node.ourTeam, matches: [] };
+          list.push(teamMatches);
+        }
+        teamMatches.matches.push(matchEdge.node);
+        return acc;
+      },
+      matchStructure,
+    );
+    // Sort by team position
+    matchStructure.results = sortBy(matchStructure.results, ['team.position']);
+    matchStructure.fixtures = sortBy(matchStructure.fixtures, ['team.position']);
+    return matchStructure;
   },
 };
 

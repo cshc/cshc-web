@@ -1,22 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NetworkStatus as NS } from 'apollo-client';
 import cloneDeep from 'lodash/cloneDeep';
-import ErrorDisplay from 'components/common/ErrorDisplay';
-import Loading from 'components/common/Loading';
-import { FilterName } from 'util/constants';
-import GoalKingTableRow from '../GoalKingTableRow';
+import { NoFilter } from 'util/constants';
+import GoalKingTableRow from './GoalKingTableRow';
 
-const GoalKingTable = ({ networkStatus, error, entries, activeFilters }) => {
-  if (error) return <ErrorDisplay errorMessage="Failed to load goal king entries" />;
-  if (!entries && networkStatus === NS.loading) {
-    return <Loading message="Fetching goal king entries..." />;
-  }
-  const filteredEntries = cloneDeep(
-    entries.edges.filter(entry =>
-      activeFilters[FilterName.GoalKingGender].includes(entry.node.member.gender),
-    ),
-  );
+const GoalKingTable = ({ data, team, goalKingGender }) => {
+  const filteredEntries =
+    goalKingGender === NoFilter
+      ? data.edges
+      : cloneDeep(data.edges.filter(entry => goalKingGender === entry.node.member.gender));
   if (filteredEntries.length) {
     let rank = 1;
     let previous = filteredEntries[0].node;
@@ -33,8 +25,6 @@ const GoalKingTable = ({ networkStatus, error, entries, activeFilters }) => {
       previous = entry;
     }
   }
-
-  const teamFilter = activeFilters[FilterName.Team];
 
   return (
     <div className="table-responsive">
@@ -69,7 +59,7 @@ const GoalKingTable = ({ networkStatus, error, entries, activeFilters }) => {
             <GoalKingTableRow
               key={entry.node.member.modelId}
               entry={entry.node}
-              teamFilter={teamFilter}
+              teamFilter={team}
             />
           ))}
         </tbody>
@@ -79,16 +69,15 @@ const GoalKingTable = ({ networkStatus, error, entries, activeFilters }) => {
 };
 
 GoalKingTable.propTypes = {
-  networkStatus: PropTypes.number.isRequired,
-  error: PropTypes.instanceOf(Error),
-  entries: PropTypes.shape(),
-  activeFilters: PropTypes.shape(),
+  data: PropTypes.shape(),
+  team: PropTypes.string,
+  goalKingGender: PropTypes.string,
 };
 
 GoalKingTable.defaultProps = {
-  error: undefined,
-  entries: undefined,
-  activeFilters: undefined,
+  data: undefined,
+  team: NoFilter,
+  goalKingGender: NoFilter,
 };
 
 export default GoalKingTable;

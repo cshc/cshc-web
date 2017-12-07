@@ -1,6 +1,7 @@
 import { compose } from 'react-apollo';
-import filterable from 'components/filters/filterableContainer';
+import { addUrlProps } from 'react-url-query';
 import GoalKingQuery from './goalKingQuery';
 import GoalKingTable from './GoalKingTable';
+import { urlPropsQueryConfig } from '../GoalKingFilterSet';
 
-export default compose(filterable, GoalKingQuery)(GoalKingTable);
+export default compose(addUrlProps({ urlPropsQueryConfig }), GoalKingQuery)(GoalKingTable);

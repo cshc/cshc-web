@@ -14,9 +14,15 @@ const getPosition = (position) => {
   };
 };
 
+const nonZero = value => (value > 0 ? value : null);
+
+const rounded = (value, precision = 1) => (value ? value.toFixed(precision) : null);
+
 module.exports = {
   toTitleCase,
   toGraphQLId,
   toModelId,
   getPosition,
+  nonZero,
+  rounded,
 };

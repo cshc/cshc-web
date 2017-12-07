@@ -14,13 +14,12 @@ const Gender = {
   Either: '',
   Male: 'MALE',
   Female: 'FEMALE',
+  Mixed: 'MIXED',
+  Mens: 'MENS',
+  Ladies: 'LADIES',
 };
 
-const FixtureType = {
-  Friendly: 'FRIENDLY',
-  League: 'LEAGUE',
-  Cup: 'CUP',
-};
+const FixtureType = toDict(['Friendly', 'Cup', 'League']);
 
 const HomeAway = {
   Home: 'HOME',
@@ -42,7 +41,7 @@ const SwitchableView = toDict(['SquadRoster', 'MatchList', 'VenueList', 'MemberL
  * Identifiers for various view types. Used by the ViewSwitcher component. The 
  * 'viewTypes' Redux store object uses these identifiers as values.
  */
-const ViewType = toDict(['Table', 'Timeline', 'Cards', 'List', 'Map']);
+const ViewType = toDict(['Table', 'Timeline', 'Cards', 'List', 'Map', 'Chart']);
 
 /**
  * Identifiers for items related to a match. Used for specifying visibility/behaviour of
@@ -63,19 +62,20 @@ const MatchItem = toDict([
 /**
  * Identifying names for filters. These form the keys within the 'activeFilters' Redux store object.
  */
-const FilterName = toDict([
-  'HomeGround',
-  'Season',
-  'TextSearch',
-  'Team',
-  'Division',
-  'Current',
-  'Captains',
-  'Gender',
-  'Position',
-  'GoalKingGender',
-  'FixtureType',
-]);
+const FilterName = {
+  HomeGround: 'homeGround',
+  Season: 'season',
+  CurrentSeason: 'currentSeason',
+  TextSearch: 'textSearch',
+  Team: 'team',
+  Division: 'division',
+  Current: 'current',
+  Captains: 'captains',
+  Gender: 'gender',
+  Position: 'position',
+  GoalKingGender: 'goalKingGender',
+  FixtureType: 'fixtureType',
+};
 
 /**
  * Playing positions - used as filter values 

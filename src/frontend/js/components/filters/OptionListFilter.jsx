@@ -5,7 +5,6 @@ import without from 'lodash/without';
 import concat from 'lodash/concat';
 import { FilterValuePropType } from 'components/common/PropTypes';
 import OptionList from 'components/common/OptionList';
-import filtered from './filterContainer';
 import styles from './style.scss';
 
 const OptionListFilter = ({
@@ -61,4 +60,4 @@ OptionListFilter.defaultProps = {
   inline: false,
 };
 
-export default filtered(OptionListFilter);
+export default OptionListFilter;

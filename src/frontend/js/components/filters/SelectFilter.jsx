@@ -64,4 +64,4 @@ SelectFilter.defaultProps = {
   inline: false,
 };
 
-export default filtered(SelectFilter);
+export default SelectFilter;

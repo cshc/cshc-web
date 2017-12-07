@@ -159,3 +159,10 @@ class Member(models.Model):
         if not addr.strip():
             return 'Address unknown'
         return addr
+
+    def current_squad(self):
+        """ Returns the member's current squad membership (if they are currently in a squad; otherwise None) """
+        try:
+            return self.squadmembership_set.current().first()
+        except:
+            return None

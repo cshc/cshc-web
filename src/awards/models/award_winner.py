@@ -109,5 +109,8 @@ class EndOfSeasonAwardWinner(AwardWinner):
 
     objects = EndOfSeasonAwardWinnerManager()
 
+    class Meta:
+        ordering = ['-season']
+
     def __str__(self):
         return str("{} - {} ({})".format(self.award, self.awardee_name(), self.season))

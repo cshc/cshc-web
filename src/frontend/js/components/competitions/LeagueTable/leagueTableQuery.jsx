@@ -3,7 +3,8 @@
  * division.
  */
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
+import { compose, graphql } from 'react-apollo';
+import withApolloResults from 'components/common/ApolloResults';
 
 export const LEAGUE_TABLE_QUERY = gql`
   query LeagueTable($division_Id: ID, $season_Id: ID) {
@@ -49,9 +50,9 @@ export const leagueTableOptions = {
   props: ({ data: { networkStatus, error, divisionResults }, ...props }) => ({
     networkStatus,
     error,
-    divisionResults,
+    data: divisionResults,
     ...props,
   }),
 };
 
-export default graphql(LEAGUE_TABLE_QUERY, leagueTableOptions);
+export default compose(graphql(LEAGUE_TABLE_QUERY, leagueTableOptions), withApolloResults);

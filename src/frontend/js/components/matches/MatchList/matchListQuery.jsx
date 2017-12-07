@@ -1,5 +1,7 @@
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
+import { compose, graphql } from 'react-apollo';
+import withApolloResults from 'components/common/ApolloResults';
+import { withApollo } from 'react-apollo/withApollo';
 
 export const MATCH_LIST_QUERY = gql`
   query MatchList(
@@ -7,12 +9,14 @@ export const MATCH_LIST_QUERY = gql`
     $season_Slug: String
     $ourTeam_Slug: String
     $oppTeam_Club_Slug: String
+    $appearances_Member_Id: ID
   ) {
     matches(
       venue_Name: $venue_Name
       season_Slug: $season_Slug
       ourTeam_Slug: $ourTeam_Slug
       oppTeam_Club_Slug: $oppTeam_Club_Slug
+      appearances_Member_Id: $appearances_Member_Id
     ) {
       edges {
         node {
@@ -97,9 +101,9 @@ export const matchListOptions = {
   props: ({ data: { networkStatus, error, matches }, ...props }) => ({
     networkStatus,
     error,
-    matches,
+    data: matches,
     ...props,
   }),
 };
 
-export default graphql(MATCH_LIST_QUERY, matchListOptions);
+export default compose(graphql(MATCH_LIST_QUERY, matchListOptions), withApolloResults);

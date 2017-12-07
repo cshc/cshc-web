@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
 import { AppContainer } from 'react-hot-loader';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { RouterToUrlQuery } from 'react-url-query';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import Loading from 'components/common/Loading';
@@ -14,14 +16,18 @@ import buildStore from './redux/store';
  * Note: if props are not explicitly supplied, it is assumed they are 
  * located in a 'window.props' object.
  */
-export default (Component, reducers = {}, initialState, props = window.props) => {
+export default (Component, reducers = {}, initialState, baseUrl = '/', props = window.props) => {
   const store = buildStore(Component.name, reducers, initialState, client);
 
   ReactDOM.render(
     <AppContainer>
       <ApolloProvider store={store} client={client}>
         <PersistGate loading={<Loading />} persistor={persistStore(store)}>
-          <Component {...props} />
+          <Router basename={baseUrl}>
+            <RouterToUrlQuery>
+              <Component {...props} />
+            </RouterToUrlQuery>
+          </Router>
         </PersistGate>
       </ApolloProvider>
     </AppContainer>,

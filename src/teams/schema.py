@@ -36,7 +36,7 @@ class Query(graphene.ObjectType):
     participations = graphene.List(ClubTeamSeasonParticipationType)
     captaincies = graphene.List(TeamCaptaincyType)
 
-    def resolve_club_teams(self):
+    def resolve_club_teams(self, info):
         return ClubTeam.objects.all()
 
     def resolve_participations(self):

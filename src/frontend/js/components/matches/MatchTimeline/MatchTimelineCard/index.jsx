@@ -111,14 +111,16 @@ const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
                     scorers.length > 0 && (
                       <span className={styles.flexWrap}>
                         <span className="g-mr-10 g-mt-4">Scorers:</span>
-                        {scorers.map(scorer => (
-                          <MemberLink
-                            key={scorer.member.modelId}
-                            member={scorer.member}
-                            badgeCount={scorer.goals}
-                            className="g-mr-10 g-mb-15"
-                            useFullName
-                          />
+                        {scorers.map((scorer, index) => (
+                          <span key={scorer.member.modelId}>
+                            <MemberLink
+                              member={scorer.member}
+                              badgeCount={scorer.goals}
+                              className="g-mr-10 g-mb-15"
+                              useFullName
+                            />
+                            {index < scorers.length - 1 && <span>,&nbsp;</span>}
+                          </span>
                         ))}
                       </span>
                     )}

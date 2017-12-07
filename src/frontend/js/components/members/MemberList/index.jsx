@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilterableList from 'components/common/FilterableList';
-import MemberFilterSet from '../MemberFilterSet';
-import MemberListWrapper from '../MemberListWrapper';
+import MemberFilterSet from './MemberFilterSet';
+import MemberListWrapper from './MemberListWrapper';
 
 const MemberList = ({ currentSeason, teams }) => {
   const filterSet = <MemberFilterSet teams={teams} />;

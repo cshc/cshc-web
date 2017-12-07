@@ -4,7 +4,14 @@ GraphQL Schema for Awards and Award Winners
 
 import graphene
 from graphene_django import DjangoObjectType
+from core import schema_helper
 from .models import MatchAward, EndOfSeasonAward, MatchAwardWinner, EndOfSeasonAwardWinner
+
+end_of_season_award_winner_field_map = {
+    "member": ("member", "select"),
+    "season": ("season", "select"),
+    "award": ("award", "select"),
+}
 
 
 class MatchAwardType(DjangoObjectType):
@@ -25,10 +32,16 @@ class MatchAwardWinnerType(DjangoObjectType):
         model = MatchAwardWinner
 
 
-class EndOfSeasonAwardWinnerType(DjangoObjectType):
+class EndOfSeasonAwardWinnerNode(DjangoObjectType):
     """ GraphQL node representing an end-of-season award winner """
     class Meta:
         model = EndOfSeasonAwardWinner
+        interfaces = (graphene.relay.Node, )
+        filter_fields = {
+            'member__id': ['exact'],
+            'season__slug': ['exact'],
+            'award__name': ['exact', 'icontains', 'istartswith'],
+        }
 
 
 class Query(graphene.ObjectType):
@@ -36,7 +49,8 @@ class Query(graphene.ObjectType):
     match_awards = graphene.List(MatchAwardType)
     end_of_season_awards = graphene.List(EndOfSeasonAwardType)
     match_award_winners = graphene.List(MatchAwardWinnerType)
-    end_of_season_award_winners = graphene.List(EndOfSeasonAwardWinnerType)
+    end_of_season_award_winners = schema_helper.OptimizableFilterConnectionField(
+        EndOfSeasonAwardWinnerNode)
 
     def resolve_match_awards(self):
         return MatchAward.objects.all()
@@ -47,5 +61,7 @@ class Query(graphene.ObjectType):
     def resolve_match_award_winners(self):
         return MatchAwardWinner.objects.all()
 
-    def resolve_end_of_season_award_winners(self):
-        return EndOfSeasonAwardWinner.objects.all()
+    def resolve_end_of_season_award_winners(self, info, **kwargs):
+        return schema_helper.optimize(EndOfSeasonAwardWinner.objects.filter(**kwargs),
+                                      info,
+                                      end_of_season_award_winner_field_map)

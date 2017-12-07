@@ -12,12 +12,17 @@ import reduce from 'lodash/reduce';
 import entries from 'lodash/entries';
 
 const Urls = {
-  buildUrl: (urlName, parameters) =>
+  buildUrl: (urlName, parameters = {}) =>
     reduce(
       entries(parameters),
       (acc, parameter) => acc.replace(parameter[0], parameter[1]),
       window.cshcUrls[urlName],
     ),
+
+  get: urlName => Urls.buildUrl(urlName),
+
+  about_committee_season: slug =>
+    Urls.buildUrl('about_committee_season', { [window.cshcUrls.slugPlaceholder]: slug }),
 
   member_detail: modelId =>
     Urls.buildUrl('member_detail', { [window.cshcUrls.pkPlaceholder]: modelId }),
@@ -34,6 +39,8 @@ const Urls = {
     Urls.buildUrl('opposition_club_detail', {
       [window.cshcUrls.slugPlaceholder]: slug,
     }),
+
+  static: url => `${window.STATIC_URL}${url}`,
 
   /**
    * Gets a URL paramter by name. 

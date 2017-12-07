@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
-import { FilterName, NoFilter } from 'util/constants';
+import { compose, graphql } from 'react-apollo';
+import withApolloResults from 'components/common/ApolloResults';
+import { NoFilter } from 'util/constants';
 
 export const GOAL_KING_QUERY = gql`
   query GoalKing($member_Gender: String, $season_Slug: String, $team: String) {
@@ -33,20 +34,19 @@ export const GOAL_KING_QUERY = gql`
 `;
 
 export const goalKingOptions = {
-  options: ({ activeFilters }) => ({
+  options: ({ currentSeason, season, team }) => ({
     variables: {
-      season_Slug: activeFilters[FilterName.Season] || undefined,
-      team:
-        activeFilters[FilterName.Team] !== NoFilter ? activeFilters[FilterName.Team] : undefined,
+      season_Slug: season || currentSeason,
+      team: team !== NoFilter ? team : undefined,
     },
     fetchPolicy: 'cache-and-network',
   }),
   props: ({ data: { networkStatus, error, goalKingEntries }, ...props }) => ({
     networkStatus,
     error,
-    entries: goalKingEntries,
+    data: goalKingEntries,
     ...props,
   }),
 };
 
-export default graphql(GOAL_KING_QUERY, goalKingOptions);
+export default compose(graphql(GOAL_KING_QUERY, goalKingOptions), withApolloResults);

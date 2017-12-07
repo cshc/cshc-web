@@ -4,6 +4,7 @@ GraphQL Schema for Venues
 
 import graphene
 from graphene_django import DjangoObjectType
+from graphene_django.filter import DjangoFilterConnectionField
 from core import schema_helper
 from .models import Venue
 
@@ -29,7 +30,7 @@ class VenueType(DjangoObjectType):
 
     class Meta:
         model = Venue
-        interfaces = (graphene.Node, )
+        interfaces = (graphene.relay.Node, )
         filter_fields = {
             'name': ['exact', 'icontains', 'istartswith'],
             'matches__division': ['exact'],
@@ -46,8 +47,9 @@ class Query(graphene.ObjectType):
     """ GraphQL query for venues """
     venues = schema_helper.OptimizableFilterConnectionField(VenueType)
 
+    relay_venues = schema_helper.OptimizableFilterConnectionField(VenueType)
+
     def resolve_venues(self, info, **kwargs):
-        print(kwargs)
         return schema_helper.optimize(Venue.objects.filter(**kwargs),
                                       info,
                                       field_map).distinct()

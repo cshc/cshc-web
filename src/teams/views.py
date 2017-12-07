@@ -65,7 +65,7 @@ class ClubTeamDetailView(TemplateView):
             'teamGenderlessName': team.genderless_abbr_name(),
             'seasonId': season.id,
             'division': {
-                'id': participation.division.id,
+                'id': participation.division.id if participation.division else None,
                 'name': "{}".format(participation.division),
                 'fixturesUrl': participation.division_fixtures_url,
                 'leagueTableUrl': participation.division_tables_url,

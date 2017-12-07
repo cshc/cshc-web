@@ -9,17 +9,20 @@ import { FixtureType } from 'util/constants';
  */
 const FixtureTypeIcon = ({ fixtureType }) => {
   const className = classnames('fa', {
-    'fa-table': fixtureType === FixtureType.League,
-    'fa-trophy': fixtureType === FixtureType.Cup,
-    'fa-smile-o': fixtureType === FixtureType.Friendly,
+    'fa-table': fixtureType === FixtureType.League.toUpperCase(),
+    'fa-trophy': fixtureType === FixtureType.Cup.toUpperCase(),
+    'fa-smile-o': fixtureType === FixtureType.Friendly.toUpperCase(),
   });
   const title = `${toTitleCase(fixtureType)} match`;
   return <i className={className} title={title} />;
 };
 
 FixtureTypeIcon.propTypes = {
-  fixtureType: PropTypes.oneOf([FixtureType.Friendly, FixtureType.Cup, FixtureType.League])
-    .isRequired,
+  fixtureType: PropTypes.oneOf([
+    FixtureType.Friendly.toUpperCase(),
+    FixtureType.Cup.toUpperCase(),
+    FixtureType.League.toUpperCase(),
+  ]).isRequired,
 };
 
 export default FixtureTypeIcon;
