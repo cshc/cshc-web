@@ -2,24 +2,41 @@
 Venue views
 """
 from itertools import groupby
-from django.views.generic import ListView, TemplateView
+from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
+from django.core.urlresolvers import reverse
+from django.templatetags.static import static
+from django.conf import settings
 from django.http import Http404
 from competitions.models import Season
+from core.utils import get_thumbnail_url
 from core.views import kwargs_or_none, add_season_selector, get_season_from_kwargs
 from .models import ClubTeam, ClubTeamSeasonParticipation, Southerner
 
 
-class ClubTeamListView(ListView):
-    """
-    List of all the CSHC teams.
-    """
-    context_object_name = 'teams'
+class ClubTeamListView(TemplateView):
+    """ View of a list of all CSHC teams. """
+
     model = ClubTeam
+    template_name = 'teams/clubteam_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(ClubTeamListView, self).get_context_data(**kwargs)
 
+        all_teams = list(ClubTeam.objects.all())
+
+        for team in all_teams:
+            team.category = 'Inactive' if not team.active else (team.get_gender_display() if (team.long_name.startswith('Men\'s') or team.long_name.startswith('Ladies'))
+                                                                else 'Other')
+
+            team.participation = team.current_participation()
+
+            team.ical = reverse('clubteam_ical_feed',
+                                kwargs={'slug': team.slug})
+            team.rss = reverse('clubteam_match_rss_feed',
+                               kwargs={'slug': team.slug})
+
+        context['teams'] = all_teams
         return context
 
 

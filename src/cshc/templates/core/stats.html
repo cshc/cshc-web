@@ -16,11 +16,7 @@ Static landing page for stats - mainly a redirect from the old site.
 
 {% block content %}
 
-{% comment %} 
-{% url 'clubteam_list' as team_list %}
-{% endcomment %}
 {% heading 'Club Statistics' %}
-
 
 <div class="row g-mb-40">
   <div class="col-12 col-lg-8">
@@ -32,7 +28,7 @@ Static landing page for stats - mainly a redirect from the old site.
     </blockquote>
 
     <p class="lead">...that being said, we like our statistics here at Cambridge South! You'll find statistics
-    on each <a href="{% url 'member_list' %}">club member</a>, on the various <a href="{{ team_list }}">Cambridge
+    on each <a href="{% url 'member_list' %}">club member</a>, on the various <a href="{% url 'clubteam_list' %}">Cambridge
     South teams</a> and on all the <a href="{% url 'opposition_club_list' %}">opposition clubs</a> we've played against.</p>
 
     <p class="lead">In addition, we have some special statistics - and the collection is growing!</p>

@@ -166,3 +166,7 @@ class ClubTeam(models.Model):
     def genderless_abbr_name(self):
         """ Returns the abbreviated team name without either 'Ladies' or 'Mens'. """
         return self.abbr_name().replace(" Ladies", "").replace(" Mens", "")
+
+    def current_participation(self):
+        participations = self.clubteamseasonparticipation_set.current()
+        return participations[0] if participations.exists() else None

@@ -1644,3 +1644,15 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
 .umpire-card.league-card {
   border-bottom: 2px solid red;
 }
+.Mens .bg-team-type {
+  background-color: #2c5819 !important;
+}
+.Ladies .bg-team-type {
+  background-color: #1f1f6d !important;
+}
+.Other .bg-team-type {
+  background-color: #333 !important;
+}
+.Inactive .bg-team-type {
+  background-color: #999 !important;
+}

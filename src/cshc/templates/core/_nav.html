@@ -29,6 +29,11 @@
               <i class="hs-icon hs-icon-arrow-bottom g-font-size-11 g-ml-7"></i>
           </a>
           <div class="w-100 hs-mega-menu u-shadow-v11 font-weight-normal g-brd-top g-brd-primary g-brd-top-2 g-bg-black g-mt-21 g-mt-11--lg--scrolling" aria-labelledby="mega-menu-label-teams" style="display: none;">
+              <div class="row no-gutters">
+                <div class="g-brd-bottom g-brd-white text-lg-center dropdown-item">
+                    <a href="{% url 'clubteam_list' %}" class="nav-link">Teams Overview</a>
+                </div>
+              </div>
               <div class="row align-items-stretch no-gutters">
                 {% for team in TEAMS %}
                 <div class="col-lg-4 g-mt-10 {% if not forloop.first %}g-brd-left--lg g-brd-gray-light-v5{% endif %}">
