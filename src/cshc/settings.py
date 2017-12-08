@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
     'django.contrib.humanize',
+    'django.contrib.sitemaps',
     'webpack_loader',
     'debug_toolbar',
     'django_extensions',

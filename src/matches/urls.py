@@ -20,24 +20,6 @@ urlpatterns = [
         name="match_detail"
         ),
 
-    # # E.g. '/matches/23-Apr-13/'            - List of matches on a particular date
-    # url(r'^(?P<date>\d{2}-[a-zA-Z]{3}-\d{2})/$',
-    #     views.MatchesByDateView.as_view(),
-    #     name="matches_by_date"
-    # ),
-
-    # # E.g. '/matches/by-season/'            - Calendar view of matches in the current season
-    # url(r'^by-season/$',
-    #     views.MatchesBySeasonView.as_view(),
-    #     name="matches_by_season_default"
-    # ),
-
-    # # E.g. '/matches/by-season/2011-2012/'  - Calendar view of matches in a previous season
-    # url(r'^by-season/(?P<season_slug>[-\w]+)/$',
-    #     views.MatchesBySeasonView.as_view(),
-    #     name="matches_by_season"
-    # ),
-
     # E.g. '/matches/goal-king/'            - Goal King table
     url(r'^goal-king/$',
         views.GoalKingView.as_view(),
@@ -55,12 +37,6 @@ urlpatterns = [
         views.AccidentalTouristSeasonView.as_view(),
         name="accidental_tourist_season"
         ),
-
-    # # E.g. '/matches/accidental-tourist/2011-2012/ajax/'    - AJAX-only: Updates and refreshes Accidental Tourist stats
-    # url(r'^accidental-tourist/(?P<season_slug>[-\w]+)/ajax/$',
-    #     views.AccidentalTouristSeasonUpdateView.as_view(),
-    #     name="accidental_tourist_season_update"
-    # ),
 
     # E.g. '/matches/naughty-step/'         - Statistics on the number of cards (red/yellow/green) received by members
     url(r'^naughty-step/$',

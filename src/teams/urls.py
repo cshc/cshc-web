@@ -37,6 +37,7 @@ urlpatterns = [
         name="clubteam_season_detail"
         ),
 
+    # Feeds
     # E.g. /teams/m1.ics'                       - Calendar feed of a particular team's matches
     url(r'^(?P<slug>[-\w]+).ics$',
         feeds.ClubTeamMatchICalFeed(),
@@ -48,6 +49,4 @@ urlpatterns = [
         feeds.RssClubTeamMatchReportsFeed(),
         name="clubteam_match_rss_feed"
         ),
-
-
 ]
