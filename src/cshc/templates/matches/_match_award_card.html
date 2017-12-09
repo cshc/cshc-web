@@ -6,9 +6,9 @@ Expects context:
 
 {% load cshc_tags %}
 
-<div class="media award-card g-rounded-4 g-brd-bottom g-brd-3 g-brd-gray-light-v4 g-bg-secondary g-pa-10 g-mb-20 {{ award_winner.award.name|slugify }}">
+<div class="award-card u-shadow-v3 g-bg-secondary g-brd-around g-brd-gray-light-v4 g-line-height-2 g-pa-20 g-mb-30 d-flex">
   {% profile_pic member=award_winner.member size="200x200" className="mr-3 award-image" %}
-  <div class="media-body award-content">
+  <div class="award-content">
     <h5><a title="View profile" href="{{ award_winner.member.get_absolute_url }}">{{ award_winner.member.full_name }}</a></h5>
     <div class="award-title g-mb-10">{{ award_winner.award }}</div>
     <p class="award-comment">{{ award_winner.comment }}</p>

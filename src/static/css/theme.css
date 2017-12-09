@@ -1656,3 +1656,7 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
 .Inactive .bg-team-type {
   background-color: #999 !important;
 }
+/* Fix to make box-shadows show up */
+.card {
+  z-index: 0;
+}

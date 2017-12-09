@@ -17,6 +17,9 @@
   background-color: #6639b6;
   padding: 5px 10px;
 }
+.award-card {
+  position: relative;
+}
 .award-card.man-of-the-match {
   border-color: #07d807 !important;
 }
