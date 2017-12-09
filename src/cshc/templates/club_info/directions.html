@@ -10,11 +10,6 @@
   {% clear_breadcrumbs %}
 {% endblock %}
 
-{% block head_js %}
-  {{ block.super }}
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ GMAPS_API_KEY }}&region=GB"></script>
-{% endblock head_js %}
-
 {% block content %}
 
 {% url 'venue_detail' 'cantabs' as cantabs_url %}
@@ -29,7 +24,7 @@
 
   <p class="lead">We train and play our home matches at <a href="{{ long_road_url }}" title="Pitch details...">Long Road Sixth Form College</a> in south Cambridge.</p>
 
-  {% include 'maps/_map.html' with mapId="map" %}
+  <iframe src="https://www.google.com/maps/d/embed?mid=1lIfraO305IegNjXDKFhx0G1EtIdhPxvI" width="100%" height="480"></iframe>
 </div>
 
 <div id="away-matches" class="g-pb-20">
@@ -87,8 +82,3 @@
   </figure>
 </div>
 {% endblock content %}
-
-{% block body_js %}
-  {{ block.super }}
-  {% include 'maps/_map_body_js.html' with mapId="map" venue=homePitch %}
-{% endblock body_js %}
