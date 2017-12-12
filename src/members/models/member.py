@@ -10,11 +10,28 @@
 import os
 from django.conf import settings
 from django.db import models
+from django.dispatch import receiver
 from django_resized import ResizedImageField
+from allauth.account.signals import email_changed
 from image_cropping import ImageRatioField
 from geoposition.fields import GeopositionField
 from core.models import make_unique_filename, Gender, Position, EmergencyContactRelationship
 from members import settings as member_settings
+
+
+@receiver(email_changed)
+def on_email_change(sender, **kwargs):
+    """
+    Handler for a user's email address being changed.
+
+    Updates the associated member's email address (if there is a member associated with this user)
+    """
+    user = kwargs['user']
+    if user.member is not None:
+        # Note that the to_email_address field is an instance of the allauth.EmailAddress model
+        email_address_instance = kwargs['to_email_address']
+        user.member.email = email_address_instance.email
+        user.member.save()
 
 
 def get_file_name(instance, filename):
@@ -138,6 +155,21 @@ class Member(models.Model):
 
     def __str__(self):
         return str(self.full_name())
+
+    def save(self, *args, **kwargs):
+        super(Member, self).save(*args, **kwargs)
+        # If the first and/or last name has been changed, update the corresponding user fields
+        # if there is a user associated with this member
+        if self.user is not None:
+            modified = False
+            if self.user.first_name != self.first_name:
+                self.user.first_name = self.first_name
+                modified = True
+            if self.user.last_name != self.last_name:
+                self.user.last_name = self.last_name
+                modified = True
+            if modified:
+                self.user.save()
 
     @models.permalink
     def get_absolute_url(self):
