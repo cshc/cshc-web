@@ -1,0 +1,26 @@
+{% comment %}
+Link to be put on the front-end that points to the admin back-end that corresponds
+to the content being displayed.
+
+Requires 'app_label' and 'model' variables
+
+Requires at least one of:
+   'edit_url' - the admin url for editing an item
+   'add_url' - the admin url for adding an item
+   'list_url' - the admin url for displaying the list of items
+{% endcomment %}
+
+{% if user.is_staff %}
+{% if display_admin_links %}
+
+<div class="btn-group">
+  <a class="btn btn-md u-btn-deeporange dropdown-toggle" data-toggle="dropdown" href="#" title="Admin actions"><i class="fa fa-edit g-mr-5"></i></a>
+  <div class="dropdown-menu">
+    {% if change_url %}<a class="dropdown-item" href="{{ change_url }}" target="_blank">{% if change_label %}{{ change_label }}{% else %}Edit{% endif %}</a>{% endif %}
+    {% if add_url %}<a class="dropdown-item" href="{{ add_url }}" target="_blank">{% if add_label %}{{ add_label }}{% else %}Add{% endif %}</a>{% endif %}
+    {% if list_url %}<a class="dropdown-item" href="{{ list_url }}" target="_blank">{% if list_label %}{{ list_label }}{% else %}List{% endif %}</a>{% endif %}
+  </div>
+</div>
+
+{% endif %}
+{% endif %}

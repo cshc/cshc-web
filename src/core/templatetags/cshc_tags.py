@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.templatetags.static import static
 from django.core.urlresolvers import reverse
+from django.contrib.contenttypes.models import ContentType
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from graphql_relay.node.node import to_global_id
@@ -313,3 +314,86 @@ def active_link(context, viewname, *args, **kwargs):
     if request.path == path:
         return 'active'
     return ''
+
+
+############################################################################################
+# ADMIN INTERACE SUPPORT
+
+@register.inclusion_tag('blocks/_admin_link.html', takes_context=True)
+def instance_admin_links(context, model, change=True, add=False, changelist=False):
+    """
+    """
+    try:
+        content_type = ContentType.objects.get_for_model(model)
+        return AdminLinksCreator(content_type.app_label, content_type.name, content_type.model, model.pk, change, add, changelist).render(context)
+    except:
+        LOG.error("Failed to render instance_admin_links", exc_info=True)
+
+
+@register.inclusion_tag('blocks/_admin_link.html', takes_context=True)
+def model_admin_links(context, app_label, model_name, add=True, changelist=True):
+    """
+    """
+    try:
+        content_type = ContentType.objects.get(
+            app_label=app_label, model=model_name)
+        return AdminLinksCreator(content_type.app_label, content_type.name, content_type.model, None, False, add, changelist).render(context)
+    except:
+        LOG.error("Failed to render model_admin_links", exc_info=True)
+
+
+class AdminLinksCreator(object):
+
+    def __init__(self, app_label, friendly_name, model_name, instance_id=None, change=False, add=False, changelist=False):
+        self.app_label = app_label
+        self.friendly_name = friendly_name
+        self.model_name = model_name
+        self.instance_id = instance_id
+        self.change = change
+        self.add = add
+        self.changelist = changelist
+
+    def render(self, context):
+        ctx = {}
+        user = context['user']
+        ctx['user'] = user
+        should_display = False
+
+        if self.change and self.has_perm(user, 'change_'):
+            ctx['change_url'] = self.get_admin_change_url()
+            ctx['change_label'] = "Edit " + self.friendly_name
+            should_display = True
+        else:
+            ctx['change_url'] = None
+            ctx['change_label'] = None
+
+        if self.add and self.has_perm(user, 'add_'):
+            ctx['add_url'] = self.get_admin_add_url()
+            ctx['add_label'] = "Add " + self.friendly_name
+            should_display = True
+        else:
+            ctx['add_url'] = None
+            ctx['add_label'] = None
+
+        if self.changelist and self.has_perm(user):
+            ctx['list_url'] = self.get_admin_list_url()
+            ctx['list_label'] = self.friendly_name.capitalize() + " list"
+            should_display = True
+        else:
+            ctx['list_url'] = None
+            ctx['list_label'] = None
+
+        ctx['display_admin_links'] = should_display
+        return ctx
+
+    def get_admin_change_url(self):
+        return reverse("admin:%s_%s_change" % (self.app_label, self.model_name), args=(self.instance_id,))
+
+    def get_admin_add_url(self):
+        return reverse("admin:%s_%s_add" % (self.app_label, self.model_name))
+
+    def get_admin_list_url(self):
+        return reverse("admin:%s_%s_changelist" % (self.app_label, self.model_name))
+
+    def has_perm(self, user, prefix=''):
+        return user.has_perm('{}.{}{}'.format(self.app_label, prefix, self.model_name))

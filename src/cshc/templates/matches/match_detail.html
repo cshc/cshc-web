@@ -100,6 +100,10 @@
     <div class="sharethis-inline-share-buttons"></div>
     {% include 'core/_disqus_comments.html' with title=match.fixture_title %}
   </div>
+  
+  <div class="g-pt-20 text-right">
+    {% instance_admin_links match change=True %}
+  </div>
 </section>
 {% endblock main %}
 
