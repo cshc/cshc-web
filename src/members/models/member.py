@@ -23,6 +23,16 @@ def get_file_name(instance, filename):
     return os.path.join(member_settings.MEMBERS_PHOTO_DIR, filename)
 
 
+class MemberManager(models.Manager):
+    """ Model Manager for the Member model """
+
+    def safe_get(self, **kwargs):
+        try:
+            return self.get(**kwargs)
+        except Member.DoesNotExist:
+            return None
+
+
 class Member(models.Model):
     """ Represents a member of Cambridge South Hockey Club. Alternatively this can
         be thought of as a 'Player' model.
@@ -118,6 +128,8 @@ class Member(models.Model):
     addr_position = GeopositionField(
         "Address (lat/long)", null=True, blank=True)
     """ Member's home address: lat/Long location (used for Google Maps etc) """
+
+    objects = MemberManager()
 
     class Meta:
         """ Meta-info for the Member model."""

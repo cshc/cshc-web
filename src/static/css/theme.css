@@ -1520,6 +1520,17 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
   }
 }
 /* GBM additions */
+.u-datepicker-v1 .ui-datepicker-calendar th a:hover,
+.u-datepicker-v1 .ui-datepicker-calendar th a.ui-state-active,
+.u-datepicker-v1 .ui-datepicker-calendar td a:hover,
+.u-datepicker-v1 .ui-datepicker-calendar td a.ui-state-active {
+  background-color: #6639b6;
+  border-color: #6639b6;
+}
+.u-btn-outline-primary:focus,
+.u-btn-outline-primary.active {
+  background-color: #6639b6;
+}
 .u-header__section--dark .navbar .u-main-nav-v5 .nav-item.active > .nav-link,
 .u-header__section--dark .navbar .u-main-nav-v5 .nav-item:hover > .nav-link,
 .u-header__section--dark .navbar .u-main-nav-v5 .nav-item:focus > .nav-link,
@@ -1559,6 +1570,9 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
 .g-bg-black .dropdown-item:focus,
 .g-bg-black .dropdown-item:hover {
   background: rgba(255, 255, 255, 0.15);
+}
+.g-bg-black .dropdown-item.active {
+  background: rgba(255, 255, 255, 0.25);
 }
 /* Timeline left section is 1/6th (col-2) */
 @media (min-width: 768px) {
@@ -1659,4 +1673,20 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
 /* Fix to make box-shadows show up */
 .card {
   z-index: 0;
+}
+.cshc-image-field .clearable-file-input {
+  float: left;
+  margin-right: 2rem;
+}
+.flex-0 {
+  flex: 0 auto !important;
+}
+.geoposition-address {
+  display: none;
+}
+.geoposition-search {
+  margin-bottom: 0.8rem;
+}
+.geoposition-widget > table {
+  display: none;
 }

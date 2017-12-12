@@ -1,5 +1,6 @@
 {% load static from staticfiles %}
 {% load account socialaccount %}
+{% load cshc_tags %}
 
 <nav class="js-mega-menu navbar navbar-expand-lg hs-menu-horizontal">
   <div class="container">
@@ -30,7 +31,7 @@
           </a>
           <div class="w-100 hs-mega-menu u-shadow-v11 font-weight-normal g-brd-top g-brd-primary g-brd-top-2 g-bg-black g-mt-21 g-mt-11--lg--scrolling" aria-labelledby="mega-menu-label-teams" style="display: none;">
               <div class="row no-gutters">
-                <div class="g-brd-bottom g-brd-white text-lg-center dropdown-item">
+                <div class="g-brd-bottom g-brd-white text-lg-center dropdown-item {% active_link 'clubteam_list' %}">
                     <a href="{% url 'clubteam_list' %}" class="nav-link">Teams Overview</a>
                 </div>
               </div>
@@ -40,7 +41,7 @@
                   <h4 class="h5 text-uppercase g-font-weight-600">{{ team.title }}</h4>
                   <ul class="list-unstyled">
                     {% for item in team.list %}
-                    <li class="dropdown-item">
+                    <li class="dropdown-item {% active_link 'clubteam_detail' item.0 %}">
                       <a href="{% url 'clubteam_detail' item.0 %}" class="nav-link">{{ item.1 }}</a>
                     </li>
                     {% endfor %}
@@ -61,19 +62,19 @@
               <div class="col-lg-6 g-mt-10">
                   <h4 class="h5 text-uppercase g-font-weight-600">Playing</h4>
                   <ul class="list-unstyled">
-                    <li class="dropdown-item">
+                    <li class="dropdown-item {% active_link 'join_us' %}">
                       <a href="{% url 'join_us' %}" class="nav-link">Join Us</a>
                     </li>
-                    <li class="dropdown-item">
+                    <li class="dropdown-item {% active_link 'directions' %}">
                       <a href="{% url 'directions' %}" class="nav-link">Directions</a>
                     </li>
-                    <li class="dropdown-item">
+                    <li class="dropdown-item {% active_link 'upcoming_trainingsession_list' %}">
                       <a href="{% url 'upcoming_trainingsession_list' %}" class="nav-link">Training</a>
                     </li>
                     <li class="dropdown-item">
                       <a href="{% url 'join_us' %}#fees" class="nav-link">Fees</a>
                     </li>
-                    <li class="dropdown-item">
+                    <li class="dropdown-item {% active_link 'about_kit' %}">
                       <a href="{% url 'about_kit' %}" class="nav-link">Kit</a>
                     </li>
                   </ul>
@@ -81,22 +82,22 @@
                 <div class="col-lg-6 g-mt-10 g-brd-left--lg g-brd-gray-light-v5">
                   <h4 class="h5 text-uppercase g-font-weight-600">Club Info</h4>
                   <ul class="list-unstyled">
-                    <li class="dropdown-item">
+                    <li class="dropdown-item {% active_link 'about_us' %}">
                       <a href="{% url 'about_us' %}" class="nav-link">About Us</a>
                     </li>
-                    <li class="dropdown-item">
+                    <li class="dropdown-item {% active_link 'zinnia:entry_archive_index' %}">
                       <a href="{% url 'zinnia:entry_archive_index' %}" class="nav-link">News</a>
                     </li>
-                    <li class="dropdown-item">
+                    <li class="dropdown-item {% active_link 'about_social' %}">
                       <a href="{% url 'about_social' %}" class="nav-link">Social</a>
                     </li>
-                    <li class="dropdown-item">
+                    <li class="dropdown-item {% active_link 'about_committee' %}">
                       <a href="{% url 'about_committee' %}" class="nav-link">Committee</a>
                     </li>
-                    <li class="dropdown-item">
+                    <li class="dropdown-item {% active_link 'calendar' %}">
                       <a href="{% url 'calendar' %}" class="nav-link">Calendar</a>
                     </li>
-                    <li class="dropdown-item">
+                    <li class="dropdown-item {% active_link 'member_offers' %}">
                       <a href="{% url 'member_offers' %}" class="nav-link">Members Offers</a>
                     </li>
                   </ul>
@@ -106,13 +107,12 @@
         </li>
 
         <li class="nav-item g-mx-10--lg g-mx-15--xl">
-          <a href="{% url 'juniors_index' %}" class="nav-link g-py-7 g-px-0">Juniors
+          <a href="{% url 'juniors_index' %}" class="nav-link g-py-7 g-px-0 {% active_link 'juniors_index' %}">Juniors
           </a>
         </li>
 
         <li class="nav-item g-mx-10--lg g-mx-15--xl">
-          <a href="#" class="nav-link g-py-7 g-px-0">Matches
-        
+          <a href="{% url 'match_list' %}" class="nav-link g-py-7 g-px-0 {% active_link 'match_list' %}">Matches
           </a>
         </li>
 
@@ -120,32 +120,32 @@
           <a id="nav-link--stats" href="#" class="nav-link g-py-7 g-px-0" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu--stats">Stats
           </a>
           <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-bg-black g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling" id="nav-submenu--stats" aria-labelledby="nav-link--stats" style="display: none;">
-            <li class="dropdown-item g-brd-bottom g-brd-white">
+            <li class="dropdown-item g-brd-bottom g-brd-white {% active_link 'stats' %}">
               <a href="{% url 'stats' %}" class="nav-link">Overview</a>
             </li>
-            <li class="dropdown-item">
+            <li class="dropdown-item {% active_link 'goal_king' %}">
               <a href="{% url 'goal_king' %}" class="nav-link">Goal King</a>
             </li>
-            <li class="dropdown-item">
+            <li class="dropdown-item {% active_link 'southerners_league' %}">
               <a href="{% url 'southerners_league' %}" class="nav-link">Southerners League</a>
             </li>
-            <li class="dropdown-item">
+            <li class="dropdown-item {% active_link 'opposition_club_list' %}">
               <a href="{% url 'opposition_club_list' %}" class="nav-link">Rivals</a>
             </li>
-            <li class="dropdown-item">
+            <li class="dropdown-item {% active_link 'accidental_tourist' %}">
               <a href="{% url 'accidental_tourist' %}" class="nav-link">Accidental Tourist</a>
             </li>
-            <li class="dropdown-item">
+            <li class="dropdown-item {% active_link 'playing_record' %}">
               <a href="{% url 'playing_record' %}" class="nav-link">Playing Records</a>
             </li>
-            <li class="dropdown-item">
+            <li class="dropdown-item {% active_link 'naughty_step' %}">
               <a href="{% url 'naughty_step' %}" class="nav-link">The Naughty Step</a>
             </li>
           </ul>
         </li>
 
         <li class="nav-item g-mx-10--lg g-mx-15--xl">
-          <a href="{% url 'contact_us' %}" class="nav-link g-py-7 g-px-0">Contact Us
+          <a href="{% url 'contact_us' %}" class="nav-link g-py-7 g-px-0 {% active_link 'contact_us' %}">Contact Us
         
           </a>
         </li>
@@ -155,18 +155,23 @@
           <a id="nav-link--user" href="#" class="nav-link g-py-7 g-px-0" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu--stats">{{ request.user.get_short_name }}
           </a>
           <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-bg-black g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling" id="nav-submenu--user" aria-labelledby="nav-link--user" style="display: none;">
-            <li class="dropdown-item">
-              <a href="#" class="nav-link">Profile</a>
+            <li class="dropdown-item {% active_link 'user_profile' %}">
+              <a href="{% url 'user_profile' %}" class="nav-link"><i class="fa fa-fw fa-user g-mr-10"></i>Edit Profile</a>
             </li>
+            {% if user.member %}
+            <li class="dropdown-item {% active_link 'member_detail' user.member.pk %}">
+              <a href="{% url 'member_detail' user.member.pk %}" class="nav-link"><i class="fa fa-fw fa-bar-chart g-mr-10"></i>Member Stats</a>
+            </li>
+            {% endif %}
             {% if user.is_staff %}
             <li class="dropdown-item">
-              <a href="/admin/" target="_blank" class="nav-link">Admin</a>
+              <a href="/admin/" target="_blank" class="nav-link"><i class="fa fa-fw fa-lock g-mr-10"></i>Admin</a>
             </li>
             {% endif %}
             <li class="dropdown-item">
                 <form id="logout_form" method="post" action="{% url 'account_logout' %}">{% csrf_token %}
                   <input type="hidden" name="next" value="{{ request.get_full_path }}"/>
-                  <a class="nav-link" href="javascript:{}" onclick="document.getElementById('logout_form').submit();">Log out</a>
+                  <a class="nav-link" href="javascript:{}" onclick="document.getElementById('logout_form').submit();"><i class="fa fa-fw fa-sign-out g-mr-10"></i>Log out</a>
                 </form>
             </li>
           </ul>

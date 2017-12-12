@@ -1,0 +1,13 @@
+<div class="input-group g-brd-primary--focus">
+  {% if left_icon %}
+  <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+    <i class="{{ left_icon }}"></i>
+  </div>
+  {% endif %}
+  {{ rendered_widget }}
+  {% if right_icon %}
+  <div class="input-group-addon rounded-0 d-flex align-items-center g-color-gray-light-v1 g-bg-white">
+    <i class="{{ right_icon }}"></i>
+  </div>
+  {% endif %}
+</div>

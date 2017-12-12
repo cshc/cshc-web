@@ -9,6 +9,7 @@ from django import template
 from django.conf import settings
 from django.contrib import messages
 from django.templatetags.static import static
+from django.core.urlresolvers import reverse
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from graphql_relay.node.node import to_global_id
@@ -294,3 +295,21 @@ def cshc_disqus_recent_comments(context, shortname='', num_items=5, excerpt_leng
         'excerpt_length': excerpt_length,
         'config': get_config(context),
     }
+
+
+@register.simple_tag(takes_context=True)
+def active_link(context, viewname, *args, **kwargs):
+    """
+    Renders the 'active' CSS class if the request path matches the path of the view.
+    :param context: The context where the tag was called. Used to access the request object.
+    :param viewname: The name of the view (include namespaces if any).
+    :return:
+    """
+    request = context.get('request')
+    if request is None:
+        # Can't work without the request object.
+        return ''
+    path = reverse(viewname, args=args, kwargs=kwargs)
+    if request.path == path:
+        return 'active'
+    return ''

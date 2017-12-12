@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 from graphene_django.views import GraphQLView
 
 from core.views import JuniorsContactSubmissionCreateView, ContactSubmissionCreateView
-from members.views import ProfileView
+from members.views import profile
 from venues.views import DirectionsView
 from .views import HomeView, CalendarView, CommitteeSeasonView, templateTestView
 from .sitemap import CshcSitemap
@@ -76,7 +76,7 @@ urlpatterns = [
     url(r'^training/', include('training.urls')),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),  # CKEditor Urls
-    url(r'^accounts/profile/$', ProfileView.as_view(), name='user_profile'),
+    url(r'^accounts/profile/$', profile, name='user_profile'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^graphql', GraphQLView.as_view(graphiql=True)),   # GraphQL Urls
     url(r'^admin/', admin.site.urls),

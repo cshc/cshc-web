@@ -48,7 +48,7 @@ const MemberPlayingRecord = ({
       <div className="d-flex flex-wrap justify-content-between g-mb-15">
         <SelectFilter
           className="g-min-width-130"
-          label={FilterName.FixtureType}
+          label="Fixture type"
           filterName={FilterName.FixtureType}
           options={fixtureTypeOptions}
           onSetFilter={(filterName, filterValue) =>

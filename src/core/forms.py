@@ -6,7 +6,26 @@ from django.contrib.flatpages.models import FlatPage
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from zinnia.models import Entry, Category
 from zinnia.admin.forms import EntryAdminForm, CategoryAdminForm
-from .models import JuniorsContactSubmission, ContactSubmission
+from unify.widgets import UnifyTextInput
+from .models import JuniorsContactSubmission, ContactSubmission, CshcUser
+
+
+class UserProfileForm(forms.ModelForm):
+    """ Form used by a user editing their own details. """
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+
+    class Meta:
+        model = CshcUser
+        fields = ('email', 'first_name', 'last_name')
+        widgets = {
+            'first_name': UnifyTextInput(left_icon='icon-user-follow'),
+            'last_name': UnifyTextInput(left_icon='icon-user-follow'),
+            'email': forms.HiddenInput(),
+        }
 
 
 class SignupForm(forms.Form):

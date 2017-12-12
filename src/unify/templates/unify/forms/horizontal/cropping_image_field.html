@@ -1,0 +1,15 @@
+<div class="form-group {% if field.errors %}u-has-error-v1 {% endif %}row g-mb-25">
+  {% if label %}
+    <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label g-mb-10">
+      {{ label }}{% if field.field.required %}*{% endif %}
+    </label>
+  {% else %}
+    <div class="col-sm-3"></div>
+  {% endif %}
+  <div class="col-sm-9">
+    {{ field }}
+    {{ cropping_field }}
+    {% include 'unify/forms/horizontal/field_errors.html' with errors=field.errors %}
+    {% if field.help_text %}<small class="form-text text-muted g-font-size-default g-mt-10">{{ field.help_text }}</small>{% endif %}
+  </div>
+</div>

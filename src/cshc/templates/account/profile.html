@@ -2,16 +2,139 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
+{% load unify %}
 
 {% block title %}{{ block.super }} | Profile{% endblock %}
 
+{% comment %} 
+  jQuery-UI CSS must be included before Unify CSS
+{% endcomment %}
+{% block pre_link %}
+  {{ block.super }}  
+  <link rel="stylesheet" href="{% static "vendor/jquery-ui/themes/base/jquery-ui.min.css" %}">
+{% endblock pre_link %}
+
 {% block breadcrumbs %}
-{{ block.super }}
-{% clear_breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
 {% endblock %}
 
 {% block content %}
 {% heading request.user.get_full_name %}
 
+<p class="lead">This is your page - only you can see it. Edit your personal details here.</p>
+
+<div class="d-flex flex-wrap">
+    <a href="{% url 'account_change_password' %}" target="_blank" class="btn u-btn-outline-primary g-mr-10 g-mb-15">
+      <i class="fa fa-key g-mr-5"></i>
+      Change Password
+    </a>
+    <a href="{% url 'account_email' %}" target="_blank" class="btn u-btn-outline-primary g-mr-10 g-mb-15">
+      <i class="fa fa-envelope g-mr-5"></i>
+      Manage Email Addresses
+    </a>
+</div>
+{% if not member and not link_req_sent %}
+  <section class="g-bg-gray-light-v5 g-pa-30">
+    <div class="row">
+      <div class="col-md-9 align-self-center">
+        <h3 class="h4">Associate your account with a CSHC player</h3>
+        <div class="g-mb-20 g-mb-0--md">
+          <p class="lead">Currently your user account is not associated with a CSHC player.</p>
+              
+          <p class="lead">Linking your account to a player will let you edit more information:</p>
+          <ul>
+            <li>Your player profile picture</li>
+            <li>Contact and medical/emergency details</li>
+            {% comment %} <li>Match availabilities</li> {% endcomment %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-3 align-self-center">
+        <form id="feedback_form" method="post" action="{% url 'user_profile' %}">{% csrf_token %}
+          <input type="hidden" name="request_link" value="1">
+          <input class="btn btn-md u-btn-primary g-brd-2 rounded-0" type="submit" value="Hook me up!">
+        </form>
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% if member %}
+  <section class="g-bg-gray-light-v5 g-pa-20 g-pa-50--md g-mt-40--md">
+    <div class="container">
+      <div class="row justify-content-md-around">
+        <div class="col-md-8 align-self-md-center">
+          <h2 class="text-uppercase">View your member stats
+          </h2>
+          <p class="lead g-mb-20 g-mb-0--md">Check out your playing record and a summary of your involvement with CSHC over the years.</p>
+        </div>
+
+        <div class="col-md-4 align-self-md-center text-md-center">
+          <a class="btn u-btn-outline-primary g-brd-2 g-py-12 g-px-30" href="{% url 'member_detail' member.pk %}">View Member Stats</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% comment %} Member Profile Form {% endcomment %}
+  <form class="g-brd-around g-brd-gray-light-v4 g-pa-30 g-my-30" action="{% url 'user_profile' %}" method="post">{% csrf_token %}
+    {% unify_form_non_field_errors %}
+    {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+    {% unify_form_section_heading 'Personal' %}
+    {% unify_form_field 'first_name' 'horizontal' %}
+    {% unify_form_field 'last_name' 'horizontal' %}
+    {% unify_cropped_image_form_field 'profile_pic' 'profile_pic_cropping' 'horizontal' %}
+    
+    {% unify_form_section_divider %}
+    {% unify_form_section_heading 'Playing' %}
+    {% unify_form_field 'shirt_number' 'horizontal' %}
+    {% unify_form_field 'pref_position' 'horizontal' %}
+    
+    {% unify_form_section_divider %}
+    {% unify_form_section_heading 'Contact' %}
+    {% unify_form_field 'phone' 'horizontal' %}
+    {% unify_form_field 'addr_street' 'horizontal' %}
+    {% unify_form_field 'addr_line2' 'horizontal' True %}
+    {% unify_form_field 'addr_town' 'horizontal'  True %}
+    {% unify_form_field 'addr_postcode' 'horizontal'  True %}
+    {% unify_form_field 'addr_position' 'horizontal' True %}
+    
+    {% unify_form_section_divider %}
+    {% unify_form_section_heading 'Medical' %}
+    {% unify_form_field 'dob' 'horizontal' %}
+    {% unify_form_field 'emergency_contact' 'horizontal' %}
+    {% unify_form_field 'emergency_relationship' 'horizontal' %}
+    {% unify_form_field 'emergency_phone' 'horizontal' %}
+    {% unify_form_field 'medical_notes' 'horizontal' %}
+
+    {% unify_form_submit_button 'Save' 'horizontal' %}
+    {% unify_form_required_fields_footnote 'horizontal' %}
+  </form>
+{% else %}
+  {% comment %} User Profile Form {% endcomment %}
+  <form class="g-brd-around g-brd-gray-light-v4 g-pa-30 g-my-30" action="{% url 'user_profile' %}" method="post">{% csrf_token %}
+    <input type="hidden" name="no_member" value="1">
+    {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+    {% unify_form_non_field_errors %}
+    {% unify_form_section_heading 'Personal' %}
+    {% unify_form_field 'first_name' 'horizontal' %}
+    {% unify_form_field 'last_name' 'horizontal' %}
+    
+    {% unify_form_submit_button 'Save' 'horizontal' %}
+    {% unify_form_required_fields_footnote 'horizontal' %}
+  </form>
+{% endif %}
 
 {% endblock content %}
+
+
+{% block body_js %}
+{{ block.super }}
+{% include 'blocks/_focus_state_js.html' %}
+{{ form.media }}
+{% endblock %}

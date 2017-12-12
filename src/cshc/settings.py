@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'awards.apps.AwardsConfig',
     'documents.apps.DocumentsConfig',
     'offers.apps.OffersConfig',
+    'unify.apps.UnifyConfig',
     'jet',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -254,6 +255,8 @@ THUMBNAIL_ALIASES = {
         'member_detail': {'size': (255, 255), 'crop': True},
     },
 }
+
+IMAGE_CROPPING_JQUERY_URL = "None"
 
 # ckeditor
 CKEDITOR_UPLOAD_PATH = 'uploads/'

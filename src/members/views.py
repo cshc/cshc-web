@@ -3,20 +3,24 @@ Views relating to CSHC Members
 """
 
 import logging
+import copy
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import UpdateView
-from django.core.urlresolvers import reverse_lazy, reverse
+from django.core.urlresolvers import reverse_lazy
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.sites.models import Site
 from templated_email import send_templated_mail
 from core.models import CshcUser
+from core.forms import UserProfileForm
 from core.utils import get_thumbnail_url
 from competitions.models import Season
 from teams.models import ClubTeam
 from .models import Member
-from .forms import ProfileEditForm
+from .forms import MemberProfileForm
 
 LOG = logging.getLogger(__name__)
 
@@ -36,78 +40,110 @@ class MemberListView(TemplateView):
         return context
 
 
-class ProfileView(LoginRequiredMixin, UpdateView):
-    """ Player profile view for a particular member.
+def send_link_req(request):
+    """ Send a player link request email to the website admin """
+    try:
+        send_templated_mail(
+            from_email=settings.SERVER_EMAIL,
+            recipient_list=[settings.SERVER_EMAIL],
+            template_name='req_player_link',
+            context={
+                'user': request.user,
+                'base_url': "//" + Site.objects.get_current().domain
+            },
+        )
+    except:
+        LOG.error("Failed to send player link request email for {}".format(
+            request.user), exc_info=True, extra={'request': request})
+        messages.error(
+            request,
+            "Sorry - we were unable to handle your request. Please try again later.")
+        return False
+    else:
+        messages.success(
+            request,
+            "Thanks - your request to be linked to a player/club member has been sent to the website administrator.")
+        return True
 
-        Provides for updating the member details via a form
-        (e.g. profile pic, preferred position).
 
-        Most player stats are loaded via a separate AJAX call.
-    """
-    model = Member
-    template_name = 'members/member_detail.html'
-    form_class = ProfileEditForm
-    success_url = reverse_lazy('user_profile')
+@login_required
+def profile(request):
+    link_req_cookie = 'link_req_sent-{}'.format(request.user.id)
+    context = {}
+    kwargs = dict(user=request.user)
+    member = Member.objects.safe_get(**kwargs)
+    context['member'] = member
 
-    def get_object(self, queryset=None):
-        try:
-            return Member.objects.get(user=self.request.user)
-        except Member.DoesNotExist:
-            return None
+    # We store the fact that the user has requested to be linked to a Member in a cookie
+    # This way we don't show the link request again (on the same browser) once they've clicked on it
+    context['link_req_sent'] = request.COOKIES.get(
+        link_req_cookie, None)
 
-    def send_link_req(self):
-        try:
-            send_templated_mail(
-                from_email=settings.SERVER_EMAIL,
-                recipient_list=[settings.SERVER_EMAIL],
-                template_name='req_player_link',
-                context={
-                    'user': self.request.user,
-                    'base_url': "//" + Site.objects.get_current().domain
-                },
-            )
-        except:
-            LOG.error("Failed to send player link request email for {}".format(
-                self.request.user), exc_info=True, extra={'request': self.request})
-            messages.error(
-                self.request,
-                "Sorry - we were unable to handle your request. Please try again later.")
-        else:
-            messages.success(
-                self.request,
-                "Thanks - your request to be linked to a player/club member has been sent to the website administrator.")
-
-    def get_context_data(self, **kwargs):
-        context = super(ProfileView, self).get_context_data(**kwargs)
-        context['member'] = self.get_object()
-        # if req_link is supplied in the url params, trigger the player link request now
-        req_link_id = self.request.GET.get('req_link_id')
-        if not context['member'] and req_link_id:
+    if request.method == 'POST':
+        if request.POST.get('request_link') == '1':
+            # This is a request to link the authenticated user to a member.
+            context['form'] = UserProfileForm(instance=request.user)
             try:
-                self.send_link_req()
-                context['link_req_sent'] = True
+                success = send_link_req(request)
+                if success:
+                    context['link_req_sent'] = True
+            except CshcUser.DoesNotExist:
+                pass
+        elif request.POST.get('no_member') == '1':
+            # This is a User with no member associated. So we should use the UserProfileForm.
+            form = UserProfileForm(request.POST, instance=request.user)
+            if form.is_valid():
+                updated_user = form.save()
+                messages.success(
+                    request,
+                    "Your profile has been updated successfully")
+                context['form'] = UserProfileForm(instance=updated_user)
+            else:
+                print('Invalid', form.errors)
+                messages.error(
+                    request,
+                    "Profile could not be updated. See individual fields for details.")
+                context['form'] = form
+        else:
+            # This is a User with an associated Member. Use the MemberProfileForm.
+            print('dob', request.POST.get('dob'))
+            form = MemberProfileForm(
+                request.POST, request.FILES, instance=member)
+            print('MemberProfileForm created with POST')
+            if form.is_valid():
+                updated_member = form.save()
+                print('dob-updated', updated_member.dob)
+                messages.success(
+                    request,
+                    "Your profile has been updated successfully")
+                context['form'] = MemberProfileForm(instance=updated_member)
+                context['form'].fields['dob'].initial = updated_member.dob
+                print('MemberProfileForm created with just instance')
+            else:
+                print('Invalid', form.errors)
+                messages.error(
+                    request,
+                    "Profile could not be updated. See individual fields for details.")
+                context['form'] = form
+
+    else:
+        # if req_link is supplied in the url params, trigger the player link request now
+        req_link_id = request.GET.get('req_link_id')
+        if not member and not context['link_req_sent'] and req_link_id is not None:
+            try:
+                success = send_link_req(request)
+                if success:
+                    context['link_req_sent'] = True
             except CshcUser.DoesNotExist:
                 pass
 
-        # Differentiates between this view and MemberDetailView
-        context['is_profile'] = True
-        return context
+        # Create the appropriate form, populated with the model data
+        context['form'] = MemberProfileForm(
+            instance=member) if member is not None else UserProfileForm(instance=request.user)
 
-    def form_valid(self, form):
-        messages.success(self.request, "Nice! Your profile has been updated.")
-        return super(ProfileView, self).form_valid(form)
-
-    def form_invalid(self, form):
-        # HACK: Make use of the invalid form for handling the 'Connect my account
-        # to a player' request
-        if self.request.POST.get('request_link') == '1':
-            self.send_link_req()
-        else:
-            messages.error(
-                self.request,
-                "Failed to update profile. Errors: {}".format(form.errors))
-
-        return super(ProfileView, self).form_invalid(form)
+    response = render(request, 'account/profile.html', context)
+    response.set_cookie(link_req_cookie, context.get('link_req_sent', False))
+    return response
 
 
 class MemberDetailView(DetailView):
