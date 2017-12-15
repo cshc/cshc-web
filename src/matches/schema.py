@@ -8,7 +8,10 @@ from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from django.db.models import Prefetch
 from core import schema_helper
+from core.cursor import CursorPaginatedConnectionField
+from competitions.schema import SeasonNode
 from awards.models import MatchAwardWinner
+from awards.schema import MatchAwardWinnerNode
 from .models import Match, Appearance, GoalKing
 
 
@@ -29,11 +32,47 @@ class GoalKingFilter(django_filters.FilterSet):
         fields = ['team', 'member__gender', 'season__slug']
 
 
+class MatchFilter(django_filters.FilterSet):
+    class Meta:
+        model = Match
+        exclude = []
+
+    order_by = django_filters.OrderingFilter(
+        fields=(
+            ('our_score', 'our_score'),
+        )
+    )
+
+
+class AppearanceNode(DjangoObjectType):
+    """ GraphQL node representing a member's appearance in a match """
+    class Meta:
+        model = Appearance
+        interfaces = (graphene.relay.Node, )
+        filter_fields = {
+            'goals': ['gte'],
+        }
+
+    def prefetch_member(queryset, related_queryset):
+        return queryset.select_related('member')
+
+    def prefetch_match(queryset, related_queryset):
+        return queryset.select_related('match')
+
+
+class AppearanceConnection(graphene.relay.Connection):
+    class Meta:
+        node = AppearanceNode
+
+
 class MatchNode(DjangoObjectType):
     """ GraphQL node representing a match/fixture """
     model_id = graphene.String()
     has_report = graphene.Boolean()
     kit_clash = graphene.Boolean()
+
+    appearances = CursorPaginatedConnectionField(AppearanceNode)
+    award_winners = CursorPaginatedConnectionField(MatchAwardWinnerNode)
 
     class Meta:
         model = Match
@@ -50,15 +89,39 @@ class MatchNode(DjangoObjectType):
     def resolve_kit_clash(self, info):
         return self.kit_clash()
 
+    def prefetch_venue(queryset, related_queryset):
+        print('Prefetch venue')
+        return queryset.select_related('venue')
 
-class AppearanceNode(DjangoObjectType):
-    """ GraphQL node representing a member's appearance in a match """
+    def prefetch_our_team(queryset, related_queryset):
+        print('Prefetch our_team')
+        return queryset.select_related('our_team')
+
+    def prefetch_opp_team(queryset, related_queryset):
+        return queryset.select_related('opp_team__club')
+
+    def prefetch_season(queryset, related_queryset):
+        return queryset.select_related('season')
+
+    def prefetch_division(queryset, related_queryset):
+        return queryset.select_related('division')
+
+    def prefetch_cup(queryset, related_queryset):
+        return queryset.select_related('cup')
+
+    def prefetch_report_author(queryset, related_queryset):
+        return queryset.select_related('report_author')
+
+    # def optimize_appearances(queryset, **kwargs):
+    #     return queryset.prefetch_related(Prefetch('appearances', queryset=Appearance.objects.select_related('member')))
+
+    # def optimize_award_winners(queryset, **kwargs):
+    #     return queryset.prefetch_related(Prefetch('award_winners', queryset=MatchAwardWinner.objects.select_related('member', 'award')))
+
+
+class MatchConnection(graphene.relay.Connection):
     class Meta:
-        model = Appearance
-        # interfaces = (graphene.relay.Node, )
-        # filter_fields = {
-        #     'goals': ['gte'],
-        # }
+        node = MatchNode
 
 
 goalking_field_map = {
@@ -81,10 +144,22 @@ class GoalKingType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     """ GraphQL query for members etc """
+
+    matches2 = DjangoFilterConnectionField(
+        MatchNode, filterset_class=MatchFilter)
+
     matches = schema_helper.OptimizableFilterConnectionField(MatchNode)
+
+    matches_cursor = CursorPaginatedConnectionField(MatchNode)
+
+    seasons_cursor = CursorPaginatedConnectionField(SeasonNode)
+
     appearances = graphene.List(AppearanceNode)
     goal_king_entries = schema_helper.OptimizableFilterConnectionField(
         GoalKingType, filterset_class=GoalKingFilter)
+
+    def resolve_matches_cursor(self, info, **kwargs):
+        return Match.objects.all()
 
     def resolve_matches(self, info, **kwargs):
         appearances_qs = Appearance.objects.select_related('member')

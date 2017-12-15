@@ -9,7 +9,7 @@ from graphene_django import DjangoObjectType
 from matches.models import Appearance
 from awards.models import MatchAwardWinner
 from teams.models import TeamCaptaincy
-from teams.schema import ClubTeamType
+from teams.schema import ClubTeamNode
 from core import schema_helper
 from core.utils import get_thumbnail_url
 from competitions.schema import SeasonNode
@@ -109,7 +109,7 @@ class MemberType(DjangoObjectType):
 
 
 class TeamRepresentationType(graphene.ObjectType):
-    team = graphene.Field(ClubTeamType)
+    team = graphene.Field(ClubTeamNode)
     appearance_count = graphene.Int()
 
 

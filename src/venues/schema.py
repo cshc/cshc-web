@@ -24,7 +24,7 @@ def convert_geofield_to_string(field, registry=None):
     return graphene.String(description=field.help_text, required=not field.null)
 
 
-class VenueType(DjangoObjectType):
+class VenueNode(DjangoObjectType):
     """ GraphQL node representing a match venue """
     model_id = graphene.String()
 
@@ -45,9 +45,9 @@ class VenueType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     """ GraphQL query for venues """
-    venues = schema_helper.OptimizableFilterConnectionField(VenueType)
+    venues = schema_helper.OptimizableFilterConnectionField(VenueNode)
 
-    relay_venues = schema_helper.OptimizableFilterConnectionField(VenueType)
+    relay_venues = schema_helper.OptimizableFilterConnectionField(VenueNode)
 
     def resolve_venues(self, info, **kwargs):
         return schema_helper.optimize(Venue.objects.filter(**kwargs),

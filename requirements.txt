@@ -9,6 +9,12 @@ django-model-utils==3.0.0
 django-filter==1.0.4
 django-braces==1.11.0
 
+# Django Cursor Pagination
+# Ref: https://github.com/photocrowd/django-cursor-pagination
+# Note: attrs is just needed by core/cursor.py
+attrs==17.3.0
+django-cursor-pagination==0.1.2
+
 # Bleach - used by json template tag filter
 bleach==2.1.1
 
@@ -52,7 +58,7 @@ django-image-cropping==1.1.0
 
 # GraphQL support
 # Ref: https://github.com/graphql-python/graphene-django
-graphene-django-=2.0.0
+graphene-django==2.0.0
 
 # Django Templated Email
 # Ref: https://github.com/vintasoftware/django-templated-email

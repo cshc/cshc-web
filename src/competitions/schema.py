@@ -22,8 +22,13 @@ class SeasonNode(DjangoObjectType):
 
     class Meta:
         model = Season
-        interfaces = (graphene.Node, )
+        interfaces = (graphene.relay.Node, )
         filter_fields = ['slug']
+
+
+class SeasonConnection(graphene.relay.Connection):
+    class Meta:
+        node = SeasonNode
 
 
 class DivisionNode(DjangoObjectType):
@@ -35,15 +40,23 @@ class DivisionNode(DjangoObjectType):
 
     class Meta:
         model = Division
-        interfaces = (graphene.Node, )
+        interfaces = (graphene.relay.Node, )
         filter_fields = ['name', 'league__name']
+
+    def prefetch_league(queryset, related_queryset):
+        return queryset.select_related('league')
+
+
+class DivisionConnection(graphene.relay.Connection):
+    class Meta:
+        node = DivisionNode
 
 
 class LeagueNode(DjangoObjectType):
     """ GraphQL node representing a league """
     class Meta:
         model = League
-        interfaces = (graphene.Node, )
+        interfaces = (graphene.relay.Node, )
         filter_fields = ['name']
 
     divisions = schema_helper.OptimizableFilterConnectionField(DivisionNode)
@@ -54,12 +67,25 @@ class LeagueNode(DjangoObjectType):
                                       division_field_map)
 
 
+class LeagueConnection(graphene.relay.Connection):
+    class Meta:
+        node = LeagueNode
+
+
 class CupNode(DjangoObjectType):
     """ GraphQL node representing a cup """
     class Meta:
         model = Cup
-        interfaces = (graphene.Node, )
+        interfaces = (graphene.relay.Node, )
         filter_fields = ['name', 'league__name']
+
+    def prefetch_league(queryset, related_queryset):
+        return queryset.select_related('league')
+
+
+class CupConnection(graphene.relay.Connection):
+    class Meta:
+        node = CupNode
 
 
 class DivisionResultNode(DjangoObjectType):
@@ -71,7 +97,7 @@ class DivisionResultNode(DjangoObjectType):
 
     class Meta:
         model = DivisionResult
-        interfaces = (graphene.Node, )
+        interfaces = (graphene.relay.Node, )
         filter_fields = ['season__slug', 'division__id', 'season_id']
 
 

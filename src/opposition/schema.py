@@ -8,16 +8,31 @@ from core import schema_helper
 from .models import Club, Team, ClubStats
 
 
-class ClubType(DjangoObjectType):
+class ClubNode(DjangoObjectType):
     """ GraphQL node representing an opposition club """
     class Meta:
         model = Club
+        interfaces = (graphene.relay.Node, )
 
 
-class TeamType(DjangoObjectType):
+class ClubConnection(graphene.relay.Connection):
+    class Meta:
+        node = ClubNode
+
+
+class TeamNode(DjangoObjectType):
     """ GraphQL node representing an opposition team """
     class Meta:
         model = Team
+        interfaces = (graphene.relay.Node, )
+
+    def prefetch_club(queryset, related_queryset):
+        return queryset.select_related('club')
+
+
+class TeamConnection(graphene.relay.Connection):
+    class Meta:
+        node = TeamNode
 
 
 class ClubStatsType(DjangoObjectType):
@@ -83,8 +98,8 @@ class ClubStatsType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     """ GraphQL query for members etc """
-    opposition_clubs = graphene.List(ClubType)
-    opposition_teams = graphene.List(TeamType)
+    opposition_clubs = graphene.List(ClubNode)
+    opposition_teams = graphene.List(TeamNode)
     opposition_club_stats = schema_helper.OptimizableFilterConnectionField(
         ClubStatsType)
 

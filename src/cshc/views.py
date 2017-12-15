@@ -6,6 +6,8 @@ from django.views.generic import TemplateView
 from django.utils import timezone
 from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.mixins import UserPassesTestMixin
+from graphene_django.views import GraphQLView
 from training.views import UpcomingTrainingSessionsView
 from core.models import TeamGender
 from core.views import get_season_from_kwargs, add_season_selector
@@ -177,3 +179,10 @@ def templateTestView(request, template):
     """
     context = dict(request.GET.items())
     return render(request, template, context)
+
+
+class CshcGraphQLView(UserPassesTestMixin, GraphQLView):
+    """ Restrict GraphQLView to super-users """
+
+    def test_func(self):
+        return self.request.user.is_superuser
