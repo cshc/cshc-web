@@ -99,6 +99,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
+    # Should be moved to DEBUG settings file
+    'cshc.middleware.SQLPrintingMiddleware',
 ]
 
 ROOT_URLCONF = 'cshc.urls'
