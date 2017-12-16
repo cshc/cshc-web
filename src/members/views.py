@@ -25,6 +25,14 @@ from .forms import MemberProfileForm
 LOG = logging.getLogger(__name__)
 
 
+def js_members():
+    """
+    Return a list of all members, with id and name properties,
+    suitable for passing to JavaScript.
+    """
+    return [{'id': x.id, 'name': x.full_name()} for x in Member.objects.all()]
+
+
 class MemberListView(TemplateView):
     """ View with a list of all members"""
     template_name = 'members/member_list.html'

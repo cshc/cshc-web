@@ -75,6 +75,13 @@ const FilterName = {
   Position: 'position',
   GoalKingGender: 'goalKingGender',
   FixtureType: 'fixtureType',
+  Opposition: 'opposition',
+  Venue: 'venue',
+  MOM: 'mom',
+  LOM: 'lom',
+  ReportAuthor: 'reportAuthor',
+  Players: 'players',
+  Date: 'date',
 };
 
 /**

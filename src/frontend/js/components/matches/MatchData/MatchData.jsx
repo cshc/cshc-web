@@ -12,7 +12,7 @@ import MatchTimeline from '../MatchTimeline';
  * 
  * Also supports excluding columns by name and setting priorities for columns (for responsive display)
  */
-const MatchList = ({
+const MatchData = ({
   viewType,
   matches,
   onSelectViewType,
@@ -41,7 +41,7 @@ const MatchList = ({
   </div>
 );
 
-MatchList.propTypes = {
+MatchData.propTypes = {
   viewType: PropTypes.string.isRequired,
   matches: PropTypes.arrayOf(PropTypes.shape()),
   onSelectViewType: PropTypes.func.isRequired,
@@ -51,7 +51,7 @@ MatchList.propTypes = {
   showViewTypeSwitcher: PropTypes.bool,
 };
 
-MatchList.defaultProps = {
+MatchData.defaultProps = {
   matches: undefined,
   exclude: [],
   priorities: {},
@@ -59,4 +59,4 @@ MatchList.defaultProps = {
   showViewTypeSwitcher: true,
 };
 
-export default MatchList;
+export default MatchData;

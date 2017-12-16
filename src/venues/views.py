@@ -6,8 +6,18 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.views.generic import DetailView, TemplateView
 from django.urls import reverse
 from competitions.models import Season, Division
+from competitions.views import js_divisions
 from teams.models import ClubTeam
+from teams.views import js_clubteams
 from .models import Venue
+
+
+def js_venues():
+    """
+    Return a list of all venues, with id and name properties,
+    suitable for passing to JavaScript.
+    """
+    return list(Venue.objects.values('id', 'name'))
 
 
 class VenueListView(TemplateView):
@@ -21,16 +31,10 @@ class VenueListView(TemplateView):
 
         current_season = Season.current()
 
-        current_divisions = Division.objects.select_related('league').filter(
-            clubteamseasonparticipation__season=current_season).order_by('clubteamseasonparticipation__team__position')
-
-        divisions = [{'id': x.id, 'name': "{}".format(
-            x)} for x in current_divisions]
-
         context['props'] = {
             'currentSeason': current_season.slug,
-            'teams': list(ClubTeam.objects.active().values('long_name', 'slug')),
-            'divisions': divisions,
+            'teams': js_clubteams(True),
+            'divisions': js_divisions(current_season),
         }
         return context
 

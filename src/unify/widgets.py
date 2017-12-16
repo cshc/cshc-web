@@ -101,7 +101,7 @@ class UnifyDateTimeWidget(UnifyWidget):
                 'vendor/jquery-ui/ui/widgets/menu.js',
                 'vendor/jquery-ui/ui/widgets/mouse.js',
                 'vendor/jquery-ui/ui/widgets/datepicker.js',
-                'vendor/unify/js/components/hs.datepicker.js',
+                'js/hs.datepicker.custom.js',
                 'unify/js/datetime-widget.js',
             ])
 

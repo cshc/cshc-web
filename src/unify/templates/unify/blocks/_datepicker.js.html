@@ -1,0 +1,15 @@
+{% load static from staticfiles %}
+
+<script src="{% static "vendor/jquery-ui/ui/widget.js" %}"></script>
+<script src="{% static "vendor/jquery-ui/ui/version.js" %}"></script>
+<script src="{% static "vendor/jquery-ui/ui/keycode.js" %}"></script>
+<script src="{% static "vendor/jquery-ui/ui/position.js" %}"></script>
+<script src="{% static "vendor/jquery-ui/ui/unique-id.js" %}"></script>
+<script src="{% static "vendor/jquery-ui/ui/safe-active-element.js" %}"></script>
+<script src="{% static "vendor/jquery-ui/ui/widgets/menu.js" %}"></script>
+<script src="{% static "vendor/jquery-ui/ui/widgets/mouse.js" %}"></script>
+<script src="{% static "vendor/jquery-ui/ui/widgets/datepicker.js" %}"></script>
+<script src="{% static "js/hs.datepicker.custom.js" %}"></script>
+{% if universal %}
+<script src="{% static "unify/js/datetime-widget.js" %}"></script>
+{% endif %}

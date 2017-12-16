@@ -1,0 +1,17 @@
+.clear {
+  &:hover {
+    color: #d0021b; // Matches react-select styling
+  }
+  &:focus {
+    outline: none;
+  }
+  cursor: pointer;
+  display: table-cell;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: 17px;
+  font-size: 18px;
+  line-height: 1;
+  min-width: 26px;
+}

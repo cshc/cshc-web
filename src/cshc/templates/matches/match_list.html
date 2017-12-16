@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Matches{% endblock %}
+
+{% comment %} 
+  jQuery-UI CSS must be included before Unify CSS
+{% endcomment %}
+{% block pre_link %}
+{{ block.super }}  
+<link rel="stylesheet" href="{% static "vendor/jquery-ui/themes/base/jquery-ui.min.css" %}">
+{% endblock pre_link %}
+
+{% block link %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
+  {% include 'react/react_css.html' with bundle_name='MatchList' %}
+{% endblock link %}
+
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Matches" "match_list" %}
+{% endblock %}
+
+{% block content %}
+  {% heading "Match Search" %}
+
+  <div id="react-app"></div>
+{% endblock content %}
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'unify/blocks/_datepicker.js.html' with universal=False %}
+  {% include 'blocks/_focus_state_js.html' %}
+  {% include 'react/react_js.html' with bundle_name='MatchList' %}
+{% endblock body_js %}

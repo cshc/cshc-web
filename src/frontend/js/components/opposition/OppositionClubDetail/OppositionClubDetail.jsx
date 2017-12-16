@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MatchItem } from 'util/constants';
-import MatchList from 'components/matches/MatchList';
+import MatchData from 'components/matches/MatchData';
 import Match from 'models/match';
 import Accordion from 'components/common/Accordion';
 import AccordionCard from 'components/common/Accordion/AccordionCard';
@@ -44,7 +44,7 @@ const OppositionClubDetail = ({ data, clubName, matchFilters: { oppTeam_Club_Slu
               accordionId="results"
               title={m.team.longName}
             >
-              <MatchList
+              <MatchData
                 matches={m.matches}
                 exclude={[MatchItem.opposition]}
                 dateFormat="Do MMM YY"
@@ -65,7 +65,7 @@ const OppositionClubDetail = ({ data, clubName, matchFilters: { oppTeam_Club_Slu
               accordionId="fixtures"
               title={m.team.longName}
             >
-              <MatchList
+              <MatchData
                 matches={m.matches}
                 exclude={[
                   MatchItem.opposition,

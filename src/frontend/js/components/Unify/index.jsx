@@ -6,6 +6,7 @@ import ResponsiveAbbr from './ResponsiveAbbr';
 import Timeline2 from './Timeline2';
 import Timeline2Item from './Timeline2/Timeline2Item';
 import CustomScrollbar from './CustomScrollbar';
+import DateInput from './DateInput';
 
 export {
   Subheading,
@@ -16,4 +17,5 @@ export {
   Timeline2,
   Timeline2Item,
   CustomScrollbar,
+  DateInput,
 };

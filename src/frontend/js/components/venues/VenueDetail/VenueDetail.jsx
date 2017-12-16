@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { MatchItem } from 'util/constants';
 import { Subheading } from 'components/Unify';
-import MatchList from 'components/matches/MatchList';
+import MatchData from 'components/matches/MatchData';
 import Match from 'models/match';
 import Accordion from 'components/common/Accordion';
 import AccordionCard from 'components/common/Accordion/AccordionCard';
@@ -29,7 +29,7 @@ const VenueDetail = ({ data, venueName }) => {
               accordionId="results"
               title={m.team.longName}
             >
-              <MatchList matches={m.matches} exclude={['venue']} dateFormat="Do MMM YY" />
+              <MatchData matches={m.matches} exclude={['venue']} dateFormat="Do MMM YY" />
             </AccordionCard>
           ))}
         </Accordion>
@@ -46,7 +46,7 @@ const VenueDetail = ({ data, venueName }) => {
               accordionId="fixtures"
               title={m.team.longName}
             >
-              <MatchList
+              <MatchData
                 matches={m.matches}
                 exclude={[MatchItem.venue, MatchItem.result, MatchItem.scorers, MatchItem.awards]}
               />

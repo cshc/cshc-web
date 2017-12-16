@@ -42,3 +42,12 @@
     }
   }
 }
+
+.stacked {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.stackedControl {
+  align-self: stretch;
+}

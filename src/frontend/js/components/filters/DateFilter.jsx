@@ -1,20 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import Select from 'react-select';
+import { DateInput } from 'components/Unify';
 import { FilterValuePropType } from 'components/common/PropTypes';
 import styles from './style.scss';
 
-const SelectFilter = ({
+const DateFilter = ({
   label,
-  options,
   filterName,
   filterValue,
   onSetFilter,
   openUpwards,
   inline,
   stacked,
-  ...props
 }) => {
   const wrapperStyle = classnames(styles.filter, styles.select, 'g-py-10', {
     [styles.upwards]: openUpwards,
@@ -31,38 +29,23 @@ const SelectFilter = ({
     <div className={wrapperStyle}>
       {label && <div className={styles.filterLabel}>{label}</div>}
       <div className={controlStyle}>
-        <Select
-          options={options}
-          simpleValue
-          clearable
-          searchable
-          name={filterName}
-          value={filterValue}
-          onChange={onChange}
-          {...props}
-        />
+        <DateInput name={filterName} value={filterValue} onChange={onChange} />
       </div>
     </div>
   );
 };
 
-SelectFilter.propTypes = {
+DateFilter.propTypes = {
   label: PropTypes.string,
   filterName: PropTypes.string.isRequired,
   onSetFilter: PropTypes.func.isRequired,
   filterValue: FilterValuePropType,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string,
-      value: FilterValuePropType,
-    }),
-  ).isRequired,
   openUpwards: PropTypes.bool,
   inline: PropTypes.bool,
   stacked: PropTypes.bool,
 };
 
-SelectFilter.defaultProps = {
+DateFilter.defaultProps = {
   filterValue: undefined,
   openUpwards: false,
   label: undefined,
@@ -70,4 +53,4 @@ SelectFilter.defaultProps = {
   stacked: false,
 };
 
-export default SelectFilter;
+export default DateFilter;

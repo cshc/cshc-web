@@ -6,6 +6,14 @@ from django.views.generic import TemplateView, DetailView
 from .models import Club, ClubStats
 
 
+def js_opposition_clubs():
+    """
+    Return a list of all opposition clubs, with 'id' and 'name' properties
+    (suitable for passing to JavaScript)
+    """
+    return list(Club.objects.values('slug', 'name'))
+
+
 class ClubListView(TemplateView):
     """ View for a list of opposition clubs"""
 

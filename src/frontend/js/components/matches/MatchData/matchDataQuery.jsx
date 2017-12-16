@@ -1,9 +1,8 @@
 import gql from 'graphql-tag';
 import { compose, graphql } from 'react-apollo';
 import withApolloResults from 'components/common/ApolloResults';
-import { withApollo } from 'react-apollo/withApollo';
 
-export const MATCH_LIST_QUERY = gql`
+export const MATCH_DATA_QUERY = gql`
   query MatchList(
     $venue_Name: String
     $season_Slug: String
@@ -93,7 +92,7 @@ export const MATCH_LIST_QUERY = gql`
   }
 `;
 
-export const matchListOptions = {
+export const matchDataOptions = {
   options: ({ matchFilters }) => ({
     variables: matchFilters,
     fetchPolicy: 'cache-and-network',
@@ -106,4 +105,4 @@ export const matchListOptions = {
   }),
 };
 
-export default compose(graphql(MATCH_LIST_QUERY, matchListOptions), withApolloResults);
+export default compose(graphql(MATCH_DATA_QUERY, matchDataOptions), withApolloResults);

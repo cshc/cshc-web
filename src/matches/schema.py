@@ -77,8 +77,18 @@ class MatchNode(DjangoObjectType):
     class Meta:
         model = Match
         interfaces = (graphene.relay.Node, )
-        filter_fields = ['venue__name', 'opp_team__name', 'opp_team__club__slug',
-                         'our_team__slug', 'season__slug', 'appearances__member__id', 'report_author__id']
+        filter_fields = {
+            'venue__slug': ['exact'],
+            'opp_team__name': ['exact'],
+            'opp_team__club__slug': ['exact'],
+            'fixture_type': ['exact'],
+            'date': ['exact', 'gte', 'lte'],
+            'our_team__slug': ['exact'],
+            'our_team__gender': ['exact'],
+            'season__slug': ['exact'],
+            'appearances__member': ['in'],
+            'report_author__id': ['exact'],
+        }
 
     def resolve_model_id(self, info):
         return self.id
@@ -90,11 +100,9 @@ class MatchNode(DjangoObjectType):
         return self.kit_clash()
 
     def prefetch_venue(queryset, related_queryset):
-        print('Prefetch venue')
         return queryset.select_related('venue')
 
     def prefetch_our_team(queryset, related_queryset):
-        print('Prefetch our_team')
         return queryset.select_related('our_team')
 
     def prefetch_opp_team(queryset, related_queryset):

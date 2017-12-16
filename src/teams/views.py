@@ -14,6 +14,14 @@ from core.views import kwargs_or_none, add_season_selector, get_season_from_kwar
 from .models import ClubTeam, ClubTeamSeasonParticipation, Southerner
 
 
+def js_clubteams(active_only=False):
+    """ Return a list of all club teams, with 'long_name' and 'slug' properties, suitable for passing to JavaScript """
+    teams = ClubTeam.objects.all()
+    if active_only:
+        teams = teams.filter(active=True)
+    return list(teams.values('long_name', 'slug'))
+
+
 class ClubTeamListView(TemplateView):
     """ View of a list of all CSHC teams. """
 

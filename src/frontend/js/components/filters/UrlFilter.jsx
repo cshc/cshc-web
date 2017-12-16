@@ -4,6 +4,7 @@ import BooleanFilter from './BooleanFilter';
 import SelectFilter from './SelectFilter';
 import OptionListFilter from './OptionListFilter';
 import TextFilter from './TextFilter';
+import DateFilter from './DateFilter';
 
 const handlerName = urlQueryPropName =>
   `onChange${urlQueryPropName.charAt(0).toUpperCase() + urlQueryPropName.substr(1)}`;
@@ -49,4 +50,5 @@ module.exports = {
   SelectFilter: UrlFilter(SelectFilter),
   OptionListFilter: UrlFilter(OptionListFilter),
   TextFilter: UrlFilter(TextFilter),
+  DateFilter: UrlFilter(DateFilter),
 };

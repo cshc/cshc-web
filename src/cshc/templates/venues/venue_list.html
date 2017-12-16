@@ -6,6 +6,7 @@
 {% block title %}{{ block.super }} | Venues{% endblock %}
 
 {% block link %}
+  {{ block.super }}
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
   {% include 'react/react_css.html' with bundle_name='VenueList' %}
 {% endblock link %}
@@ -22,7 +23,7 @@
 
 {% endblock content %}
 
-{% block body_js %}
-  {{ block.super }}
-  {% include 'react/react_js.html' with bundle_name='VenueList' %}
-{% endblock body_js %}
+  {% block body_js %}
+    {{ block.super }}
+    {% include 'react/react_js.html' with bundle_name='VenueList' %}
+  {% endblock body_js %}

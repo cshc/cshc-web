@@ -1,4 +1,4 @@
-import MatchListWithData from 'components/matches/MatchList/matchListQuery';
+import MatchDataWithData from 'components/matches/MatchData/matchDataQuery';
 import OppositionClubDetail from './OppositionClubDetail';
 
-export default MatchListWithData(OppositionClubDetail);
+export default MatchDataWithData(OppositionClubDetail);

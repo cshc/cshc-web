@@ -1,20 +1,20 @@
-import MatchListWithData from 'components/matches/MatchList/matchListQuery';
-import MatchList from 'components/matches/MatchList';
+import MatchDataWithData from 'components/matches/MatchData/matchDataQuery';
+import MatchData from 'components/matches/MatchData';
 import { MatchItem } from 'util/constants';
 
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MemberMatchList = ({ data, ...props }) => (
-  <MatchList
+const MemberMatchData = ({ data, ...props }) => (
+  <MatchData
     exclude={[MatchItem.fixtureType, MatchItem.time, MatchItem.scorers, MatchItem.awards]}
     matches={data.edges.map(m => m.node)}
     {...props}
   />
 );
 
-MemberMatchList.propTypes = {
+MemberMatchData.propTypes = {
   data: PropTypes.shape().isRequired,
 };
 
-export default MatchListWithData(MemberMatchList);
+export default MatchDataWithData(MemberMatchData);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Match from 'models/match';
 import { MatchItem } from 'util/constants';
 import { toGraphQLId } from 'util/cshc';
-import MatchList from 'components/matches/MatchList';
+import MatchData from 'components/matches/MatchData';
 import LeagueTable from 'components/competitions/LeagueTable';
 import Accordion from 'components/common/Accordion';
 import AccordionCard from 'components/common/Accordion/AccordionCard';
@@ -29,12 +29,12 @@ const TeamDetail = ({ data, division, teamId, teamGenderlessName, seasonId }) =>
     <Accordion accordionId="team-details">
       {results.length > 0 ? (
         <AccordionCard cardId="results" accordionId="team-details" title="Results">
-          <MatchList matches={results} />
+          <MatchData matches={results} />
         </AccordionCard>
       ) : null}
       {fixtures.length > 0 ? (
         <AccordionCard cardId="fixtures" accordionId="team-details" title="Fixtures">
-          <MatchList
+          <MatchData
             matches={fixtures}
             exclude={[MatchItem.result, MatchItem.scorers, MatchItem.awards]}
             priorities={{ [MatchItem.time]: 1 }}

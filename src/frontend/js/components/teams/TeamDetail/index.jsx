@@ -1,4 +1,4 @@
-import MatchListWithData from 'components/matches/MatchList/matchListQuery';
+import MatchDataWithData from 'components/matches/MatchData/matchDataQuery';
 import TeamDetail from './TeamDetail';
 
-export default MatchListWithData(TeamDetail);
+export default MatchDataWithData(TeamDetail);

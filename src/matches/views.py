@@ -7,25 +7,32 @@ from django.views.generic import DetailView, ListView, TemplateView
 from django.db.models import Q
 from awards.models import MatchAward
 from competitions.models import Season
+from competitions.views import js_divisions, js_seasons
 from core.models import ClubInfo, Gender
 from core.views import get_season_from_kwargs, add_season_selector, kwargs_or_none
 from teams.models import ClubTeam
+from teams.views import js_clubteams
+from opposition.views import js_opposition_clubs
+from venues.views import js_venues
+from members.views import js_members
 from .models import Match, GoalKing, Appearance
+from .filters import MatchFilter
 
 
-class MatchListView(ListView):
+class MatchListView(TemplateView):
     """ A view of all matches - paginated, filterable, sortable"""
-    model = Match
+    template_name = 'matches/match_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(MatchListView, self).get_context_data(**kwargs)
-        # match_qs = Match.objects.select_related('our_team', 'opp_team__club', 'venue',
-        #                                         'division__league', 'cup', 'season')
-        # match_qs = match_qs.prefetch_related('players')
-        # match_qs = match_qs.defer('report_body', 'pre_match_hype')
-        # match_qs = match_qs.order_by('-date', '-time')
-
-        # context['filter'] = MatchFilter(self.request.GET, queryset=match_qs)
+        context['props'] = {
+            'teams': js_clubteams(),
+            'divisions': js_divisions(),
+            'opposition_clubs': js_opposition_clubs(),
+            'seasons': js_seasons(),
+            'venues': js_venues(),
+            'members': js_members(),
+        }
         return context
 
 
