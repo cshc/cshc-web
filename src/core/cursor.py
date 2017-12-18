@@ -3,17 +3,50 @@ Copied from https://gist.github.com/mjtamlyn/e8e03d78764552289ea4e2155c554deb
 """
 
 import functools
-
-from django.db.models import Prefetch, QuerySet
-
 import attr
 import graphene
 from graphene.utils.str_converters import to_snake_case
+from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
+from django.db.models import Prefetch, QuerySet
 from cursor_pagination import CursorPaginator
 from graphql_relay import connection_from_list
 
 from .optimization import get_fields, get_node_type
+
+
+class PageableConnection(graphene.relay.Connection):
+    """ A Relay Connection that exposes a 'totalCount' property """
+    total_count = graphene.Int(
+        name="totalCount", description="The total number of items that could be returned")
+
+    def __init__(self, *args, **kwargs):
+        self._total_queryset = kwargs.pop('total_queryset', None)
+        super(PageableConnection, self).__init__(*args, **kwargs)
+
+    class Meta:
+        abstract = True
+
+    def resolve_total_count(self, info, **kwargs):
+        return self._total_queryset.count() if self._total_queryset else 0
+
+
+class PageableDjangoObjectType(DjangoObjectType):
+    """ A DjangoObjectType that uses a PageableConnection connection """
+
+    class Meta:
+        abstract = True
+
+    @classmethod
+    def __init_subclass_with_meta__(cls, model=None, registry=None, skip_registry=False,
+                                    only_fields=(), exclude_fields=(), filter_fields=None, connection=None,
+                                    use_connection=None, interfaces=(), **options):
+        connection = PageableConnection.create_type(
+            '{}Connection'.format(cls.__name__), node=cls)
+
+        super(PageableDjangoObjectType, cls).__init_subclass_with_meta__(model=model, registry=registry, skip_registry=skip_registry,
+                                                                         only_fields=only_fields, exclude_fields=exclude_fields, filter_fields=filter_fields, connection=connection,
+                                                                         use_connection=use_connection, interfaces=interfaces, **options)
 
 
 @attr.s
@@ -24,7 +57,7 @@ class PageQuery(object):
     last = attr.ib()
 
 
-def connection_from_cursor_paginated(queryset, connection_type, edge_type, pageinfo_type, page_query=None):
+def connection_from_cursor_paginated(queryset, connection_type, edge_type, pageinfo_type, page_query=None, total_queryset=None):
     """Create a Connection object from a queryset, using CursorPaginator"""
     paginator = CursorPaginator(queryset, queryset.query.order_by)
     if page_query is None:
@@ -56,6 +89,7 @@ def connection_from_cursor_paginated(queryset, connection_type, edge_type, pagei
     return connection_type(
         edges=edges,
         page_info=page_info,
+        total_queryset=total_queryset,
     )
 
 
@@ -99,9 +133,7 @@ def apply_optimizers(queryset, node_type, subfields, info, post_processors):
                 if prefetcher is not None:
                     queryset = prefetcher(queryset, related_queryset)
                 elif isinstance(queryset, QuerySet):
-                    print('Automatic prefetch of {}'.format(field_name))
-                    queryset = queryset.prefetch_related(
-                        Prefetch(field_name, queryset=related_queryset))
+                    queryset = queryset.select_related(field_name)
 
         # Now look for any field-specific optimizers, and apply them.
         # These are called `optimize_FOO`, and take the queryset, info,
@@ -183,6 +215,7 @@ def apply_ordering(queryset, **kwargs):
 
 
 class CursorPaginatedConnectionField(DjangoFilterConnectionField):
+
     def __init__(self, *args, **kwargs):
         kwargs['resolver'] = self.cursor_resolver
         kwargs.setdefault('before', graphene.String())
@@ -228,6 +261,7 @@ class CursorPaginatedConnectionField(DjangoFilterConnectionField):
                 edge_type=self.type.Edge,
                 pageinfo_type=graphene.relay.PageInfo,
                 page_query=page_query,
+                total_queryset=queryset,
             )
         # Post processors currently only work when the processor model is the
         # topmost model, behaviour below that is undefined and may break

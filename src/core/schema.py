@@ -3,17 +3,17 @@ GraphQL Schema for Core models
 """
 
 import graphene
-from graphene_django import DjangoObjectType
+from .cursor import PageableDjangoObjectType
 from .models import CshcUser, ClubInfo
 
 
-class CshcUserType(DjangoObjectType):
+class CshcUserType(PageableDjangoObjectType):
     """ GraphQL node representing a CSHC user """
     class Meta:
         model = CshcUser
 
 
-class ClubInfoType(DjangoObjectType):
+class ClubInfoType(PageableDjangoObjectType):
     """ GraphQL node representing a club info entry """
     class Meta:
         model = ClubInfo

@@ -3,13 +3,12 @@ GraphQL Schema for Venues
 """
 
 import graphene
-from graphene_django import DjangoObjectType
-from graphene_django.filter import DjangoFilterConnectionField
+from graphene_django.converter import convert_django_field
+from geoposition.fields import GeopositionField
+from core.cursor import PageableDjangoObjectType
 from core import schema_helper
 from .models import Venue
 
-from graphene_django.converter import convert_django_field, convert_field_to_string
-from geoposition.fields import GeopositionField
 
 field_map = {
     "matches": ("matches", "select"),
@@ -24,7 +23,7 @@ def convert_geofield_to_string(field, registry=None):
     return graphene.String(description=field.help_text, required=not field.null)
 
 
-class VenueNode(DjangoObjectType):
+class VenueNode(PageableDjangoObjectType):
     """ GraphQL node representing a match venue """
     model_id = graphene.String()
 

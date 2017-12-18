@@ -3,11 +3,11 @@ GraphQL Schema for Training Sessions etc
 """
 
 import graphene
-from graphene_django import DjangoObjectType
+from core.cursor import PageableDjangoObjectType
 from .models import TrainingSession
 
 
-class TrainingSessionType(DjangoObjectType):
+class TrainingSessionType(PageableDjangoObjectType):
     """ GraphQL node representing a training session """
     class Meta:
         model = TrainingSession

@@ -5,11 +5,11 @@ GraphQL Schema for Members etc
 import graphene
 import django_filters
 from django.db.models import (Count, Sum, Q)
-from graphene_django import DjangoObjectType
 from matches.models import Appearance
 from awards.models import MatchAwardWinner
 from teams.models import TeamCaptaincy
 from teams.schema import ClubTeamNode
+from core.cursor import PageableDjangoObjectType
 from core import schema_helper
 from core.utils import get_thumbnail_url
 from competitions.schema import SeasonNode
@@ -47,13 +47,13 @@ class MemberFilter(django_filters.FilterSet):
                   'teamcaptaincy__season__slug']
 
 
-class CommitteePositionType(DjangoObjectType):
+class CommitteePositionType(PageableDjangoObjectType):
     """ GraphQL node representing a committee position """
     class Meta:
         model = CommitteePosition
 
 
-class CommitteeMembershipNode(DjangoObjectType):
+class CommitteeMembershipNode(PageableDjangoObjectType):
     """ GraphQL node representing a committee membership """
     class Meta:
         model = CommitteeMembership
@@ -64,13 +64,13 @@ class CommitteeMembershipNode(DjangoObjectType):
         }
 
 
-class SquadMembershipType(DjangoObjectType):
+class SquadMembershipType(PageableDjangoObjectType):
     """ GraphQL node representing a member's squad membership """
     class Meta:
         model = SquadMembership
 
 
-class MemberType(DjangoObjectType):
+class MemberNode(PageableDjangoObjectType):
     """ GraphQL node representing a club member """
     model_id = graphene.String()
     thumb_url = graphene.String(profile=graphene.String())
@@ -80,7 +80,7 @@ class MemberType(DjangoObjectType):
 
     class Meta:
         model = Member
-        interfaces = (graphene.Node, )
+        interfaces = (graphene.relay.Node, )
         filter_fields = {
             'first_name': ['exact', 'icontains', 'istartswith'],
             'last_name': ['exact', 'icontains', 'istartswith'],
@@ -114,7 +114,7 @@ class TeamRepresentationType(graphene.ObjectType):
 
 
 class MemberStatsType(graphene.ObjectType):
-    member = graphene.Field(MemberType)
+    member = graphene.Field(MemberNode)
     played = graphene.Int()
     won = graphene.Int()
     drawn = graphene.Int()
@@ -167,7 +167,7 @@ class Query(graphene.ObjectType):
 
     squad_memberships = graphene.List(SquadMembershipType)
     members = schema_helper.OptimizableFilterConnectionField(
-        MemberType, filterset_class=MemberFilter)
+        MemberNode, filterset_class=MemberFilter)
     squad_stats = graphene.Field(
         SquadStatsType, season=graphene.Int(), team=graphene.Int(), fixture_Type=graphene.String())
 

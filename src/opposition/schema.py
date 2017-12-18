@@ -3,39 +3,26 @@ GraphQL Schema for opposition clubs and teams etc
 """
 
 import graphene
-from graphene_django import DjangoObjectType
+from core.cursor import PageableDjangoObjectType
 from core import schema_helper
 from .models import Club, Team, ClubStats
 
 
-class ClubNode(DjangoObjectType):
+class ClubNode(PageableDjangoObjectType):
     """ GraphQL node representing an opposition club """
     class Meta:
         model = Club
         interfaces = (graphene.relay.Node, )
 
 
-class ClubConnection(graphene.relay.Connection):
-    class Meta:
-        node = ClubNode
-
-
-class TeamNode(DjangoObjectType):
+class TeamNode(PageableDjangoObjectType):
     """ GraphQL node representing an opposition team """
     class Meta:
         model = Team
         interfaces = (graphene.relay.Node, )
 
-    def prefetch_club(queryset, related_queryset):
-        return queryset.select_related('club')
 
-
-class TeamConnection(graphene.relay.Connection):
-    class Meta:
-        node = TeamNode
-
-
-class ClubStatsType(DjangoObjectType):
+class ClubStatsType(PageableDjangoObjectType):
     """ GraphQL node representing a club stats record """
     home_played = graphene.Int()
     away_played = graphene.Int()

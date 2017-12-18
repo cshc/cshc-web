@@ -3,8 +3,8 @@ GraphQL Schema for Competitions
 """
 
 import graphene
-from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
+from core.cursor import PageableDjangoObjectType
 from core import schema_helper
 from .models import Season, League, Division, Cup, DivisionResult
 
@@ -13,7 +13,7 @@ division_field_map = {
 }
 
 
-class SeasonNode(DjangoObjectType):
+class SeasonNode(PageableDjangoObjectType):
     """ GraphQL node representing a season """
     model_id = graphene.String()
 
@@ -26,12 +26,7 @@ class SeasonNode(DjangoObjectType):
         filter_fields = ['slug']
 
 
-class SeasonConnection(graphene.relay.Connection):
-    class Meta:
-        node = SeasonNode
-
-
-class DivisionNode(DjangoObjectType):
+class DivisionNode(PageableDjangoObjectType):
     """ GraphQL node representing a division """
     model_id = graphene.String()
 
@@ -43,16 +38,8 @@ class DivisionNode(DjangoObjectType):
         interfaces = (graphene.relay.Node, )
         filter_fields = ['name', 'league__name']
 
-    def prefetch_league(queryset, related_queryset):
-        return queryset.select_related('league')
 
-
-class DivisionConnection(graphene.relay.Connection):
-    class Meta:
-        node = DivisionNode
-
-
-class LeagueNode(DjangoObjectType):
+class LeagueNode(PageableDjangoObjectType):
     """ GraphQL node representing a league """
     class Meta:
         model = League
@@ -67,28 +54,15 @@ class LeagueNode(DjangoObjectType):
                                       division_field_map)
 
 
-class LeagueConnection(graphene.relay.Connection):
-    class Meta:
-        node = LeagueNode
-
-
-class CupNode(DjangoObjectType):
+class CupNode(PageableDjangoObjectType):
     """ GraphQL node representing a cup """
     class Meta:
         model = Cup
         interfaces = (graphene.relay.Node, )
         filter_fields = ['name', 'league__name']
 
-    def prefetch_league(queryset, related_queryset):
-        return queryset.select_related('league')
 
-
-class CupConnection(graphene.relay.Connection):
-    class Meta:
-        node = CupNode
-
-
-class DivisionResultNode(DjangoObjectType):
+class DivisionResultNode(PageableDjangoObjectType):
     """ GraphQL node representing an entry in a league table """
     team_name = graphene.String()
 

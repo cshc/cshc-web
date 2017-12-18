@@ -3,8 +3,8 @@ GraphQL Schema for Awards and Award Winners
 """
 
 import graphene
-from graphene_django import DjangoObjectType
 from core import schema_helper
+from core.cursor import PageableDjangoObjectType
 from .models import MatchAward, EndOfSeasonAward, MatchAwardWinner, EndOfSeasonAwardWinner
 
 end_of_season_award_winner_field_map = {
@@ -14,58 +14,29 @@ end_of_season_award_winner_field_map = {
 }
 
 
-class MatchAwardNode(DjangoObjectType):
+class MatchAwardNode(PageableDjangoObjectType):
     """ GraphQL node representing a match award """
     class Meta:
         model = MatchAward
         interfaces = (graphene.relay.Node, )
 
 
-class MatchAwardConnection(graphene.relay.Connection):
-    class Meta:
-        node = MatchAwardNode
-
-
-class EndOfSeasonAwardNode(DjangoObjectType):
+class EndOfSeasonAwardNode(PageableDjangoObjectType):
     """ GraphQL node representing an end-of-season award """
     class Meta:
         model = EndOfSeasonAward
         interfaces = (graphene.relay.Node, )
 
 
-class EndOfSeasonAwardConnection(graphene.relay.Connection):
-    class Meta:
-        node = EndOfSeasonAwardNode
-
-
-class MatchAwardConnection(graphene.relay.Connection):
-    class Meta:
-        node = MatchAwardNode
-
-
-class MatchAwardWinnerNode(DjangoObjectType):
+class MatchAwardWinnerNode(PageableDjangoObjectType):
     """ GraphQL node representing a match award winner """
     class Meta:
         model = MatchAwardWinner
         interfaces = (graphene.relay.Node, )
         filter_fields = ['match__id']
 
-    def prefetch_member(queryset, related_queryset):
-        return queryset.select_related('member')
 
-    def prefetch_match(queryset, related_queryset):
-        return queryset.select_related('match')
-
-    def prefetch_award(queryset, related_queryset):
-        return queryset.select_related('award')
-
-
-class MatchAwardWinnerConnection(graphene.relay.Connection):
-    class Meta:
-        node = MatchAwardWinnerNode
-
-
-class EndOfSeasonAwardWinnerNode(DjangoObjectType):
+class EndOfSeasonAwardWinnerNode(PageableDjangoObjectType):
     """ GraphQL node representing an end-of-season award winner """
     class Meta:
         model = EndOfSeasonAwardWinner
@@ -75,20 +46,6 @@ class EndOfSeasonAwardWinnerNode(DjangoObjectType):
             'season__slug': ['exact'],
             'award__name': ['exact', 'icontains', 'istartswith'],
         }
-
-    def prefetch_member(queryset, related_queryset):
-        return queryset.select_related('member')
-
-    def prefetch_season(queryset, related_queryset):
-        return queryset.select_related('season')
-
-    def prefetch_award(queryset, related_queryset):
-        return queryset.select_related('award')
-
-
-class EndOfSeasonAwardWinnerConnection(graphene.relay.Connection):
-    class Meta:
-        node = MatchAwardWinnerNode
 
 
 class Query(graphene.ObjectType):
