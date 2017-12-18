@@ -30,7 +30,7 @@ def js_members():
     Return a list of all members, with id and name properties,
     suitable for passing to JavaScript.
     """
-    return [{'id': x.id, 'name': x.full_name()} for x in Member.objects.all()]
+    return [{'id': x.id, 'name': x.full_name()} for x in Member.objects.only('id', 'first_name', 'last_name')]
 
 
 class MemberListView(TemplateView):

@@ -158,9 +158,9 @@
             <li class="dropdown-item {% active_link 'user_profile' %}">
               <a href="{% url 'user_profile' %}" class="nav-link"><i class="fa fa-fw fa-user g-mr-10"></i>Edit Profile</a>
             </li>
-            {% if user.member %}
-            <li class="dropdown-item {% active_link 'member_detail' user.member.pk %}">
-              <a href="{% url 'member_detail' user.member.pk %}" class="nav-link"><i class="fa fa-fw fa-bar-chart g-mr-10"></i>Member Stats</a>
+            {% if member_id %}
+            <li class="dropdown-item {% active_link 'member_detail' member_id %}">
+              <a href="{% url 'member_detail' member_id %}" class="nav-link"><i class="fa fa-fw fa-bar-chart g-mr-10"></i>Member Stats</a>
             </li>
             {% endif %}
             {% if user.is_staff %}

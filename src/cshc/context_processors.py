@@ -10,13 +10,19 @@
 """
 
 from django.conf import settings
+from members.models import Member
 
 # pylint: disable=W0613
 
 
 def utils(request):
     """ Returns common context items. """
+    try:
+        member = Member.objects.only('id').get(user_id=request.user.id)
+    except Member.DoesNotExist:
+        member = None
     context = {
+        'member_id': member.id if member else None,
         'VERSION': settings.VERSION,
         'STATIC_URL': settings.STATIC_URL,
         "GMAPS_API_KEY": settings.GMAPS_API_KEY,

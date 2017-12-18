@@ -1,7 +1,15 @@
 """ Model utils """
 
 import uuid
+from django.core.exceptions import ObjectDoesNotExist
 from model_utils import Choices
+
+
+def get_or_none(model, **kwargs):
+    try:
+        return model.objects.get(**kwargs)
+    except ObjectDoesNotExist:
+        return None
 
 # pylint: disable=C0103
 
