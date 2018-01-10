@@ -6,28 +6,26 @@ import { NoFilter } from 'util/constants';
 export const GOAL_KING_QUERY = gql`
   query GoalKing($member_Gender: String, $season_Slug: String, $team: String) {
     goalKingEntries(member_Gender: $member_Gender, season_Slug: $season_Slug, team: $team) {
-      edges {
-        node {
-          member {
-            firstName
-            lastName
-            gender
-            modelId
-          }
-          m1Goals
-          m2Goals
-          m3Goals
-          m4Goals
-          m5Goals
-          l1Goals
-          l2Goals
-          l3Goals
-          l4Goals
-          mixedGoals
-          indoorGoals
-          totalGoals
-          gpg
+      results(pageSize: 1000) {
+        member {
+          firstName
+          lastName
+          gender
+          id
         }
+        m1Goals
+        m2Goals
+        m3Goals
+        m4Goals
+        m5Goals
+        l1Goals
+        l2Goals
+        l3Goals
+        l4Goals
+        mixedGoals
+        indoorGoals
+        totalGoals
+        gpg
       }
     }
   }

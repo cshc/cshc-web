@@ -1,3 +1,5 @@
+import { format as dateFormat } from 'date-fns';
+
 const toTitleCase = str =>
   str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 
@@ -18,6 +20,14 @@ const nonZero = value => (value > 0 ? value : null);
 
 const rounded = (value, precision = 1) => (value ? value.toFixed(precision) : null);
 
+const djangoDate = (date, separator = '-') => {
+  const parts = date.split(separator);
+  return dateFormat(
+    new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10)),
+    'YYYY-MM-DD',
+  );
+};
+
 module.exports = {
   toTitleCase,
   toGraphQLId,
@@ -25,4 +35,5 @@ module.exports = {
   getPosition,
   nonZero,
   rounded,
+  djangoDate,
 };

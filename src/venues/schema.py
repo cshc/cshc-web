@@ -3,33 +3,25 @@ GraphQL Schema for Venues
 """
 
 import graphene
-from graphene_django.converter import convert_django_field
 from geoposition.fields import GeopositionField
-from core.cursor import PageableDjangoObjectType
-from core import schema_helper
+from graphene_django_extras.converter import convert_django_field
+from graphene_django_extras.utils import is_required
+from graphene_django_extras import DjangoListObjectType, DjangoObjectType
+from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
 from .models import Venue
 
 
-field_map = {
-    "matches": ("matches", "select"),
-    "matches__division": ("matches__division", "select"),
-    "amtches__season": ("amtches__season", "select"),
-    "matches__our_team": ("matches__our_team", "select"),
-}
-
-
 @convert_django_field.register(GeopositionField)
-def convert_geofield_to_string(field, registry=None):
-    return graphene.String(description=field.help_text, required=not field.null)
+def convert_geofield_to_string(field, registry=None, input_flag=None, nested_fields=False):
+    return graphene.String(description=field.help_text or field.verbose_name,
+                           required=is_required(field) and input_flag == 'create')
 
 
-class VenueNode(PageableDjangoObjectType):
+class VenueType(DjangoObjectType):
     """ GraphQL node representing a match venue """
-    model_id = graphene.String()
 
     class Meta:
         model = Venue
-        interfaces = (graphene.relay.Node, )
         filter_fields = {
             'name': ['exact', 'icontains', 'istartswith'],
             'matches__division': ['exact'],
@@ -38,17 +30,14 @@ class VenueNode(PageableDjangoObjectType):
             'is_home': ['exact'],
         }
 
-    def resolve_model_id(self, info):
-        return self.id
+
+class VenueList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a list of venues"
+        model = Venue
+        pagination = get_paginator()
 
 
 class Query(graphene.ObjectType):
     """ GraphQL query for venues """
-    venues = schema_helper.OptimizableFilterConnectionField(VenueNode)
-
-    relay_venues = schema_helper.OptimizableFilterConnectionField(VenueNode)
-
-    def resolve_venues(self, info, **kwargs):
-        return schema_helper.optimize(Venue.objects.filter(**kwargs),
-                                      info,
-                                      field_map).distinct()
+    venues = OptimizedDjangoListObjectField(VenueList)

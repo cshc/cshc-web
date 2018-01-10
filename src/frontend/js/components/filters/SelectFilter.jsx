@@ -21,7 +21,7 @@ const SelectFilter = ({
     [styles.inline]: inline,
     [styles.stacked]: stacked,
   });
-  const controlStyle = classnames(styles.filterLabel, {
+  const controlStyle = classnames(styles.filterControl, {
     [styles.stackedControl]: stacked,
   });
   const onChange = (value) => {

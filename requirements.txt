@@ -9,6 +9,8 @@ django-model-utils==3.0.0
 django-filter==1.0.4
 django-braces==1.11.0
 
+graphene_django_extras==0.2.0
+
 # Django Cursor Pagination
 # Ref: https://github.com/photocrowd/django-cursor-pagination
 # Note: attrs is just needed by core/cursor.py

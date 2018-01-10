@@ -10,7 +10,7 @@ const MemberLink = ({ member, badgeCount, useFullName }) => {
   const title = `${Member.fullName(member)} - view profile`;
   const label = useFullName ? Member.fullName(member) : Member.firstNameAndInitial(member);
   return (
-    <a href={Urls.member_detail(member.modelId)} title={title}>
+    <a href={Urls.member_detail(member.id)} title={title}>
       {label}
       {badgeCount > 1 && <span className=""> ({badgeCount})</span>}
     </a>

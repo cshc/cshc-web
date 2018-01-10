@@ -4,53 +4,51 @@ import withApolloResults from 'components/common/ApolloResults';
 
 export const MATCH_DATA_QUERY = gql`
   query MatchList(
-    $venue_Name: String
+    $venue_Slug: String
     $season_Slug: String
     $ourTeam_Slug: String
     $oppTeam_Club_Slug: String
-    $appearances_Member_Id: ID
+    $appearances_MemberId_In: ID
   ) {
     matches(
-      venue_Name: $venue_Name
+      venue_Slug: $venue_Slug
       season_Slug: $season_Slug
       ourTeam_Slug: $ourTeam_Slug
       oppTeam_Club_Slug: $oppTeam_Club_Slug
-      appearances_Member_Id: $appearances_Member_Id
+      appearances_MemberId_In: $appearances_MemberId_In
     ) {
-      edges {
-        node {
+      results(pageSize: 1000) {
+        id
+        ourTeam {
           id
-          modelId
-          ourTeam {
-            id
-            slug
-            longName
-            shortName
-            gender
-            ordinal
-            position
-          }
-          oppTeam {
+          slug
+          longName
+          shortName
+          gender
+          ordinal
+          position
+        }
+        oppTeam {
+          name
+          shortName
+          gender
+          slug
+          club {
             name
-            shortName
-            gender
             slug
-            club {
-              name
-              slug
-              kitClashMen
-              kitClashLadies
-              kitClashMixed
-            }
+            kitClashMen
+            kitClashLadies
+            kitClashMixed
           }
-          venue {
-            name
-            shortName
-            slug
-          }
-          awardWinners {
+        }
+        venue {
+          name
+          shortName
+          slug
+        }
+        awardWinners {
+          results(pageSize: 100) {
             member {
-              modelId
               firstName
               lastName
               gender
@@ -63,9 +61,10 @@ export const MATCH_DATA_QUERY = gql`
               name
             }
           }
-          appearances {
+        }
+        appearances {
+          results(pageSize: 100) {
             member {
-              modelId
               firstName
               lastName
               gender
@@ -77,16 +76,16 @@ export const MATCH_DATA_QUERY = gql`
             yellowCard
             redCard
           }
-          homeAway
-          hasReport
-          kitClash
-          fixtureType
-          date
-          time
-          altOutcome
-          ourScore
-          oppScore
         }
+        homeAway
+        hasReport
+        kitClash
+        fixtureType
+        date
+        time
+        altOutcome
+        ourScore
+        oppScore
       }
     }
   }

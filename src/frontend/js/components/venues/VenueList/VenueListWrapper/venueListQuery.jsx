@@ -18,22 +18,19 @@ export const VENUE_LIST_QUERY = gql`
       matches_OurTeam_Slug: $matches_OurTeam_Slug
       matches_Division: $matches_Division
     ) {
-      edges {
-        node {
-          name
-          id
-          modelId
-          slug
-          phone
-          addr1
-          addr2
-          addr3
-          addrCity
-          addrPostcode
-          distance
-          position
-          isHome
-        }
+      results(pageSize: 1000) {
+        name
+        id
+        slug
+        phone
+        addr1
+        addr2
+        addr3
+        addrCity
+        addrPostcode
+        distance
+        position
+        isHome
       }
     }
   }

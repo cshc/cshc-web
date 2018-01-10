@@ -5,31 +5,29 @@ import withApolloResults from 'components/common/ApolloResults';
 export const CLUB_STATS_QUERY = gql`
   query ClubStatsQuery($club_Slug: String!) {
     oppositionClubStats(club_Slug: $club_Slug) {
-      edges {
-        node {
-          team {
-            shortName
-            slug
-          }
-          homePlayed
-          homeWon
-          homeDrawn
-          homeLost
-          homeGf
-          homeGa
-          awayPlayed
-          awayWon
-          awayDrawn
-          awayLost
-          awayGf
-          awayGa
-          totalPlayed
-          totalWon
-          totalDrawn
-          totalLost
-          totalGf
-          totalGa
+      results(pageSize: 100) {
+        team {
+          shortName
+          slug
         }
+        homePlayed
+        homeWon
+        homeDrawn
+        homeLost
+        homeGf
+        homeGa
+        awayPlayed
+        awayWon
+        awayDrawn
+        awayLost
+        awayGf
+        awayGa
+        totalPlayed
+        totalWon
+        totalDrawn
+        totalLost
+        totalGf
+        totalGa
       }
     }
   }

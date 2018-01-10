@@ -13,12 +13,10 @@ const VenueListWrapper = ({ data, viewType, onSelectViewType }) => (
       <ViewSwitcherView iconClass="fa fa-map-0" label={ViewType.Map} />
     </ViewSwitcher>
     {viewType === ViewType.List ? (
-      <VenueTable venues={data} />
+      <VenueTable venues={data.results} />
     ) : (
       <GoogleMap
-        markers={data.edges.map(venueEdge => (
-          <VenueMarker key={venueEdge.node.slug} venue={venueEdge.node} />
-        ))}
+        markers={data.results.map(venue => <VenueMarker key={venue.slug} venue={venue} />)}
       />
     )}
   </div>

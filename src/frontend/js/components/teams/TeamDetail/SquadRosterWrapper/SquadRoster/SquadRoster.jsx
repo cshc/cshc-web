@@ -16,7 +16,7 @@ const SquadRoster = ({ data, viewType }) => (
       <div className="row">
         {data.squad.map(memberStats => (
           <SquadRosterCard
-            key={memberStats.member.modelId}
+            key={memberStats.member.id}
             memberStats={memberStats}
             teamTotals={data.totals}
           />

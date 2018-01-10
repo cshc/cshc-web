@@ -4,15 +4,13 @@ import withApolloResults from 'components/common/ApolloResults';
 
 export const COMMITTEE_MEMBERSHIPS_QUERY = gql`
   query CommitteeMemberships($memberId: ID!) {
-    committeeMemberships(member_Id: $memberId) {
-      edges {
-        node {
-          season {
-            slug
-          }
-          position {
-            name
-          }
+    committeeMemberships(memberId: $memberId) {
+      results(pageSize: 1000) {
+        season {
+          slug
+        }
+        position {
+          name
         }
       }
     }

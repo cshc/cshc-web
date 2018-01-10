@@ -24,11 +24,9 @@ const Urls = {
   about_committee_season: slug =>
     Urls.buildUrl('about_committee_season', { [window.cshcUrls.slugPlaceholder]: slug }),
 
-  member_detail: modelId =>
-    Urls.buildUrl('member_detail', { [window.cshcUrls.pkPlaceholder]: modelId }),
+  member_detail: id => Urls.buildUrl('member_detail', { [window.cshcUrls.pkPlaceholder]: id }),
 
-  match_detail: modelId =>
-    Urls.buildUrl('match_detail', { [window.cshcUrls.pkPlaceholder]: modelId }),
+  match_detail: id => Urls.buildUrl('match_detail', { [window.cshcUrls.pkPlaceholder]: id }),
 
   venue_detail: slug => Urls.buildUrl('venue_detail', { [window.cshcUrls.slugPlaceholder]: slug }),
 
@@ -39,6 +37,8 @@ const Urls = {
     Urls.buildUrl('opposition_club_detail', {
       [window.cshcUrls.slugPlaceholder]: slug,
     }),
+
+  matches_on_date: date => `${Urls.buildUrl('match_list')}?date=${date}`,
 
   static: url => `${window.STATIC_URL}${url}`,
 

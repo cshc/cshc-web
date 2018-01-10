@@ -18,7 +18,10 @@ from members.models import Member
 def utils(request):
     """ Returns common context items. """
     try:
-        member = Member.objects.only('id').get(user_id=request.user.id)
+        if request.user.is_authenticated():
+            member = Member.objects.only('id').get(user_id=request.user.id)
+        else:
+            member = None
     except Member.DoesNotExist:
         member = None
     context = {

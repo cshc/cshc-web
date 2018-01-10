@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import keys from 'lodash/keys';
-import { UrlQueryParamTypes } from 'react-url-query';
+import { UrlQueryParamTypes, pushUrlQuery } from 'react-url-query';
 import { FilterName, FixtureType } from 'util/constants';
 import { SelectFilter, DateFilter } from 'components/filters/UrlFilter';
 
@@ -45,6 +45,9 @@ export const urlPropsQueryConfig = {
 };
 
 const MatchFilterSet = ({ teams, divisions, opposition_clubs, seasons, venues, members }) => {
+  const clearAll = () => {
+    pushUrlQuery({});
+  };
   const teamOptions = teams.map(team => ({ value: team.slug, label: team.long_name }));
   const genderOptions = [
     { value: 'Mens', label: 'Mens' },
@@ -61,6 +64,9 @@ const MatchFilterSet = ({ teams, divisions, opposition_clubs, seasons, venues, m
   const memberOptions = members.map(member => ({ value: String(member.id), label: member.name }));
   return (
     <div>
+      <div className="text-right">
+        <a onClick={clearAll}>Clear all</a>
+      </div>
       <SelectFilter
         label="Gender"
         filterName={FilterName.Gender}

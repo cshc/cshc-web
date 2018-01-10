@@ -6,13 +6,13 @@ import Urls from 'util/urls';
 /**
  * Representation and link to a particular venue.
  */
-const MatchVenue = ({ match }) => {
+const MatchVenue = ({ match, simple }) => {
   if (!match.venue) {
     return Match.isPast(match) ? '???' : <abbr title="Venue not known">TBD</abbr>;
   }
   return (
     <a href={Urls.venue_detail(match.venue.slug)} title={match.venue.name}>
-      {Match.simpleVenueName(match)}
+      {simple ? Match.simpleVenueName(match) : match.venue.shortName}
     </a>
   );
 };
@@ -27,6 +27,11 @@ MatchVenue.propTypes = {
     date: PropTypes.string,
     time: PropTypes.string,
   }).isRequired,
+  simple: PropTypes.bool,
+};
+
+MatchVenue.defaultProps = {
+  simple: true,
 };
 
 export default MatchVenue;

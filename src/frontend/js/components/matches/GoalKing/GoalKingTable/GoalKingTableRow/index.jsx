@@ -16,11 +16,11 @@ const GoalKingTableRow = ({ entry, teamFilter }) => {
     (teamSlug === teamFilter ? 'g-font-weight-600 priority3' : 'priority3');
   return (
     <tr>
-      <td className="text-center">
+      <td>
         <span className={`u-label g-bg-${genderColor[entry.member.gender]}`}>{entry.rank}</span>
       </td>
-      <td>
-        <a href={Urls.member_detail(entry.member.modelId)} title="Member details">
+      <td className="text-left">
+        <a href={Urls.member_detail(entry.member.id)} title="Member details">
           {Member.fullName(entry.member)}
         </a>
       </td>

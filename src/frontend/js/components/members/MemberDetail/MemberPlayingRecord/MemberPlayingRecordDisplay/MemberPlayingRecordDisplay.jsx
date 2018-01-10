@@ -11,11 +11,11 @@ const MemberPlayingRecordDisplay = ({ viewType, clubTeams, data, ...props }) =>
   (viewType === ViewType.Table ? (
     <MemberPlayingRecordTables data={data} {...props} />
   ) : (
-    <MemberPlayingRecordCharts data={data} {...props} clubTeams={clubTeams} />
+    <MemberPlayingRecordCharts data={data} {...props} clubTeams={clubTeams.results} />
   ));
 
 MemberPlayingRecordDisplay.propTypes = {
-  clubTeams: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  clubTeams: PropTypes.shape().isRequired,
   data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   viewType: PropTypes.string.isRequired,
 };

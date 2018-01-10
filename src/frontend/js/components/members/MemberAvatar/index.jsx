@@ -30,7 +30,7 @@ class MemberAvatar extends React.Component {
     return (
       <a
         className={`${className} g-pos-rel d-block`}
-        href={Urls.member_detail(member.modelId)}
+        href={Urls.member_detail(member.id)}
         title={title}
       >
         {badgeCount && (

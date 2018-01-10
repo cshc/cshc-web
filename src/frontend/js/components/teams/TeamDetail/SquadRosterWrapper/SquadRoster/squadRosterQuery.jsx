@@ -26,7 +26,7 @@ export const SQUAD_ROSTER_QUERY = gql`
         isCaptain
         isViceCaptain
         member {
-          modelId
+          id
           firstName
           lastName
           prefPosition

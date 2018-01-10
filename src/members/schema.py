@@ -4,30 +4,17 @@ GraphQL Schema for Members etc
 
 import graphene
 import django_filters
+from graphene_django_extras import DjangoListObjectType, DjangoObjectType
+from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
 from django.db.models import (Count, Sum, Q)
 from matches.models import Appearance
 from awards.models import MatchAwardWinner
 from teams.models import TeamCaptaincy
-from teams.schema import ClubTeamNode
-from core.cursor import PageableDjangoObjectType
-from core import schema_helper
+from teams.schema import ClubTeamType
 from core.utils import get_thumbnail_url
-from competitions.schema import SeasonNode
+from competitions.schema import SeasonType
 from .stats import SquadPlayingStats, AllSeasonsPlayingStats
 from .models import CommitteePosition, Member, CommitteeMembership, SquadMembership
-
-
-member_field_map = {
-    "squadmembership_set": ("squadmembership_set", "prefetch"),
-    "teamcaptaincy_set": ("teamcaptaincy_set", "prefetch"),
-    "teamcaptaincy": ("teamcaptaincy", "prefetch"),
-}
-
-committee_membership_field_map = {
-    "member": ("league", "select"),
-    "position": ("position", "select"),
-    "season": ("season", "select"),
-}
 
 
 class NumberInFilter(django_filters.BaseInFilter, django_filters.CharFilter):
@@ -47,32 +34,51 @@ class MemberFilter(django_filters.FilterSet):
                   'teamcaptaincy__season__slug']
 
 
-class CommitteePositionType(PageableDjangoObjectType):
+class CommitteePositionType(DjangoObjectType):
     """ GraphQL node representing a committee position """
     class Meta:
         model = CommitteePosition
 
 
-class CommitteeMembershipNode(PageableDjangoObjectType):
+class CommitteePositionList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a list of committee positions"
+        model = CommitteePosition
+        pagination = get_paginator()
+
+
+class CommitteeMembershipType(DjangoObjectType):
     """ GraphQL node representing a committee membership """
     class Meta:
         model = CommitteeMembership
-        interfaces = (graphene.relay.Node, )
         filter_fields = {
-            'member__id': ['exact'],
+            'member_id': ['exact'],
             'position__name': ['exact', 'icontains', 'istartswith'],
         }
 
 
-class SquadMembershipType(PageableDjangoObjectType):
+class CommitteeMembershipList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a list of committee memberships"
+        model = CommitteeMembership
+        pagination = get_paginator()
+
+
+class SquadMembershipType(DjangoObjectType):
     """ GraphQL node representing a member's squad membership """
     class Meta:
         model = SquadMembership
 
 
-class MemberNode(PageableDjangoObjectType):
+class SquadMembershipList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a list of squad memberships"
+        model = SquadMembership
+        pagination = get_paginator()
+
+
+class MemberType(DjangoObjectType):
     """ GraphQL node representing a club member """
-    model_id = graphene.String()
     thumb_url = graphene.String(profile=graphene.String())
     pref_position = graphene.String()
     num_appearances = graphene.Int()
@@ -80,7 +86,6 @@ class MemberNode(PageableDjangoObjectType):
 
     class Meta:
         model = Member
-        interfaces = (graphene.relay.Node, )
         filter_fields = {
             'first_name': ['exact', 'icontains', 'istartswith'],
             'last_name': ['exact', 'icontains', 'istartswith'],
@@ -91,9 +96,6 @@ class MemberNode(PageableDjangoObjectType):
             'appearances__match__our_team__slug': ['exact'],
             'teamcaptaincy__season__slug': ['exact'],
         }
-
-    def resolve_model_id(self, info):
-        return self.id
 
     def resolve_num_appearances(self, info):
         return self.num_appearances
@@ -108,13 +110,20 @@ class MemberNode(PageableDjangoObjectType):
         return self.get_pref_position_display()
 
 
+class MemberList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a list of members"
+        model = Member
+        pagination = get_paginator()
+
+
 class TeamRepresentationType(graphene.ObjectType):
-    team = graphene.Field(ClubTeamNode)
+    team = graphene.Field(ClubTeamType)
     appearance_count = graphene.Int()
 
 
 class MemberStatsType(graphene.ObjectType):
-    member = graphene.Field(MemberNode)
+    member = graphene.Field(MemberType)
     played = graphene.Int()
     won = graphene.Int()
     drawn = graphene.Int()
@@ -141,7 +150,7 @@ class MemberStatsType(graphene.ObjectType):
 
 
 class SeasonRepresentationType(graphene.ObjectType):
-    season = graphene.Field(SeasonNode)
+    season = graphene.Field(SeasonType)
     member_stats = graphene.Field(MemberStatsType)
 
 
@@ -161,23 +170,21 @@ class SquadStatsType(graphene.ObjectType):
 
 class Query(graphene.ObjectType):
     """ GraphQL query for members etc """
-    committee_positions = graphene.List(CommitteePositionType)
-    committee_memberships = schema_helper.OptimizableFilterConnectionField(
-        CommitteeMembershipNode)
+    committee_positions = OptimizedDjangoListObjectField(CommitteePositionList)
 
-    squad_memberships = graphene.List(SquadMembershipType)
-    members = schema_helper.OptimizableFilterConnectionField(
-        MemberNode, filterset_class=MemberFilter)
+    committee_memberships = OptimizedDjangoListObjectField(
+        CommitteeMembershipList)
+
+    squad_memberships = OptimizedDjangoListObjectField(SquadMembershipList)
+
+    members = OptimizedDjangoListObjectField(
+        MemberList, filterset_class=MemberFilter)
+
     squad_stats = graphene.Field(
         SquadStatsType, season=graphene.Int(), team=graphene.Int(), fixture_Type=graphene.String())
 
     member_stats = graphene.List(
         SeasonRepresentationType, member_Id=graphene.Int(), fixture_Type=graphene.String())
-
-    def resolve_committee_memberships(self, info, **kwargs):
-        return schema_helper.optimize(CommitteeMembership.objects.filter(**kwargs),
-                                      info,
-                                      committee_membership_field_map)
 
     def resolve_members(self, info, **kwargs):
         # Slight hack to manually convert a comma-separated list of pref_position ints to an array of ints
@@ -197,9 +204,7 @@ class Query(graphene.ObjectType):
         if text_query:
             full_query = full_query.filter(text_query)
 
-        return schema_helper.optimize(full_query,
-                                      info,
-                                      member_field_map).distinct()
+        return full_query
 
     def resolve_squad_stats(self, info, **kwargs):
         # Get playing stats for the team, including squad members
@@ -264,9 +269,3 @@ class Query(graphene.ObjectType):
             season_stats.add_award_winner(award_winner)
 
         return season_stats.seasons.values()
-
-    def resolve_committee_positions(self):
-        return CommitteePosition.objects.all()
-
-    def resolve_squad_memberships(self):
-        return SquadMembership.objects.all()

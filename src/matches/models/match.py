@@ -211,7 +211,7 @@ class Match(models.Model):
         """ Meta-info for the Match model."""
         app_label = 'matches'
         verbose_name_plural = "matches"
-        ordering = ['date', 'time']
+        ordering = ['date', 'time', 'our_team__position']
 
     def __str__(self):
         return str("{} vs {} ({}, {})".format(self.our_team, self.opp_team, self.fixture_type, self.date))

@@ -112,7 +112,7 @@ const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
                       <span className={styles.flexWrap}>
                         <span className="g-mr-10 g-mt-4">Scorers:</span>
                         {scorers.map((scorer, index) => (
-                          <span key={scorer.member.modelId}>
+                          <span key={scorer.member.id}>
                             <MemberLink
                               member={scorer.member}
                               badgeCount={scorer.goals}
@@ -128,7 +128,7 @@ const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
               )}
               {incl(MatchItem.report) && (
                 <a
-                  href={Urls.match_detail(match.modelId)}
+                  href={Urls.match_detail(match.id)}
                   title="Match details"
                   className={`btn btn-md u-btn-primary ${styles.details}`}
                 >

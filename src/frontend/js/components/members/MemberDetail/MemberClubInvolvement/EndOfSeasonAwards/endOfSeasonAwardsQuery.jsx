@@ -4,15 +4,13 @@ import withApolloResults from 'components/common/ApolloResults';
 
 export const END_OF_SEASON_AWARDS_QUERY = gql`
   query EndOfSeasonAwards($memberId: ID!) {
-    endOfSeasonAwardWinners(member_Id: $memberId) {
-      edges {
-        node {
-          season {
-            slug
-          }
-          award {
-            name
-          }
+    endOfSeasonAwardWinners(memberId: $memberId) {
+      results(pageSize: 1000) {
+        season {
+          slug
+        }
+        award {
+          name
         }
       }
     }

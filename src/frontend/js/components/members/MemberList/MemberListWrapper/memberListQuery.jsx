@@ -23,19 +23,14 @@ export const MEMBER_LIST_QUERY = gql`
       prefPosition_In: $prefPosition_In
       teamcaptaincy_Season_Slug: $teamcaptaincy_Season_Slug
     ) {
-      edges {
-        node {
-          firstName
-          lastName
-          id
-          modelId
-          gender
-          shirtNumber
-          prefPosition
-          addrPosition
-          numAppearances
-          goals
-        }
+      results(pageSize: 1000) {
+        firstName
+        lastName
+        id
+        gender
+        shirtNumber
+        prefPosition
+        addrPosition
       }
     }
   }

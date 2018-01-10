@@ -81,12 +81,12 @@ const ClubStatsSummary = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {data.edges
-            .filter(stats => stats.node.team)
-            .map(stats => <ClubStatsSummaryRow key={stats.node.team.slug} stats={stats.node} />)}
-          {data.edges
-            .filter(stats => !stats.node.team)
-            .map(stats => <ClubStatsSummaryRow key="All" stats={stats.node} isTotal />)}
+          {data.results
+            .filter(stats => stats.team)
+            .map(stats => <ClubStatsSummaryRow key={stats.team.slug} stats={stats} />)}
+          {data.results
+            .filter(stats => !stats.team)
+            .map(stats => <ClubStatsSummaryRow key="All" stats={stats} isTotal />)}
         </tbody>
       </table>
     </div>

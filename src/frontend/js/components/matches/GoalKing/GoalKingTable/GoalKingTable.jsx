@@ -7,14 +7,14 @@ import GoalKingTableRow from './GoalKingTableRow';
 const GoalKingTable = ({ data, team, goalKingGender }) => {
   const filteredEntries =
     goalKingGender === NoFilter
-      ? data.edges
-      : cloneDeep(data.edges.filter(entry => goalKingGender === entry.node.member.gender));
+      ? data.results
+      : cloneDeep(data.results.filter(entry => goalKingGender === entry.member.gender));
   if (filteredEntries.length) {
     let rank = 1;
-    let previous = filteredEntries[0].node;
+    let previous = filteredEntries[0];
     previous.rank = 1;
     for (let i = 1; i < filteredEntries.length; i += 1) {
-      const entry = filteredEntries[i].node;
+      const entry = filteredEntries[i];
       if (entry.totalGoals !== previous.totalGoals) {
         rank = i + 1;
         entry.rank = `${rank}`;
@@ -28,11 +28,11 @@ const GoalKingTable = ({ data, team, goalKingGender }) => {
 
   return (
     <div className="table-responsive">
-      <table className="table table-sm table-hover">
+      <table className="table table-sm table-hover text-center">
         <thead>
           <tr>
             <th className="text-center">Rank</th>
-            <th>Name</th>
+            <th className="text-left">Name</th>
             <th className="priority3">M1</th>
             <th className="priority3">M2</th>
             <th className="priority3">M3</th>
@@ -56,11 +56,7 @@ const GoalKingTable = ({ data, team, goalKingGender }) => {
         </thead>
         <tbody>
           {filteredEntries.map(entry => (
-            <GoalKingTableRow
-              key={entry.node.member.modelId}
-              entry={entry.node}
-              teamFilter={team}
-            />
+            <GoalKingTableRow key={entry.member.id} entry={entry} teamFilter={team} />
           ))}
         </tbody>
       </table>

@@ -18,11 +18,11 @@ const MemberListWrapper = ({ data, viewType, onSelectViewType }) => (
       <MemberTable members={data} />
     ) : (
       <GoogleMap
-        markers={data.edges.map(memberEdge => (
+        markers={data.results.map(member => (
           <Marker
-            key={memberEdge.node.modelId}
-            position={getPosition(memberEdge.node.addrPosition)}
-            title={Member.fullName(memberEdge.node)}
+            key={member.id}
+            position={getPosition(member.addrPosition)}
+            title={Member.fullName(member)}
           />
         ))}
       />

@@ -55,18 +55,18 @@ const Match = {
   },
 
   scorers(match) {
-    if (!match.appearances) return [];
-    return sortBy(match.appearances.filter(a => a.goals > 0), m => -m.goals);
+    if (!match.appearances || !match.appearances.results) return [];
+    return sortBy(match.appearances.results.filter(a => a.goals > 0), m => -m.goals);
   },
 
   mom(match) {
-    if (!match.awardWinners) return [];
-    return match.awardWinners.filter(aw => aw.award.name === MatchAward.MOM);
+    if (!match.awardWinners || !match.awardWinners.results) return [];
+    return match.awardWinners.results.filter(aw => aw.award.name === MatchAward.MOM);
   },
 
   lom(match) {
-    if (!match.awardWinners) return [];
-    return match.awardWinners.filter(aw => aw.award.name === MatchAward.LOM);
+    if (!match.awardWinners || !match.awardWinners.results) return [];
+    return match.awardWinners.results.filter(aw => aw.award.name === MatchAward.LOM);
   },
 
   toResultsAndFixtures(matches) {
@@ -76,15 +76,15 @@ const Match = {
     };
     // Sort by past results vs future fixtures and by team
     reduce(
-      matches.edges,
-      (acc, matchEdge) => {
-        const list = Match.isPast(matchEdge.node) ? acc.results : acc.fixtures;
-        let teamMatches = list.find(md => md.team.id === matchEdge.node.ourTeam.id);
+      matches.results,
+      (acc, match) => {
+        const list = Match.isPast(match) ? acc.results : acc.fixtures;
+        let teamMatches = list.find(md => md.team.id === match.ourTeam.id);
         if (!teamMatches) {
-          teamMatches = { team: matchEdge.node.ourTeam, matches: [] };
+          teamMatches = { team: match.ourTeam, matches: [] };
           list.push(teamMatches);
         }
-        teamMatches.matches.push(matchEdge.node);
+        teamMatches.matches.push(match);
         return acc;
       },
       matchStructure,

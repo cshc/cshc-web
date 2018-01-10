@@ -59,7 +59,7 @@ const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
         <td className={priority(TC.scorers, 3)}>
           <div className={styles.flexWrap}>
             {Match.scorers(match).map((scorer, index, scorers) => (
-              <span key={scorer.member.modelId}>
+              <span key={scorer.member.id}>
                 <MemberLink member={scorer.member} badgeCount={scorer.goals} className="g-mr-10" />
                 {index < scorers.length - 1 && <span>,&nbsp;</span>}
               </span>
@@ -70,8 +70,11 @@ const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
       {incl(TC.awards) && (
         <td className={priority(TC.awards, 3)}>
           <div className={styles.flexWrap}>
-            {Match.mom(match).map((awardWinner, index) => (
-              <AwardWinner key={index} awardWinner={awardWinner} className="g-mr-10" />
+            {Match.mom(match).map((awardWinner, index, awardWinners) => (
+              <span key={index}>
+                <AwardWinner awardWinner={awardWinner} className="g-mr-10" />
+                {index < awardWinners.length - 1 && <span>,&nbsp;</span>}
+              </span>
             ))}
           </div>
         </td>
@@ -79,8 +82,11 @@ const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
       {incl(TC.awards) && (
         <td className={priority(TC.awards, 3)}>
           <div className={styles.flexWrap}>
-            {Match.lom(match).map((awardWinner, index) => (
-              <AwardWinner key={index} awardWinner={awardWinner} className="g-mr-10" />
+            {Match.lom(match).map((awardWinner, index, awardWinners) => (
+              <span key={index}>
+                <AwardWinner awardWinner={awardWinner} className="g-mr-10" />
+                {index < awardWinners.length - 1 && <span>,&nbsp;</span>}
+              </span>
             ))}
           </div>
         </td>

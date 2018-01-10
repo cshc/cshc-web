@@ -11,7 +11,7 @@ import Urls from 'util/urls';
  */
 const CommitteeMemberships = ({ data }) => {
   // Group committee memberships by season
-  const grouped = groupBy(data.edges, e => e.node.season.slug);
+  const grouped = groupBy(data.results, cm => cm.season.slug);
   // Sort by (descending) season (most recent season first)
   const sorted = sortBy(keys(grouped), seasonSlug => -parseInt(seasonSlug.split('-')[0], 10));
 
@@ -30,9 +30,9 @@ const CommitteeMemberships = ({ data }) => {
               </a>
             }
           >
-            {grouped[seasonSlug].map(edge => (
-              <h6 className="h6" key={edge.node.position.name}>
-                {edge.node.position.name}
+            {grouped[seasonSlug].map(cm => (
+              <h6 className="h6" key={cm.position.name}>
+                {cm.position.name}
               </h6>
             ))}
           </Timeline2Item>

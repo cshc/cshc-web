@@ -41,8 +41,7 @@ const LeagueTable = ({ data, teamName }) => (
         </tr>
       </thead>
       <tbody>
-        {data.edges.map((rowEdge) => {
-          const row = rowEdge.node;
+        {data.results.map((row) => {
           const isOurTeam = row.teamName === teamName;
           const rowClass = isOurTeam ? 'table-success' : '';
           return (

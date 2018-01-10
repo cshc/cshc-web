@@ -3,11 +3,20 @@ GraphQL Schema for Club Teams etc
 """
 
 import graphene
-from core.cursor import PageableDjangoObjectType
+import django_filters
+from graphene_django_extras import DjangoListObjectType, DjangoObjectType
+from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
 from .models import ClubTeam, ClubTeamSeasonParticipation, TeamCaptaincy
 
 
-class ClubTeamNode(PageableDjangoObjectType):
+class ClubTeamSeasonParticipationFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = ClubTeamSeasonParticipation
+        exclude = ['team_photo', 'team_photo_cropping']
+
+
+class ClubTeamType(DjangoObjectType):
     """ GraphQL node representing a club team """
     genderless_abbr_name = graphene.String()
 
@@ -16,34 +25,46 @@ class ClubTeamNode(PageableDjangoObjectType):
 
     class Meta:
         model = ClubTeam
-        interfaces = (graphene.relay.Node, )
 
 
-class ClubTeamSeasonParticipationNode(PageableDjangoObjectType):
+class ClubTeamList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a list of club teams"
+        model = ClubTeam
+        pagination = get_paginator()
+
+
+class ClubTeamSeasonParticipationType(DjangoObjectType):
     """ GraphQL node representing a club team's participation in a division in a particular season """
     class Meta:
         model = ClubTeamSeasonParticipation
-        interfaces = (graphene.relay.Node, )
 
 
-class TeamCaptaincyNode(PageableDjangoObjectType):
+class ClubTeamSeasonParticipationList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a list of club team season participations"
+        model = ClubTeamSeasonParticipation
+        pagination = get_paginator()
+
+
+class TeamCaptaincyType(DjangoObjectType):
     """ GraphQL node representing a club team (vice-)captaincy for a particular team and season """
     class Meta:
         model = TeamCaptaincy
-        interfaces = (graphene.relay.Node, )
+
+
+class TeamCaptaincyList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a list of team captaincies"
+        model = TeamCaptaincy
+        pagination = get_paginator()
 
 
 class Query(graphene.ObjectType):
     """ GraphQL query for club teams etc """
-    club_teams = graphene.List(ClubTeamNode)
-    participations = graphene.List(ClubTeamSeasonParticipationNode)
-    captaincies = graphene.List(TeamCaptaincyNode)
+    club_teams = OptimizedDjangoListObjectField(ClubTeamList)
 
-    def resolve_club_teams(self, info):
-        return ClubTeam.objects.all()
+    participations = OptimizedDjangoListObjectField(
+        ClubTeamSeasonParticipationList, filterset_class=ClubTeamSeasonParticipationFilter)
 
-    def resolve_participations(self):
-        return ClubTeamSeasonParticipation.objects.all()
-
-    def resolve_captaincies(self):
-        return TeamCaptaincy.objects.all()
+    captaincies = OptimizedDjangoListObjectField(TeamCaptaincyList)

@@ -14,9 +14,7 @@ const VenueTable = ({ venues }) => (
           </th>
         </tr>
       </thead>
-      <tbody>
-        {venues.edges.map(venue => <VenueTableRow key={venue.node.id} venue={venue.node} />)}
-      </tbody>
+      <tbody>{venues.map(venue => <VenueTableRow key={venue.id} venue={venue} />)}</tbody>
     </table>
   </div>
 );

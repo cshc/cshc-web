@@ -105,7 +105,10 @@ module.exports = {
 
   resolve: {
     modules: ['node_modules', './src/frontend/js'],
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.css', 'scss'],
+    alias: {
+      react_table_css: path.join(__dirname, '/node_modules/react-table/react-table.css'),
+    },
   },
 
   devServer: {

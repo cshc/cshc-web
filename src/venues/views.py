@@ -52,7 +52,7 @@ class VenueDetailView(DetailView):
         context['props'] = {
             'venueName': venue.name,
             'matchFilters': {
-                'venue_Name': venue.name,
+                'venue_Slug': venue.slug,
             },
         }
         return context

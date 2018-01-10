@@ -3,26 +3,38 @@ GraphQL Schema for opposition clubs and teams etc
 """
 
 import graphene
-from core.cursor import PageableDjangoObjectType
-from core import schema_helper
+from graphene_django_extras import DjangoListObjectType, DjangoObjectType
+from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
 from .models import Club, Team, ClubStats
 
 
-class ClubNode(PageableDjangoObjectType):
+class ClubType(DjangoObjectType):
     """ GraphQL node representing an opposition club """
     class Meta:
         model = Club
-        interfaces = (graphene.relay.Node, )
 
 
-class TeamNode(PageableDjangoObjectType):
+class ClubList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a list of oppositions clubs"
+        model = Club
+        pagination = get_paginator()
+
+
+class TeamType(DjangoObjectType):
     """ GraphQL node representing an opposition team """
     class Meta:
         model = Team
-        interfaces = (graphene.relay.Node, )
 
 
-class ClubStatsType(PageableDjangoObjectType):
+class TeamList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a list of opposition teams"
+        model = Team
+        pagination = get_paginator()
+
+
+class ClubStatsType(DjangoObjectType):
     """ GraphQL node representing a club stats record """
     home_played = graphene.Int()
     away_played = graphene.Int()
@@ -40,7 +52,6 @@ class ClubStatsType(PageableDjangoObjectType):
 
     class Meta:
         model = ClubStats
-        interfaces = (graphene.Node, )
         filter_fields = ['club__slug']
 
     def resolve_home_played(self, info):
@@ -83,18 +94,18 @@ class ClubStatsType(PageableDjangoObjectType):
         return self.is_club_total
 
 
+class ClubStatsList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a list of club stats"
+        model = ClubStats
+        pagination = get_paginator()
+
+
 class Query(graphene.ObjectType):
     """ GraphQL query for members etc """
-    opposition_clubs = graphene.List(ClubNode)
-    opposition_teams = graphene.List(TeamNode)
-    opposition_club_stats = schema_helper.OptimizableFilterConnectionField(
-        ClubStatsType)
-
-    def resolve_opposition_clubs(self):
-        return Club.objects.all()
-
-    def resolve_opposition_teams(self):
-        return Team.objects.all()
+    opposition_clubs = OptimizedDjangoListObjectField(ClubList)
+    opposition_teams = OptimizedDjangoListObjectField(TeamList)
+    opposition_club_stats = OptimizedDjangoListObjectField(ClubStatsList)
 
     def resolve_opposition_club_stats(self, info, **kwargs):
         if 'club__slug' in kwargs:

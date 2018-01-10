@@ -4,65 +4,70 @@ GraphQL Schema for Competitions
 
 import graphene
 from graphene_django.filter import DjangoFilterConnectionField
-from core.cursor import PageableDjangoObjectType
-from core import schema_helper
+from graphene_django_extras import DjangoListObjectType, DjangoObjectType
+from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
 from .models import Season, League, Division, Cup, DivisionResult
 
-division_field_map = {
-    "league": ("league", "select"),
-}
 
-
-class SeasonNode(PageableDjangoObjectType):
+class SeasonType(DjangoObjectType):
     """ GraphQL node representing a season """
-    model_id = graphene.String()
-
-    def resolve_model_id(self, info):
-        return self.id
-
     class Meta:
         model = Season
-        interfaces = (graphene.relay.Node, )
         filter_fields = ['slug']
 
 
-class DivisionNode(PageableDjangoObjectType):
+class SeasonList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a season list "
+        model = Season
+        pagination = get_paginator()
+
+
+class DivisionType(DjangoObjectType):
     """ GraphQL node representing a division """
-    model_id = graphene.String()
-
-    def resolve_model_id(self, info):
-        return self.id
-
     class Meta:
         model = Division
-        interfaces = (graphene.relay.Node, )
         filter_fields = ['name', 'league__name']
 
 
-class LeagueNode(PageableDjangoObjectType):
+class DivisionList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a division list "
+        model = Division
+        pagination = get_paginator()
+
+
+class LeagueType(DjangoObjectType):
     """ GraphQL node representing a league """
     class Meta:
         model = League
-        interfaces = (graphene.relay.Node, )
         filter_fields = ['name']
 
-    divisions = schema_helper.OptimizableFilterConnectionField(DivisionNode)
-
-    def resolve_divisions(self, info, *args):
-        return schema_helper.optimize(Division.objects.filter(league=self, *args),
-                                      info,
-                                      division_field_map)
+    divisions = OptimizedDjangoListObjectField(DivisionList)
 
 
-class CupNode(PageableDjangoObjectType):
+class LeagueList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a league list "
+        model = League
+        pagination = get_paginator()
+
+
+class CupType(DjangoObjectType):
     """ GraphQL node representing a cup """
     class Meta:
         model = Cup
-        interfaces = (graphene.relay.Node, )
         filter_fields = ['name', 'league__name']
 
 
-class DivisionResultNode(PageableDjangoObjectType):
+class CupList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a cup list "
+        model = Cup
+        pagination = get_paginator()
+
+
+class DivisionResultType(DjangoObjectType):
     """ GraphQL node representing an entry in a league table """
     team_name = graphene.String()
 
@@ -71,37 +76,20 @@ class DivisionResultNode(PageableDjangoObjectType):
 
     class Meta:
         model = DivisionResult
-        interfaces = (graphene.relay.Node, )
-        filter_fields = ['season__slug', 'division__id', 'season_id']
+        filter_fields = ['season__slug', 'division_id', 'season_id']
+
+
+class DivisionResultList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a division result list "
+        model = DivisionResult
+        pagination = get_paginator()
 
 
 class Query(graphene.ObjectType):
     """ GraphQL query for competitions """
-    season = graphene.Node.Field(SeasonNode)
-    league = graphene.Node.Field(LeagueNode)
-    division = graphene.Node.Field(DivisionNode)
-    cup = graphene.Node.Field(CupNode)
-    division_result = graphene.Node.Field(DivisionResultNode)
-
-    seasons = DjangoFilterConnectionField(SeasonNode)
-    leagues = schema_helper.OptimizableFilterConnectionField(LeagueNode)
-    divisions = schema_helper.OptimizableFilterConnectionField(DivisionNode)
-    cups = DjangoFilterConnectionField(CupNode)
-    division_results = DjangoFilterConnectionField(
-        DivisionResultNode, ['division__name', 'division__id', 'season__id'])
-
-    def resolve_divisions(self, info, **kwargs):
-        return schema_helper.optimize(Division.objects.filter(**kwargs),
-                                      info,
-                                      division_field_map)
-    # def resolve_seasons(self):
-    #     return Season.objects.all()
-
-    # def resolve_leagues(self):
-    #     return League.objects.all()
-
-    # def resolve_divisions(self):
-    #     return Division.objects.all()
-
-    # def resolve_cups(self):
-    #     return Cup.objects.all()
+    seasons = OptimizedDjangoListObjectField(SeasonList)
+    leagues = OptimizedDjangoListObjectField(LeagueList)
+    divisions = OptimizedDjangoListObjectField(DivisionList)
+    cups = OptimizedDjangoListObjectField(CupList)
+    division_results = OptimizedDjangoListObjectField(DivisionResultList)

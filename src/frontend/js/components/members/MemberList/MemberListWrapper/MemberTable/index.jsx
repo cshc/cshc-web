@@ -18,9 +18,7 @@ const MemberTable = ({ members }) => (
           <th>Goals</th>
         </tr>
       </thead>
-      <tbody>
-        {members.edges.map(member => <MemberTableRow key={member.node.id} member={member.node} />)}
-      </tbody>
+      <tbody>{members.map(member => <MemberTableRow key={member.id} member={member} />)}</tbody>
     </table>
   </div>
 );

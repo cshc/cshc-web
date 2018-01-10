@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { compose } from 'react-apollo';
+import { addUrlProps } from 'react-url-query';
+import Paged from 'components/common/Paged';
+import Orderable from 'components/common/Orderable';
+import { urlPropsQueryConfig } from 'components/matches/MatchList/MatchFilterSet';
+import MatchListWrapper from './MatchListWrapper';
 
-const MatchListWrapper = ({}) => <div>Data</div>;
+const Filterable = addUrlProps({ urlPropsQueryConfig });
 
-MatchListWrapper.propTypes = {};
-
-MatchListWrapper.defaultProps = {};
-
-export default MatchListWrapper;
+export default compose(Paged, Orderable, Filterable)(MatchListWrapper);

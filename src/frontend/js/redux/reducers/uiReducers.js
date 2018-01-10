@@ -1,7 +1,13 @@
 import { handleActions } from 'redux-actions';
+import { DefaultPageQueryProps } from 'components/common/PropTypes';
 
 import { ViewType, SwitchableView, FilterName, NoFilter } from 'util/constants';
-import { SET_VIEW_TYPE, SET_DATA_FILTER } from '../actions/uiActions';
+import {
+  SET_VIEW_TYPE,
+  SET_DATA_FILTER,
+  SET_PAGE_INDEX,
+  SET_PAGE_SIZE,
+} from '../actions/uiActions';
 
 export const initialViewState = {
   viewTypes: {
@@ -15,6 +21,28 @@ export const initialViewState = {
     [FilterName.Team]: NoFilter,
     [FilterName.Current]: true,
   },
+  pageQueries: {},
+};
+
+const updatePageIndex = (payload, pageQuery = DefaultPageQueryProps) => {
+  console.log(payload);
+  return {
+    ...pageQuery,
+    pageIndex: payload.pageIndex,
+    after: payload.pageIndex > pageQuery.pageIndex ? payload.pageInfo.endCursor : undefined,
+    before: payload.pageIndex < pageQuery.pageIndex ? payload.pageInfo.startCursor : undefined,
+  };
+};
+
+const updatePageSize = (payload, pageQuery = DefaultPageQueryProps) => {
+  console.log(payload);
+  return {
+    ...pageQuery,
+    pageIndex: payload.pageIndex,
+    first: payload.pageSize,
+    after: payload.pageIndex > pageQuery.pageIndex ? payload.pageInfo.endCursor : undefined,
+    before: payload.pageIndex < pageQuery.pageIndex ? payload.pageInfo.startCursor : undefined,
+  };
 };
 
 export default handleActions(
@@ -33,6 +61,26 @@ export default handleActions(
       activeFilters: {
         ...state.activeFilters,
         [action.payload.filterName]: action.payload.filterValue,
+      },
+    }),
+    [SET_PAGE_INDEX]: (state, action) => ({
+      ...state,
+      pageQueries: {
+        ...state.pageQueries,
+        [action.payload.tableId]: updatePageIndex(
+          action.payload,
+          state.pageQueries[action.payload.tableId],
+        ),
+      },
+    }),
+    [SET_PAGE_SIZE]: (state, action) => ({
+      ...state,
+      pageQueries: {
+        ...state.pageQueries,
+        [action.payload.tableId]: updatePageSize(
+          action.payload,
+          state.pageQueries[action.payload.tableId],
+        ),
       },
     }),
   },

@@ -1,0 +1,9 @@
+.reactTable {
+  :global {
+    @import '~react_table_css';
+
+    .rt-th:focus {
+      outline: none;
+    }
+  }
+}

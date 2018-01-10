@@ -30,12 +30,12 @@ const SquadRosterTable = ({ squadStats: { squad } }) => (
       </thead>
       <tbody>
         {squad.map(memberStats => (
-          <tr key={memberStats.member.modelId}>
+          <tr key={memberStats.member.id}>
             <td className="priority3 ">
               <MemberAvatar member={memberStats.member} className="g-width-50 g-py-5" />
             </td>
             <td className="align-middle">
-              <a href={Urls.member_detail(memberStats.member.modelId)} title="View Profile">
+              <a href={Urls.member_detail(memberStats.member.id)} title="View Profile">
                 {Member.fullName(memberStats.member)}
               </a>
               {memberStats.isCaptain && <span> (C)</span>}

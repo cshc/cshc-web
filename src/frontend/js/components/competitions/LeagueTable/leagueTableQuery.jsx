@@ -7,31 +7,29 @@ import { compose, graphql } from 'react-apollo';
 import withApolloResults from 'components/common/ApolloResults';
 
 export const LEAGUE_TABLE_QUERY = gql`
-  query LeagueTable($division_Id: ID, $season_Id: ID) {
-    divisionResults(division_Id: $division_Id, season_Id: $season_Id) {
-      edges {
-        node {
-          teamName
-          played
-          won
-          drawn
-          lost
-          goalsFor
-          goalsAgainst
-          goalDifference
-          points
-          position
-          notes
-          ourTeam {
-            genderlessAbbrName
-            slug
-          }
-          oppTeam {
+  query LeagueTable($divisionId: ID, $seasonId: ID) {
+    divisionResults(divisionId: $divisionId, seasonId: $seasonId) {
+      results(pageSize: 100) {
+        teamName
+        played
+        won
+        drawn
+        lost
+        goalsFor
+        goalsAgainst
+        goalDifference
+        points
+        position
+        notes
+        ourTeam {
+          genderlessAbbrName
+          slug
+        }
+        oppTeam {
+          name
+          club {
             name
-            club {
-              name
-              slug
-            }
+            slug
           }
         }
       }
@@ -42,8 +40,8 @@ export const LEAGUE_TABLE_QUERY = gql`
 export const leagueTableOptions = {
   options: ({ divisionId, seasonId }) => ({
     variables: {
-      division_Id: divisionId,
-      season_Id: seasonId,
+      divisionId,
+      seasonId,
     },
     fetchPolicy: 'cache-and-network',
   }),

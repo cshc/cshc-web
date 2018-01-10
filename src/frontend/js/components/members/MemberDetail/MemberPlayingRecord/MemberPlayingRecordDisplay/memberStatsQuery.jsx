@@ -32,11 +32,13 @@ export const MEMBER_STATS_QUERY = gql`
       }
     }
     clubTeams {
-      id
-      shortName
-      slug
-      ordinal
-      gender
+      results(pageSize: 50) {
+        id
+        shortName
+        slug
+        ordinal
+        gender
+      }
     }
   }
 `;

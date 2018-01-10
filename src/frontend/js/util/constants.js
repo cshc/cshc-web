@@ -120,6 +120,11 @@ const DefaultMapCenter = {
  */
 const NoFilter = 'None';
 
+/**
+ * The default size for a page of paginated results
+ */
+const DefaultPageSize = 10;
+
 module.exports = {
   Gender,
   FixtureType,
@@ -133,4 +138,5 @@ module.exports = {
   Position,
   PositionOptions,
   NoFilter,
+  DefaultPageSize,
 };

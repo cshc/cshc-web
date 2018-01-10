@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Match from 'models/match';
 import { MatchItem } from 'util/constants';
-import { toGraphQLId } from 'util/cshc';
 import MatchData from 'components/matches/MatchData';
 import LeagueTable from 'components/competitions/LeagueTable';
 import Accordion from 'components/common/Accordion';
@@ -21,9 +20,9 @@ import SquadRosterWrapper from './SquadRosterWrapper';
 const TeamDetail = ({ data, division, teamId, teamGenderlessName, seasonId }) => {
   const results = [];
   const fixtures = [];
-  data.edges.forEach((match) => {
-    if (Match.isPast(match.node)) results.push(match.node);
-    else fixtures.push(match.node);
+  data.results.forEach((match) => {
+    if (Match.isPast(match)) results.push(match);
+    else fixtures.push(match);
   });
   return (
     <Accordion accordionId="team-details">
@@ -42,11 +41,7 @@ const TeamDetail = ({ data, division, teamId, teamGenderlessName, seasonId }) =>
         </AccordionCard>
       ) : null}
       <AccordionCard cardId="league-table" accordionId="team-details" title="League Table">
-        <LeagueTable
-          divisionId={toGraphQLId('Division', division.id)}
-          seasonId={toGraphQLId('Season', seasonId)}
-          teamName={teamGenderlessName}
-        />
+        <LeagueTable divisionId={division.id} seasonId={seasonId} teamName={teamGenderlessName} />
       </AccordionCard>
       <AccordionCard cardId="squad-roster" accordionId="team-details" title="Squad Roster">
         <SquadRosterWrapper teamId={teamId} seasonId={seasonId} />

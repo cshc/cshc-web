@@ -4,11 +4,10 @@ GraphQL Schema for matches etc
 
 import graphene
 import django_filters
-from django.db.models import Prefetch
-from core import schema_helper
-from core.cursor import CursorPaginatedConnectionField, PageableDjangoObjectType
-from awards.models import MatchAwardWinner
-from awards.schema import MatchAwardWinnerNode
+from graphene_django_extras import DjangoListObjectType, DjangoObjectType
+from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
+from awards.schema import MatchAwardWinnerList
+from awards.models import MatchAward
 from .models import Match, Appearance, GoalKing
 
 
@@ -30,41 +29,32 @@ class GoalKingFilter(django_filters.FilterSet):
 
 
 class MatchFilter(django_filters.FilterSet):
-    class Meta:
-        model = Match
-        exclude = []
+    mom = django_filters.CharFilter(name='mom', method='filter_mom')
+    lom = django_filters.CharFilter(name='lom', method='filter_lom')
 
-    order_by = django_filters.OrderingFilter(
-        fields=(
-            ('our_score', 'our_score'),
-        )
-    )
-
-
-class AppearanceNode(PageableDjangoObjectType):
-    """ GraphQL node representing a member's appearance in a match """
-    class Meta:
-        model = Appearance
-        interfaces = (graphene.relay.Node, )
-        filter_fields = {
-            'goals': ['gte'],
+    def filter_mom(self, queryset, name, value):
+        # filter for matches where the given member won the Man of the Match award.
+        kwargs = {
+            'award_winners__member_id': value,
+            'award_winners__award__name': MatchAward.MOM,
         }
+        return queryset.filter(**kwargs)
 
-
-class MatchNode(PageableDjangoObjectType):
-    """ GraphQL node representing a match/fixture """
-    model_id = graphene.String()
-    has_report = graphene.Boolean()
-    kit_clash = graphene.Boolean()
-
-    appearances = CursorPaginatedConnectionField(AppearanceNode)
-    award_winners = CursorPaginatedConnectionField(MatchAwardWinnerNode)
+    def filter_lom(self, queryset, name, value):
+        # filter for matches where the given member won the Lemon of the Match award.
+        kwargs = {
+            'award_winners__member_id': value,
+            'award_winners__award__name': MatchAward.LOM,
+        }
+        return queryset.filter(**kwargs)
 
     class Meta:
         model = Match
-        interfaces = (graphene.relay.Node, )
-        filter_fields = {
+        fields = {
+            'mom': ['exact'],
+            'lom': ['exact'],
             'venue__slug': ['exact'],
+            'venue_id': ['exact'],
             'opp_team__name': ['exact'],
             'opp_team__club__slug': ['exact'],
             'fixture_type': ['exact'],
@@ -72,12 +62,48 @@ class MatchNode(PageableDjangoObjectType):
             'our_team__slug': ['exact'],
             'our_team__gender': ['exact'],
             'season__slug': ['exact'],
-            'appearances__member': ['in'],
-            'report_author__id': ['exact'],
+            'report_author_id': ['exact'],
+            'appearances__member_id': ['in'],
         }
 
-    def resolve_model_id(self, info):
-        return self.id
+    order_by = django_filters.OrderingFilter(
+        fields=(
+            ('our_score', 'score'),
+            ('date', 'date'),
+            ('fixtureType', 'fixtureType'),
+            ('our_team__short_name', 'ourTeam'),
+            ('opp_team__name', 'oppTeam'),
+            ('venue__short_name', 'venue'),
+        )
+    )
+
+
+class AppearanceType(DjangoObjectType):
+    """ GraphQL node representing a member's appearance in a match """
+    class Meta:
+        model = Appearance
+        filter_fields = {
+            'goals': ['gte'],
+        }
+
+
+class AppearanceList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a list of appearances"
+        model = Appearance
+        pagination = get_paginator()
+
+
+class MatchType(DjangoObjectType):
+    """ GraphQL node representing a match/fixture """
+    has_report = graphene.Boolean()
+    kit_clash = graphene.Boolean()
+
+    appearances = OptimizedDjangoListObjectField(AppearanceList)
+    award_winners = OptimizedDjangoListObjectField(MatchAwardWinnerList)
+
+    class Meta:
+        model = Match
 
     def resolve_has_report(self, info):
         return self.has_report()
@@ -85,59 +111,43 @@ class MatchNode(PageableDjangoObjectType):
     def resolve_kit_clash(self, info):
         return self.kit_clash()
 
-    def prefetch_opp_team(queryset, related_queryset):
-        return queryset.select_related('opp_team__club')
 
-    # def optimize_appearances(queryset, **kwargs):
-    #     return queryset.prefetch_related(Prefetch('appearances', queryset=Appearance.objects.select_related('member')))
-
-    # def optimize_award_winners(queryset, **kwargs):
-    #     return queryset.prefetch_related(Prefetch('award_winners', queryset=MatchAwardWinner.objects.select_related('member', 'award')))
+class MatchList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a list of matches"
+        model = Match
+        pagination = get_paginator()
 
 
-goalking_field_map = {
-    "member": ("member", "select"),
-}
-
-
-class GoalKingType(PageableDjangoObjectType):
+class GoalKingType(DjangoObjectType):
     """ GraphQL node representing an entry in the Goal King stats """
     gender = graphene.String()
 
     class Meta:
         model = GoalKing
-        interfaces = (graphene.Node, )
         filter_fields = ['member__gender', 'season__slug']
 
     def resolve_gender(self, info):
         return self.member.gender
 
 
+class GoalKingList(DjangoListObjectType):
+    class Meta:
+        description = "Type definition for a list of goal king entries"
+        model = GoalKing
+        pagination = get_paginator()
+
+
 class Query(graphene.ObjectType):
     """ GraphQL query for members etc """
 
-    matches = schema_helper.OptimizableFilterConnectionField(MatchNode)
+    matches = OptimizedDjangoListObjectField(
+        MatchList, filterset_class=MatchFilter)
 
-    matches_cursor = CursorPaginatedConnectionField(MatchNode)
+    appearances = OptimizedDjangoListObjectField(AppearanceList)
 
-    appearances = graphene.List(AppearanceNode)
-    goal_king_entries = schema_helper.OptimizableFilterConnectionField(
-        GoalKingType, filterset_class=GoalKingFilter)
-
-    def resolve_matches_cursor(self, info, **kwargs):
-        return Match.objects.all()
-
-    def resolve_matches(self, info, **kwargs):
-        appearances_qs = Appearance.objects.select_related('member')
-        appearances_prefetch = Prefetch('appearances', queryset=appearances_qs)
-        award_winners_qs = MatchAwardWinner.objects.select_related(
-            'member', 'award')
-        award_winner_prefetch = Prefetch(
-            'award_winners', queryset=award_winners_qs)
-        return Match.objects.filter(**kwargs).select_related('our_team', 'opp_team__club', 'venue').prefetch_related(appearances_prefetch, award_winner_prefetch)
-
-    def resolve_appearances(self):
-        return Appearance.objects.all()
+    goal_king_entries = OptimizedDjangoListObjectField(
+        GoalKingList, filterset_class=GoalKingFilter)
 
     def resolve_goal_king_entries(self, info, **kwargs):
         order_field = '-total_goals'
@@ -146,4 +156,4 @@ class Query(graphene.ObjectType):
             order_field = '-{}_goals'.format(team)
             kwargs["{}_goals__gt".format(team)] = 0
 
-        return schema_helper.optimize(GoalKing.objects.filter(total_goals__gt=0).filter(**kwargs).order_by(order_field, '-gpg'), info, goalking_field_map)
+        return GoalKing.objects.filter(total_goals__gt=0).filter(**kwargs).order_by(order_field, '-gpg')

@@ -14,7 +14,7 @@ const MatchLink = ({ match, className }) => {
   else if (Match.finalScoresProvided(match)) iconClassName += 'fa-file';
   else iconClassName += 'fa-file-o';
   return (
-    <a href={Urls.match_detail(match.modelId)} title="Match details">
+    <a href={Urls.match_detail(match.id)} title="Match details">
       <span className="u-icon-v1 g-bg-primary--hover g-color-white--hover">
         <i className={iconClassName} />
       </span>
