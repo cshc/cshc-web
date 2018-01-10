@@ -78,7 +78,7 @@ class ZinniaEntryAdminForm(EntryAdminForm):
     """
     content = forms.CharField(widget=CKEditorUploadingWidget())
     excerpt = forms.CharField(widget=CKEditorUploadingWidget())
-    lead = forms.CharField(widget=CKEditorUploadingWidget())
+    lead = forms.CharField(required=False, widget=CKEditorUploadingWidget())
 
     class Meta:
         """ Meta-info for the form. """

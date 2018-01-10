@@ -158,7 +158,7 @@ class Match(models.Model):
 
     # A short paragraph that can be used to hype up the match before its played - can be HTML
     # TODO: Prevent entering pre-match hype for matches in the past?
-    pre_match_hype = SplitField("Pre-match hype", blank=True)
+    pre_match_hype = SplitField("Pre-match hype", blank=True, null=True)
 
     # The (optional) title of the match report
     report_title = models.CharField(
@@ -169,7 +169,7 @@ class Match(models.Model):
                                       on_delete=models.SET_NULL, related_name="match_reports")
 
     # The actual match report text - can be HTML
-    report_body = SplitField("Match report", blank=True)
+    report_body = SplitField("Match report", blank=True, null=True)
 
     # The datetime at which the report was first published
     report_pub_timestamp = models.DateTimeField("Match report publish timestamp", editable=False,
