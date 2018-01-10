@@ -31,7 +31,9 @@ Context should have a 'latest_results' list of Match objects.
                 </div>
               </td>
               <td class="g-valign-middle text-center">
-                <i class="fa fa-fw {% if match.has_report %}fa-file-text{% elif match.final_scores_provided %}fa-file{% else %}fa-file-o{% endif %}"></i>
+                {% if match.has_report %}
+                  <i class="fa fa-fw fa-file-text"></i>
+                {% endif %}
               </td>
             </tr>
           {% endfor %}
