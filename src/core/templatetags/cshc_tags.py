@@ -21,6 +21,14 @@ register = template.Library()
 LOG = logging.getLogger(__name__)
 
 
+@register.simple_tag(takes_context=True)
+def animation_duration(context, duration=1000):
+    request = context.get('request')
+    if request.user_agent.is_mobile:
+        return 0
+    return duration
+
+
 @register.inclusion_tag("core/_page_heading.html")
 def heading(text):
     """

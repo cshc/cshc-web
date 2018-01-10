@@ -42,8 +42,9 @@ class HomeView(TemplateView):
     def addLatestResultsToContext(self, context):
         """ Helper method to add latest results to a context dictionary.
             context = the view context (a dictionary)
-            Returns: the context dictionary, with a 'latest_results' entry
-            containing a list of results
+            Adds a 'latest_results' entry to the context dictionary
+            containing a list of dates, with each date containing the matches
+            played on that date, ordered by team position
 
             The latest_results list contains a maximum of one result per team.
             Results are only included if the team is active and the match was
@@ -52,21 +53,24 @@ class HomeView(TemplateView):
         latest_results = []
         current_season = Season.current()
         today = timezone.now().date()
-        for team in ClubTeam.objects.only('pk'):
+        dt_now = datetime.now()
+        for team in ClubTeam.objects.active().only('pk'):
             match_qs = Match.objects.select_related('our_team', 'opp_team__club', 'venue',
                                                     'division__league', 'cup', 'season')
-            match_qs = match_qs.filter(our_team__active=True, our_team_id=team.pk,
-                                       date__lte=today, season=current_season)
-            match_qs = match_qs.order_by('-date', '-time')
-            if match_qs.exists():
-                # Have to ignore matches that are today but still in future.
-                dt_now = datetime.now()
-                for m in match_qs:
-                    if m.datetime() < dt_now:
-                        latest_results.append(m)
-                        break
 
-        context['latest_results'] = latest_results
+            match_qs = match_qs.filter(our_team_id=team.pk,
+                                       date__lte=today,
+                                       season=current_season)
+
+            match_qs = match_qs.order_by('-date', '-time')
+
+            # Have to ignore matches that are today but still in future.
+            for m in match_qs:
+                if m.datetime() < dt_now:
+                    latest_results.append(m)
+                    break
+
+        context['latest_results'] = self.group_by_date(latest_results)
 
     def addNextFixturesToContext(self, context):
         """ Helper method to add next fixtures to a context dictionary.
@@ -78,20 +82,41 @@ class HomeView(TemplateView):
         """
         next_fixtures = []
         today = timezone.now().date()
-        for team in ClubTeam.objects.only('pk'):
+        dt_now = datetime.now()
+        for team in ClubTeam.objects.active().only('pk'):
             match_qs = Match.objects.select_related('our_team', 'opp_team__club', 'venue',
                                                     'division__league', 'cup', 'season')
             match_qs = match_qs.filter(our_team_id=team.pk, date__gte=today)
             match_qs = match_qs.order_by('date', 'time')
-            if match_qs.exists():
-                # Have to ignore matches that are today but in the past.
-                dt_now = datetime.now()
-                for m in match_qs:
-                    if m.datetime() > dt_now:
-                        next_fixtures.append(m)
-                        break
+            # Have to ignore matches that are today but in the past.
+            for m in match_qs:
+                if m.datetime() > dt_now:
+                    next_fixtures.append(m)
+                    break
 
-        context['next_fixtures'] = next_fixtures
+        context['next_fixtures'] = self.group_by_date(next_fixtures)
+
+    def group_by_date(self, matches):
+        """ 
+        Groups the matches by date (in ascending order), with each date's matches
+        being ordered by team position.
+
+        Returns a list of objects with 'date' and 'matches' properties.
+        """
+        matches = sorted(matches, key=lambda m: m.datetime())
+        match_dates = []
+        for match in matches:
+            if len(match_dates) > 0 and match.date == match_dates[-1]['date']:
+                match_dates[-1]['matches'].append(match)
+            else:
+                match_dates.append(dict(date=match.date, matches=[match]))
+
+        # Sort each date's matches by team position
+        for date in match_dates:
+            date['matches'] = sorted(
+                date['matches'], key=lambda r: r.our_team.position)
+
+        return match_dates
 
 
 class CalendarView(TemplateView):

@@ -40,9 +40,11 @@ const TeamDetail = ({ data, division, teamId, teamGenderlessName, seasonId }) =>
           />
         </AccordionCard>
       ) : null}
-      <AccordionCard cardId="league-table" accordionId="team-details" title="League Table">
-        <LeagueTable divisionId={division.id} seasonId={seasonId} teamName={teamGenderlessName} />
-      </AccordionCard>
+      { division.id && (
+        <AccordionCard cardId="league-table" accordionId="team-details" title="League Table">
+          <LeagueTable divisionId={division.id} seasonId={seasonId} teamName={teamGenderlessName} />
+        </AccordionCard>
+      )}
       <AccordionCard cardId="squad-roster" accordionId="team-details" title="Squad Roster">
         <SquadRosterWrapper teamId={teamId} seasonId={seasonId} />
       </AccordionCard>

@@ -465,6 +465,18 @@ class Match(models.Model):
             return "-"
         return "{}-{}".format(self.our_score, self.opp_score)
 
+    def result_display(self):
+        """ Returns a textual representation of the result (or alternative outcome) """
+        if self.final_scores_provided():
+            if self.our_score > self.opp_score:
+                return 'won'
+            elif self.our_score < self.opp_score:
+                return 'lost'
+            else:
+                return 'drawn'
+        else:
+            return self.get_alt_outcome_display()
+
     def simple_venue_name(self):
         """ Returns 'Away' if this is not a home match.
             Otherwise returns the short_name attribute value.

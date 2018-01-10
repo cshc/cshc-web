@@ -1,3 +1,7 @@
+.home-banner .match-summaries {
+  padding-top: 90.75px; /* Matches the height of the header */
+}
+
 .home-banner .g-color-white a {
   color: rgb(216, 221, 255);
 }
@@ -5,11 +9,37 @@
   color: rgb(177, 186, 252);
 }
 
-.home-banner .table thead th {
-  border-top: none;
+.home-banner .table td,
+.home-banner .table tr {
+  border: none;
 }
-.home-banner .table td {
-  border-top: 1px solid rgba(233, 236, 239, 0.42);
+.home-banner tr.match {
+  cursor: pointer;
+}
+
+.home-banner tr.match:hover {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+.home-banner .gender-mens {
+  color: #6aa84f;
+}
+.home-banner .gender-ladies {
+  color: #6fa8dc;
+}
+.home-banner .result {
+  display: block;
+  font-weight: bold;
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
+}
+.home-banner .result.result-won {
+  background-color: #72c02c;
+}
+.home-banner .result.result-lost {
+  background-color: #ff0000;
+}
+.home-banner .result.result-drawn {
+  background-color: #999999;
 }
 @media (max-width: 768px) {
   .home-banner .container {

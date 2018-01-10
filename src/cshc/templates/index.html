@@ -22,21 +22,39 @@
 {% block header_section_class %}g-bg-black-opacity-0_7{% endblock header_section_class %}
 
 {% block main %}
+
+{% url 'match_report_rss_feed' as matches_rss %}
+{% url 'calendar' as calendar %}
+
 <section class="home-banner dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll is-touch dzsprx-readyall loaded" data-options="{direction: &quot;reverse&quot;, settings_mode_oneelement_max_offset: &quot;150&quot;}">
-    <div class="divimage dzsparallaxer--target w-100 g-bg-cover g-bg-img-hero" style="height: 130%; background-image: url(&quot;{% static "img/blue-astro.jpg" %}&quot;); transform: translate3d(0px, -117.768px, 0px);"></div>
+    <div class="divimage dzsparallaxer--target w-100 g-bg-cover g-bg-img-hero" style="height: 130%; background-image: url(&quot;{% static "img/astro1.png" %}&quot;); transform: translate3d(0px, -117.768px, 0px);"></div>
 
     <div class="w-100">
-        <div class="container g-bg-cover__inner g-pt-90">
-          <div class="row">
-            <div class="col-lg-6">
+        <div class="container g-bg-cover__inner match-summaries">
+          <div class="row justify-content-center">
+            <div class="col-lg-5">
               <div class="g-pa-10 g-bg-black-opacity-0_7 g-color-white">
-                <h4>Latest Results</h4>
+                <h4 class="text-center">
+                  Latest Results
+                  <span class="float-right">
+                    <a href="{{ matches_rss }}" title="Subscribe to Cambridge South match reports" target="_blank">
+                      <i class="fa fa-rss"></i>
+                    </a>
+                  </span>
+                </h4>
                 {% include 'matches/_latest_results.html' %}
               </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-5">
               <div class="g-pa-10 g-bg-black-opacity-0_7 g-color-white">
-                <h4>Next Fixtures</h4>
+                <h4 class="text-center">
+                  Next Fixtures
+                  <span class="float-right">
+                    <a href="{{ calendar }}" title="Import match details into your own calendar" target="_blank">
+                      <i class="fa fa-calendar"></i>
+                    </a>
+                  </span>
+                </h4>
                 {% include 'matches/_next_fixtures.html' %}
               </div>
             </div>
@@ -67,11 +85,11 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 align-self-center g-py-20">
-        <img class="w-100" src="{% static "img/l1-1.jpg" %}" alt="Ladies 1sts in action" data-animation="fadeInLeft" data-animation-duration="1000">
+        <img class="w-100" src="{% static "img/l1-1.jpg" %}" alt="Ladies 1sts in action" data-animation="fadeInLeft" data-animation-duration="{% animation_duration %}">
       </div>
 
       <div class="col-md-6 align-self-center g-py-20 g-pl-40">
-        <div data-animation="fadeInRight" data-animation-duration="1000">
+        <div data-animation="fadeInRight" data-animation-duration="{% animation_duration %}">
           <h2 class="h4 text-uppercase g-letter-spacing-1 g-mb-20">Improve your hockey skills</h2>
           <ul class="fa-ul g-mb-40 g-font-size-20 g-line-height-1">
             <li class="g-mb-20"><i class="fa-li fa fa-check-square g-mr-5"></i>Free coached men's and ladies' sessions</li>
@@ -90,7 +108,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 align-self-center g-py-20 g-pr-40 order-2 order-md-1">
-        <div data-animation="fadeInLeft" data-animation-duration="1000">
+        <div data-animation="fadeInLeft" data-animation-duration="{% animation_duration %}">
           <h2 class="h4 text-uppercase g-letter-spacing-1 g-mb-20">Meet new people</h2>
           <div class="g-mb-40 g-font-size-20">
             <p>Stay for match teas then grab a drink from the bar and watch the other South teams playing.</p>
@@ -102,7 +120,7 @@
       </div>
 
       <div class="col-md-6 align-self-center g-py-20 order-1 order-md-2">
-        <img class="w-100" src="{% static "img/l1-2.jpg" %}" alt="Ladies 1sts in action" data-animation="fadeInRight" data-animation-duration="1000">
+        <img class="w-100" src="{% static "img/l1-2.jpg" %}" alt="Ladies 1sts in action" data-animation="fadeInRight" data-animation-duration="{% animation_duration %}">
       </div>
     </div>
   </div>
@@ -112,11 +130,11 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 align-self-center g-py-20">
-        <img class="w-100" src="{% static "img/m1-1.jpg" %}" alt="Mens 1sts in action" data-animation="fadeInLeft" data-animation-duration="1000">
+        <img class="w-100" src="{% static "img/m1-1.jpg" %}" alt="Mens 1sts in action" data-animation="fadeInLeft" data-animation-duration="{% animation_duration %}">
       </div>
 
       <div class="col-md-6 align-self-center g-py-20 g-pl-40">
-        <div data-animation="fadeInRight" data-animation-duration="1000">
+        <div data-animation="fadeInRight" data-animation-duration="{% animation_duration %}">
           <h2 class="h4 text-uppercase g-letter-spacing-1 g-mb-20">Great facilities and value for money</h2>
           <ul class="fa-ul g-mb-40 g-font-size-20 g-line-height-1">
             <li class="g-mb-20"><i class="fa-li fa fa-check-square g-mr-5"></i>Lowest playing fees in Cambridge</li>
@@ -183,5 +201,11 @@
   <script src="{% static "vendor/dzsparallaxer/dzsparallaxer.js" %}"></script>
   {% include 'blocks/_scroll_nav_js.html' %}
   {% include 'blocks/_scroll_anim_js.html' %}
-  {% include }
+  <script>
+    $(function () {
+      $(".home-banner .table .match").click(function() {
+        window.location = $(this).data("href");
+      });
+    });
+  </script>
 {% endblock body_js %}
