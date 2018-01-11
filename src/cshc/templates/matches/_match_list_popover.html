@@ -1,0 +1,15 @@
+<ul id="matches-on-date-popover" class="list-unstyled text-left">
+  {% for match_set in same_date_matches %}
+    {% for match in match_set.matches %}
+      <li class="g-my-6">
+        <a class="ellipsize" href="{{ match.get_absolute_url }}" title="Match details">
+          <i class="g-mr-5 fa {% if match.has_report %}fa-file-text{% elif match.final_scores_provided %}fa-file{% else %}fa-file-o{% endif %}"></i>
+          {{ match.match_title_text }}
+        </a>
+        {% if forloop.last and not forloop.parentloop.last %}
+          <hr class="g-my-6" />
+        {% endif %}
+      </li>
+    {% endfor %}
+  {% endfor %}
+</ul>

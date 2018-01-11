@@ -1690,3 +1690,9 @@ input[type='radio']:checked + * .g-overlay-primary-0_9--checked::after,
 .geoposition-widget > table {
   display: none;
 }
+.ellipsize {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+}

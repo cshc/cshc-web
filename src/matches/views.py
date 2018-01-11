@@ -59,9 +59,18 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
         context = super(MatchDetailView, self).get_context_data(**kwargs)
         match = context["match"]
 
-        # Add various bits of info to the context object
-        same_date_matches = Match.objects.filter(
-            date=match.date).exclude(pk=match.pk)
+        # Get all the other matches on this date
+        same_date_matches_qs = Match.objects.select_related('our_team', 'opp_team__club').filter(
+            date=match.date).order_by('our_team__position').exclude(pk=match.pk)
+
+        # Group other matches by team gender
+        same_date_matches = []
+        for other_match in same_date_matches_qs:
+            if len(same_date_matches) > 0 and other_match.our_team.get_gender_display() == same_date_matches[-1]['gender']:
+                same_date_matches[-1]['matches'].append(other_match)
+            else:
+                same_date_matches.append(
+                    dict(gender=other_match.our_team.get_gender_display(), matches=[other_match]))
 
         award_winners = match.award_winners.select_related(
             'award', 'member__user').all()
