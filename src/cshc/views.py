@@ -13,8 +13,9 @@ from core.models import TeamGender
 from core.views import get_season_from_kwargs, add_season_selector
 from competitions.models import Season
 from teams.models import ClubTeam
-from matches.models import Match
+from matches.models import Match, Appearance
 from members.models import CommitteeMembership
+from members.utils import member_from_request
 
 
 class HomeView(TemplateView):
@@ -23,6 +24,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
+        member = member_from_request(self.request)
         self.addLatestResultsToContext(context)
         self.addNextFixturesToContext(context)
 
@@ -37,6 +39,12 @@ class HomeView(TemplateView):
             {'id': 'tweets', 'label': 'Tweets'},
         ]
 
+        if member:
+            try:
+                context['last_appearance_match_id'] = Appearance.objects.by_member(
+                    member).order_by('-match__date').values_list('match_id', flat=True).first()
+            except Appearance.DoesNotExist:
+                pass
         return context
 
     def addLatestResultsToContext(self, context):

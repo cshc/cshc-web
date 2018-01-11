@@ -17,6 +17,10 @@
   cursor: pointer;
 }
 
+.home-banner tr.match.my-match {
+  background-color: rgba(12, 82, 11, 0.8);
+}
+
 .home-banner tr.match:hover {
   background-color: rgba(0, 0, 0, 0.35);
 }

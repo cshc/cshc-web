@@ -12,7 +12,7 @@ Context should have a 'latest_results' list of Match objects.
             <td colspan="5">{{ date.date|date:"jS M" }}</td>
           </tr>
           {% for match in date.matches %}
-            <tr class="match" title="View match details" data-href="{{ match.get_absolute_url }}">
+            <tr class="match{% if last_appearance_match_id == match.id %} my-match{% endif %}" title="View match details" data-href="{{ match.get_absolute_url }}">
               <td class="g-valign-middle fixture-icon gender-{{ match.our_team.get_gender_display|lower }}">
                 {% include 'matches/_fixture_icon.html' %}
               </td>

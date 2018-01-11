@@ -10,20 +10,14 @@
 """
 
 from django.conf import settings
-from members.models import Member
+from members.utils import member_from_request
 
 # pylint: disable=W0613
 
 
 def utils(request):
     """ Returns common context items. """
-    try:
-        if request.user.is_authenticated():
-            member = Member.objects.only('id').get(user_id=request.user.id)
-        else:
-            member = None
-    except Member.DoesNotExist:
-        member = None
+    member = member_from_request(request)
     context = {
         'member_id': member.id if member else None,
         'VERSION': settings.VERSION,
