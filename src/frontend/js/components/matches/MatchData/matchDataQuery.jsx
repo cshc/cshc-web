@@ -4,20 +4,28 @@ import withApolloResults from 'components/common/ApolloResults';
 
 export const MATCH_DATA_QUERY = gql`
   query MatchList(
+    $page: Int
+    $pageSize: Int
+    $orderBy: String
     $venue_Slug: String
     $season_Slug: String
     $ourTeam_Slug: String
     $oppTeam_Club_Slug: String
     $appearances_MemberId_In: ID
+    $appearances_MemberId: ID
+    $date_Lte: String
   ) {
     matches(
+      orderBy: $orderBy
       venue_Slug: $venue_Slug
       season_Slug: $season_Slug
       ourTeam_Slug: $ourTeam_Slug
       oppTeam_Club_Slug: $oppTeam_Club_Slug
       appearances_MemberId_In: $appearances_MemberId_In
+      appearances_MemberId: $appearances_MemberId
+      date_Lte: $date_Lte
     ) {
-      results(pageSize: 1000) {
+      results(pageSize: $pageSize, page: $page) {
         id
         ourTeam {
           id

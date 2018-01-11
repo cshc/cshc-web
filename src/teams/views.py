@@ -96,6 +96,7 @@ class ClubTeamDetailView(TemplateView):
                 'leagueTableUrl': participation.division_tables_url,
             },
             'matchFilters': {
+                'pageSize': 1000,
                 'ourTeam_Slug': team.slug,
                 'season_Slug': season.slug,
             },

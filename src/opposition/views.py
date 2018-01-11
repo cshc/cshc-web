@@ -44,6 +44,7 @@ class ClubDetailView(SelectRelatedMixin, DetailView):
         context['props'] = {
             'clubName': club.name,
             'matchFilters': {
+                'pageSize': 1000,
                 'oppTeam_Club_Slug': club.slug,
             },
         }

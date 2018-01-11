@@ -15,7 +15,7 @@ const MemberListWrapper = ({ data, viewType, onSelectViewType }) => (
       <ViewSwitcherView iconClass="fa fa-map-0" label={ViewType.Map} />
     </ViewSwitcher>
     {viewType === ViewType.List ? (
-      <MemberTable members={data} />
+      <MemberTable members={data.results} />
     ) : (
       <GoogleMap
         markers={data.results.map(member => (

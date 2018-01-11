@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { format as dateFormat } from 'date-fns';
 import Urls from 'util/urls';
 import { Subheading, Panel } from 'components/Unify';
 import CommitteeMemberships from './CommitteeMemberships';
 import EndOfSeasonAwards from './EndOfSeasonAwards';
-// import MemberRecentMatches from './MemberRecentMatches';
-
-// <MemberRecentMatches
-// matchFilters={{ appearances_Member_Id: memberId }}
-// showViewTypeSwitcher={false}
-// />
+import MemberRecentMatches from './MemberRecentMatches';
+import MemberRecentReports from './MemberRecentReports';
 
 /**
  * Top-level component for a member's Club Involvement.
@@ -29,10 +26,20 @@ const MemberClubInvolvement = ({ memberId }) => {
         <div className="card-block">
           <p>
             Note: you can view/filter/sort all matches that Graham played in{' '}
-            <a href={Urls.get('match_list')} title="Match List">
+            <a href={`${Urls.get('match_list')}?players=${memberId}`} title="Match List">
               here
             </a>. This table just lists the most recent matches.
           </p>
+          <MemberRecentMatches
+            matchFilters={{
+              pageSize: 5,
+              orderBy: '-date',
+              appearances_MemberId: memberId,
+              date_Lte: dateFormat(new Date(), 'YYYY-MM-DD'),
+            }}
+            dateFormat="Do MMM YYYY"
+            showViewTypeSwitcher={false}
+          />
         </div>
       </Panel>
       <div className="row">
@@ -65,7 +72,18 @@ const MemberClubInvolvement = ({ memberId }) => {
           </Panel>
         </div>
         <div className="col-md-6 g-mb-20">
-          <Panel className="g-mb-0 g-height-100x" title="Recent Match Reports" {...panelProps} />
+          <Panel className="g-mb-0 g-height-100x" title="Recent Match Reports" {...panelProps}>
+            <div className="card-block">
+              <MemberRecentReports
+                matchFilters={{
+                  pageSize: 5,
+                  orderBy: '-date',
+                  reportAuthorId: memberId,
+                  date_Lte: dateFormat(new Date(), 'YYYY-MM-DD'),
+                }}
+              />
+            </div>
+          </Panel>
         </div>
       </div>
     </div>

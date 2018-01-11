@@ -20,7 +20,7 @@ const VenueTable = ({ venues }) => (
 );
 
 VenueTable.propTypes = {
-  venues: PropTypes.shape().isRequired,
+  venues: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 export default VenueTable;

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 const MemberMatchData = ({ data, ...props }) => (
   <MatchData
     exclude={[MatchItem.fixtureType, MatchItem.time, MatchItem.scorers, MatchItem.awards]}
-    matches={data.edges.map(m => m.node)}
+    matches={data.results}
     {...props}
   />
 );

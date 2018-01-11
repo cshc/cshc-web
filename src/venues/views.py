@@ -52,6 +52,7 @@ class VenueDetailView(DetailView):
         context['props'] = {
             'venueName': venue.name,
             'matchFilters': {
+                'pageSize': 1000,
                 'venue_Slug': venue.slug,
             },
         }

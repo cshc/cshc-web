@@ -63,7 +63,7 @@ class MatchFilter(django_filters.FilterSet):
             'our_team__gender': ['exact'],
             'season__slug': ['exact'],
             'report_author_id': ['exact'],
-            'appearances__member_id': ['in'],
+            'appearances__member_id': ['in', 'exact'],
         }
 
     order_by = django_filters.OrderingFilter(
@@ -98,6 +98,7 @@ class MatchType(DjangoObjectType):
     """ GraphQL node representing a match/fixture """
     has_report = graphene.Boolean()
     kit_clash = graphene.Boolean()
+    match_title_text = graphene.String()
 
     appearances = OptimizedDjangoListObjectField(AppearanceList)
     award_winners = OptimizedDjangoListObjectField(MatchAwardWinnerList)
@@ -110,6 +111,9 @@ class MatchType(DjangoObjectType):
 
     def resolve_kit_clash(self, info):
         return self.kit_clash()
+
+    def resolve_match_title_text(self, info):
+        return self.match_title_text()
 
 
 class MatchList(DjangoListObjectType):
