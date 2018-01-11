@@ -101,13 +101,15 @@ class ClubStatsList(DjangoListObjectType):
         pagination = get_paginator()
 
 
+def post_optimize_opposition_club_stats(queryset, **kwargs):
+    if 'club__slug' in kwargs:
+        return queryset.select_related('team').filter(club__slug=kwargs['club__slug']).order_by('team__position')
+    return queryset.select_related('club').filter(team__isnull=True)
+
+
 class Query(graphene.ObjectType):
     """ GraphQL query for members etc """
     opposition_clubs = OptimizedDjangoListObjectField(ClubList)
     opposition_teams = OptimizedDjangoListObjectField(TeamList)
-    opposition_club_stats = OptimizedDjangoListObjectField(ClubStatsList)
-
-    def resolve_opposition_club_stats(self, info, **kwargs):
-        if 'club__slug' in kwargs:
-            return ClubStats.objects.select_related('team').filter(club__slug=kwargs['club__slug']).order_by('team__position')
-        return ClubStats.objects.totals()
+    opposition_club_stats = OptimizedDjangoListObjectField(
+        ClubStatsList, post_optimize=post_optimize_opposition_club_stats)

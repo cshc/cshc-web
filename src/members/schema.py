@@ -168,6 +168,28 @@ class SquadStatsType(graphene.ObjectType):
     squad = graphene.List(MemberStatsType)
 
 
+def post_optimize_members(queryset, **kwargs):
+    print('Optimizing members')
+    # Slight hack to manually convert a comma-separated list of pref_position ints to an array of ints
+    if 'pref_position__in' in kwargs:
+        pref_positions = [
+            int(x) for x in kwargs['pref_position__in'].split(",")]
+        queryset = queryset.filter(pref_position__in=pref_positions)
+
+    # Manually create text search by first name OR last name
+    text_query = None
+    if 'name' in kwargs:
+        text_search = kwargs.pop('name')
+        text_query = Q(first_name__istartswith=text_search) | Q(
+            last_name__istartswith=text_search)
+        queryset = queryset.filter(text_query)
+
+    queryset = queryset.annotate(num_appearances=Count(
+        'appearances'), goals=Sum('appearances__goals'))
+
+    return queryset
+
+
 class Query(graphene.ObjectType):
     """ GraphQL query for members etc """
     committee_positions = OptimizedDjangoListObjectField(CommitteePositionList)
@@ -178,33 +200,13 @@ class Query(graphene.ObjectType):
     squad_memberships = OptimizedDjangoListObjectField(SquadMembershipList)
 
     members = OptimizedDjangoListObjectField(
-        MemberList, filterset_class=MemberFilter)
+        MemberList, filterset_class=MemberFilter, post_optimize=post_optimize_members)
 
     squad_stats = graphene.Field(
         SquadStatsType, season=graphene.Int(), team=graphene.Int(), fixture_Type=graphene.String())
 
     member_stats = graphene.List(
         SeasonRepresentationType, member_Id=graphene.Int(), fixture_Type=graphene.String())
-
-    def resolve_members(self, info, **kwargs):
-        # Slight hack to manually convert a comma-separated list of pref_position ints to an array of ints
-        if 'pref_position__in' in kwargs:
-            kwargs['pref_position__in'] = [
-                int(x) for x in kwargs['pref_position__in'].split(",")]
-
-        # Manually create text search by first name OR last name
-        text_query = None
-        if 'name' in kwargs:
-            text_search = kwargs.pop('name')
-            text_query = Q(first_name__istartswith=text_search) | Q(
-                last_name__istartswith=text_search)
-
-        full_query = Member.objects.annotate(num_appearances=Count(
-            'appearances'), goals=Sum('appearances__goals')).filter(**kwargs)
-        if text_query:
-            full_query = full_query.filter(text_query)
-
-        return full_query
 
     def resolve_squad_stats(self, info, **kwargs):
         # Get playing stats for the team, including squad members

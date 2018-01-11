@@ -31,6 +31,8 @@ export const MEMBER_LIST_QUERY = gql`
         shirtNumber
         prefPosition
         addrPosition
+        numAppearances
+        goals
       }
     }
   }
@@ -43,8 +45,8 @@ export const memberListOptions = {
       isCurrent: current || undefined,
       gender: gender !== NoFilter ? gender : undefined,
       prefPosition_In: Member.getPreferredPositions(position),
-      appearances_Match_OurTeam_Slug: team !== NoFilter ? team : undefined,
-      appearances_Match_Season_Slug: team !== NoFilter ? currentSeason : undefined,
+      appearances_Match_OurTeam_Slug: team && team !== NoFilter ? team : undefined,
+      appearances_Match_Season_Slug: team && team !== NoFilter ? currentSeason : undefined,
       teamcaptaincy_Season_Slug: captains ? currentSeason : undefined,
     },
     fetchPolicy: 'cache-and-network',
