@@ -26,7 +26,8 @@ const GoalKingTable = ({ data, team, goalKingGender }) => {
     }
   }
 
-  const maxGoals = filteredEntries[0].totalGoals;
+  const maxGoals =
+    team === NoFilter ? filteredEntries[0].totalGoals : filteredEntries[0][`${team}Goals`];
 
   return (
     <div className="table-responsive">

@@ -7,6 +7,7 @@
 
 {% block link %}
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
+  <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
 {% endblock link %}
 
 {% block breadcrumbs %}
@@ -35,17 +36,25 @@
       <tr>
         <th class="text-center">Rank</th>
         <th>Name</th>
-        <th class="priority2 text-center"><abbr title="Total games played">Played</abbr></th>
+        <th class="g-hidden-sm-down"></th>
+        <th class="g-hidden-sm-down text-center"><abbr title="Total games played">Played</abbr></th>
         <th class="text-center"><abbr title="Total miles travelled">Miles</abbr></th>
         <th class="text-center"><abbr title="Miles per game">MPG</abbr></th>
       </tr>
     </thead>
     <tbody>
       {% for gk in goalking_list %}
-        <tr>
+        <tr title="{{ gk.member }} - {{ gk.total_miles }} miles">
           <td class="text-center"><span class="u-label g-bg-{% if gk.member.gender == 'Male' %}green{% else %}blue{% endif %}">{{ gk.rank }}</span></td>
-          <td>{{ gk.member|urlise_model }}</td>
-          <td class="priority2 text-center">{{ gk.games_played }}</td>
+          <td class="no-break">{{ gk.member|urlise_model }}</td>
+          <td class="g-hidden-sm-down g-width-90x">
+            {% widthratio gk.total_miles max_miles 100 as width %}
+            <div class="d-flex flex-column align-items-end" style="width: {{ width }}%;">
+              {% if gk.total_miles > 0 %}<i class="g-color-primary icon-transport-028 u-line-icon-pro"></i>{% endif %}
+              <div class="g-height-4 g-bg-primary" style="width: 100%; margin-top: -7px;"></div>
+            </div>
+          </td>
+          <td class="g-hidden-sm-down text-center">{{ gk.games_played }}</td>
           <td class="text-center">{{ gk.total_miles }}</td>
           <td class="text-center">{{ gk.mpg|floatformat:1 }}</td>
         </tr>

@@ -284,6 +284,8 @@ class AccidentalTouristSeasonView(TemplateView):
 
         context['goalking_list'] = self.get_goalking_list(season)
 
+        context['max_miles'] = context['goalking_list'][0].total_miles
+
         add_season_selector(context, season, Season.objects.reversed())
 
         return context

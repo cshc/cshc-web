@@ -15,7 +15,8 @@ const genderColor = {
 const GoalKingTableRow = ({ entry, teamFilter, maxGoals }) => {
   const teamClass = teamSlug =>
     (teamSlug === teamFilter ? 'g-font-weight-600 priority3' : 'priority3');
-  const progressWidth = 100 * (entry.totalGoals / maxGoals);
+  const goals = teamFilter === NoFilter ? entry.totalGoals : entry[`${teamFilter}Goals`];
+  const progressWidth = 100 * (goals / maxGoals);
   return (
     <tr>
       <td>
