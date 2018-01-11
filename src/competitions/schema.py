@@ -3,7 +3,6 @@ GraphQL Schema for Competitions
 """
 
 import graphene
-from graphene_django.filter import DjangoFilterConnectionField
 from graphene_django_extras import DjangoListObjectType, DjangoObjectType
 from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
 from .models import Season, League, Division, Cup, DivisionResult

@@ -24,7 +24,7 @@ const MemberTable = ({ members }) => (
 );
 
 MemberTable.propTypes = {
-  members: PropTypes.shape().isRequired,
+  members: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 export default MemberTable;

@@ -52,7 +52,7 @@ class MatchListDisplay extends React.Component {
               className: 'align-self-center',
               accessor: 'date',
               headerClassName: 'text-left',
-              Cell: row => <MatchDate date={row.value} format="Do MMM YYYY" />,
+              Cell: row => <MatchDate date={row.value} format="Do MMM YY" />,
             },
             {
               Header: 'Team',

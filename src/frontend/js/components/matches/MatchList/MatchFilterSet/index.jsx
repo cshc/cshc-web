@@ -65,7 +65,9 @@ const MatchFilterSet = ({ teams, divisions, opposition_clubs, seasons, venues, m
   return (
     <div>
       <div className="text-right">
-        <a onClick={clearAll}>Clear all</a>
+        <button className="btn btn-link" onClick={clearAll}>
+          Clear all
+        </button>
       </div>
       <SelectFilter
         label="Gender"

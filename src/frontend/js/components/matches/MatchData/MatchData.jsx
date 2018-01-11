@@ -56,7 +56,7 @@ MatchData.defaultProps = {
   exclude: [],
   priorities: {},
   dateFormat: 'Do MMM',
-  showViewTypeSwitcher: true,
+  showViewTypeSwitcher: false,
 };
 
 export default MatchData;

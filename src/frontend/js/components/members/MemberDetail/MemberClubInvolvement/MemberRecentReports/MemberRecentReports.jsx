@@ -12,7 +12,7 @@ const MemberRecentReports = ({ matches }) => (
       <tbody>
         {matches.results.map(match => (
           <tr>
-            <td>{dateFormat(match.date, 'Do MMM YYYY')}</td>
+            <td>{dateFormat(match.date, 'Do MMM YY')}</td>
             <td>
               <a href={Urls.match_detail(match.id)} title="Read report">
                 {match.matchTitleText}

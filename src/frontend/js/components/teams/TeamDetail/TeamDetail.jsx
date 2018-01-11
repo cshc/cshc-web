@@ -25,7 +25,7 @@ const TeamDetail = ({ data, division, teamId, teamGenderlessName, seasonId }) =>
     else fixtures.push(match);
   });
   return (
-    <Accordion accordionId="team-details">
+    <Accordion multiselectable accordionId="team-details">
       {results.length > 0 ? (
         <AccordionCard cardId="results" accordionId="team-details" title="Results">
           <MatchData matches={results} />
@@ -40,7 +40,7 @@ const TeamDetail = ({ data, division, teamId, teamGenderlessName, seasonId }) =>
           />
         </AccordionCard>
       ) : null}
-      { division.id && (
+      {division.id && (
         <AccordionCard cardId="league-table" accordionId="team-details" title="League Table">
           <LeagueTable divisionId={division.id} seasonId={seasonId} teamName={teamGenderlessName} />
         </AccordionCard>

@@ -37,7 +37,7 @@ const MemberClubInvolvement = ({ memberId }) => {
               appearances_MemberId: memberId,
               date_Lte: dateFormat(new Date(), 'YYYY-MM-DD'),
             }}
-            dateFormat="Do MMM YYYY"
+            dateFormat="Do MMM YY"
             showViewTypeSwitcher={false}
           />
         </div>
