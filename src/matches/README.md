@@ -13,6 +13,7 @@ RSS/Atom feeds of the latest match reports and an ical calendar feed of all matc
 |(Example) URL                                      |View                               |Description                                 |
 |---------------------------------------------------|-----------------------------------|--------------------------------------------|
 |**/matches/**                                      |MatchListView                      |Searchable/filterable list of all matches.|
+|**/matches/<pk>**                                  |MatchDetailView                    |Details of a particular match.|
 |**/matches/<23-Apr-13>/**                          |MatchesByDateView                  |List of matches on a particular date.|
 |**/matches/goal-king/<2012-2013>/**                |GoalKingSeasonView                 |Goal King stats table for a particular season. If the season is not supplied in the URL, the current season's stats will be displayed.|
 |**/matches/accidental-tourist/<2012-2013>/**       |AccidentalTouristSeasonView        |Accidental Tourist stats table for a particular season. If the season is not supplied in the URL, the current season's stats will be displayed.|
@@ -39,6 +40,14 @@ The following GraphQL queries are provided for the teams app:
 |**goal\_king\_entries**      |_member\_Gender_, _season\_Slug_  |List of goal king entries                                |
 
 ### React Apps
+
+#### MatchList
+
+The ```MatchList``` React app forms part of the **MatchListView** (```/matches/```) and displays a paginated/filterable/searchable list of Matches. Data is fetched from the server using the ```matches``` GraphQL query.
+
+#### MatchDetail
+
+The ```MatchDetail``` React app forms part of the **MatchDetailView** (```/matches/<pk>```) and includes a table of previous matches between the two teams. Data is fetched from the server using the ```matches``` GraphQL query.
 
 #### GoalKing
 

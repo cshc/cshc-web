@@ -9,21 +9,31 @@ export const MATCH_DATA_QUERY = gql`
     $orderBy: String
     $venue_Slug: String
     $season_Slug: String
+    $ourTeamId: ID
     $ourTeam_Slug: String
+    $oppTeamId: ID
     $oppTeam_Club_Slug: String
     $appearances_MemberId_In: ID
     $appearances_MemberId: ID
+    $date_Lt: String
     $date_Lte: String
+    $date_Gt: String
+    $date_Gte: String
   ) {
     matches(
       orderBy: $orderBy
       venue_Slug: $venue_Slug
       season_Slug: $season_Slug
+      ourTeamId: $ourTeamId
       ourTeam_Slug: $ourTeam_Slug
+      oppTeamId: $oppTeamId
       oppTeam_Club_Slug: $oppTeam_Club_Slug
       appearances_MemberId_In: $appearances_MemberId_In
       appearances_MemberId: $appearances_MemberId
+      date_Lt: $date_Lt
       date_Lte: $date_Lte
+      date_Gt: $date_Gt
+      date_Gte: $date_Gte
     ) {
       results(pageSize: $pageSize, page: $page) {
         id

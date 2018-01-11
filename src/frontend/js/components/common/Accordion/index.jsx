@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
  * 
  * Ref: https://htmlstream.com/preview/unify-v2.2/unify-main/shortcodes/shortcode-base-accordions.html#shortcode10
  */
-const Accordion = ({ children, accordionId }) => (
+const Accordion = ({ children, accordionId, multiselectable }) => (
   <div
     id={accordionId}
     className="u-accordion u-accordion-color-primary u-accordion-brd-primary"
     role="tablist"
-    aria-multiselectable="true"
+    aria-multiselectable={multiselectable}
   >
     {children}
   </div>
@@ -19,7 +19,13 @@ const Accordion = ({ children, accordionId }) => (
 
 Accordion.propTypes = {
   accordionId: PropTypes.string.isRequired,
-  children: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element])
+    .isRequired,
+  multiselectable: PropTypes.bool,
+};
+
+Accordion.defaultProps = {
+  multiselectable: false,
 };
 
 export default Accordion;

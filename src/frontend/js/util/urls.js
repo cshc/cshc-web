@@ -26,6 +26,8 @@ const Urls = {
 
   member_detail: id => Urls.buildUrl('member_detail', { [window.cshcUrls.pkPlaceholder]: id }),
 
+  match_list: () => Urls.buildUrl('match_list', {}),
+
   match_detail: id => Urls.buildUrl('match_detail', { [window.cshcUrls.pkPlaceholder]: id }),
 
   venue_detail: slug => Urls.buildUrl('venue_detail', { [window.cshcUrls.slugPlaceholder]: slug }),

@@ -14,6 +14,9 @@
 {% block link %}
   <link rel="stylesheet" href="{% static "css/match_detail.css" %}">
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
+  {% if not match.is_in_past %}
+  {% include 'react/react_css.html' with bundle_name='MatchDetail' %}
+  {% endif %}
 {% endblock link %}
 
 {% block head_js %}
@@ -95,6 +98,9 @@
     {% if match.report_body.content %}
       {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='report' show='show' cardTitle='Match Report' cardContent='matches/_report.html' %}
     {% endif %}
+    {% if not match.is_in_past %}
+      <div id="react-app"></div>
+    {% endif %}
   </div>
   <div id="comments g-py-40">
     <div class="sharethis-inline-share-buttons"></div>
@@ -116,6 +122,7 @@
     })
 </script>
 {% if not match.is_in_past %}
+  {% include 'react/react_js.html' with bundle_name='MatchDetail' %}
   {% include 'maps/_map_body_js.html' with venue=match.venue mapId="map" %}
 {% endif %}
 {% endblock body_js %}

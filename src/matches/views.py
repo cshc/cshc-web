@@ -1,6 +1,7 @@
 """
 Views related to matches
 """
+from datetime import datetime
 from functools import reduce
 from braces.views import SelectRelatedMixin
 from django.views.generic import DetailView, ListView, TemplateView
@@ -110,6 +111,29 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
 
         context["enable_live_comments"] = live_comments_enabled.value in [
             'True', 'true', 'yes', '1']
+
+        if not match.is_in_past():
+            context['props'] = {
+                'matchId': match.id,
+                'ourTeam': {
+                    'slug': match.our_team.slug,
+                    'longName': match.our_team.long_name,
+                },
+                'oppTeam': {
+                    'name': match.opp_team.name,
+                    'club': {
+                        'slug': match.opp_team.club.slug,
+                        'name': match.opp_team.club.name,
+                    },
+                },
+                'matchFilters': {
+                    'pageSize': 5,
+                    'orderBy': '-date',
+                    'date_Lt': str(match.date),
+                    'ourTeamId': match.our_team_id,
+                    'oppTeamId': match.opp_team_id,
+                },
+            }
         return context
 
 

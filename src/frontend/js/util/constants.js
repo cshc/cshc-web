@@ -50,6 +50,7 @@ const ViewType = toDict(['Table', 'Timeline', 'Cards', 'List', 'Map', 'Chart']);
 const MatchItem = toDict([
   'fixtureType',
   'date',
+  'ourTeam',
   'opposition',
   'time',
   'venue',

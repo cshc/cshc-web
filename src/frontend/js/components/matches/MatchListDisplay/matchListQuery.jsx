@@ -9,6 +9,8 @@ export const MATCH_LIST_QUERY = gql`
     $orderBy: String
     $ourTeam_Gender: String
     $ourTeam_Slug: String
+    $ourTeamId: ID
+    $oppTeamId: ID
     $oppTeam_Club_Slug: String
     $season_Slug: String
     $fixtureType: String
@@ -23,6 +25,8 @@ export const MATCH_LIST_QUERY = gql`
       orderBy: $orderBy
       ourTeam_Gender: $ourTeam_Gender
       ourTeam_Slug: $ourTeam_Slug
+      ourTeamId: $ourTeamId
+      oppTeamId: $oppTeamId
       oppTeam_Club_Slug: $oppTeam_Club_Slug
       season_Slug: $season_Slug
       fixtureType: $fixtureType

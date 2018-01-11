@@ -59,7 +59,7 @@ const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
         <td className={priority(TC.scorers, 3)}>
           <div className={styles.flexWrap}>
             {Match.scorers(match).map((scorer, index, scorers) => (
-              <span key={scorer.member.id}>
+              <span key={index}>
                 <MemberLink member={scorer.member} badgeCount={scorer.goals} className="g-mr-10" />
                 {index < scorers.length - 1 && <span>,&nbsp;</span>}
               </span>
