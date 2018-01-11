@@ -26,6 +26,8 @@ const GoalKingTable = ({ data, team, goalKingGender }) => {
     }
   }
 
+  const maxGoals = filteredEntries[0].totalGoals;
+
   return (
     <div className="table-responsive">
       <table className="table table-sm table-hover text-center">
@@ -56,7 +58,12 @@ const GoalKingTable = ({ data, team, goalKingGender }) => {
         </thead>
         <tbody>
           {filteredEntries.map(entry => (
-            <GoalKingTableRow key={entry.member.id} entry={entry} teamFilter={team} />
+            <GoalKingTableRow
+              key={entry.member.id}
+              entry={entry}
+              teamFilter={team}
+              maxGoals={maxGoals}
+            />
           ))}
         </tbody>
       </table>

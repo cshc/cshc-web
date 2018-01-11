@@ -88,10 +88,10 @@ def queryset_factory(root_field, fields_asts=None, fragments=None, **kwargs):
     for f in kwargs.keys():
         temp = available_related_fields.get(f.split('_', 1)[0], None)
         if temp:
-            if (temp.many_to_many or temp.one_to_many) and \
-               temp.name not in prefetch_related:
-                prefetch_related.append(temp.name)
-            else:
+            if (temp.many_to_many or temp.one_to_many):
+                if temp.name not in prefetch_related:
+                    prefetch_related.append(temp.name)
+            elif temp.name not in select_related:
                 select_related.append(temp.name)
 
     if fields_asts:

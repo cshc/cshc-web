@@ -4,6 +4,7 @@ import round from 'lodash/round';
 import Member from 'models/member';
 import { Gender, NoFilter } from 'util/constants';
 import Urls from 'util/urls';
+import styles from './style.scss';
 
 // Colors to use for the ranking labels
 const genderColor = {
@@ -11,9 +12,10 @@ const genderColor = {
   [Gender.Female]: 'blue',
 };
 
-const GoalKingTableRow = ({ entry, teamFilter }) => {
+const GoalKingTableRow = ({ entry, teamFilter, maxGoals }) => {
   const teamClass = teamSlug =>
     (teamSlug === teamFilter ? 'g-font-weight-600 priority3' : 'priority3');
+  const progressWidth = 100 * (entry.totalGoals / maxGoals);
   return (
     <tr>
       <td>
@@ -23,6 +25,13 @@ const GoalKingTableRow = ({ entry, teamFilter }) => {
         <a href={Urls.member_detail(entry.member.id)} title="Member details">
           {Member.fullName(entry.member)}
         </a>
+        <div className={styles.progressBar}>
+          <div
+            className={`${styles.progress} g-bg-primary`}
+            role="progressbar"
+            style={{ width: `${progressWidth}%` }}
+          />
+        </div>
       </td>
       <td className={teamClass('m1')}>{entry.m1Goals}</td>
       <td className={teamClass('m2')}>{entry.m2Goals}</td>
@@ -44,6 +53,7 @@ const GoalKingTableRow = ({ entry, teamFilter }) => {
 GoalKingTableRow.propTypes = {
   entry: PropTypes.shape().isRequired,
   teamFilter: PropTypes.string,
+  maxGoals: PropTypes.number.isRequired,
 };
 
 GoalKingTableRow.defaultProps = {

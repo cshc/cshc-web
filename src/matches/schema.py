@@ -144,6 +144,19 @@ class GoalKingList(DjangoListObjectType):
         pagination = get_paginator()
 
 
+def post_optimize_goal_king_entries(queryset, **kwargs):
+    print('post_optimize goal king entries')
+    order_field = '-total_goals'
+    if 'team' in kwargs:
+        team = kwargs.pop('team')
+        order_field = '-{}_goals'.format(team)
+        team_kwargs = {}
+        team_kwargs["{}_goals__gt".format(team)] = 0
+        queryset = queryset.filter(**team_kwargs)
+
+    return queryset.filter(total_goals__gt=0).order_by(order_field, '-gpg')
+
+
 class Query(graphene.ObjectType):
     """ GraphQL query for members etc """
 
@@ -153,13 +166,4 @@ class Query(graphene.ObjectType):
     appearances = OptimizedDjangoListObjectField(AppearanceList)
 
     goal_king_entries = OptimizedDjangoListObjectField(
-        GoalKingList, filterset_class=GoalKingFilter)
-
-    def resolve_goal_king_entries(self, info, **kwargs):
-        order_field = '-total_goals'
-        if 'team' in kwargs:
-            team = kwargs.pop('team')
-            order_field = '-{}_goals'.format(team)
-            kwargs["{}_goals__gt".format(team)] = 0
-
-        return GoalKing.objects.filter(total_goals__gt=0).filter(**kwargs).order_by(order_field, '-gpg')
+        GoalKingList, filterset_class=GoalKingFilter, post_optimize=post_optimize_goal_king_entries)

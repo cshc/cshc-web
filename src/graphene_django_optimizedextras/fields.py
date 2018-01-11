@@ -50,6 +50,11 @@ class OptimizedDjangoFilterPaginateListField(DjangoFilterPaginateListField):
 
 class OptimizedDjangoListObjectField(DjangoListObjectField):
 
+    def __init__(self, *args, **kwargs):
+        self.pre_optimize = kwargs.pop('pre_optimize', None)
+        self.post_optimize = kwargs.pop('post_optimize', None)
+        super(OptimizedDjangoListObjectField, self).__init__(*args, **kwargs)
+
     def get_queryset(self, root, field_name, field_asts, fragments, **kwargs):
         prefetched = get_prefetched_attr(root, to_snake_case(field_name))
         if prefetched:
@@ -60,6 +65,9 @@ class OptimizedDjangoListObjectField(DjangoListObjectField):
         qs = queryset_factory(registry.get_type_for_model(self.type._meta.model), field_asts,
                               fragments, **kwargs)
         qs = self.filterset_class(data=filter_kwargs, queryset=qs).qs
+
+        if self.post_optimize:
+            qs = self.post_optimize(qs, **kwargs)
 
         return maybe_queryset(qs)
 
