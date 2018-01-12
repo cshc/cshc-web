@@ -4,7 +4,7 @@ Venue views
 from itertools import groupby
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.templatetags.static import static
 from django.conf import settings
 from django.http import Http404

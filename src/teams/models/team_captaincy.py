@@ -35,9 +35,9 @@ class TeamCaptaincyManager(models.Manager):
 class TeamCaptaincy(models.Model):
     """ Represents a member's term as captain/vice-captain of a team"""
 
-    member = models.ForeignKey('members.Member')
+    member = models.ForeignKey('members.Member', on_delete=models.CASCADE)
 
-    team = models.ForeignKey('teams.ClubTeam')
+    team = models.ForeignKey('teams.ClubTeam', on_delete=models.CASCADE)
 
     is_vice = models.BooleanField("Vice-captain?", default=False,
                                   help_text="Check if this member is the vice captain (as opposed to the captain)")
@@ -47,7 +47,8 @@ class TeamCaptaincy(models.Model):
                              help_text="The date this member took over as captain")
     """The date that the member started their captaincy"""
 
-    season = models.ForeignKey('competitions.Season', null=True, blank=True)
+    season = models.ForeignKey(
+        'competitions.Season', on_delete=models.SET_NULL, null=True, blank=True)
 
     objects = TeamCaptaincyManager()
 

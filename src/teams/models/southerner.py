@@ -33,10 +33,10 @@ class Southerner(models.Model):
         the update is run).
     """
     # The team this entry applies to
-    team = models.ForeignKey(ClubTeam)
+    team = models.ForeignKey(ClubTeam, on_delete=models.CASCADE)
 
     # The season this entry applies to
-    season = models.ForeignKey(Season)
+    season = models.ForeignKey(Season, on_delete=models.CASCADE)
 
     won = models.PositiveSmallIntegerField(
         "Total number of games won", default=0)

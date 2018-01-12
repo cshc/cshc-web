@@ -67,13 +67,13 @@ class CommitteeMembership(models.Model):
         CommitteePosition entry should be added for it.
     """
     # The club member in the committee
-    member = models.ForeignKey('Member')
+    member = models.ForeignKey('Member', on_delete=models.CASCADE)
 
     # The season in which the club member was on the committee
-    season = models.ForeignKey('competitions.Season')
+    season = models.ForeignKey('competitions.Season', on_delete=models.CASCADE)
 
     # The committee position
-    position = models.ForeignKey('CommitteePosition')
+    position = models.ForeignKey('CommitteePosition', on_delete=models.CASCADE)
 
     objects = CommitteeMembershipManager()
 

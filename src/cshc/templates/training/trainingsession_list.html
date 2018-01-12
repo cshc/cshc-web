@@ -23,8 +23,8 @@
 {% url 'trainingsession_create' as create_training_session %}
 {% url 'juniors_index' as juniors %}
 
-{% get_clubinfo 'SecretaryName' as sec_name %}
-{% get_clubinfo 'InSeason' as in_season %}
+{% clubinfo 'SecretaryName' as sec_name %}
+{% clubinfo 'InSeason' as in_season %}
 
 <div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll is-touch" data-options="{
   settings_mode_oneelement_max_offset: '150'

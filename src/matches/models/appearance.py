@@ -27,10 +27,12 @@ class Appearance(models.Model):
         goals), and cards received.
     """
     # The person making the appearance
-    member = models.ForeignKey(Member, related_name="appearances")
+    member = models.ForeignKey(
+        Member, on_delete=models.CASCADE, related_name="appearances")
 
     # The match in which the member played
-    match = models.ForeignKey(Match, related_name="appearances")
+    match = models.ForeignKey(
+        Match, on_delete=models.CASCADE, related_name="appearances")
 
     # The number of goals the player scored
     goals = models.PositiveSmallIntegerField("Goals scored", default=0)

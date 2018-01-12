@@ -13,7 +13,7 @@ class Division(models.Model):
     name = models.CharField("Division Name", max_length=255, default=None)
 
     # The league which runs this division
-    league = models.ForeignKey(League, related_name="divisions",
+    league = models.ForeignKey(League, on_delete=models.CASCADE, related_name="divisions",
                                help_text="The league that is responsible for this division")
 
     # Denotes whether this is a mens, ladies or mixed league

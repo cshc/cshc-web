@@ -8,7 +8,7 @@
 
 from django.contrib.sitemaps import Sitemap
 from django.contrib.flatpages.sitemaps import FlatPageSitemap
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from zinnia.sitemaps import TagSitemap
 from zinnia.sitemaps import EntrySitemap
 from zinnia.sitemaps import CategorySitemap

@@ -107,10 +107,12 @@ class Match(models.Model):
     COMMENTARY_END_MINS = 120
 
     # The Cambridge South team playing in this match
-    our_team = models.ForeignKey(ClubTeam, verbose_name="Our team")
+    our_team = models.ForeignKey(
+        ClubTeam, on_delete=models.PROTECT, verbose_name="Our team")
 
     # The opposition team
-    opp_team = models.ForeignKey(Team, verbose_name="Opposition team")
+    opp_team = models.ForeignKey(
+        Team, on_delete=models.PROTECT, verbose_name="Opposition team")
 
     # The match venue
     venue = models.ForeignKey(
@@ -195,7 +197,8 @@ class Match(models.Model):
 
     # Derived attributes ######################################################
     # - these values cannot be entered in a form - they are derived based on the other attributes
-    season = models.ForeignKey('competitions.Season', editable=False)
+    season = models.ForeignKey(
+        'competitions.Season', on_delete=models.PROTECT, editable=False)
     division = models.ForeignKey('competitions.Division', null=True, blank=True, editable=False,
                                  on_delete=models.PROTECT)
     cup = models.ForeignKey('competitions.Cup', null=True, blank=True, editable=False,

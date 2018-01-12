@@ -28,8 +28,8 @@ Ref: https://developers.facebook.com/docs/plugins/page-plugin
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-{% get_clubinfo 'MaleSocialSecName' as male_social_sec_name %}
-{% get_clubinfo 'FemaleSocialSecName' as female_social_sec_name %}
+{% clubinfo 'MaleSocialSecName' as male_social_sec_name %}
+{% clubinfo 'FemaleSocialSecName' as female_social_sec_name %}
 {% url 'calendar' as calendar %}
 
 <p>Cambridge South is a very friendly and sociable club. Keep an eye on your emails and the <a href="{% url 'calendar' %}">calendar</a> for information about forthcoming events. With our super Social (and super-sociable) Secretaries, {{ female_social_sec_name }} and {{ male_social_sec_name }},

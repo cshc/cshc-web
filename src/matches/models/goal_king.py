@@ -52,10 +52,10 @@ class GoalKing(models.Model):
     the update is run).
     """
     # The member this entry applies to
-    member = models.ForeignKey(Member)
+    member = models.ForeignKey(Member, on_delete=models.CASCADE)
 
     # The season this entry applies to
-    season = models.ForeignKey(Season)
+    season = models.ForeignKey(Season, on_delete=models.CASCADE)
 
     # The total number of games the member played in the season
     games_played = models.PositiveSmallIntegerField(

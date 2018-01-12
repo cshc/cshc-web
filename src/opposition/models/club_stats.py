@@ -31,10 +31,10 @@ class ClubStats(models.Model):
         a particular opposition club.
     """
 
-    team = models.ForeignKey(ClubTeam, null=True)
+    team = models.ForeignKey(ClubTeam, on_delete=models.CASCADE, null=True)
     """The Cambridge South team these stats relate to. Null for ALL teams."""
 
-    club = models.ForeignKey(Club)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
     """The opposition club these stats relate to."""
 
     home_won = models.PositiveSmallIntegerField("Home matches won", default=0)

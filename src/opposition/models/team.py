@@ -33,7 +33,8 @@ class Team(models.Model):
     """Represents an opposition team"""
 
     # The club this team is a part of
-    club = models.ForeignKey(Club, related_name="teams")
+    club = models.ForeignKey(
+        Club, on_delete=models.CASCADE, related_name="teams")
 
     # Full name of the team
     name = models.CharField("Team name", max_length=100, unique=True)

@@ -50,7 +50,7 @@ class AwardWinner(models.Model):
 
     # The member that won this award. Either this field or the awardee field must
     # be filled in (but not both).
-    member = models.ForeignKey(Member, related_name="%(app_label)s_%(class)s_awards",
+    member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name="%(app_label)s_%(class)s_awards",
                                null=True, blank=True, default=None,
                                help_text="(Leave blank if award winner is not a member)")
 
@@ -87,10 +87,12 @@ class MatchAwardWinner(AwardWinner):
     """A winner of an award associated with matches"""
 
     # The match that the award winner won the award for
-    match = models.ForeignKey(Match, related_name="award_winners")
+    match = models.ForeignKey(
+        Match, on_delete=models.CASCADE, related_name="award_winners")
 
     # The award that was won
-    award = models.ForeignKey(MatchAward, related_name="winners")
+    award = models.ForeignKey(
+        MatchAward, on_delete=models.CASCADE, related_name="winners")
 
     objects = MatchAwardWinnerManager()
 
@@ -102,10 +104,12 @@ class EndOfSeasonAwardWinner(AwardWinner):
     """A winner of an End of Season award"""
 
     # The season in which the award winner won the award
-    season = models.ForeignKey(Season, related_name="award_winners")
+    season = models.ForeignKey(
+        Season, on_delete=models.CASCADE, related_name="award_winners")
 
     # The award that was won
-    award = models.ForeignKey(EndOfSeasonAward, related_name="winners")
+    award = models.ForeignKey(
+        EndOfSeasonAward, on_delete=models.CASCADE, related_name="winners")
 
     objects = EndOfSeasonAwardWinnerManager()
 

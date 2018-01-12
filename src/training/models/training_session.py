@@ -48,7 +48,7 @@ class TrainingSessionManager(models.Manager):
 class TrainingSession(models.Model):
     """Represents a training session"""
 
-    venue = models.ForeignKey(Venue)
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
     """The venue where the training session takes place"""
 
     description = models.CharField(

@@ -9,7 +9,7 @@ from django import template
 from django.conf import settings
 from django.contrib import messages
 from django.templatetags.static import static
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
@@ -252,12 +252,6 @@ def clubinfo(key):
         return ClubInfo.objects.get(key=key).value
     except ClubInfo.DoesNotExist:
         return None
-
-
-@register.assignment_tag
-def get_clubinfo(key):
-    """An assignment version of the clubinfo tag"""
-    return clubinfo(key)
 
 
 @register.simple_tag

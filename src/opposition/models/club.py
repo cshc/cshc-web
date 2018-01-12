@@ -32,7 +32,7 @@ class Club(models.Model):
                                           help_text="Does this club's mixed team kit clash with our mixed team kit?")
 
     # The default venue for this club, if known
-    default_venue = models.ForeignKey(Venue, null=True,
+    default_venue = models.ForeignKey(Venue, on_delete=models.SET_NULL, null=True,
                                       help_text="The venue this club usually plays at (if known)")
 
     # Auto-generated slug - used in the url for club details

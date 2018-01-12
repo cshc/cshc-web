@@ -48,15 +48,16 @@ class ClubTeamSeasonParticipation(models.Model):
         Includes division and cup participation.
     """
 
-    team = models.ForeignKey(ClubTeam)
+    team = models.ForeignKey(ClubTeam, on_delete=models.CASCADE)
     """The Cambridge South team participating in the division"""
 
-    season = models.ForeignKey(Season)
+    season = models.ForeignKey(Season, on_delete=models.CASCADE)
     """The season in which the team participated in the division"""
 
     # Division ################################################################
 
-    division = models.ForeignKey(Division, null=True, blank=True)
+    division = models.ForeignKey(
+        Division, on_delete=models.SET_NULL, null=True, blank=True)
     """The division in which the team participated in, if any."""
 
     team_photo = ResizedImageField("Team photo", size=[900, 600],
@@ -87,7 +88,8 @@ class ClubTeamSeasonParticipation(models.Model):
 
     # Cup #####################################################################
 
-    cup = models.ForeignKey(Cup, null=True, blank=True)
+    cup = models.ForeignKey(
+        Cup, on_delete=models.SET_NULL, null=True, blank=True)
     """The cup the team participated in, if any."""
 
     cup_result = models.CharField("Cup result", max_length=100, null=True, blank=True, default=None,

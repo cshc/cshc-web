@@ -3,7 +3,7 @@
     Ref: http://django-filter.readthedocs.org/en/latest/usage.html#the-filter
 """
 
-from django.forms import extras
+from django.forms import SelectDateWidget
 import django_filters
 from competitions.models import Season
 from .models import Match, HomeAway, FixtureType
@@ -39,8 +39,8 @@ class MatchFilter(django_filters.FilterSet):
         earliest_season = seasons[0]
         latest_season = seasons[-1]
         # The 'range' needs to be specified to n+1 where n is the last year with matches in.
-        self.filters['date'].widget = extras.SelectDateWidget(years=range(earliest_season.start.year,
-                                                                          latest_season.end.year + 1))
+        self.filters['date'].widget = SelectDateWidget(years=range(earliest_season.start.year,
+                                                                   latest_season.end.year + 1))
         self.filters['home_away'].extra.update(
             {'choices': CHOICES_FOR_HOME_AWAY})
         self.filters['fixture_type'].extra.update(

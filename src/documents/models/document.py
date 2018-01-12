@@ -44,7 +44,7 @@ class Document(models.Model):
     """ The uploaded file """
 
     category = models.ForeignKey(
-        DocumentCategory, related_name='documents', null=True, blank=True)
+        DocumentCategory, on_delete=models.SET_NULL, related_name='documents', null=True, blank=True)
     """ The (optional) category to which this document belongs """
 
     tags = TaggableManager(blank=True)

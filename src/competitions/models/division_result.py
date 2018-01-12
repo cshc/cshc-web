@@ -44,13 +44,16 @@ class DivisionResult(models.Model):
 
     # Only one of these fields should be populated, depending
     # on whether the team is a Cambridge South team or not.
-    our_team = models.ForeignKey('teams.ClubTeam', null=True, blank=True)
-    opp_team = models.ForeignKey('opposition.Team', null=True, blank=True)
+    our_team = models.ForeignKey(
+        'teams.ClubTeam', on_delete=models.CASCADE, null=True, blank=True)
+    opp_team = models.ForeignKey(
+        'opposition.Team', on_delete=models.CASCADE, null=True, blank=True)
 
     # Avoid circular reference issues by referring to the other
     # models using strings
-    division = models.ForeignKey('competitions.Division')
-    season = models.ForeignKey('competitions.Season')
+    division = models.ForeignKey(
+        'competitions.Division', on_delete=models.CASCADE)
+    season = models.ForeignKey('competitions.Season', on_delete=models.CASCADE)
 
     position = models.PositiveSmallIntegerField()
     played = models.PositiveSmallIntegerField(default=0)

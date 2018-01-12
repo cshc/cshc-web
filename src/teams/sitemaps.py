@@ -3,7 +3,7 @@
 """
 
 from django.contrib.sitemaps import Sitemap
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from competitions.sitemaps import SeasonalSitemap
 from competitions.models import Season
 from .models import ClubTeam

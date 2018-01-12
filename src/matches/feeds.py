@@ -15,7 +15,7 @@
 from datetime import timedelta
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed, Rss201rev2Feed
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.sites.models import Site
 from django.templatetags.static import static
 from django_ical.views import ICalFeed

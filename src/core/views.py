@@ -5,7 +5,7 @@ import traceback
 import logging
 from django.views.generic.edit import CreateView
 from django.contrib import messages
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from templated_email import send_templated_mail
 from competitions.models import Season
 from .models import JuniorsContactSubmission, ContactSubmission, ClubInfo
