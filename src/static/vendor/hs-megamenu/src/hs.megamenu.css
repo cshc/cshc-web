@@ -33,6 +33,7 @@
   opacity: 0;
 	/* width: 100%; */
 	background-color: #fff;
+	opacity: 1 !important;
 }
 
 .hs-menu-initialized:not(.hs-mobile-state) .hs-sub-menu,

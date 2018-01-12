@@ -5,7 +5,7 @@
  * @version 1.0
  */
 ;
-(function($) {
+(function ($) {
   'use strict';
 
   $.HSCore.components.HSDropdown = {
@@ -16,7 +16,6 @@
      * @private
      */
     _baseConfig: {
-
       dropdownEvent: 'click',
       dropdownType: 'simple',
       dropdownDuration: 300,
@@ -26,9 +25,10 @@
       dropdownHideOnScroll: true,
       dropdownHideOnBlur: false,
       dropdownDelay: 350,
-
-      afterOpen: function(invoker){},
-      afterClose: function(invoker){}
+      afterOpen: function (invoker) {
+      },
+      afterClose: function (invoker) {
+      }
     },
 
     /**
@@ -47,70 +47,115 @@
      * @public
      * @return {jQuery}
      */
-    init: function(collection, config) {
+    init: function (collection, config) {
 
       var self;
 
-      if( !collection || !collection.length ) return;
+      if (!collection || !collection.length) return;
 
       self = this;
 
-      collection.each(function(i, el){
+      var fieldsQty;
+
+      collection.each(function (i, el) {
 
         var $this = $(el), itemConfig;
 
-        if( $this.data('HSDropDown') ) return;
+        if ($this.data('HSDropDown')) return;
 
-        itemConfig = config && $.isPlainObject(config) ? 
-                     $.extend(true, {}, self._baseConfig, config, $this.data()) :
-                     $.extend(true, {}, self._baseConfig, $this.data());
+        itemConfig = config && $.isPlainObject(config) ?
+          $.extend(true, {}, self._baseConfig, config, $this.data()) :
+          $.extend(true, {}, self._baseConfig, $this.data());
 
-        switch( itemConfig.dropdownType ) {
+        switch (itemConfig.dropdownType) {
 
           case 'css-animation' :
 
             $this.data('HSDropDown', new DropdownCSSAnimation($this, itemConfig));
 
-          break;
+            break;
 
-          case 'jquery-slide' : 
+          case 'jquery-slide' :
 
             $this.data('HSDropDown', new DropdownJSlide($this, itemConfig));
 
-          break;
+            break;
 
-          default : 
+          default :
 
             $this.data('HSDropDown', new DropdownSimple($this, itemConfig));
 
         }
 
-        self._pageCollection = self._pageCollection.add( $this );
-        self._bindEvents( $this, itemConfig.dropdownEvent, itemConfig.dropdownDelay );
+        self._pageCollection = self._pageCollection.add($this);
+        self._bindEvents($this, itemConfig.dropdownEvent, itemConfig.dropdownDelay);
+        var DropDown = $(el).data('HSDropDown');
+
+        fieldsQty = $(DropDown.target).find('input, textarea').length;
 
       });
 
-      $(document).on('keyup.HSDropDown', function(e){
+      $(document).on('keyup.HSDropDown', function (e) {
 
-        if(e.keyCode && e.keyCode == 27) {
+        if (e.keyCode && e.keyCode == 27) {
 
-          self._pageCollection.each( function(i, el){
+          self._pageCollection.each(function (i, el) {
 
-            $(el).data('HSDropDown').hide();
+            var windW = $(window).width(),
+              optIsMobileOnly = Boolean($(el).data('is-mobile-only'));
 
-          } );
+            if (!optIsMobileOnly) {
+              $(el).data('HSDropDown').hide();
+            } else if (optIsMobileOnly && windW < 769) {
+              $(el).data('HSDropDown').hide();
+            }
+
+          });
 
         }
 
       });
 
-      $(window).on('scroll.HSDropDown', function(e){
+      $(window).on('click', function (e) {
 
-        self._pageCollection.each(function(i, el){
+        self._pageCollection.each(function (i, el) {
+
+          var windW = $(window).width(),
+            optIsMobileOnly = Boolean($(el).data('is-mobile-only'));
+
+          if (!optIsMobileOnly) {
+            $(el).data('HSDropDown').hide();
+          } else if (optIsMobileOnly && windW < 769) {
+            $(el).data('HSDropDown').hide();
+          }
+
+        });
+
+      });
+
+      self._pageCollection.each(function (i, el) {
+
+        var target = $(el).data('HSDropDown').config.dropdownTarget;
+
+        $(target).on('click', function(e) {
+
+          e.stopPropagation();
+
+        });
+
+      });
+
+      $(window).on('scroll.HSDropDown', function (e) {
+
+        self._pageCollection.each(function (i, el) {
 
           var DropDown = $(el).data('HSDropDown');
 
-          if(DropDown.getOption('dropdownHideOnScroll')) {
+          if (DropDown.getOption('dropdownHideOnScroll') && fieldsQty === 0) {
+
+            DropDown.hide();
+
+          } else if (DropDown.getOption('dropdownHideOnScroll') && !(/iPhone|iPad|iPod/i.test(navigator.userAgent))) {
 
             DropDown.hide();
 
@@ -120,13 +165,13 @@
 
       });
 
-      $(window).on('resize.HSDropDown', function(e){
+      $(window).on('resize.HSDropDown', function (e) {
 
-        if(self._resizeTimeOutId) clearTimeout(self._resizeTimeOutId);
+        if (self._resizeTimeOutId) clearTimeout(self._resizeTimeOutId);
 
-        self._resizeTimeOutId = setTimeout(function(){
+        self._resizeTimeOutId = setTimeout(function () {
 
-          self._pageCollection.each(function(i, el){
+          self._pageCollection.each(function (i, el) {
 
             var DropDown = $(el).data('HSDropDown');
 
@@ -144,74 +189,79 @@
 
     /**
      * Binds necessary events.
-     * 
+     *
      * @param {jQuery} $invoker
      * @param {String} eventType
      * @param {Number} delay
-     * @private 
+     * @private
      */
-    _bindEvents: function( $invoker, eventType, delay ) {
+    _bindEvents: function ($invoker, eventType, delay) {
 
       var $dropdown = $($invoker.data('dropdown-target'));
 
-      if( eventType == 'hover' && !_isTouch() ) {
+      if (eventType == 'hover' && !_isTouch()) {
 
-        $invoker.on('mouseenter.HSDropDown', function(e) {
+        $invoker.on('mouseenter.HSDropDown', function (e) {
 
           var $invoker = $(this),
-              HSDropDown = $invoker.data('HSDropDown');
+            HSDropDown = $invoker.data('HSDropDown');
 
-          if( !HSDropDown ) return;
+          if (!HSDropDown) return;
 
-          if( HSDropDown.dropdownTimeOut ) clearTimeout( HSDropDown.dropdownTimeOut );
+          if (HSDropDown.dropdownTimeOut) clearTimeout(HSDropDown.dropdownTimeOut);
           HSDropDown.show();
 
         })
-        .on('mouseleave.HSDropDown', function(e) {
+          .on('mouseleave.HSDropDown', function (e) {
 
-          var $invoker = $(this),
+            var $invoker = $(this),
               HSDropDown = $invoker.data('HSDropDown');
 
-          if( !HSDropDown ) return;
+            if (!HSDropDown) return;
 
-          HSDropDown.dropdownTimeOut = setTimeout(function(){
+            HSDropDown.dropdownTimeOut = setTimeout(function () {
 
-            HSDropDown.hide();
-
-          }, delay);
-
-        });
-
-        if( $dropdown.length ) {
-          $dropdown.on('mouseenter.HSDropDown', function(e){
-
-            var HSDropDown = $invoker.data('HSDropDown');
-
-            if( HSDropDown.dropdownTimeOut ) clearTimeout( HSDropDown.dropdownTimeOut );
-            HSDropDown.show();
-
-          })
-          .on('mouseleave.HSDropDown', function(e) {
-
-            var HSDropDown = $invoker.data('HSDropDown');
-
-            HSDropDown.dropdownTimeOut = setTimeout(function() {
               HSDropDown.hide();
+
             }, delay);
 
           });
+
+        if ($dropdown.length) {
+
+          $dropdown.on('mouseenter.HSDropDown', function (e) {
+
+            var HSDropDown = $invoker.data('HSDropDown');
+
+            if (HSDropDown.dropdownTimeOut) clearTimeout(HSDropDown.dropdownTimeOut);
+            HSDropDown.show();
+
+          })
+            .on('mouseleave.HSDropDown', function (e) {
+
+              var HSDropDown = $invoker.data('HSDropDown');
+
+              HSDropDown.dropdownTimeOut = setTimeout(function () {
+                HSDropDown.hide();
+              }, delay);
+
+            });
         }
 
       }
       else {
 
-        $invoker.on('click.HSDropDown', function(e){
+        $invoker.on('click.HSDropDown', function (e) {
 
-          var $invoker = $(this);
+          var $curInvoker = $(this);
 
-          if( !$invoker.data('HSDropDown') ) return;
+          if (!$curInvoker.data('HSDropDown')) return;
 
-          $invoker.data('HSDropDown').toggle();
+          if ($('[data-dropdown-target].active').length) {
+            $('[data-dropdown-target].active').data('HSDropDown').toggle();
+          }
+
+          $curInvoker.data('HSDropDown').toggle();
 
           e.stopPropagation();
           e.preventDefault();
@@ -232,23 +282,23 @@
    *
    * @param {jQuery} element
    * @param {Object} config
-   * @abstract 
+   * @abstract
    */
   function AbstractDropdown(element, config) {
 
-    if( !element.length ) return false;
+    if (!element.length) return false;
 
     this.element = element;
     this.config = config;
 
     this.target = $(this.element.data('dropdown-target'));
 
-    this.allInvokers = $('[data-dropdown-target="'+this.element.data('dropdown-target')+'"]');
+    this.allInvokers = $('[data-dropdown-target="' + this.element.data('dropdown-target') + '"]');
 
-    this.toggle = function() {
-      if( !this.target.length ) return this;
+    this.toggle = function () {
+      if (!this.target.length) return this;
 
-      if( this.defaultState ) {
+      if (this.defaultState) {
         this.show();
       }
       else {
@@ -258,9 +308,9 @@
       return this;
     };
 
-    this.smartPosition = function( target ) {
+    this.smartPosition = function (target) {
 
-      if(target.data('baseDirection')) {
+      if (target.data('baseDirection')) {
         target.css(
           target.data('baseDirection').direction,
           target.data('baseDirection').value
@@ -270,23 +320,23 @@
       target.removeClass('u-dropdown--reverse-y');
 
       var $w = $(window),
-          styles = getComputedStyle(target.get(0)),
-          direction = Math.abs( parseInt( styles.left, 10) ) < 40 ? 'left' : 'right',
-          targetOuterGeometry = target.offset();
+        styles = getComputedStyle(target.get(0)),
+        direction = Math.abs(parseInt(styles.left, 10)) < 40 ? 'left' : 'right',
+        targetOuterGeometry = target.offset();
 
       // horizontal axis
-      if(direction == 'right') {
+      if (direction == 'right') {
 
-        if( !target.data('baseDirection') ) target.data('baseDirection', {
+        if (!target.data('baseDirection')) target.data('baseDirection', {
           direction: 'right',
-          value: parseInt( styles.right, 10)
-        } );
+          value: parseInt(styles.right, 10)
+        });
 
-        if( targetOuterGeometry.left < 0 ) {
+        if (targetOuterGeometry.left < 0) {
 
           target.css(
             'right',
-            (parseInt( target.css('right'), 10 ) - (targetOuterGeometry.left - 10 )) * -1
+            (parseInt(target.css('right'), 10) - (targetOuterGeometry.left - 10 )) * -1
           );
 
         }
@@ -294,16 +344,16 @@
       }
       else {
 
-        if( !target.data('baseDirection') ) target.data('baseDirection', {
+        if (!target.data('baseDirection')) target.data('baseDirection', {
           direction: 'left',
-          value: parseInt( styles.left, 10)
-        } );
+          value: parseInt(styles.left, 10)
+        });
 
-        if( targetOuterGeometry.left + target.outerWidth() > $w.width() ) {
+        if (targetOuterGeometry.left + target.outerWidth() > $w.width()) {
 
           target.css(
             'left',
-            (parseInt( target.css('left'), 10 ) - (targetOuterGeometry.left + target.outerWidth() + 10 - $w.width()))
+            (parseInt(target.css('left'), 10) - (targetOuterGeometry.left + target.outerWidth() + 10 - $w.width()))
           );
 
         }
@@ -311,13 +361,13 @@
       }
 
       // vertical axis
-      if( targetOuterGeometry.top + target.outerHeight() - $w.scrollTop() > $w.height() ) {
+      if (targetOuterGeometry.top + target.outerHeight() - $w.scrollTop() > $w.height()) {
         target.addClass('u-dropdown--reverse-y');
       }
 
     };
 
-    this.getOption = function(option){
+    this.getOption = function (option) {
       return this.config[option] ? this.config[option] : null;
     };
 
@@ -330,13 +380,13 @@
    *
    * @param {jQuery} element
    * @param {Object} config
-   * @constructor 
+   * @constructor
    */
   function DropdownSimple(element, config) {
-    if( !AbstractDropdown.call(this, element, config) ) return;
+    if (!AbstractDropdown.call(this, element, config)) return;
 
     Object.defineProperty(this, 'defaultState', {
-      get: function() {
+      get: function () {
         return this.target.hasClass('u-dropdown--hidden');
       }
     });
@@ -349,15 +399,19 @@
   /**
    * Shows dropdown.
    *
-   * @public 
+   * @public
    * @return {DropdownSimple}
    */
-  DropdownSimple.prototype.show = function() {
+  DropdownSimple.prototype.show = function () {
+
+    var activeEls = $(this)[0].config.dropdownTarget;
+
+    $('[data-dropdown-target="' + activeEls + '"]').addClass('active');
 
     this.smartPosition(this.target);
 
     this.target.removeClass('u-dropdown--hidden');
-    if( this.allInvokers.length ) this.allInvokers.attr('aria-expanded', 'true');
+    if (this.allInvokers.length) this.allInvokers.attr('aria-expanded', 'true');
     this.config.afterOpen.call(this.target, this.element);
 
     return this;
@@ -366,13 +420,17 @@
   /**
    * Hides dropdown.
    *
-   * @public 
+   * @public
    * @return {DropdownSimple}
    */
-  DropdownSimple.prototype.hide = function() {
+  DropdownSimple.prototype.hide = function () {
+
+    var activeEls = $(this)[0].config.dropdownTarget;
+
+    $('[data-dropdown-target="' + activeEls + '"]').removeClass('active');
 
     this.target.addClass('u-dropdown--hidden');
-    if( this.allInvokers.length ) this.allInvokers.attr('aria-expanded', 'false');
+    if (this.allInvokers.length) this.allInvokers.attr('aria-expanded', 'false');
     this.config.afterClose.call(this.target, this.element);
 
     return this;
@@ -383,40 +441,40 @@
    *
    * @param {jQuery} element
    * @param {Object} config
-   * @constructor 
+   * @constructor
    */
   function DropdownCSSAnimation(element, config) {
-    if( !AbstractDropdown.call(this, element, config) ) return;
+    if (!AbstractDropdown.call(this, element, config)) return;
 
     var self = this;
 
     this.target
-        .addClass('u-dropdown--css-animation u-dropdown--hidden')
-        .css('animation-duration', self.config.dropdownDuration + 'ms');
+      .addClass('u-dropdown--css-animation u-dropdown--hidden')
+      .css('animation-duration', self.config.dropdownDuration + 'ms');
 
     Object.defineProperty(this, 'defaultState', {
-      get: function() {
+      get: function () {
         return this.target.hasClass('u-dropdown--hidden');
       }
     });
 
-    if(this.target.length) {
+    if (this.target.length) {
 
-      this.target.on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(e){
+      this.target.on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function (e) {
 
-        if( self.target.hasClass( self.config.dropdownAnimationOut ) ) {
-          self.target.removeClass( self.config.dropdownAnimationOut )
-                     .addClass('u-dropdown--hidden');
+        if (self.target.hasClass(self.config.dropdownAnimationOut)) {
+          self.target.removeClass(self.config.dropdownAnimationOut)
+            .addClass('u-dropdown--hidden');
 
 
-          if( self.allInvokers.length ) self.allInvokers.attr('aria-expanded', 'false');
+          if (self.allInvokers.length) self.allInvokers.attr('aria-expanded', 'false');
 
           self.config.afterClose.call(self.target, self.element);
         }
 
-        if( self.target.hasClass( self.config.dropdownAnimationIn ) ) {
-          
-          if( self.allInvokers.length ) self.allInvokers.attr('aria-expanded', 'true');
+        if (self.target.hasClass(self.config.dropdownAnimationIn)) {
+
+          if (self.allInvokers.length) self.allInvokers.attr('aria-expanded', 'true');
 
           self.config.afterOpen.call(self.target, self.element);
         }
@@ -431,29 +489,37 @@
   /**
    * Shows dropdown.
    *
-   * @public 
+   * @public
    * @return {DropdownCSSAnimation}
    */
-  DropdownCSSAnimation.prototype.show = function() {
+  DropdownCSSAnimation.prototype.show = function () {
+
+    var activeEls = $(this)[0].config.dropdownTarget;
+
+    $('[data-dropdown-target="' + activeEls + '"]').addClass('active');
 
     this.smartPosition(this.target);
 
-    this.target.removeClass( 'u-dropdown--hidden' )
-               .removeClass( this.config.dropdownAnimationOut )
-               .addClass( this.config.dropdownAnimationIn );
+    this.target.removeClass('u-dropdown--hidden')
+      .removeClass(this.config.dropdownAnimationOut)
+      .addClass(this.config.dropdownAnimationIn);
 
   }
 
   /**
    * Hides dropdown.
    *
-   * @public 
+   * @public
    * @return {DropdownCSSAnimation}
    */
-  DropdownCSSAnimation.prototype.hide = function() {
+  DropdownCSSAnimation.prototype.hide = function () {
 
-    this.target.removeClass( this.config.dropdownAnimationIn )
-               .addClass( this.config.dropdownAnimationOut );
+    var activeEls = $(this)[0].config.dropdownTarget;
+
+    $('[data-dropdown-target="' + activeEls + '"]').removeClass('active');
+
+    this.target.removeClass(this.config.dropdownAnimationIn)
+      .addClass(this.config.dropdownAnimationOut);
 
   }
 
@@ -462,15 +528,15 @@
    *
    * @param {jQuery} element
    * @param {Object} config
-   * @constructor 
+   * @constructor
    */
   function DropdownJSlide(element, config) {
-    if( !AbstractDropdown.call(this, element, config) ) return;
+    if (!AbstractDropdown.call(this, element, config)) return;
 
     this.target.addClass('u-dropdown--jquery-slide u-dropdown--hidden').hide();
 
     Object.defineProperty(this, 'defaultState', {
-      get: function() {
+      get: function () {
         return this.target.hasClass('u-dropdown--hidden');
       }
     });
@@ -479,19 +545,23 @@
   /**
    * Shows dropdown.
    *
-   * @public 
+   * @public
    * @return {DropdownJSlide}
    */
-  DropdownJSlide.prototype.show = function() {
+  DropdownJSlide.prototype.show = function () {
 
     var self = this;
+
+    var activeEls = $(this)[0].config.dropdownTarget;
+
+    $('[data-dropdown-target="' + activeEls + '"]').addClass('active');
 
     this.smartPosition(this.target);
 
     this.target.removeClass('u-dropdown--hidden').stop().slideDown({
       duration: self.config.dropdownDuration,
       easing: self.config.dropdownEasing,
-      complete: function(){
+      complete: function () {
         self.config.afterOpen.call(self.target, self.element);
       }
     });
@@ -501,17 +571,21 @@
   /**
    * Hides dropdown.
    *
-   * @public 
+   * @public
    * @return {DropdownJSlide}
    */
-  DropdownJSlide.prototype.hide = function() {
+  DropdownJSlide.prototype.hide = function () {
 
     var self = this;
+
+    var activeEls = $(this)[0].config.dropdownTarget;
+
+    $('[data-dropdown-target="' + activeEls + '"]').removeClass('active');
 
     this.target.stop().slideUp({
       duration: self.config.dropdownDuration,
       easing: self.config.dropdownEasing,
-      complete: function(){
+      complete: function () {
         self.config.afterClose.call(self.target, self.element);
         self.target.addClass('u-dropdown--hidden');
       }

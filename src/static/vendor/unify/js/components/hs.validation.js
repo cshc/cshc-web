@@ -42,13 +42,13 @@
 
       this.config.itemSelector = selector;
 
-      this.initValidation();
+      this.initValidation(this.config);
 
       return this.pageCollection;
 
     },
 
-    initValidation: function () {
+    initValidation: function (config) {
       //Variables
       var $self = this,
         collection = $self.pageCollection;
@@ -58,7 +58,7 @@
         //Variables
         var $this = $(el);
 
-        if($this.hasClass('js-step-form')) {
+        if ($this.hasClass('js-step-form')) {
           $.validator.setDefaults({
             ignore: ':hidden:not(.active select)'
           });
@@ -68,13 +68,15 @@
           });
         }
 
-        $this.validate({
-          errorPlacement: $self.errorPlacement,
+        $.validator.setDefaults({
+          errorPlacement: config ? false : $self.errorPlacement,
           highlight: $self.highlight,
           unhighlight: $self.unHighlight
         });
 
-        $('select').change(function(){
+        $this.validate(config);
+
+        $('select').change(function () {
           $(this).valid();
         });
 
@@ -105,7 +107,5 @@
 
       $this.parents('.form-group').removeClass(errorClass).addClass(successClass);
     }
-
   };
-
 })(jQuery);

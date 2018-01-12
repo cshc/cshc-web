@@ -72,9 +72,39 @@
         //Variables
         var $this = $(el),
           to = $this.data('to'),
-          rangeBoolean = $this.data('range');
+          type = $this.data('type'),
+          minDate,
+          maxDate;
 
-        if (rangeBoolean == 1) {
+        if (type == 'one-field-range') {
+          var datePicker = $this.datepicker({
+            dateFormat: config['dateFormat'],
+            defaultDate: '+1w',
+            dayNamesMin: config['dayNamesMin'],
+            numberOfMonths: 1,
+            showOtherMonths: true,
+            prevText: config['prevText'],
+            nextText: config['nextText'],
+            beforeShow: $self.datepickerCustomClass,
+            onSelect: function(dateText, inst) {
+              console.log(inst);
+            }
+          }).on('change', function () {
+            var activeDate = datePicker.datepicker("getDate");
+
+            if(minDate == null) {
+              minDate = activeDate;
+            } else if(activeDate < minDate) {
+              minDate = activeDate;
+            }
+
+            if(maxDate == null && activeDate > minDate) {
+              maxDate = activeDate;
+            } else if(activeDate > maxDate) {
+              maxDate = activeDate;
+            }
+          });
+        } else if (type == 'range') {
           var dateFrom = $this.datepicker({
             dateFormat: config['dateFormat'],
             defaultDate: '+1w',
@@ -119,7 +149,7 @@
     datepickerCustomClass: function (el, attr) {
       var arrayOfClasses, customClass, i;
 
-      arrayOfClasses = attr.input.context.className.split(' ');
+      arrayOfClasses = attr.input[0].className.split(' ');
 
       for (i = 0; arrayOfClasses.length > i; i++) {
         if (arrayOfClasses[i].substring(0, 6) == 'u-date') {
@@ -143,7 +173,5 @@
 
       return date;
     }
-
   };
-
 })(jQuery);

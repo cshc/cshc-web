@@ -129,7 +129,5 @@
         collection = collection.add($this);
       });
     }
-
   };
-
 })(jQuery);

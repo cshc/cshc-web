@@ -318,6 +318,13 @@
                 lng: position.coords.longitude
               });
 
+              $gMap.addMarker({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+                title: gMapTitle,
+                icon: gMapPinIcon
+              });
+
               google.maps.event.addDomListener(window, 'resize', function () {
                 setTimeout(function () {
                   $gMap.setCenter({
@@ -356,6 +363,9 @@
                       lat: latlng.lat(),
                       lng: latlng.lng()
                     });
+
+                    gMapLat = latlng.lat();
+                    gMapLng = latlng.lng();
                   }
                 }
               });

@@ -19,7 +19,8 @@
 
       if (!collection.length) return;
 
-      var HTMLArr = {},
+      var target,
+        HTMLArr = {},
         stylesArr = {},
         scriptsArr = {};
 
@@ -32,11 +33,13 @@
         scriptsArr[contentTarget] = $(contentTarget + ' .shortcode-scripts').length ? $(contentTarget + ' .shortcode-scripts').html().replace(/&quot;/g, "'").replace(/type=\"text\/plain\"/g, '') : '';
       });
 
+      $(el).on('click', function () {
+        target = $(this).data('content-target');
+      });
+
       $.HSCore.components.HSModalWindow.init(el, {
         onOpen: function () {
-          var target = $(this.context.activeElement).data('content-target');
-
-          if(stylesArr[target] != '' || scriptsArr[target] != '') {
+          if (stylesArr[target] != '' || scriptsArr[target] != '') {
             $('.custombox-content .modal-demo')
               .append('<div id="modalMarkupContent" style="height: 100%;"><ul class="nav text-center justify-content-center u-nav-v5-2 u-nav-primary g-mb-10" role="tablist"></ul><div id="modalMarkupInner" class="tab-content" style="height: calc(100% - 47px);"></div></div>');
 
@@ -48,7 +51,7 @@
               .find('#markupHTML code > div')
               .text(HTMLArr[target]);
 
-            if(stylesArr[target] != '') {
+            if (stylesArr[target] != '') {
               $('.custombox-content .nav')
                 .append('<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#markupStyles" role="tab">Styles</a></li>');
 
@@ -58,7 +61,7 @@
                 .text(stylesArr[target]);
             }
 
-            if(scriptsArr[target] != '') {
+            if (scriptsArr[target] != '') {
               $('.custombox-content .nav')
                 .append('<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#markupScripts" role="tab">Scripts</a></li>');
 
@@ -71,7 +74,7 @@
             $.HSCore.components.HSTabs.init('[role="tablist"]');
           } else {
             $('.custombox-content .modal-demo')
-              .append('<div id="modalMarkupInner" class="markup-inner g-brd-around g-brd-gray-light-v1" style="max-height: 100%;"><pre><code class="language-markup"><div></div></code></pre></div>')
+              .append('<div id="modalMarkupContent" style="height: 100%;"><div id="modalMarkupInner" class="markup-inner g-brd-around g-brd-gray-light-v1" style="max-height: 100%;"><pre><code class="language-markup"><div></div></code></pre></div></div>')
               .find('#modalMarkupInner code > div')
               .text(HTMLArr[target]);
           }

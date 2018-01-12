@@ -57,7 +57,7 @@
       this.collection.each(function (i, el) {
         //Variables
         var $stickyBlock = $(el),
-          type = $stickyBlock.data('type'),
+          isResponsive = Boolean($stickyBlock.data('responsive')),
           stickyBlockClasses = $stickyBlock.attr('class').replace($self.config.itemSelector.substring(1), ''),
           stickyBlockH = $stickyBlock.outerHeight(),
           stickyBlockW = $stickyBlock.outerWidth(),
@@ -113,7 +113,7 @@
               });
           }
 
-          if (type == 'responsive') {
+          if (isResponsive == true) {
             setTimeout(function () {
               var offsetTop = $(this).scrollTop(),
                 headerH = $('header').outerHeight();
@@ -157,7 +157,7 @@
           }
         });
 
-        if (type != 'responsive') {
+        if (isResponsive == false) {
           //Add "shadow" element
           var offsetTop = $(this).scrollTop();
 
@@ -203,7 +203,7 @@
         $(window).on('scroll', function () {
           var offsetTop = $(this).scrollTop();
 
-          if (type != 'responsive') {
+          if (isResponsive == false) {
             //Add "shadow" element
             /* Args:
              * [1: target element]

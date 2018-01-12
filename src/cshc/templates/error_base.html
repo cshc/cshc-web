@@ -32,6 +32,7 @@
   <!-- CSS Customization -->
   <link rel="stylesheet" href="{% static "vendor/unify/css/custom.css" %}"> 
   <link rel="stylesheet" href="{% static "css/theme.css" %}"> 
+  <link rel="stylesheet" href="{% static "css/core.css" %}"> 
   
   {% block link %}{% endblock link %} 
   
@@ -61,7 +62,6 @@
   {% block body_js %}
   <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
   <script src="{% static "vendor/jquery-migrate/jquery-migrate.min.js" %}"></script>
-  <script src="{% static "vendor/jquery.easing/js/jquery.easing.js" %}"></script>
   <script src="{% static "vendor/popper.min.js" %}"></script>
   <script src="{% static "vendor/bootstrap/bootstrap.min.js" %}"></script>
   {% endblock body_js %}

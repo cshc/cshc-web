@@ -269,10 +269,19 @@
 
         _self.element.on("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function(e){
 
-          if(_self.isOpened && (e.originalEvent.propertyName == 'right' || e.originalEvent.propertyName == 'left')) {
+          // Old code
+          // if(_self.isOpened && (e.originalEvent.propertyName == 'right' || e.originalEvent.propertyName == 'left')) {
+          //   _self.config.afterOpen.call(_self.element, _self.overlay);
+          // }
+          // else if(!_self.isOpened && (e.originalEvent.propertyName == 'right' || e.originalEvent.propertyName == 'left')) {
+          //   _self.config.afterClose.call(_self.element, _self.overlay);
+          // }
+
+          // New code
+          if(_self.isOpened) {
             _self.config.afterOpen.call(_self.element, _self.overlay);
           }
-          else if(!_self.isOpened && (e.originalEvent.propertyName == 'right' || e.originalEvent.propertyName == 'left')) {
+          else if(!_self.isOpened) {
             _self.config.afterClose.call(_self.element, _self.overlay);
           }
 
@@ -411,15 +420,23 @@
    */
   HSNavigationOverlay.prototype.close = function() {
 
-    var hamburgers = this.toggler && this.toggler.length ? this.toggler.find('.is-active') : $();
+    var $this = this,
+      hamburgers = $this.toggler && $this.toggler.length ? $this.toggler.find('.is-active') : $();
 
     if(hamburgers.length) hamburgers.removeClass('is-active');
 
-    this.body.removeClass( this.config.activeClass );
+    $this.body.removeClass( $this.config.activeClass );
 
-    if(this.transitionDuration !== undefined && this.transitionDuration == 0) {
-      this.config.afterClose.call(this.element, this.overlay);
-    }
+    // Old code
+    // if(this.transitionDuration !== undefined && this.transitionDuration == 0) {
+    //   this.config.afterClose.call(this.element, this.overlay);
+    // }
+
+    // New code
+    $this.element.on("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function(e) {
+      $this.toggler.attr('aria-expanded', false);
+      $this.element.removeClass('collapse show');
+    });
 
   };
 
@@ -523,10 +540,19 @@
 
         _self.element.on("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function(e){
 
-          if(_self.isOpened && (e.originalEvent.propertyName == 'right' || e.originalEvent.propertyName == 'left')) {
+          // Old code
+          // if(_self.isOpened && (e.originalEvent.propertyName == 'right' || e.originalEvent.propertyName == 'left')) {
+          //   _self.config.afterOpen.call(_self.element, _self.overlay);
+          // }
+          // else if(!_self.isOpened && (e.originalEvent.propertyName == 'right' || e.originalEvent.propertyName == 'left')) {
+          //   _self.config.afterClose.call(_self.element, _self.overlay);
+          // }
+
+          // New code
+          if(_self.isOpened) {
             _self.config.afterOpen.call(_self.element, _self.overlay);
           }
-          else if(!_self.isOpened && (e.originalEvent.propertyName == 'right' || e.originalEvent.propertyName == 'left')) {
+          else if(!_self.isOpened) {
             _self.config.afterClose.call(_self.element, _self.overlay);
           }
 

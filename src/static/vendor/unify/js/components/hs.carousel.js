@@ -35,9 +35,7 @@
      *
      * @return jQuery pageCollection - collection of initialized items.
      */
-
     init: function (selector, config) {
-
       this.collection = selector && $(selector).length ? $(selector) : $();
       if (!$(selector).length) return;
 
@@ -49,7 +47,6 @@
       this.initCarousel();
 
       return this.pageCollection;
-
     },
 
     initCarousel: function () {
@@ -97,7 +94,9 @@
           setInfinite = $this.data('infinite'),
           setDataTitlePosition = $this.data('title-pos-inside'),
           setFocusOnSelect = $this.data('focus-on-select'),
-          setLazyLoad = $this.data('lazy-load');
+          setLazyLoad = $this.data('lazy-load'),
+          isAdaptiveHeight = $this.data('adaptive-height'),
+          setResponsive = JSON.parse(el.getAttribute('data-responsive'));
 
         $this.on('init', function (event, slick) {
           $(slick.$slides).css('height', 'auto');
@@ -120,13 +119,11 @@
         }
 
         if (isThumb) {
-          $('#' + id).on('click', '.js-slide', function (e) {
+          $('#' + id).on('click', '.slick-slide', function (e) {
             e.stopPropagation();
-            //Variables
-            var i;
 
-            //Variables values
-            i = $(this).data('slick-index');
+            //Variables
+            var i = $(this).data('slick-index');
 
             if ($('#' + id).slick('slickCurrentSlide') !== i) {
               $('#' + id).slick('slickGoTo', i);
@@ -170,6 +167,7 @@
           nextArrow: arrowsClasses ? $nextMarkup : false,
           dots: pagiClasses ? true : false,
           dotsClass: 'js-pagination ' + pagiClasses,
+          adaptiveHeight: !!isAdaptiveHeight,
           customPaging: function (slider, i) {
             var title = $(slider.$slides[i]).data('title');
 
@@ -184,7 +182,8 @@
             } else {
               return '<span></span>';
             }
-          }
+          },
+          responsive: setResponsive
         });
 
         $this.on('beforeChange', function (event, slider, currentSlide, nextSlide) {
@@ -194,12 +193,14 @@
 
           if (currentSlide > nextSlide) {
             $($pagination[0].children).removeClass('slick-active-right');
+
             $($pagination[0].children[nextSlide]).addClass('slick-active-right');
           } else {
             $($pagination[0].children).removeClass('slick-active-right');
           }
 
           $($pagination[0].children).removeClass('slick-current');
+
           setTimeout(function () {
             $($pagination[0].children[nextSlide]).addClass('slick-current');
           }, .25);
@@ -235,7 +236,6 @@
      * @return undefined
      */
     initTextAnimation: function(carousel, textAnimationSelector) {
-
       if (!window.TextFx || !window.anime || !carousel.length) return;
 
       var $text = carousel.find(textAnimationSelector);
@@ -243,20 +243,14 @@
       if (!$text.length) return;
 
       $text.each(function (i, el) {
-
         var $this = $(el);
 
         if (!$this.data('TextFx')) {
-
           $this.data('TextFx', new TextFx($this.get(0)));
-
         }
-
       });
 
-
       carousel.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-
         var targets = slick.$slider
           .find('.slick-track')
           .children();
@@ -274,10 +268,7 @@
         if (nextTarget.length) {
           nextTarget.data('TextFx').show(nextTarget.data('effect') ? nextTarget.data('effect') : 'fx1');
         }
-
       });
-
     }
   }
-
 })(jQuery);

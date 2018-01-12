@@ -158,7 +158,7 @@
         var contextID = context.attr('id');
 
         context.find('.js-tabs-mobile-control').removeClass('active');
-        console.log(contextID);
+
         $('[data-target="' + contextID + '"]').find('.nav-link').removeClass('active');
         var $target = $(this).next(),
           targetID = $target.attr('id');

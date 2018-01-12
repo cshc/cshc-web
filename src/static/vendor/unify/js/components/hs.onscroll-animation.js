@@ -66,25 +66,29 @@
 
             var $this = $(el);
 
-            if(!$this.data('HSAnimationElement')) {
-              $this.data('HSAnimationElement', new HSAnimationElement( $this, self.config ));
+            if(!(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))) {
+              if (!$this.data('HSAnimationElement')) {
+                $this.data('HSAnimationElement', new HSAnimationElement($this, self.config));
 
-              self._pageCollection = self._pageCollection.add($this);
+                self._pageCollection = self._pageCollection.add($this);
+              }
+            } else {
+              $this.addClass(self.config.inViewportClass);
             }
 
           });
         },
         appear: function(el) {
-
           var $el = $(el);
-          
-          if(!$el.hasClass( self.config.inViewportClass )) {
-            $el.data('HSAnimationElement').show();
+
+          if(!(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))) {
+            if (!$el.hasClass(self.config.inViewportClass)) {
+              $el.data('HSAnimationElement').show();
+            }
           }
         }
 
-      })
-
+      });
 
       return this._pageCollection;
 

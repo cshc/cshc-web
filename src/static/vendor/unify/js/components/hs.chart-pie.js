@@ -7,7 +7,7 @@
  *
  */
 ;
-(function($) {
+(function ($) {
   'use strict';
 
   $.HSCore.components.HSChartPie = {
@@ -51,7 +51,7 @@
      *
      * @return jQuery pageCollection - collection of initialized items.
      */
-    init: function(selector, config) {
+    init: function (selector, config) {
 
       this.collection = selector && $(selector).length ? $(selector) : $();
       if (!$(selector).length) return;
@@ -72,7 +72,7 @@
      *
      * @return undefined
      */
-    initCircles: function() {
+    initCircles: function () {
 
       var lastItem = this.pageCollection.last(),
         lastId = 0,
@@ -83,7 +83,7 @@
         lastId = +lastItem.attr('id').substring(lastItem.attr('id').lastIndexOf('-') + 1);
       }
 
-      this.collection.each(function(i, el) {
+      this.collection.each(function (i, el) {
 
         var $this = $(el),
           id = 'hs-pie-' + (lastId + (i + 1)),
@@ -104,8 +104,13 @@
           value: value,
           maxValue: $this.data('circles-max-value') || 100,
           width: $this.data('circles-stroke-width') || 10,
-          text: function(value) {
-            return value + ($this.data('circles-additional-text') || ''); },
+          text: function (value) {
+            if ($this.data('circles-type') == 'iconic') {
+              return $this.data('circles-icon');
+            } else {
+              return value + ($this.data('circles-additional-text') || '');
+            }
+          },
           colors: [$this.data('circles-bg-color') || '#72c02c', $this.data('circles-fg-color') || '#eeeeee'],
           duration: $this.data('circles-duration') || 1000,
           wrpClass: self.config['wrpClass'],
@@ -142,17 +147,17 @@
      *
      * @return undefined
      */
-    _initAppear: function() {
+    _initAppear: function () {
 
       var self = this;
 
       appear({
         bounds: self.config['bounds'],
         debounce: self.config['debounce'],
-        elements: function() {
+        elements: function () {
           return document.querySelectorAll(self.appearCollectionIds.join(','));
         },
-        appear: function(element) {
+        appear: function (element) {
 
           element = $(element);
 
@@ -170,7 +175,7 @@
      *
      * @return jQuery
      */
-    get: function(index) {
+    get: function (index) {
       if (index && $.isNumeric(index)) return this.pageCollection.eq(index);
 
       return this.pageCollection;
@@ -183,7 +188,7 @@
      *
      * @return circle
      */
-    getById: function(id) {
+    getById: function (id) {
       if (id && this.pageCollection.filter('#' + id).length) return this.pageCollection.filter('#' + id);
 
       return null;
@@ -196,7 +201,7 @@
      *
      * @return circle
      */
-    getCircleAPI: function(index) {
+    getCircleAPI: function (index) {
       if (index && $.isNumeric(index) && this.pageCollection.eq(index).length) return this.pageCollection.eq(index).data('circle');
 
       return null;
@@ -209,7 +214,7 @@
      *
      * @return circle
      */
-    getCircleAPIById: function(id) {
+    getCircleAPIById: function (id) {
       if (id && this.pageCollection.filter('#' + id).length) return this.pageCollection.filter('#' + id).data('circle');
 
       return null;

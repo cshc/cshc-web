@@ -172,7 +172,8 @@ $.fn.hsBgVideo = function (options) {
 
 //Ratio
 function ratioCalc(target, ratio) {
-  var containerH = $(target).parents('[data-hs-bgv-id]').outerHeight(),
+  var windW = $(window).width(),
+    containerH = $(target).parents('[data-hs-bgv-id]').outerHeight(),
     containerW = $(target).parent('[data-hs-bgv-id]').outerWidth(),
     newW = ratio * containerH,
     newH = ratio * containerW;
@@ -186,7 +187,7 @@ function ratioCalc(target, ratio) {
   } else {
     $(target).css({
       'width': newH,
-      'height': newW
+      'height': windW > 1600 ? newH * .4 : newW
     });
   }
 }
