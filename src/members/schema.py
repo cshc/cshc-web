@@ -210,7 +210,7 @@ class Query(graphene.ObjectType):
 
     def resolve_squad_stats(self, info, **kwargs):
         # Get playing stats for the team, including squad members
-        app_qs = Appearance.objects.select_related('member', 'match')
+        app_qs = Appearance.objects.select_related('member', 'match__our_team')
         award_winners_qs = MatchAwardWinner.objects.select_related('award')
         qs_captains = TeamCaptaincy.objects
 
