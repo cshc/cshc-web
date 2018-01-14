@@ -1,13 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
-const BundleTracker = require('webpack-bundle-tracker');
+const { RelativeBundleTracker } = require('./webpack-helper.js');
 
 const config = require('./webpack.base.config.js');
 
 config.output.path = path.resolve('./src/static/dist/');
 
 config.plugins = config.plugins.concat([
-  new BundleTracker({ filename: './webpack-stats-prod.json' }),
+  new RelativeBundleTracker({ filename: './webpack-stats-prod.json', indent: 2 }),
 
   // removes a lot of debugging code in React
   new webpack.DefinePlugin({

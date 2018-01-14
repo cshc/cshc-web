@@ -1,18 +1,16 @@
-const path = require('path');
 const webpack = require('webpack');
-const BundleTracker = require('webpack-bundle-tracker');
-const webpackHelper = require('./webpack-helper.js');
+const { buildEntries, RelativeBundleTracker } = require('./webpack-helper.js');
 
 const config = require('./webpack.base.config.js');
 
-config.entry = webpackHelper.buildEntries(true);
+config.entry = buildEntries(true);
 config.output.publicPath = 'http://localhost:3000/static/bundles/'; // Tell django to use this URL to load packages and not use STATIC_URL + bundle_name
 
 // Add HotModuleReplacementPlugin and BundleTracker plugins
 config.plugins = config.plugins.concat([
   new webpack.HotModuleReplacementPlugin(),
   // new webpack.NoErrorsPlugin(),
-  new BundleTracker({ filename: './webpack-stats.json' }),
+  new RelativeBundleTracker({ filename: './webpack-stats.json', indent: 2 }),
 
   new webpack.DefinePlugin({
     'process.env': {
