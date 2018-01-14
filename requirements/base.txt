@@ -8,6 +8,10 @@ django-model-utils==3.1.1
 django-filter==1.1.0
 django-braces==1.12.0
 
+# Django DBBackup
+# Ref: https://github.com/django-dbbackup/django-dbbackup
+django-dbbackup==3.2.0
+
 graphene_django_extras==0.3.2
 
 # Django Cursor Pagination
@@ -71,7 +75,7 @@ django-taggit==0.22.2
 
 # Monitoring with Sentry
 # Ref: https://docs.sentry.io/clients/python/integrations/django/
-raven==6.3.0
+raven==6.4.0
 
 # Disqus integration
 # Ref: https://django-disqus.readthedocs.io/en/latest
@@ -87,3 +91,6 @@ mots-vides==2015.5.11
 regex==2018.1.10
 django-contrib-comments==1.8.0
 django-blog-zinnia==0.19
+
+# AMAZON S3 Storage
+django-s3-folder-storage==0.5

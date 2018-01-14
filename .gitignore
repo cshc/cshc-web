@@ -10,6 +10,7 @@ webpack-stats-prod.json
 
 # Build/compilation output
 src/static/bundles/*
+src/static/dist/*
 *.pyc
 
 # collectstatic output
