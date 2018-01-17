@@ -17,11 +17,15 @@ def get_env_setting(setting):
 
 
 # ########## PATH CONFIGURATION
+# 'src' folder
 SITE_ROOT = dirname(dirname(dirname(abspath(__file__))))
 
+# Repo root
 ROOT_DIR = dirname(SITE_ROOT)
 
 SITE_NAME = 'CSHC'
+
+FIXTURE_DIRS = join(SITE_ROOT, 'fixtures')
 
 # ########## END PATH CONFIGURATION
 

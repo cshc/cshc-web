@@ -1,0 +1,58 @@
+[
+{
+  "model": "documents.documentcategory",
+  "pk": 1,
+  "fields": {
+    "name": "Committee",
+    "parent": null
+  }
+},
+{
+  "model": "documents.documentcategory",
+  "pk": 2,
+  "fields": {
+    "name": "Committee Meetings",
+    "parent": 1
+  }
+},
+{
+  "model": "documents.documentcategory",
+  "pk": 3,
+  "fields": {
+    "name": "Club General Meetings",
+    "parent": 1
+  }
+},
+{
+  "model": "documents.documentcategory",
+  "pk": 4,
+  "fields": {
+    "name": "Club Accounts",
+    "parent": 1
+  }
+},
+{
+  "model": "documents.documentcategory",
+  "pk": 5,
+  "fields": {
+    "name": "Juniors",
+    "parent": null
+  }
+},
+{
+  "model": "documents.documentcategory",
+  "pk": 6,
+  "fields": {
+    "name": "General",
+    "parent": null
+  }
+},
+{
+  "model": "documents.documentcategory",
+  "pk": 7,
+  "fields": {
+    "name": "Newsletters",
+    "parent": 1
+  }
+}
+]

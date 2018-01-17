@@ -1,0 +1,8 @@
+database:
+    host: "mysql-51.int.mythic-beasts.com"
+    name: "cshc"
+    dump_filename: 'prod_dump.sql'
+    local_sqlite_db: 'db.sqlite3'
+remote_root: "cshcV3"
+local_root: ".."
+venv: "..\\venv"

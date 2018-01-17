@@ -8,6 +8,10 @@ django-model-utils==3.1.1
 django-filter==1.1.0
 django-braces==1.12.0
 
+# Fabric
+# Ref: http://docs.fabfile.org/en/v2
+-e git+https://github.com/fabric/fabric.git@v2#egg=fabric
+
 # Django DBBackup
 # Ref: https://github.com/django-dbbackup/django-dbbackup
 django-dbbackup==3.2.0
