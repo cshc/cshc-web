@@ -44,10 +44,12 @@ class RssMatchReportsFeed(Feed):
     _item_count = 7 * 4   # Approx four weeks for 7 teams
     feed_type = ImageRssFeedGenerator
     title = "Cambridge South Hockey Club Match Reports"
-    link = "//" + Site.objects.get_current().domain
     description = "Updates when new match reports are published for Cambridge South Hockey Club matches."
     feed_copyright = "Copyright (c) 2015, Cambridge South Hockey Club"
     icon = static('ico/favicon.ico')
+
+    def link(self, obj):
+        return "//" + Site.objects.get_current().domain
 
     def feed_extra_kwargs(self, obj):
         return {'image_url': static('img/crest.png')}

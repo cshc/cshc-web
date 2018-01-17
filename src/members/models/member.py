@@ -90,12 +90,12 @@ class Member(models.Model):
     shirt_number = models.CharField(max_length=4, blank=True)
     """ Players shirt number """
 
-    is_coach = models.BooleanField(
-        "Coach?", default=False, help_text='Does this member possess a hockey coaching qualification?')
+    is_coach = models.NullBooleanField(
+        "Coach?", null=True, blank=True, default=False, help_text='Does this member possess a hockey coaching qualification?')
     """ Indicates whether this member is a coach """
 
-    is_umpire = models.BooleanField(
-        "Umpire?", default=False, help_text='Is this member a qualified hockey umpire (including probationer)?')
+    is_umpire = models.NullBooleanField(
+        "Umpire?", null=True, blank=True, default=False, help_text='Is this member a qualified hockey umpire (including probationer)?')
     """ Indicates whether this member is a umpire """
 
     dob = models.DateField(
@@ -108,7 +108,7 @@ class Member(models.Model):
 
     emergency_relationship = models.CharField(
         "Emergency contact relationship", help_text="The member's emergency contact's relationship to them",
-        max_length=100, choices=EmergencyContactRelationship, default=EmergencyContactRelationship.Other)
+        max_length=100, choices=EmergencyContactRelationship, null=True, blank=True, default=EmergencyContactRelationship.Other)
     """ The member's emergency contact's relationship to them """
 
     emergency_phone = models.CharField(

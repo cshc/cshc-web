@@ -88,7 +88,7 @@ class GoalKing(models.Model):
     indoor_goals = models.PositiveSmallIntegerField(
         "Goals for the Indoor team", default=0)
     vets_goals = models.PositiveSmallIntegerField(
-        "Goals for the Vets team", default=0)
+        "Goals for the Vets team", null=True, blank=True, default=0)
 
     # Own-goal tallies for each team
     m1_own_goals = models.PositiveSmallIntegerField(
@@ -114,7 +114,7 @@ class GoalKing(models.Model):
     indoor_own_goals = models.PositiveSmallIntegerField(
         "Own goals for the Indoor team", default=0)
     vets_own_goals = models.PositiveSmallIntegerField(
-        "Own goals for the Vets team", default=0)
+        "Own goals for the Vets team", null=True, blank=True, default=0)
 
     # These are attributes (db fields) rather than just methods so that we can take advantage of
     # SQL ordering - we typically want to order goal king entries by total goals.
