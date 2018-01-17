@@ -23,7 +23,7 @@ def document(title, category=None):
 
 
 @register.inclusion_tag("documents/_document_list.html")
-def document_list(category):
+def document_list(category, max_height=None):
     """ 
     Render a list of document links
     """
@@ -31,4 +31,5 @@ def document_list(category):
     return {
         'documents': documents,
         'category': category,
+        'max_height': max_height,
     }

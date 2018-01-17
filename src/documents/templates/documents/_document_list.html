@@ -1,9 +1,16 @@
+{% comment %}
+  Note: if max_height is specified, the mCustomScrollbar CSS and JS will also have to be included in the page
+{% endcomment %}
+
 {% if documents %}
 <div class="card card-outline-primary rounded-0 g-mb-20">
   <h3 class="card-header h5 text-white g-bg-primary g-brd-transparent rounded-0">
     {{ category }}
   </h3>
   <div class="m-0 list-group">
+    {% if max_height %}
+      <div class="js-scrollbar u-info-v1-1 g-bg-white-gradient-v1--after mCustomScrollbar" data-mcs-theme="minimal-dark" style="max-height: {{ max_height }};">
+    {% endif %}
     {% for document in documents %}
       <a href="{{ document.file.url }}" target="_blank" title="Download ({{ document.file.size|filesizeformat }})" class="cshc-icon-zoom g-brd-around g-brd-gray-light-v4 g-pa-10 g-mb-minus-1 list-group-item list-group-item-action">
         <div class="media">
@@ -19,6 +26,9 @@
         </div>
       </a>
     {% endfor %}
+    {% if max_height %}
+      </div>
+    {% endif %}
   </div>
 </div>
 {% endif %}

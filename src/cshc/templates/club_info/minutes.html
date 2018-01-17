@@ -8,6 +8,7 @@
 
 {% block link %}
   <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
+  <link rel="stylesheet" href="{% static "vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css" %}">
 {% endblock link %}
 
 {% block breadcrumbs %}
@@ -30,18 +31,30 @@
 
 {% document title="CSHC Constitution" category="Committee" %}
 
-<p>Listed below are the minutes from previous club general meetings and committee meetings as well as the club accounts.</p>
+<p>Listed below are the minutes from previous club general meetings and committee meetings as well as the club accounts and even some old club newsletters.</p>
 
 <div class="row g-py-40">
-  <div class="col-md-6 col-lg-4">
-    {% document_list category="Club General Meetings" %}
+  <div class="col-md-6 col-lg-4 g-px-30 g-px-15--md">
+    {% document_list category="Club General Meetings" max_height="380px" %}
   </div>
-  <div class="col-md-6 col-lg-4">
-    {% document_list category="Committee Meetings" %}
+  <div class="col-md-6 col-lg-4 g-px-30 g-px-15--md">
+    {% document_list category="Committee Meetings" max_height="380px" %}
   </div>
-  <div class="col-md-6 col-lg-4">
-    {% document_list category="Club Accounts" %}
+  <div class="col-md-6 col-lg-4 g-px-30 g-px-15--md">
+    {% document_list category="Club Accounts" max_height="380px" %}
   </div>
-  
+  <div class="col-md-6 col-lg-4 g-px-30 g-px-15--md">
+    {% document_list category="Newsletters" max_height="380px" %}
+  </div>
 </div>
 {% endblock %}
+
+{% block body_js %}
+  {{ block.super }}
+  <script src="{% static "vendor/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js" %}"></script>
+  <script>
+    $(document).on('ready', function () {
+      $('.mCustomScrollbar').mCustomScrollbar();
+    });
+  </script>
+{% endblock body_js %}
