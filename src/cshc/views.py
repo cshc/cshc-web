@@ -218,4 +218,4 @@ class CshcGraphQLView(UserPassesTestMixin, GraphQLView):
     """ Restrict GraphQLView to super-users """
 
     def test_func(self):
-        return self.request.user.is_superuser
+        return self.request.method == 'POST' or self.request.user.is_superuser

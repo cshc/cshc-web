@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.conf import settings
 from django.views.generic import TemplateView
+from django.views.decorators.vary import vary_on_headers
 from django.contrib.sitemaps import views as sitemap_views
 from django.contrib.flatpages import views as flatpage_views
 from django.contrib import admin
@@ -77,7 +78,7 @@ urlpatterns = [
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),  # CKEditor Urls
     url(r'^accounts/profile/$', profile, name='user_profile'),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^graphql', CshcGraphQLView.as_view(graphiql=True)),   # GraphQL Urls
+    url(r'^graphql', vary_on_headers('X-Requested-With')(CshcGraphQLView.as_view(graphiql=True))),   # GraphQL Urls
     url(r'^admin/', admin.site.urls),
 
     # Sitemap (indexed)
