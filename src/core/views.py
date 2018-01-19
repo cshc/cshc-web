@@ -140,6 +140,7 @@ class JuniorsContactSubmissionCreateView(CreateView):
             {'id': 'contacts', 'label': 'Contacts'},
             {'id': 'resources', 'label': 'Resources'},
             {'id': 'calendar', 'label': 'Calendar'},
+            {'id': 'news', 'label': 'News'},
             {'id': 'contact-us', 'label': 'Get In Touch'},
         ]
 

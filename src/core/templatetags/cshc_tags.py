@@ -14,6 +14,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from graphql_relay.node.node import to_global_id
+from zinnia.models.entry import Entry
 from core.models import Gender, DivisionResult, ClubInfo
 
 register = template.Library()
@@ -113,6 +114,15 @@ def urlise_model(model, linktext=None):
         linktext = "%s" % model
 
     return mark_safe("<a href='{}' title='{}'>{}</a>".format(model.get_absolute_url(), model, linktext))
+
+
+@register.inclusion_tag('zinnia/tags/dummy.html')
+def get_recent_category_entries(category_slug, number=5, template='zinnia/tags/entries_recent.html'):
+    """
+    Return the most recent entries for the specified category.
+    """
+    return {'template': template,
+            'entries': Entry.published.filter(categories__slug=category_slug)[:number]}
 
 
 @register.inclusion_tag("members/_profile_pic_thumbnail.html")

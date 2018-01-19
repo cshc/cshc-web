@@ -142,6 +142,16 @@
   </div>
 </section>
 
+<section id="news" class="container g-py-60">
+  {% include 'blocks/_middle_heading.html' with title="Latest Juniors News" %}
+  {% get_recent_category_entries 'juniors' 3 'core/_recent_articles.html' %}
+  <div class="text-center">
+    <a class="text-uppercase btn btn-lg u-btn-outline-primary rounded-0" title="More from the Juniors blog" href="{% url 'zinnia:category_detail' 'juniors' %}">
+      More from the Juniors blog...
+    </a>
+  </div>
+</section>
+
 <section id="resources" class="container g-py-40">
   <div class="row">
     <div class="col-md-6 col-lg-8">

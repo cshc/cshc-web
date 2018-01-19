@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% load i18n %}
 
-<div class="row">
+<div class="row justify-content-center">
   
   {% for entry in entries %}
   <div class="col-lg-4 g-mb-30">
@@ -10,7 +10,9 @@
       
       <figure class="g-pos-rel">
         {% thumbnail entry.image "350x233" crop="center" as thumb %}
-        <img class="img-fluid w-100" src="{% if thumb %}{{ thumb.url }}{% else %}{% static "img/blog_placeholder.png" %}{% endif %}" alt="{{ entry.image_caption }}">
+        <img class="img-fluid w-100" src="{{ thumb.url }}" alt="{{ entry.image_caption }}">
+        {% empty %}
+        <img class="img-fluid w-100" src="{% static "img/blog_placeholder.png" %}" alt="{{ entry.image_caption }}">
         {% endthumbnail %}
         <figcaption class="text-uppercase text-center g-line-height-1_2 g-bg-primary-opacity-0_8 g-color-white g-pos-abs g-top-20 g-px-15 g-py-10">
           <strong class="d-block">{{ entry.publication_date|date:"d" }}</strong>
