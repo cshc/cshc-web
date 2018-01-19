@@ -31,7 +31,6 @@ class ResizedImageSorlThumbnailBackend(ImageBackend):
     }
 
     def get_thumbnail_url(self, image_path, thumbnail_options):
-        print('ResizedImageSorlThumbnailBackend.get_thumbnail_url')
         thumb = get_thumbnail(image_path, "{}x{}".format(thumbnail_options['size'][0], thumbnail_options['size'][1]), crop='center')
         return thumb.url
 

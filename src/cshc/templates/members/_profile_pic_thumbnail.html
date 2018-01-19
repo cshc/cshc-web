@@ -8,16 +8,14 @@ Expected context:
 'class' the class to apply to the image wrapper
 {% endcomment %}
 {% load thumbnail from sorl_thumbnail %}
-{% thumbnail member.profile_pic size crop="center" as im %}
+
 <div class="{{ class }} g-pos-rel">
-  {% if im %}
+  {% thumbnail member.profile_pic size crop="center" as im %}
     <img class="u-shadow-v29 w-100 rounded-circle" src="{{ im.url }}">
-  {% else %}
+  {% empty %}
     <div class="u-shadow-v29 w-100 rounded-circle shirt-wrapper">
       <img class="w-100" src="{{ fallbackImage }}">
       <div class="g-pos-abs text-center shirt-number">{{ member.shirt_number|default:"" }}</div>
     </div>
-  {% endif %}
-  
+  {% endthumbnail %}
 </div>
-{% endthumbnail %}

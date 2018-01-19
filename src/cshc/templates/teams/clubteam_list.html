@@ -49,7 +49,9 @@
     <div class="cbp-item identity {{ team.category }}">
       <div class="u-block-hover g-parent">
         {% thumbnail team.participation.team_photo "600x393" crop="center" as thumb %}
-        <img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out" src="{% if thumb %}{{ thumb.url }}{% else %}{% static "img/teams/placeholder.jpg" %}{% endif %}" alt="Team photo">
+        <img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out" src="{{ thumb.url }}" alt="Team photo">
+        {% empty %}
+        <img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out" src="{% static "img/teams/placeholder.jpg" %}" alt="Team photo">
         {% endthumbnail %}
         <div class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
           <ul class="align-items-end flex-column list-inline mt-auto ml-auto mb-0">
