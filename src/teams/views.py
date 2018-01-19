@@ -9,7 +9,6 @@ from django.templatetags.static import static
 from django.conf import settings
 from django.http import Http404
 from competitions.models import Season
-from core.utils import get_thumbnail_url
 from core.views import kwargs_or_none, add_season_selector, get_season_from_kwargs
 from .models import ClubTeam, ClubTeamSeasonParticipation, Southerner
 

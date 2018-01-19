@@ -2,7 +2,9 @@
 Re-usable utilities used by various CSHC apps
 """
 
-from easy_thumbnails.files import get_thumbnailer
+import traceback
+from sorl.thumbnail import get_thumbnail
+from django.conf import settings
 
 SUFFIXES = {1: 'st', 2: 'nd', 3: 'rd'}
 
@@ -22,13 +24,21 @@ def ordinal(num):
     return str(num) + suffix
 
 
-def get_thumbnail_url(image_field, profile):
+def get_thumbnail_url(image_field, profile, cropping_field=None):
     """ Gets the thumbnail URL for a given ImageField if it exists. 
         Returns None if no image field is set
     """
+    kwargs = {
+        'crop': 'center',
+    }
+    if cropping_field and str(cropping_field) != '0x0':     # TEMP HACK
+        kwargs['cropbox'] = str(cropping_field)
     if not image_field or not image_field.url:
         return None
     try:
-        return get_thumbnailer(image_field)[profile].url
-    except:
+        thumbnail_options = settings.THUMBNAIL_ALIASES[''][profile]
+        im = get_thumbnail(image_field, "{}x{}".format(thumbnail_options['size'][0], thumbnail_options['size'][1]), **kwargs)
+        return im.url
+    except Exception as e:
+        traceback.print_exc()
         return None

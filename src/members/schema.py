@@ -104,7 +104,7 @@ class MemberType(DjangoObjectType):
         return self.goals
 
     def resolve_thumb_url(self, info, profile='avatar'):
-        return get_thumbnail_url(self.profile_pic, profile)
+        return get_thumbnail_url(self.profile_pic, profile, self.profile_pic_cropping)
 
     def resolve_pref_position(self, info):
         return self.get_pref_position_display()
@@ -169,7 +169,6 @@ class SquadStatsType(graphene.ObjectType):
 
 
 def post_optimize_members(queryset, **kwargs):
-    print('Optimizing members')
     # Slight hack to manually convert a comma-separated list of pref_position ints to an array of ints
     if 'pref_position__in' in kwargs:
         pref_positions = [

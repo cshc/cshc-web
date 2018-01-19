@@ -15,7 +15,7 @@ src/static/dist/*
 
 # collectstatic output
 src/assets/*
-src/media/uploads/*
+src/media/*
 
 # Local dev database
 *.sqlite3

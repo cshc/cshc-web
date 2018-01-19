@@ -62,8 +62,10 @@ sphinx_rtd_theme==0.2.4
 
 # Image Utils
 easy-thumbnails==2.4.2
+sorl-thumbnail==12.4.1
 django-resized==0.3.8
 django-image-cropping==1.1.0
+python-memcached==1.59
 
 # GraphQL support
 # Ref: https://github.com/graphql-python/graphene-django

@@ -2,7 +2,7 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
-{% load thumbnail %}
+{% load thumbnail from sorl_thumbnail %}
 
 {% block title %}{{ block.super }} | Teams{% endblock %}
 
@@ -48,9 +48,9 @@
     {% for team in teams %}
     <div class="cbp-item identity {{ team.category }}">
       <div class="u-block-hover g-parent">
-        {% thumbnail team.participation.team_photo 600x393 crop="center" as thumb %}
+        {% thumbnail team.participation.team_photo "600x393" crop="center" as thumb %}
         <img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out" src="{% if thumb %}{{ thumb.url }}{% else %}{% static "img/teams/placeholder.jpg" %}{% endif %}" alt="Team photo">
-          
+        {% endthumbnail %}
         <div class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
           <ul class="align-items-end flex-column list-inline mt-auto ml-auto mb-0">
             <li class="list-inline-item">

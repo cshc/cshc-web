@@ -61,3 +61,6 @@ if not DEBUG:
 # correct value of STATIC_URL is used
 from .common.ckeditor import get_ckeditor_config
 CKEDITOR_CONFIGS = get_ckeditor_config(STATIC_URL)
+
+if DEBUG:
+    THUMBNAIL_DEBUG = True

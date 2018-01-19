@@ -16,7 +16,6 @@ AwardWinner.propTypes = {
       lastName: PropTypes.string,
       id: PropTypes.string,
       gender: PropTypes.string,
-      thumbUrl: PropTypes.string,
     }),
     awardee: PropTypes.string,
     award: PropTypes.shape({

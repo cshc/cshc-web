@@ -1,4 +1,4 @@
-{% load thumbnail %}
+{% load thumbnail from sorl_thumbnail %}
 {% load staticfiles %}
 {% load i18n %}
 
@@ -9,8 +9,9 @@
     <article class="g-bg-white u-shadow-v22">
       
       <figure class="g-pos-rel">
-        {% thumbnail entry.image 350x233 crop="center" as thumb %}
+        {% thumbnail entry.image "350x233" crop="center" as thumb %}
         <img class="img-fluid w-100" src="{% if thumb %}{{ thumb.url }}{% else %}{% static "img/blog_placeholder.png" %}{% endif %}" alt="{{ entry.image_caption }}">
+        {% endthumbnail %}
         <figcaption class="text-uppercase text-center g-line-height-1_2 g-bg-primary-opacity-0_8 g-color-white g-pos-abs g-top-20 g-px-15 g-py-10">
           <strong class="d-block">{{ entry.publication_date|date:"d" }}</strong>
           <hr class="g-brd-white my-1">

@@ -172,7 +172,7 @@ class MemberDetailView(DetailView):
                 firstName=member.first_name,
                 lastName=member.last_name,
                 profilePicUrl=get_thumbnail_url(
-                    member.profile_pic, 'member_detail'),
+                    member.profile_pic, 'member_detail', member.profile_pic_cropping),
                 prefPosition=member.get_pref_position_display(),
                 squad=squad,
             ),

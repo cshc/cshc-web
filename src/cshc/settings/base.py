@@ -1,6 +1,5 @@
 import os
 from os.path import abspath, dirname, join, normpath
-from easy_thumbnails.conf import Settings as thumbnail_settings
 
 # Normally you should not import ANYTHING from Django directly
 # into your settings, but ImproperlyConfigured is an exception.
@@ -180,6 +179,7 @@ THIRD_PARTY_APPS = [
     'image_cropping',
     'mptt',
     's3_folder_storage',
+    'sorl.thumbnail',
     'tagging',
     'taggit',
     'raven.contrib.django.raven_compat',
@@ -311,6 +311,11 @@ LOGGING = {
             'handlers': ['console'],
             'propagate': False,
         },
+        'sorl.thumbnail': {
+            'level': 'WARN',
+            'handlers': ['console'],
+            'propagate': False,
+        },
     },
 }
 
@@ -347,14 +352,19 @@ BREADCRUMBS_TEMPLATE = "core/_breadcrumbs.html"
 
 # ########## END django-bootstrap-breadcrumbs CONFIGURATION
 
+# ########## sorl.thumbnail CONFIGURATION
+
+# THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.dbm_kvstore.KVStore'
+
+# ########## END sorl.thumbnail CONFIGURATION
+
 # ########## django-image-cropping CONFIGURATION
 
 # Ref: https://github.com/jonasundderwolf/django-image-cropping
 THUMBNAIL_PROCESSORS = (
     'image_cropping.thumbnail_processors.crop_corners',
-) + thumbnail_settings.THUMBNAIL_PROCESSORS
-IMAGE_CROPPING_BACKEND = 'core.backends.image_backend.ResizedImageEasyThumbnailsBackend'
-
+)
+IMAGE_CROPPING_BACKEND = 'core.backends.image_backend.ResizedImageSorlThumbnailBackend'
 THUMBNAIL_ALIASES = {
     '': {
         'avatar': {'size': (50, 50), 'crop': True},
@@ -368,6 +378,13 @@ THUMBNAIL_ALIASES = {
 IMAGE_CROPPING_JQUERY_URL = "None"
 
 # ########## END django-image-cropping CONFIGURATION
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
 
 # ########## django-ckeditor CONFIGURATION
 

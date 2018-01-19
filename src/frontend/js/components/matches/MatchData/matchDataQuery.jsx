@@ -70,7 +70,6 @@ export const MATCH_DATA_QUERY = gql`
               firstName
               lastName
               gender
-              thumbUrl(profile: "member-link")
               shirtNumber
             }
             awardee
@@ -86,7 +85,6 @@ export const MATCH_DATA_QUERY = gql`
               firstName
               lastName
               gender
-              thumbUrl(profile: "member-link")
               shirtNumber
             }
             goals
