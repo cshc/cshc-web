@@ -117,6 +117,9 @@ class Command(BaseCommand):
 
         if not self._options['sim']:
             member.save()
+            print('Updated: ' + member.full_name())
+        else:
+            print('Found: ' + member.full_name())
 
         return member.full_name()
 
@@ -173,11 +176,8 @@ class Command(BaseCommand):
             except Member.DoesNotExist:
                 not_found.append(self.not_found(row_data))
 
-        for f in found:
-            if self._options['sim']:
-                print('Found: ' + f)
-            else:
-                print('Updated: ' + f)
+        print('HANDLED {} MATCHING MEMBERS IN TOTAL'.format(len(found)))
+
         for nf in not_found:
             print('Not found: ' + nf)
         for mm in multiple_matches:
