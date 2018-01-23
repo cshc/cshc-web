@@ -92,12 +92,12 @@ def get_prod_dump(cnx):
 
 
 @task
-def flush_local_sqlite_db(cnx):
+def flush_local_sqlite_db(cnx, extra=False):
     """ Flush the local database's table data """
     conn = connect_local(cnx)
-
+    tables = extra_tables_to_flush + tables_to_dump if extra else tables_to_dump
     try:
-        for table in reversed(extra_tables_to_flush + tables_to_dump):
+        for table in reversed(tables):
             conn.execute('DELETE FROM ' + table)
     except Exception as ex:
         print('Failed to truncate table', ex)
@@ -107,9 +107,9 @@ def flush_local_sqlite_db(cnx):
 
 
 @task
-def import_dumped_data(cnx):
+def import_dumped_data(cnx, flush_extra=False):
     """ Import the dumped data into the local database """
-    flush_local_sqlite_db(cnx)
+    flush_local_sqlite_db(cnx, flush_extra)
     local_file = path.join(cnx.config.local_root,
                            cnx.config.database.dump_filename)
     conn = connect_local(cnx)
@@ -117,8 +117,9 @@ def import_dumped_data(cnx):
         sql = sql_file.read()
         conn.executescript(sql)
 
+
 @task
-def import_prod_data(cnx):
+def import_prod_data(cnx, flush_extra=False):
     """ Import prod data """
     get_prod_dump(cnx)
-    import_dumped_data(cnx)
+    import_dumped_data(cnx, flush_extra)
