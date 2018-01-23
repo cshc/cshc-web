@@ -100,3 +100,7 @@ django-blog-zinnia==0.19
 
 # AMAZON S3 Storage
 django-s3-folder-storage==0.5
+
+# geocoder
+# Ref: https://pypi.python.org/pypi/geocoder
+geocoder==1.34

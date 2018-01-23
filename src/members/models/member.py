@@ -7,7 +7,9 @@
     for their member model.
 """
 
+import logging
 import os
+import geocoder
 from django.conf import settings
 from django.db import models
 from django.dispatch import receiver
@@ -17,6 +19,8 @@ from image_cropping import ImageRatioField
 from geoposition.fields import GeopositionField
 from core.models import make_unique_filename, Gender, Position, EmergencyContactRelationship
 from members import settings as member_settings
+
+LOG = logging.getLogger(__name__)
 
 
 @receiver(email_changed)
@@ -157,6 +161,20 @@ class Member(models.Model):
         return str(self.full_name())
 
     def save(self, *args, **kwargs):
+        # Try to do a geocode lookup if the address is set and the position isn't known
+        if self.addr_postcode and not self.addr_position:
+            try:
+                g = geocoder.google(self.full_address())
+                if g.latlng:
+                    self.addr_position = "{},{}".format(
+                        g.latlng[0], g.latlng[1])
+                else:
+                    LOG.error("Failed to geocode position for member %s",
+                              self.full_name(), exc_info=True)
+            except:
+                LOG.error("Failed to geocode position for member %s",
+                          self.full_name(), exc_info=True)
+
         super(Member, self).save(*args, **kwargs)
         # If the first and/or last name has been changed, update the corresponding user fields
         # if there is a user associated with this member
