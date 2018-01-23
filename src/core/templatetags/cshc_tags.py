@@ -156,6 +156,9 @@ def json(value):
     uncleaned = jsonlib.dumps(value)
     clean = bleach.clean(uncleaned)
 
+    # Minor hack to keep ampersands as they were
+    clean = clean.replace("&amp;", "&")
+
     try:
         jsonlib.loads(clean)
     except:
