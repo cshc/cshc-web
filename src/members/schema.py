@@ -29,7 +29,7 @@ class MemberFilter(django_filters.FilterSet):
 
     class Meta:
         model = Member
-        fields = ['is_current', 'gender', 'pref_position', 'first_name',
+        fields = ['is_current', 'gender', 'pref_position', 'first_name', 'known_as', 'last_name',
                   'appearances__match__season__slug', 'appearances__match__our_team__slug',
                   'teamcaptaincy__season__slug']
 
@@ -88,6 +88,7 @@ class MemberType(DjangoObjectType):
         model = Member
         filter_fields = {
             'first_name': ['exact', 'icontains', 'istartswith'],
+            'known_as': ['exact', 'icontains', 'istartswith'],
             'last_name': ['exact', 'icontains', 'istartswith'],
             'is_current': ['exact'],
             'pref_position': ['in'],
@@ -96,6 +97,9 @@ class MemberType(DjangoObjectType):
             'appearances__match__our_team__slug': ['exact'],
             'teamcaptaincy__season__slug': ['exact'],
         }
+
+    def resolve_first_name(self, info):
+        return self.pref_first_name()
 
     def resolve_num_appearances(self, info):
         return self.num_appearances
@@ -180,7 +184,7 @@ def post_optimize_members(queryset, **kwargs):
     if 'name' in kwargs:
         text_search = kwargs.pop('name')
         text_query = Q(first_name__istartswith=text_search) | Q(
-            last_name__istartswith=text_search)
+            last_name__istartswith=text_search) | Q(known_as__istartswith=text_search)
         queryset = queryset.filter(text_query)
 
     queryset = queryset.annotate(num_appearances=Count(

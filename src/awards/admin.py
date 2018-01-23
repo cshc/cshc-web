@@ -21,7 +21,8 @@ class EndOfSeasonAwardAdmin(admin.ModelAdmin):
 class MatchAwardWinnerAdmin(admin.ModelAdmin):
     """ Admin interface definition for the MatchAwardWinner model."""
     model = MatchAwardWinner
-    search_fields = ('member__first_name', 'member__last_name')
+    search_fields = ('member__first_name',
+                     'member__known_as', 'member__last_name')
     list_display = ('__str__', 'member', 'awardee', 'award', 'match')
     list_filter = ('award',)
 
@@ -30,6 +31,7 @@ class MatchAwardWinnerAdmin(admin.ModelAdmin):
 class EndOfSeasonAwardWinnerAdmin(admin.ModelAdmin):
     """ Admin interface definition for the EndOfSeasonAwardWinner model."""
     model = EndOfSeasonAwardWinner
-    search_fields = ('member__first_name', 'member__last_name')
+    search_fields = ('member__first_name',
+                     'member__known_as', 'member__last_name')
     list_display = ('__str__', 'member', 'awardee', 'award', 'season')
     list_filter = ('award', 'season')

@@ -68,6 +68,10 @@ class Member(models.Model):
     first_name = models.CharField(max_length=100, default=None)
     """ Members first name (required) """
 
+    known_as = models.CharField(
+        max_length=100, default=None, null=True, blank=True)
+    """ The first name by which the member is typically known (optional) """
+
     last_name = models.CharField(max_length=100, default=None)
     """ Members surname (required) """
 
@@ -156,6 +160,10 @@ class Member(models.Model):
         """ Meta-info for the Member model."""
         app_label = 'members'
         ordering = ['first_name', 'last_name']
+        permissions = (
+            ("view_personal_data",
+             "Can see the personal data (address, phone, email, medical notes etc) of a member"),
+        )
 
     def __str__(self):
         return str(self.full_name())
@@ -194,13 +202,17 @@ class Member(models.Model):
         """ Returns the url for this member instance."""
         return ('member_detail', [self.pk])
 
+    def pref_first_name(self):
+        """ Returns the member's preferred first name (known_as if set; otherwise first_name) """
+        return self.known_as if self.known_as is not None else self.first_name
+
     def full_name(self):
         """ Returns the member's full name."""
-        return u"{} {}".format(self.first_name, self.last_name)
+        return u"{} {}".format(self.pref_first_name(), self.last_name)
 
     def first_name_and_initial(self):
         """ Returns the shortened name display for this member."""
-        return u"{} {}".format(self.first_name, self.last_name[0])
+        return u"{} {}".format(self.pref_first_name(), self.last_name[0])
 
     @property
     def address_known(self):

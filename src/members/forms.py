@@ -21,6 +21,7 @@ class MemberProfileForm(forms.ModelForm):
         model = Member
         widgets = {
             'first_name': UnifyTextInput(left_icon='icon-user-follow'),
+            'known_as': UnifyTextInput(left_icon='icon-user-follow'),
             'last_name': UnifyTextInput(left_icon='icon-user-follow'),
             'profile_pic': CshcCropWidget,
             'pref_position': UnifySelect,
@@ -45,7 +46,7 @@ class MemberProfileForm(forms.ModelForm):
             'emergency_relationship': 'Your emergency contact\'s relationship to you',
             'shirt_number': 'Only set this if you have actually been assigned a shirt number',
         }
-        fields = ('email', 'first_name', 'last_name', 'profile_pic', 'profile_pic_cropping',                             # Personal
+        fields = ('email', 'first_name', 'known_as', 'last_name', 'profile_pic', 'profile_pic_cropping',                             # Personal
                   # Playing
                   'pref_position', 'shirt_number',
                   # Contact

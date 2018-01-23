@@ -30,7 +30,7 @@ def js_members():
     Return a list of all members, with id and name properties,
     suitable for passing to JavaScript.
     """
-    return [{'id': x.id, 'name': x.full_name()} for x in Member.objects.only('id', 'first_name', 'last_name')]
+    return [{'id': x.id, 'name': x.full_name()} for x in Member.objects.only('id', 'first_name', 'known_as', 'last_name')]
 
 
 class MemberListView(TemplateView):
@@ -107,28 +107,22 @@ def profile(request):
                     "Your profile has been updated successfully")
                 context['form'] = UserProfileForm(instance=updated_user)
             else:
-                print('Invalid', form.errors)
                 messages.error(
                     request,
                     "Profile could not be updated. See individual fields for details.")
                 context['form'] = form
         else:
             # This is a User with an associated Member. Use the MemberProfileForm.
-            print('dob', request.POST.get('dob'))
             form = MemberProfileForm(
                 request.POST, request.FILES, instance=member)
-            print('MemberProfileForm created with POST')
             if form.is_valid():
                 updated_member = form.save()
-                print('dob-updated', updated_member.dob)
                 messages.success(
                     request,
                     "Your profile has been updated successfully")
                 context['form'] = MemberProfileForm(instance=updated_member)
                 context['form'].fields['dob'].initial = updated_member.dob
-                print('MemberProfileForm created with just instance')
             else:
-                print('Invalid', form.errors)
                 messages.error(
                     request,
                     "Profile could not be updated. See individual fields for details.")
@@ -169,7 +163,7 @@ class MemberDetailView(DetailView):
         context['props'] = dict(
             member=dict(
                 id=member.id,
-                firstName=member.first_name,
+                firstName=member.pref_first_name(),
                 lastName=member.last_name,
                 profilePicUrl=get_thumbnail_url(
                     member.profile_pic, 'member_detail', member.profile_pic_cropping),
