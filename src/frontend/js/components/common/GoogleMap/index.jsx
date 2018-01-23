@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, withProps } from 'recompose';
-import { DefaultMapCenter } from 'util/constants';
+import { DefaultMapCenter, Gender } from 'util/constants';
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
+
+export const MapIcons = {
+  [Gender.Male]: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+  [Gender.Female]: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+};
 
 class Map extends React.Component {
   constructor(props) {

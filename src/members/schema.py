@@ -31,7 +31,7 @@ class MemberFilter(django_filters.FilterSet):
         model = Member
         fields = ['is_current', 'gender', 'pref_position', 'first_name', 'known_as', 'last_name',
                   'appearances__match__season__slug', 'appearances__match__our_team__slug',
-                  'teamcaptaincy__season__slug']
+                  'teamcaptaincy__season__slug', 'squadmembership__season__slug', 'squadmembership__team__slug']
 
 
 class CommitteePositionType(DjangoObjectType):
@@ -97,6 +97,12 @@ class MemberType(DjangoObjectType):
             'appearances__match__our_team__slug': ['exact'],
             'teamcaptaincy__season__slug': ['exact'],
         }
+
+    def resolve_address_known(self, info):
+        return self.address_known()
+
+    def resolve_full_address(self, info):
+        return self.full_address()
 
     def resolve_first_name(self, info):
         return self.pref_first_name()

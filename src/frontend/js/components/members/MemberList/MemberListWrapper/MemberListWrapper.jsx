@@ -1,36 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Marker } from 'react-google-maps';
-import GoogleMap from 'components/common/GoogleMap';
+import GoogleMap, { MapIcons } from 'components/common/GoogleMap';
 import Member from 'models/member';
 import { getPosition } from 'util/cshc';
-import { ViewType } from 'util/constants';
+import { ViewType, Gender } from 'util/constants';
 import { ViewSwitcher, ViewSwitcherView } from 'components/common/ViewSwitcher';
 import MemberTable from './MemberTable';
+import MemberMarker from './MemberMarker';
 
-const MemberListWrapper = ({ data, viewType, onSelectViewType }) => (
+const MemberListWrapper = ({ canViewMap, data, viewType, onSelectViewType }) => (
   <div>
-    <ViewSwitcher currentView={viewType} onSelectViewType={onSelectViewType}>
-      <ViewSwitcherView iconClass="fa fa-table" label={ViewType.List} />
-      <ViewSwitcherView iconClass="fa fa-map-0" label={ViewType.Map} />
-    </ViewSwitcher>
-    {viewType === ViewType.List ? (
+    {canViewMap ? (
+      <ViewSwitcher currentView={viewType} onSelectViewType={onSelectViewType}>
+        <ViewSwitcherView iconClass="fa fa-table" label={ViewType.List} />
+        <ViewSwitcherView iconClass="fa fa-map-0" label={ViewType.Map} />
+      </ViewSwitcher>
+    ) : null}
+    {!canViewMap || viewType === ViewType.List ? (
       <MemberTable members={data.results} />
     ) : (
       <GoogleMap
-        markers={data.results.map(member => (
-          <Marker
-            key={member.id}
-            position={getPosition(member.addrPosition)}
-            title={Member.fullName(member)}
-          />
-        ))}
+        markers={data.results
+          .filter(member => member.addrPosition)
+          .map(member => <MemberMarker key={member.id} member={member} />)}
       />
     )}
   </div>
 );
 
 MemberListWrapper.propTypes = {
+  canViewMap: PropTypes.bool.isRequired,
   data: PropTypes.shape(),
   viewType: PropTypes.string.isRequired,
   onSelectViewType: PropTypes.func.isRequired,

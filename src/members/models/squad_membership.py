@@ -52,7 +52,8 @@ class SquadMembership(models.Model):
         maintains info on squad membership over the years.
     """
     # The club member in a squad
-    member = models.ForeignKey('Member', on_delete=models.CASCADE)
+    member = models.ForeignKey(
+        'Member', on_delete=models.CASCADE, related_name="squadmembership")
 
     # The team (squad) which the club member was a part of
     team = models.ForeignKey(

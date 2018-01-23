@@ -9,8 +9,8 @@ export const MEMBER_LIST_QUERY = gql`
     $name: String
     $isCurrent: Boolean
     $gender: String
-    $appearances_Match_Season_Slug: String
-    $appearances_Match_OurTeam_Slug: String
+    $squadmembership_Season_Slug: String
+    $squadmembership_Team_Slug: String
     $prefPosition_In: String
     $teamcaptaincy_Season_Slug: String
   ) {
@@ -18,8 +18,8 @@ export const MEMBER_LIST_QUERY = gql`
       name: $name
       isCurrent: $isCurrent
       gender: $gender
-      appearances_Match_Season_Slug: $appearances_Match_Season_Slug
-      appearances_Match_OurTeam_Slug: $appearances_Match_OurTeam_Slug
+      squadmembership_Season_Slug: $squadmembership_Season_Slug
+      squadmembership_Team_Slug: $squadmembership_Team_Slug
       prefPosition_In: $prefPosition_In
       teamcaptaincy_Season_Slug: $teamcaptaincy_Season_Slug
     ) {
@@ -45,8 +45,8 @@ export const memberListOptions = {
       isCurrent: current || undefined,
       gender: gender !== NoFilter ? gender : undefined,
       prefPosition_In: Member.getPreferredPositions(position),
-      appearances_Match_OurTeam_Slug: team && team !== NoFilter ? team : undefined,
-      appearances_Match_Season_Slug: team && team !== NoFilter ? currentSeason : undefined,
+      squadmembership_Season_Slug: team && team !== NoFilter ? currentSeason : undefined,
+      squadmembership_Team_Slug: team && team !== NoFilter ? team : undefined,
       teamcaptaincy_Season_Slug: captains ? currentSeason : undefined,
     },
     fetchPolicy: 'cache-and-network',

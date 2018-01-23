@@ -37,7 +37,8 @@ def get_thumbnail_url(image_field, profile, cropping_field=None):
         return None
     try:
         thumbnail_options = settings.THUMBNAIL_ALIASES[''][profile]
-        im = get_thumbnail(image_field, "{}x{}".format(thumbnail_options['size'][0], thumbnail_options['size'][1]), **kwargs)
+        im = get_thumbnail(image_field, "{}x{}".format(
+            thumbnail_options['size'][0], thumbnail_options['size'][1]), **kwargs)
         return im.url
     except Exception as e:
         traceback.print_exc()
