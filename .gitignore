@@ -22,3 +22,6 @@ src/media/*
 
 # Docs output
 docs/_build/*
+
+# Production database dump file
+prod_dump.sql
