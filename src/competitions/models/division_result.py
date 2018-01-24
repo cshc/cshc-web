@@ -34,7 +34,7 @@ class DivisionResultQuerySet(QuerySet):
 
     def league_table(self, division, season):
         """Returns all teams in the division in that season, ordered by position"""
-        return self.filter(division=division, season=season).select_related('our_team', 'opp_team', 'division__club', 'season').order_by('position')
+        return self.filter(division=division, season=season).select_related('our_team', 'opp_team__club', 'division__league', 'season').order_by('position')
 
 
 class DivisionResult(models.Model):

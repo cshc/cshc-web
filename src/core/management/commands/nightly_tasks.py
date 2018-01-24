@@ -9,9 +9,12 @@
 
 from datetime import timedelta
 from django.utils import timezone
+from django.db.models import Q
 from django.core.management.base import BaseCommand
 from matches.models import GoalKing
 from competitions.models import Season
+from teams import league_scraper
+from teams.models import ClubTeamSeasonParticipation
 from teams.stats import update_southerners_stats_for_season, update_participation_stats_for_season
 from opposition.stats import update_all_club_stats
 from training.models import TrainingSession
@@ -62,6 +65,21 @@ class Command(BaseCommand):
             print("Purged all training sessions from before yesterday")
         except Exception as e:
             errors.append("Failed to purge training sessions: {}".format(e))
+
+        # Scrape league tables
+        query = Q(division_tables_url__isnull=True) | Q(division_tables_url='')
+        participations = ClubTeamSeasonParticipation.objects.current(
+        ).exclude(query).select_related('team', 'division')
+
+        for participation in participations:
+            try:
+                league_scraper.get_east_leagues_division(
+                    participation.division_tables_url, participation.division, season)
+                print('Scraped league table for ' +
+                      participation.division_tables_url)
+            except Exception as e:
+                errors.append("Failed to scrape league table from {}: {}".format(
+                    participation.division_tables_url, e))
 
         for error in errors:
             print(error)
