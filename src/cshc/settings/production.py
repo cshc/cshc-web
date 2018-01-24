@@ -18,7 +18,7 @@ DATABASES = {
         'NAME': 'cshc2',
         'USER': 'cshc2',
         'PASSWORD': get_env_setting('DB_PASSWORD2'),
-        'HOST': 'mysql-51.int.mythic-beasts.com',
+        'HOST': 'mysql-55.int.mythic-beasts.com',
         'PORT': '',
     }
 }
