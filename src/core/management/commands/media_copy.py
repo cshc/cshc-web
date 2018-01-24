@@ -1,6 +1,9 @@
 """
 Management command that copies the media folder (uploads etc) from the production
-Amazon S3 bucket to the staging Amazon S3 bucket.
+Amazon S3 bucket to one or more of the following destinations:
+1: --staging: the new staging media Amazon S3 bucket.
+2. --new-prod: the new production media Amazon S3 bucket.
+3. --local: the local media folder (in your dev environment)
 
 Note that all copied files will have the ACL 'public-read'
 """
@@ -16,6 +19,7 @@ NEW_STAGING_BUCKET_NAME = 'cshc-staging-v3'
 
 extra_args = {'ACL': 'public-read'}
 
+
 class Command(BaseCommand):
 
     def __init__(self):
@@ -27,7 +31,21 @@ class Command(BaseCommand):
             action='store_true',
             dest='local',
             default=False,
-            help='Copy to local media folder as well',
+            help='Copy to the local media folder as well',
+        )
+        parser.add_argument(
+            '--new-prod',
+            action='store_true',
+            dest='new_prod',
+            default=False,
+            help='Copy to the new production media folder as well',
+        )
+        parser.add_argument(
+            '--staging',
+            action='store_true',
+            dest='staging',
+            default=False,
+            help='Copy to the new staging media folder as well',
         )
 
     def handle(self, *args, **options):
@@ -42,11 +60,20 @@ class Command(BaseCommand):
                     'Key': obj_summary.key,
                 }
                 print('Copying ' + obj_summary.key)
-                # new_prod_bucket.copy(copy_source, obj_summary.key, ExtraArgs=extra_args)
-                # new_staging_bucket.copy(copy_source, obj_summary.key, ExtraArgs=extra_args)
+
+                if options['new_prod']:
+                    new_prod_bucket.copy(
+                        copy_source, obj_summary.key, ExtraArgs=extra_args)
+
+                if options['staging']:
+                    new_staging_bucket.copy(
+                        copy_source, obj_summary.key, ExtraArgs=extra_args)
+
                 if options['local'] and not obj_summary.key.endswith('/'):
                     if not os.path.isfile(obj_summary.key):
-                        os.makedirs(os.path.dirname(obj_summary.key), exist_ok=True)
-                        old_prod_bucket.download_file(obj_summary.key, obj_summary.key)
+                        os.makedirs(os.path.dirname(
+                            obj_summary.key), exist_ok=True)
+                        old_prod_bucket.download_file(
+                            obj_summary.key, obj_summary.key)
         except:
             traceback.print_exc()

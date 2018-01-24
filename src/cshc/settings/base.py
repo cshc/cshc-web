@@ -24,7 +24,7 @@ ROOT_DIR = dirname(SITE_ROOT)
 
 SITE_NAME = 'CSHC'
 
-FIXTURE_DIRS = join(SITE_ROOT, 'fixtures')
+# FIXTURE_DIRS = join(SITE_ROOT, 'fixtures')
 
 # ########## END PATH CONFIGURATION
 
