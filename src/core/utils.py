@@ -31,14 +31,15 @@ def get_thumbnail_url(image_field, profile, cropping_field=None):
     kwargs = {
         'crop': 'center',
     }
-    if cropping_field and str(cropping_field) != '0x0':     # TEMP HACK
+    if cropping_field:
         kwargs['cropbox'] = str(cropping_field)
     if not image_field or not image_field.url:
         return None
     try:
         thumbnail_options = settings.THUMBNAIL_ALIASES[''][profile]
-        im = get_thumbnail(image_field, "{}x{}".format(
-            thumbnail_options['size'][0], thumbnail_options['size'][1]), **kwargs)
+        size = "{}x{}".format(
+            thumbnail_options['size'][0], thumbnail_options['size'][1])
+        im = get_thumbnail(image_field, size, **kwargs)
         return im.url
     except Exception as e:
         traceback.print_exc()

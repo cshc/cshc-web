@@ -1,6 +1,8 @@
 import os
 from os.path import abspath, dirname, join, normpath
 
+from easy_thumbnails.conf import Settings as thumbnail_settings
+
 # Normally you should not import ANYTHING from Django directly
 # into your settings, but ImproperlyConfigured is an exception.
 from django.core.exceptions import ImproperlyConfigured
@@ -363,15 +365,16 @@ BREADCRUMBS_TEMPLATE = "core/_breadcrumbs.html"
 # Ref: https://github.com/jonasundderwolf/django-image-cropping
 THUMBNAIL_PROCESSORS = (
     'image_cropping.thumbnail_processors.crop_corners',
-)
+) + thumbnail_settings.THUMBNAIL_PROCESSORS
 IMAGE_CROPPING_BACKEND = 'core.backends.image_backend.ResizedImageSorlThumbnailBackend'
+THUMBNAIL_PRESERVE_FORMAT = True
 THUMBNAIL_ALIASES = {
     '': {
         'avatar': {'size': (50, 50), 'crop': True},
         'member-link': {'size': (30, 30), 'crop': True},
         'squad-list': {'size': (255, 255), 'crop': True},
         'news-list': {'size': (350, 233), 'crop': True},
-        'member_detail': {'size': (255, 255), 'crop': True},
+        'member-detail': {'size': (255, 255), 'crop': True},
     },
 }
 

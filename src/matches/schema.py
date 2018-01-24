@@ -145,7 +145,6 @@ class GoalKingList(DjangoListObjectType):
 
 
 def post_optimize_goal_king_entries(queryset, **kwargs):
-    print('post_optimize goal king entries')
     order_field = '-total_goals'
     if 'team' in kwargs:
         team = kwargs.pop('team')
