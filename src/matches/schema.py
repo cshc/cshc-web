@@ -4,6 +4,7 @@ GraphQL Schema for matches etc
 
 import graphene
 import django_filters
+from django.db.models import F, Q
 from graphene_django_extras import DjangoListObjectType, DjangoObjectType
 from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
 from awards.schema import MatchAwardWinnerList
@@ -31,6 +32,7 @@ class GoalKingFilter(django_filters.FilterSet):
 class MatchFilter(django_filters.FilterSet):
     mom = django_filters.CharFilter(name='mom', method='filter_mom')
     lom = django_filters.CharFilter(name='lom', method='filter_lom')
+    result = django_filters.CharFilter(name='result', method='filter_result')
 
     def filter_mom(self, queryset, name, value):
         # filter for matches where the given member won the Man of the Match award.
@@ -48,11 +50,26 @@ class MatchFilter(django_filters.FilterSet):
         }
         return queryset.filter(**kwargs)
 
+    def filter_result(self, queryset, name, value):
+        # Filter for a particular result
+        final_scores_provided = Q(our_score__isnull=False) and Q(
+            opp_score__isnull=False)
+        queryset = queryset.filter(final_scores_provided)
+        if value.lower() == 'won':
+            return queryset.filter(our_score__gt=F('opp_score'))
+        elif value.lower() == 'lost':
+            return queryset.filter(our_score__lt=F('opp_score'))
+        elif value.lower() == 'drawn':
+            return queryset.filter(our_score=F('opp_score'))
+        else:
+            raise Exception('Invalid result specified: ' + value)
+
     class Meta:
         model = Match
         fields = {
             'mom': ['exact'],
             'lom': ['exact'],
+            'result': ['result'],
             'venue__slug': ['exact'],
             'venue_id': ['exact'],
             'opp_team__name': ['exact'],
@@ -101,6 +118,7 @@ class MatchType(DjangoObjectType):
     has_report = graphene.Boolean()
     kit_clash = graphene.Boolean()
     match_title_text = graphene.String()
+    result = graphene.String()
 
     appearances = OptimizedDjangoListObjectField(AppearanceList)
     award_winners = OptimizedDjangoListObjectField(MatchAwardWinnerList)
@@ -116,6 +134,9 @@ class MatchType(DjangoObjectType):
 
     def resolve_match_title_text(self, info):
         return self.match_title_text()
+
+    def resolve_result(self, info):
+        return self.result_display()
 
 
 class MatchList(DjangoListObjectType):

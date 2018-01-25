@@ -17,6 +17,7 @@ const MatchListWrapper = ({
   players,
   mom,
   lom,
+  result,
   reportAuthor,
   date,
   ...props
@@ -36,6 +37,7 @@ const MatchListWrapper = ({
     reportAuthorId: reportAuthor,
     mom,
     lom,
+    result,
   };
   return <MatchListDisplay queryVariables={queryVariables} {...props} />;
 };
@@ -54,6 +56,7 @@ MatchListWrapper.propTypes = {
   players: PropTypes.string,
   mom: PropTypes.string,
   lom: PropTypes.string,
+  result: PropTypes.string,
   reportAuthor: PropTypes.string,
   date: PropTypes.string,
 };
@@ -72,6 +75,7 @@ MatchListWrapper.defaultProps = {
   players: undefined,
   mom: undefined,
   lom: undefined,
+  result: undefined,
   reportAuthor: undefined,
   date: undefined,
 };

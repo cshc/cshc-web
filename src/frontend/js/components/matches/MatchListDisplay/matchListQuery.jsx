@@ -20,6 +20,7 @@ export const MATCH_LIST_QUERY = gql`
     $appearances_MemberId_In: ID
     $mom: String
     $lom: String
+    $result: String
   ) {
     matches(
       orderBy: $orderBy
@@ -36,6 +37,7 @@ export const MATCH_LIST_QUERY = gql`
       appearances_MemberId_In: $appearances_MemberId_In
       mom: $mom
       lom: $lom
+      result: $result
     ) {
       totalCount
       results(page: $page, pageSize: $pageSize) {

@@ -19,6 +19,7 @@ export const MATCH_DATA_QUERY = gql`
     $date_Lte: String
     $date_Gt: String
     $date_Gte: String
+    $result: String
   ) {
     matches(
       orderBy: $orderBy
@@ -34,6 +35,7 @@ export const MATCH_DATA_QUERY = gql`
       date_Lte: $date_Lte
       date_Gt: $date_Gt
       date_Gte: $date_Gte
+      result: $result
     ) {
       results(pageSize: $pageSize, page: $page) {
         id

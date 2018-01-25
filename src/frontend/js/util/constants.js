@@ -83,6 +83,7 @@ const FilterName = {
   ReportAuthor: 'reportAuthor',
   Players: 'players',
   Date: 'date',
+  Result: 'result',
 };
 
 /**
