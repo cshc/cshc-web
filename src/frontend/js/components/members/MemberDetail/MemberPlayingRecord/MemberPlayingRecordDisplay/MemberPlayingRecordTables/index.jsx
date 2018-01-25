@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import reduce from 'lodash/reduce';
 import { Panel, ResponsiveAbbr } from 'components/Unify';
 import { nonZero, rounded } from 'util/cshc';
+import Urls from 'util/urls';
+import { NoFilter } from 'util/constants';
 import { getAllTeams } from '../util';
 
 /**
@@ -32,11 +34,26 @@ const seasonAvg = (seasonStats, fieldName) =>
  * 2) Team Representations
  * 3) Success Record
  */
-const MemberPlayingRecordTables = ({ data }) => {
+const MemberPlayingRecordTables = ({ data, fixtureType, memberId }) => {
   const allTeams = getAllTeams(data);
   const totalPlayed = total(data, 'played');
   const panelProps = { outlineColor: 'teal', headerColor: 'teal' };
   const tableClass = 'table table-hover u-table--v1 text-center m-0';
+
+  const linkedMatchList = (content, params) => {
+    const urlParams = { ...params };
+    urlParams.players = memberId;
+    if (fixtureType !== NoFilter) {
+      urlParams.fixtureType = fixtureType;
+    }
+    const link = `${Urls.match_list()}?${Urls.buildUrlParams(urlParams)}`;
+    return (
+      <a target="_blank" title="View match list" href={link}>
+        {content}
+      </a>
+    );
+  };
+
   return (
     <div>
       <Panel title="Matches, Goals and Awards" {...panelProps}>
@@ -67,21 +84,33 @@ const MemberPlayingRecordTables = ({ data }) => {
             <tbody>
               {data.map(seasonStats => (
                 <tr key={seasonStats.season.slug}>
-                  <td className="text-left text-nowrap">{seasonStats.season.slug}</td>
+                  <td className="text-left text-nowrap">
+                    {linkedMatchList(seasonStats.season.slug, { season: seasonStats.season.slug })}
+                  </td>
                   <td>{nonZero(seasonStats.memberStats.played)}</td>
                   <td>{nonZero(seasonStats.memberStats.goals)}</td>
                   <td>{nonZero(seasonStats.memberStats.cleanSheets)}</td>
-                  <td>{nonZero(seasonStats.memberStats.mom)}</td>
-                  <td>{nonZero(seasonStats.memberStats.lom)}</td>
+                  <td>
+                    {linkedMatchList(nonZero(seasonStats.memberStats.mom), {
+                      season: seasonStats.season.slug,
+                      mom: memberId,
+                    })}
+                  </td>
+                  <td>
+                    {linkedMatchList(nonZero(seasonStats.memberStats.lom), {
+                      season: seasonStats.season.slug,
+                      lom: memberId,
+                    })}
+                  </td>
                 </tr>
               ))}
               <tr className="g-bg-secondary g-font-weight-600">
                 <td className="text-left text-nowrap">Total</td>
-                <td>{totalPlayed}</td>
+                <td>{linkedMatchList(totalPlayed, {})}</td>
                 <td>{total(data, 'goals')}</td>
                 <td>{total(data, 'cleanSheets')}</td>
-                <td>{total(data, 'mom')}</td>
-                <td>{total(data, 'lom')}</td>
+                <td>{linkedMatchList(total(data, 'mom'), { mom: memberId })}</td>
+                <td>{linkedMatchList(total(data, 'lom'), { lom: memberId })}</td>
               </tr>
             </tbody>
           </table>
@@ -105,7 +134,16 @@ const MemberPlayingRecordTables = ({ data }) => {
                     const matching = seasonStats.memberStats.teamRepresentations.find(
                       tr => tr.team.slug === t.slug,
                     );
-                    return <td key={t.slug}>{matching ? matching.appearanceCount : null}</td>;
+                    return (
+                      <td key={t.slug}>
+                        {matching
+                          ? linkedMatchList(matching.appearanceCount, {
+                            season: seasonStats.season.slug,
+                            team: t.slug,
+                          })
+                          : null}
+                      </td>
+                    );
                   })}
                 </tr>
               ))}
@@ -125,7 +163,11 @@ const MemberPlayingRecordTables = ({ data }) => {
                     },
                     0,
                   );
-                  return <td key={t.slug}>{nonZero(teamTotal)}</td>;
+                  return (
+                    <td key={t.slug}>
+                      {teamTotal ? linkedMatchList(teamTotal, { team: t.slug }) : null}
+                    </td>
+                  );
                 })}
               </tr>
             </tbody>
@@ -170,10 +212,29 @@ const MemberPlayingRecordTables = ({ data }) => {
               {data.map(seasonStats => (
                 <tr key={seasonStats.season.slug}>
                   <td className="text-left text-nowrap">{seasonStats.season.slug}</td>
-                  <td>{nonZero(seasonStats.memberStats.played)}</td>
-                  <td>{nonZero(seasonStats.memberStats.won)}</td>
-                  <td>{nonZero(seasonStats.memberStats.drawn)}</td>
-                  <td>{nonZero(seasonStats.memberStats.lost)}</td>
+                  <td>
+                    {linkedMatchList(seasonStats.memberStats.played, {
+                      season: seasonStats.season.slug,
+                    })}
+                  </td>
+                  <td>
+                    {linkedMatchList(seasonStats.memberStats.won, {
+                      season: seasonStats.season.slug,
+                      result: 'won',
+                    })}
+                  </td>
+                  <td>
+                    {linkedMatchList(seasonStats.memberStats.drawn, {
+                      season: seasonStats.season.slug,
+                      result: 'drawn',
+                    })}
+                  </td>
+                  <td>
+                    {linkedMatchList(seasonStats.memberStats.lost, {
+                      season: seasonStats.season.slug,
+                      result: 'lost',
+                    })}
+                  </td>
                   <td>{seasonAvg(seasonStats, 'goalsFor')}</td>
                   <td>{seasonAvg(seasonStats, 'goalsAgainst')}</td>
                   <td>{seasonAvg(seasonStats, 'totalPoints')}</td>
@@ -181,10 +242,10 @@ const MemberPlayingRecordTables = ({ data }) => {
               ))}
               <tr className="g-bg-secondary g-font-weight-600">
                 <td className="text-left text-nowrap">Total</td>
-                <td>{total(data, 'played')}</td>
-                <td>{total(data, 'won')}</td>
-                <td>{total(data, 'drawn')}</td>
-                <td>{total(data, 'lost')}</td>
+                <td>{linkedMatchList(total(data, 'played'), {})}</td>
+                <td>{linkedMatchList(total(data, 'won'), { result: 'won' })}</td>
+                <td>{linkedMatchList(total(data, 'drawn'), { result: 'drawn' })}</td>
+                <td>{linkedMatchList(total(data, 'lost'), { result: 'lost' })}</td>
                 <td>{avg(data, totalPlayed, 'goalsFor')}</td>
                 <td>{avg(data, totalPlayed, 'goalsAgainst')}</td>
                 <td>{avg(data, totalPlayed, 'totalPoints')}</td>
@@ -199,6 +260,8 @@ const MemberPlayingRecordTables = ({ data }) => {
 
 MemberPlayingRecordTables.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  fixtureType: PropTypes.string.isRequired,
+  memberId: PropTypes.number.isRequired,
 };
 
 export default MemberPlayingRecordTables;

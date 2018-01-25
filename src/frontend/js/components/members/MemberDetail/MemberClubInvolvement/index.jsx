@@ -17,7 +17,7 @@ import MemberRecentReports from './MemberRecentReports';
  * 3) End of Season awards
  * 4) Recent Match Reports written by this member
  */
-const MemberClubInvolvement = ({ memberId }) => {
+const MemberClubInvolvement = ({ member }) => {
   const panelProps = { outlineColor: 'teal', headerColor: 'teal' };
   return (
     <div>
@@ -25,8 +25,12 @@ const MemberClubInvolvement = ({ memberId }) => {
       <Panel title="Recent Matches" {...panelProps}>
         <div className="card-block">
           <p>
-            Note: you can view/filter/sort all matches that Graham played in{' '}
-            <a href={`${Urls.get('match_list')}?players=${memberId}`} title="Match List">
+            Note: you can view/filter/sort all matches that {member.firstName} played in{' '}
+            <a
+              target="_blank"
+              href={`${Urls.get('match_list')}?players=${member.id}`}
+              title="Match List"
+            >
               here
             </a>. This table just lists the most recent matches.
           </p>
@@ -34,7 +38,7 @@ const MemberClubInvolvement = ({ memberId }) => {
             matchFilters={{
               pageSize: 5,
               orderBy: '-date',
-              appearances_MemberId: memberId,
+              appearances_MemberId: member.id,
               date_Lte: dateFormat(new Date(), 'YYYY-MM-DD'),
             }}
             dateFormat="Do MMM YY"
@@ -53,7 +57,7 @@ const MemberClubInvolvement = ({ memberId }) => {
                 </a>. Alternatively, click on a year in the timeline below to see the full committee
                 for that year.
               </p>
-              <CommitteeMemberships memberId={memberId} />
+              <CommitteeMemberships memberId={member.id} />
             </div>
           </Panel>
         </div>
@@ -67,7 +71,7 @@ const MemberClubInvolvement = ({ memberId }) => {
                 </a>. Alternatively, click on a year in the timeline below to see the list of award
                 winners for that year.
               </p>
-              <EndOfSeasonAwards memberId={memberId} />
+              <EndOfSeasonAwards memberId={member.id} />
             </div>
           </Panel>
         </div>
@@ -78,10 +82,17 @@ const MemberClubInvolvement = ({ memberId }) => {
                 matchFilters={{
                   pageSize: 5,
                   orderBy: '-date',
-                  reportAuthorId: memberId,
+                  reportAuthorId: member.id,
                   date_Lte: dateFormat(new Date(), 'YYYY-MM-DD'),
                 }}
               />
+              <a
+                target="_blank"
+                title="Match List"
+                href={`${Urls.match_list()}?reportAuthor=${member.id}`}
+              >
+                View all match reports by {member.firstName}...
+              </a>
             </div>
           </Panel>
         </div>
@@ -91,7 +102,7 @@ const MemberClubInvolvement = ({ memberId }) => {
 };
 
 MemberClubInvolvement.propTypes = {
-  memberId: PropTypes.number.isRequired,
+  member: PropTypes.shape().isRequired,
 };
 
 MemberClubInvolvement.defaultProps = {};

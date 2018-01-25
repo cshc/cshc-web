@@ -38,7 +38,7 @@ const MemberDetail = ({ member }) => (
         />
         <Route
           path="/club-involvement"
-          render={props => <MemberClubInvolvement {...props} memberId={member.id} />}
+          render={props => <MemberClubInvolvement member={member} />}
         />
         <Redirect from="/" to="/playing-record" />
       </Switch>

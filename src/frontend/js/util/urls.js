@@ -19,6 +19,15 @@ const Urls = {
       window.cshcUrls[urlName],
     ),
 
+  /** Converts a dictionary of key/value pairs into a URL parameter string.
+   * 
+   *  E.g. { a: 14, b: "test", c: true } => "a=14&b=test&c=true"
+   */
+  buildUrlParams: (params) => {
+    const paramStrings = entries(params).map(p => `${p[0]}=${p[1]}`);
+    return paramStrings.join('&');
+  },
+
   get: urlName => Urls.buildUrl(urlName),
 
   about_committee_season: slug =>
