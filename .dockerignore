@@ -1,0 +1,4 @@
+*
+!dumb-init_*.deb
+!package.json
+!requirements/
