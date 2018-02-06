@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 /**
  * Represents a custom scrollbar.
@@ -17,13 +18,17 @@ class CustomScrollbar extends React.Component {
   }
 
   render() {
-    const { maxHeight, children } = this.props;
+    const { maxHeight, className, children } = this.props;
+    const divClass = classnames(
+      'js-scrollbar u-info-v1-1 g-bg-white-gradient-v1--after mCustomScrollbar',
+      className,
+    );
     return (
       <div
         ref={(scrollbar) => {
           this.scrollbar = scrollbar;
         }}
-        className="js-scrollbar  u-info-v1-1 g-bg-white-gradient-v1--after mCustomScrollbar"
+        className={divClass}
         style={maxHeight ? { maxHeight } : {}}
         data-mcs-theme="minimal-dark"
       >
@@ -34,11 +39,13 @@ class CustomScrollbar extends React.Component {
 }
 
 CustomScrollbar.propTypes = {
+  className: PropTypes.string,
   maxHeight: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
 CustomScrollbar.defaultProps = {
+  className: undefined,
   maxHeight: '200px',
 };
 

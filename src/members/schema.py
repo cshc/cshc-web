@@ -83,6 +83,7 @@ class MemberType(DjangoObjectType):
     pref_position = graphene.String()
     num_appearances = graphene.Int()
     goals = graphene.Int()
+    full_name = graphene.String()
 
     class Meta:
         model = Member
@@ -118,6 +119,9 @@ class MemberType(DjangoObjectType):
 
     def resolve_pref_position(self, info):
         return self.get_pref_position_display()
+
+    def resolve_full_name(self, info):
+        return self.full_name()
 
 
 class MemberList(DjangoListObjectType):
@@ -176,6 +180,35 @@ class TeamStatsType(graphene.ObjectType):
 class SquadStatsType(graphene.ObjectType):
     totals = graphene.Field(TeamStatsType)
     squad = graphene.List(MemberStatsType)
+
+
+class AddNewMemberInput(graphene.InputObjectType):
+    """ Input Type for adding a new member """
+    first_name = graphene.String(required=True)
+    last_name = graphene.String(required=True)
+    gender = graphene.String(required=True)
+
+
+class AddMember(graphene.relay.ClientIDMutation):
+
+    class Input:
+        member = graphene.Argument(AddNewMemberInput)
+
+    errors = graphene.List(graphene.String)
+    new_member = graphene.Field(MemberType)
+
+    @classmethod
+    def mutate_and_get_payload(cls, root, info, **input):
+        member_data = input['member']
+        member, created = Member.objects.get_or_create(
+            first_name=member_data.first_name,
+            last_name=member_data.last_name,
+            gender=member_data.gender,
+            defaults={'is_current': True},
+        )
+        errors = ['This member already exists'] if not created else None
+
+        return cls(new_member=member, errors=errors)
 
 
 def post_optimize_members(queryset, **kwargs):
@@ -280,3 +313,7 @@ class Query(graphene.ObjectType):
             season_stats.add_award_winner(award_winner)
 
         return season_stats.seasons.values()
+
+
+class Mutation(graphene.ObjectType):
+    add_member = AddMember.Field()

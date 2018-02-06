@@ -66,6 +66,14 @@ class EndOfSeasonAwardWinnerList(DjangoListObjectType):
         pagination = get_paginator()
 
 
+class MatchAwardWinnerInput(graphene.InputObjectType):
+    match_id = graphene.Int(required=False)
+    member_id = graphene.Int(required=False)
+    awardee = graphene.String(required=False)
+    comment = graphene.String()
+    award = graphene.String()
+
+
 class Query(graphene.ObjectType):
     """ GraphQL query for awards and award winners """
     match_awards = OptimizedDjangoListObjectField(MatchAwardList)

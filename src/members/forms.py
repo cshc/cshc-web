@@ -20,12 +20,12 @@ class MemberProfileForm(forms.ModelForm):
         """ Meta-info for the form."""
         model = Member
         widgets = {
-            'first_name': UnifyTextInput(left_icon='icon-user-follow'),
-            'known_as': UnifyTextInput(left_icon='icon-user-follow'),
-            'last_name': UnifyTextInput(left_icon='icon-user-follow'),
+            'first_name': UnifyTextInput(left_icon='icon-user'),
+            'known_as': UnifyTextInput(left_icon='icon-user'),
+            'last_name': UnifyTextInput(left_icon='icon-user'),
             'profile_pic': CshcCropWidget,
             'pref_position': UnifySelect,
-            'shirt_number': UnifyTextInput(attrs={'class': 'g-width-100 flex-0'}),
+            'shirt_number': UnifyTextInput(attrs={'class': 'g-width-100 flex-0-auto'}),
             'phone': UnifyTextInput(left_icon='fa fa-phone'),
             'addr_street': UnifyTextInput(attrs={'placeholder': 'Street'}),
             'addr_line2': UnifyTextInput(),

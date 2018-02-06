@@ -31,6 +31,8 @@ const MatchAward = {
   LOM: 'Lemon of the Match',
 };
 
+const AltOutcome = toDict(['Postponed', 'Cancelled', 'BYE', 'Walkover', 'Abandoned']);
+
 /**
  * Identifiers for particular views. The 'viewTypes' Redux store object uses
  * these identifiers as keys.
@@ -141,4 +143,5 @@ module.exports = {
   PositionOptions,
   NoFilter,
   DefaultPageSize,
+  AltOutcome,
 };

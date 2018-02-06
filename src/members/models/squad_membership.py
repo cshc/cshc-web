@@ -28,7 +28,7 @@ class SquadMembershipManager(models.Manager):
     """ Queries that relate to Squad Membership"""
 
     def get_queryset(self):
-        return super(SquadMembershipManager, self).get_queryset().select_related('member', 'team', 'season')
+        return super(SquadMembershipManager, self).get_queryset().select_related('member')
 
     def by_member(self, member):
         """Returns only squad membership for the specified member"""
@@ -57,7 +57,7 @@ class SquadMembership(models.Model):
 
     # The team (squad) which the club member was a part of
     team = models.ForeignKey(
-        'teams.ClubTeam', on_delete=models.CASCADE, validators=[validate_squad])
+        'teams.ClubTeam', related_name="squadmembership", on_delete=models.CASCADE, validators=[validate_squad])
 
     # The season in which the club member was in the team
     season = models.ForeignKey('competitions.Season', on_delete=models.CASCADE)

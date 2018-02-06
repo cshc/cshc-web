@@ -31,4 +31,11 @@ class Query(awards.schema.Query,
     debug = graphene.Field(DjangoDebug, name='__debug')
 
 
-schema = graphene.Schema(query=Query)
+class Mutation(members.schema.Mutation,
+               matches.schema.Mutation,
+               graphene.ObjectType):
+    """ GraphQL mutations for all CSHC data """
+    pass
+
+
+schema = graphene.Schema(query=Query, mutation=Mutation)

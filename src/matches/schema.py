@@ -2,13 +2,14 @@
 GraphQL Schema for matches etc
 """
 
+import traceback
 import graphene
 import django_filters
 from django.db.models import F, Q
 from graphene_django_extras import DjangoListObjectType, DjangoObjectType
 from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
-from awards.schema import MatchAwardWinnerList
-from awards.models import MatchAward
+from awards.schema import MatchAwardWinnerList, MatchAwardWinnerInput
+from awards.models import MatchAward, MatchAwardWinner
 from .models import Match, Appearance, GoalKing
 
 
@@ -165,6 +166,132 @@ class GoalKingList(DjangoListObjectType):
         pagination = get_paginator()
 
 
+class AppearanceInput(graphene.InputObjectType):
+    member_id = graphene.Int()
+    match_id = graphene.Int(required=False)
+    greenCard = graphene.Boolean(required=False)
+    yellowCard = graphene.Boolean(required=False)
+    redCard = graphene.Boolean(required=False)
+    goals = graphene.Int(required=False)
+
+
+class EditMatchInput(graphene.InputObjectType):
+    """ Input Type for updating a match """
+    match_id = graphene.Int()
+    our_score = graphene.Int(required=False)
+    opp_score = graphene.Int(required=False)
+    our_ht_score = graphene.Int(required=False)
+    opp_ht_score = graphene.Int(required=False)
+    alt_outcome = graphene.String(required=False)
+    report_author_id = graphene.Int(required=False)
+    report_title = graphene.String(required=False)
+    report_content = graphene.String(required=False)
+
+    appearances = graphene.List(AppearanceInput)
+    awardWinners = graphene.List(MatchAwardWinnerInput)
+
+
+class UpdateMatch(graphene.relay.ClientIDMutation):
+
+    class Input:
+        match = graphene.Argument(EditMatchInput)
+
+    errors = graphene.List(graphene.String)
+    match = graphene.Field(MatchType)
+
+    @classmethod
+    def mutate_and_get_payload(cls, root, info, **input):
+        match_data = input['match']
+        errors = []
+        try:
+            match = Match.objects.get(id=match_data.match_id)
+            match.our_score = match_data.our_score
+            match.opp_score = match_data.opp_score
+            match.our_ht_score = match_data.our_ht_score
+            match.opp_ht_score = match_data.opp_ht_score
+            match.alt_outcome = match_data.alt_outcome
+            match.report_author_id = match_data.report_author_id
+            match.report_title = match_data.report_title
+            # SplitField has issues with being set to None (so default to an empty string)
+            match.report_body = match_data.report_content if match_data.report_content else ''
+            match.clean()
+            match.save()
+
+            # UPDATE ALL APPEARANCES
+            # 1. Delete appearances not listed in the mutation input
+            member_ids = [a.member_id for a in match_data.appearances]
+            deleted, _ = Appearance.objects.filter(
+                match_id=match_data.match_id).exclude(member_id__in=member_ids).delete()
+            print('Deleted {} appearances'.format(deleted))
+
+            # 2. Add/update all appearances from the mutation input
+            for app_data in match_data.appearances:
+                app, created = Appearance.objects.get_or_create(
+                    member_id=app_data.member_id, match_id=match_data.match_id)
+                app.goals = app_data.goals if app_data.goals else 0
+                app.greenCard = app_data.greenCard if app_data.greenCard else False
+                app.yellowCard = app_data.yellowCard if app_data.yellowCard else False
+                app.redCard = app_data.redCard if app_data.redCard else False
+                app.clean()
+                app.save()
+                if created:
+                    print('Added appearance for member {}'.format(app.member_id))
+                else:
+                    print('Updated appearance for member {}'.format(app.member_id))
+
+            print('{} appearances for match {}'.format(
+                len(match_data.appearances), match_data.match_id))
+
+            # UPDATE ALL AWARD WINNERS
+            mom = MatchAward.objects.mom()
+            lom = MatchAward.objects.lom()
+
+            # 1. Delete award winners not listed in the mutation input
+            award_winners_delete_qs = MatchAwardWinner.objects.filter(
+                match_id=match_data.match_id)
+            for award_winner_data in match_data.awardWinners:
+                if award_winner_data.member_id:
+                    award_winners_delete_qs = award_winners_delete_qs.exclude(
+                        member_id=award_winner_data.member_id, award__name=award_winner_data.award)
+                else:
+                    award_winners_delete_qs = award_winners_delete_qs.exclude(
+                        awardee=award_winner_data.awardee, award__name=award_winner_data.award)
+
+            award_winners_deleted, _ = award_winners_delete_qs.delete()
+            print('Deleted {} award winners'.format(award_winners_deleted))
+
+            # 2. Add/update all award winners from the mutation input
+            for award_winner_data in match_data.awardWinners:
+                query_kwargs = {
+                    'match_id': match_data.match_id,
+                    'award_id': mom.id if award_winner_data.award == MatchAward.MOM else lom.id,
+                }
+                if award_winner_data.member_id:
+                    query_kwargs['member_id'] = award_winner_data.member_id
+                else:
+                    query_kwargs['awardee'] = award_winner_data.awardee
+                award_winner, created = MatchAwardWinner.objects.get_or_create(defaults={'comment': award_winner_data.comment},
+                                                                               **query_kwargs)
+                award_winner.comment = award_winner_data.comment
+                award_winner.clean()
+                award_winner.save()
+                if created:
+                    print('Added award winner: {}'.format(award_winner))
+                else:
+                    print('Updated award winner: {}'.format(award_winner))
+
+        except Match.DoesNotExist:
+            errors.append('Can\'t find match with ID {}'.format(
+                match_data.match_id))
+            match = None
+        except Exception as e:
+            traceback.print_exc()
+            match = None
+            errors.append("{}".format(e))
+
+        return cls(match=match, errors=errors)
+
+
 def post_optimize_goal_king_entries(queryset, **kwargs):
     order_field = '-total_goals'
     if 'team' in kwargs:
@@ -187,3 +314,7 @@ class Query(graphene.ObjectType):
 
     goal_king_entries = OptimizedDjangoListObjectField(
         GoalKingList, filterset_class=GoalKingFilter, post_optimize=post_optimize_goal_king_entries)
+
+
+class Mutation(graphene.ObjectType):
+    update_match = UpdateMatch.Field()

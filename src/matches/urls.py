@@ -20,6 +20,13 @@ urlpatterns = [
         name="match_detail"
         ),
 
+
+    # E.g. '/matches/23/edit/'               - Edit form for a specific match
+    url(r'^(?P<pk>\d+)/edit/$',
+        views.MatchEditView.as_view(),
+        name="match_detail_edit"
+        ),
+
     # E.g. '/matches/goal-king/'            - Goal King table
     url(r'^goal-king/$',
         views.GoalKingView.as_view(),

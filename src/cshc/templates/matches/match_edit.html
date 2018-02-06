@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% comment %}
+A React page for editing the details of a match.
+{% endcomment %}
+
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Edit Match - {{ match.fixture_title }}{% endblock %}
+
+{% block link %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css" %}">
+  {% include 'react/react_css.html' with bundle_name='MatchEdit' %}
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block main %}
+  <section class="container g-pt-20 g-pb-40">
+    {% heading match.fixture_title %}
+  </section>
+  <div id="react-app"></div>
+{% endblock main %}
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'blocks/_focus_state_js.html' %}
+  <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+  <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+  <script src="{% static "vendor/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js" %}"></script>
+  {% include 'react/react_js.html' with bundle_name='MatchEdit' %}
+{% endblock body_js %}

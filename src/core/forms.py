@@ -22,8 +22,8 @@ class UserProfileForm(forms.ModelForm):
         model = CshcUser
         fields = ('email', 'first_name', 'last_name')
         widgets = {
-            'first_name': UnifyTextInput(left_icon='icon-user-follow'),
-            'last_name': UnifyTextInput(left_icon='icon-user-follow'),
+            'first_name': UnifyTextInput(left_icon='icon-user'),
+            'last_name': UnifyTextInput(left_icon='icon-user'),
             'email': forms.HiddenInput(),
         }
 

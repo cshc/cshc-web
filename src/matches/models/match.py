@@ -164,7 +164,7 @@ class Match(models.Model):
 
     # The (optional) title of the match report
     report_title = models.CharField(
-        "Match report title", max_length=200, blank=True)
+        "Match report title", max_length=200, blank=True, null=True)
 
     # The (optional) match report author
     report_author = models.ForeignKey(Member, verbose_name="Match report author", null=True, blank=True,

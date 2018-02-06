@@ -1,0 +1,9 @@
+.notSelected {
+  opacity: 0.1;
+}
+
+.cardButton {
+  &:focus {
+    outline: none;
+  }
+}

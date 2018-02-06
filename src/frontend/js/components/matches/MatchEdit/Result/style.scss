@@ -1,0 +1,19 @@
+/* Because of react-select weirdness, we need to give this card a higher z-index than its siblings 
+ * Ref: https://github.com/JedWatson/react-select/issues/1085
+ */
+.resultCard {
+  z-index: 1 !important;
+}
+.teamName {
+  flex: 1;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #000;
+}
+.score {
+  flex: 0 auto;
+  white-space: nowrap;
+}
+:global {
+  @import 'node_modules/react-select/scss/default.scss';
+}

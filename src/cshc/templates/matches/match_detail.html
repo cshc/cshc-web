@@ -29,6 +29,8 @@
 
 {% block main %}
 
+{% url 'match_detail_edit' match.id as edit_url %}
+
 {% include 'core/_messages.html' %}
 
 <section class="g-bg-cover g-bg-size-cover g-bg-black-opacity-0_5--after" data-bg-img-src="{% static "img/l1-3.jpg" %}" style="background-image: url(&quot;{% static "img/l1-3.jpg" %}&quot;);">
@@ -110,7 +112,11 @@
   </div>
   
   <div class="g-pt-20 text-right">
-    {% instance_admin_links match change=True %}
+    {% if match.is_in_past %}
+      {% instance_admin_links match change=True change_url=edit_url %}
+    {% else %}
+      {% instance_admin_links match change=True %}
+    {% endif %}
   </div>
 </section>
 {% endblock main %}

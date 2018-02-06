@@ -2,12 +2,69 @@ import { isPast } from 'date-fns';
 import sortBy from 'lodash/sortBy';
 import reduce from 'lodash/reduce';
 import { toTitleCase } from 'util/cshc';
-import { HomeAway, MatchAward } from 'util/constants';
+import { HomeAway, MatchAward, AltOutcome } from 'util/constants';
 
 /**
  * Utility object for common logic related to a match.
  */
 const Match = {
+  WALKOVER_SCORE_W1: 3,
+  WALKOVER_SCORE_W2: 5,
+  WALKOVER_SCORE_L: 0,
+
+  resultErrors(result) {
+    const errors = [];
+    switch (result.altOutcome) {
+      case AltOutcome.Walkover:
+        if (!Match.isWalkoverScore(result)) {
+          errors.push('A walk-over score must be 3-0, 5-0, 0-3 or 0-5');
+        }
+        if (result.ourHtScore !== undefined || result.oppHtScore !== undefined) {
+          errors.push('Half-time scores are not valid for walkover matches');
+        }
+        break;
+
+      case AltOutcome.Cancelled:
+      case AltOutcome.Postponed:
+      case AltOutcome.BYE:
+        if (result.ourScore || result.oppScore || result.ourHtScore || result.oppHtScore) {
+          errors.push('A cancelled, postponed or BYE match should not have scores');
+        }
+        break;
+
+      default:
+        // You can't specify one score without the other
+        if (result.ourScore === undefined || result.oppScore === undefined) {
+          errors.push('Both scores must be provided');
+        } else if (result.ourHtScore === undefined || result.oppHtScore === undefined) {
+          errors.push('Both half-time scores must be provided');
+        } else if (result.ourHtScore > result.ourScore || result.oppHtScore > result.oppScore) {
+          // Half-time scores must be <= the final scores
+          errors.push('Half-time scores cannot be greater than final scores');
+        }
+        break;
+    }
+
+    return errors;
+  },
+
+  isWalkoverScore(result) {
+    if (
+      [Match.WALKOVER_SCORE_W1, Match.WALKOVER_SCORE_W2].find(
+        v => v === parseInt(result.ourScore, 10),
+      )
+    ) {
+      return result.oppScore === Match.WALKOVER_SCORE_L;
+    } else if (
+      [Match.WALKOVER_SCORE_W1, Match.WALKOVER_SCORE_W2].find(
+        v => v === parseInt(result.oppScore, 10),
+      )
+    ) {
+      return result.ourScore === Match.WALKOVER_SCORE_L;
+    }
+    return false;
+  },
+
   isHome(match) {
     return match.homeAway === HomeAway.Home;
   },

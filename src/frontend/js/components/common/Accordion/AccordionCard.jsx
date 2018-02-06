@@ -7,8 +7,17 @@ import classnames from 'classnames';
  * 
  * Ref: https://htmlstream.com/preview/unify-v2.2/unify-main/shortcodes/shortcode-base-accordions.html#shortcode10
  */
-const AccordionCard = ({ cardId, title, leftIcon, rightIcon, accordionId, isOpen, children }) => (
-  <div className="card rounded-0 g-brd-none">
+const AccordionCard = ({
+  className,
+  cardId,
+  title,
+  leftIcon,
+  rightIcon,
+  accordionId,
+  isOpen,
+  children,
+}) => (
+  <div className={classnames('card rounded-0 g-brd-none', { [className]: className })}>
     <div id={`${accordionId}-heading-${cardId}`} className="u-accordion__header g-pa-0" role="tab">
       <h4 className="mb-0 g-font-weight-600">
         <a
@@ -23,8 +32,8 @@ const AccordionCard = ({ cardId, title, leftIcon, rightIcon, accordionId, isOpen
           <span className="float-right">
             {rightIcon}
             <span className="u-accordion__control-icon g-ml-10">
-              <i className="fa fa-angle-right" />
-              <i className="fa fa-angle-down" />
+              <i className="fa fa-fw fa-angle-right" />
+              <i className="fa fa-fw fa-angle-down" />
             </span>
           </span>
           <span className="g-valign-middle">{title}</span>
@@ -43,6 +52,7 @@ const AccordionCard = ({ cardId, title, leftIcon, rightIcon, accordionId, isOpen
 );
 
 AccordionCard.propTypes = {
+  className: PropTypes.string,
   accordionId: PropTypes.string.isRequired,
   cardId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
@@ -54,6 +64,7 @@ AccordionCard.propTypes = {
 };
 
 AccordionCard.defaultProps = {
+  className: undefined,
   leftIcon: undefined,
   rightIcon: undefined,
   isOpen: false,

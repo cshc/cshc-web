@@ -22,8 +22,24 @@ const DefaultPageQueryProps = {
   before: undefined,
 };
 
+const SelectValueLabelOptionPropType = PropTypes.shape({
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  label: PropTypes.string.isRequired,
+});
+
+const SelectValueLabelOptionsPropType = PropTypes.arrayOf(SelectValueLabelOptionPropType);
+
+const SelectOptionPropTypes = PropTypes.oneOfType([
+  PropTypes.string,
+  SelectValueLabelOptionsPropType,
+]);
+
+const SelectOptionsPropTypes = PropTypes.arrayOf(SelectOptionPropTypes);
+
 module.exports = {
   FilterValuePropType,
   PageQueryPropType,
   DefaultPageQueryProps,
+  SelectValueLabelOptionsPropType,
+  SelectOptionsPropTypes,
 };

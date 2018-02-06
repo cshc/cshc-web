@@ -7,6 +7,23 @@ import uniq from 'lodash/uniq';
  * Utility object for common logic related to a club member.
  */
 const Member = {
+  /**
+   * Encode a member as a string value with both ID and the member's name included.
+   */
+  encode(id, name) {
+    return `${id}:${name}`;
+  },
+
+  /**
+   * Decode an encoded member string into ID and name. 
+   * 
+   * Returns {id, name}
+   */
+  decode(member) {
+    const s = member.split(':');
+    return { id: s[0], name: s[1] };
+  },
+
   firstNameAndInitial(member) {
     return `${member.firstName} ${member.lastName[0].toUpperCase()}`;
   },

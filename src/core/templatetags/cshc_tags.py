@@ -335,12 +335,12 @@ def active_link(context, viewname, *args, **kwargs):
 # ADMIN INTERACE SUPPORT
 
 @register.inclusion_tag('blocks/_admin_link.html', takes_context=True)
-def instance_admin_links(context, model, change=True, add=False, changelist=False):
+def instance_admin_links(context, model, change=True, add=False, changelist=False, change_url=None):
     """
     """
     try:
         content_type = ContentType.objects.get_for_model(model)
-        return AdminLinksCreator(content_type.app_label, content_type.name, content_type.model, model.pk, change, add, changelist).render(context)
+        return AdminLinksCreator(content_type.app_label, content_type.name, content_type.model, model.pk, change, add, changelist, change_url).render(context)
     except:
         LOG.error("Failed to render instance_admin_links", exc_info=True)
 
@@ -359,7 +359,7 @@ def model_admin_links(context, app_label, model_name, add=True, changelist=True)
 
 class AdminLinksCreator(object):
 
-    def __init__(self, app_label, friendly_name, model_name, instance_id=None, change=False, add=False, changelist=False):
+    def __init__(self, app_label, friendly_name, model_name, instance_id=None, change=False, add=False, changelist=False, change_url=None):
         self.app_label = app_label
         self.friendly_name = friendly_name
         self.model_name = model_name
@@ -367,6 +367,7 @@ class AdminLinksCreator(object):
         self.change = change
         self.add = add
         self.changelist = changelist
+        self.change_url = change_url
 
     def render(self, context):
         ctx = {}
@@ -375,7 +376,7 @@ class AdminLinksCreator(object):
         should_display = False
 
         if self.change and self.has_perm(user, 'change_'):
-            ctx['change_url'] = self.get_admin_change_url()
+            ctx['change_url'] = self.change_url if self.change_url else self.get_admin_change_url()
             ctx['change_label'] = "Edit " + self.friendly_name
             should_display = True
         else:

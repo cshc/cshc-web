@@ -1,23 +1,27 @@
 """
 Views related to matches
 """
-from datetime import datetime
+import logging
 from functools import reduce
 from braces.views import SelectRelatedMixin
-from django.views.generic import DetailView, ListView, TemplateView
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.views.generic import DetailView, TemplateView
 from django.db.models import Q
 from awards.models import MatchAward
 from competitions.models import Season
 from competitions.views import js_divisions, js_seasons
-from core.models import ClubInfo, Gender
+from core.models import ClubInfo, Gender, TeamGender
 from core.views import get_season_from_kwargs, add_season_selector, kwargs_or_none
 from teams.models import ClubTeam
 from teams.views import js_clubteams
 from opposition.views import js_opposition_clubs
 from venues.views import js_venues
 from members.views import js_members
+from members.models import Member
 from .models import Match, GoalKing, Appearance
-from .filters import MatchFilter
+
+
+LOG = logging.getLogger(__name__)
 
 
 class MatchListView(TemplateView):
@@ -143,6 +147,162 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
                     'oppTeamId': match.opp_team_id,
                 },
             }
+        return context
+
+
+class MatchEditView(PermissionRequiredMixin, SelectRelatedMixin, DetailView):
+    """ View providing a form for editing a particular match's details """
+    model = Match
+    template_name = 'matches/match_edit.html'
+    permission_required = (
+        'matches.change_match',
+        'matches.add_appearance',
+        'matches.change_appearance',
+        'awards.add_matchawardwinner',
+        'awards.change_matchawardwinner')
+    select_related = ['our_team', 'opp_team__club',
+                      'venue', 'division__league', 'cup', 'season']
+
+    def to_player_list(self, members):
+        """ Encode players as a list of "id:full-name" strings """
+        return [self.encode_member(m) for m in members]
+
+    def encode_member(self, member):
+        """ Encode member as a "id:full-name" string """
+        if not member:
+            return ''
+        return "{id}:{first_name} {last_name}".format(**member.__dict__)
+
+    def encode_cards(self, appearance):
+        """ Encode the cards associated with an appearance as a comma-separated list (e.g. 'g,y') """
+        cards = []
+        if appearance.green_card:
+            cards.append('g')
+        if appearance.yellow_card:
+            cards.append('y')
+        if appearance.red_card:
+            cards.append('r')
+        return ",".join(cards)
+
+    def prioritize(self, members, member):
+        """ Move the given member to the top of the list of members """
+        try:
+            members.insert(0, members.pop(
+                members.index(member)))
+        except ValueError:
+            LOG.error(
+                'Member {} not found in list of potential players'.format(member))
+
+    def list_appearances(self, match):
+        """ Get a JS-friendly list of appearances for this match """
+        appearances_qs = match.appearances.select_related(
+            'member').order_by('member__first_name', 'member__last_name')
+        appearances = []
+        for appearance in appearances_qs:
+            appearances.append({
+                'member': self.encode_member(appearance.member),
+                'cards': self.encode_cards(appearance),
+                'goals': appearance.goals,
+            })
+        return appearances
+
+    def list_award_winners(self, match):
+        """ Get a JS-friendly list of award-winners for this match """
+        award_winners_qs = match.award_winners.select_related(
+            'member', 'award').order_by('-award__name')
+        awards = []
+        for award_winner in award_winners_qs:
+            # We use a string ID as we create dummy id strings on the front-end for 'new' award winners
+            # which we identify by prefixing with 'new-'.
+            awards.append({
+                'id': str(award_winner.id),
+                'member': self.encode_member(award_winner.member),
+                'awardee': award_winner.awardee,
+                'comment': award_winner.comment,
+                'award': award_winner.award.name,
+            })
+        return awards
+
+    def get_context_data(self, **kwargs):
+        context = super(MatchEditView, self).get_context_data(**kwargs)
+        match = context["match"]
+
+        member_fields = ['id', 'first_name', 'last_name', 'gender']
+        player_suggestions = []
+
+        # 1. Get all possible members
+        member_qs = Member.objects.filter(is_current=True)
+        if match.our_team.gender == TeamGender.Mens:
+            member_qs = member_qs.filter(gender=Gender.Male)
+        elif match.our_team.gender == TeamGender.Ladies:
+            member_qs = member_qs.filter(gender=Gender.Female)
+        else:
+            member_qs = member_qs.order_by('gender')
+
+        player_suggestions = self.to_player_list(
+            member_qs.only(*member_fields))
+
+        # 2. Get members who have played in this team before this season
+        played_this_season_qs = Member.objects.filter(
+            appearances__match__season_id=match.season_id,
+            appearances__match__our_team_id=match.our_team_id).order_by(
+                '-first_name', '-last_name').only(*member_fields)
+
+        played_this_season = self.to_player_list(played_this_season_qs)
+
+        for player in played_this_season:
+            self.prioritize(player_suggestions, player)
+
+        # 3. Get members who are in the squad
+        squad_members_qs = Member.objects.filter(squadmembership__team_id=match.our_team_id,
+                                                 squadmembership__season_id=match.season_id).order_by('-first_name', '-last_name').only(*member_fields)
+
+        squad_members = self.to_player_list(squad_members_qs)
+
+        for player in squad_members:
+            self.prioritize(player_suggestions, player)
+
+        # 4. Get members who played in the last match
+        last_match_players = []
+        try:
+            last_match = Match.objects.filter(our_team_id=match.our_team_id,
+                                              date__lt=match.date).order_by('-date').first()
+
+            last_match_player_qs = Member.objects.filter(
+                appearances__match_id=last_match.id).order_by('-first_name', '-last_name').only(*member_fields)
+
+            last_match_players = self.to_player_list(last_match_player_qs)
+        except Match.DoesNotExist:
+            pass
+
+        for player in last_match_players:
+            self.prioritize(player_suggestions, player)
+
+        context['props'] = {
+            'matchId': match.id,
+            'ourTeamGender': match.our_team.gender.upper(),
+            'ourTeam': match.our_team.abbr_name(),
+            'oppTeam': match.opp_team.name,
+            'matchState': {
+                'dirty': False,
+                'playerOptions': player_suggestions,
+                'result': {
+                    'errors': [],
+                    'ourScore': match.our_score,
+                    'oppScore': match.opp_score,
+                    'ourHtScore': match.our_ht_score,
+                    'oppHtScore': match.opp_ht_score,
+                    'altOutcome': match.get_alt_outcome_display(),
+                },
+                'appearances': self.list_appearances(match),
+                'awardWinners': self.list_award_winners(match),
+                'report': {
+                    'author': self.encode_member(match.report_author),
+                    'title': match.report_title,
+                    'content': match.report_body.content,
+                },
+            },
+        }
         return context
 
 
