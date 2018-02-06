@@ -76,6 +76,9 @@ docs = [
     {'id': 57, 'title': 'SMHC Newsletter December 1997', 'category_id': 7, 'file': doc('SMHC_Newsletter_Dec_1997.pdf'), 'timestamp': '1997-12-01'},
     {'id': 58, 'title': 'SMHC Newsletter January 1997', 'category_id': 7, 'file': doc('SMHC_Newsletter_Jan_1997.pdf'), 'timestamp': '1997-01-01'},
     {'id': 59, 'title': 'SMHC Newsletter November 1997', 'category_id': 7, 'file': doc('SMHC_Newsletter_Nov_1997.pdf'), 'timestamp': '1997-11-01'},
+    {'id': 60, 'title': 'CSHC AGM 2003', 'category_id': 3, 'file': doc('CSHC_MENS_2003_AGM_Minutes.pdf'), 'timestamp': '2003-07-01'},
+    {'id': 61, 'title': 'Club Accounts 2016-17', 'category_id': 4, 'file': doc('CSHC_2016_17_Accounts.pdf'), 'timestamp': '2017-05-01'},
+    {'id': 62, 'title': 'CSHC AGM 2015', 'category_id': 3, 'file': doc('CSHC_AGM_2015_Minutes.pdf'), 'timestamp': '2015-07-01'},
 ]
 
 offers = [
