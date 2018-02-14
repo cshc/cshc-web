@@ -1,0 +1,103 @@
+.msNav {
+  display: flex;
+  align-items: center;
+  display: block;
+  margin: 1rem auto;
+  color: #bbb;
+}
+
+.msNode {
+  display: table-cell;
+  width: 1%;
+  text-align: center;
+  float: none;
+  list-style: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+.msIconBar {
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: block;
+  width: 100%;
+  &::before {
+    left: -30px;
+  }
+  &::after {
+    right: -30px;
+  }
+  &::before,
+  &::after {
+    border-color: #bbb;
+    content: '';
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: calc(50% + 30px);
+    border-top-width: 2px;
+    border-top-style: solid;
+    margin-top: -1px;
+  }
+}
+
+.msNode:first-child .msIconBar::before {
+  display: none;
+}
+
+.msNode:last-child .msIconBar::after {
+  display: none;
+}
+
+.msIconLink {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  border-color: #bbb;
+  background-color: #fff;
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 50%;
+}
+
+.current .msIconLink {
+  background-color: #72c02c;
+  border-color: #72c02c;
+  color: white;
+}
+
+.complete .msIconLink {
+  background-color: #72c02c;
+  border-color: #72c02c;
+  color: white;
+}
+
+.msIconBox {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.msNodeLabel {
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+  cursor: pointer;
+  color: #555;
+}
+
+.msNode:hover .msIconLink,
+.msNode:focus .msIconLink {
+  transform: scale(1.2);
+}
+
+.msNode:hover .msNodeLabel,
+.msNode:focus .msNodeLabel {
+  color: black;
+}

@@ -5,6 +5,7 @@ import Select from 'react-select';
 import { SelectValueLabelOptionsPropType } from 'components/common/PropTypes';
 import { MatchAward } from 'util/constants';
 import { toSelectOption } from 'components/matches/MatchEdit/util';
+import MatchAwardWinner from 'models/matchAwardWinner';
 import styles from './style.scss';
 
 export const AwardWinnerPropType = PropTypes.shape({
@@ -15,6 +16,13 @@ export const AwardWinnerPropType = PropTypes.shape({
   award: PropTypes.oneOf([MatchAward.MOM, MatchAward.LOM]).isRequired,
 });
 
+/**
+ * The card for editing the details of a particular award winner.
+ * 
+ * The user can toggle the award type (Man of the Match/Lemon of the Match),
+ * select a member or enter the name of a non-member as the award winner,
+ * and enter a comment about why the person won the award.
+ */
 class AwardWinner extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -90,7 +98,7 @@ class AwardWinner extends React.PureComponent {
       'btn-link': !isMom,
     });
     const lomClass = classnames('btn g-mr-10', {
-      'u-btn-primary': !isMom,
+      'u-btn-yellow': !isMom,
       'btn-link': isMom,
     });
     const selectId = `select-award-member-${awardWinner.member || 'new'}`;
@@ -118,6 +126,9 @@ class AwardWinner extends React.PureComponent {
               <i className="fa fa-lemon-o" />
             </button>
             <div className="">{awardWinner.award}</div>
+            {MatchAwardWinner.isValid(awardWinner) ? (
+              <i className="fa fa-lg fa-check-square g-color-green g-ml-10" />
+            ) : null}
           </div>
           <div>
             <button

@@ -1,40 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Accordion from 'components/common/Accordion';
-import MatchEditTopBar from './MatchEditTopBar';
-import Result from './Result';
-import Appearances from './Appearances';
-import AwardWinners from './AwardWinners';
-import Report from './Report';
-import { AccordionId } from './util';
+import { connect } from 'react-redux';
+import { compose } from 'react-apollo';
+import deepEqual from 'deep-equal';
+import { saveFormState } from 'redux/actions/formActions';
+import UpdateMatchMutation from './updateMatchMutation';
+import MatchEdit from './MatchEdit';
 
-/**
- *  The top-level component for the Match Edit app.
- * 
- *  This component basically consists of a sticky top bar with Save and Cancel
- *  options and an accordion that wraps the various sections of the form.
- */
-const MatchEdit = ({ matchId, ourTeam, oppTeam, ourTeamGender }) => (
-  <div>
-    <MatchEditTopBar matchId={matchId} />
-    <section className="container g-pt-0 g-pb-40">
-      <Accordion multiselectable accordionId={AccordionId}>
-        <Result ourTeam={ourTeam} oppTeam={oppTeam} />
-        <Appearances ourTeamGender={ourTeamGender} />
-        <AwardWinners />
-        <Report />
-      </Accordion>
-    </section>
-  </div>
+const mapStateToProps = state => ({
+  matchState: state.matchState,
+  isDirty: !deepEqual(state.matchState, state.form.matchState),
+});
+
+const mapDispatchToProps = dispatch => ({
+  onMatchDetailsSaved: (matchState) => {
+    dispatch(saveFormState('matchState', matchState));
+  },
+});
+
+export default compose(connect(mapStateToProps, mapDispatchToProps), UpdateMatchMutation)(
+  MatchEdit,
 );
-
-MatchEdit.propTypes = {
-  matchId: PropTypes.number.isRequired,
-  ourTeamGender: PropTypes.string.isRequired,
-  ourTeam: PropTypes.string.isRequired,
-  oppTeam: PropTypes.string.isRequired,
-};
-
-MatchEdit.defaultProps = {};
-
-export default MatchEdit;

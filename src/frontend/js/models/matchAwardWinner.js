@@ -12,17 +12,20 @@ const MatchAwardWinner = {
   },
 
   /**
-   * Maps a list of Match Award Winners to a list of MatchAwardWinnerInput objects
+   * Maps a list of Match Award Winners to a list of MatchAwardWinnerInput objects.
+   * Match Award Winners with no member or awardee are ignored.
    * 
    * Ref: awards/schema/MatchAwardWinnerInput Python class
    */
   toAwardWinnerInputList(awardWinners) {
-    return awardWinners.map(awardWinner => ({
-      memberId: awardWinner.member ? Member.decode(awardWinner.member).id : undefined,
-      awardee: awardWinner.awardee || undefined,
-      comment: awardWinner.comment,
-      award: awardWinner.award,
-    }));
+    return awardWinners
+      .filter(awardWinner => awardWinner.member || awardWinner.awardee)
+      .map(awardWinner => ({
+        memberId: awardWinner.member ? Member.decode(awardWinner.member).id : undefined,
+        awardee: awardWinner.awardee || undefined,
+        comment: awardWinner.comment,
+        award: awardWinner.award,
+      }));
   },
 };
 

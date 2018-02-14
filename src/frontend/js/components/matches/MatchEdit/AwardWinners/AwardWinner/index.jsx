@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import AwardWinner from './AwardWinner';
 import { updateAwardWinner, removeAwardWinner } from 'redux/actions/matchEditActions';
+import AwardWinner from './AwardWinner';
 
 const mapDispatchToProps = dispatch => ({
   onUpdateAwardWinner: (awardWinner, index) => {

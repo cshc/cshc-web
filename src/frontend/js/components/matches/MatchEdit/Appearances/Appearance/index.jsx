@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import Appearance from './Appearance';
 import { updateAppearance, removeAppearance } from 'redux/actions/matchEditActions';
+import Appearance from './Appearance';
 
 const mapDispatchToProps = dispatch => ({
   onUpdateAppearance: (index, appearance) => {

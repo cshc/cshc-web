@@ -1,8 +1,13 @@
 import { isPast } from 'date-fns';
 import sortBy from 'lodash/sortBy';
 import reduce from 'lodash/reduce';
+import sumBy from 'lodash/sumBy';
+import some from 'lodash/some';
+import every from 'lodash/every';
+import isNumber from 'lodash/isNumber';
 import { toTitleCase } from 'util/cshc';
 import { HomeAway, MatchAward, AltOutcome } from 'util/constants';
+import MatchAwardWinner from 'models/matchAwardWinner';
 
 /**
  * Utility object for common logic related to a match.
@@ -11,6 +16,10 @@ const Match = {
   WALKOVER_SCORE_W1: 3,
   WALKOVER_SCORE_W2: 5,
   WALKOVER_SCORE_L: 0,
+
+  wasPlayed(result) {
+    return !result.altOutcome || result.altOutcome === AltOutcome.Abandoned;
+  },
 
   resultErrors(result) {
     const errors = [];
@@ -46,6 +55,52 @@ const Match = {
     }
 
     return errors;
+  },
+
+  resultIsComplete(matchState) {
+    // The result is complete if a valid result has been entered (either alternative outcome
+    // with the correct score values or a valid set of half-time and full-time scores).
+    if (
+      !matchState.result.altOutcome &&
+      !(isNumber(matchState.result.ourScore) && isNumber(matchState.result.oppScore))
+    ) {
+      return false;
+    }
+    return !Match.resultErrors(matchState.result).length;
+  },
+
+  appearancesIsComplete(matchState) {
+    // Appearances are complete if the match was not played or if we've got at least
+    // 11 players and the total number of goals scored matches the team score.
+    // Note: having less than 11 players will not prevent the match data being saved
+    // (as this will sometimes happen). But its there as a hint that you're probably
+    // missing some players.
+    if (!Match.wasPlayed(matchState.result)) {
+      return true;
+    }
+    return (
+      matchState.appearances.length >= 11 &&
+      sumBy(matchState.appearances, 'goals') === matchState.result.ourScore
+    );
+  },
+
+  awardsIsComplete(matchState) {
+    // Awards are complete if we've got at least one valid MOM award and one valid LOM award.
+    return (
+      some(
+        matchState.awardWinners,
+        aw => MatchAwardWinner.isValid(aw) && aw.award === MatchAward.MOM,
+      ) &&
+      some(
+        matchState.awardWinners,
+        aw => MatchAwardWinner.isValid(aw) && aw.award === MatchAward.LOM,
+      )
+    );
+  },
+
+  reportIsComplete(matchState) {
+    // The report is complete if the report author, title and content are all filled in.
+    return !!(matchState.report.author && matchState.report.title && matchState.report.content);
   },
 
   isWalkoverScore(result) {

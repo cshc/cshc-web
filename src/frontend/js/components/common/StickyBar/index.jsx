@@ -19,20 +19,23 @@ class StickyBar extends React.Component {
 
   render() {
     const cn = classnames('sticky', this.props.className);
-    // const inlineStyle = { top: `${this.props.top}px` };
-    return <div className={cn}>{this.props.children}</div>;
+    return (
+      <div className={cn} style={this.props.style}>
+        {this.props.children}
+      </div>
+    );
   }
 }
 
 StickyBar.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  top: PropTypes.number,
+  style: PropTypes.shape(),
 };
 
 StickyBar.defaultProps = {
   className: undefined,
-  top: 0,
+  style: { top: 0 },
 };
 
 export default StickyBar;

@@ -1,27 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FlipMove from 'react-flip-move';
-import some from 'lodash/some';
 import { SelectValueLabelOptionsPropType } from 'components/common/PropTypes';
-import AccordionCard from 'components/common/Accordion/AccordionCard';
-import MatchAwardWinner from 'models/matchAwardWinner';
-import { AccordionId } from '../util';
 import { AwardWinnerPropType } from './AwardWinner/AwardWinner';
-import StatusIcon from '../StatusIcon';
 import AwardWinner from './AwardWinner';
 
+/**
+ * The 3rd step of the Match Editing form.
+ * 
+ * Each award winner is represented as an editable card. A button is 
+ * provided for adding a new (blank) award winner.
+ */
 const AwardWinners = ({ memberOptions, awardWinners, onAddAwardWinner }) => (
-  <AccordionCard
-    cardId="awards"
-    isOpen
-    title="Awards"
-    accordionId={AccordionId}
-    rightIcon={
-      <StatusIcon
-        error={awardWinners.length < 2 || some(awardWinners, a => !MatchAwardWinner.isValid(a))}
-      />
-    }
-  >
+  <div className="card-block">
     <FlipMove className="row" enterAnimation="elevator" leaveAnimation="elevator">
       {awardWinners.map((awardWinner, index) => (
         <div className="col-12 col-md-6" key={awardWinner.id}>
@@ -36,7 +27,7 @@ const AwardWinners = ({ memberOptions, awardWinners, onAddAwardWinner }) => (
     >
       <i className="fa fa-plus g-mr-5" />Add award winner
     </button>
-  </AccordionCard>
+  </div>
 );
 
 AwardWinners.propTypes = {

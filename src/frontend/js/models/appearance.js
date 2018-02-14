@@ -1,3 +1,5 @@
+import { AltOutcome } from 'util/constants';
+
 /**
  * Utility object for common logic related to Appearances
  */
@@ -24,9 +26,15 @@ const Appearance = {
   /**
    * Maps a list of appearances to a list of AppearanceInput objects
    * 
+   * Note: If the match is cancelled/postponed etc, we'll return an empty
+   * array of appearances instead.
+   * 
    * Ref: matches/schema/AppearanceInput
    */
-  toAppearanceInputArray(appearances) {
+  toAppearanceInputArray(appearances, altOutcome) {
+    if (altOutcome && altOutcome !== AltOutcome.Abandoned) {
+      return [];
+    }
     return appearances.map(app => ({
       memberId: parseInt(app.id, 10),
       goals: app.goals,

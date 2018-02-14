@@ -4,9 +4,7 @@ import Select from 'react-select';
 import CKEditor from 'react-ckeditor-component';
 import CkEditorConfig from 'util/CkEditorConfig';
 import { SelectValueLabelOptionsPropType } from 'components/common/PropTypes';
-import AccordionCard from 'components/common/Accordion/AccordionCard';
-import { AccordionId, toSelectOption } from '../util';
-import StatusIcon from '../StatusIcon';
+import { toSelectOption } from '../util';
 
 export const ReportPropType = PropTypes.shape({
   author: PropTypes.string,
@@ -14,6 +12,12 @@ export const ReportPropType = PropTypes.shape({
   content: PropTypes.string,
 });
 
+/**
+ * The 4th and final step of the Match Editing form.
+ * 
+ * A fairly simple form for entering the report author (must be a member),
+ * the report title and the report content (using a CKEditor editor).
+ */
 class Report extends React.Component {
   constructor(props) {
     super(props);
@@ -62,13 +66,7 @@ class Report extends React.Component {
     const { authorOptions, report } = this.props;
     const { content, title } = this.state;
     return (
-      <AccordionCard
-        cardId="report"
-        isOpen
-        title="Report"
-        accordionId={AccordionId}
-        rightIcon={<StatusIcon error={!report.author || !title || !content} />}
-      >
+      <div className="card-block">
         <div className="form-group g-mb-20">
           <label htmlFor="report-author">Author</label>
           <Select
@@ -104,7 +102,7 @@ class Report extends React.Component {
             events={{ change: this.updateContent, blur: this.onBlurContent }}
           />
         </div>
-      </AccordionCard>
+      </div>
     );
   }
 }

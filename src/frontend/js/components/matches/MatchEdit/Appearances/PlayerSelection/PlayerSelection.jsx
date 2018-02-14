@@ -20,11 +20,17 @@ const filterPlayerOptions = (playerOptions, appearances, playerFilter) => {
   });
 };
 
+/**
+ * Provides a list of potential players, as well as a search box for searching for players
+ * by name (i.e. filtering). 
+ * 
+ * If no potential players match the filter text, a link to add a new member is displayed instead.
+ */
 class PlayerSelection extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      playerFilter: undefined,
+      playerFilter: '',
       filteredPlayerOptions: filterPlayerOptions(props.playerOptions, props.appearances, undefined),
     };
     this.updateFilter = this.updateFilter.bind(this);
@@ -49,8 +55,8 @@ class PlayerSelection extends React.PureComponent {
     }
   }
 
-  updateFilter(ev) {
-    const playerFilter = ev.target.value.toLowerCase();
+  updateFilter(filterText) {
+    const playerFilter = filterText.toLowerCase();
     this.setState({
       playerFilter,
       filteredPlayerOptions: filterPlayerOptions(
@@ -63,52 +69,56 @@ class PlayerSelection extends React.PureComponent {
 
   render() {
     const { onAddAppearance, onPlayerNotFound } = this.props;
-    const { filteredPlayerOptions } = this.state;
+    const { filteredPlayerOptions, playerFilter } = this.state;
     return (
-      <div className="card rounded-0">
-        <div className="card-header rounded-0">Select players...</div>
-        <div className="card-body">
-          <div className="input-group g-brd-primary--focus">
-            <input
-              className="form-control form-control-md border-right-0 rounded-0 pr-0"
-              type="text"
-              placeholder="Search for player..."
-              onChange={this.updateFilter}
-            />
-            <div className="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-              <i className="fa fa-search" />
-            </div>
+      <div>
+        <div className="input-group g-brd-primary--focus g-px-15 g-px-0--md">
+          <input
+            className="form-control form-control-md border-right-0 rounded-0 pr-0"
+            type="text"
+            placeholder="Search for player..."
+            value={playerFilter}
+            onChange={(ev) => {
+              this.updateFilter(ev.target.value);
+            }}
+          />
+          <div className="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+            <i className="fa fa-search" />
           </div>
-          <div className="g-my-20">
-            {filteredPlayerOptions.length ? (
-              <CustomScrollbar maxHeight="200px" className={styles.appearancesScrollbox}>
-                <FlipMove
-                  duration={500}
-                  enterAnimation="accordionVertical"
-                  leaveAnimation="accordionVertical"
-                >
-                  {filteredPlayerOptions.map(p => (
-                    <div
-                      className="g-py-4 g-cursor-pointer"
-                      role="link"
-                      tabIndex="0"
-                      title="Add player"
-                      key={p.value}
-                      onClick={() => {
-                        onAddAppearance(p.value.split(':')[0], p.label);
-                      }}
-                    >
-                      {p.label}
-                    </div>
-                  ))}
-                </FlipMove>
-              </CustomScrollbar>
-            ) : (
+        </div>
+        <div className="g-my-20">
+          {filteredPlayerOptions.length ? (
+            <CustomScrollbar maxHeight="340px" className={styles.appearancesScrollbox}>
+              <FlipMove
+                duration={500}
+                enterAnimation="accordionVertical"
+                leaveAnimation="accordionVertical"
+              >
+                {filteredPlayerOptions.map(p => (
+                  <div
+                    className="g-py-4 g-cursor-pointer"
+                    role="link"
+                    tabIndex="0"
+                    title="Add player"
+                    key={p.value}
+                    onClick={() => {
+                      this.updateFilter('');
+                      onAddAppearance(p.value.split(':')[0], p.label);
+                    }}
+                  >
+                    {p.label}
+                  </div>
+                ))}
+              </FlipMove>
+            </CustomScrollbar>
+          ) : (
+            <div>
               <a className="g-cursor-pointer" tabIndex="0" role="link" onClick={onPlayerNotFound}>
                 Player not found?
               </a>
-            )}
-          </div>
+              <p>Make sure this person is not already on the team list!</p>
+            </div>
+          )}
         </div>
       </div>
     );

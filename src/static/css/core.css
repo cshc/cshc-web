@@ -1,3 +1,11 @@
+body {
+  background-color: #111;
+}
+
+main {
+  background-color: #fff;
+}
+
 .u-datepicker-v1 .ui-datepicker-calendar th a:hover,
 .u-datepicker-v1 .ui-datepicker-calendar th a.ui-state-active,
 .u-datepicker-v1 .ui-datepicker-calendar td a:hover,

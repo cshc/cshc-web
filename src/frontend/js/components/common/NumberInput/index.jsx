@@ -25,10 +25,12 @@ const NumberInput = ({
   const upIconClass = classnames(upIcon, iconClass, {
     'g-pr-10 g-py-10': horizontal,
     'g-pt-10 g-px-10': !horizontal,
+    'g-opacity-0_3': disabled,
   });
   const downIconClass = classnames(downIcon, iconClass, {
     'g-pl-10 g-py-10': horizontal,
     'g-pb-10 g-px-10': !horizontal,
+    'g-opacity-0_3': disabled || !value,
   });
   return (
     <div className={outerClass}>
@@ -40,7 +42,7 @@ const NumberInput = ({
         <i className={upIconClass} />
       </button>
       <div className={`g-py-5 g-px-8 ${valueClass}`}>
-        {value === undefined || value === null ? <span>&nbsp;</span> : value}
+        {value === undefined || value === null ? <span>&nbsp;&nbsp;</span> : value}
       </div>
       <button
         disabled={disabled || !value}
@@ -70,8 +72,7 @@ NumberInput.defaultProps = {
   value: undefined,
   upIcon: 'fa fa-caret-up',
   downIcon: 'fa fa-caret-down',
-  iconClass:
-    'g-color-gray-dark-v4 g-color-gray-dark-v1--hover g-font-size-18 g-font-size-24--md g-font-size-35--lg',
+  iconClass: 'g-color-gray-dark-v4 g-color-gray-dark-v1--hover g-font-size-24 g-font-size-35--lg',
   valueClass: 'g-bg-primary g-color-white',
 };
 

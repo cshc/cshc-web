@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
+import dotProp from 'dot-prop-immutable';
 import { MatchAward } from 'util/constants';
-import Match from 'models/match';
 import {
   SET_MATCH_RESULT,
   ADD_APPEARANCE,
@@ -14,10 +14,8 @@ import {
 } from '../actions/matchEditActions';
 
 export const initialMatchEditState = {
-  dirty: false,
   playerOptions: [],
   result: {
-    errors: [],
     ourScore: undefined,
     oppScore: undefined,
     ourHtScore: undefined,
@@ -66,75 +64,36 @@ const updateArrayItem = (array, item, index) => [
 
 export default handleActions(
   {
-    [SET_MATCH_RESULT]: (state, action) => ({
-      ...state,
-      dirty: true,
-      result: {
-        ...action.payload.result,
-        errors: Match.resultErrors(action.payload.result),
-      },
-    }),
-    [SET_MATCH_REPORT]: (state, action) => ({
-      ...state,
-      dirty: true,
-      report: action.payload.report,
-    }),
-    [ADD_APPEARANCE]: (state, action) => ({
-      ...state,
-      dirty: true,
-      appearances: [
+    [SET_MATCH_RESULT]: (state, action) => dotProp.set(state, 'result', action.payload.result),
+    [SET_MATCH_REPORT]: (state, action) => dotProp.set(state, 'report', action.payload.report),
+    [ADD_APPEARANCE]: (state, action) =>
+      dotProp.set(state, 'appearances', list => [
+        ...list,
         newApperance(action.payload.memberId, action.payload.memberName),
-        ...state.appearances.slice(0),
-      ],
-    }),
-    [UPDATE_APPEARANCE]: (state, action) => ({
-      ...state,
-      dirty: true,
-      appearances: updateArrayItem(
-        state.appearances,
-        action.payload.appearance,
-        action.payload.index,
-      ),
-    }),
-    [REMOVE_APPEARANCE]: (state, action) => ({
-      ...state,
-      dirty: true,
-      appearances: removeItem(state.appearances, action.payload.index),
-    }),
-    [ADD_AWARD_WINNER]: state => ({
-      ...state,
-      dirty: true,
-      awardWinners: state.awardWinners.concat(newAwardWinner()),
-    }),
-    [UPDATE_AWARD_WINNER]: (state, action) => ({
-      ...state,
-      dirty: true,
-      awardWinners: updateArrayItem(
-        state.awardWinners,
-        action.payload.awardWinner,
-        action.payload.index,
-      ),
-    }),
-    [REMOVE_AWARD_WINNER]: (state, action) => ({
-      ...state,
-      dirty: true,
-      awardWinners: removeItem(state.awardWinners, action.payload.index),
-    }),
-    [ADD_PLAYER_OPTION]: (state, action) => ({
-      ...state,
-      dirty: true,
-      appearances: [
+      ]),
+    [UPDATE_APPEARANCE]: (state, action) =>
+      dotProp.set(state, `appearances.${action.payload.index}`, action.payload.appearance),
+    [REMOVE_APPEARANCE]: (state, action) =>
+      dotProp.delete(state, `appearances.${action.payload.index}`),
+    [ADD_AWARD_WINNER]: state =>
+      dotProp.set(state, 'awardWinners', list => [...list, newAwardWinner()]),
+    [UPDATE_AWARD_WINNER]: (state, action) =>
+      dotProp.set(state, `awardWinners.${action.payload.index}`, action.payload.awardWinner),
+    [REMOVE_AWARD_WINNER]: (state, action) =>
+      dotProp.delete(state, `awardWinners.${action.payload.index}`),
+    [ADD_PLAYER_OPTION]: (state, action) => {
+      const newState = dotProp.set(state, 'appearances', list => [
         newApperance(action.payload.memberId, action.payload.memberName),
-        ...state.appearances.slice(0),
-      ],
-      playerOptions: [
+        ...list,
+      ]);
+      return dotProp.set(newState, 'playerOptions', list => [
         {
           value: `${action.payload.memberId}:${action.payload.memberName}`,
           label: action.payload.memberName,
         },
-        ...state.playerOptions.slice(0),
-      ],
-    }),
+        ...list,
+      ]);
+    },
   },
   initialMatchEditState,
 );

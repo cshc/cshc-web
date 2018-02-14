@@ -284,7 +284,6 @@ class MatchEditView(PermissionRequiredMixin, SelectRelatedMixin, DetailView):
             'ourTeam': match.our_team.abbr_name(),
             'oppTeam': match.opp_team.name,
             'matchState': {
-                'dirty': False,
                 'playerOptions': player_suggestions,
                 'result': {
                     'errors': [],

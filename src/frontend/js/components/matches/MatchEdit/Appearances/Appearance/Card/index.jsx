@@ -4,6 +4,12 @@ import classnames from 'classnames';
 import Urls from 'util/urls';
 import styles from './style.scss';
 
+/**
+ * Displays a single card (green/yellow/red) that can be selected/deselected
+ * by clicking on it. 
+ * 
+ * The card displays with a reduced opacity if its not selected.
+ */
 const AppearanceCard = ({ color, imagePath, isSelected, onClick }) => (
   <div
     className={classnames(styles.cardButton, { [styles.notSelected]: !isSelected })}

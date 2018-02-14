@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import PlayerSelection from './PlayerSelection';
 import { addAppearance } from 'redux/actions/matchEditActions';
+import PlayerSelection from './PlayerSelection';
 
 const mapDispatchToProps = dispatch => ({
   onAddAppearance: (memberId, memberName) => {

@@ -1,5 +1,8 @@
 .notSelected {
   opacity: 0.1;
+  &:hover {
+    opacity: 0.4;
+  }
 }
 
 .cardButton {

@@ -13,6 +13,11 @@ export const AppearancePropType = PropTypes.shape({
   goals: PropTypes.number.isRequired,
 });
 
+/**
+ * Represents a single appearance in the table of players. Each appearance entry displays
+ * the player's name, their goals and their cards. There's also a small 'X' used to remove 
+ * this appearance.
+ */
 class Appearance extends React.PureComponent {
   constructor(props) {
     super(props);

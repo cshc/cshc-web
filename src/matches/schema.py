@@ -2,6 +2,7 @@
 GraphQL Schema for matches etc
 """
 
+import logging
 import traceback
 import graphene
 import django_filters
@@ -11,6 +12,8 @@ from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_
 from awards.schema import MatchAwardWinnerList, MatchAwardWinnerInput
 from awards.models import MatchAward, MatchAwardWinner
 from .models import Match, Appearance, GoalKing
+
+LOG = logging.getLogger(__name__)
 
 
 class GoalKingFilter(django_filters.FilterSet):
@@ -222,7 +225,7 @@ class UpdateMatch(graphene.relay.ClientIDMutation):
             member_ids = [a.member_id for a in match_data.appearances]
             deleted, _ = Appearance.objects.filter(
                 match_id=match_data.match_id).exclude(member_id__in=member_ids).delete()
-            print('Deleted {} appearances'.format(deleted))
+            LOG.info('Deleted {} appearances'.format(deleted))
 
             # 2. Add/update all appearances from the mutation input
             for app_data in match_data.appearances:
@@ -235,11 +238,13 @@ class UpdateMatch(graphene.relay.ClientIDMutation):
                 app.clean()
                 app.save()
                 if created:
-                    print('Added appearance for member {}'.format(app.member_id))
+                    LOG.info(
+                        'Added appearance for member {}'.format(app.member_id))
                 else:
-                    print('Updated appearance for member {}'.format(app.member_id))
+                    LOG.info(
+                        'Updated appearance for member {}'.format(app.member_id))
 
-            print('{} appearances for match {}'.format(
+            LOG.info('{} appearances for match {}'.format(
                 len(match_data.appearances), match_data.match_id))
 
             # UPDATE ALL AWARD WINNERS
@@ -258,7 +263,7 @@ class UpdateMatch(graphene.relay.ClientIDMutation):
                         awardee=award_winner_data.awardee, award__name=award_winner_data.award)
 
             award_winners_deleted, _ = award_winners_delete_qs.delete()
-            print('Deleted {} award winners'.format(award_winners_deleted))
+            LOG.info('Deleted {} award winners'.format(award_winners_deleted))
 
             # 2. Add/update all award winners from the mutation input
             for award_winner_data in match_data.awardWinners:
@@ -276,9 +281,9 @@ class UpdateMatch(graphene.relay.ClientIDMutation):
                 award_winner.clean()
                 award_winner.save()
                 if created:
-                    print('Added award winner: {}'.format(award_winner))
+                    LOG.info('Added award winner: {}'.format(award_winner))
                 else:
-                    print('Updated award winner: {}'.format(award_winner))
+                    LOG.info('Updated award winner: {}'.format(award_winner))
 
         except Match.DoesNotExist:
             errors.append('Can\'t find match with ID {}'.format(

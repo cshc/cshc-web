@@ -135,7 +135,8 @@ def profile_pic(member, size, className):
         size - the required size of the picture (e.g. "200x200")
         className - the class to assign to the wrapper div
     """
-    fallback_image = 'img/kit/ladies_shirt_sq.png' if member.gender == Gender.Female else 'img/kit/mens_shirt_sq.png'
+    fallback_image = 'img/kit/ladies_shirt_sq.png' if (
+        member and member.gender == Gender.Female) else 'img/kit/mens_shirt_sq.png'
     fallback_image_url = static(fallback_image)
     return {
         'member': member,

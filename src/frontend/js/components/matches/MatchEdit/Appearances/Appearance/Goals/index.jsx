@@ -5,6 +5,9 @@ import NumberInput from 'components/common/NumberInput';
 import appearanceStyles from '../style.scss';
 import styles from './style.scss';
 
+/**
+ * A wrapper around the NumberInput for setting the number of goals for a player.
+ */
 const AppearanceGoals = ({ goals, onUpdateGoals }) => {
   const goalsClass = classnames(styles.goalScore, {
     'g-bg-primary g-color-white g-rounded-50x': goals,
@@ -15,7 +18,7 @@ const AppearanceGoals = ({ goals, onUpdateGoals }) => {
         horizontal
         upIcon="fa fa-plus"
         downIcon="fa fa-minus"
-        iconClass="g-color-gray-light-v4 g-color-gray-light-v1--hover"
+        iconClass="g-color-gray-light-v3 g-color-gray-light-v1--hover"
         value={goals}
         onChangeValue={onUpdateGoals}
         valueClass={goalsClass}

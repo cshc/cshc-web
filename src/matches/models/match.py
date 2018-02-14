@@ -392,10 +392,14 @@ class Match(models.Model):
             return self.report_title
         return self.fixture_title()
 
+    def vs_title(self):
+        """ e.g. "M1 vs St Neots Men's 1" """
+        return "{} vs {}".format(self.our_team, self.opp_team)
+
     def fixture_title(self):
         """ Returns the title of this fixture in one of the following formats:
-            Fixtures:- "M1 vs St Neots Men's 1sts"
-            Results:-  "M1 3-0 St Neots Men's 1sts"
+            Fixtures:- "M1 vs St Neots Men's 1"
+            Results:-  "M1 3-0 St Neots Men's 1"
         """
         if self.alt_outcome == AlternativeOutcome.Walkover:
             return "{} {}-{} {} (WALK-OVER)".format(self.our_team, self.our_score,
@@ -410,7 +414,7 @@ class Match(models.Model):
                                           self.get_alt_outcome_display())
 
         elif not self.final_scores_provided():
-            return "{} vs {}".format(self.our_team, self.opp_team)
+            return self.vs_title()
 
         return "{} {}-{} {}".format(self.our_team, self.our_score,
                                     self.opp_score, self.opp_team)

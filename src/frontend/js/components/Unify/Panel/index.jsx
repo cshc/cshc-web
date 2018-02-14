@@ -35,7 +35,7 @@ Panel.propTypes = {
   outlineColor: PropTypes.string,
   headerColor: PropTypes.string,
   icon: PropTypes.string,
-  title: PropTypes.string,
+  title: PropTypes.node,
   children: PropTypes.node,
 };
 

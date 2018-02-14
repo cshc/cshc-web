@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import sumBy from 'lodash/sumBy';
 import FlipMove from 'react-flip-move';
 import { SelectValueLabelOptionsPropType } from 'components/common/PropTypes';
-import AccordionCard from 'components/common/Accordion/AccordionCard';
+import Match from 'models/match';
+import { ResultPropType } from '../Result/Result';
 import Appearance from './Appearance';
-import { AccordionId } from '../util';
-import StatusIcon from '../StatusIcon';
 import appearanceStyles from './Appearance/style.scss';
 import styles from './style.scss';
 import PlayerSelection from './PlayerSelection';
@@ -18,6 +19,17 @@ const UiState = {
   SavingNewMember: 'Saving new member',
 };
 
+/**
+ * The 2nd step of the Match Editing form. 
+ * 
+ * Provides the UI for adding/editing/removing match appearances (i.e. 
+ * the team sheet). 
+ * 
+ * For each appearance, goals and cards can be easily set.
+ * 
+ * If the user searches for a player and they can't find them, they are
+ * presented with the option of adding a new member.
+ */
 class Appearances extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -28,46 +40,35 @@ class Appearances extends React.PureComponent {
 
   render() {
     const { uiState } = this.state;
-    const { playerOptions, appearances, ourTeamGender } = this.props;
+    const { playerOptions, appearances, ourTeamGender, result, teamGoals } = this.props;
+    const totalGoals = sumBy(appearances, 'goals');
+    const goalsClass = classnames('u-label', {
+      'u-label-danger': totalGoals > teamGoals,
+      'u-label-success': totalGoals === teamGoals,
+      'g-color-black': totalGoals < teamGoals,
+    });
     return (
-      <AccordionCard
-        cardId="appearances"
-        isOpen
-        title="Players"
-        accordionId={AccordionId}
-        rightIcon={<StatusIcon error={appearances.length < 11} />}
-      >
-        <div className="card-deck">
-          {uiState === UiState.PlayerSearch ? (
-            <PlayerSelection
-              playerOptions={playerOptions}
-              appearances={appearances}
-              onPlayerNotFound={() => {
-                this.setState({ uiState: UiState.AddMember });
-              }}
-            />
-          ) : (
-            <AddMember
-              ourTeamGender={ourTeamGender}
-              onCancel={() => {
-                this.setState({ uiState: UiState.PlayerSearch });
-              }}
-            />
-          )}
-          <div className="card g-brd-primary rounded-0">
-            <div className="card-header text-white g-bg-primary g-brd-transparent rounded-0">
-              Team List {appearances.length ? <span>&nbsp;({appearances.length})</span> : null}
-            </div>
-            <div className="card-body g-pa-0">
+      <div className="card-block g-pa-0 g-pa-15--md">
+        {!Match.wasPlayed(result) ? (
+          <p className="text-center g-py-40 g-font-style-italic">
+            {result.altOutcome} matches should not have any players listed.
+          </p>
+        ) : (
+          <div className="row">
+            <div className="col-12 col-md-6 g-mb-20">
               <div className={styles.teamListHeader}>
                 <div className={appearanceStyles.name}>Name</div>
-                <div className={appearanceStyles.goals}>Goals</div>
+                <div className={appearanceStyles.goals}>
+                  <span className={goalsClass}>
+                    Goals ({totalGoals}/{teamGoals})
+                  </span>
+                </div>
                 <div className={appearanceStyles.cards}>Cards</div>
                 <div className={appearanceStyles.remove} />
               </div>
               {appearances.length ? (
                 <FlipMove
-                  duration={500}
+                  duration={200}
                   enterAnimation="accordionVertical"
                   leaveAnimation="accordionVertical"
                 >
@@ -81,9 +82,27 @@ class Appearances extends React.PureComponent {
                 </div>
               )}
             </div>
+            <div className="col-12 col-md-6">
+              {uiState === UiState.PlayerSearch ? (
+                <PlayerSelection
+                  playerOptions={playerOptions}
+                  appearances={appearances}
+                  onPlayerNotFound={() => {
+                    this.setState({ uiState: UiState.AddMember });
+                  }}
+                />
+              ) : (
+                <AddMember
+                  ourTeamGender={ourTeamGender}
+                  onCancel={() => {
+                    this.setState({ uiState: UiState.PlayerSearch });
+                  }}
+                />
+              )}
+            </div>
           </div>
-        </div>
-      </AccordionCard>
+        )}
+      </div>
     );
   }
 }
@@ -92,8 +111,12 @@ Appearances.propTypes = {
   playerOptions: SelectValueLabelOptionsPropType.isRequired,
   appearances: PropTypes.arrayOf(AppearancePropType).isRequired,
   ourTeamGender: PropTypes.string.isRequired,
+  result: ResultPropType.isRequired,
+  teamGoals: PropTypes.number,
 };
 
-Appearances.defaultProps = {};
+Appearances.defaultProps = {
+  teamGoals: 0,
+};
 
 export default Appearances;
