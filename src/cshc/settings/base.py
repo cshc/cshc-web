@@ -75,12 +75,19 @@ AUTHENTICATION_BACKENDS = (
 
 # Django-AllAuth
 # Ref: http://django-allauth.readthedocs.io/en/latest
+
+
+def user_display(user):
+    return user.get_full_name()
+
+
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupForm'
+ACCOUNT_USER_DISPLAY = user_display
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
@@ -157,6 +164,8 @@ DJANGO_APPS = [
     'django.contrib.flatpages',
     'django.contrib.humanize',
     'django.contrib.sitemaps',
+    'fluent_comments',  # must be before django_comments
+    'crispy_forms',
     'django_comments',
 ]
 
@@ -171,7 +180,6 @@ THIRD_PARTY_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'dbbackup',
-    'disqus',
     'django_bootstrap_breadcrumbs',
     'django_filters',
     'django_user_agents',
@@ -428,20 +436,12 @@ RAVEN_CONFIG = {
 
 # ########## END raven CONFIGURATION
 
-# ########## django-disqus CONFIGURATION
-
-# Ref: https://django-disqus.readthedocs.io/en/latest
-
-DISQUS_API_KEY = get_env_setting('DISQUS_API_KEY')
-
-# ########## END django-disqus CONFIGURATION
-
 # ########## Zinnia CONFIGURATION
 
 # Ref: http://docs.django-blog-zinnia.com/en/latest/getting-started/configuration.html
 ZINNIA_PING_EXTERNAL_URLS = False
 ZINNIA_SAVE_PING_DIRECTORIES = False
-# disable comments, pingbacks and trackbacks completely (we'll use disqus)
+# disable comments, pingbacks and trackbacks completely (we'll use our own comments system)
 ZINNIA_AUTO_CLOSE_COMMENTS_AFTER = 0
 ZINNIA_AUTO_CLOSE_PINGBACKS_AFTER = 0
 ZINNIA_AUTO_CLOSE_TRACKBACKS_AFTER = 0
@@ -468,3 +468,12 @@ DBBACKUP_S3_SECRET_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY')
 DBBACKUP_S3_DIRECTORY = 'django-dbbackups/'
 
 # ########## END django-dbbackup CONFIGURATION
+
+# ########## django-fluent-comemnts CONFIGURATION
+
+# Ref: https://github.com/django-fluent/django-fluent-comments
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+COMMENTS_APP = 'fluent_comments'
+FLUENT_COMMENTS_EXCLUDE_FIELDS = ('name', 'email', 'url')
+FLUENT_COMMENTS_LABEL_CSS_CLASS = 'g-hidden-xs-up'
+FLUENT_COMMENTS_FIELD_CSS_CLASS = ''

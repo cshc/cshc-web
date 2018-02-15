@@ -1,0 +1,31 @@
+{% extends "comments/base.html" %}
+{% load i18n fluent_comments_tags cshc_tags django_bootstrap_breadcrumbs %}
+
+{% block title %}{% trans "Thanks for commenting" %}{% endblock %}
+
+{% block meta %}
+{{ block.super }}
+    <meta http-equiv="Refresh" content="5; url={{ comment.content_object.get_absolute_url }}#c{{ comment.id }}" />
+{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+    {% heading "Thanks for posting your comment" %}
+    <p>
+      {% blocktrans %}
+      We have received your comment, and posted it on the web site.<br/>
+      You will be sent back to the comment...
+      {% endblocktrans %}
+    </p>
+
+    {# Use identical formatting to normal comment list #}
+    <div id="comments">
+      {% render_comment comment %}
+    </div>
+
+  <p><a href="{{ comment.content_object.get_absolute_url }}#c{{ comment.id }}">{% trans "Back to the comment" %}</a></p>
+{% endblock %}

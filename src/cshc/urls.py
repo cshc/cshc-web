@@ -78,8 +78,11 @@ urlpatterns = [
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),  # CKEditor Urls
     url(r'^accounts/profile/$', profile, name='user_profile'),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^graphql', vary_on_headers('X-Requested-With')(CshcGraphQLView.as_view(graphiql=True))),   # GraphQL Urls
+    url(r'^graphql', vary_on_headers('X-Requested-With')
+        (CshcGraphQLView.as_view(graphiql=True))),   # GraphQL Urls
     url(r'^admin/', admin.site.urls),
+
+    url(r'^comments/', include('fluent_comments.urls')),
 
     # Sitemap (indexed)
     url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': CshcSitemap}),

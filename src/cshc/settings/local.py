@@ -35,8 +35,6 @@ MIDDLEWARE += [
 # Used by DJANGO_DEBUG_TOOLBAR - DEV ONLY
 INTERNAL_IPS = ['127.0.0.1']
 
-DISQUS_WEBSITE_SHORTNAME = 'cshc-local'     # Need to change for prod
-
 # ########## WEBPACK LOADER CONFIGURATION
 
 WEBPACK_LOADER = {

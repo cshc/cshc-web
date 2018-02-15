@@ -1,0 +1,70 @@
+{% load comments i18n crispy_forms_tags fluent_comments_tags %}
+{% load static from staticfiles %}
+{% load account %}
+{% load thumbnail from sorl_thumbnail %}
+
+{% if not form.target_object|comments_are_open %}
+  <p>{% trans "Comments are closed." %}</p>
+{% elif not user.is_authenticated %}
+  <section class="g-brd-around g-brd-5 g-brd-gray-light-v4 g-pa-30">
+    <div class="row">
+      <div class="col-md-9 align-self-center">
+        <h3 class="h4">You must be logged in to comment.
+        </h3>
+        <p class="lead g-mb-20 g-mb-0--md">If you haven't created an account yet, you can <a href="{% url 'account_signup' %}">sign up here</a>.</p>
+      </div>
+  
+      <div class="col-md-3 align-self-center text-md-right">
+        <a class="btn btn-md u-btn-primary g-brd-2 rounded-0" href="{% url 'account_login' %}?next={{ request.path }}#comment-form-{{ form.target_object.pk }}">Login</a>
+      </div>
+    </div>
+  </section>
+
+{% else %}
+  <div class="media g-mb-30">
+    {% if user.member %}
+      {% thumbnail user.member.profile_pic "50x50" crop="center" as im %}
+        <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="{{ im.url }}">
+      {% empty %}
+        <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="{% static "img/avatar-placeholder.jpg" %}">
+      {% endthumbnail %}
+    {% else %}
+      <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="{% static "img/avatar-placeholder.jpg" %}">
+    {% endif %}
+    <div class="media-body u-shadow-v22 g-bg-secondary g-px-10 g-pt-10 g-pb-5 g-px-30--md g-pt-30--md g-pb-15--md">
+      <div class="g-mb-15">
+        <h5 class="h5 g-color-gray-dark-v1 mb-0">
+          {% user_display user %}
+        </h5>
+      </div>
+      {% if not form.helper or not form.helper.form_tag %}
+        <form id="comment-form-{{ form.target_object.pk }}" data-object-id="{{ form.target_object.pk }}" action="{% comment_form_target %}" method="post" class="{% block form_class %}{{ form.helper.form_class|default:'js-comments-form comments-form form-horizontal' }}{% endblock %}"
+              data-ajax-action="{% url 'comments-post-comment-ajax' %}">
+          {% if next %}<div><input type="hidden" name="next" value="{{ next }}" /></div>{% endif %}
+      {% endif %}
+
+          {% block comment_form %}
+            {% block form_fields %}
+              {% crispy form %}
+            {% endblock %}
+
+            {% block form_actions %}
+              {% if not form.helper.inputs %}
+                <div class="form-group">
+                  <div class="">
+                    <input type="submit" name="post" class="btn btn-primary" value="{% trans 'Post' %}" />
+                    {% ajax_comment_tags for form.target_object %}
+                  </div>
+                </div>
+              {% else %}
+                {% ajax_comment_tags for form.target_object %}
+              {% endif %}
+            {% endblock %}
+          {% endblock %}
+
+      {% if not form.helper or not form.helper.form_tag %}
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,27 @@
+{% extends "comments/base.html" %}
+{% load i18n cshc_tags django_bootstrap_breadcrumbs %}
+
+{% block title %}{% trans "Thanks for removing" %}.{% endblock %}
+
+{% block meta %}
+  {{ block.super }}
+  <meta http-equiv="Refresh" content="5; url={{ comment.content_object.get_absolute_url }}#c{{ comment.id }}" />
+{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+
+  {% heading "Thanks for removing the comment" %}
+  <p>
+    {% blocktrans %}
+      Thanks for taking the time to improve the quality of discussion on Cambridge South's website.<br/>
+      You will be sent back to the page with the comment...
+    {% endblocktrans %}
+  </p>
+
+  <p><a href="{{ comment.content_object.get_absolute_url }}#c{{ comment.id }}">{% trans "Back to the commented page" %}</a></p>
+{% endblock %}

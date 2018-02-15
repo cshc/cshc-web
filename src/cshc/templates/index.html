@@ -2,7 +2,6 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
-{% load disqus_tags %}
 {% load zinnia %}
 
 
@@ -175,7 +174,7 @@
       <div id="comments" class="col-md-6">
         <div class="u-shadow-v2 g-bg-white g-brd-around g-brd-gray-light-v4 g-line-height-2 g-pa-40 g-mb-30">
           <h1 class="h2 g-color-black g-font-weight-600 text-center g-mb-40">Recent Comments</h1>
-          {% disqus_recent_comments DISQUS_WEBSITE_SHORTNAME 8 100 0 80 %}
+          {% recent_comments count=6 %}
         </div>
       </div>
       <div id="tweets" class="col-md-6">
@@ -191,8 +190,6 @@
     </div>
   </div>
 </section>
-
-{% disqus_num_replies %}
 
 {% endblock main %}
 

@@ -1,0 +1,14 @@
+{% extends "comments/base.html" %}
+{% load i18n cshc_tags django_bootstrap_breadcrumbs %}
+
+{% block title %}{% trans "Thanks for approving" %}.{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+  {% heading "Comment approved" %}
+  <p class="lead">{% trans "Thanks for taking the time to improve the quality of discussion on our site" %}.</p>
+{% endblock %}

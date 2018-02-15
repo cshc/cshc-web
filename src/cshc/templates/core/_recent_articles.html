@@ -45,13 +45,6 @@
           </li>
           {% endif %}
           {% endwith %}
-          {% if entry.comment_enabled %}
-          <li class="list-inline-item">-</li>
-          <li class="list-inline-item">
-            <i class="icon-bubbles align-middle g-color-gray-dark-v4 g-mr-2"></i>
-            <a href="{{ entry.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ entry.get_absolute_url }}">0</a>
-          </li>
-          {% endif %}
         </ul>
       </div>
     </article>

@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block link %}
+  <link rel="stylesheet" type="text/css" href="{% static "fluent_comments/css/ajaxcomments.css" %}" />
   <link rel="stylesheet" href="{% static "css/match_detail.css" %}">
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
   {% if not match.is_in_past %}
@@ -108,7 +109,7 @@
   </div>
   <div id="comments g-py-40">
     <div class="sharethis-inline-share-buttons"></div>
-    {% include 'core/_disqus_comments.html' with title=match.fixture_title %}
+    {% include 'core/_comments.html' with object=match %}
   </div>
   
   <div class="g-pt-20 text-right">
@@ -123,6 +124,7 @@
 
 {% block body_js %}
 {{ block.super }}
+<script type="text/javascript" src="{% static "fluent_comments/js/ajaxcomments.js" %}"></script>
 <script src="{% static "vendor/jquery.fittext.js" %}"></script>
 <script>
     $(function () {
