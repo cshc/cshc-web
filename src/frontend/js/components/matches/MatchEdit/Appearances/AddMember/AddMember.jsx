@@ -65,7 +65,7 @@ class AddMember extends React.PureComponent {
     return (
       <div>
         <div className="d-flex g-bg-red g-color-white g-pa-10 g-mb-20">
-          <i className="flex-0-auto fa fa-lg fa-exclamation-circle g-mr-10 g-mt-5" />
+          <i className="flex-0-auto fas fa-lg fa-exclamation-circle g-mr-10 g-mt-5" />
           <div className="flex-1">
             <div>
               Only add a new member if you&#39;re sure they aren&#39;t already in the list of
@@ -167,7 +167,7 @@ class AddMember extends React.PureComponent {
           disabled={!firstName || !lastName || !gender}
           onClick={this.addMember}
         >
-          <i className="fa fa-plus g-mr-5" />Add new member
+          <i className="fas fa-plus g-mr-5" />Add new member
         </button>
       </div>
     );

@@ -15,8 +15,8 @@
     _baseConfig: {
       dateFormat: 'dd.mm.yy',
       dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      prevText: '<i class="fa fa-angle-left"></i>',
-      nextText: '<i class="fa fa-angle-right"></i>',
+      prevText: '<i class="fas fa-angle-left"></i>',
+      nextText: '<i class="fas fa-angle-right"></i>',
     },
 
     /**

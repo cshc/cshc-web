@@ -30,7 +30,7 @@
   <div class="row">
     <div class="col-md-8 g-mb-20">
       
-      {% if venue.is_home %}<h4><i class="fa fa-home"></i> Home Ground</h4>{% endif %}
+      {% if venue.is_home %}<h4><i class="fas fa-home"></i> Home Ground</h4>{% endif %}
   
       {% if venue.notes %}
         <p class="lead">{{ venue.notes|safe }}</p>
@@ -41,7 +41,7 @@
         <div class="col-md-4 g-mb-20">
           <div class="media">
             <span class="d-flex g-color-primary g-font-size-40 mr-3">
-              <i class="fa fa-car fa-fw"></i>
+              <i class="fas fa-car fa-fw"></i>
             </span>
             <div class="media-body">
               <h4 class="h6 g-color-black g-font-weight-600 text-uppercase g-mb-3">Distance</h4>
@@ -55,13 +55,13 @@
         <div class="col-md-4 g-mb-20">
           <div class="media">
             <span class="d-flex g-color-primary g-font-size-40 mr-3">
-              <i class="fa fa-money fa-fw"></i>
+              <i class="far fa-money-bill-alt fa-fw"></i>
             </span>
             <div class="media-body">
               <h4 class="h6 g-color-black g-font-weight-600 text-uppercase g-mb-3">Drivers Reimbursement</h4>
               £{{ venue.round_trip_cost|floatformat:2 }}
               <a href="#" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="bottom" data-content="{% include 'venues/_travel_costs.html' %}" title data-original-title="Travel Costs">
-                <i class="fa fa-question-circle"></i>
+                <i class="far fa-question-circle"></i>
               </a>
             </div>
           </div>
@@ -72,7 +72,7 @@
         <div class="col-md-4 g-mb-20">
           <div class="media">
             <span class="d-flex g-color-primary g-font-size-40 mr-3">
-              <i class="fa fa-map-marker fa-fw"></i>
+              <i class="fas fa-map-marker-alt fa-fw"></i>
             </span>
             <div class="media-body">
               <h4 class="h6 g-color-black g-font-weight-600 text-uppercase g-mb-3">Address</h4>
@@ -86,7 +86,7 @@
         <div class="col-md-4 g-mb-20">
           <div class="media">
             <span class="d-flex g-color-primary g-font-size-40 mr-3">
-              <i class="fa fa-phone fa-fw"></i>
+              <i class="fas fa-phone fa-fw"></i>
             </span>
             <div class="media-body">
               <h4 class="h6 g-color-black g-font-weight-600 text-uppercase g-mb-3">Phone</h4>
@@ -101,7 +101,7 @@
     <div class="col-md-4 g-mb-20 text-md-right">
       {% if venue.url %}
       <a href="{{ venue.url }}" title="View this venue on the East Leagues website" class="btn btn-xl u-btn-outline-primary u-btn-content g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-2 g-mb-15">
-        <i class="fa fa-external-link pull-left g-font-size-42 g-mr-10"></i>
+        <i class="fas fa-external-link-alt float-left g-font-size-42 g-mr-10"></i>
         <span class="float-right text-left">
             East Leagues
           <span class="d-block g-font-size-11">More details about this venue</span>

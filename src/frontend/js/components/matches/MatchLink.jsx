@@ -9,10 +9,10 @@ import Urls from 'util/urls';
  * The icon reflects the status of the details known about the match.
  */
 const MatchLink = ({ match, className }) => {
-  let iconClassName = `${className} fa `;
-  if (match.hasReport) iconClassName += 'fa-file-text';
-  else if (Match.finalScoresProvided(match)) iconClassName += 'fa-file';
-  else iconClassName += 'fa-file-o';
+  let iconClassName = `${className} `;
+  if (match.hasReport) iconClassName += 'fas fa-file-alt';
+  else if (Match.finalScoresProvided(match)) iconClassName += 'far fa-file';
+  else iconClassName += 'fas fa-file';
   return (
     <a href={Urls.match_detail(match.id)} title="Match details">
       <span className="u-icon-v1 g-bg-primary--hover g-color-white--hover">

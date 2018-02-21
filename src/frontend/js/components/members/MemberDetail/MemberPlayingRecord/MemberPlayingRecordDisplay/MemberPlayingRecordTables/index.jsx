@@ -72,11 +72,11 @@ const MemberPlayingRecordTables = ({ data, fixtureType, memberId }) => {
                   <ResponsiveAbbr verbose="Clean Sheets" abbreviated="CS" />
                 </th>
                 <th>
-                  <i className="fa fa-star g-mr-5" />
+                  <i className="fas fa-star g-mr-5" />
                   <ResponsiveAbbr verbose="Man of the Match" abbreviated="MOM" />
                 </th>
                 <th>
-                  <i className="fa fa-lemon-o g-mr-5" />
+                  <i className="fas fa-lemon g-mr-5" />
                   <ResponsiveAbbr verbose="Lemon of the Match" abbreviated="LOM" />
                 </th>
               </tr>

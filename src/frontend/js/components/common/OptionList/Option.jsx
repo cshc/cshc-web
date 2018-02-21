@@ -10,7 +10,7 @@ const Option = ({ name, label, selectedValue, onChange, value, multiselect, inli
     : value === selectedValue;
   const inputType = multiselect ? 'checkbox' : 'radio';
   const icon = multiselect ? 'checkbox-v4' : 'font';
-  const labelClass = classnames('u-check g-pl-25', {
+  const labelClass = classnames('u-check g-pl-30', {
     'form-check-inline': inline,
   });
   const id = slugify(label);
@@ -27,9 +27,9 @@ const Option = ({ name, label, selectedValue, onChange, value, multiselect, inli
       />
       <div className={`u-check-icon-${icon} g-absolute-centered--y g-left-0`}>
         {multiselect ? (
-          <i className="fa" data-check-icon="" />
+          <i className="fas g-rounded-2" data-check-icon="" />
         ) : (
-          <i className="fa" data-check-icon="" data-uncheck-icon="" />
+          <i className="far" data-check-icon="" data-uncheck-icon="" />
         )}
       </div>
       {label}

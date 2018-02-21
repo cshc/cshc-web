@@ -83,7 +83,7 @@ class PlayerSelection extends React.PureComponent {
             }}
           />
           <div className="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-            <i className="fa fa-search" />
+            <i className="fas fa-search" />
           </div>
         </div>
         <div className="g-my-20">

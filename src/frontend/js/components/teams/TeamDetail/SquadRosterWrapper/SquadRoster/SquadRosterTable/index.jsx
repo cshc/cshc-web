@@ -19,11 +19,11 @@ const SquadRosterTable = ({ squadStats: { squad } }) => (
           <th className="text-center">Played</th>
           <th className="text-center">Goals</th>
           <th className="text-center">
-            <i className="fa fa-star g-mr-5" />
+            <i className="fas fa-star g-mr-5" />
             <abbr title="Man of the Match">MOM</abbr>
           </th>
           <th className="text-center">
-            <i className="fa fa-lemon-o g-mr-5" />
+            <i className="fas fa-lemon g-mr-5" />
             <abbr title="Lemon of the Match">LOM</abbr>
           </th>
         </tr>

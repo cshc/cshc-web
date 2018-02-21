@@ -1,6 +1,6 @@
 {% load humanize %}
 
 <span class="u-label {{ class_name }}" title="Finished {{ part.final_pos|ordinal }} {% if part.division_result %}({{ part.division_result }}){% endif %}">
-  {% if part.division_result == 'Champions' %}<i class="fa fa-trophy g-mr-5"></i>{% endif %}
+  {% if part.division_result == 'Champions' %}<i class="fas fa-trophy g-mr-5"></i>{% endif %}
   {{ part.final_pos|ordinal }}
 </span>

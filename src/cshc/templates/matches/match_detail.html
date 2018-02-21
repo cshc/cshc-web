@@ -38,13 +38,13 @@
   <div class="container g-pos-rel g-z-index-1 g-py-20">
     <div class="g-py-40 g-color-white-opacity-0_8 text-center g-font-size-14 g-font-size-16--md g-font-size-18--lg">
       <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{% if prev_match %}{{ prev_match.get_absolute_url }}{% else %}#{% endif %}" {% if prev_match %}title="{{ prev_match.fixture_title }}"{% endif %}>
-        <i class="fa fa-fw fa-chevron-circle-left g-mr-10"></i>
+        <i class="fas fa-fw fa-chevron-circle-left g-mr-10"></i>
       </a>
       <a href="#" class="g-color-white-opacity-0_8 g-color-white--hover" data-toggle="popover" data-trigger="focus" data-html="true" data-placement="bottom" data-content="{% filter force_escape %}{% include 'matches/_match_list_popover.html' %}{% endfilter %}" data-original-title="Matches on {{ match.date|date:'D, d M Y'}}">
         {{ match.date|date:"D, d M Y"}}
       </a>
       <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{% if next_match %}{{ next_match.get_absolute_url }}{% else %}#{% endif %}" {% if next_match %}title="{{ next_match.fixture_title }}"{% endif %}>
-        <i class="fa fa-fw fa-chevron-circle-right g-ml-10"></i>
+        <i class="fas fa-fw fa-chevron-circle-right g-ml-10"></i>
       </a>
     </div>
     <div class="d-flex justify-content-center align-items-center g-font-size-18 g-font-size-24--md g-font-size-35--lg">
@@ -71,7 +71,7 @@
     </div>
     <div class="g-color-white-opacity-0_8 g-pt-20 g-font-size-14 g-font-size-16--md g-font-size-18--lg">
       {% for scorer in scorers %}
-        <div class="scoring-player"><i class="fa fa-circle g-ml-3 g-mr-7"></i>{{ scorer.member.full_name }}{% if scorer.goals > 1 %}&nbsp;({{ scorer.goals }}){% endif %}</div>
+        <div class="scoring-player"><i class="fas fa-circle g-ml-3 g-mr-7"></i>{{ scorer.member.full_name }}{% if scorer.goals > 1 %}&nbsp;({{ scorer.goals }}){% endif %}</div>
       {% endfor %}
       {% for carded in green_cards %}
         <div class="carded-player"><img class="g-mr-5" src="{% static 'img/green_card.png' %}" title="Green card" />{{ carded.full_name }}</div>
@@ -84,8 +84,8 @@
       {% endfor %}
     </div>
     <div class="text-right g-color-white-opacity-0_8 g-pt-60">
-      {% if match.time %}<div>{{ match.time_display }}<i class="fa fa-clock-o fa-fw g-ml-5"></i></div>{% endif %}
-      {% if match.venue %}<div><a class="g-color-white-opacity-0_8 g-color-white--hover" href="{{ match.venue.get_absolute_url }}" title="Venue details">{{ match.venue }}</a><i class="fa fa-map-marker fa-fw g-ml-5"></i></div>{% endif %}
+      {% if match.time %}<div>{{ match.time_display }}<i class="far fa-clock fa-fw g-ml-5"></i></div>{% endif %}
+      {% if match.venue %}<div><a class="g-color-white-opacity-0_8 g-color-white--hover" href="{{ match.venue.get_absolute_url }}" title="Venue details">{{ match.venue }}</a><i class="fas fa-map-marker-alt fa-fw g-ml-5"></i></div>{% endif %}
     </div>
   </div>
 </section>

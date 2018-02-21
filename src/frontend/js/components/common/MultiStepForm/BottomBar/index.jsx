@@ -31,7 +31,7 @@ class MultiStepFormBottomBar extends React.PureComponent {
         <div className="flex-1">
           {currentSlideIndex > 0 ? (
             <button onClick={onClickPrevious} className="btn btn-link">
-              <i className="fa fa-chevron-left g-mr-5" />
+              <i className="fas fa-chevron-left g-mr-5" />
               {slides[currentSlideIndex - 1].label}
             </button>
           ) : null}
@@ -41,7 +41,7 @@ class MultiStepFormBottomBar extends React.PureComponent {
           {currentSlideIndex < slides.length - 1 ? (
             <button onClick={onClickNext} className="btn btn-link">
               {slides[currentSlideIndex + 1].label}
-              <i className="fa fa-chevron-right g-ml-5" />
+              <i className="fas fa-chevron-right g-ml-5" />
             </button>
           ) : null}
         </div>

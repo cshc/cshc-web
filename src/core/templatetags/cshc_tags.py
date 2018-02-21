@@ -67,17 +67,17 @@ def message_alert(message):
     """
     Render alert html for a Django Message using bootstrap css classes.
     """
-    icon_class = "fa fa-info-circle"
+    icon_class = "fas fa-info-circle"
     bold_text = "Heads Up!"
     level_tag = message.level_tag
     if message.level == messages.SUCCESS:
-        icon_class = "fa fa-check-circle-o"
+        icon_class = "fas fa-check-circle"
         bold_text = "Success!"
     elif message.level == messages.WARNING:
-        icon_class = "fa fa-exclamation-triangle"
+        icon_class = "fas fa-exclamation-triangle"
         bold_text = "Warning!"
     elif message.level == messages.ERROR:
-        icon_class = "fa fa-minus-circle"
+        icon_class = "fas fa-minus-circle"
         bold_text = "Uh-oh!"
         level_tag = "danger"
     return alert(level_tag, icon_class, bold_text, message.message, True)

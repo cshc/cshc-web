@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { VictoryPie } from 'victory';
 import Member from 'models/member';
 import ProgressBar from 'components/common/ProgressBar';
-import IconList from 'components/common/IconList';
 import MemberAvatar from 'components/members/MemberAvatar';
 import AwardCount from 'components/awards/AwardCount';
 import Urls from 'util/urls';

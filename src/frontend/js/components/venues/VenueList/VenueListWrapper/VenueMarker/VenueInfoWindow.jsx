@@ -41,14 +41,14 @@ const VenueInfoWindow = ({ onCloseClick, venue }) => (
       </p>
       {venue.phone ? (
         <div className="g-mb-10">
-          <i className="fa fa-phone g-mr-5" />
+          <i className="fas fa-phone g-mr-5" />
           {venue.phone}
           <br />
         </div>
       ) : null}
       {venue.url ? (
         <div>
-          <i className="fa fa-globe g-mr-5" />
+          <i className="fas fa-globe g-mr-5" />
           <a href={venue.url}>{venue.url}</a>
           <br />
         </div>

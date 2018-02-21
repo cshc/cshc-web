@@ -26,7 +26,7 @@ class MemberProfileForm(forms.ModelForm):
             'profile_pic': CshcCropWidget,
             'pref_position': UnifySelect,
             'shirt_number': UnifyTextInput(attrs={'class': 'g-width-100 flex-0-auto'}),
-            'phone': UnifyTextInput(left_icon='fa fa-phone'),
+            'phone': UnifyTextInput(left_icon='fas fa-phone'),
             'addr_street': UnifyTextInput(attrs={'placeholder': 'Street'}),
             'addr_line2': UnifyTextInput(),
             'addr_town': UnifyTextInput(attrs={'placeholder': 'Town/city'}),
@@ -35,7 +35,7 @@ class MemberProfileForm(forms.ModelForm):
             'dob': UnifyDateInput,
             'emergency_contact': UnifyTextInput(),
             'emergency_relationship': UnifySelect,
-            'emergency_phone': UnifyTextInput(left_icon='fa fa-phone'),
+            'emergency_phone': UnifyTextInput(left_icon='fas fa-phone'),
             'medical_notes': UnifyTextarea(attrs={'rows': '5'}),
             'email': forms.HiddenInput(),
         }

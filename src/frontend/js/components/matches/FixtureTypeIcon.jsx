@@ -8,10 +8,10 @@ import { FixtureType } from 'util/constants';
  * Icon representation of a fixture (friendly/league/cup etc).
  */
 const FixtureTypeIcon = ({ fixtureType }) => {
-  const className = classnames('fa', {
-    'fa-table': fixtureType === FixtureType.League.toUpperCase(),
-    'fa-trophy': fixtureType === FixtureType.Cup.toUpperCase(),
-    'fa-smile-o': fixtureType === FixtureType.Friendly.toUpperCase(),
+  const className = classnames({
+    'fas fa-table': fixtureType === FixtureType.League.toUpperCase(),
+    'fas fa-trophy': fixtureType === FixtureType.Cup.toUpperCase(),
+    'far fa-smile': fixtureType === FixtureType.Friendly.toUpperCase(),
   });
   const title = `${toTitleCase(fixtureType)} match`;
   return <i className={className} title={title} />;

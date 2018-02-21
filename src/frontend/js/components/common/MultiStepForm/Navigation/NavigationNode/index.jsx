@@ -17,7 +17,7 @@ const NavigationNode = ({ label, icon, complete, current, onClick }) => {
   });
   const iconClass = classnames({
     [icon]: current || !complete,
-    'fa fa-check': !current && complete,
+    'fas fa-check': !current && complete,
   });
   return (
     <div className={nodeClass} onClick={onClick} role="link" tabIndex="0">

@@ -13,8 +13,8 @@ const MemberListWrapper = ({ canViewMap, data, viewType, onSelectViewType }) => 
   <div>
     {canViewMap ? (
       <ViewSwitcher currentView={viewType} onSelectViewType={onSelectViewType}>
-        <ViewSwitcherView iconClass="fa fa-table" label={ViewType.List} />
-        <ViewSwitcherView iconClass="fa fa-map-0" label={ViewType.Map} />
+        <ViewSwitcherView iconClass="fas fa-table" label={ViewType.List} />
+        <ViewSwitcherView iconClass="far fa-map" label={ViewType.Map} />
       </ViewSwitcher>
     ) : null}
     {!canViewMap || viewType === ViewType.List ? (

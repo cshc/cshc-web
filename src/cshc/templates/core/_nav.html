@@ -159,11 +159,11 @@
           </a>
           <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-bg-black g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling" id="nav-submenu--user" aria-labelledby="nav-link--user" style="display: none;">
             <li class="dropdown-item {% active_link 'user_profile' %}">
-              <a href="{% url 'user_profile' %}" class="nav-link"><i class="fa fa-fw fa-user g-mr-10"></i>Edit Profile</a>
+              <a href="{% url 'user_profile' %}" class="nav-link"><i class="fas fa-fw fa-user g-mr-10"></i>Edit Profile</a>
             </li>
             {% if member_id %}
             <li class="dropdown-item {% active_link 'member_detail' member_id %}">
-              <a href="{% url 'member_detail' member_id %}" class="nav-link"><i class="fa fa-fw fa-bar-chart g-mr-10"></i>Member Stats</a>
+              <a href="{% url 'member_detail' member_id %}" class="nav-link"><i class="far fa-fw fa-chart-bar g-mr-10"></i>Member Stats</a>
             </li>
             {% endif %}
             {% if user.is_staff %}
@@ -174,7 +174,7 @@
             <li class="dropdown-item">
                 <form id="logout_form" method="post" action="{% url 'account_logout' %}">{% csrf_token %}
                   <input type="hidden" name="next" value="{{ request.get_full_path }}"/>
-                  <a class="nav-link" href="javascript:{}" onclick="document.getElementById('logout_form').submit();"><i class="fa fa-fw fa-sign-out g-mr-10"></i>Log out</a>
+                  <a class="nav-link" href="javascript:{}" onclick="document.getElementById('logout_form').submit();"><i class="fas fa-fw fa-sign-out-alt g-mr-10"></i>Log out</a>
                 </form>
             </li>
           </ul>
@@ -214,7 +214,7 @@
                       <label class="u-check g-pl-25 g-color-white-opacity-0_8 g-color-white--hover">
                         <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox" name="remember"  checked="">
                         <div class="u-check-icon-checkbox-v4 g-color-white g-color-white--focus g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_3 g-brd-white--focus g-absolute-centered--y g-left-0">
-                          <i class="fa" data-check-icon=""></i>
+                          <i class="fas g-rounded-2" data-check-icon=""></i>
                         </div>
                         Keep signed in
                       </label>

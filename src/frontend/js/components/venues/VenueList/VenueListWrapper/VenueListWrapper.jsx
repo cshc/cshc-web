@@ -9,8 +9,8 @@ import VenueMarker from './VenueMarker';
 const VenueListWrapper = ({ data, viewType, onSelectViewType }) => (
   <div>
     <ViewSwitcher currentView={viewType} onSelectViewType={onSelectViewType}>
-      <ViewSwitcherView iconClass="fa fa-table" label={ViewType.List} />
-      <ViewSwitcherView iconClass="fa fa-map-0" label={ViewType.Map} />
+      <ViewSwitcherView iconClass="fas fa-table" label={ViewType.List} />
+      <ViewSwitcherView iconClass="far fa-map" label={ViewType.Map} />
     </ViewSwitcher>
     {viewType === ViewType.List ? (
       <VenueTable venues={data.results} />

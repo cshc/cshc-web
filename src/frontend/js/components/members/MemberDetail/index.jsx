@@ -20,12 +20,12 @@ const MemberDetail = ({ member }) => (
       <ListGroup>
         <NavLink className="list-group-item" to="/playing-record">
           <span>
-            <i className="fa fa-pie-chart g-mr-10" />Playing Record
+            <i className="fas fa-chart-pie g-mr-10" />Playing Record
           </span>
         </NavLink>
         <NavLink className="list-group-item" to="/club-involvement">
           <span>
-            <i className="fa fa-users g-mr-10" />Club Involvement
+            <i className="fas fa-users g-mr-10" />Club Involvement
           </span>
         </NavLink>
       </ListGroup>

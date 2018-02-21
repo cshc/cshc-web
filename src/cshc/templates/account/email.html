@@ -24,18 +24,18 @@
 
   {% for emailaddress in user.emailaddress_set.all %}
     <div class="form-group g-mb-10">
-      <label for="email_radio_{{forloop.counter}}" class="u-check g-pl-25 {% if emailaddress.primary %}primary_email{%endif%}">
+      <label for="email_radio_{{forloop.counter}}" class="u-check g-pl-30 {% if emailaddress.primary %}primary_email{%endif%}">
         <input id="email_radio_{{forloop.counter}}" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="email" type="radio" {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked="checked"{% endif %} value="{{emailaddress.email}}" />
         <div class="u-check-icon-font g-absolute-centered--y g-left-0">
-          <i class="fa" data-check-icon="" data-uncheck-icon=""></i>
+          <i class="far" data-check-icon="" data-uncheck-icon=""></i>
         </div>
         {{ emailaddress.email }}
         {% if emailaddress.verified %}
-          <span class="verified">{% trans "Verified" %}</span>
+          <span class="verified g-font-weight-600">{% trans "Verified" %}</span>
         {% else %}
           <span class="unverified">{% trans "Unverified" %}</span>
         {% endif %}
-        {% if emailaddress.primary %}<span class="primary">{% trans "Primary" %}</span>{% endif %}
+        {% if emailaddress.primary %}<span class="primary g-font-weight-600">{% trans "Primary" %}</span>{% endif %}
       </label>
     </div>
   {% endfor %}
@@ -50,7 +50,7 @@
 </form>
 
 {% else %}
-  {% alert alert_class="warning" icon_class="fa fa-exclamation-triangle" bold_text="Warning!" message="You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc." %}
+  {% alert alert_class="warning" icon_class="fas fa-exclamation-triangle" bold_text="Warning!" message="You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc." %}
 {% endif %}
 
 <div class="u-heading-v1-4 g-bg-main g-brd-gray-light-v2 g-mb-20">

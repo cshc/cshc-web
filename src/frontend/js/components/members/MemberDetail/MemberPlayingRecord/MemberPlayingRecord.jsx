@@ -57,8 +57,8 @@ const MemberPlayingRecord = ({
           inline
         />,
         <ViewSwitcher className="g-pt-6" currentView={viewType} onSelectViewType={onChangeViewType}>
-          <ViewSwitcherView iconClass="fa fa-table" label={ViewType.Table} />
-          <ViewSwitcherView iconClass="fa fa-area-chart" label={ViewType.Chart} />
+          <ViewSwitcherView iconClass="fas fa-table" label={ViewType.Table} />
+          <ViewSwitcherView iconClass="fas fa-chart-area" label={ViewType.Chart} />
         </ViewSwitcher>
       </div>
       <MemberPlayingRecordDisplay

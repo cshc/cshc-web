@@ -114,7 +114,7 @@ class AwardWinner extends React.PureComponent {
                 this.updateAwardType(MatchAward.MOM);
               }}
             >
-              <i className="fa fa-star" />
+              <i className="fas fa-star" />
             </button>
             <button
               className={lomClass}
@@ -123,11 +123,11 @@ class AwardWinner extends React.PureComponent {
                 this.updateAwardType(MatchAward.LOM);
               }}
             >
-              <i className="fa fa-lemon-o" />
+              <i className="fas fa-lemon" />
             </button>
             <div className="">{awardWinner.award}</div>
             {MatchAwardWinner.isValid(awardWinner) ? (
-              <i className="fa fa-lg fa-check-square g-color-green g-ml-10" />
+              <i className="fas fa-lg fa-check-square g-color-green g-ml-10" />
             ) : null}
           </div>
           <div>
@@ -138,7 +138,7 @@ class AwardWinner extends React.PureComponent {
               className="btn btn-link g-color-gray-light-v1 g-color-gray-dark-v4--hover"
               title="Delete this award winner"
             >
-              <i className="fa fa-lg fa-trash" />
+              <i className="far fa-lg fa-trash-alt" />
             </button>
           </div>
         </div>

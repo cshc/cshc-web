@@ -58,7 +58,7 @@ class TextFilter extends React.Component {
               disabled={!this.state.value}
               onClick={this.onSearch}
             >
-              <i className="fa fa-search" />
+              <i className="fas fa-search" />
             </button>
           </span>
           <button
@@ -67,7 +67,7 @@ class TextFilter extends React.Component {
             onClick={this.onReset}
             title="Reset"
           >
-            <i className="fa fa-times" />
+            <i className="fas fa-times" />
           </button>
         </div>
       </div>

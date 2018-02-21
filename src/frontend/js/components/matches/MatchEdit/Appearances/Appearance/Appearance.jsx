@@ -74,7 +74,7 @@ class Appearance extends React.PureComponent {
               onRemoveAppearance(index);
             }}
           >
-            <i className="fa fa-close" />
+            <i className="fas fa-times" />
           </button>
         </div>
       </div>

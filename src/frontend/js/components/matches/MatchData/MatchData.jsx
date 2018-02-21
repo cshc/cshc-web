@@ -25,8 +25,8 @@ const MatchData = ({
   <div>
     {showViewTypeSwitcher && (
       <ViewSwitcher currentView={viewType} onSelectViewType={onSelectViewType}>
-        <ViewSwitcherView iconClass="fa fa-list" label={ViewType.Timeline} />
-        <ViewSwitcherView iconClass="fa fa-table" label={ViewType.Table} />
+        <ViewSwitcherView iconClass="fas fa-list" label={ViewType.Timeline} />
+        <ViewSwitcherView iconClass="fas fa-table" label={ViewType.Table} />
       </ViewSwitcher>
     )}
     {viewType === ViewType.Timeline ? (

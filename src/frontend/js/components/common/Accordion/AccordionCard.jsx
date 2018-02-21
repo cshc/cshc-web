@@ -32,8 +32,8 @@ const AccordionCard = ({
           <span className="float-right">
             {rightIcon}
             <span className="u-accordion__control-icon g-ml-10">
-              <i className="fa fa-fw fa-angle-right" />
-              <i className="fa fa-fw fa-angle-down" />
+              <i className="fas fa-fw fa-angle-right" />
+              <i className="fas fa-fw fa-angle-down" />
             </span>
           </span>
           <span className="g-valign-middle">{title}</span>

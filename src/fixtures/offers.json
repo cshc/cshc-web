@@ -1,1 +1,80 @@
-[{"model": "offers.memberoffer", "pk": 1, "fields": {"title": "Nutritionish Resource", "description": "<p>Nutritionist Resource is an online web directory listing nutritionists all over the UK.</p>\r\n\r\n<p>Each nutritionist has a profile indicating background, specialisms, qualifications and professional registrations.</p>\r\n\r\n<p>The site also provides information covering areas that nutritionists can assist with, advice about good nutrition for optimum health for sports people, as well as a blog about the latest health news.</p>\r\n\r\n<p>Email <a href=\"mailto:info@nutritionist-resource.org.uk\">Nutritionist Resource</a> for more information.</p>", "image": "uploads/offers/f51a13ac-1f58-4efc-a99d-0d4552d36656-Nutritionist.png", "url": "http://www.nutritionist-resource.org.uk", "modified": "2017-11-30T02:24:04.540Z", "expiry": null}}, {"model": "offers.memberoffer", "pk": 2, "fields": {"title": "Active Sports Bras", "description": "<p>Active Sports Bras&nbsp;offer a wide range of top branded sports bras at discounted prices.</p>\r\n\r\n<p>Enter the code <strong>CSHC10</strong>&nbsp;at checkout in order to receive a further <strong>10%</strong> off already reduced prices as well as <strong>free delivery</strong>.</p>", "image": "uploads/offers/d28b3cfd-77db-418e-b45e-49fe0149efe5-Active_Sports_Bras.gif", "url": "http://www.activesportsbras.co.uk", "modified": "2017-11-30T02:41:46.710Z", "expiry": null}}, {"model": "offers.memberoffer", "pk": 3, "fields": {"title": "Injury Active Clinic", "description": "<p>Injury Active&nbsp;offer injury assessment, treatment, sports massage and rehab. Check out their website for more details.</p>\r\n\r\n<p>Cambridge South Hockey Club members are eligible for a <strong>10%</strong> discount off all services.</p>", "image": "uploads/offers/5ff51198-905c-41cc-a943-5ab38c9d4057-InjuryActive.png", "url": "http://www.injuryactive.com", "modified": "2017-11-30T02:47:40.615Z", "expiry": null}}, {"model": "offers.memberoffer", "pk": 4, "fields": {"title": "Cambridge Sports Massage", "description": "<p>Enter the code <strong>CSHOCKEY</strong>&nbsp;when <a href=\"http://www.camsportsmassage.com/book-session/\" target=\"_blank\">booking online</a>&nbsp;to receive a <strong>10%</strong> discount.</p>", "image": "uploads/offers/412ed7f3-61f8-4845-8ec1-7cda2512f3bf-Cambridge-Sport-Massage.png", "url": "http://www.camsportsmassage.com/", "modified": "2017-11-30T02:49:23.155Z", "expiry": null}}, {"model": "offers.memberoffer", "pk": 5, "fields": {"title": "MiSEC", "description": "<p>Run by our own Laurie Haslop, MiSEC solve your security weaknesses for residential and commercial organisations.</p>\r\n\r\n<p><strong>10%</strong> discount to members and those associated with the club. A contribution will also be made to the club&#39;s social budget by MiSEC, whch will go towards club social events thorugh the season.&nbsp;</p>\r\n\r\n<p><i class=\"fa fa-lg fa-phone g-pr-5\"></i>0203 432 4139 <a href=\"http://www.facebook.com/misecltd\" target=\"_blank\" title=\"MiSEC on Facebook\"><i class=\"fa fa-lg fa-facebook-square\"></i></a> <a href=\"http://www.twitter.com/misecltd\" target=\"_blank\" title=\"MiSEC on Twitter\"><i class=\"fa fa-lg fa-twitter-square\"></i></a></p>", "image": "uploads/offers/ebec9bf9-e58b-4ae1-9779-56e2112e1206-LogoMiSEC.png", "url": "http://www.misec.co.uk", "modified": "2017-11-30T03:40:20.128Z", "expiry": null}}, {"model": "offers.memberoffer", "pk": 6, "fields": {"title": "The Grove, Cromer", "description": "<p>Managed by our own Chris Graveling, The Grove&nbsp;in Cromer, Norfolk are offering dinner, bed and breakfast for &pound;130 (down from &pound;150) to all CSHC members from October 2014 to the end of March 2015.</p>\r\n\r\n<p>Offer excludes the period from 21st Dec 2014 to 6th Jan 2015.</p>", "image": "uploads/offers/969b9431-5f5b-4318-a5b0-e37dd8aabf4c-grove_banner.png", "url": "http://www.thegrovecromer.co.uk", "modified": "2017-11-30T02:57:50.263Z", "expiry": "2015-03-31"}}]
+[
+  {
+    "model": "offers.memberoffer",
+    "pk": 1,
+    "fields": {
+      "title": "Nutritionish Resource",
+      "description":
+        "<p>Nutritionist Resource is an online web directory listing nutritionists all over the UK.</p>\r\n\r\n<p>Each nutritionist has a profile indicating background, specialisms, qualifications and professional registrations.</p>\r\n\r\n<p>The site also provides information covering areas that nutritionists can assist with, advice about good nutrition for optimum health for sports people, as well as a blog about the latest health news.</p>\r\n\r\n<p>Email <a href=\"mailto:info@nutritionist-resource.org.uk\">Nutritionist Resource</a> for more information.</p>",
+      "image": "uploads/offers/f51a13ac-1f58-4efc-a99d-0d4552d36656-Nutritionist.png",
+      "url": "http://www.nutritionist-resource.org.uk",
+      "modified": "2017-11-30T02:24:04.540Z",
+      "expiry": null
+    }
+  },
+  {
+    "model": "offers.memberoffer",
+    "pk": 2,
+    "fields": {
+      "title": "Active Sports Bras",
+      "description":
+        "<p>Active Sports Bras&nbsp;offer a wide range of top branded sports bras at discounted prices.</p>\r\n\r\n<p>Enter the code <strong>CSHC10</strong>&nbsp;at checkout in order to receive a further <strong>10%</strong> off already reduced prices as well as <strong>free delivery</strong>.</p>",
+      "image": "uploads/offers/d28b3cfd-77db-418e-b45e-49fe0149efe5-Active_Sports_Bras.gif",
+      "url": "http://www.activesportsbras.co.uk",
+      "modified": "2017-11-30T02:41:46.710Z",
+      "expiry": null
+    }
+  },
+  {
+    "model": "offers.memberoffer",
+    "pk": 3,
+    "fields": {
+      "title": "Injury Active Clinic",
+      "description":
+        "<p>Injury Active&nbsp;offer injury assessment, treatment, sports massage and rehab. Check out their website for more details.</p>\r\n\r\n<p>Cambridge South Hockey Club members are eligible for a <strong>10%</strong> discount off all services.</p>",
+      "image": "uploads/offers/5ff51198-905c-41cc-a943-5ab38c9d4057-InjuryActive.png",
+      "url": "http://www.injuryactive.com",
+      "modified": "2017-11-30T02:47:40.615Z",
+      "expiry": null
+    }
+  },
+  {
+    "model": "offers.memberoffer",
+    "pk": 4,
+    "fields": {
+      "title": "Cambridge Sports Massage",
+      "description":
+        "<p>Enter the code <strong>CSHOCKEY</strong>&nbsp;when <a href=\"http://www.camsportsmassage.com/book-session/\" target=\"_blank\">booking online</a>&nbsp;to receive a <strong>10%</strong> discount.</p>",
+      "image": "uploads/offers/412ed7f3-61f8-4845-8ec1-7cda2512f3bf-Cambridge-Sport-Massage.png",
+      "url": "http://www.camsportsmassage.com/",
+      "modified": "2017-11-30T02:49:23.155Z",
+      "expiry": null
+    }
+  },
+  {
+    "model": "offers.memberoffer",
+    "pk": 5,
+    "fields": {
+      "title": "MiSEC",
+      "description":
+        "<p>Run by our own Laurie Haslop, MiSEC solve your security weaknesses for residential and commercial organisations.</p>\r\n\r\n<p><strong>10%</strong> discount to members and those associated with the club. A contribution will also be made to the club&#39;s social budget by MiSEC, whch will go towards club social events thorugh the season.&nbsp;</p>\r\n\r\n<p><i class=\"fas fa-lg fa-phone g-pr-5\"></i>0203 432 4139 <a href=\"http://www.facebook.com/misecltd\" target=\"_blank\" title=\"MiSEC on Facebook\"><i class=\"fab fa-lg fa-facebook-square\"></i></a> <a href=\"http://www.twitter.com/misecltd\" target=\"_blank\" title=\"MiSEC on Twitter\"><i class=\"fab fa-lg fa-twitter-square\"></i></a></p>",
+      "image": "uploads/offers/ebec9bf9-e58b-4ae1-9779-56e2112e1206-LogoMiSEC.png",
+      "url": "http://www.misec.co.uk",
+      "modified": "2017-11-30T03:40:20.128Z",
+      "expiry": null
+    }
+  },
+  {
+    "model": "offers.memberoffer",
+    "pk": 6,
+    "fields": {
+      "title": "The Grove, Cromer",
+      "description":
+        "<p>Managed by our own Chris Graveling, The Grove&nbsp;in Cromer, Norfolk are offering dinner, bed and breakfast for &pound;130 (down from &pound;150) to all CSHC members from October 2014 to the end of March 2015.</p>\r\n\r\n<p>Offer excludes the period from 21st Dec 2014 to 6th Jan 2015.</p>",
+      "image": "uploads/offers/969b9431-5f5b-4318-a5b0-e37dd8aabf4c-grove_banner.png",
+      "url": "http://www.thegrovecromer.co.uk",
+      "modified": "2017-11-30T02:57:50.263Z",
+      "expiry": "2015-03-31"
+    }
+  }
+]

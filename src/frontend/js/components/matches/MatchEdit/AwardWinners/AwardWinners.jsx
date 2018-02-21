@@ -25,7 +25,7 @@ const AwardWinners = ({ memberOptions, awardWinners, onAddAwardWinner }) => (
       title="Add a match award winner"
       onClick={onAddAwardWinner}
     >
-      <i className="fa fa-plus g-mr-5" />Add award winner
+      <i className="fas fa-plus g-mr-5" />Add award winner
     </button>
   </div>
 );

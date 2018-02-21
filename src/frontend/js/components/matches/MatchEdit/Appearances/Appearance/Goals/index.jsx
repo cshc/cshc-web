@@ -16,8 +16,8 @@ const AppearanceGoals = ({ goals, onUpdateGoals }) => {
     <div className={appearanceStyles.goals}>
       <NumberInput
         horizontal
-        upIcon="fa fa-plus"
-        downIcon="fa fa-minus"
+        upIcon="fas fa-plus"
+        downIcon="fas fa-minus"
         iconClass="g-color-gray-light-v3 g-color-gray-light-v1--hover"
         value={goals}
         onChangeValue={onUpdateGoals}

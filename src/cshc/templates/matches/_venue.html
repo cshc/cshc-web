@@ -18,8 +18,8 @@ Notes:
     {% if venue.addr_city %}{{ venue.addr_city }}<br/>{% endif %}
     {% if venue.addr_postcode %}{{ venue.addr_postcode }}<br/><br/>{% endif %}
   </strong>
-  {% if venue.phone %}<i class="fa fa-phone g-mr-5"></i>{{ venue.phone }}<br/>{% endif %}
-  {% if venue.url %}<i class="fa fa-globe g-mr-5"></i>{{ venue.url|urlize }}{% endif %}
+  {% if venue.phone %}<i class="fas fa-phone g-mr-5"></i>{{ venue.phone }}<br/>{% endif %}
+  {% if venue.url %}<i class="fas fa-globe g-mr-5"></i>{{ venue.url|urlize }}{% endif %}
 </address>
 {% if venue.address_known %}
   {% include 'maps/_map.html' with mapId="map" %}

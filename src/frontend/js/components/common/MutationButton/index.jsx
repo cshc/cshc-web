@@ -73,19 +73,19 @@ class MutationButton extends React.PureComponent {
 
   setInProgress(callback = undefined) {
     this.setState(
-      { locked: true, label: this.props.inProgressLabel, icon: 'fa fa-spinner fa-spin' },
+      { locked: true, label: this.props.inProgressLabel, icon: 'fas fa-spinner fa-spin' },
       callback,
     );
   }
 
   setSuccess(callback = undefined) {
-    this.setState({ locked: true, label: this.props.successLabel, icon: 'fa fa-tick' }, () => {
+    this.setState({ locked: true, label: this.props.successLabel, icon: 'fas fa-check' }, () => {
       window.setTimeout(callback, this.props.feedbackDelayMs);
     });
   }
 
   setFail(callback = undefined) {
-    this.setState({ locked: true, label: this.props.failLabel, icon: 'fa fa-exclamation' }, () => {
+    this.setState({ locked: true, label: this.props.failLabel, icon: 'fas fa-exclamation' }, () => {
       window.setTimeout(callback, this.props.feedbackDelayMs);
     });
   }

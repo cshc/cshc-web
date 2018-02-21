@@ -30,14 +30,14 @@ const MatchTable = ({ matches, excludeColumns, dateFormat, priorities, fillBlank
             {incl(TC.awards) && (
               <th className={priority(TC.awards, 3)}>
                 <abbr title="Man of the Match">
-                  <i className="fa fa-star-o" />
+                  <i className="far fa-star" />
                 </abbr>
               </th>
             )}
             {incl(TC.awards) && (
               <th className={priority(TC.awards, 3)}>
                 <abbr title="Lemon of the Match">
-                  <i className="fa fa-lemon-o" />
+                  <i className="far fa-lemon" />
                 </abbr>
               </th>
             )}

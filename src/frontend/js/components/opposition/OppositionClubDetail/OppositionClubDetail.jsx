@@ -23,7 +23,7 @@ const OppositionClubDetail = ({ data, clubName, matchFilters: { oppTeam_Club_Slu
       <Panel
         outlineColor="primary"
         headerColor="primary"
-        icon="fa fa-table"
+        icon="fas fa-table"
         title="Playing Records"
       >
         <div className="card-block g-pa-15">

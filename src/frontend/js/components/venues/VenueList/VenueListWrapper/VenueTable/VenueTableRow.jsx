@@ -9,7 +9,7 @@ const VenueTableRow = ({ venue }) => (
       <a href={Urls.venue_detail(venue.slug)} title="Venue Details">
         {venue.name}
       </a>
-      {venue.isHome && <i className="g-ml-5 fa fa-home" title="Home venue" />}
+      {venue.isHome && <i className="g-ml-5 fas fa-home" title="Home venue" />}
     </td>
     <td>{Venue.full_address(venue)}</td>
     <td>{venue.distance}</td>

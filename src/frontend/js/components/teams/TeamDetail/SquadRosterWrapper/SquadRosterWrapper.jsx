@@ -43,8 +43,8 @@ class SquadRosterWrapper extends React.Component {
               currentView={viewType}
               onSelectViewType={onSelectViewType}
             >
-              <ViewSwitcherView iconClass="fa fa-th-large" label={ViewType.Cards} />
-              <ViewSwitcherView iconClass="fa fa-table" label={ViewType.Table} />
+              <ViewSwitcherView iconClass="fas fa-th-large" label={ViewType.Cards} />
+              <ViewSwitcherView iconClass="fas fa-table" label={ViewType.Table} />
             </ViewSwitcher>
           </div>
         </div>

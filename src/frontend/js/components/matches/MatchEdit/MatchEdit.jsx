@@ -131,7 +131,7 @@ class MatchEdit extends React.PureComponent {
     return (
       <div>
         <a href={Urls.match_detail(matchId)} title="Match Details">
-          <i className="fa fa-chevron-left g-mr-5 g-mb-20" />Back to match
+          <i className="fas fa-chevron-left g-mr-5 g-mb-20" />Back to match
         </a>
         <MultiStepForm
           ref={(c) => {

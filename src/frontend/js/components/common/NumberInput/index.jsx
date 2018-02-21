@@ -70,8 +70,8 @@ NumberInput.defaultProps = {
   disabled: false,
   horizontal: false,
   value: undefined,
-  upIcon: 'fa fa-caret-up',
-  downIcon: 'fa fa-caret-down',
+  upIcon: 'fas fa-caret-up',
+  downIcon: 'fas fa-caret-down',
   iconClass: 'g-color-gray-dark-v4 g-color-gray-dark-v1--hover g-font-size-24 g-font-size-35--lg',
   valueClass: 'g-bg-primary g-color-white',
 };

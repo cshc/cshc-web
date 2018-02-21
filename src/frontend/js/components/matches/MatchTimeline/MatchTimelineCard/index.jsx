@@ -72,7 +72,7 @@ const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
             <div className={styles.cardContent}>
               {incl(MatchItem.venue) && (
                 <div className="g-mb-20">
-                  <i className="fa fa-map-o g-pr-10" />
+                  <i className="far fa-map g-pr-10" />
                   <MatchVenue match={match} />
                 </div>
               )}
@@ -81,7 +81,7 @@ const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
                   {incl(MatchItem.awards) &&
                     moms.length > 0 && (
                       <span className={styles.flexWrap}>
-                        <i className="fa fa-lg fa-star-o g-mr-5 g-mt-7" title="Man of the Match" />
+                        <i className="far fa-lg fa-star g-mr-5 g-mt-7" title="Man of the Match" />
                         {moms.map((awardWinner, index) => (
                           <AwardWinner
                             key={index}
@@ -95,7 +95,7 @@ const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
                     loms.length > 0 && (
                       <span className={styles.flexWrap}>
                         <i
-                          className="fa fa-lg fa-lemon-o g-mr-5 g-mt-7"
+                          className="far fa-lg fa-lemon g-mr-5 g-mt-7"
                           title="Lemon of the Match"
                         />
                         {loms.map((awardWinner, index) => (
