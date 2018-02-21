@@ -9,7 +9,7 @@ import OppositionTeam from 'components/matches/OppositionTeam';
 import MatchVenue from 'components/matches/MatchVenue';
 import MatchDate from 'components/matches/MatchDate';
 import MatchLink from 'components/matches/MatchLink';
-import styles from './style.scss';
+import commonStyles from 'components/common/style.scss';
 
 class MatchListDisplay extends React.Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class MatchListDisplay extends React.Component {
     const { matches, queryVariables: { pageSize }, onChangePage, onChangePageSize } = this.props;
     const { loading } = this.state;
     return (
-      <div className={styles.reactTable}>
+      <div className={commonStyles.reactTable}>
         <ReactTable
           className="-highlight"
           showPageJump={false}
@@ -52,6 +52,7 @@ class MatchListDisplay extends React.Component {
               className: 'align-self-center',
               accessor: 'date',
               headerClassName: 'text-left',
+              width: 90,
               Cell: row => <MatchDate date={row.value} format="Do MMM YY" />,
             },
             {
@@ -112,7 +113,6 @@ class MatchListDisplay extends React.Component {
 
 MatchListDisplay.propTypes = {
   networkStatus: PropTypes.number.isRequired,
-  error: PropTypes.instanceOf(Error),
   queryVariables: PropTypes.shape({
     pageSize: PropTypes.number,
   }).isRequired,
@@ -123,7 +123,6 @@ MatchListDisplay.propTypes = {
 };
 
 MatchListDisplay.defaultProps = {
-  error: undefined,
   matches: undefined,
 };
 

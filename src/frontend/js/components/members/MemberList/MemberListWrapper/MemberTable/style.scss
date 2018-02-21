@@ -1,0 +1,16 @@
+// Override the automatic inline width and flex styles for smaller screens
+.name {
+  @media (max-width: 767px) {
+    width: 110px !important;
+    flex: 0 auto !important;
+  }
+}
+
+// Override the automatic inline styling of the head and body divs
+// This allows the table width to shrink if columns are hidden responsively
+:global {
+  .rt-thead,
+  .rt-tbody {
+    min-width: 0px !important;
+  }
+}

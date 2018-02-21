@@ -1,0 +1,12 @@
+// Common styling for the React Table component.
+// This includes importing all the provided React Table CSS. See
+// See webpack.base.config.js for the react_table_css alias definition
+.reactTable {
+  :global {
+    @import '~react_table_css';
+
+    .rt-th:focus {
+      outline: none;
+    }
+  }
+}
