@@ -14,7 +14,9 @@ const CommitteeMemberships = ({ data }) => {
   const grouped = groupBy(data.results, cm => cm.season.slug);
   // Sort by (descending) season (most recent season first)
   const sorted = sortBy(keys(grouped), seasonSlug => -parseInt(seasonSlug.split('-')[0], 10));
-
+  if (!data.results || !data.results.length) {
+    return <p className="g-font-style-italic text-center">(No committee positions)</p>;
+  }
   return (
     <CustomScrollbar maxHeight="200px">
       <Timeline2 className="g-pb-40">

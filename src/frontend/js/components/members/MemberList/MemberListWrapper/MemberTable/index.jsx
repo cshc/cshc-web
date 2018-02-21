@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import commonStyles from 'components/common/style.scss';
+import Urls from 'util/urls';
 import styles from './style.scss';
 
 const MemberTable = ({ members }) => (
@@ -65,6 +66,13 @@ const MemberTable = ({ members }) => (
         },
       ]}
       data={members || []}
+      getTdProps={(state, rowInfo) => ({
+        onClick: () => {
+          window.location = Urls.member_detail(rowInfo.original.id);
+        },
+        className: 'g-cursor-pointer',
+        title: 'View member details',
+      })}
     />
     {members && <div className="g-py-20">{members.length} members</div>}
   </div>
