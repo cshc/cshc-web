@@ -9,14 +9,8 @@ import Urls from 'util/urls';
  */
 const LeagueTable = ({ data, teamName }) => {
   const teamNameCell = (row, isCSHCTeam, isOurTeam) => {
-    if (isCSHCTeam) {
-      return isOurTeam ? (
-        row.teamName
-      ) : (
-        <a href={Urls.clubteam_detail(row.ourTeam.slug)} title="Team Details">
-          {row.teamName}
-        </a>
-      );
+    if (isOurTeam) {
+      return row.teamName;
     }
     return (
       <a href={Urls.opposition_club_detail(row.oppTeam.club.slug)} title="Club Details">
@@ -62,7 +56,7 @@ const LeagueTable = ({ data, teamName }) => {
           {data.results.map((row) => {
             const isCSHCTeam = row.teamName.startsWith('Cambridge South');
             const isOurTeam = row.teamName === teamName;
-            const rowClass = isOurTeam ? 'table-success' : '';
+            const rowClass = isOurTeam ? 'table-success g-color-black g-font-weight-600' : '';
             return (
               <tr key={row.teamName} className={rowClass}>
                 <td>{teamNameCell(row, isCSHCTeam, isOurTeam)}</td>
