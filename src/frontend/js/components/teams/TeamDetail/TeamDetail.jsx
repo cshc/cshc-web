@@ -28,13 +28,14 @@ const TeamDetail = ({ data, division, teamId, teamGenderlessName, seasonId }) =>
     <Accordion multiselectable accordionId="team-details">
       {results.length > 0 ? (
         <AccordionCard cardId="results" accordionId="team-details" title="Results">
-          <MatchData matches={results} />
+          <MatchData matches={results} fillBlankSaturdays />
         </AccordionCard>
       ) : null}
       {fixtures.length > 0 ? (
         <AccordionCard cardId="fixtures" accordionId="team-details" title="Fixtures">
           <MatchData
             matches={fixtures}
+            fillBlankSaturdays
             exclude={[MatchItem.result, MatchItem.scorers, MatchItem.awards]}
             priorities={{ [MatchItem.time]: 1 }}
           />

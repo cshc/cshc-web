@@ -20,6 +20,7 @@ const MatchData = ({
   priorities,
   dateFormat,
   showViewTypeSwitcher,
+  fillBlankSaturdays,
 }) => (
   <div>
     {showViewTypeSwitcher && (
@@ -36,6 +37,7 @@ const MatchData = ({
         excludeColumns={exclude}
         dateFormat={dateFormat}
         priorities={priorities}
+        fillBlankSaturdays={fillBlankSaturdays}
       />
     )}
   </div>
@@ -49,6 +51,7 @@ MatchData.propTypes = {
   priorities: PropTypes.shape(),
   dateFormat: PropTypes.string,
   showViewTypeSwitcher: PropTypes.bool,
+  fillBlankSaturdays: PropTypes.bool,
 };
 
 MatchData.defaultProps = {
@@ -57,6 +60,7 @@ MatchData.defaultProps = {
   priorities: {},
   dateFormat: 'Do MMM',
   showViewTypeSwitcher: false,
+  fillBlankSaturdays: false,
 };
 
 export default MatchData;

@@ -1,4 +1,4 @@
-import { format as dateFormat } from 'date-fns';
+import { format as dateFormat, addDays, compareDesc, isSaturday } from 'date-fns';
 
 const toTitleCase = str =>
   str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
@@ -28,6 +28,19 @@ const djangoDate = (date, separator = '-') => {
   );
 };
 
+const saturdaysBetweenDates = (date1, date2) => {
+  if (!date1 || !date2) return null;
+  let d = addDays(date1, 1);
+  const saturdays = [];
+  while (compareDesc(d, date2) > 0) {
+    if (isSaturday(d)) {
+      saturdays.push(d);
+    }
+    d = addDays(d, 1);
+  }
+  return saturdays;
+};
+
 module.exports = {
   toTitleCase,
   toGraphQLId,
@@ -36,4 +49,5 @@ module.exports = {
   nonZero,
   rounded,
   djangoDate,
+  saturdaysBetweenDates,
 };

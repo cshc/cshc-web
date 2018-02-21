@@ -21,10 +21,10 @@ const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
   const priority = (columnName, defaultPriority = 1) =>
     `align-middle priority${priorities[columnName] || defaultPriority}`;
   return (
-    <tr>
+    <tr className={match.isSpacer ? styles.spacer : null}>
       {incl(TC.fixtureType) && (
         <td className={priority(TC.fixtureType, 3)}>
-          <FixtureTypeIcon fixtureType={match.fixtureType} />
+          {!match.isSpacer ? <FixtureTypeIcon fixtureType={match.fixtureType} /> : null}
         </td>
       )}
       {incl(TC.date) && (
@@ -34,66 +34,78 @@ const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
       )}
       {incl(TC.opposition) && (
         <td className={priority(TC.opposition)}>
-          <OppositionTeam team={match.oppTeam} />
-          <KitClash match={match} />
+          {!match.isSpacer ? <OppositionTeam team={match.oppTeam} /> : null}
+          {!match.isSpacer ? <KitClash match={match} /> : null}
         </td>
       )}
       {incl(TC.time) && (
         <td className={priority(TC.time, 2)}>
-          {match.time && format(Match.datetime(match), 'H:mm')}
+          {!match.isSpacer && match.time ? format(Match.datetime(match), 'H:mm') : null}
         </td>
       )}
       {incl(TC.venue) && (
         <td className={priority(TC.venue, 2)}>
-          <MatchVenue match={match} />
+          {!match.isSpacer ? <MatchVenue match={match} /> : null}
         </td>
       )}
       {incl(TC.result) && (
         <td className={`${priority(TC.result)} g-text-center`}>
-          <span className={`${Match.resultClass(match)} g-py-5 g-px-8`}>
-            {Match.scoreDisplay(match)}
-          </span>
+          {!match.isSpacer ? (
+            <span className={`${Match.resultClass(match)} g-py-5 g-px-8`}>
+              {Match.scoreDisplay(match)}
+            </span>
+          ) : null}
         </td>
       )}
       {incl(TC.scorers) && (
         <td className={priority(TC.scorers, 3)}>
-          <div className={styles.flexWrap}>
-            {Match.scorers(match).map((scorer, index, scorers) => (
-              <span key={index}>
-                <MemberLink member={scorer.member} badgeCount={scorer.goals} className="g-mr-10" />
-                {index < scorers.length - 1 && <span>,&nbsp;</span>}
-              </span>
-            ))}
-          </div>
+          {!match.isSpacer ? (
+            <div className={styles.flexWrap}>
+              {Match.scorers(match).map((scorer, index, scorers) => (
+                <span key={index}>
+                  <MemberLink
+                    member={scorer.member}
+                    badgeCount={scorer.goals}
+                    className="g-mr-10"
+                  />
+                  {index < scorers.length - 1 && <span>,&nbsp;</span>}
+                </span>
+              ))}
+            </div>
+          ) : null}
         </td>
       )}
       {incl(TC.awards) && (
         <td className={priority(TC.awards, 3)}>
-          <div className={styles.flexWrap}>
-            {Match.mom(match).map((awardWinner, index, awardWinners) => (
-              <span key={index}>
-                <AwardWinner awardWinner={awardWinner} className="g-mr-10" />
-                {index < awardWinners.length - 1 && <span>,&nbsp;</span>}
-              </span>
-            ))}
-          </div>
+          {!match.isSpacer ? (
+            <div className={styles.flexWrap}>
+              {Match.mom(match).map((awardWinner, index, awardWinners) => (
+                <span key={index}>
+                  <AwardWinner awardWinner={awardWinner} className="g-mr-10" />
+                  {index < awardWinners.length - 1 && <span>,&nbsp;</span>}
+                </span>
+              ))}
+            </div>
+          ) : null}
         </td>
       )}
       {incl(TC.awards) && (
         <td className={priority(TC.awards, 3)}>
-          <div className={styles.flexWrap}>
-            {Match.lom(match).map((awardWinner, index, awardWinners) => (
-              <span key={index}>
-                <AwardWinner awardWinner={awardWinner} className="g-mr-10" />
-                {index < awardWinners.length - 1 && <span>,&nbsp;</span>}
-              </span>
-            ))}
-          </div>
+          {!match.isSpacer ? (
+            <div className={styles.flexWrap}>
+              {Match.lom(match).map((awardWinner, index, awardWinners) => (
+                <span key={index}>
+                  <AwardWinner awardWinner={awardWinner} className="g-mr-10" />
+                  {index < awardWinners.length - 1 && <span>,&nbsp;</span>}
+                </span>
+              ))}
+            </div>
+          ) : null}
         </td>
       )}
       {incl(TC.report) && (
         <td className={`${priority(TC.report)} g-text-center`}>
-          <MatchLink match={match} />
+          {!match.isSpacer ? <MatchLink match={match} /> : null}
         </td>
       )}
     </tr>
