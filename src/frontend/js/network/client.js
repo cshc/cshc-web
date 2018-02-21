@@ -1,29 +1,26 @@
-import { ApolloClient, createNetworkInterface } from 'react-apollo';
+import { ApolloClient } from 'apollo-client';
+import { createHttpLink } from 'apollo-link-http';
+import { ReduxCache } from 'apollo-cache-redux';
+import { setContext } from 'apollo-link-context';
 import { getCookie } from 'util/cookies';
 
 const csrftoken = getCookie('csrftoken');
 
-const networkInterface = createNetworkInterface({
+const httpLink = createHttpLink({
   uri: '/graphql',
-  opts: {
-    credentials: 'same-origin',
-  },
+  credentials: 'same-origin',
 });
 
-networkInterface.use([
-  {
-    applyMiddleware(req, next) {
-      if (!req.options.headers) {
-        req.options.headers = {}; // Create the header object if needed.
-      }
-      req.options.headers['X-CSRFToken'] = csrftoken;
-      next();
-    },
+const middlewareLink = setContext(() => ({
+  headers: {
+    'X-CSRFToken': csrftoken,
   },
-]);
+}));
 
-const client = new ApolloClient({
-  networkInterface,
-});
+const getClient = store =>
+  new ApolloClient({
+    link: middlewareLink.concat(httpLink),
+    cache: new ReduxCache({ store }),
+  });
 
-module.exports = client;
+module.exports = getClient;

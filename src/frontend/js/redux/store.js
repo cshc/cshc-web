@@ -1,4 +1,5 @@
 import Raven from 'raven-js';
+import { apolloReducer } from 'apollo-cache-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistCombineReducers, purgeStoredState } from 'redux-persist';
 import createRavenMiddleware from 'raven-for-redux';
@@ -6,7 +7,7 @@ import storage from 'redux-persist/es/storage'; // default: localStorage if web,
 import Urls from 'util/urls';
 
 /* eslint-disable no-underscore-dangle */
-const buildStore = (key, reducers, initialState, client) => {
+const buildStore = (key, reducers, initialState) => {
   const persistConfig = {
     key,
     storage,
@@ -17,14 +18,13 @@ const buildStore = (key, reducers, initialState, client) => {
   }
   const persistedReducers = persistCombineReducers(persistConfig, {
     ...reducers,
-    apollo: client.reducer(),
+    apollo: apolloReducer,
   });
   return createStore(
     persistedReducers,
     initialState,
     compose(
       applyMiddleware(
-        client.middleware(),
         createRavenMiddleware(Raven, {
           stateTransformer: state => ({
             ui: state.ui,
