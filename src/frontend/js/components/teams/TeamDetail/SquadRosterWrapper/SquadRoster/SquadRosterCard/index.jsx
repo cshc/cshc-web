@@ -30,8 +30,8 @@ const SquadRosterCard = ({ memberStats, teamTotals }) => {
     wldColors.push('red');
   }
 
-  const mom = <AwardCount iconClass="star-o" awardCount={memberStats.mom} />;
-  const lom = <AwardCount iconClass="lemon-o" awardCount={memberStats.lom} />;
+  const mom = <AwardCount iconClass="star" awardCount={memberStats.mom} />;
+  const lom = <AwardCount iconClass="lemon" awardCount={memberStats.lom} />;
   const captain = memberStats.isCaptain || memberStats.isViceCaptain;
   return (
     <div className="col-md-6 col-lg-3 g-mb-30">

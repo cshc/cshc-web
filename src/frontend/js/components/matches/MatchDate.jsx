@@ -16,7 +16,7 @@ const MatchDate = ({ date, format }) => {
 };
 
 MatchDate.propTypes = {
-  date: PropTypes.string.isRequired,
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   format: PropTypes.string,
 };
 
