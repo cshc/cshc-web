@@ -66,7 +66,7 @@ const MemberClubInvolvement = ({ member }) => {
             <div className="card-block">
               <p>
                 All award winners for each year can be found{' '}
-                <a href="#" title="TODO">
+                <a href={Urls.eos_award_winners()} title="All end of season award winners">
                   here
                 </a>. Alternatively, click on a year in the timeline below to see the list of award
                 winners for that year.

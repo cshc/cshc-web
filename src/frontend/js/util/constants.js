@@ -80,12 +80,14 @@ const FilterName = {
   FixtureType: 'fixtureType',
   Opposition: 'opposition',
   Venue: 'venue',
+  Member: 'member',
   MOM: 'mom',
   LOM: 'lom',
   ReportAuthor: 'reportAuthor',
   Players: 'players',
   Date: 'date',
   Result: 'result',
+  Award: 'award',
 };
 
 /**

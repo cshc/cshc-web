@@ -68,6 +68,7 @@ urlpatterns = [
     # Stats landing page
     url(r'^stats/$', TemplateView.as_view(template_name='core/stats.html'), name='stats'),
 
+    url(r'^awards/', include('awards.urls')),
     url(r'^matches/', include('matches.urls')),
     url(r'^opposition/', include('opposition.urls')),
     url(r'^venues/', include('venues.urls')),

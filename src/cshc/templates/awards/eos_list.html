@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | End of Season Award Winners{% endblock %}
+
+{% block link %}
+  <link rel="stylesheet" href="{% static "css/tables.css" %}">
+  {% include 'react/react_css.html' with bundle_name='EndOfSeasonAwardWinnerList' %}
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+  {% heading 'End of Season Award Winners' %}
+  <p class="lead g-mb-40">
+    Each year at the <a href="{% url 'zinnia:category_detail' 'social/annual-dinners' %}">CSHC Annual Dinner</a> we
+    present a number of awards. Use this page to explore who won which award in which year!
+  </p>
+    
+  <div id="react-app"></div>
+
+{% endblock content %}
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'react/react_js.html' with bundle_name='EndOfSeasonAwardWinnerList' %}
+{% endblock body_js %}

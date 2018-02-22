@@ -3,9 +3,29 @@ GraphQL Schema for Awards and Award Winners
 """
 
 import graphene
+import django_filters
 from graphene_django_extras import DjangoListObjectType, DjangoObjectType
 from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
 from .models import MatchAward, EndOfSeasonAward, MatchAwardWinner, EndOfSeasonAwardWinner
+
+
+class EndOfSeasonAwardWinnerFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = EndOfSeasonAwardWinner
+        fields = {
+            'season__slug': ['exact'],
+            'award': ['exact'],
+            'member_id': ['in', 'exact'],
+        }
+
+    order_by = django_filters.OrderingFilter(
+        fields=(
+            ('award__name', 'award'),
+            ('season__slug', 'season'),
+            ('member__id', 'member'),
+        )
+    )
 
 
 class MatchAwardType(DjangoObjectType):
@@ -80,4 +100,4 @@ class Query(graphene.ObjectType):
     end_of_season_awards = OptimizedDjangoListObjectField(EndOfSeasonAwardList)
     match_award_winners = OptimizedDjangoListObjectField(MatchAwardWinnerList)
     end_of_season_award_winners = OptimizedDjangoListObjectField(
-        EndOfSeasonAwardWinnerList)
+        EndOfSeasonAwardWinnerList, filterset_class=EndOfSeasonAwardWinnerFilter)

@@ -8,6 +8,12 @@ Awards appear on the website in the following locations:
 - Player (member) profile pages (end of season and match awards)
 - Match details (match awards)
 
+### URLS
+
+|(Example) URL                 |View                          |Description                                              |
+|------------------------------|------------------------------|---------------------------------------------------------|
+|**/awards/end-of-season/**    |EndOfSeasonAwardWinnersView   |List of all End of Season Award Winners (filterable).    |
+
 ### Models
 
 |Name                       | Description  |
@@ -28,6 +34,12 @@ The following GraphQL queries are provided for the awards app:
 |**endOfSeasonAwards**        |                                  |List of EndOfSeasonAward nodes                           |
 |**matchAwardWinners**        |                                  |List of MatchAwardWinner nodes                           |
 |**endOfSeasonAwardWinners**  |                                  |List of EndOfSeasonAwardWinner nodes                     |
+
+### React Apps
+
+#### EndOfSeasonAwardWinnerList
+
+The ```EndOfSeasonAwardWinnerList``` React app forms part of the **EndOfSeasonAwardWinnersView** (```/awards/end-of-season/```) and displays a filterable list of End of Season Award Winners. Data is fetched from the server using the ```endOfSeasonAwardWinners``` GraphQL query.
 
 ### Admin Interface
 
