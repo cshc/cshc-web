@@ -210,6 +210,7 @@ LOCAL_APPS = [
     'documents.apps.DocumentsConfig',
     'offers.apps.OffersConfig',
     'unify.apps.UnifyConfig',
+    'availability.apps.AvailabilityConfig',
 ]
 
 # Note: LOCAL_APPS should be added before THIRD_PARTY_APPS as

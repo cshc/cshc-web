@@ -90,12 +90,16 @@ class MutationButton extends React.PureComponent {
     });
   }
 
+  mutate() {
+    this.onClick();
+  }
+
   render() {
-    const { buttonClass, disabled } = this.props;
+    const { buttonClass, disabled, passive } = this.props;
     const { locked, icon, label } = this.state;
     const btnClass = classnames(buttonClass);
     return (
-      <button className={btnClass} disabled={disabled || locked} onClick={this.onClick}>
+      <button className={btnClass} disabled={passive || disabled || locked} onClick={this.onClick}>
         {icon ? <i className={`${icon} g-mr-5`} /> : null}
         {label}
       </button>
@@ -105,6 +109,7 @@ class MutationButton extends React.PureComponent {
 
 MutationButton.propTypes = {
   buttonClass: PropTypes.string,
+  passive: PropTypes.bool,
   label: PropTypes.string,
   icon: PropTypes.node,
   disabled: PropTypes.bool,
@@ -121,6 +126,7 @@ MutationButton.propTypes = {
 
 MutationButton.defaultProps = {
   buttonClass: 'btn btn-block u-btn-primary',
+  passive: false,
   label: undefined,
   icon: undefined,
   disabled: false,

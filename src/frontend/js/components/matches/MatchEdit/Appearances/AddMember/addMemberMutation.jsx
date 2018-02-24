@@ -1,4 +1,5 @@
-import { gql, graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 
 export const ADD_MEMBER_MUTATION = gql`
   mutation AddMember($input: AddMemberInput!) {

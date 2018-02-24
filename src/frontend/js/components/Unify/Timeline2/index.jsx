@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import Timeline2Item from './Timeline2Item';
+import TimelineBigItem from './TimelineBigItem';
 
 /**
  *  Represents a timeline. 
@@ -9,12 +11,12 @@ import Timeline2Item from './Timeline2Item';
  *       https://htmlstream.com/preview/unify-v2.2/unify-main/pages/page-profile-profile-1.html
  */
 const Timeline2 = ({ className, children }) => (
-  <ul className={`${className} row list-unstyled`}>{children}</ul>
+  <ul className={classnames(className, 'row list-unstyled')}>{children}</ul>
 );
 
 Timeline2.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.arrayOf(Timeline2Item).isRequired,
+  children: PropTypes.arrayOf(PropTypes.oneOfType([TimelineBigItem, Timeline2Item])).isRequired,
 };
 
 Timeline2.defaultProps = {

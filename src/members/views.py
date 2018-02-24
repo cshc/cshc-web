@@ -161,7 +161,12 @@ class MemberDetailView(DetailView):
         squad = dict(slug=current_squad.team.slug,
                      name=current_squad.team.long_name) if current_squad is not None else None
 
+        is_me = (self.request.user.is_authenticated and
+                 self.request.user.member is not None and
+                 self.request.user.member.id == member.id)
+
         context['props'] = dict(
+            isMe=is_me,
             member=dict(
                 id=member.id,
                 firstName=member.pref_first_name(),
@@ -170,6 +175,7 @@ class MemberDetailView(DetailView):
                     member.profile_pic, 'member-detail', member.profile_pic_cropping),
                 prefPosition=member.get_pref_position_display(),
                 squad=squad,
+                isUmpire=member.is_umpire,
             ),
         )
         return context

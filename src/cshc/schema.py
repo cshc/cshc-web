@@ -13,6 +13,7 @@ import core.schema
 import opposition.schema
 import training.schema
 import matches.schema
+import availability.schema
 
 # pylint: disable=too-many-ancestors
 
@@ -26,6 +27,7 @@ class Query(awards.schema.Query,
             opposition.schema.Query,
             training.schema.Query,
             matches.schema.Query,
+            availability.schema.Query,
             graphene.ObjectType):
     """ GraphQL query for all CSHC data """
     debug = graphene.Field(DjangoDebug, name='__debug')
@@ -33,6 +35,7 @@ class Query(awards.schema.Query,
 
 class Mutation(members.schema.Mutation,
                matches.schema.Mutation,
+               availability.schema.Mutation,
                graphene.ObjectType):
     """ GraphQL mutations for all CSHC data """
     pass

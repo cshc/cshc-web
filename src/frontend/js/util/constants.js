@@ -119,6 +119,18 @@ const DefaultMapCenter = {
   lng: 0.12531280517578125,
 };
 
+/** 
+ * Enumeration of match availability values. 
+ * 
+ * Ref: availability.models.AVAILABILITY python object
+*/
+const MatchAvailability = {
+  AwaitingResponse: 'AWAITING_RESPONSE',
+  Available: 'AVAILABLE',
+  NotAvailable: 'NOT_AVAILABLE',
+  Unsure: 'UNSURE',
+};
+
 /**
  * A constant value to represent the absense of a filter. 
  * 
@@ -146,4 +158,5 @@ module.exports = {
   NoFilter,
   DefaultPageSize,
   AltOutcome,
+  MatchAvailability,
 };
