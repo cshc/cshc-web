@@ -123,12 +123,16 @@ class MatchType(DjangoObjectType):
     kit_clash = graphene.Boolean()
     match_title_text = graphene.String()
     result = graphene.String()
+    is_home = graphene.Boolean()
 
     appearances = OptimizedDjangoListObjectField(AppearanceList)
     award_winners = OptimizedDjangoListObjectField(MatchAwardWinnerList)
 
     class Meta:
         model = Match
+
+    def resolve_is_home(self, info):
+        return self.is_home
 
     def resolve_has_report(self, info):
         return self.has_report()

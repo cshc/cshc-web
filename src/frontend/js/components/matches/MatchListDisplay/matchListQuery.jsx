@@ -92,6 +92,7 @@ export const matchListOptions = {
       ...queryVariables,
       date: queryVariables.date ? djangoDate(queryVariables.date) : undefined,
     },
+    fetchPolicy: 'cache-and-network',
   }),
   props: ({ ownProps, data: { networkStatus, error, matches }, ...props }) => ({
     networkStatus,

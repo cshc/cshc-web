@@ -48,6 +48,7 @@ export const eosListOptions = {
       award,
       memberId: member,
     },
+    fetchPolicy: 'cache-and-network',
   }),
   props: ({ ownProps, data: { networkStatus, error, endOfSeasonAwardWinners }, ...props }) => ({
     networkStatus,
