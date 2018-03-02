@@ -2,7 +2,6 @@
 """
 
 from django import forms
-from django.contrib.admin.widgets import AdminDateWidget
 from geoposition.widgets import GeopositionWidget
 from unify.widgets import UnifyTextInput, UnifyTextarea, UnifySelect, UnifyDateInput
 from core.widgets import CshcCropWidget
@@ -25,7 +24,6 @@ class MemberProfileForm(forms.ModelForm):
             'last_name': UnifyTextInput(left_icon='icon-user'),
             'profile_pic': CshcCropWidget,
             'pref_position': UnifySelect,
-            'shirt_number': UnifyTextInput(attrs={'class': 'g-width-100 flex-0-auto'}),
             'phone': UnifyTextInput(left_icon='fas fa-phone'),
             'addr_street': UnifyTextInput(attrs={'placeholder': 'Street'}),
             'addr_line2': UnifyTextInput(),
@@ -44,11 +42,10 @@ class MemberProfileForm(forms.ModelForm):
         }
         help_texts = {
             'emergency_relationship': 'Your emergency contact\'s relationship to you',
-            'shirt_number': 'Only set this if you have actually been assigned a shirt number',
         }
         fields = ('email', 'first_name', 'known_as', 'last_name', 'profile_pic', 'profile_pic_cropping',                             # Personal
                   # Playing
-                  'pref_position', 'shirt_number',
+                  'pref_position',
                   # Contact
                   'phone', 'addr_street', 'addr_line2', 'addr_town', 'addr_postcode', 'addr_position',
                   'dob', 'emergency_contact', 'emergency_relationship', 'emergency_phone', 'medical_notes',     # Medical
