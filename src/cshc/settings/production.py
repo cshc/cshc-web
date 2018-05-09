@@ -1,6 +1,7 @@
 """ Django settings for cshc project - production environment
 """
 import sys
+import os
 from cshc.settings.base import *
 
 DEBUG = False
@@ -15,11 +16,11 @@ ALLOWED_HOSTS = ['www.cambridgesouthhockeyclub.co.uk',
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cshc2',
-        'USER': 'cshc2',
-        'PASSWORD': get_env_setting('DB_PASSWORD2'),
-        'HOST': 'mysql-55.int.mythic-beasts.com',
-        'PORT': '',
+        'NAME': os.environ['RDS_DB_NAME'],
+        'USER': os.environ['RDS_USERNAME'],
+        'PASSWORD': os.environ['RDS_PASSWORD'],
+        'HOST': os.environ['RDS_HOSTNAME'],
+        'PORT': os.environ['RDS_PORT'],
     }
 }
 
