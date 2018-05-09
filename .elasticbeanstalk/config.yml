@@ -1,6 +1,6 @@
 branch-defaults:
   master:
-    environment: null
+    environment: cshc-web-prod
     group_suffix: null
 global:
   application_name: cshc-web
