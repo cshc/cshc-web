@@ -2,10 +2,14 @@ branch-defaults:
   master:
     environment: cshc-web-prod
     group_suffix: null
+environment-defaults:
+  cshc-web-prod:
+    branch: null
+    repository: null
 global:
   application_name: cshc-web
   branch: null
-  default_ec2_keyname: aws-eb
+  default_ec2_keyname: aws-eb-cshc
   default_platform: Python 3.6
   default_region: eu-west-1
   include_git_submodules: true
