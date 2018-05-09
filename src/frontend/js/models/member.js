@@ -8,6 +8,18 @@ import uniq from 'lodash/uniq';
  */
 const Member = {
   /**
+   * Converts a string-encoded member into a react-select option object with 
+   * 'value' and 'label' fields
+   */
+  toSelectOption(member) {
+    if (!member) {
+      return undefined;
+    }
+    const split = member.split(':');
+    return { value: member, label: split[1], id: split[0] };
+  },
+
+  /**
    * Encode a member as a string value with both ID and the member's name included.
    */
   encode(id, name) {

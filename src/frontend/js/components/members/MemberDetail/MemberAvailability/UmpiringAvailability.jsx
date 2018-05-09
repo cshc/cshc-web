@@ -1,5 +1,6 @@
 import React from 'react';
 import { Subheading } from 'components/Unify';
+import { AvailabilityType } from 'util/constants';
 import { MemberPropType } from '../PropTypes';
 import MemberAvailability from '.';
 
@@ -13,7 +14,7 @@ import MemberAvailability from '.';
 const UmpiringAvailability = ({ member }) => (
   <div>
     <Subheading text="Umpiring Availability" />
-    <MemberAvailability member={member} umpiring />
+    <MemberAvailability member={member} availabilityType={AvailabilityType.Umpiring} />
   </div>
 );
 

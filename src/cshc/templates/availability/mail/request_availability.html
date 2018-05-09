@@ -1,0 +1,13 @@
+{% block subject %}[CSHC] Can you play {{ match_title }}?{% endblock subject %}
+
+{% block plain %}
+{{ requester }} would like to know if you can play in the following match:
+
+{{ match_title }}
+
+
+{% endblock plain %}
+
+{% block html %}
+{% include 'availability/mail/html/request_availability.html' %}
+{% endblock html %}

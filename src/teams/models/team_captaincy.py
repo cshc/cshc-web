@@ -3,33 +3,35 @@
 """
 
 from django.db import models
+from django.db.models.query import QuerySet
+from competitions.models import Season
 
 
-class TeamCaptaincyManager(models.Manager):
+class TeamCaptaincyQuerySet(QuerySet):
     """ Queries relating to the TeamCaptaincy model. """
-
-    def get_queryset(self):
-        return super(TeamCaptaincyManager, self).get_queryset().select_related('member', 'team', 'season')
 
     def by_team(self, team):
         """ Returns only entries for the specified team. """
-        return self.get_queryset().filter(team=team)
+        return self.filter(team=team)
 
     def by_member(self, member):
         """ Returns only entries for the specified member. """
-        return self.get_queryset().filter(member=member)
+        return self.filter(member=member)
+
+    def current(self):
+        return self.by_season(Season.current())
 
     def by_season(self, season):
         """ Returns only entries for the specified season. """
-        return self.get_queryset().filter(season=season)
+        return self.filter(season=season)
 
     def captains(self):
         """ Returns only captains (as opposed to vice-captains). """
-        return self.get_queryset().filter(is_vice=False)
+        return self.filter(is_vice=False)
 
     def vice_captains(self):
         """ Returns only vice-captains (as opposed to captains). """
-        return self.get_queryset().filter(is_vice=True)
+        return self.filter(is_vice=True)
 
 
 class TeamCaptaincy(models.Model):
@@ -37,7 +39,8 @@ class TeamCaptaincy(models.Model):
 
     member = models.ForeignKey('members.Member', on_delete=models.CASCADE)
 
-    team = models.ForeignKey('teams.ClubTeam', on_delete=models.CASCADE)
+    team = models.ForeignKey(
+        'teams.ClubTeam', on_delete=models.CASCADE, related_name='captaincies')
 
     is_vice = models.BooleanField("Vice-captain?", default=False,
                                   help_text="Check if this member is the vice captain (as opposed to the captain)")
@@ -50,7 +53,7 @@ class TeamCaptaincy(models.Model):
     season = models.ForeignKey(
         'competitions.Season', on_delete=models.SET_NULL, null=True, blank=True)
 
-    objects = TeamCaptaincyManager()
+    objects = TeamCaptaincyQuerySet.as_manager()
 
     class Meta:
         """ Meta-info for the TeamCaptaincy model. """
@@ -68,7 +71,7 @@ class TeamCaptaincy(models.Model):
         return "vice-captain" if self.is_vice else "captain"
 
     @staticmethod
-    def get_captains(team, season):
+    def get_captains(team, season=Season.current()):
         """ Returns TeamCaptaincy objects corresponding to the captains for
             the specified team and season.
         """

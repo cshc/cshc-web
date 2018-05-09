@@ -4,8 +4,8 @@ import format from 'date-fns/format';
 import { NetworkStatus as NS } from 'apollo-client';
 import Loading from 'components/common/Loading';
 import ErrorDisplay from 'components/common/ErrorDisplay';
+import MatchTime from 'components/matches/MatchTime';
 import { Timeline2, TimelineBigItem } from 'components/Unify';
-import Match from 'models/match';
 import Urls from 'util/urls';
 import MatchAvailabilityForm from './MatchAvailabilityForm';
 import { MemberPropType } from '../PropTypes';
@@ -15,7 +15,13 @@ import { MemberPropType } from '../PropTypes';
  * 
  * For each match, the user can edit/update their availability. 
  */
-const MemberAvailability = ({ networkStatus, error, member, umpiring, matchAvailabilities }) => {
+const MemberAvailability = ({
+  networkStatus,
+  error,
+  member,
+  availabilityType,
+  matchAvailabilities,
+}) => {
   if (error) {
     return <ErrorDisplay errorMessage="Could not fetch match availabilities." />;
   } else if (networkStatus === NS.loading) {
@@ -27,8 +33,10 @@ const MemberAvailability = ({ networkStatus, error, member, umpiring, matchAvail
     <Timeline2>
       {matchAvailabilities.map(a => (
         <TimelineBigItem
+          id={`ma-${a.match.id}`}
+          highlighted={!!Urls.getParameterByName(`${a.match.id}`)}
           key={a.match.id}
-          dateSmall={a.match.time ? format(Match.datetime(a.match), 'H:mm') : null}
+          dateSmall={<MatchTime match={a.match} />}
           dateLarge={format(a.match.date, 'DD-MMM')}
         >
           <header className="g-brd-bottom g-brd-gray-light-v4 g-pb-10 g-mb-25">
@@ -51,7 +59,11 @@ const MemberAvailability = ({ networkStatus, error, member, umpiring, matchAvail
               </span>
             </h3>
           </header>
-          <MatchAvailabilityForm member={member} umpiring={umpiring} availability={a} />
+          <MatchAvailabilityForm
+            member={member}
+            availabilityType={availabilityType}
+            availability={a}
+          />
         </TimelineBigItem>
       ))}
     </Timeline2>
@@ -62,12 +74,11 @@ MemberAvailability.propTypes = {
   networkStatus: PropTypes.number.isRequired,
   error: PropTypes.oneOfType([PropTypes.bool, PropTypes.instanceOf(Error)]),
   member: MemberPropType.isRequired,
-  umpiring: PropTypes.bool,
+  availabilityType: PropTypes.string.isRequired,
   matchAvailabilities: PropTypes.arrayOf(PropTypes.shape()),
 };
 
 MemberAvailability.defaultProps = {
-  umpiring: false,
   error: false,
   matchAvailabilities: null,
 };

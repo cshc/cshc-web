@@ -151,6 +151,24 @@ const MatchAvailability = {
   Unsure: 'UNSURE',
 };
 
+/** 
+ * Enumeration of the types of match availabilities
+*/
+const AvailabilityType = {
+  Playing: 'playing',
+  Umpiring: 'umpiring',
+};
+
+/**
+ * Enumeration of the types of actions you can take on match availabilities.
+ * 
+ * Ref: availability/schema.py enum definition
+ */
+const MatchAvailabilityAction = {
+  SendReminder: 'SendReminder',
+  Delete: 'Delete',
+};
+
 /**
  * A constant value to represent the absense of a filter. 
  * 
@@ -180,4 +198,6 @@ module.exports = {
   AltOutcome,
   MatchAvailability,
   PositionValue,
+  AvailabilityType,
+  MatchAvailabilityAction,
 };

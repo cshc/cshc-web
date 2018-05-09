@@ -7,13 +7,16 @@ import startOfToday from 'date-fns/start_of_today';
  * GraphQL query to fetch the upcoming match availabilities for a particular member.
 */
 export const MEMBER_AVAILABILITY_QUERY = gql`
-  query MatchAvailabilitiesForMember($memberId: ID, $today: String!) {
-    matchAvailabilities(memberId: $memberId, match_Date_Gte: $today) {
+  query MatchAvailabilitiesForMember($availabilityType: String!, $memberId: ID, $today: String!) {
+    matchAvailabilities(
+      availabilityType: $availabilityType
+      memberId: $memberId
+      match_Date_Gte: $today
+    ) {
       results(pageSize: 1000) {
         id
         match {
           id
-          isHome
           ourTeam {
             slug
             shortName
@@ -29,8 +32,7 @@ export const MEMBER_AVAILABILITY_QUERY = gql`
             slug
           }
         }
-        playingAvailability
-        umpiringAvailability
+        availability
         comment
       }
     }
@@ -38,9 +40,10 @@ export const MEMBER_AVAILABILITY_QUERY = gql`
 `;
 
 export const memberAvailabilityOptions = {
-  options: ({ member }) => ({
+  options: ({ member, availabilityType }) => ({
     variables: {
       memberId: member.id,
+      availabilityType,
       today: format(startOfToday(), 'YYYY-MM-DD'),
     },
     fetchPolicy: 'cache-and-network',
@@ -48,11 +51,7 @@ export const memberAvailabilityOptions = {
   props: ({ ownProps, data: { networkStatus, error, matchAvailabilities }, ...props }) => ({
     networkStatus,
     error,
-    matchAvailabilities: matchAvailabilities
-      ? matchAvailabilities.results.filter(
-        a => (ownProps.umpiring ? a.umpiringAvailability : a.playingAvailability),
-      )
-      : [],
+    matchAvailabilities: matchAvailabilities ? matchAvailabilities.results : [],
     ...ownProps,
     ...props,
   }),

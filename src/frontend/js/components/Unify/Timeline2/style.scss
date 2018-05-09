@@ -7,3 +7,30 @@
   top: 0.8rem;
   left: -0.7rem;
 }
+
+.timelineArticle {
+  background-color: #f7f7f7 !important;
+}
+.timelineLeftArrow {
+  border-right-color: #f7f7f7 !important;
+}
+.timelineTopArrow {
+  border-bottom-color: #f7f7f7 !important;
+}
+.timelineDot {
+  border-color: #f7f7f7 !important;
+}
+.highlighted {
+  .timelineArticle {
+    background-color: #ece7f4 !important;
+  }
+  .timelineLeftArrow {
+    border-right-color: #ece7f4 !important;
+  }
+  .timelineTopArrow {
+    border-bottom-color: #ece7f4 !important;
+  }
+  .timelineDot {
+    border-color: #ece7f4 !important;
+  }
+}

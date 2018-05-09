@@ -14,7 +14,10 @@ const OppositionTeam = ({ team }) => (
 
 OppositionTeam.propTypes = {
   team: PropTypes.shape({
-    name: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    club: PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+    }),
   }).isRequired,
 };
 

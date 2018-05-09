@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import Select from 'react-select';
 import { SelectValueLabelOptionsPropType } from 'components/common/PropTypes';
 import { MatchAward } from 'util/constants';
-import { toSelectOption } from 'components/matches/MatchEdit/util';
+import Member from 'models/member';
 import MatchAwardWinner from 'models/matchAwardWinner';
 import styles from './style.scss';
 
@@ -153,7 +153,7 @@ class AwardWinner extends React.PureComponent {
               clearable
               searchable
               name={selectId}
-              value={toSelectOption(awardWinner.member)}
+              value={Member.toSelectOption(awardWinner.member)}
               onChange={this.updateMember}
             />
           ) : (

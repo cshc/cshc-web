@@ -70,18 +70,18 @@ const MemberDetail = ({ isMe, member }) => (
           path={PageRoute.ClubInvolvement}
           render={() => <MemberClubInvolvement member={member} />}
         />
-        {enableAvailability && (
+        {enableAvailability && isMe ? (
           <Route
             path={PageRoute.PlayingAvailability}
             render={() => <PlayingAvailability member={member} />}
           />
-        )}
-        {enableAvailability && (
+        ) : null}
+        {enableAvailability && isMe ? (
           <Route
             path={PageRoute.UmpiringAvailability}
             render={() => <UmpiringAvailability member={member} />}
           />
-        )}
+        ) : null}
         <Redirect from={PageRoute.Home} to={PageRoute.PlayingRecord} />
       </Switch>
     </div>

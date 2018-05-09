@@ -1,0 +1,81 @@
+{% extends "emails/html/base.html" %}
+{% load static from staticfiles %}
+{% load cshc_tags %}
+{% block title %}CSHC - Availability Request{% endblock title %}
+
+{% block content %}
+<tr bgcolor="#ffffff">
+  <td align="center">
+    <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
+      {% include 'emails/html/_spacer.html' %}
+      {% include 'emails/html/_title.html' with text=match_date|formatstr:"Can you play on <strong>{}</strong>?" %}
+      <tr>
+        <td>
+          <a href="{{requester.email}}">{{requester.first_name}} {{requester.last_name}}</a> wants to know if you can play in the following match:
+        </td>
+      </tr>
+      {% include 'emails/html/_spacer.html' %}
+      <tr>
+        <td style="text-align: center; font-weight: bold;">
+          {{match_title}}
+        </td>
+      </tr>
+      <tr>
+        <td style="font-size: 80%; padding-top: 0.5rem; text-align: center; font-style: italic; color: rgb(117, 117, 117);">
+          {{match_date}}, {{match_time}}
+        </td>
+      </tr>
+      <tr>
+        <td style="font-size: 80%; text-align: center; font-style: italic; color: rgb(117, 117, 117);">
+          {{home_away}}
+        </td>
+      </tr>
+      {% include 'emails/html/_spacer.html' %}
+      <tr>
+        <td>
+          Please respond as soon as possible by selecting one of the following options.
+        </td>
+      </tr>
+      {% include 'emails/html/_spacer.html' %}
+      <tr>
+        <td class="mobile" align="center" valign="top">
+          <table width="150" height="44" cellpadding="0" cellspacing="0" border="0" style="margin: 0 10px 10px 10px; display: inline-block; border-radius:4px; background-color: #72c02c;">
+            <tr>
+              <td align="center" valign="middle" height="44" style="font-family: Arial, sans-serif; font-size:14px; font-weight:bold;">
+                <a href="{{response_url}}?{{match_id}}=Available" target="_blank" style="font-family: Arial, sans-serif; color:#fff; display: inline-block; text-decoration: none; line-height:44px; width:150px; font-weight:bold;">
+                  Yes I can play
+                </a>
+              </td>
+            </tr>
+          </table>
+          <table width="150" height="44" cellpadding="0" cellspacing="0" border="0" style="margin: 0 10px 10px 10px; display: inline-block; border-radius:4px; background-color: #f00;">
+            <tr>
+              <td align="center" valign="middle" height="44" style="font-family: Arial, sans-serif; font-size:14px; font-weight:bold;">
+                <a href="{{response_url}}?{{match_id}}=NotAvailable" target="_blank" style="font-family: Arial, sans-serif; color:#fff; display: inline-block; text-decoration: none; line-height:44px; width:150px; font-weight:bold;">
+                  No I can't play
+                </a>
+              </td>
+            </tr>
+          </table>
+          <table width="150" height="44" cellpadding="0" cellspacing="0" border="0" style="margin: 0 10px 10px 10px; display: inline-block; border-radius:4px; background-color: #ddd;">
+            <tr>
+              <td align="center" valign="middle" height="44" style="font-family: Arial, sans-serif; font-size:14px; font-weight:bold;">
+                <a href="{{response_url}}?{{match_id}}=Unsure" target="_blank" style="font-family: Arial, sans-serif; color:#000; display: inline-block; text-decoration: none; line-height:44px; width:150px; font-weight:bold;">
+                  Not sure yet
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      {% include 'emails/html/_spacer.html' %}
+      <tr>
+        <td style="font-style: italic;">
+          Alternatively, you can manage all your availability requests from the <a href="{{response_url}}">Member Tools</a> section of the club website.
+        </td>
+      </tr>
+      {% include 'emails/html/_spacer.html' %}
+    </table>
+  </td>
+</tr>
+{% endblock content %}

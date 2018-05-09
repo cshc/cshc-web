@@ -1,0 +1,6 @@
+.dropdownMenu {
+  // Because we're not using Bootstrap's dropdown Javascript we have to manually
+  // right-align the dropdown.
+  left: auto !important;
+  right: 0 !important;
+}

@@ -1,6 +1,7 @@
 """
   Utilities for graphene_django_optimizedextras
 """
+import traceback
 from django.db.models import Prefetch
 from graphene.utils.str_converters import to_snake_case
 from graphene_django_extras import PageGraphqlPagination
@@ -20,6 +21,17 @@ def get_prefetched_attr_name(field_name):
 def get_prefetched_attr(root, field_name, default=None):
     """ Get the prefetched value corresponding to the given field name (if it exists) """
     return getattr(root, get_prefetched_attr_name(field_name), default)
+
+
+def get_argument_value(argument):
+    """ Gets the value from an argument object. 
+
+        Note: StringValue is accessed via 'name.value', whereas IntValue 
+              is accessed via 'value'.
+    """
+    if hasattr(argument, 'value'):
+        return argument.value
+    return argument.name.value
 
 
 def get_node_field(root_field, node_name):
@@ -45,8 +57,9 @@ def recursive_optimize(root_field, selection_set, fragments, available_related_f
             has_sub_nodes = True
             if temp.many_to_many or temp.one_to_many:
                 related_field = getattr(root_field, temp.name)
-                kwargs = dict([to_snake_case(i.name.value), i.value.value]
+                kwargs = dict([to_snake_case(i.name.value), get_argument_value(i)]
                               for i in field.arguments)
+
                 queryset = related_field.get_queryset(
                     root_field, temp.name, [field], fragments, **kwargs)
                 field_prefetch = Prefetch(

@@ -20,7 +20,10 @@ const middlewareLink = setContext(() => ({
 const getClient = store =>
   new ApolloClient({
     link: middlewareLink.concat(httpLink),
-    cache: new ReduxCache({ store }),
+    cache: new ReduxCache({
+      store,
+      dataIdFromObject: object => (object.id ? `${object.__typename}-${object.id}` : null),
+    }),
   });
 
 module.exports = getClient;

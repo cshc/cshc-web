@@ -1,4 +1,4 @@
+import MatchAvailabilityMutation from 'components/availability/updateMatchAvailabilityMutation';
 import MatchAvailabilityForm from './MatchAvailabilityForm';
-import MatchAvailabilityMutation from './matchAvailabilityMutation';
 
 export default MatchAvailabilityMutation(MatchAvailabilityForm);

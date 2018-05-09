@@ -8,8 +8,11 @@ import styles from './style.scss';
  * Note: this is currently styled for a small timeline like those found on the Member Details page 
  * (Club Involvement section). 
  */
-const Timeline2Item = ({ dateSmall, dateLarge, articleClassName, children }) => (
-  <li className="col-md-12 g-brd-bottom g-brd-0--md g-brd-gray-light-v4 g-py-10 g-py-0--md g-mb-0--md">
+const Timeline2Item = ({ id, dateSmall, dateLarge, articleClassName, children }) => (
+  <li
+    id={id}
+    className="col-md-12 g-brd-bottom g-brd-0--md g-brd-gray-light-v4 g-py-10 g-py-0--md g-mb-0--md"
+  >
     <div className="row">
       <div className="col-md-4 text-md-right g-my-10 g-my-0--md g-pr-20--md">
         <div className="g-py-10--md">
@@ -30,6 +33,7 @@ const Timeline2Item = ({ dateSmall, dateLarge, articleClassName, children }) => 
 );
 
 Timeline2Item.propTypes = {
+  id: PropTypes.string,
   dateLarge: PropTypes.node,
   dateSmall: PropTypes.node,
   articleClassName: PropTypes.string,
@@ -37,6 +41,7 @@ Timeline2Item.propTypes = {
 };
 
 Timeline2Item.defaultProps = {
+  id: undefined,
   dateLarge: undefined,
   dateSmall: undefined,
   articleClassName: 'g-py-10--md',

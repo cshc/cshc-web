@@ -11,7 +11,7 @@ from awards.models import MatchAward
 from competitions.models import Season
 from competitions.views import js_divisions, js_seasons
 from core.models import ClubInfo, Gender, TeamGender
-from core.views import get_season_from_kwargs, add_season_selector, kwargs_or_none
+from core.views import get_season_from_kwargs, add_season_selector, kwargs_or_none, MemberSelectionMixin
 from teams.models import ClubTeam
 from teams.views import js_clubteams
 from opposition.views import js_opposition_clubs
@@ -156,7 +156,7 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
         return context
 
 
-class MatchEditView(PermissionRequiredMixin, SelectRelatedMixin, DetailView):
+class MatchEditView(PermissionRequiredMixin, SelectRelatedMixin, MemberSelectionMixin, DetailView):
     """ View providing a form for editing a particular match's details """
     model = Match
     template_name = 'matches/match_edit.html'
@@ -169,16 +169,6 @@ class MatchEditView(PermissionRequiredMixin, SelectRelatedMixin, DetailView):
     select_related = ['our_team', 'opp_team__club',
                       'venue', 'division__league', 'cup', 'season']
 
-    def to_player_list(self, members):
-        """ Encode players as a list of "id:full-name" strings """
-        return [self.encode_member(m) for m in members]
-
-    def encode_member(self, member):
-        """ Encode member as a "id:full-name" string """
-        if not member:
-            return ''
-        return "{id}:{first_name} {last_name}".format(**member.__dict__)
-
     def encode_cards(self, appearance):
         """ Encode the cards associated with an appearance as a comma-separated list (e.g. 'g,y') """
         cards = []
@@ -189,15 +179,6 @@ class MatchEditView(PermissionRequiredMixin, SelectRelatedMixin, DetailView):
         if appearance.red_card:
             cards.append('r')
         return ",".join(cards)
-
-    def prioritize(self, members, member):
-        """ Move the given member to the top of the list of members """
-        try:
-            members.insert(0, members.pop(
-                members.index(member)))
-        except ValueError:
-            LOG.error(
-                'Member {} not found in list of potential players'.format(member))
 
     def list_appearances(self, match):
         """ Get a JS-friendly list of appearances for this match """

@@ -10,6 +10,7 @@ from django.db.models import F, Q
 from graphene_django_extras import DjangoListObjectType, DjangoObjectType
 from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
 from core.filters import AndFilter
+from availability.schema import MatchAvailabilityList, MatchAvailabilityFilter
 from awards.schema import MatchAwardWinnerList, MatchAwardWinnerInput
 from awards.models import MatchAward, MatchAwardWinner
 from .models import Match, Appearance, GoalKing
@@ -128,6 +129,8 @@ class MatchType(DjangoObjectType):
 
     appearances = OptimizedDjangoListObjectField(AppearanceList)
     award_winners = OptimizedDjangoListObjectField(MatchAwardWinnerList)
+    availabilities = OptimizedDjangoListObjectField(
+        MatchAvailabilityList, filterset_class=MatchAvailabilityFilter)
 
     class Meta:
         model = Match

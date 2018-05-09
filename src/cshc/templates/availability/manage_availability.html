@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | {{ title }}{% endblock %}
+
+{% block link %}
+  {% include 'react/react_css.html' with bundle_name='ManageAvailability' %}
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block content %}
+  {% heading title %}
+
+  <div id="react-app"></div>
+
+{% endblock content %}
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'react/react_js.html' with bundle_name='ManageAvailability' %}
+{% endblock body_js %}

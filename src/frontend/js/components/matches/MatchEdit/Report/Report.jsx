@@ -4,7 +4,7 @@ import Select from 'react-select';
 import CKEditor from 'react-ckeditor-component';
 import CkEditorConfig from 'util/CkEditorConfig';
 import { SelectValueLabelOptionsPropType } from 'components/common/PropTypes';
-import { toSelectOption } from '../util';
+import Member from 'models/member';
 
 export const ReportPropType = PropTypes.shape({
   author: PropTypes.string,
@@ -78,7 +78,7 @@ class Report extends React.Component {
             clearable
             searchable
             name="report-author-select"
-            value={toSelectOption(report.author)}
+            value={Member.toSelectOption(report.author)}
             onChange={this.updateAuthor}
           />
         </div>

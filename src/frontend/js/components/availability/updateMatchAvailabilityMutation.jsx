@@ -10,9 +10,14 @@ export const UPDATE_MATCH_AVAILABILITY_MUTATION = gql`
     updateMatchAvailability(input: $input) {
       errors
       availability {
-        playingAvailability
-        umpiringAvailability
+        id
+        availability
         comment
+        member {
+          id
+          firstName
+          lastName
+        }
       }
     }
   }

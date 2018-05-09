@@ -8,7 +8,7 @@
 import 'util/monitoring';
 import Urls from 'util/urls';
 import MatchEdit from 'components/matches/MatchEdit';
-import { toSelectOption } from 'components/matches/MatchEdit/util';
+import Member from 'models/member';
 import matchState from 'redux/reducers/matchEditReducers';
 import ui, { initialViewState } from 'redux/reducers/uiReducers';
 import form from 'redux/reducers/formReducers';
@@ -24,7 +24,7 @@ const reducers = {
 const initialMatchState = {
   ...window.props.matchState,
   // Player options, encoded as {id}:{name} are mapped to value ({id}:{name})/label ({name}) pairs
-  playerOptions: window.props.matchState.playerOptions.map(toSelectOption),
+  playerOptions: window.props.matchState.playerOptions.map(Member.toSelectOption),
   // Appearances are mapped to objects with greenCard, yellowCard, redCard boolean fields
   appearances: Appearance.initAppearances(window.props.matchState.appearances),
 };

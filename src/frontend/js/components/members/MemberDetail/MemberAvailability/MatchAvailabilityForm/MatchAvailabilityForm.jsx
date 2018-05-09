@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import FlipMove from 'react-flip-move';
 import { MatchAvailability } from 'util/constants';
+import Urls from 'util/urls';
+import Availability from 'models/availability';
 import MutationButton from 'components/common/MutationButton';
 import styles from './style.scss';
 
@@ -16,9 +18,7 @@ class MatchAvailabilityForm extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      availability: props.umpiring
-        ? props.availability.umpiringAvailability
-        : props.availability.playingAvailability,
+      availability: props.availability.availability,
       comment: props.availability.comment,
       commentExpanded: !!props.availability.comment,
     };
@@ -32,6 +32,22 @@ class MatchAvailabilityForm extends React.PureComponent {
 
   componentDidMount() {
     window.jQuery('.comment-btn').tooltip();
+    // Availability can be set using a URL parameter, in the format:
+    // ?<matchId>=<availability>
+    // E.g. ?2=available
+    const availability = Urls.getParameterByName(`${this.props.availability.match.id}`);
+    if (availability && MatchAvailability[availability]) {
+      this.setAvailability(MatchAvailability[availability]);
+      if (!this.state.commentExpanded) {
+        this.toggleComment();
+      }
+      window.jQuery('html, body').animate(
+        {
+          scrollTop: window.jQuery(`#ma-${this.props.availability.match.id}`).offset().top,
+        },
+        1000,
+      );
+    }
   }
 
   onKeyPress(e) {
@@ -51,8 +67,8 @@ class MatchAvailabilityForm extends React.PureComponent {
     return {
       matchId: parseInt(this.props.availability.match.id, 10),
       memberId: this.props.member.id,
-      playingAvailability: this.props.umpiring ? null : this.state.availability.toLowerCase(),
-      umpiringAvailability: this.props.umpiring ? this.state.availability.toLowerCase() : null,
+      availabilityType: this.props.availabilityType,
+      availability: this.state.availability.toLowerCase(),
       comment: this.state.comment,
     };
   }
@@ -84,10 +100,11 @@ class MatchAvailabilityForm extends React.PureComponent {
   }
 
   render() {
-    const { umpiring, onUpdateAvailability } = this.props;
+    const { availabilityType, onUpdateAvailability } = this.props;
     const { availability, comment, commentExpanded } = this.state;
+    const verb = Availability.context(availabilityType);
     return (
-      <div className="">
+      <div>
         <div className="d-flex flex-wrap">
           <button
             className={classnames('g-mr-10 g-mb-10 btn', {
@@ -99,7 +116,7 @@ class MatchAvailabilityForm extends React.PureComponent {
             }}
           >
             <i className="fas fa-check" />
-            <span className="g-hidden-sm-down g-ml-5">I can {umpiring ? 'umpire' : 'play'}</span>
+            <span className="g-hidden-sm-down g-ml-5">I can {verb}</span>
           </button>
           <button
             className={classnames('g-mr-10 g-mb-10 btn', {
@@ -111,9 +128,7 @@ class MatchAvailabilityForm extends React.PureComponent {
             }}
           >
             <i className="fas fa-times" />
-            <span className="g-hidden-sm-down g-ml-5">
-              I can&#39;t {umpiring ? 'umpire' : 'play'}
-            </span>
+            <span className="g-hidden-sm-down g-ml-5">I can&#39;t {verb}</span>
           </button>
           <button
             className={classnames('g-mr-10 g-mb-10 btn', {
@@ -191,16 +206,11 @@ MatchAvailabilityForm.propTypes = {
     match: PropTypes.shape({
       id: PropTypes.string,
     }).isRequired,
-    playingAvailability: PropTypes.string,
-    umpiringAvailability: PropTypes.string,
+    availability: PropTypes.string,
     comment: PropTypes.string,
   }).isRequired,
-  umpiring: PropTypes.bool,
+  availabilityType: PropTypes.string.isRequired,
   onUpdateAvailability: PropTypes.func.isRequired,
-};
-
-MatchAvailabilityForm.defaultProps = {
-  umpiring: false,
 };
 
 export default MatchAvailabilityForm;

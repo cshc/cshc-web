@@ -172,6 +172,16 @@
               <a href="{% url 'member_detail' member_id %}" class="nav-link"><i class="far fa-fw fa-chart-bar g-mr-10"></i>Member Stats</a>
             </li>
             {% endif %}
+            {% for captaincy in captaincies %} 
+            <li class="dropdown-item {% active_link 'manage_team_playing_availability' captaincy.team.slug %}">
+              <a href="{% url 'manage_team_playing_availability' captaincy.team.slug %}" class="nav-link"><i class="far fa-fw fa-check-square g-mr-10"></i>Manage {{ captaincy.team.short_name }} availabilities</a>
+            </li>
+            {% endfor %}
+            {% if perms.availability.manage_umpiring_matchavailability %}
+            <li class="dropdown-item {% active_link 'manage_umpiring_availability' %}">
+              <a href="{% url 'manage_umpiring_availability' %}" class="nav-link"><i class="far fa-fw fa-check-square g-mr-10"></i>Manage umpiring availabilities</a>
+            </li>
+            {% endif %}
             {% if user.is_staff %}
             <li class="dropdown-item">
               <a href="/admin/" target="_blank" class="nav-link"><i class="fa fa-fw fa-lock g-mr-10"></i>Admin</a>

@@ -209,3 +209,26 @@ class JuniorsContactSubmissionCreateView(CreateView):
         messages.error(
             self.request, "Please enter all the required information and check the reCAPTCHA checkbox.")
         return super(JuniorsContactSubmissionCreateView, self).form_invalid(form)
+
+
+class MemberSelectionMixin:
+    """ Mixin providing useful functions for views that involve selecting members """
+
+    def to_player_list(self, members):
+        """ Encode players as a list of "id:full-name" strings """
+        return [self.encode_member(m) for m in members]
+
+    def encode_member(self, member):
+        """ Encode member as a "id:full-name" string """
+        if not member:
+            return ''
+        return "{id}:{first_name} {last_name}".format(**member.__dict__)
+
+    def prioritize(self, members, member):
+        """ Move the given member to the top of the list of members """
+        try:
+            members.insert(0, members.pop(
+                members.index(member)))
+        except ValueError:
+            LOG.error(
+                'Member {} not found in list of potential players'.format(member))

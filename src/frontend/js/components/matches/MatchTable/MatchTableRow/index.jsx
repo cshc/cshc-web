@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import format from 'date-fns/format';
 import Match from 'models/match';
 import MemberLink from 'components/members/MemberLink';
 import AwardWinner from 'components/awards/AwardWinner';
 import { MatchItem as TC } from 'util/constants';
 import FixtureTypeIcon from '../../FixtureTypeIcon';
 import MatchDate from '../../MatchDate';
+import MatchTime from '../../MatchTime';
 import OppositionTeam from '../../OppositionTeam';
 import OurTeam from '../../OurTeam';
 import KitClash from '../../KitClash';
@@ -46,7 +46,7 @@ const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
       )}
       {incl(TC.time) && (
         <td className={priority(TC.time, 2)}>
-          {!match.isSpacer && match.time ? format(Match.datetime(match), 'H:mm') : null}
+          {!match.isSpacer ? <MatchTime match={match} /> : null}
         </td>
       )}
       {incl(TC.venue) && (

@@ -8,7 +8,7 @@ from .models import MatchAvailability
 
 class MatchAvailabilityAdmin(admin.ModelAdmin):
     """ Admin interface definition for the MatchAvailability model. """
-    exclude = ('playing_availability_changed', 'umpiring_availability_changed')
+    exclude = ('availability_changed',)
 
 
 if settings.AVAILABILITY_ENABLED:

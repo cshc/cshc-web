@@ -19,6 +19,8 @@ from image_cropping import ImageRatioField
 from geoposition.fields import GeopositionField
 from core.models import make_unique_filename, Gender, Position, EmergencyContactRelationship
 from members import settings as member_settings
+from teams.models import TeamCaptaincy
+from competitions.models import Season
 
 LOG = logging.getLogger(__name__)
 
@@ -240,3 +242,7 @@ class Member(models.Model):
             return self.squadmembership_set.current().first()
         except:
             return None
+
+    def current_captaincies(self):
+        """ Returns the member's current captaincies/vice-captaincies (if any). """
+        return TeamCaptaincy.objects.by_member(self).current().select_related('team')

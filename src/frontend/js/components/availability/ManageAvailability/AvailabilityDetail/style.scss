@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  padding: 4px 10px;
+  background-color: #dadada;
+  color: black;
+}
+
+.memberAvailabilityRow {
+  display: flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-top: 1px solid #f3f3f3;
+  &:focus,
+  &:hover {
+    background-color: #f8f8f8;
+  }
+}
+
+.name {
+  flex: 1;
+}
+
+.availabilities {
+  flex: 0 auto;
+  text-align: center;
+  width: 84px;
+}
+
+.action {
+  flex: 0 auto;
+  width: 34px;
+  justify-content: center;
+}

@@ -24,6 +24,8 @@ def utils(request):
         'STATIC_URL': settings.STATIC_URL,
         "GMAPS_API_KEY": settings.GMAPS_API_KEY,
         "ENABLE_AVAILABILITY": settings.AVAILABILITY_ENABLED,
+        # Captaincies are used by the member's menu
+        'captaincies': member.current_captaincies() if member else [],
         'TEAMS': [
             {
                 'title': 'Mens',

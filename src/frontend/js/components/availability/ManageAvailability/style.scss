@@ -1,0 +1,14 @@
+// Override the automatic inline styling of the head and body divs
+// This allows the table width to shrink if columns are hidden responsively
+:global {
+  .rt-thead,
+  .rt-tbody {
+    min-width: 0px !important;
+  }
+
+  @import 'node_modules/react-select/scss/default.scss';
+}
+
+.availabilityCell {
+  overflow: inherit !important; // Allow dropdown menu to overflow the row below
+}
