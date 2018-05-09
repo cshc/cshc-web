@@ -108,3 +108,7 @@ django-s3-folder-storage==0.5
 # geocoder
 # Ref: https://pypi.python.org/pypi/geocoder
 geocoder==1.34
+
+# PDF Generation
+# Ref: https://github.com/ccnmtl/fdfgen
+fdfgen==0.16.1
