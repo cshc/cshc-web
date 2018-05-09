@@ -11,10 +11,7 @@
     "${workspaceRoot}/venv/Lib/site-packages",
     "${workspaceRoot}/src/frontend/js"
   ],
-  "python.linting.pylintArgs": [
-    "--load-plugins",
-    "pylint_django"
-  ],
+  "python.linting.pylintArgs": ["--load-plugins", "pylint_django"],
   "git.ignoreLimitWarning": true,
   "files.exclude": {
     "**/__pycache__": true,
@@ -30,7 +27,8 @@
     "flow-typed": true
   },
   "html.format.enable": false,
-  "restructuredtext.linter.executablePath": "${workspaceRoot}/venv/Scripts/restructuredtext-lint.exe",
+  "restructuredtext.linter.executablePath":
+    "${workspaceRoot}/venv/Scripts/restructuredtext-lint.exe",
   "restructuredtext.linter.run": "onSave",
   "restructuredtext.builtDocumentationPath": "${workspaceRoot}/docs/_build/html",
   "restructuredtext.confPath": "c:\\cshcV3\\cshc-web/docs",
