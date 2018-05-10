@@ -9,14 +9,13 @@ SUPERUSER_PASSWORD - the password for the superuser
 """
 import os
 from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User
+from core.models import CshcUser
 
 
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        username = 'admin'
         email = os.environ['SUPERUSER_EMAIL']
         password = os.environ['SUPERUSER_PASSWORD']
-        if not User.objects.filter(username=username).exists():
-            User.objects.create_superuser(username, email, password)
+        if not CshcUser.objects.filter(email=email).exists():
+            CshcUser.objects.create_superuser(email, password)
