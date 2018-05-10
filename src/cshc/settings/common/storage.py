@@ -21,7 +21,7 @@ MEDIA_URL = '//%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
 # STATICFILES_STORAGE = 'cshc.util.FixedStaticStorage'
 STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'
 STATIC_S3_PATH = "static"
-STATIC_ROOT = normpath(join(SITE_ROOT, STATIC_S3_PATH))
+STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
 STATIC_URL = '//%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
 
 # ########## END django-s3-folder-storage CONFIGURATION
