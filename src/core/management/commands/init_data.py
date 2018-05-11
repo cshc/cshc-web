@@ -60,7 +60,7 @@ docs = [
     {'id': 23, 'title': 'Men\'s AGM 2009', 'category_id': 3, 'file': doc(
         'CSMHC_AGM_2009_Minutes.pdf'), 'timestamp': '2009-07-01'},
     {'id': 24, 'title': 'Men\'s AGM 2003', 'category_id': 3, 'file': doc(
-        'CSHC_Mens_AGM_2003_Minutes.pdf'), 'timestamp': '2003-07-01'},
+        'CSHC_Mens_2003_AGM_Minutes.pdf'), 'timestamp': '2003-07-01'},
     {'id': 25, 'title': 'November 2017', 'category_id': 2, 'file': doc(
         'CSHC_Cmte_Nov_2017_Minutes.pdf'), 'timestamp': '2017-11-01'},
     {'id': 26, 'title': 'September 2017', 'category_id': 2, 'file': doc(
@@ -129,8 +129,6 @@ docs = [
         'file': doc('SMHC_Newsletter_Jan_1997.pdf'), 'timestamp': '1997-01-01'},
     {'id': 59, 'title': 'SMHC Newsletter November 1997', 'category_id': 7,
         'file': doc('SMHC_Newsletter_Nov_1997.pdf'), 'timestamp': '1997-11-01'},
-    {'id': 60, 'title': 'CSHC AGM 2003', 'category_id': 3, 'file': doc(
-        'CSHC_MENS_2003_AGM_Minutes.pdf'), 'timestamp': '2003-07-01'},
     {'id': 61, 'title': 'Club Accounts 2016-17', 'category_id': 4,
         'file': doc('CSHC_2016_17_Accounts.pdf'), 'timestamp': '2017-05-01'},
     {'id': 62, 'title': 'CSHC AGM 2015', 'category_id': 3, 'file': doc(

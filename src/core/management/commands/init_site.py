@@ -39,6 +39,8 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument(
             'domain', help='The site domain')
+        parser.add_argument(
+            'blog_entries_file', help='The CSV dump of Zinnia blog entries')
 
     def __init__(self):
         super(Command, self).__init__()
@@ -74,4 +76,4 @@ class Command(BaseCommand):
         call_command('init_data')
 
         # Migrate the saved blog entry data
-        call_command('migrate_blog_entries', 'fixtures\zinnia_entry.csv')
+        call_command('migrate_blog_entries', options['blog_entries_file'])
