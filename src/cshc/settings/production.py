@@ -10,7 +10,9 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 ALLOWED_HOSTS = ['www.cambridgesouthhockeyclub.co.uk',
-                 'cambridgesouthhockeyclub.co.uk']
+                 'cambridgesouthhockeyclub.co.uk',
+                 'cshc-web-prod.*.elasticbeanstalk.com',
+                 'localhost']
 
 # DATABASE CONFIGURATION
 DATABASES = {
