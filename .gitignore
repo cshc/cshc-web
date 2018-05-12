@@ -24,8 +24,16 @@ src/media/*
 docs/_build/*
 
 # Production database dump file
-prod_dump.sql
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+prod_dump.sql
+
+# Elastic Beanstalk Files
+
+.elasticbeanstalk/*
+
+!.elasticbeanstalk/*.cfg.yml
+
+!.elasticbeanstalk/*.global.yml
+
+# Package Lock
+# Ref: https://stackoverflow.com/a/47318983
+package-lock.json
