@@ -20,6 +20,12 @@ html5lib==1.0b10
 # Ref: https://github.com/django-dbbackup/django-dbbackup
 django-dbbackup==3.2.0
 
+# Django Rest Framework - used by graphene-django-extras
+# Need to use < 3.8 due to compatibility issues
+# https://github.com/eamigo86/graphene-django-extras/issues/40
+djangorestframework==3.7.7
+
+# Extra utils for using Graphene with Django
 graphene_django_extras==0.3.2
 
 # Django Cursor Pagination
