@@ -116,7 +116,7 @@
         customClass,
         i;
 
-      arrayOfClasses = attr.input.context.className.split(' ');
+      arrayOfClasses = attr.input[0].className.split(' ');
 
       for (i = 0; arrayOfClasses.length > i; i++) {
         if (arrayOfClasses[i].substring(0, 6) == 'u-date') {
