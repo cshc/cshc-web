@@ -3,6 +3,7 @@ Template tags for the CSHC Website
 """
 import logging
 import codecs
+import traceback
 import json as jsonlib
 import bleach
 from django import template
@@ -154,22 +155,26 @@ def strip_new_lines(text_field):
 @register.filter()
 def json(value):
     """safe jsonify filter, bleaches the json string using the bleach html tag remover"""
-    uncleaned = jsonlib.dumps(value)
-    clean = bleach.clean(uncleaned)
+    json_value = jsonlib.dumps(value)
+
+    # Causes problems with jsonlib.loads below
+    # clean = bleach.clean(json_value)
 
     # Minor hack to keep ampersands as they were
-    clean = clean.replace("&amp;", "&")
+    # Note: Not needed now that we're not calling bleach.clean()
+    # clean = clean.replace("&amp;", "&")
 
     try:
-        jsonlib.loads(clean)
+        jsonlib.loads(json_value)
     except:
+        traceback.print_exc()
         # should never happen, but this is a last-line-of-defense check
         # to make sure this blob wont get eval'ed by the JS engine as
         # anything other than a JSON object
         raise ValueError(
             'JSON contains a quote or escape sequence that was unable to be stripped')
 
-    return mark_safe(clean)
+    return mark_safe(json_value)
 
 
 @register.inclusion_tag("teams/_division_result_label.html")
