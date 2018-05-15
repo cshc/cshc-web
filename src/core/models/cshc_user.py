@@ -55,6 +55,12 @@ class CshcUser(AbstractUser):
 
     objects = UserManager()
 
+    class Meta:
+        permissions = (
+            ("can_annotate",
+             "Can access UI annotation tools (provided by hypothesis.is)"),
+        )
+
     def get_full_name(self):
         return u"{} {}".format(self.first_name, self.last_name).strip()
 

@@ -191,3 +191,7 @@ main {
 .cshc-article img {
   max-width: 100%;
 }
+/* Make sure the Django Debug Toolbar button is below the Hypothesis Toolbar buttons */
+#djDebug #djDebugToolbarHandle {
+  top: 130px !important;
+}

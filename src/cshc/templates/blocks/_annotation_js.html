@@ -1,0 +1,6 @@
+{% if perms.core.can_annotate and not request.user_agent.is_mobile %}
+  <script type="application/json" class="js-hypothesis-config">
+    {"showHighlights": false}
+  </script>
+  <script src="https://hypothes.is/embed.js" async></script>
+{% endif %}
