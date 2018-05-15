@@ -188,3 +188,6 @@ main {
   text-overflow: ellipsis;
   display: block;
 }
+.cshc-article img {
+  max-width: 100%;
+}
