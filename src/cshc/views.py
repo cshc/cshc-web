@@ -78,7 +78,7 @@ class HomeView(TemplateView):
                     latest_results.append(m)
                     break
 
-        context['latest_results'] = self.group_by_date(latest_results)
+        context['latest_results'] = self.group_by_date(latest_results, True)
 
     def addNextFixturesToContext(self, context):
         """ Helper method to add next fixtures to a context dictionary.
@@ -104,7 +104,7 @@ class HomeView(TemplateView):
 
         context['next_fixtures'] = self.group_by_date(next_fixtures)
 
-    def group_by_date(self, matches):
+    def group_by_date(self, matches, reverse=False):
         """ 
         Groups the matches by date (in ascending order), with each date's matches
         being ordered by team position.
@@ -112,6 +112,9 @@ class HomeView(TemplateView):
         Returns a list of objects with 'date' and 'matches' properties.
         """
         matches = sorted(matches, key=lambda m: m.datetime())
+        if reverse:
+            matches = reversed(matches)
+
         match_dates = []
         for match in matches:
             if len(match_dates) > 0 and match.date == match_dates[-1]['date']:
