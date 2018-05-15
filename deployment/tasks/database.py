@@ -74,11 +74,13 @@ def dump_prod(cnx):
         'tables': ' '.join(tables_to_dump),
         'dump_file': '{remote_root}/{database.dump_filename}'.format(**cnx.config),
         'sed_replacement': r"s/\\\'/''/g",
+        'sed_replacement2': r's/\\"/"/g',
     }
     init_remote(cnx)
     cnx.run(
         'mysqldump {flags} -h {db_host} {db_name} {tables} > {dump_file}'.format(**data))
     cnx.run('sed -i.bak "{sed_replacement}" {dump_file}'.format(**data))
+    cnx.run("sed -i.bak '{sed_replacement2}' {dump_file}".format(**data))
 
 
 @task
