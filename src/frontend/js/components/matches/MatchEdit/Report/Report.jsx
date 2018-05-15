@@ -23,7 +23,7 @@ class Report extends React.Component {
     super(props);
     const parser = new DOMParser();
     const dom = parser.parseFromString(`<!doctype html><body>${props.report.content}`, 'text/html');
-    const decodedReportContent = dom.body.textContent.replace(/\\r\\n/g, ' ');
+    const decodedReportContent = dom.body.innerHTML.replace(/\\r\\n/g, ' ');
 
     this.state = {
       title: props.report.title || '',
