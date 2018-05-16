@@ -38,6 +38,11 @@ class AddMember extends React.PureComponent {
   }
 
   addMember() {
+    // Prevent a duplicate addition
+    if (this.state.updating) {
+      return;
+    }
+
     this.setState(
       {
         updating: true,
@@ -61,7 +66,7 @@ class AddMember extends React.PureComponent {
 
   render() {
     const { onCancel } = this.props;
-    const { firstName, lastName, showGender, gender } = this.state;
+    const { firstName, lastName, showGender, gender, updating } = this.state;
     return (
       <div>
         <div className="d-flex g-bg-red g-color-white g-pa-10 g-mb-20">
@@ -164,7 +169,7 @@ class AddMember extends React.PureComponent {
         <button
           className="btn u-btn-outline-primary"
           title="Add a new member"
-          disabled={!firstName || !lastName || !gender}
+          disabled={updating || !firstName || !lastName || !gender}
           onClick={this.addMember}
         >
           <i className="fas fa-plus g-mr-5" />Add new member

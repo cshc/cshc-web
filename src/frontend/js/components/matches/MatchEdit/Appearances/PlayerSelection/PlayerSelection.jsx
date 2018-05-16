@@ -5,6 +5,7 @@ import some from 'lodash/some';
 import { SelectValueLabelOptionsPropType } from 'components/common/PropTypes';
 import { CustomScrollbar } from 'components/Unify';
 import { AppearancePropType } from '../Appearance/Appearance';
+import PotentialPlayer from './PotentialPlayer';
 import styles from './style.scss';
 
 const filterPlayerOptions = (playerOptions, appearances, playerFilter) => {
@@ -34,6 +35,7 @@ class PlayerSelection extends React.PureComponent {
       filteredPlayerOptions: filterPlayerOptions(props.playerOptions, props.appearances, undefined),
     };
     this.updateFilter = this.updateFilter.bind(this);
+    this.onAddAppearance = this.onAddAppearance.bind(this);
   }
 
   componentDidMount() {
@@ -55,6 +57,11 @@ class PlayerSelection extends React.PureComponent {
     }
   }
 
+  onAddAppearance(id, name) {
+    this.updateFilter('');
+    this.props.onAddAppearance(id, name);
+  }
+
   updateFilter(filterText) {
     const playerFilter = filterText.toLowerCase();
     this.setState({
@@ -68,7 +75,7 @@ class PlayerSelection extends React.PureComponent {
   }
 
   render() {
-    const { onAddAppearance, onPlayerNotFound } = this.props;
+    const { onPlayerNotFound } = this.props;
     const { filteredPlayerOptions, playerFilter } = this.state;
     return (
       <div>
@@ -95,19 +102,11 @@ class PlayerSelection extends React.PureComponent {
                 leaveAnimation="accordionVertical"
               >
                 {filteredPlayerOptions.map(p => (
-                  <div
-                    className="g-py-4 g-cursor-pointer"
-                    role="link"
-                    tabIndex="0"
-                    title="Add player"
+                  <PotentialPlayer
                     key={p.value}
-                    onClick={() => {
-                      this.updateFilter('');
-                      onAddAppearance(p.value.split(':')[0], p.label);
-                    }}
-                  >
-                    {p.label}
-                  </div>
+                    player={p}
+                    onAddAppearance={this.onAddAppearance}
+                  />
                 ))}
               </FlipMove>
             </CustomScrollbar>

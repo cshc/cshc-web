@@ -40,6 +40,7 @@ module.exports = {
   FilterValuePropType,
   PageQueryPropType,
   DefaultPageQueryProps,
+  SelectValueLabelOptionPropType,
   SelectValueLabelOptionsPropType,
   SelectOptionsPropTypes,
 };
