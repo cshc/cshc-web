@@ -40,7 +40,7 @@
       <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{% if prev_match %}{{ prev_match.get_absolute_url }}{% else %}#{% endif %}" {% if prev_match %}title="{{ prev_match.fixture_title }}"{% endif %}>
         <i class="fas fa-fw fa-chevron-circle-left g-mr-10"></i>
       </a>
-      <a href="#" class="g-color-white-opacity-0_8 g-color-white--hover" data-toggle="popover" data-trigger="focus" data-html="true" data-placement="bottom" data-content="{% filter force_escape %}{% include 'matches/_match_list_popover.html' %}{% endfilter %}" data-original-title="Matches on {{ match.date|date:'D, d M Y'}}">
+      <a href="#" class="g-color-white-opacity-0_8 g-color-white--hover" data-toggle="popover" data-trigger="focus" data-html="true" data-placement="bottom" data-content="{% filter force_escape %}{% include 'matches/_match_list_popover.html' %}{% endfilter %}" data-original-title="Other matches on {{ match.date|date:'D, d M Y'}}">
         {{ match.date|date:"D, d M Y"}}
       </a>
       <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{% if next_match %}{{ next_match.get_absolute_url }}{% else %}#{% endif %}" {% if next_match %}title="{{ next_match.fixture_title }}"{% endif %}>

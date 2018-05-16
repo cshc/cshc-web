@@ -43,6 +43,7 @@ class MatchListDisplay extends React.Component {
               id: 'fixtureType',
               accessor: 'fixtureType',
               width: 30,
+              sortable: false,
               className: 'text-center align-self-center',
               Cell: row => <FixtureTypeIcon fixtureType={row.value} />,
             },
@@ -93,6 +94,7 @@ class MatchListDisplay extends React.Component {
               accessor: match => match,
               className: 'text-center align-self-center',
               width: 45,
+              sortable: false,
               Cell: row => <MatchLink match={row.value} />,
             },
           ]}

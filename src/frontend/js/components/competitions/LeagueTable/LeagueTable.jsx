@@ -12,8 +12,12 @@ const LeagueTable = ({ data, teamName }) => {
     if (isOurTeam) {
       return row.teamName;
     }
-    return (
+    return row.oppTeam ? (
       <a href={Urls.opposition_club_detail(row.oppTeam.club.slug)} title="Club Details">
+        {row.teamName}
+      </a>
+    ) : (
+      <a href={Urls.clubteam_detail(row.ourTeam.slug)} title="Team Details">
         {row.teamName}
       </a>
     );

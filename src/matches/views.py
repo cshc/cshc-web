@@ -65,7 +65,7 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
 
         # Get all the other matches on this date
         same_date_matches_qs = Match.objects.select_related('our_team', 'opp_team__club').filter(
-            date=match.date).order_by('our_team__position').exclude(pk=match.pk)
+            date=match.date).exclude(pk=match.pk).order_by('our_team__position')
 
         # Group other matches by team gender
         same_date_matches = []

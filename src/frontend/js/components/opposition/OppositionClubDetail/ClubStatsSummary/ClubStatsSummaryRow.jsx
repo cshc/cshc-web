@@ -5,7 +5,7 @@ const ClubStatsSummaryRow = ({ isTotal, stats }) => {
   const totalsClass = 'g-font-weight-600 text-right';
   const haClass = 'priority3 text-right';
   return (
-    <tr className={isTotal ? 'table-info' : ''}>
+    <tr className={isTotal ? 'table-secondary' : ''}>
       <td>{isTotal ? 'All' : stats.team.shortName}</td>
 
       <td className={totalsClass}>{stats.totalPlayed}</td>

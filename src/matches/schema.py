@@ -93,7 +93,7 @@ class MatchFilter(django_filters.FilterSet):
         fields=(
             ('our_score', 'score'),
             ('date', 'date'),
-            ('fixtureType', 'fixtureType'),
+            ('fixture_type', 'fixtureType'),
             ('our_team__short_name', 'ourTeam'),
             ('opp_team__name', 'oppTeam'),
             ('venue__short_name', 'venue'),

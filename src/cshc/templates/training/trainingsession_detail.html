@@ -18,7 +18,7 @@
 
 {% block content %}
 
-{% url 'calendar' as calendar %}
+{% url 'trainingsession_ical_feed' as ical %}
 
 <header class="g-mb-20">
   <h2 class="h1 g-font-weight-300 text-uppercase">{{ trainingsession.description }}
@@ -40,7 +40,7 @@
     </div>
 
     <div class="col-md-3 align-self-center text-md-right">
-      <a class="btn btn-md u-btn-outline-primary g-brd-2 rounded-0" href="{{ calendar }}#feeds"><i class="far fa-calendar-plus g-mr-5"></i>Subscribe</a>
+      <a class="btn btn-md u-btn-outline-primary g-brd-2 rounded-0" href="{{ ical }}"><i class="far fa-calendar-plus g-mr-5"></i>Subscribe</a>
     </div>
   </div>
 </section>

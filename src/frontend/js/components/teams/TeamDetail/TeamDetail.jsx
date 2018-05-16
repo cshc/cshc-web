@@ -26,21 +26,25 @@ const TeamDetail = ({ data, division, teamId, teamGenderlessName, seasonId }) =>
   });
   return (
     <Accordion multiselectable accordionId="team-details">
-      {results.length > 0 ? (
-        <AccordionCard cardId="results" accordionId="team-details" title="Results">
+      <AccordionCard cardId="results" accordionId="team-details" title="Results">
+        {results.length > 0 ? (
           <MatchData matches={results} fillBlankSaturdays />
-        </AccordionCard>
-      ) : null}
-      {fixtures.length > 0 ? (
-        <AccordionCard cardId="fixtures" accordionId="team-details" title="Fixtures">
+        ) : (
+          <p className="lead g-font-style-italic">No matches played</p>
+        )}
+      </AccordionCard>
+      <AccordionCard cardId="fixtures" accordionId="team-details" title="Fixtures">
+        {fixtures.length > 0 ? (
           <MatchData
             matches={fixtures}
             fillBlankSaturdays
             exclude={[MatchItem.result, MatchItem.scorers, MatchItem.awards]}
             priorities={{ [MatchItem.time]: 1 }}
           />
-        </AccordionCard>
-      ) : null}
+        ) : (
+          <p className="lead g-font-style-italic">No upcoming fixtures</p>
+        )}
+      </AccordionCard>
       {division.id && (
         <AccordionCard cardId="league-table" accordionId="team-details" title="League Table">
           <LeagueTable divisionId={division.id} seasonId={seasonId} teamName={teamGenderlessName} />

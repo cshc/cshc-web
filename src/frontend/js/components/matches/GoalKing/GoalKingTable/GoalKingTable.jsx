@@ -26,6 +26,9 @@ const GoalKingTable = ({ data, team, goalKingGender }) => {
     }
   }
 
+  if (!filteredEntries.length) {
+    return <div className="d-flex justify-content-center">(No goal scorers)</div>;
+  }
   const maxGoals =
     team === NoFilter ? filteredEntries[0].totalGoals : filteredEntries[0][`${team}Goals`];
 

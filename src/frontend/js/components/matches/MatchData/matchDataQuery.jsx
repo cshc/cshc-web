@@ -69,6 +69,7 @@ export const MATCH_DATA_QUERY = gql`
         awardWinners {
           results(pageSize: 100) {
             member {
+              id
               firstName
               lastName
               gender
@@ -84,6 +85,7 @@ export const MATCH_DATA_QUERY = gql`
         appearances {
           results(pageSize: 100) {
             member {
+              id
               firstName
               lastName
               gender
