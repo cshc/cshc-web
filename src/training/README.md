@@ -14,6 +14,7 @@ This app auto-generates an ical calendar feed of training sessions for the curre
 |--------------------------------|-----------------------------|--------------------------------------------|
 |**/training/**                  |UpcomingTrainingSessionsView |Lists all upcoming training sessions.       |
 |**/training/<41>/**             |TrainingSessionDetailView    |Details of a particular training session.   |
+|**/training/add/**              |TrainingSessionFormView      |Form for quickly adding multiple training sessions. |
 |**/training/cshc_training.ics** |TrainingSessionICalFeed      |Automatically generated ical calendar feed of this season's training sessions|
 
 ### Models

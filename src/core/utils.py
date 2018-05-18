@@ -4,9 +4,27 @@ Re-usable utilities used by various CSHC apps
 
 import traceback
 from sorl.thumbnail import get_thumbnail
+from django.utils.dateparse import parse_datetime
+from django.utils.timezone import is_aware, make_aware
 from django.conf import settings
 
 SUFFIXES = {1: 'st', 2: 'nd', 3: 'rd'}
+
+
+def ensure_tz_aware(date_time):
+    """ 
+    Ensures the given datetime is timezone-aware. 
+
+    Returns the timezone-aware datetime.
+    """
+    if not is_aware(date_time):
+        return make_aware(date_time)
+    return date_time
+
+
+def get_aware_datetime(date_str):
+    """ Get a timezone-aware datetime """
+    return ensure_tz_aware(parse_datetime(date_str))
 
 
 def ordinal(num):

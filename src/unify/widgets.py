@@ -27,6 +27,7 @@ class UnifyWidget(object):
 
 class UnifyTextInput(UnifyWidget, forms.TextInput):
     """ Unify-styled text input widget """
+    template_name = 'unify/fields/text_input.html'
 
     def __init__(self, attrs=None, left_icon=None, right_icon=None):
         self.left_icon = left_icon
@@ -40,17 +41,64 @@ class UnifyTextInput(UnifyWidget, forms.TextInput):
 
         super(UnifyTextInput, self).__init__(attrs)
 
-    def render(self, name, value, attrs=None):
-        final_attrs = self.build_attrs(attrs)
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['left_icon'] = self.left_icon
+        context['right_icon'] = self.right_icon
+        return context
 
-        rendered_widget = super(UnifyTextInput, self).render(
-            name, value, final_attrs)
 
-        return mark_safe(render_to_string('unify/fields/text_input.html', {
-            'rendered_widget': rendered_widget,
-            'left_icon': self.left_icon,
-            'right_icon': self.right_icon,
-        }))
+class UnifyPhoneInput(UnifyTextInput):
+    """ Unify-styled telephone input widget """
+    input_type = 'tel'
+
+    def __init__(self, attrs=None):
+        super(UnifyPhoneInput, self).__init__(attrs, 'fas fa-phone')
+
+
+class UnifyTimeInput(UnifyWidget, forms.TimeInput):
+    """ Unify-styled time input widget """
+    input_type = 'time'
+    template_name = 'unify/fields/text_input.html'
+
+    def __init__(self, attrs=None):
+        attrs = self.add_classes(
+            attrs, 'form-control form-control-md rounded-0')
+
+        super(UnifyTimeInput, self).__init__(attrs)
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['right_icon'] = 'icon-clock'
+        context['input_group_class'] = 'g-width-170'
+        return context
+
+
+class UnifyNumericInput(UnifyWidget, forms.NumberInput):
+    """ Unify-styled numeric input widget """
+    input_type = 'text'
+    template_name = 'unify/fields/numeric_input.html'
+
+    def __init__(self, attrs=None):
+        attrs = self.add_classes(
+            attrs, 'js-result form-control text-center rounded-0 g-pa-15')
+        super(UnifyNumericInput, self).__init__(attrs)
+
+    def _media(self):
+        # Note: jquery-ui.min.css is required but must be included before unify.css so it is typically included
+        # in the pre_link template block on any page that uses a UnifyDateTimeWidget
+        return forms.widgets.Media(
+            css={
+                'all': [
+                    'vendor/themify-icons/themify-icons.css',
+                ]
+            },
+            js=[
+                'unify/js/hs.count-qty.js',
+                'unify/js/quantity.js',
+            ])
+
+    media = property(_media)
 
 
 class UnifyTextarea(UnifyWidget, forms.Textarea):
@@ -60,6 +108,33 @@ class UnifyTextarea(UnifyWidget, forms.Textarea):
         attrs = self.add_classes(
             attrs, 'form-control form-control-md rounded-0')
         super(UnifyTextarea, self).__init__(attrs)
+
+
+class UnifyCheckboxInput(UnifyWidget, forms.CheckboxInput):
+    """ Unify-styled checkbox widget """
+    template_name = 'unify/fields/checkbox_input.html'
+
+    def __init__(self, attrs=None):
+        attrs = self.add_classes(
+            attrs, 'g-hidden-xs-up g-pos-abs g-top-10 g-left-10')
+        super(UnifyCheckboxInput, self).__init__(attrs)
+
+
+class UnifyRadioInput(UnifyWidget, forms.RadioSelect):
+    """ Unify-styled radio widget """
+    option_template_name = 'unify/fields/radio_input.html'
+
+    def __init__(self, attrs=None):
+        attrs = self.add_classes(
+            attrs, 'list-unstyled')
+        super(UnifyRadioInput, self).__init__(attrs)
+
+    def create_option(self, *args, **kwargs):
+        context = super().create_option(*args, **kwargs)
+        widget_attrs = context['attrs']
+        widget_attrs = self.add_classes(
+            widget_attrs, 'g-hidden-xs-up g-pos-abs g-top-0 g-left-0')
+        return context
 
 
 class UnifySelect(UnifyWidget, forms.Select):
@@ -73,16 +148,7 @@ class UnifySelect(UnifyWidget, forms.Select):
 
 class UnifyDateTimeWidget(UnifyWidget):
     """ Unify-styled date/time widget mixin """
-
-    def render(self, name, value, attrs=None):
-        final_attrs = self.build_attrs(attrs)
-
-        rendered_widget = super(UnifyDateTimeWidget, self).render(
-            name, value, final_attrs)
-
-        return mark_safe(render_to_string('unify/fields/date_input.html', {
-            'rendered_widget': rendered_widget,
-        }))
+    template_name = 'unify/fields/date_input.html'
 
     def _media(self):
         # Note: jquery-ui.min.css is required but must be included before unify.css so it is typically included

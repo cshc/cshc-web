@@ -1,0 +1,7 @@
+{% if wrap_label %}<label class="u-check g-pl-30"{% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>{% endif %}
+  {% include "django/forms/widgets/input.html" %}
+  <div class="u-check-icon-font g-absolute-centered--y g-left-0">
+    <i class="far" data-check-icon="" data-uncheck-icon=""></i>
+  </div>
+{% if wrap_label %} {{ widget.label }}</label>{% endif %}
+

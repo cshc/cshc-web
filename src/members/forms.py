@@ -3,7 +3,7 @@
 
 from django import forms
 from geoposition.widgets import GeopositionWidget
-from unify.widgets import UnifyTextInput, UnifyTextarea, UnifySelect, UnifyDateInput
+from unify.widgets import UnifyTextInput, UnifyTextarea, UnifySelect, UnifyDateInput, UnifyPhoneInput
 from core.widgets import CshcCropWidget
 from .models import Member
 
@@ -24,7 +24,7 @@ class MemberProfileForm(forms.ModelForm):
             'last_name': UnifyTextInput(left_icon='icon-user'),
             'profile_pic': CshcCropWidget,
             'pref_position': UnifySelect,
-            'phone': UnifyTextInput(left_icon='fas fa-phone'),
+            'phone': UnifyPhoneInput,
             'addr_street': UnifyTextInput(attrs={'placeholder': 'Street'}),
             'addr_line2': UnifyTextInput(),
             'addr_town': UnifyTextInput(attrs={'placeholder': 'Town/city'}),
@@ -33,7 +33,7 @@ class MemberProfileForm(forms.ModelForm):
             'dob': UnifyDateInput,
             'emergency_contact': UnifyTextInput(),
             'emergency_relationship': UnifySelect,
-            'emergency_phone': UnifyTextInput(left_icon='fas fa-phone'),
+            'emergency_phone': UnifyPhoneInput,
             'medical_notes': UnifyTextarea(attrs={'rows': '5'}),
             'email': forms.HiddenInput(),
         }
