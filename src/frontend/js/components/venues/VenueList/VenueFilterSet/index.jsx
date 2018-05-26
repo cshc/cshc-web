@@ -32,7 +32,7 @@ export const urlPropsQueryConfig = {
 const VenueFilterSet = ({ currentSeason, teams, divisions }) => {
   const teamOptions = teams.map(team => ({ value: team.slug, label: team.long_name }));
   const divisionOptions = uniqBy(divisions, 'id').map(division => ({
-    value: division.id,
+    value: division.id.toString(),
     label: division.name,
   }));
 

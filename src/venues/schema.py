@@ -8,6 +8,7 @@ from graphene_django_extras.converter import convert_django_field
 from graphene_django_extras.utils import is_required
 from graphene_django_extras import DjangoListObjectType, DjangoObjectType
 from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
+from core.filters import AndFilter
 from .models import Venue
 
 
@@ -17,18 +18,24 @@ def convert_geofield_to_string(field, registry=None, input_flag=None, nested_fie
                            required=is_required(field) and input_flag == 'create')
 
 
+class VenueFilter(AndFilter):
+
+    class Meta:
+        model = Venue
+        fields = {
+            'name': ['exact', 'icontains', 'istartswith'],
+            'matches__division_id': ['exact'],
+            'matches__season__slug': ['exact'],
+            'matches__our_team__slug': ['exact'],
+            'is_home': ['exact'],
+        }
+
+
 class VenueType(DjangoObjectType):
     """ GraphQL node representing a match venue """
 
     class Meta:
         model = Venue
-        filter_fields = {
-            'name': ['exact', 'icontains', 'istartswith'],
-            'matches__division': ['exact'],
-            'matches__season__slug': ['exact'],
-            'matches__our_team__slug': ['exact'],
-            'is_home': ['exact'],
-        }
 
 
 class VenueList(DjangoListObjectType):
@@ -40,4 +47,5 @@ class VenueList(DjangoListObjectType):
 
 class Query(graphene.ObjectType):
     """ GraphQL query for venues """
-    venues = OptimizedDjangoListObjectField(VenueList)
+    venues = OptimizedDjangoListObjectField(
+        VenueList, filterset_class=VenueFilter)
