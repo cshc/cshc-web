@@ -11,6 +11,7 @@ from matches.models import Appearance
 from awards.models import MatchAwardWinner
 from teams.models import TeamCaptaincy
 from teams.schema import ClubTeamType
+from core.filters import AndFilter
 from core.utils import get_thumbnail_url
 from competitions.schema import SeasonType
 from .stats import SquadPlayingStats, AllSeasonsPlayingStats
@@ -21,7 +22,7 @@ class NumberInFilter(django_filters.BaseInFilter, django_filters.CharFilter):
     pass
 
 
-class MemberFilter(django_filters.FilterSet):
+class MemberFilter(AndFilter):
     # Do 'in' lookups on 'pref_position'
     pref_position__in = NumberInFilter(name='pref_position', lookup_expr='in')
     name = django_filters.CharFilter(

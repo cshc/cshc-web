@@ -8,12 +8,13 @@ import graphene
 import django_filters
 from graphene_django_extras import DjangoListObjectType, DjangoObjectType
 from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
+from core.filters import AndFilter
 from .models import MatchAvailability
 
 LOG = logging.getLogger(__name__)
 
 
-class MatchAvailabilityFilter(django_filters.FilterSet):
+class MatchAvailabilityFilter(AndFilter):
     """ Filters for Match Availabilities """
     class Meta:
         model = MatchAvailability

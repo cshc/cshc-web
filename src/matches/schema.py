@@ -9,6 +9,7 @@ import django_filters
 from django.db.models import F, Q
 from graphene_django_extras import DjangoListObjectType, DjangoObjectType
 from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
+from core.filters import AndFilter
 from awards.schema import MatchAwardWinnerList, MatchAwardWinnerInput
 from awards.models import MatchAward, MatchAwardWinner
 from .models import Match, Appearance, GoalKing
@@ -16,7 +17,7 @@ from .models import Match, Appearance, GoalKing
 LOG = logging.getLogger(__name__)
 
 
-class GoalKingFilter(django_filters.FilterSet):
+class GoalKingFilter(AndFilter):
     """ Goal King Filters """
     team = django_filters.CharFilter(name='team', method='filter_team')
 
@@ -33,7 +34,7 @@ class GoalKingFilter(django_filters.FilterSet):
         fields = ['team', 'member__gender', 'season__slug']
 
 
-class MatchFilter(django_filters.FilterSet):
+class MatchFilter(AndFilter):
     mom = django_filters.CharFilter(name='mom', method='filter_mom')
     lom = django_filters.CharFilter(name='lom', method='filter_lom')
     result = django_filters.CharFilter(name='result', method='filter_result')

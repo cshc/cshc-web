@@ -6,16 +6,18 @@ import graphene
 import django_filters
 from graphene_django_extras import DjangoListObjectType, DjangoObjectType
 from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
+from core.filters import AndFilter
 from .models import MatchAward, EndOfSeasonAward, MatchAwardWinner, EndOfSeasonAwardWinner
 
 
-class EndOfSeasonAwardWinnerFilter(django_filters.FilterSet):
+class EndOfSeasonAwardWinnerFilter(AndFilter):
 
     class Meta:
         model = EndOfSeasonAwardWinner
         fields = {
             'season__slug': ['exact'],
             'award': ['exact'],
+            'award__name': ['exact', 'icontains', 'istartswith'],
             'member_id': ['in', 'exact'],
         }
 
@@ -72,11 +74,6 @@ class EndOfSeasonAwardWinnerType(DjangoObjectType):
     """ GraphQL node representing an end-of-season award winner """
     class Meta:
         model = EndOfSeasonAwardWinner
-        filter_fields = {
-            'member_id': ['exact'],
-            'season__slug': ['exact'],
-            'award__name': ['exact', 'icontains', 'istartswith'],
-        }
 
 
 class EndOfSeasonAwardWinnerList(DjangoListObjectType):

@@ -3,13 +3,13 @@ GraphQL Schema for Club Teams etc
 """
 
 import graphene
-import django_filters
 from graphene_django_extras import DjangoListObjectType, DjangoObjectType
 from graphene_django_optimizedextras import OptimizedDjangoListObjectField, get_paginator
+from core.filters import AndFilter
 from .models import ClubTeam, ClubTeamSeasonParticipation, TeamCaptaincy
 
 
-class ClubTeamSeasonParticipationFilter(django_filters.FilterSet):
+class ClubTeamSeasonParticipationFilter(AndFilter):
 
     class Meta:
         model = ClubTeamSeasonParticipation
