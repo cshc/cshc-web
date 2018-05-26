@@ -44,7 +44,14 @@ Contact Us page with contact form
         <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
           <i class="fas fa-user"></i>
         </div>
-        <input id="id_first_name" maxlength="255"  name="first_name" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="text" placeholder="First Name*">
+        <input 
+          id="id_first_name" 
+          maxlength="255"  
+          name="first_name" 
+          value="{{ form.first_name.value|default:"" }}"
+          class="form-control form-control-md border-left-0 rounded-0 pl-0" 
+          type="text" 
+          placeholder="First Name*">
       </div>
       {% if form.errors.first_name %}<small class="form-control-feedback">{{ form.errors.first_name }}</small>{% endif %}
     </div>
@@ -56,7 +63,14 @@ Contact Us page with contact form
         <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
           <i class="fas fa-user"></i>
         </div>
-        <input id="id_last_name" maxlength="255"  name="last_name" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="text" placeholder="Last Name*">
+        <input 
+          id="id_last_name" 
+          maxlength="255"  
+          name="last_name" 
+          value="{{ form.last_name.value|default:"" }}"
+          class="form-control form-control-md border-left-0 rounded-0 pl-0" 
+          type="text" 
+          placeholder="Last Name*">
       </div>
       {% if form.errors.last_name %}<small class="form-control-feedback">{{ form.errors.last_name }}</small>{% endif %}
     </div>
@@ -70,7 +84,14 @@ Contact Us page with contact form
         <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
           <i class="fas fa-envelope"></i>
         </div>
-        <input id="id_email" maxlength="255"  name="email" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="email" placeholder="Email*">
+        <input 
+          id="id_email" 
+          maxlength="255"  
+          name="email" 
+          value="{{ form.email.value|default:"" }}"
+          class="form-control form-control-md border-left-0 rounded-0 pl-0" 
+          type="email" 
+          placeholder="Email*">
       </div>
       {% if form.errors.email %}<small class="form-control-feedback">{{ form.errors.email }}</small>{% endif %}
     </div>
@@ -82,7 +103,14 @@ Contact Us page with contact form
         <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
           <i class="fas fa-phone"></i>
         </div>
-        <input id="id_phone" maxlength="25"  name="phone" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="tel" placeholder="Phone">
+        <input 
+          id="id_phone" 
+          maxlength="25"  
+          name="phone" 
+          value="{{ form.phone.value|default:"" }}"
+          class="form-control form-control-md border-left-0 rounded-0 pl-0" 
+          type="tel" 
+          placeholder="Phone">
       </div>
       {% if form.errors.phone %}<small class="form-control-feedback">{{ form.errors.phone }}</small>{% endif %}
     </div>
@@ -92,7 +120,12 @@ Contact Us page with contact form
   <div class="col-md-8">
     <div class="form-group">
       <label class="sr-only" for="id_message">Message</label>
-      <textarea id="id_message" name="message" class="form-control form-control-md g-resize-none rounded-0" rows="5" placeholder="Message*"></textarea>
+      <textarea 
+        id="id_message" 
+        name="message" 
+        class="form-control form-control-md g-resize-none rounded-0" 
+        rows="5" 
+        placeholder="Message*">{{ form.message.value|default:"" }}</textarea>
       {% if form.errors.message %}<small class="form-control-feedback">{{ form.errors.message }}</small>{% endif %}
     </div>
   </div>
@@ -101,7 +134,14 @@ Contact Us page with contact form
   <div class="col-md-8">
     <div class="form-group">
       <label for="id_mailing_list" class="u-check g-pl-25">
-        <input id="id_mailing_list" name="mailing_list" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox">
+        <input 
+          id="id_mailing_list" 
+          name="mailing_list" 
+          {% if form.mailing_list.value %}
+          checked
+          {% endif %}
+          class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" 
+          type="checkbox">
         <div class="u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
           <i class="fas g-rounded-2" data-check-icon=""></i>
         </div>

@@ -191,7 +191,14 @@
             <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
               <i class="fas fa-user"></i>
             </div>
-            <input id="id_first_name" maxlength="255"  name="first_name" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="text" placeholder="First Name*">
+            <input 
+              id="id_first_name" 
+              maxlength="255"  
+              name="first_name" 
+              value="{{ form.first_name.value|default:"" }}"
+              class="form-control form-control-md border-left-0 rounded-0 pl-0" 
+              type="text" 
+              placeholder="First Name*">
           </div>
           {% if form.errors.first_name %}<small class="form-control-feedback">{{ form.errors.first_name }}</small>{% endif %}
         </div>
@@ -203,7 +210,14 @@
             <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
               <i class="fas fa-user"></i>
             </div>
-            <input id="id_last_name" maxlength="255"  name="last_name" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="text" placeholder="Last Name*">
+            <input 
+              id="id_last_name" 
+              maxlength="255"  
+              name="last_name" 
+              value="{{ form.last_name.value|default:"" }}"
+              class="form-control form-control-md border-left-0 rounded-0 pl-0" 
+              type="text" 
+              placeholder="Last Name*">
           </div>
           {% if form.errors.last_name %}<small class="form-control-feedback">{{ form.errors.last_name }}</small>{% endif %}
         </div>
@@ -215,7 +229,14 @@
             <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
               <i class="fas fa-envelope"></i>
             </div>
-            <input id="id_email" maxlength="255"  name="email" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="email" placeholder="Email*">
+            <input 
+              id="id_email" 
+              maxlength="255"  
+              name="email" 
+              value="{{ form.email.value|default:"" }}"
+              class="form-control form-control-md border-left-0 rounded-0 pl-0" 
+              type="email" 
+              placeholder="Email*">
           </div>
           {% if form.errors.email %}<small class="form-control-feedback">{{ form.errors.email }}</small>{% endif %}
         </div>
@@ -227,7 +248,14 @@
             <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
               <i class="fas fa-phone"></i>
             </div>
-            <input id="id_phone" maxlength="25"  name="phone" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="tel" placeholder="Phone">
+            <input 
+              id="id_phone" 
+              maxlength="25"  
+              name="phone" 
+              value="{{ form.phone.value|default:"" }}"
+              class="form-control form-control-md border-left-0 rounded-0 pl-0" 
+              type="tel" 
+              placeholder="Phone">
           </div>
           {% if form.errors.phone %}<small class="form-control-feedback">{{ form.errors.phone }}</small>{% endif %}
         </div>
@@ -245,30 +273,37 @@
           <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
             <i class="fas fa-user"></i>
           </div>
-          <input id="id_child_name" maxlength="255"  name="child_name" class="form-control form-control-md border-left-0 rounded-0 pl-0" type="text" placeholder="Name*">
+          <input 
+            id="id_child_name" 
+            maxlength="255"  
+            name="child_name" 
+            value="{{ form.child_name.value|default:"" }}"
+            class="form-control form-control-md border-left-0 rounded-0 pl-0" 
+            type="text" 
+            placeholder="Name*">
         </div>
         {% if form.errors.child_name %}<small class="form-control-feedback">{{ form.errors.child_name }}</small>{% endif %}
       </div>
       <div class="form-group">
         <label for="id_child_gender">Gender:</label>
         <select class="custom-select g-ml-10 g-mr-20" id="id_child_gender" name="child_gender">
-          <option selected="selected" value="Male">Male</option>
-          <option value="Female">Female</option>
+          <option {% if form.child_gender.value == "Male" %}selected="selected" {% endif %}value="Male">Male</option>
+          <option {% if form.child_gender.value == "Female" %}selected="selected" {% endif %}value="Female">Female</option>
         </select>
       </div>
       <div class="form-group">
         <label for="id_child_age">Age:</label>
         <select id="id_child_age" class="custom-select g-ml-10" name="child_age">
-          <option value="A6" selected="selected">6</option>
-          <option value="A7">7</option>
-          <option value="A8">8</option>
-          <option value="A9">9</option>
-          <option value="A10">10</option>
-          <option value="A11">11</option>
-          <option value="A12">12</option>
-          <option value="A13">13</option>
-          <option value="A14">14</option>
-          <option value="AGT14">&gt; 14</option>
+          <option {% if form.child_age.value == "A6" %}selected="selected" {% endif %}value="A6">6</option>
+          <option {% if form.child_age.value == "A7" %}selected="selected" {% endif %}value="A7">7</option>
+          <option {% if form.child_age.value == "A8" %}selected="selected" {% endif %}value="A8">8</option>
+          <option {% if form.child_age.value == "A9" %}selected="selected" {% endif %}value="A9">9</option>
+          <option {% if form.child_age.value == "A10" %}selected="selected" {% endif %}value="A10">10</option>
+          <option {% if form.child_age.value == "A11" %}selected="selected" {% endif %}value="A11">11</option>
+          <option {% if form.child_age.value == "A12" %}selected="selected" {% endif %}value="A12">12</option>
+          <option {% if form.child_age.value == "A13" %}selected="selected" {% endif %}value="A13">13</option>
+          <option {% if form.child_age.value == "A14" %}selected="selected" {% endif %}value="A14">14</option>
+          <option {% if form.child_age.value == "AGT14" %}selected="selected" {% endif %}value="AGT14">&gt; 14</option>
         </select>
       </div>
     </div>
@@ -277,13 +312,25 @@
     
     <div class="form-group">
       <label class="sr-only" for="id_message">Message</label>
-      <textarea id="id_message" name="message" class="form-control form-control-md g-resize-none rounded-0" rows="3" placeholder="Message"></textarea>
+      <textarea 
+        id="id_message" 
+        name="message" 
+        class="form-control form-control-md g-resize-none rounded-0" 
+        rows="3" 
+        placeholder="Message">{{ form.message.value|default:"" }}</textarea>
       {% if form.errors.message %}<small class="form-control-feedback">{{ form.errors.message }}</small>{% endif %}
     </div>
 
     <div class="form-group">
       <label for="id_mailing_list" class="u-check g-pl-25">
-        <input id="id_mailing_list" name="mailing_list" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox">
+        <input 
+          id="id_mailing_list" 
+          name="mailing_list" 
+          {% if form.mailing_list.value %}
+          checked
+          {% endif %}
+          class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" 
+          type="checkbox">
         <div class="u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
           <i class="fas g-rounded-2" data-check-icon=""></i>
         </div>
@@ -294,14 +341,14 @@
     <div class="form-group">
       <label for="id_trigger" class="g-mr-10">How did you hear about Cambridge South Junior Hockey?</label>
       <select id="id_trigger" class="custom-select" name="trigger">
-        <option value="not_selected" selected="selected">Select one...</option>
-        <option value="web_search">Web search (e.g. Google)</option>
-        <option value="social_media">Social media</option>
-        <option value="school_notice">School notice</option>
-        <option value="promotional_flyer">Promotional flyer</option>
-        <option value="advertising_banner">Advertising banner</option>
-        <option value="word_of_mouth">Word of mouth</option>
-        <option value="other">Other</option>
+        <option {% if form.trigger.value == "not_selected" %}selected="selected" {% endif %}value="not_selected">Select one...</option>
+        <option {% if form.trigger.value == "web_search" %}selected="selected" {% endif %}value="web_search">Web search (e.g. Google)</option>
+        <option {% if form.trigger.value == "social_media" %}selected="selected" {% endif %}value="social_media">Social media</option>
+        <option {% if form.trigger.value == "school_notice" %}selected="selected" {% endif %}value="school_notice">School notice</option>
+        <option {% if form.trigger.value == "promotional_flyer" %}selected="selected" {% endif %}value="promotional_flyer">Promotional flyer</option>
+        <option {% if form.trigger.value == "advertising_banner" %}selected="selected" {% endif %}value="advertising_banner">Advertising banner</option>
+        <option {% if form.trigger.value == "word_of_mouth" %}selected="selected" {% endif %}value="word_of_mouth">Word of mouth</option>
+        <option {% if form.trigger.value == "other" %}selected="selected" {% endif %}value="other">Other</option>
       </select>
     </div>
 
