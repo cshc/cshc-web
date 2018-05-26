@@ -118,3 +118,7 @@ geocoder==1.34
 # PDF Generation
 # Ref: https://github.com/ccnmtl/fdfgen
 fdfgen==0.16.1
+
+# Django Recaptcha
+# Ref: https://github.com/praekelt/django-recaptcha
+django-recaptcha==1.4.0

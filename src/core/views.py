@@ -122,6 +122,11 @@ class ContactSubmissionCreateView(CreateView):
                 self.request, "Sorry - we were unable to send your message. Please try again later.")
         return super(ContactSubmissionCreateView, self).form_valid(form)
 
+    def form_invalid(self, form):
+        messages.error(
+            self.request, "Please enter all the required information and check the reCAPTCHA checkbox.")
+        return super(ContactSubmissionCreateView, self).form_invalid(form)
+
 
 class JuniorsContactSubmissionCreateView(CreateView):
     """ This is the enquery form for juniors. """
@@ -199,3 +204,8 @@ class JuniorsContactSubmissionCreateView(CreateView):
             messages.error(
                 self.request, "Sorry - we were unable to send your message. Please try again later.")
         return super(JuniorsContactSubmissionCreateView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(
+            self.request, "Please enter all the required information and check the reCAPTCHA checkbox.")
+        return super(JuniorsContactSubmissionCreateView, self).form_invalid(form)

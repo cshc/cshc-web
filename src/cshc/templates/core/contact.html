@@ -112,6 +112,14 @@ Contact Us page with contact form
 </div>
 <div class="row justify-content-md-center">
   <div class="col-md-8">
+    <div class="form-group">
+      {{ form.captcha }}
+      {% if form.errors.captcha %}<small class="form-control-feedback">{{ form.errors.captcha }}</small>{% endif %}
+    </div>
+  </div>
+</div>
+<div class="row justify-content-md-center">
+  <div class="col-md-8">
     <input class="btn btn-md u-btn-primary rounded-0" type="submit" value="Submit">
     <p class="g-font-size-12 g-font-style-italic g-mt-20">* required fields</p>
   </div>

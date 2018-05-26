@@ -1,6 +1,7 @@
 """
 Forms for general CSHC app use
 """
+from captcha.fields import ReCaptchaField
 from django import forms
 from django.contrib.flatpages.models import FlatPage
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
@@ -45,6 +46,7 @@ class SignupForm(forms.Form):
 
 class ContactSubmissionForm(forms.ModelForm):
     """ Form used for the contact form"""
+    captcha = ReCaptchaField()
 
     class Meta:
         """ Meta-info for the form. """
@@ -55,6 +57,7 @@ class ContactSubmissionForm(forms.ModelForm):
 
 class JuniorsContactSubmissionForm(forms.ModelForm):
     """ Form used for the contact form"""
+    captcha = ReCaptchaField()
 
     class Meta:
         """ Meta-info for the form. """
