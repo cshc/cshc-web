@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { UrlQueryParamTypes } from 'react-url-query';
+import { UrlQueryParamTypes, pushUrlQuery } from 'react-url-query';
 import { FilterName, Position, NoFilter } from 'util/constants';
 import { FilterGroup } from 'components/filters';
 import { BooleanFilter, TextFilter, OptionListFilter } from 'components/filters/UrlFilter';
@@ -43,6 +43,16 @@ const MemberFilterSet = ({ teams }) => {
   ];
   return (
     <div>
+      <div className="text-right">
+        <button
+          className="btn btn-link"
+          onClick={() => {
+            pushUrlQuery({});
+          }}
+        >
+          Clear all
+        </button>
+      </div>
       <TextFilter
         filterName={FilterName.TextSearch}
         urlQueryConfig={urlPropsQueryConfig[FilterName.TextSearch]}

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import uniqBy from 'lodash/uniqBy';
 import { FilterName, NoFilter } from 'util/constants';
-import { UrlQueryParamTypes } from 'react-url-query';
+import { UrlQueryParamTypes, pushUrlQuery } from 'react-url-query';
 import { FilterGroup } from 'components/filters';
 import {
   BooleanFilter,
@@ -39,6 +39,16 @@ const VenueFilterSet = ({ currentSeason, teams, divisions }) => {
   teamOptions.unshift({ value: NoFilter, label: 'All' });
   return (
     <div>
+      <div className="text-right">
+        <button
+          className="btn btn-link"
+          onClick={() => {
+            pushUrlQuery({});
+          }}
+        >
+          Clear all
+        </button>
+      </div>
       <TextFilter
         filterName={FilterName.TextSearch}
         urlQueryConfig={urlPropsQueryConfig[FilterName.TextSearch]}

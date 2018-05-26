@@ -48,9 +48,6 @@ export const urlPropsQueryConfig = {
 };
 
 const MatchFilterSet = ({ teams, divisions, opposition_clubs, seasons, venues, members }) => {
-  const clearAll = () => {
-    pushUrlQuery({});
-  };
   const teamOptions = teams.map(team => ({ value: team.slug, label: team.long_name }));
   const genderOptions = [
     { value: 'Mens', label: 'Mens' },
@@ -69,7 +66,12 @@ const MatchFilterSet = ({ teams, divisions, opposition_clubs, seasons, venues, m
   return (
     <div>
       <div className="text-right">
-        <button className="btn btn-link" onClick={clearAll}>
+        <button
+          className="btn btn-link"
+          onClick={() => {
+            pushUrlQuery({});
+          }}
+        >
           Clear all
         </button>
       </div>
