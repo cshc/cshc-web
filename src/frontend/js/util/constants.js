@@ -111,6 +111,24 @@ const PositionOptions = {
 };
 
 /**
+ * Mapping of positions to position value (allows sorting by preferred position)
+ * 
+ * See core/models/utils.py for the definitions of Preferred Positions.
+ */
+const PositionValue = {
+  Goalkeeper: 0,
+  'Goalkeeper/Defender': 1,
+  'Goalkeeper/Midfielder': 2,
+  'Goalkeeper/Forward': 3,
+  Defender: 4,
+  'Defender/Midfielder': 5,
+  Midfielder: 6,
+  'Midfielder/Forward': 7,
+  Forward: 8,
+  'Not known': 9,
+};
+
+/**
  * These coordinatees represent the approximate center of Cambridge.
  * Used as the default center of Google Maps.
  */
@@ -159,4 +177,5 @@ module.exports = {
   DefaultPageSize,
   AltOutcome,
   MatchAvailability,
+  PositionValue,
 };
