@@ -125,6 +125,15 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
         context["enable_live_comments"] = live_comments_enabled.value in [
             'True', 'true', 'yes', '1']
 
+        if match.our_team.slug == 'indoor':
+            context['background_image'] = 'img/indoor2.jpg' if self.request.user_agent.is_mobile else 'img/indoor1.jpg'
+        elif match.our_team.gender == TeamGender.Mens:
+            context['background_image'] = 'img/m1-1c.jpg' if self.request.user_agent.is_mobile else 'img/m1-1b.jpg'
+        elif match.our_team.gender == TeamGender.Ladies:
+            context['background_image'] = 'img/l1-2c.jpg' if self.request.user_agent.is_mobile else 'img/l1-1b.jpg'
+        else:
+            context['background_image'] = 'img/m1-2c.jpg' if self.request.user_agent.is_mobile else 'img/m1-2b.jpg'
+
         if not match.is_in_past():
             context['props'] = {
                 'matchId': match.id,

@@ -34,7 +34,7 @@
 
 {% include 'core/_messages.html' %}
 
-<section class="g-bg-cover g-bg-size-cover g-bg-black-opacity-0_5--after" data-bg-img-src="{% static "img/l1-3.jpg" %}" style="background-image: url(&quot;{% static "img/l1-3.jpg" %}&quot;);">
+<section class="g-bg-cover g-bg-size-cover g-bg-pos-bottom-center g-bg-black-opacity-0_7--after" data-bg-img-src="{% static background_image %}" style="background-image: url(&quot;{% static background_image %}&quot;);">
   <div class="container g-pos-rel g-z-index-1 g-py-20">
     <div class="g-py-40 g-color-white-opacity-0_8 text-center g-font-size-14 g-font-size-16--md g-font-size-18--lg">
       <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{% if prev_match %}{{ prev_match.get_absolute_url }}{% else %}#{% endif %}" {% if prev_match %}title="{{ prev_match.fixture_title }}"{% endif %}>
