@@ -50,7 +50,9 @@ def get_thumbnail_url(image_field, profile, cropping_field=None):
         'crop': 'center',
     }
     if cropping_field:
-        kwargs['cropbox'] = str(cropping_field)
+        cropbox = str(cropping_field)
+        if cropbox != '0x0':
+            kwargs['cropbox'] = cropbox
     if not image_field or not image_field.url:
         return None
     try:
