@@ -45,8 +45,7 @@ const SquadRosterTable = ({ squadStats: { squad } }) => (
             sortMethod: (a, b) => {
               const fullNameA = Member.fullName(a.member).trim();
               const fullNameB = Member.fullName(b.member).trim();
-              if (fullNameA === fullNameB) return 0;
-              return fullNameA < fullNameB ? -1 : 1;
+              return fullNameA.localeCompare(fullNameB);
             },
           },
           {
