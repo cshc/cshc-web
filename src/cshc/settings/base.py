@@ -539,3 +539,12 @@ COMMENTS_APP = 'fluent_comments'
 FLUENT_COMMENTS_EXCLUDE_FIELDS = ('name', 'email', 'url')
 FLUENT_COMMENTS_LABEL_CSS_CLASS = 'g-hidden-xs-up'
 FLUENT_COMMENTS_FIELD_CSS_CLASS = ''
+
+
+# ########## django-recaptcha CONFIGURATION
+
+NOCAPTCHA = True
+RECAPTCHA_PUBLIC_KEY = get_env_setting('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = get_env_setting('RECAPTCHA_PRIVATE_KEY')
+
+# ########## END django-recaptcha CONFIGURATION
