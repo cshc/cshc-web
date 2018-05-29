@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
+{% load thumbnail from sorl_thumbnail %}
 {% load cshc_tags %}
 
 {% block title %}{{ block.super }} | About Us{% endblock %}
@@ -145,7 +146,10 @@
         </p>
       </div>
       <div class="col-lg-6 order-2 order-lg-1 g-mb-40 text-center">
-        <img width="160px" src="{% static "img/crest.png" %}" alt="Club Crest">
+        {% static_url "img/crest/full_achievements/South-Cambs-Hockey-Club-COA-shaded-1.1.png" as crest_image %}
+        {% thumbnail crest_image "260" as crest_image_thumbnail %}
+          <img width="260px" src="{{ crest_image_thumbnail.url }}" alt="Club Crest">
+        {% endthumbnail %}
       </div>
     </div>
 

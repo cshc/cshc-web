@@ -52,7 +52,7 @@ class RssMatchReportsFeed(Feed):
         return "//" + Site.objects.get_current().domain
 
     def feed_extra_kwargs(self, obj):
-        return {'image_url': static('img/crest.png')}
+        return {'image_url': static('img/crest/full_badge/South-Cambs-Hockey-Club-Badge-flat-1.3.png')}
 
     def feed_url(self):
         """ Returns the url for this feed."""

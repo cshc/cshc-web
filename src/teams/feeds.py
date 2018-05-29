@@ -72,7 +72,7 @@ class RssClubTeamMatchReportsFeed(Feed):
     feed_copyright = "Copyright (c) 2015, Cambridge South Hockey Club"
 
     def feed_extra_kwargs(self, obj):
-        return {'image_url': static('img/crest.png')}
+        return {'image_url': static('img/crest/full_badge/South-Cambs-Hockey-Club-Badge-flat-1.3.png')}
 
     def get_object(self, request, slug):
         return get_object_or_404(ClubTeam, slug=slug)

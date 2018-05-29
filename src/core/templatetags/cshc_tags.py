@@ -9,6 +9,7 @@ import json as jsonlib
 import bleach
 from django import template
 from django.contrib import messages
+from django.conf import settings
 from django.templatetags.static import static
 from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
@@ -22,6 +23,11 @@ from core.models import Gender, DivisionResult, ClubInfo
 register = template.Library()
 
 LOG = logging.getLogger(__name__)
+
+
+@register.simple_tag(takes_context=True)
+def static_url(context, url):
+    return ''.join(["http://", context.request.META['HTTP_HOST'], settings.STATIC_URL, url])
 
 
 @register.simple_tag(takes_context=True)
