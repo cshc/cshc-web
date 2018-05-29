@@ -4,6 +4,7 @@ Template tags for the CSHC Website
 import logging
 import codecs
 import os
+import re
 import traceback
 import json as jsonlib
 import bleach
@@ -26,7 +27,10 @@ LOG = logging.getLogger(__name__)
 
 
 @register.simple_tag(takes_context=True)
-def static_url(context, url):
+def abs_static_url(context, url):
+    """ Get the absolute URL of a static resource """
+    if re.match('(http:|https:)?//', settings.STATIC_URL):
+        return ''.join([settings.STATIC_URL, url])
     return ''.join(["http://", context.request.META['HTTP_HOST'], settings.STATIC_URL, url])
 
 
