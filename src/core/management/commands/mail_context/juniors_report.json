@@ -1,0 +1,11 @@
+{
+  "name": "Joe Bloggs",
+  "phone": "07999000000",
+  "sender_email": "sender@example.com",
+  "child_name": "Joe Junior",
+  "child_age": "7",
+  "child_gender": "Male",
+  "trigger": "Social media",
+  "join_mail_list": false,
+  "message": "Message about juniors"
+}

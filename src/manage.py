@@ -19,4 +19,14 @@ if __name__ == "__main__":
                 "forget to activate a virtual environment?"
             )
         raise
-    execute_from_command_line(sys.argv)
+
+    # Force the use of the S3 settings if we're running the 'print_mail' management
+    # command and we haven't specified a settings file on the command line.
+    argv = sys.argv
+    try:
+        if argv[1] == 'print_mail' and not any([k.startswith('--settings') for k in argv]):
+            os.environ["DJANGO_SETTINGS_MODULE"] = "cshc.settings.s3"
+    except IndexError:
+        pass
+
+    execute_from_command_line(argv)

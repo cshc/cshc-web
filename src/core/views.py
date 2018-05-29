@@ -96,15 +96,15 @@ class ContactSubmissionCreateView(CreateView):
         try:
             context['secretary_name'] = ClubInfo.objects.get(
                 key='SecretaryName').value
-            context['secretary_email'] = ClubInfo.objects.get(
+            secretary_email = ClubInfo.objects.get(
                 key='SecretaryEmail').value
         except ClubInfo.DoesNotExist:
             context['secretary_name'] = ""
-            context['secretary_email'] = 'secretary@cambridgesouthhockeyclub.co.uk'
+            secretary_email = 'secretary@cambridgesouthhockeyclub.co.uk'
 
         recipient_email = form.cleaned_data['email']
         send_templated_mail(
-            from_email=context['secretary_email'],
+            from_email=secretary_email,
             recipient_list=[recipient_email],
             template_name='contact_sender',
             context=context,

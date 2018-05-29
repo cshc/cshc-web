@@ -1,20 +1,7 @@
 {% block subject %}[CSHC] Junior hockey enquiry from {{ name }}{% endblock subject %}
 
 {% block plain %}
-Message from {{ name }}:
-
-{{ message }}
-
-Email address: {{ sender_email }}
-Phone: {{ phone }}
-
-Child: {{ child_name }} ({% autoescape off %}{{ child_age }}{% endautoescape %}, {{ child_gender }})
-{% if join_mail_list %}
-Note: {{ name }} would like to be added to the CSHC mailing list.
-{% endif %}
-{% if trigger %}
-Heard about Cambridge South Junior Hockey from {{ trigger }}
-{% endif %}
+{% include 'emails/txt/juniors_report.txt' %}
 {% endblock plain %}
 
 {% block html %}

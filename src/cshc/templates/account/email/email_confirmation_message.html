@@ -13,7 +13,7 @@
 
 <tr>
   <td>
-    {% include 'emails/html/_image.html' with base_url=current_site.domain src=club_night width="100%" %}
+    {% include 'emails/html/_image.html' with src=club_night width="100%" %}
   </td>
 </tr>
 <tr bgcolor="#ffffff">
@@ -41,7 +41,7 @@
     <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
       <tr>
         <td width="200" class="mobile" align="center" valign="top">
-            {% include 'emails/html/_image.html' with base_url=current_site.domain src=link_account width="100" height="100" %}
+            {% include 'emails/html/_image.html' with src=link_account width="100" height="100" %}
         </td>
         <td width="400" class="mobile" align="center" valign="top">
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -57,7 +57,7 @@
       {% include 'emails/html/_spacer.html' %}
       <tr>
         <td width="200" class="mobile" align="center" valign="top">
-          {% include 'emails/html/_image.html' with base_url=current_site.domain src=edit_account width="100" height="100" %}
+          {% include 'emails/html/_image.html' with src=edit_account width="100" height="100" %}
         </td>
         <td width="400" class="mobile" align="center" valign="top">
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -73,7 +73,7 @@
       {% include 'emails/html/_spacer.html' %}
       <tr>
         <td width="200" class="mobile" align="center" valign="top">
-          {% include 'emails/html/_image.html' with base_url=current_site.domain src=calendar width="100" height="100" %}
+          {% include 'emails/html/_image.html' with src=calendar width="100" height="100" %}
         </td>
         <td width="400" class="mobile" align="center" valign="top">
           <table width="100%" cellpadding="0" cellspacing="0" border="0">

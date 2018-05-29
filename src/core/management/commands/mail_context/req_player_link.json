@@ -1,0 +1,6 @@
+{
+  "user": {
+    "get_full_name": "Joe Bloggs"
+  },
+  "base_url": "localhost:8000"
+}
