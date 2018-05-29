@@ -31,6 +31,7 @@
 {% block main %}
 
 {% url 'match_detail_edit' match.id as edit_url %}
+{% mobile_friendly_image background_image_full as background_image %}
 
 {% include 'core/_messages.html' %}
 

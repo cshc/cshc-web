@@ -3,6 +3,7 @@ Template tags for the CSHC Website
 """
 import logging
 import codecs
+import os
 import traceback
 import json as jsonlib
 import bleach
@@ -82,6 +83,22 @@ def message_alert(message):
         bold_text = "Uh-oh!"
         level_tag = "danger"
     return alert(level_tag, icon_class, bold_text, message.message, True)
+
+
+@register.simple_tag(takes_context=True)
+def mobile_friendly_image(context, image_path):
+    """
+    Returns the mobile image file path if the user agent is a mobile
+    device; otherwise the original image file path.
+
+    Note: if the image_path is 'img/myimg.jpg', there must also be 
+          a file 'img/myimg.mobile.jpg'.
+    """
+    request = context.get('request')
+    if not request.user_agent.is_mobile:
+        return image_path
+    split = os.path.splitext(image_path)
+    return "{}.mobile{}".format(split[0], split[1])
 
 
 @register.filter
