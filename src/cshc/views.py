@@ -39,6 +39,8 @@ class HomeView(TemplateView):
             {'id': 'tweets', 'label': 'Tweets'},
         ]
 
+        context['background_image'] = 'img/astro2.png' if self.request.user_agent.is_mobile else 'img/astro1.png'
+
         if member:
             try:
                 context['last_appearance_match_id'] = Appearance.objects.by_member(
