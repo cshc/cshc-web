@@ -29,7 +29,7 @@ const Member = {
   },
 
   fullName(member) {
-    return `${member.firstName} ${member.lastName}`;
+    return `${member.firstName} ${member.lastName}`.trim();
   },
 
   /**
