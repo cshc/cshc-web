@@ -92,8 +92,10 @@ class AddMember extends React.PureComponent {
               First name
             </label>
             <div className="input-group g-brd-primary--focus">
-              <div className="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-                <i className="icon-user" />
+              <div className="input-group-prepend">
+                <span className="input-group-text rounded-0 g-color-gray-light-v1">
+                  <i className="fas fa-user" />
+                </span>
               </div>
               <input
                 id="new-player-first-name"
@@ -111,8 +113,10 @@ class AddMember extends React.PureComponent {
               Last name
             </label>
             <div className="input-group g-brd-primary--focus">
-              <div className="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-                <i className="icon-user" />
+              <div className="input-group-prepend">
+                <span className="input-group-text rounded-0 g-color-gray-light-v1">
+                  <i className="fas fa-user" />
+                </span>
               </div>
               <input
                 id="new-player-last-name"

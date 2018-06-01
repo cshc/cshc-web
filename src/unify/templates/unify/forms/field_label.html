@@ -1,0 +1,8 @@
+{% if not hide_label %}
+  <label class="{{ label_class }}" for="{{ field.id_for_label }}">
+    {{ field.label }}{% if field.field.required %}*{% endif %}
+   </label>
+{% else %}
+   <div class="{{ label_class }}"></div>
+{% endif %}
+  

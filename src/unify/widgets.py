@@ -114,10 +114,16 @@ class UnifyCheckboxInput(UnifyWidget, forms.CheckboxInput):
     """ Unify-styled checkbox widget """
     template_name = 'unify/fields/checkbox_input.html'
 
-    def __init__(self, attrs=None):
+    def __init__(self, attrs=None, label=''):
+        self.label = label
         attrs = self.add_classes(
-            attrs, 'g-hidden-xs-up g-pos-abs g-top-10 g-left-10')
+            attrs, 'g-hidden-xs-up g-pos-abs g-top-0 g-left-0')
         super(UnifyCheckboxInput, self).__init__(attrs)
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['label'] = self.label
+        return context
 
 
 class UnifyRadioInput(UnifyWidget, forms.RadioSelect):

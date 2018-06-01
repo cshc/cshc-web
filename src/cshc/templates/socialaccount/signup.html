@@ -1,18 +1,15 @@
-{% extends "account/base.html" %}
+{% extends "socialaccount/base.html" %}
 
 {% load i18n %}
-{% load account socialaccount %}
+{% load cshc_tags %}
 {% load unify %}
 
-{% block title %}{{ block.super }} - Sign Up{% endblock %}
+{% block title %}{{ block.super }} - {% trans "Signup" %}{% endblock %}
 
 {% block main %}
 
 {% url 'account_login' as login_url %}
-
 {% include 'core/_messages.html' %}
-
-{% get_providers as socialaccount_providers %}
 
 <section class="g-bg-secondary">
   <section class="container g-py-150">
@@ -22,16 +19,19 @@
             <header class="text-center mb-4">
               <h2 class="h2 g-color-black g-font-weight-600">Sign Up</h2>
             </header>
-
+            
+            <p>{% blocktrans with provider_name=account.get_provider.name %}You are about to use your {{provider_name}} account to login to 
+            Cambridge South Hockey Club. As a final step, please complete the following form:{% endblocktrans %}</p>
+  
             <!-- Form -->
-            <form class="g-py-15" method="POST" action="{% url 'account_signup' %}">
+            <form id="signup_form" class="g-py-15" method="POST" action="{% url 'socialaccount_signup' %}">
               {% unify_form_non_field_errors %}
               {% for hidden in form.hidden_fields %}
               {{ hidden }}
               {% endfor %}
               {% csrf_token %}
               {% if redirect_field_value %}
-              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
               {% endif %}
               <div class="row">
                 <div class="col-xs-12 col-sm-6 mb-4">
@@ -39,24 +39,12 @@
                 </div>
             
                 <div class="col-xs-12 col-sm-6 mb-4">
-                  {% unify_form_field 'last_name' 'inline' %}
+                    {% unify_form_field 'last_name' 'inline' %}                  
                 </div>
               </div>
-
-              <div class="row">
-                <div class="col mb-4">
-                  {% unify_form_field 'email' 'inline' %}
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="col-xs-12 col-sm-6 mb-4">
-                  {% unify_form_field 'password1' 'inline' %}
-                </div>
             
-                <div class="col-xs-12 col-sm-6 mb-4">
-                  {% unify_form_field 'password2' 'inline' %}
-                </div>
+              <div class="mb-4">
+                {% unify_form_field 'email' 'inline' %}              
               </div>
             
               <div class="mb-4">
@@ -74,14 +62,6 @@
             
               <button id="signup-button" disabled class="btn btn-md btn-block u-btn-primary rounded-0 g-py-15 mb-5" type="submit">Sign Up</button>
               
-              {% if socialaccount_providers %}
-              <div class="d-flex justify-content-center text-center g-mb-30">
-                <div class="d-inline-block align-self-center g-width-50 g-height-1 g-bg-gray-light-v1"></div>
-                <span class="align-self-center g-color-gray-dark-v3 mx-4">OR</span>
-                <div class="d-inline-block align-self-center g-width-50 g-height-1 g-bg-gray-light-v1"></div>
-              </div>
-              {% include 'account/_social_auth.html' %}         
-              {% endif %}
             </form>
             <!-- End Form -->
 
@@ -94,8 +74,7 @@
     </div>
   </section>
 </section>
-
-{% endblock main %}
+{% endblock %}
 
 {% block body_js %}
 {{ block.super }}

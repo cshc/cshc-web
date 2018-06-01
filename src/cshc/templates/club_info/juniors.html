@@ -2,6 +2,7 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags documents %}
+{% load unify %}
 
 {% block title %}{{ block.super }} | Juniors{% endblock %}
 
@@ -181,184 +182,62 @@
   </p>
 
   <form id="contact-us" class="g-brd-around g-brd-gray-light-v4 g-pa-30 g-mb-30" action="{{ juniors_index }}" method="post">
+    {% unify_form_non_field_errors %}
+    {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
     {% csrf_token %}
-    <h5 class="g-mb-20">Your details</h5>
+    {% unify_form_section_heading 'Your details' %}
     <div class="row">
       <div class="col-md-6">
-        <div class="form-group">
-          <label class="sr-only" for="id_first_name">First Name</label>
-          <div class="input-group g-brd-primary--focus">
-            <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-              <i class="fas fa-user"></i>
-            </div>
-            <input 
-              id="id_first_name" 
-              maxlength="255"  
-              name="first_name" 
-              value="{{ form.first_name.value|default:"" }}"
-              class="form-control form-control-md border-left-0 rounded-0 pl-0" 
-              type="text" 
-              placeholder="First Name*">
-          </div>
-          {% if form.errors.first_name %}<small class="form-control-feedback">{{ form.errors.first_name }}</small>{% endif %}
-        </div>
+        {% unify_form_field 'first_name' 'inline' %}
       </div>
       <div class="col-md-6">
-        <div class="form-group">
-            <label class="sr-only" for="id_last_name">Last Name</label>
-          <div class="input-group g-brd-primary--focus">
-            <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-              <i class="fas fa-user"></i>
-            </div>
-            <input 
-              id="id_last_name" 
-              maxlength="255"  
-              name="last_name" 
-              value="{{ form.last_name.value|default:"" }}"
-              class="form-control form-control-md border-left-0 rounded-0 pl-0" 
-              type="text" 
-              placeholder="Last Name*">
-          </div>
-          {% if form.errors.last_name %}<small class="form-control-feedback">{{ form.errors.last_name }}</small>{% endif %}
-        </div>
+        {% unify_form_field 'last_name' 'inline' %}
       </div>
       <div class="col-md-6">
-        <div class="form-group">
-            <label class="sr-only" for="id_email">Email</label>
-          <div class="input-group g-brd-primary--focus">
-            <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-              <i class="fas fa-envelope"></i>
-            </div>
-            <input 
-              id="id_email" 
-              maxlength="255"  
-              name="email" 
-              value="{{ form.email.value|default:"" }}"
-              class="form-control form-control-md border-left-0 rounded-0 pl-0" 
-              type="email" 
-              placeholder="Email*">
-          </div>
-          {% if form.errors.email %}<small class="form-control-feedback">{{ form.errors.email }}</small>{% endif %}
-        </div>
+        {% unify_form_field 'email' 'inline' %}
       </div>
       <div class="col-md-6">
-        <div class="form-group">
-            <label class="sr-only" for="id_phone">Phone</label>
-          <div class="input-group g-brd-primary--focus">
-            <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-              <i class="fas fa-phone"></i>
-            </div>
-            <input 
-              id="id_phone" 
-              maxlength="25"  
-              name="phone" 
-              value="{{ form.phone.value|default:"" }}"
-              class="form-control form-control-md border-left-0 rounded-0 pl-0" 
-              type="tel" 
-              placeholder="Phone">
-          </div>
-          {% if form.errors.phone %}<small class="form-control-feedback">{{ form.errors.phone }}</small>{% endif %}
-        </div>
+          {% unify_form_field 'phone' 'inline' %}
       </div>
     </div>
     
-    <hr class="g-brd-gray-light-v4 g-mx-minus-30">
+    {% unify_form_section_divider %}
+    {% unify_form_section_heading "Your child's details" %}
 
-    <h5 class="g-mb-20">Your child's details</h5>
-
-    <div class="form-inline align-items-start">
-      <div class="form-group flex-column align-items-start">
-        <label class="sr-only" for="id_child_name">Name</label>
-        <div class="input-group g-brd-primary--focus g-mr-20">
-          <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-            <i class="fas fa-user"></i>
-          </div>
-          <input 
-            id="id_child_name" 
-            maxlength="255"  
-            name="child_name" 
-            value="{{ form.child_name.value|default:"" }}"
-            class="form-control form-control-md border-left-0 rounded-0 pl-0" 
-            type="text" 
-            placeholder="Name*">
-        </div>
-        {% if form.errors.child_name %}<small class="form-control-feedback">{{ form.errors.child_name }}</small>{% endif %}
+    <div class="form-inline align-items-center">
+      <div class="g-mr-20">
+        {% unify_form_field 'child_name' 'inline' %}
       </div>
-      <div class="form-group">
-        <label for="id_child_gender">Gender:</label>
-        <select class="custom-select g-ml-10 g-mr-20" id="id_child_gender" name="child_gender">
-          <option {% if form.child_gender.value == "Male" %}selected="selected" {% endif %}value="Male">Male</option>
-          <option {% if form.child_gender.value == "Female" %}selected="selected" {% endif %}value="Female">Female</option>
-        </select>
+      <div class="g-mr-20 d-flex align-items-center">
+        <span class="form-group g-mr-10">Gender:</span>
+        {% unify_form_field 'child_gender' 'inline' %}
       </div>
-      <div class="form-group">
-        <label for="id_child_age">Age:</label>
-        <select id="id_child_age" class="custom-select g-ml-10" name="child_age">
-          <option {% if form.child_age.value == "A6" %}selected="selected" {% endif %}value="A6">6</option>
-          <option {% if form.child_age.value == "A7" %}selected="selected" {% endif %}value="A7">7</option>
-          <option {% if form.child_age.value == "A8" %}selected="selected" {% endif %}value="A8">8</option>
-          <option {% if form.child_age.value == "A9" %}selected="selected" {% endif %}value="A9">9</option>
-          <option {% if form.child_age.value == "A10" %}selected="selected" {% endif %}value="A10">10</option>
-          <option {% if form.child_age.value == "A11" %}selected="selected" {% endif %}value="A11">11</option>
-          <option {% if form.child_age.value == "A12" %}selected="selected" {% endif %}value="A12">12</option>
-          <option {% if form.child_age.value == "A13" %}selected="selected" {% endif %}value="A13">13</option>
-          <option {% if form.child_age.value == "A14" %}selected="selected" {% endif %}value="A14">14</option>
-          <option {% if form.child_age.value == "AGT14" %}selected="selected" {% endif %}value="AGT14">&gt; 14</option>
-        </select>
+      <div class="g-mr-20 d-flex align-items-center">
+        <span class="form-group g-mr-10">Age:</span>
+        {% unify_form_field 'child_age' 'inline' %}
       </div>
     </div>
    
-    <hr class="g-brd-gray-light-v4 g-mx-minus-30">
-    
-    <div class="form-group">
-      <label class="sr-only" for="id_message">Message</label>
-      <textarea 
-        id="id_message" 
-        name="message" 
-        class="form-control form-control-md g-resize-none rounded-0" 
-        rows="3" 
-        placeholder="Message">{{ form.message.value|default:"" }}</textarea>
-      {% if form.errors.message %}<small class="form-control-feedback">{{ form.errors.message }}</small>{% endif %}
-    </div>
+    {% unify_form_section_divider %}
+    {% unify_form_field 'message' 'inline' %}
 
-    <div class="form-group">
-      <label for="id_mailing_list" class="u-check g-pl-25">
-        <input 
-          id="id_mailing_list" 
-          name="mailing_list" 
-          {% if form.mailing_list.value %}
-          checked
-          {% endif %}
-          class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" 
-          type="checkbox">
-        <div class="u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
-          <i class="fas g-rounded-2" data-check-icon=""></i>
-        </div>
-        I would like to join the Club mailing lists 
-      </label>
-    </div>
+    {% unify_form_field 'mailing_list' 'inline' hide_label=True %}
 
-    <div class="form-group">
-      <label for="id_trigger" class="g-mr-10">How did you hear about Cambridge South Junior Hockey?</label>
-      <select id="id_trigger" class="custom-select" name="trigger">
-        <option {% if form.trigger.value == "not_selected" %}selected="selected" {% endif %}value="not_selected">Select one...</option>
-        <option {% if form.trigger.value == "web_search" %}selected="selected" {% endif %}value="web_search">Web search (e.g. Google)</option>
-        <option {% if form.trigger.value == "social_media" %}selected="selected" {% endif %}value="social_media">Social media</option>
-        <option {% if form.trigger.value == "school_notice" %}selected="selected" {% endif %}value="school_notice">School notice</option>
-        <option {% if form.trigger.value == "promotional_flyer" %}selected="selected" {% endif %}value="promotional_flyer">Promotional flyer</option>
-        <option {% if form.trigger.value == "advertising_banner" %}selected="selected" {% endif %}value="advertising_banner">Advertising banner</option>
-        <option {% if form.trigger.value == "word_of_mouth" %}selected="selected" {% endif %}value="word_of_mouth">Word of mouth</option>
-        <option {% if form.trigger.value == "other" %}selected="selected" {% endif %}value="other">Other</option>
-      </select>
+    <div class="row">
+      <div class="col-md-6">
+        {% unify_form_field 'trigger' 'inline' label_class='' %}
+      </div>
     </div>
 
     <div class="form-group">
       {{ form.captcha }}
       {% if form.errors.captcha %}<small class="form-control-feedback">{{ form.errors.captcha }}</small>{% endif %}
     </div>
-
-    <input class="btn btn-md u-btn-primary rounded-0" type="submit" value="Submit">
-    <p class="g-font-size-12 g-font-style-italic g-mt-20">* required fields</p>
+    
+    {% unify_form_submit_button 'Send' 'inline' %}
+    {% unify_form_required_fields_footnote 'inline' %}
   </form>
 </section>
 

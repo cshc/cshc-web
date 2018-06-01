@@ -6,12 +6,16 @@
     outline: none;
   }
   cursor: pointer;
-  display: table-cell;
-  position: relative;
-  text-align: center;
-  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 17px;
-  font-size: 18px;
-  line-height: 1;
   min-width: 26px;
+  border-top: 1px solid #ced4da;
+  border-bottom: 1px solid #ced4da;
+  .clear_text {
+    display: inline-block;
+    font-size: 18px;
+    line-height: 1;
+  }
 }

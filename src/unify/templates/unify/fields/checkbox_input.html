@@ -1,9 +1,9 @@
 <div class="input-group g-brd-primary--focus{% if input_group_class %} {{ input_group_class }}{% endif %}">
-  <label class="u-check g-mr-15 mb-0">
+  <label class="u-check g-pl-25" for="{{ widget.attrs.id }}">
     {% include "django/forms/widgets/checkbox.html" %}
-    <div class="u-check-icon-checkbox-v3 g-bg-primary--checked rounded-0">
-      <i class="ti ti-check g-absolute-centered g-color-white g-show-check"></i>
-      <i class="ti ti-plus g-absolute-centered g-color-primary g-hide-check"></i>
+    <div class="u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
+      <i class="fa" data-check-icon=""></i>
     </div>
+    {{ label }}
   </label>
 </div>

@@ -4,6 +4,7 @@
 {% load cshc_tags %}
 {% load django_bootstrap_breadcrumbs %}
 {% load account socialaccount %}
+{% load unify %}
 
 {% block title %}{{ block.super }} - Email Addresses{% endblock %}
 
@@ -32,19 +33,19 @@
         </div>
         {{ emailaddress.email }}
         {% if emailaddress.verified %}
-          <span class="verified g-font-weight-600">{% trans "Verified" %}</span>
+          <span class="verified g-font-weight-600">{% trans "(verified)" %}</span>
         {% else %}
-          <span class="unverified">{% trans "Unverified" %}</span>
+          <span class="unverified">{% trans "(unverified)" %}</span>
         {% endif %}
         {% if emailaddress.primary %}<span class="primary g-font-weight-600">{% trans "Primary" %}</span>{% endif %}
       </label>
     </div>
   {% endfor %}
 
-  <div class="buttonHolder">
+  <div class="buttonHolder g-mb-20">
     <button class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
     <button class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
-    <button class="btn btn-md u-btn-primary g-mr-10 g-mb-15" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
+    <button class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
   </div>
 
 </fieldset>
@@ -58,17 +59,26 @@
   <h2 class="h3 u-heading-v1__title">{% trans "Add E-mail Address" %}</h2>
 </div>
 
-<form method="post" action="{% url 'account_email' %}" class="add_email">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button class="btn btn-md u-btn-primary" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
-</form>
+<div class="row">
+  <div class="col-xs-12 col-sm-6">
+    <form method="post" action="{% url 'account_email' %}" class="g-brd-around g-brd-gray-light-v4 g-pa-30">
+      {% csrf_token %}
+      {% unify_form_non_field_errors %}
+      {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+      {% endfor %}
+      {% unify_form_field 'email' 'horizontal' %}
+      {% unify_form_submit_button 'Add E-mail' 'horizontal' %}
+    </form>
+  </div>
+</div>
 
 {% endblock content %}
 
 
 {% block body_js %}
 {{ block.super }}
+{% include 'blocks/_focus_state_js.html' %}
 <script type="text/javascript">
 (function() {
   var message = "{% trans 'Do you really want to remove the selected e-mail address?' %}";

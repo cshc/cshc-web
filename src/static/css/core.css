@@ -6,6 +6,10 @@ main {
   background-color: #fff;
 }
 
+.col-form-label {
+  padding-top: calc(0.8rem + 1px);
+}
+
 .u-datepicker-v1 .ui-datepicker-calendar th a:hover,
 .u-datepicker-v1 .ui-datepicker-calendar th a.ui-state-active,
 .u-datepicker-v1 .ui-datepicker-calendar td a:hover,

@@ -2,6 +2,7 @@
 {% load cshc_tags %}
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
+{% load unify %}
 
 {% comment %}
 Contact Us page with contact form
@@ -35,135 +36,52 @@ Contact Us page with contact form
   </div>
 </div>
 
-<form class="g-pt-40" action="{{ contact_us }}" method="post">{% csrf_token %}
-<div class="row justify-content-md-center">
-  <div class="col-md-4">
-    <div class="form-group">
-      <label class="sr-only" for="id_first_name">First Name</label>
-      <div class="input-group g-brd-primary--focus">
-        <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-          <i class="fas fa-user"></i>
-        </div>
-        <input 
-          id="id_first_name" 
-          maxlength="255"  
-          name="first_name" 
-          value="{{ form.first_name.value|default:"" }}"
-          class="form-control form-control-md border-left-0 rounded-0 pl-0" 
-          type="text" 
-          placeholder="First Name*">
+<form class="g-pt-40" action="{{ contact_us }}" method="post">
+  {% unify_form_non_field_errors %}
+  {% for hidden in form.hidden_fields %}
+  {{ hidden }}
+  {% endfor %}
+  {% csrf_token %}
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      {% unify_form_field 'first_name' 'inline' %}
+    </div>
+    <div class="col-md-4">
+      {% unify_form_field 'last_name' 'inline' %}
+    </div>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      {% unify_form_field 'email' 'inline' %}
+    </div>
+    <div class="col-md-4">
+      {% unify_form_field 'phone' 'inline' %}
+    </div>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-md-8">
+      {% unify_form_field 'message' 'inline' %}
+    </div>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-md-8">
+      {% unify_form_field 'mailing_list' 'inline' hide_label=True %}
+    </div>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-md-8">
+      <div class="form-group">
+        {{ form.captcha }}
+        {% if form.errors.captcha %}<small class="form-control-feedback">{{ form.errors.captcha }}</small>{% endif %}
       </div>
-      {% if form.errors.first_name %}<small class="form-control-feedback">{{ form.errors.first_name }}</small>{% endif %}
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="form-group">
-      <label class="sr-only" for="id_last_name">Last Name</label>
-      <div class="input-group g-brd-primary--focus">
-        <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-          <i class="fas fa-user"></i>
-        </div>
-        <input 
-          id="id_last_name" 
-          maxlength="255"  
-          name="last_name" 
-          value="{{ form.last_name.value|default:"" }}"
-          class="form-control form-control-md border-left-0 rounded-0 pl-0" 
-          type="text" 
-          placeholder="Last Name*">
-      </div>
-      {% if form.errors.last_name %}<small class="form-control-feedback">{{ form.errors.last_name }}</small>{% endif %}
+  <div class="row justify-content-md-center">
+    <div class="col-md-8">
+      {% unify_form_submit_button 'Send' 'inline' %}
+      {% unify_form_required_fields_footnote 'inline' %}
     </div>
   </div>
-</div>
-<div class="row justify-content-md-center">
-  <div class="col-md-4">
-    <div class="form-group">
-      <label class="sr-only" for="id_email">Email</label>
-      <div class="input-group g-brd-primary--focus">
-        <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-          <i class="fas fa-envelope"></i>
-        </div>
-        <input 
-          id="id_email" 
-          maxlength="255"  
-          name="email" 
-          value="{{ form.email.value|default:"" }}"
-          class="form-control form-control-md border-left-0 rounded-0 pl-0" 
-          type="email" 
-          placeholder="Email*">
-      </div>
-      {% if form.errors.email %}<small class="form-control-feedback">{{ form.errors.email }}</small>{% endif %}
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="form-group">
-      <label class="sr-only" for="id_phone">Phone</label>
-      <div class="input-group g-brd-primary--focus">
-        <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-          <i class="fas fa-phone"></i>
-        </div>
-        <input 
-          id="id_phone" 
-          maxlength="25"  
-          name="phone" 
-          value="{{ form.phone.value|default:"" }}"
-          class="form-control form-control-md border-left-0 rounded-0 pl-0" 
-          type="tel" 
-          placeholder="Phone">
-      </div>
-      {% if form.errors.phone %}<small class="form-control-feedback">{{ form.errors.phone }}</small>{% endif %}
-    </div>
-  </div>
-</div>
-<div class="row justify-content-md-center">
-  <div class="col-md-8">
-    <div class="form-group">
-      <label class="sr-only" for="id_message">Message</label>
-      <textarea 
-        id="id_message" 
-        name="message" 
-        class="form-control form-control-md g-resize-none rounded-0" 
-        rows="5" 
-        placeholder="Message*">{{ form.message.value|default:"" }}</textarea>
-      {% if form.errors.message %}<small class="form-control-feedback">{{ form.errors.message }}</small>{% endif %}
-    </div>
-  </div>
-</div>
-<div class="row justify-content-md-center">
-  <div class="col-md-8">
-    <div class="form-group">
-      <label for="id_mailing_list" class="u-check g-pl-25">
-        <input 
-          id="id_mailing_list" 
-          name="mailing_list" 
-          {% if form.mailing_list.value %}
-          checked
-          {% endif %}
-          class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" 
-          type="checkbox">
-        <div class="u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
-          <i class="fas g-rounded-2" data-check-icon=""></i>
-        </div>
-        I would like to join the Club mailing lists 
-      </label>
-    </div>
-  </div>
-</div>
-<div class="row justify-content-md-center">
-  <div class="col-md-8">
-    <div class="form-group">
-      {{ form.captcha }}
-      {% if form.errors.captcha %}<small class="form-control-feedback">{{ form.errors.captcha }}</small>{% endif %}
-    </div>
-  </div>
-</div>
-<div class="row justify-content-md-center">
-  <div class="col-md-8">
-    <input class="btn btn-md u-btn-primary rounded-0" type="submit" value="Submit">
-    <p class="g-font-size-12 g-font-style-italic g-mt-20">* required fields</p>
-  </div>
-</div>
 </form>
 
 {% endblock %}

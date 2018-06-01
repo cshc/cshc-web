@@ -52,14 +52,16 @@ class DateInput extends React.PureComponent {
               aria-label="Clear value"
               role="button"
               tabIndex="0"
-              className={`${styles.clear} input-group-addon d-flex align-items-center g-bg-white g-color-gray-dark-v5 rounded-0`}
+              className={`${styles.clear} input-group-append`}
               onClick={() => onChange(undefined)}
             >
-              ×
+              <span className={styles.clear_text}>×</span>
             </div>
           )}
-        <div className="input-group-addon d-flex align-items-center g-bg-white g-color-gray-dark-v5 rounded-0">
-          <i className="icon-calendar" />
+        <div className="input-group-append">
+          <span className="input-group-text rounded-0 g-color-gray-light-v1">
+            <i className="far fa-calendar-alt" />
+          </span>
         </div>
       </div>
     );

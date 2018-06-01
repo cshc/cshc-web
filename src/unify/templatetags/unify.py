@@ -50,15 +50,18 @@ def unify_form_non_field_errors(context):
 
 
 @register.simple_tag(takes_context=True)
-def unify_form_field(context, field_name, orientation='vertical', hide_label=False):
+def unify_form_field(context, field_name, orientation='vertical', hide_label=False, **extra_context):
     """
     Render Unify form field
     """
     field_template = 'unify/forms/{}/field.html'.format(orientation)
     form = context['form']
+    if 'label_class' not in extra_context:
+        extra_context['label_class'] = 'sr-only'
     return mark_safe(render_to_string(field_template, {
         'label': form[field_name].label if not hide_label else None,
         'field': form[field_name],
+        **extra_context,
     }))
 
 

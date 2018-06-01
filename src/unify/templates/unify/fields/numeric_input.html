@@ -1,9 +1,9 @@
 <div class="js-quantity input-group u-quantity-v1 g-width-170 g-brd-primary--focus{% if input_group_class %} {{ input_group_class }}{% endif %}">
-  <div class="js-minus input-group-addon d-flex align-items-center g-width-55 g-color-gray g-bg-grey-light-v3 rounded-0">
-    <i class="ti ti-minus"></i>
+  <div class="js-minus input-group-prepend g-width-55 g-color-gray">
+    <span class="input-group-text rounded-0 w-100"><i class="ti ti-minus"></i></span>
   </div>
   {% include "django/forms/widgets/text.html" %}
-  <div class="js-plus input-group-addon d-flex align-items-center g-width-55 g-color-gray g-bg-grey-light-v3 rounded-0">
-    <i class="ti ti-plus"></i>
+  <div class="js-plus input-group-append g-width-55 g-color-gray">
+    <span class="input-group-text rounded-0 w-100"><i class="ti ti-plus"></i></span>
   </div>
 </div>

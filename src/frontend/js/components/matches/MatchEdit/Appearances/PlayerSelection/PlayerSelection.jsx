@@ -89,8 +89,10 @@ class PlayerSelection extends React.PureComponent {
               this.updateFilter(ev.target.value);
             }}
           />
-          <div className="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
-            <i className="fas fa-search" />
+          <div className="input-group-append">
+            <span className="input-group-text rounded-0 g-color-gray-light-v1">
+              <i className="fas fa-search" />
+            </span>
           </div>
         </div>
         <div className="g-my-20">

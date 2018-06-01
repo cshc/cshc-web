@@ -1,0 +1,65 @@
+{% extends "socialaccount/base.html" %}
+
+{% load i18n %}
+{% load cshc_tags %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}{{ block.super }} - {% trans "Account Connections" %}{% endblock %}
+
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb "Profile" "user_profile" %}
+{% breadcrumb "Account Connections" "socialaccount_connections" %}
+{% endblock %}
+
+{% block content %}
+{% heading "Account Connections" %}
+
+{% if form.accounts %}
+<p>{% blocktrans %}You can sign in to your account using any of the following third party accounts:{% endblocktrans %}</p>
+
+
+<form method="post" action="{% url 'socialaccount_connections' %}">
+{% csrf_token %}
+
+<fieldset>
+{% if form.non_field_errors %}
+<div id="errorMsg">{{ form.non_field_errors }}</div>
+{% endif %}
+
+{% for base_account in form.accounts %}
+{% with base_account.get_provider_account as account %}
+<div class="form-group g-mb-10">
+  <label for="id_account_{{ base_account.id }}" class="u-check g-pl-25">
+    <input id="id_account_{{ base_account.id }}" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="account" type="radio" value="{{ base_account.id }}">
+    <div class="u-check-icon-font g-absolute-centered--y g-left-0">
+      <i class="far" data-check-icon="" data-uncheck-icon=""></i>
+    </div>
+    <span class="g-ml-5 g-font-weight-600 socialaccount_provider {{ base_account.provider }} {{ account.get_brand.id }}">{{account.get_brand.name}}:</span>
+    {{ account }}
+  </label>
+</div>
+{% endwith %}
+{% endfor %}
+
+<div>
+<button class="g-mt-10 g-mb-20 btn btn-md u-btn-outline-primary" type="submit">{% trans 'Remove' %}</button>
+</div>
+
+</fieldset>
+
+</form>
+
+{% else %}
+<p>{% trans 'You currently have no social network accounts connected to this account.' %}</p>
+{% endif %}
+
+{% subheading "Add a 3rd Party Account" %}
+
+<ul class="socialaccount_providers">
+{% include "socialaccount/snippets/provider_list.html" with process="connect" %}
+</ul>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+{% endblock %}

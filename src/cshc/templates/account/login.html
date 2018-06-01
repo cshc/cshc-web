@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load account socialaccount %}
+{% load unify %}
 
 {% block title %}{{ block.super }} - Sign In{% endblock %}
 
@@ -22,35 +23,21 @@
 
             <!-- Form -->
             <form class="g-py-15" method="POST" action="{% url 'account_login' %}">
-              {% if form.non_field_errors %}
-                <div class="u-has-error-v1">
-                  <small class="form-control-feedback">
-                    {{ form.non_field_errors }}
-                  </small>
-                </div>
-              {% endif %}
+              {% unify_form_non_field_errors %}
+              {% for hidden in form.hidden_fields %}
+              {{ hidden }}
+              {% endfor %}
               {% csrf_token %}
               {% if redirect_field_value %}
               <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
               {% endif %}
-              <div class="mb-4 {% if form.errors.login %}u-has-error-v1{% endif %}">
-                <div class="input-group g-brd-primary--focus">
-                  <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
-                      <i class="fas fa-user"></i>
-                    </span>
-                  <input class="form-control g-color-black g-brd-gray-light-v4 g-py-15 g-px-15" type="email" name="login"  placeholder="Email" />
-                </div>
-                {% if form.errors.login %}<small class="form-control-feedback">{{ form.errors.login }}</small>{% endif %}
+              <div class="mb-4">
+                {% unify_form_field 'login' 'inline' %}
               </div>
 
-              <div class="g-mb-35 {% if form.errors.password %}u-has-error-v1{% endif %}">
-                <div class="input-group g-brd-primary--focus">
-                  <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
-                      <i class="fas fa-lock"></i>
-                    </span>
-                  <input class="form-control g-color-black g-brd-gray-light-v4 g-py-15 g-px-15" type="password" name="password" placeholder="Password" />
-                </div>
-                {% if form.errors.password %}<small class="form-control-feedback">{{ form.errors.password }}</small>{% endif %}
+              <div class="g-mb-35">
+                {% unify_form_field 'password' 'inline' %}
+                
                 <div class="row justify-content-between mt-4">
                   <div class="col align-self-center">
                     <label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-12 g-pl-25 mb-0">
@@ -94,3 +81,8 @@
 </section>
 
 {% endblock %}
+
+{% block body_js %}
+{{ block.super }}
+{% include 'blocks/_focus_state_js.html' %}
+{% endblock body_js %}

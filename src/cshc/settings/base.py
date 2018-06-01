@@ -39,7 +39,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 SERVER_EMAIL = 'website@cambridgesouthhockeyclub.co.uk'
-DEFAULT_FROM_EMAIL = 'website@cambridgesouthhockeyclub.co.uk'
+DEFAULT_FROM_EMAIL = 'Cambridge South Hockey Club<website@cambridgesouthhockeyclub.co.uk>'
 
 # ########## END MANAGER CONFIGURATION
 
@@ -86,8 +86,18 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupForm'
+ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupFormExtra'
 ACCOUNT_USER_DISPLAY = user_display
+
+ACCOUNT_FORMS = {
+    'signup': 'members.forms.UnifySignupForm',
+    'login': 'members.forms.UnifyLoginForm',
+    'add_email': 'members.forms.UnifyAddEmailForm',
+    'change_password': 'members.forms.UnifyChangePasswordForm',
+    'set_password': 'members.forms.UnifySetPasswordForm',
+    'reset_password': 'members.forms.UnifyResetPasswordForm',
+    'reset_password_from_key': 'members.forms.UnifyResetPasswordKeyForm',
+}
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
