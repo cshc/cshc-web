@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
+{% load thumbnail from sorl_thumbnail %}
 {% load cshc_tags %}
 
 {% block title %}{{ block.super }} | Training{% endblock %}
@@ -60,7 +61,10 @@
       </div>
     </div>
     <div class="col-md-6 px-0">
-      <img class="w-100" src="{% static "img/training.jpg" %}" alt="Ladies training">
+      {% abs_static_url "img/ladies_training.jpg" as ladies_training_image %}
+      {% thumbnail ladies_training_image "580" as ladies_training_image_thumbnail %}
+        <img class="w-100" src="{{ ladies_training_image_thumbnail.url }}" alt="Ladies training">
+      {% endthumbnail %}
     </div>
   </figure>
 
@@ -78,7 +82,10 @@
       </div>
     </div>
     <div class="col-md-6 order-md-1 px-0">
-      <img class="w-100" src="{% static "img/training.jpg" %}" alt="Mens training">
+      {% abs_static_url "img/mens_training.jpg" as training_image %}
+      {% thumbnail training_image "580" as training_image_thumbnail %}
+        <img class="w-100" src="{{ training_image_thumbnail.url }}" alt="Mens training">
+      {% endthumbnail %}
     </div>
   </figure>
 

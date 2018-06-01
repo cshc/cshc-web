@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
+{% load thumbnail from sorl_thumbnail %}
 {% load cshc_tags documents %}
 
 {% block title %}{{ block.super }} | Join Us{% endblock %}
@@ -28,7 +29,10 @@
     <p>Of course, we're sure you'll be champing at the bit to join us and hand over your subscription after your first game!</p>
   </div>
   <div class="col-12 col-lg-5">
-    <img class="img-fluid" src="{% static "img/new_players.jpg" %}"/>
+    {% abs_static_url "img/new_players.jpg" as new_players_image %}
+    {% thumbnail new_players_image "450" as new_players_image_thumbnail %}
+      <img class="img-fluid" src="{{ new_players_image_thumbnail.url }}"/>
+    {% endthumbnail %}
   </div>
 </div>
 

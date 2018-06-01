@@ -1,4 +1,6 @@
 {% load static from staticfiles %}
+{% load cshc_tags %}
+{% load thumbnail from sorl_thumbnail %}
 
 <h3 class="text-center g-pb-10">{{gender}}</h3>  
 <div class="d-flex">
@@ -8,7 +10,10 @@
     </h3>
   
     <div class="card-block g-pa-0">
-      <img class="w-100 g-pa-15" alt="Mens home kit" src="{% static home_url %}" />
+      {% abs_static_url home_url as home_image %}
+      {% thumbnail home_image "300" as home_image_thumbnail %}
+        <img class="w-100 g-pa-15" alt="Home kit" src="{{ home_image_thumbnail.url }}"/>
+      {% endthumbnail %}
       <div class="g-bg-gray-light-v5 text-center g-pa-15 g-font-weight-600 g-color-grey-dark-v4 g-brd-top g-brd-gray-light-v3">
         <p>Purple shirts</p>
         <p>Navy shorts{% if gender == 'Ladies' %} or skirts{% endif %}</p>
@@ -22,7 +27,10 @@
     </h3>
   
     <div class="card-block g-pa-0">
-      <img class="w-100 g-pa-15" alt="Mens home kit" src="{% static away_url %}" />
+      {% abs_static_url away_url as away_image %}
+      {% thumbnail away_image "300" as away_image_thumbnail %}
+        <img class="w-100 g-pa-15" alt="Away kit" src="{{ away_image_thumbnail.url }}"/>
+      {% endthumbnail %}
       <div class="g-bg-gray-light-v5 text-center g-pa-15 g-font-weight-600 g-color-grey-dark-v4 g-brd-top g-brd-gray-light-v3">
         <p>Yellow shirts</p>
         <p>Navy shorts{% if gender == 'Ladies' %} or skirts{% endif %}</p>

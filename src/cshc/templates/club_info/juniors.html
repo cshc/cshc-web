@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
+{% load thumbnail from sorl_thumbnail %}
 {% load cshc_tags documents %}
 {% load unify %}
 
@@ -98,7 +99,10 @@
       <div class="col-md-4">
         <div class="u-shadow-v5 g-bg-white g-brd-around g-brd-gray-light-v4 g-pa-20 g-mb-30 text-center" role="alert">
           <p>Full season membership includes a<br/><strong>free club T-shirt</strong></p>
-          <img class="w-100" src="{% static "img/kit/juniors_shirt.png" %}"/>
+          {% abs_static_url "img/kit/juniors_shirt.png" as juniors_shirt_image %}
+          {% thumbnail juniors_shirt_image "320" as juniors_shirt_image_thumbnail %}
+            <img class="w-100" src="{{ juniors_shirt_image_thumbnail.url }}"/>
+          {% endthumbnail %}
         </div>
       </div>
     </div>

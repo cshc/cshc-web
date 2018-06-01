@@ -163,7 +163,10 @@
         </p>
       </div>
       <div class="col-lg-6 g-mb-40">
-        <img class="w-100" src="{% static "img/L1L2_2014.jpg" %}" alt="L1s and L2s">
+        {% abs_static_url "img/L1L2_2014.jpg" as ladies_image %}
+        {% thumbnail ladies_image "540" as ladies_image_thumbnail %}
+          <img class="w-100" src="{{ ladies_image_thumbnail.url }}" alt="L1s and L2s">
+        {% endthumbnail %}
       </div>
     </div>
     
