@@ -1,16 +1,17 @@
 """
 Venue views
 """
+import logging
 from itertools import groupby
 from django.views.generic import TemplateView
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.templatetags.static import static
-from django.conf import settings
 from django.http import Http404
 from competitions.models import Season
 from core.views import kwargs_or_none, add_season_selector, get_season_from_kwargs
 from .models import ClubTeam, ClubTeamSeasonParticipation, Southerner
+
+LOG = logging.getLogger(__name__)
 
 
 def js_clubteams(active_only=False):
@@ -54,6 +55,17 @@ class ClubTeamDetailView(TemplateView):
     model = ClubTeam
     template_name = 'teams/clubteam_detail.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        # If the team did not participate in the season specified, redirect to the current season's view
+        if 'season_slug' in kwargs:
+            if (not ClubTeamSeasonParticipation.objects.filter(
+                    team__slug=kwargs['slug'], season__slug=kwargs['season_slug']).exists()):
+                LOG.warning("Team %s did not participate in %s. Defaulting to current/latest season",
+                            kwargs['slug'], kwargs['season_slug'])
+                return redirect('clubteam_detail', slug=kwargs['slug'])
+
+        return super(ClubTeamDetailView, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(ClubTeamDetailView, self).get_context_data(**kwargs)
 
@@ -82,7 +94,8 @@ class ClubTeamDetailView(TemplateView):
         except ClubTeamSeasonParticipation.DoesNotExist:
             raise Http404
 
-        add_season_selector(context, season, part_seasons)
+        add_season_selector(
+            context, season, list(part_seasons.values_list('slug', flat=True)))
 
         context['props'] = {
             'teamId': team.id,
@@ -136,7 +149,7 @@ class SouthernersSeasonView(TemplateView):
 
             In addition to the 'team_list' item, the following are also added to the context:
             - season:               the season these stats applies to
-            - season_list:          a list of all seasons
+            - season_slug_list:     a list of all seasons
             - is_current_season:    True if season == Season.current()
         """
         context = super(SouthernersSeasonView, self).get_context_data(**kwargs)
@@ -144,7 +157,10 @@ class SouthernersSeasonView(TemplateView):
 
         context['team_list'] = self.get_southerners_list(season)
 
-        add_season_selector(context, season, Season.objects.reversed())
+        season_slug_list = list(Southerner.objects.order_by(
+            '-season').values_list('season__slug', flat=True).distinct())
+
+        add_season_selector(context, season, season_slug_list)
 
         return context
 

@@ -44,14 +44,14 @@ def get_season_from_kwargs(kwargs):
     return season
 
 
-def add_season_selector(context, season, season_list):
+def add_season_selector(context, season, season_slug_list):
     """ Adds season information to the given context, facilitating
         the use of the core/_season_selector.html template.
 
         Returns the updated context.
     """
     context['season'] = season
-    context['season_list'] = season_list
+    context['season_slug_list'] = season_slug_list
     context['is_current_season'] = Season.is_current_season(season.id)
     return context
 

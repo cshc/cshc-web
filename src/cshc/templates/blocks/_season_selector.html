@@ -3,8 +3,8 @@
     {{ season }}
   </button>
   <div class="dropdown-menu">
-    {% for s in season_list %}
-    <a class="dropdown-item {% if s == season %}active{% endif %}" href="{{ base_url }}{{ s.slug }}">{{s}}</a>
+    {% for season_slug in season_slug_list %}
+    <a class="dropdown-item {% if season_slug == season.slug %}active{% endif %}" href="{{ base_url }}{{ season_slug }}">{{ season_slug }}</a>
     {% endfor %}
   </div>
 </div>

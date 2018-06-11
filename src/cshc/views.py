@@ -199,7 +199,12 @@ class CommitteeSeasonView(TemplateView):
             'vice_captain': next((m for m in ladies_committee if m.position.name == "Ladies' Mixed XI Co-Captain"), None)
         }
 
-        add_season_selector(context, season, Season.objects.reversed())
+        season_slug_list = list(CommitteeMembership.objects.order_by(
+            '-season').values_list('season__slug', flat=True).distinct())
+
+        add_season_selector(
+            context, season, season_slug_list)
+
         return context
 
 
