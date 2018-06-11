@@ -1,9 +1,11 @@
 {% extends "emails/html/base.html" %}
 {% load static from staticfiles %}
+{% load account %}
 {% load cshc_tags %}
 {% block title %}CSHC - Activate your account{% endblock title %}
 
 {% block content %}
+{% user_display user as user_display %}
 {% url 'user_profile' as user_profile %}
 {% url 'calendar' as calendar_link %}
 {% static "img/link_account.png" as link_account %}
