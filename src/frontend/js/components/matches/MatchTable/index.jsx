@@ -18,6 +18,7 @@ const MatchTable = ({ matches, excludeColumns, dateFormat, priorities, fillBlank
           <tr>
             {incl(TC.fixtureType) && <th className={priority(TC.fixtureType, 3)}>&nbsp;</th>}
             {incl(TC.date) && <th className={priority(TC.date)}>Date</th>}
+            {incl(TC.ourTeam) && <th className={priority(TC.ourTeam)}>Team</th>}
             {incl(TC.opposition) && <th className={priority(TC.opposition)}>Opposition</th>}
             {incl(TC.time) && <th className={priority(TC.time, 2)}>Time</th>}
             {incl(TC.venue) && <th className={priority(TC.venue, 2)}>Venue</th>}

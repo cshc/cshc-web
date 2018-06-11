@@ -46,7 +46,7 @@ const OppositionClubDetail = ({ data, clubName, matchFilters: { oppTeam_Club_Slu
             >
               <MatchData
                 matches={m.matches}
-                exclude={[MatchItem.opposition]}
+                exclude={[MatchItem.opposition, MatchItem.ourTeam]}
                 dateFormat="Do MMM YY"
               />
             </AccordionCard>
@@ -68,6 +68,7 @@ const OppositionClubDetail = ({ data, clubName, matchFilters: { oppTeam_Club_Slu
               <MatchData
                 matches={m.matches}
                 exclude={[
+                  MatchItem.ourTeam,
                   MatchItem.opposition,
                   MatchItem.result,
                   MatchItem.scorers,

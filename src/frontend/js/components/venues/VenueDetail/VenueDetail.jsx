@@ -29,7 +29,11 @@ const VenueDetail = ({ data, venueName }) => {
               accordionId="results"
               title={m.team.longName}
             >
-              <MatchData matches={m.matches} exclude={['venue']} dateFormat="Do MMM YY" />
+              <MatchData
+                matches={m.matches}
+                exclude={[MatchItem.ourTeam, MatchItem.venue]}
+                dateFormat="Do MMM YY"
+              />
             </AccordionCard>
           ))}
         </Accordion>
@@ -48,7 +52,13 @@ const VenueDetail = ({ data, venueName }) => {
             >
               <MatchData
                 matches={m.matches}
-                exclude={[MatchItem.venue, MatchItem.result, MatchItem.scorers, MatchItem.awards]}
+                exclude={[
+                  MatchItem.ourTeam,
+                  MatchItem.venue,
+                  MatchItem.result,
+                  MatchItem.scorers,
+                  MatchItem.awards,
+                ]}
               />
             </AccordionCard>
           ))}

@@ -28,7 +28,7 @@ const TeamDetail = ({ data, division, teamId, teamGenderlessName, seasonId }) =>
     <Accordion multiselectable accordionId="team-details">
       <AccordionCard cardId="results" accordionId="team-details" title="Results">
         {results.length > 0 ? (
-          <MatchData matches={results} fillBlankSaturdays />
+          <MatchData matches={results} exclude={[MatchItem.ourTeam]} fillBlankSaturdays />
         ) : (
           <p className="lead g-font-style-italic">No matches played</p>
         )}
@@ -38,7 +38,7 @@ const TeamDetail = ({ data, division, teamId, teamGenderlessName, seasonId }) =>
           <MatchData
             matches={fixtures}
             fillBlankSaturdays
-            exclude={[MatchItem.result, MatchItem.scorers, MatchItem.awards]}
+            exclude={[MatchItem.ourTeam, MatchItem.result, MatchItem.scorers, MatchItem.awards]}
             priorities={{ [MatchItem.time]: 1 }}
           />
         ) : (

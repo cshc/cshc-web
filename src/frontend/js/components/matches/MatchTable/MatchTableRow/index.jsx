@@ -8,6 +8,7 @@ import { MatchItem as TC } from 'util/constants';
 import FixtureTypeIcon from '../../FixtureTypeIcon';
 import MatchDate from '../../MatchDate';
 import OppositionTeam from '../../OppositionTeam';
+import OurTeam from '../../OurTeam';
 import KitClash from '../../KitClash';
 import MatchVenue from '../../MatchVenue';
 import MatchLink from '../../MatchLink';
@@ -28,8 +29,13 @@ const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
         </td>
       )}
       {incl(TC.date) && (
-        <td className={`${priority(TC.date)} no-break`}>
+        <td className={priority(TC.date)}>
           <MatchDate date={match.date} format={dateFormat} />
+        </td>
+      )}
+      {incl(TC.ourTeam) && (
+        <td className={priority(TC.ourTeam)}>
+          {!match.isSpacer ? <OurTeam team={match.ourTeam} /> : null}
         </td>
       )}
       {incl(TC.opposition) && (
