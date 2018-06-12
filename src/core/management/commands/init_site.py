@@ -7,6 +7,7 @@ python manage.py init_site
 Options:
 -b, --blog_entries_file         The CSV dump of Zinnia blog entries (default: './fixtures/zinnia_entry.csv')
 -p, --prod_dump_sql             The SQL dump of data from the previous database (default: '/home/ec2-user/prod_dump.sql')
+-g, --group_spaces_file         The CSV dump of the Group Spaces member database (default: '/home/ec2-user/group_spaces.csv')
 
 Positional Arguments:
 domain                          The site domain (default: 'cshc-web-prod.eu-west-1.elasticbeanstalk.com')
@@ -72,6 +73,11 @@ class Command(BaseCommand):
             dest='prod_dump_sql',
             default='/home/ec2-user/prod_dump.sql',
             help='The SQL dump of data from the previous database')
+        parser.add_argument(
+            '-g', '--group_spaces_file',
+            dest='group_spaces_file',
+            default='/home/ec2-user/group_spaces.csv',
+            help='The CSV dump of the Group Spaces member database')
 
     def handle(self, *args, **options):
         # Sanity-check
@@ -121,3 +127,11 @@ class Command(BaseCommand):
 
         # 7. Initialize file-based database data
         call_command('init_data')
+
+        # 8. Update member details from Group Spaces dump
+        group_spaces_file = options.get('group_spaces_file')
+        if os.path.isfile(group_spaces_file):
+            call_command('import_groupspaces', group_spaces_file)
+        else:
+            print(group_spaces_file +
+                  ' file not found. Skipping import of Group Spaces member details.')
