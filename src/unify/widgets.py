@@ -48,6 +48,11 @@ class UnifyTextInput(UnifyWidget, forms.TextInput):
         return context
 
 
+class UnifyPasswordInput(UnifyTextInput):
+    """ Unify-styled password input widget """
+    input_type = 'password'
+
+
 class UnifyPhoneInput(UnifyTextInput):
     """ Unify-styled telephone input widget """
     input_type = 'tel'
