@@ -1,0 +1,45 @@
+.u-btn-google {
+  color: #fff;
+  background-color: #dd4b39;
+}
+
+.u-btn-google:hover,
+.u-btn-google.active {
+  border-color: #d73925;
+  background-color: #d73925;
+}
+
+.u-btn-google:hover,
+.u-btn-google:focus,
+.u-btn-google.active {
+  color: #fff;
+}
+
+.u-btn-google.g-btn-hover-reset:hover,
+.u-btn-google.g-btn-hover-reset.active {
+  background-color: #dd4b39;
+  border-color: #dd4b39;
+}
+
+.u-btn-linkedin_oauth2 {
+  color: #fff;
+  background-color: #0e76a8;
+}
+
+.u-btn-linkedin_oauth2:hover,
+.u-btn-linkedin_oauth2.active {
+  border-color: #0c6590;
+  background-color: #0c6590;
+}
+
+.u-btn-linkedin_oauth2:hover,
+.u-btn-linkedin_oauth2:focus,
+.u-btn-linkedin_oauth2.active {
+  color: #fff;
+}
+
+.u-btn-linkedin_oauth2.g-btn-hover-reset:hover,
+.u-btn-linkedin_oauth2.g-btn-hover-reset.active {
+  background-color: #0e76a8;
+  border-color: #0e76a8;
+}

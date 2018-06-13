@@ -34,6 +34,16 @@ def abs_static_url(context, url):
     return ''.join(["http://", context.request.META['HTTP_HOST'], settings.STATIC_URL, url])
 
 
+@register.simple_tag
+def social_provider_icon(provider_id):
+    """ Returns the appropriate (fontawesome) icon class for a Social Account Provider ID """
+    if provider_id == 'facebook':
+        return 'fab fa-facebook-f'
+    if provider_id == 'linkedin_oauth2':
+        return 'fab fa-linkedin-in'
+    return 'fab fa-' + provider_id
+
+
 @register.simple_tag(takes_context=True)
 def animation_duration(context, duration=1000):
     request = context.get('request')
