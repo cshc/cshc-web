@@ -73,6 +73,7 @@ class UnifyLoginForm(LoginForm):
         super().__init__(*args, **kwargs)
         self.fields['login'].widget = UnifyTextInput(
             attrs={
+                'type': 'email',
                 'placeholder': 'E-mail address',
                 'class': 'g-py-15 g-pr-15',
             },
@@ -109,7 +110,7 @@ class UnifyAddEmailForm(AddEmailForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['email'].widget = UnifyTextInput(attrs={'placeholder': 'E-mail address'},
+        self.fields['email'].widget = UnifyTextInput(attrs={'type': 'email', 'placeholder': 'E-mail address'},
                                                      left_icon='fas fa-envelope')
 
 
@@ -117,7 +118,7 @@ class UnifyResetPasswordForm(ResetPasswordForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['email'].widget = UnifyTextInput(attrs={'placeholder': 'E-mail address'},
+        self.fields['email'].widget = UnifyTextInput(attrs={'type': 'email', 'placeholder': 'E-mail address'},
                                                      left_icon='fas fa-envelope')
 
 

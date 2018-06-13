@@ -2,93 +2,24 @@
 {% load static from staticfiles %}
 {% load account %}
 {% load cshc_tags %}
-{% block title %}CSHC - Activate your account{% endblock title %}
+{% block title %}CSHC - Confirm your email address{% endblock title %}
 
 {% block content %}
 {% user_display user as user_display %}
-{% url 'user_profile' as user_profile %}
-{% url 'calendar' as calendar_link %}
-{% static "img/link_account.png" as link_account %}
-{% static "img/edit_account.png" as edit_account %}
-{% static "img/calendar.png" as calendar %}
-{% static "img/club_night.jpg" as club_night %}
 
-<tr>
-  <td>
-    {% include 'emails/html/_image.html' with src=club_night width="100%" %}
-  </td>
-</tr>
 <tr bgcolor="#ffffff">
   <td align="center">
     <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
-      {% include 'emails/html/_title.html' with text="Welcome to Cambridge South Hockey Club!" %}
+      {% include 'emails/html/_title.html' with text="Confirm your e-mail address" %}
       {% include 'emails/html/_paragraph.html' with text=user_display|formatstr:"Hi {}," %}
-      {% include 'emails/html/_paragraph.html' with text="Before you can sign in, you just need to activate your account by clicking on the button below:" %}
+      {% include 'emails/html/_paragraph.html' with text="Please verify this e-mail address by clicking on the button below:" %}
       <tr>
         <td align="center" valign="center">
-          {% include 'emails/html/_button.html' with label="Activate my account" link=activate_url %}
+          {% include 'emails/html/_button.html' with label="Confirm my e-mail address" link=activate_url %}
         </td>
       </tr>
-      {% include 'emails/html/_paragraph.html' with text="Don't delay! This activation link is only valid for 3 days" %}
     </table>
   </td>
 </tr>
 {% include 'emails/html/_spacer.html' with bgcolor="#F2F2F2" %}
-<tr bgcolor="#ffffff">
-  <td align="center">
-    <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
-      {% include 'emails/html/_spacer.html' %}
-      {% include 'emails/html/_title.html' with text="Next Steps..." %}
-    </table>
-    <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
-      <tr>
-        <td width="200" class="mobile" align="center" valign="top">
-            {% include 'emails/html/_image.html' with src=link_account width="100" height="100" %}
-        </td>
-        <td width="400" class="mobile" align="center" valign="top">
-          <table width="100%" cellpadding="0" cellspacing="0" border="0">
-            {% include 'emails/html/_paragraph.html' with text="If you have played (or intend to play) for Cambridge South, we need to connect your new user account to your player details. Please click the button below to initiate this process:" %}
-            <tr>
-              <td align="center" valign="center">
-                {% include 'emails/html/_secondary_button.html' with label="Link my account" link=user_profile|addstr:"?req_link_id=true" %}
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      {% include 'emails/html/_spacer.html' %}
-      <tr>
-        <td width="200" class="mobile" align="center" valign="top">
-          {% include 'emails/html/_image.html' with src=edit_account width="100" height="100" %}
-        </td>
-        <td width="400" class="mobile" align="center" valign="top">
-          <table width="100%" cellpadding="0" cellspacing="0" border="0">
-            {% include 'emails/html/_paragraph.html' with text="Once your account is linked to your player details, you will be able to update your profile picture and other personal details. Your profile page is where you can edit this information." %}
-            <tr>
-              <td align="center" valign="center">
-                {% include 'emails/html/_secondary_button.html' with label="Edit my profile" link=user_profile %}
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      {% include 'emails/html/_spacer.html' %}
-      <tr>
-        <td width="200" class="mobile" align="center" valign="top">
-          {% include 'emails/html/_image.html' with src=calendar width="100" height="100" %}
-        </td>
-        <td width="400" class="mobile" align="center" valign="top">
-          <table width="100%" cellpadding="0" cellspacing="0" border="0">
-            {% include 'emails/html/_paragraph.html' with text="If you use an online calendar, you can subscribe to various CSHC calendars, e.g. socials, training - or just your team's matches" %}
-            <tr>
-              <td align="center" valign="center">
-                {% include 'emails/html/_secondary_button.html' with label="View Calendar Feeds" link=calendar_link %}
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-  </td>
-</tr>
 {% endblock content %}

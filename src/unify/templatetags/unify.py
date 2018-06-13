@@ -15,12 +15,12 @@ def unify_form_section_heading(heading):
 
 
 @register.simple_tag
-def unify_form_submit_button(text, orientation='vertical'):
+def unify_form_submit_button(text, orientation='vertical', name=None):
     """
     Render a form submit button.
     """
     button_template = 'unify/forms/{}/submit.html'.format(orientation)
-    return mark_safe(render_to_string(button_template, {'text': text}))
+    return mark_safe(render_to_string(button_template, {'text': text, 'name': name}))
 
 
 @register.inclusion_tag("unify/forms/section_divider.html")

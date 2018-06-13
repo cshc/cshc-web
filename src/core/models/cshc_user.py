@@ -56,6 +56,8 @@ class CshcUser(AbstractUser):
     objects = UserManager()
 
     class Meta:
+        verbose_name = u'CSHC user'
+        verbose_name_plural = u'CSHC users'
         permissions = (
             ("can_annotate",
              "Can access UI annotation tools (provided by hypothesis.is)"),

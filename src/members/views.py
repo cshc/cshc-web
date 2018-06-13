@@ -85,8 +85,8 @@ def profile(request):
 
     # We store the fact that the user has requested to be linked to a Member in a cookie
     # This way we don't show the link request again (on the same browser) once they've clicked on it
-    context['link_req_sent'] = request.COOKIES.get(
-        link_req_cookie, None)
+    context['link_req_sent'] = int(request.COOKIES.get(
+        link_req_cookie, 0))
 
     if request.method == 'POST':
         if request.POST.get('request_link') == '1':
@@ -95,7 +95,7 @@ def profile(request):
             try:
                 success = send_link_req(request)
                 if success:
-                    context['link_req_sent'] = True
+                    context['link_req_sent'] = 1
             except CshcUser.DoesNotExist:
                 pass
         elif request.POST.get('no_member') == '1':
@@ -136,7 +136,7 @@ def profile(request):
             try:
                 success = send_link_req(request)
                 if success:
-                    context['link_req_sent'] = True
+                    context['link_req_sent'] = 1
             except CshcUser.DoesNotExist:
                 pass
 
@@ -145,7 +145,7 @@ def profile(request):
             instance=member) if member is not None else UserProfileForm(instance=request.user)
 
     response = render(request, 'account/profile.html', context)
-    response.set_cookie(link_req_cookie, context.get('link_req_sent', False))
+    response.set_cookie(link_req_cookie, context.get('link_req_sent', 0))
     return response
 
 
