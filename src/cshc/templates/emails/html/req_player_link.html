@@ -2,6 +2,7 @@
 {% load static from staticfiles %}
 {% load cshc_tags %}
 {% block title %}CSHC - Player Link Request{% endblock title %}
+{% block preheader %}Action Required!{% endblock %}
 
 {% block content %}
 {% url 'admin:members_member_changelist' as admin_url_list %}
