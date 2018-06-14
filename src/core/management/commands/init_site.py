@@ -135,3 +135,6 @@ class Command(BaseCommand):
         else:
             print(group_spaces_file +
                   ' file not found. Skipping import of Group Spaces member details.')
+
+        # 9. Auto-verify the email addresses of each existing user
+        call_command('init_emailaddresses')
