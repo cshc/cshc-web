@@ -85,8 +85,11 @@ def profile(request):
 
     # We store the fact that the user has requested to be linked to a Member in a cookie
     # This way we don't show the link request again (on the same browser) once they've clicked on it
-    context['link_req_sent'] = int(request.COOKIES.get(
-        link_req_cookie, 0))
+    try:
+        context['link_req_sent'] = int(request.COOKIES.get(
+            link_req_cookie, 0))
+    except ValueError:
+        context['link_req_sent'] = 0
 
     if request.method == 'POST':
         if request.POST.get('request_link') == '1':
