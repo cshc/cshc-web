@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
+{% load thumbnail from sorl_thumbnail %}
 {% load cshc_tags %}
 {% load zinnia %}
 
@@ -83,7 +84,10 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 align-self-center g-py-20">
-        <img class="w-100" src="{% static "img/l1-1.jpg" %}" alt="Ladies 1sts in action">
+        {% abs_static_url "img/l1-1.jpg" as l1_1_image %}
+        {% thumbnail l1_1_image "540" as l1_1_image_thumbnail %}
+          <img class="w-100" src="{{ l1_1_image_thumbnail.url }}" alt="Ladies 1sts in action">
+        {% endthumbnail %}
       </div>
 
       <div class="col-md-6 align-self-center g-py-20 g-pl-40">
@@ -118,7 +122,10 @@
       </div>
 
       <div class="col-md-6 align-self-center g-py-20 order-1 order-md-2">
-        <img class="w-100" src="{% static "img/l1-2.jpg" %}" alt="Ladies 1sts in action">
+        {% abs_static_url "img/l1-2.jpg" as l1_2_image %}
+        {% thumbnail l1_2_image "540" as l1_2_image_thumbnail %}
+          <img class="w-100" src="{{ l1_2_image_thumbnail.url }}" alt="Ladies 1sts in action">
+        {% endthumbnail %}
       </div>
     </div>
   </div>
@@ -128,7 +135,10 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 align-self-center g-py-20">
-        <img class="w-100" src="{% static "img/m1-1.jpg" %}" alt="Mens 1sts in action">
+        {% abs_static_url "img/m1-1.jpg" as m1_1_image %}
+        {% thumbnail m1_1_image "540" as m1_1_image_thumbnail %}
+          <img class="w-100" src="{{ m1_1_image_thumbnail.url }}" alt="Mens 1sts in action">
+        {% endthumbnail %}
       </div>
 
       <div class="col-md-6 align-self-center g-py-20 g-pl-40">
