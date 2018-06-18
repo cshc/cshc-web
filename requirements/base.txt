@@ -122,3 +122,7 @@ fdfgen==0.16.1
 # Django Recaptcha
 # Ref: https://github.com/praekelt/django-recaptcha
 django-recaptcha==1.4.0
+
+# collectfast
+# Ref: https://github.com/antonagestam/collectfast
+collectfast==0.6.2

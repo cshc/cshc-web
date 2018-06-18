@@ -73,6 +73,10 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 from .common.storage import *
 
+# collectfast must be installed before 'django.contrib.staticfiles'
+# Ref: https://github.com/antonagestam/collectfast
+INSTALLED_APPS = ['collectfast'] + INSTALLED_APPS
+
 # ########## END Amazon S3 CONFIGURATION
 
 # Important: This needs to be placed after the storage config so the

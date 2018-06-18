@@ -466,8 +466,16 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': '127.0.0.1:11211',
+    },
+    'collectfast': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+        'TIMEOUT': 60,
     }
 }
+
+COLLECTFAST_CACHE = 'collectfast'
+COLLECTFAST_THREADS = 20
 
 # ########## django-ckeditor CONFIGURATION
 

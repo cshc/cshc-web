@@ -25,3 +25,6 @@ STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
 STATIC_URL = '//%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
 
 # ########## END django-s3-folder-storage CONFIGURATION
+
+# Needed for collectfast
+AWS_PRELOAD_METADATA = True
