@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const { buildEntries, RelativeBundleTracker } = require('./webpack-helper.js');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = require('./webpack.base.config.js');
 
@@ -16,6 +17,13 @@ config.plugins = config.plugins.concat([
     'process.env': {
       NODE_ENV: JSON.stringify('debug'),
     },
+  }),
+
+  // Bundle Analyzer
+  // Ref: https://github.com/webpack-contrib/webpack-bundle-analyzer
+  new BundleAnalyzerPlugin({
+    analyzerMode: 'static',
+    reportFilename: 'webpack-report.html',
   }),
 ]);
 
