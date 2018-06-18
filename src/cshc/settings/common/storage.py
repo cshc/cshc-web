@@ -24,6 +24,8 @@ STATIC_S3_PATH = "static"
 STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
 STATIC_URL = '//%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
 
+AWS_IS_GZIPPED = True
+
 # ########## END django-s3-folder-storage CONFIGURATION
 
 # Needed for collectfast
