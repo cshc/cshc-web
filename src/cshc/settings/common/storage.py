@@ -15,14 +15,14 @@ AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
 DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
 DEFAULT_S3_PATH = "media"
 MEDIA_ROOT = normpath(join(SITE_ROOT, DEFAULT_S3_PATH))
-MEDIA_URL = '//%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = 'https://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
 
 # Static media folder
 # STATICFILES_STORAGE = 'cshc.util.FixedStaticStorage'
 STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'
 STATIC_S3_PATH = "static"
 STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
-STATIC_URL = '//%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
+STATIC_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
 
 AWS_IS_GZIPPED = True
 
