@@ -122,6 +122,16 @@ def mobile_friendly_image(context, image_path):
 
 
 @register.filter
+def versioned_url(url):
+    """ 
+    Returns the url appended with a 'version=settings.VERSION' URL parameter
+
+    This is primarily used for cache-busting.
+    """
+    return url + '?version=' + settings.VERSION if not '?' in url else url + '&version=' + settings.VERSION
+
+
+@register.filter
 def addstr(arg1, arg2):
     """concatenate arg1 & arg2"""
     return str(arg1) + str(arg2)
