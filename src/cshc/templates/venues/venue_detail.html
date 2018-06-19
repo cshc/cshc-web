@@ -120,7 +120,7 @@
     {% include 'maps/_map.html' with mapId="map" %}
   {% endif %}
 
-  <div id="react-app"></div>
+  {% include 'react/react_div.html' %}
 
   <div class="g-pt-20 text-right">
     {% instance_admin_links venue %}

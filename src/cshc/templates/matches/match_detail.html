@@ -105,7 +105,7 @@
       {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='report' show='show' cardTitle='Match Report' cardContent='matches/_report.html' %}
     {% endif %}
     {% if not match.is_in_past %}
-      <div id="react-app"></div>
+      {% include 'react/react_div.html' %}
     {% endif %}
   </div>
   <div id="comments g-py-40">

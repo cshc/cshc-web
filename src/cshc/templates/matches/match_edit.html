@@ -25,7 +25,7 @@ A React page for editing the details of a match.
 {% block main %}
   <section class="container g-pt-20 g-pb-40">
     {% heading match.vs_title %}
-    <div id="react-app"></div>
+    {% include 'react/react_div.html' %}
   </section>
 {% endblock main %}
 
