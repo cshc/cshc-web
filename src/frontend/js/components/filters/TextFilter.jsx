@@ -51,7 +51,7 @@ class TextFilter extends React.Component {
             onChange={this.onChange}
             onKeyPress={this.onKeyPress}
           />
-          <span className="input-group-btn">
+          <span className="input-group-append">
             <button
               className="btn btn-md u-btn-primary rounded-0"
               type="button"

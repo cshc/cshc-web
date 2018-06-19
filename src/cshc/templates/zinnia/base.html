@@ -96,7 +96,7 @@
       <form method="get" action="{% url 'zinnia:entry_search' %}">
         <div class="input-group g-brd-primary--focus g-pb-20">
           <input type="text" class="form-control form-control-md rounded-0" name="pattern" placeholder="{% trans "Keywords..." %}" {% if pattern %}value="{{ pattern }}"{% endif %}>
-          <span class="input-group-btn">
+          <span class="input-group-append">
             <button class="btn btn-md u-btn-primary rounded-0" type="submit">
               <i class="fas fa-search"></i>
             </button>

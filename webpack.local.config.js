@@ -24,6 +24,7 @@ config.plugins = config.plugins.concat([
   new BundleAnalyzerPlugin({
     analyzerMode: 'static',
     reportFilename: 'webpack-report.html',
+    openAnalyzer: false,
   }),
 ]);
 
