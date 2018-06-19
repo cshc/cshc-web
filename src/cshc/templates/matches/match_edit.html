@@ -6,6 +6,7 @@ A React page for editing the details of a match.
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
+{% load compress %}
 
 {% block title %}{{ block.super }} | Edit Match - {{ match.fixture_title }}{% endblock %}
 
@@ -13,7 +14,9 @@ A React page for editing the details of a match.
   {{ block.super }}
   <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+  {% compress css %}
   <link rel="stylesheet" href="{% static "vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css" %}">
+  {% endcompress %}
   {% include 'react/react_css.html' with bundle_name='MatchEdit' %}
 {% endblock link %}
 
@@ -32,8 +35,12 @@ A React page for editing the details of a match.
 {% block body_js %}
   {{ block.super }}
   {% include 'blocks/_focus_state_js.html' %}
+
+  {% compress js %}
   <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
   <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
   <script src="{% static "vendor/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js" %}"></script>
+  {% endcompress %}
+
   {% include 'react/react_js.html' with bundle_name='MatchEdit' %}
 {% endblock body_js %}

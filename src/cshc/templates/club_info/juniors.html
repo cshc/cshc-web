@@ -4,13 +4,16 @@
 {% load thumbnail from sorl_thumbnail %}
 {% load cshc_tags documents %}
 {% load unify %}
+{% load compress %}
 
 {% block title %}{{ block.super }} | Juniors{% endblock %}
 
 {% block link %}
   {% include 'blocks/_dszparallaxer_css.html' %}
+  {% compress css %}
   <link rel="stylesheet" href="{% static "css/juniors.css" %}?v=1">
   <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
+  {% endcompress %}
 {% endblock link %}
 
 {% block breadcrumbs %}

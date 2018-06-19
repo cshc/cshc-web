@@ -2,11 +2,14 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
+{% load compress %}
 
 {% block title %}{{ block.super }} | Southerners League{% endblock %}
 
 {% block link %}
+  {% compress css %}
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
+  {% endcompress %}
 {% endblock link %}
 
 {% block breadcrumbs %}

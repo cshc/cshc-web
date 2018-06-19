@@ -1,6 +1,9 @@
 {% load static from staticfiles %}
+{% load compress %}
 
+{% compress js %}
 <script src="{% static "vendor/unify/js/helpers/hs.focus-state.js" %}"></script>
+{% endcompress %}
 <script>
   $(document).on('ready', function () {
     $.HSCore.helpers.HSFocusState.init();

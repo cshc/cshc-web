@@ -126,3 +126,7 @@ django-recaptcha==1.4.0
 # collectfast
 # Ref: https://github.com/antonagestam/collectfast
 collectfast==0.6.2
+
+# Django-Compressor
+# Ref: https://django-compressor.readthedocs.io/en/latest
+django-compressor==2.2

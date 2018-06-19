@@ -1,6 +1,7 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
+{% load compress %}
 
 {% block breadcrumbs %}
   {% clear_breadcrumbs %}
@@ -35,9 +36,12 @@
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static "ico/apple-touch-icon-144x144.png" %}" />
   <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static "ico/apple-touch-icon-152x152.png" %}" />
 
+  {% compress css %}
   <!-- CSS Global Compulsory -->
   <link rel="stylesheet" href="{% static "vendor/bootstrap/bootstrap.min.css" %}">
+  {% endcompress %}
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+  {% compress css %}
   <link rel="stylesheet" href="{% static "vendor/icon-hs/style.css" %}">
   <link rel="stylesheet" href="{% static "vendor/icon-line/css/simple-line-icons.css" %}">
   <link rel="stylesheet" href="{% static "vendor/animate.css" %}">
@@ -52,7 +56,7 @@
   <link rel="stylesheet" href="{% static "vendor/unify/css/custom.css" %}"> 
   <link rel="stylesheet" href="{% static "css/theme.css" %}"> 
   <link rel="stylesheet" href="{% static "css/core.css" %}"> 
-  
+  {% endcompress %}
   {% block link %}{% endblock link %} 
   
   {% block head_js %}{% endblock head_js %}
@@ -80,6 +84,7 @@
   </main>
 
   <!-- JS Global Compulsory -->
+  {% compress js %}
   <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
   <script src="{% static "vendor/jquery-migrate/jquery-migrate.min.js" %}"></script>
   <script src="{% static "vendor/popper.min.js" %}"></script>
@@ -93,6 +98,7 @@
   <script src="{% static "vendor/hs-megamenu/src/hs.megamenu.js" %}"></script>
 
   <script src="{% static "js/util.js" %}"></script>
+  {% endcompress %}
   <script >
     
     $(function () {

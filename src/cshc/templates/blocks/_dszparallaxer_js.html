@@ -1,8 +1,11 @@
 {% load static from staticfiles %}
+{% load compress %}
 
+{% compress js %}
 <script src="{% static "vendor/dzsparallaxer/dzsparallaxer.js" %}"></script>
 <script  src="{% static "vendor/dzsparallaxer/dzsscroller/scroller.js" %}"></script>
 <script  src="{% static "vendor/dzsparallaxer/advancedscroller/plugin.js" %}"></script>
+{% endcompress %}
 <script>
   $(document).on('ready', function () {
     // initialization of parallax

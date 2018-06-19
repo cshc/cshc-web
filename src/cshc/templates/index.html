@@ -4,6 +4,7 @@
 {% load thumbnail from sorl_thumbnail %}
 {% load cshc_tags %}
 {% load zinnia %}
+{% load compress %}
 
 {% block breadcrumbs %}
 {{ block.super }}
@@ -11,9 +12,11 @@
 {% endblock %}
 
 {% block link %}
+  {% compress css %}
   <link rel="stylesheet" href="{% static "vendor/dzsparallaxer/dzsparallaxer.css" %}">
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
   <link rel="stylesheet" href="{% static "css/index.css" %}">
+  {% endcompress %}
 {% endblock link %}
 
 {% block header_class %}u-header--sticky-top u-header--toggle-section u-header--change-appearance{% endblock header_class %}
@@ -204,7 +207,10 @@
 
 {% block body_js %}
   {{ block.super }}
+  {% compress js %}
   <script src="{% static "vendor/dzsparallaxer/dzsparallaxer.js" %}"></script>
+  {% endcompress %}
+
   {% include 'blocks/_scroll_nav_js.html' %}
   {% include 'blocks/_scroll_anim_js.html' %}
   <script>

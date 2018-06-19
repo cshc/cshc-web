@@ -7,8 +7,12 @@ Expects context containing:
 {% endcomment %}
  
 {% load static %}
+{% load compress %}
 
+{% compress js %}
 <script type="text/javascript" src="{% static "vendor/gmap3/gmap3.min.js" %}"></script>
+{% endcompress %}
+
 <script >
   window.gmapsApiKey = "{{ GMAPS_API_KEY }}";
     

@@ -3,12 +3,15 @@
 {% load django_bootstrap_breadcrumbs %}
 {% load thumbnail from sorl_thumbnail %}
 {% load cshc_tags documents %}
+{% load compress %}
 
 {% block title %}{{ block.super }} | Join Us{% endblock %}
 
 {% block link %}
+  {% compress css %}
   <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
   <link rel="stylesheet" href="{% static "vendor/icon-line/css/simple-line-icons.css" %}">
+  {% endcompress %}
 {% endblock link %}
 
 {% block breadcrumbs %}

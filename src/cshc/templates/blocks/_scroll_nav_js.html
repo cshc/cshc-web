@@ -1,6 +1,10 @@
 {% load static from staticfiles %}
+{% load compress %}
 
+{% compress js %}
 <script src="{% static "vendor/unify/js/components/hs.scroll-nav.js" %}"></script>
+{% endcompress %}
+
 <script>
   $(window).on('load', function () {
     // initialization of HSScrollNav

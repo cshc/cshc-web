@@ -4,11 +4,14 @@
 {% load i18n %}
 {% load cshc_tags %}
 {% load django_bootstrap_breadcrumbs %}
+{% load compress %}
 
 {% block title %}{{ block.super }} - {% trans "Account Connections" %}{% endblock %}
 
 {% block link %}
+  {% compress css %}
   <link rel="stylesheet" href="{% static "css/social.css" %}">
+  {% endcompress %}
 {% endblock link %}
 
 {% block breadcrumbs %}

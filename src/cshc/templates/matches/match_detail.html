@@ -2,6 +2,7 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
+{% load compress %}
 
 {% block title %}{{ block.super }} | {{ match.match_title_text }}{% endblock %}
 
@@ -12,9 +13,11 @@
 {% endblock %}
 
 {% block link %}
+  {% compress css %}
   <link rel="stylesheet" type="text/css" href="{% static "fluent_comments/css/ajaxcomments.css" %}" />
   <link rel="stylesheet" href="{% static "css/match_detail.css" %}">
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
+  {% endcompress %}
   {% if not match.is_in_past %}
   {% include 'react/react_css.html' with bundle_name='MatchDetail' %}
   {% endif %}
@@ -125,8 +128,12 @@
 
 {% block body_js %}
 {{ block.super }}
+
+{% compress js %}
 <script type="text/javascript" src="{% static "fluent_comments/js/ajaxcomments.js" %}"></script>
 <script src="{% static "vendor/jquery.fittext.js" %}"></script>
+{% endcompress %}
+
 <script>
     $(function () {
       jQuery(".shirt-wrapper .shirt-number").fitText(0.8);

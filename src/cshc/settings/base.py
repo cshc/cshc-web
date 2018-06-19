@@ -190,6 +190,7 @@ THIRD_PARTY_APPS = [
     'captcha',
     'ckeditor',
     'ckeditor_uploader',
+    'compressor',
     'dbbackup',
     'django_bootstrap_breadcrumbs',
     'django_filters',
@@ -285,6 +286,12 @@ STATICFILES_DIRS = (
     # STATIC_ROOT or syncs them to whatever storage we use.
     # join(SITE_ROOT, 'frontend'),
     join(SITE_ROOT, 'static'),
+)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 # ########## END STATIC FILE CONFIGURATION
@@ -566,3 +573,11 @@ RECAPTCHA_PUBLIC_KEY = get_env_setting('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = get_env_setting('RECAPTCHA_PRIVATE_KEY')
 
 # ########## END django-recaptcha CONFIGURATION
+
+# ########## django-compressor CONFIGURATION
+# COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
+# N.B. COMPRESS_FILTERS seems to ignore the rCSSMinFilter filter
+COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',
+                        'compressor.filters.cssmin.rCSSMinFilter']
+# ########## END django-compressor CONFIGURATION

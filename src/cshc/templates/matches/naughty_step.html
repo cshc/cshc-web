@@ -2,6 +2,7 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
+{% load compress %}
 
 {% comment %}
 Formatted display of the 'Naughty Step' tables for all members.
@@ -11,7 +12,9 @@ This displays the red, yellow and green cards received by all players.
 {% block title %}{{ block.super }} | The Naughty Step{% endblock %}
 
 {% block link %}
+  {% compress css %}
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
+  {% endcompress %}
 {% endblock link %}
 
 {% block breadcrumbs %}

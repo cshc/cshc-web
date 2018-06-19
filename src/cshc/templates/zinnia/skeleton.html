@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load staticfiles %}
+{% load compress %}
 
 {% block title %}{{ block.super }} | Blog{% endblock title %}
 
 {% block link %}
+  {% compress css %}
   <link rel="stylesheet" type="text/css" media="screen, projection" href="{% static "zinnia/theme/css/screen.css" %}" />
   <link rel="stylesheet" type="text/css" media="print" href="{% static "zinnia/theme/css/print.css" %}" />
   <!--[if lt IE 8]>
     <link rel="stylesheet" type="text/css" media="screen, projection" href="{% static "zinnia/theme/css/ie.css" %}" />
   <![endif]-->
+  {% endcompress %}
 {% endblock link %}
 
 {% block main %}

@@ -2,13 +2,16 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags documents %}
+{% load compress %}
 
 {% block title %}{{ block.super }} | Meeting Minutes{% endblock %}
 
 
 {% block link %}
+  {% compress css %}
   <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
   <link rel="stylesheet" href="{% static "vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css" %}">
+  {% endcompress %}
 {% endblock link %}
 
 {% block breadcrumbs %}
@@ -51,7 +54,10 @@
 
 {% block body_js %}
   {{ block.super }}
+  {% compress js %}
   <script src="{% static "vendor/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js" %}"></script>
+  {% endcompress %}
+
   <script>
     $(document).on('ready', function () {
       $('.mCustomScrollbar').mCustomScrollbar();

@@ -2,12 +2,15 @@
 {% load static from staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags documents %}
+{% load compress %}
 
 {% block title %}{{ block.super }} | Committee{% endblock %}
 
 
 {% block link %}
+  {% compress css %}
   <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
+  {% endcompress %}
 {% endblock link %}
 
 {% block breadcrumbs %}

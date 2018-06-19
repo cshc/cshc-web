@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load zinnia %}
 {% load staticfiles %}
+{% load compress %}
 
 {% block meta-description %}{% trans "Last entries" %}{% endblock meta-description %}
 
@@ -28,7 +29,10 @@
 
 {% block body_js %}
 {{ block.super }}
+{% compress js %}
 <script type="text/javascript" src="{% static "zinnia/theme/js/jquery.flexslider.js" %}"></script>
+{% endcompress %}
+
 <script type="text/javascript">
   $(window).load(function() {
     $(".slider").flexslider({

@@ -30,3 +30,7 @@ AWS_IS_GZIPPED = True
 
 # Needed for collectfast
 AWS_PRELOAD_METADATA = True
+
+# Needed for django-compressor
+COMPRESS_URL = STATIC_URL
+COMPRESS_STORAGE = 's3_folder_storage.s3.DefaultStorage'

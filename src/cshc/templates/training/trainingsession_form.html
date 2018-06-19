@@ -3,6 +3,7 @@
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
 {% load unify %}
+{% load compress %}
 
 {% block title %}{{ block.super }} | Add training sessions{% endblock %}
 
@@ -11,7 +12,9 @@
 {% endcomment %}
 {% block pre_link %}
   {{ block.super }}  
+  {% compress css %}
   <link rel="stylesheet" href="{% static "vendor/jquery-ui/themes/base/jquery-ui.min.css" %}">
+  {% endcompress %}
 {% endblock pre_link %}
 
 {% block breadcrumbs %}
@@ -109,5 +112,7 @@
   {{ block.super }}
   {% include 'blocks/_focus_state_js.html' %}
   {{ form.media }}
+  {% compress js %}
   <script type="text/javascript" src="{% static "js/training.js" %}"></script>
+  {% endcompress %}
 {% endblock %}
