@@ -1,4 +1,7 @@
-import { format as dateFormat, addDays, compareDesc, isSaturday } from 'date-fns';
+import { default as dateFormat } from 'date-fns/format';
+import addDays from 'date-fns/add_days';
+import compareDesc from 'date-fns/compare_desc';
+import isSaturday from 'date-fns/is_saturday';
 
 const toTitleCase = str =>
   str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());

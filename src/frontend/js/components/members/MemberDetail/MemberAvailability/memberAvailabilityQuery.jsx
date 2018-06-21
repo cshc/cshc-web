@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-import { format, startOfToday } from 'date-fns';
+import format from 'date-fns/format';
+import startOfToday from 'date-fns/start_of_today';
 
 /** 
  * GraphQL query to fetch the upcoming match availabilities for a particular member.

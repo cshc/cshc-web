@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 import { NetworkStatus as NS } from 'apollo-client';
 import Loading from 'components/common/Loading';
 import ErrorDisplay from 'components/common/ErrorDisplay';

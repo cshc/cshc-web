@@ -1,9 +1,8 @@
-import { isPast } from 'date-fns';
+import isPast from 'date-fns/is_past';
 import sortBy from 'lodash/sortBy';
 import reduce from 'lodash/reduce';
 import sumBy from 'lodash/sumBy';
 import some from 'lodash/some';
-import every from 'lodash/every';
 import isNumber from 'lodash/isNumber';
 import { toTitleCase } from 'util/cshc';
 import { HomeAway, MatchAward, AltOutcome } from 'util/constants';

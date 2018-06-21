@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { format as dateFormat } from 'date-fns';
+import { default as dateFormat } from 'date-fns/format';
 import Urls from 'util/urls';
 
 /** Represention of a match date. Includes a hyperlink to display all matches on that date.

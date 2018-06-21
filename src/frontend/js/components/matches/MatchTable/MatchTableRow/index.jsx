@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 import Match from 'models/match';
 import MemberLink from 'components/members/MemberLink';
 import AwardWinner from 'components/awards/AwardWinner';
