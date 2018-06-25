@@ -3,7 +3,8 @@
   "extends": "airbnb",
   "plugins": ["react", "jsx-a11y", "import"],
   "rules": {
-    "linebreak-style": 0
+    "linebreak-style": 0,
+    "import/no-named-default": 0
   },
   "env": {
     "browser": true,

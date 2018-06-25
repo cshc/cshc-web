@@ -55,7 +55,7 @@ const MemberPlayingRecord = ({
             onChangeFixtureType(filterValue === NoFilter ? undefined : filterValue)}
           filterValue={fixtureType}
           inline
-        />,
+        />
         <ViewSwitcher className="g-pt-6" currentView={viewType} onSelectViewType={onChangeViewType}>
           <ViewSwitcherView iconClass="fas fa-table" label={ViewType.Table} />
           <ViewSwitcherView iconClass="fas fa-chart-area" label={ViewType.Chart} />
