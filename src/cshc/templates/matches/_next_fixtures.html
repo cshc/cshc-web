@@ -14,32 +14,40 @@ Context should have a 'next_fixtures' list of Match objects.
         {% for match in date.matches %}
           <tr class="match" title="View match details" data-href="{{ match.get_absolute_url }}">
             <td class="g-valign-middle fixture-icon gender-{{ match.our_team.get_gender_display|lower }}">
-              {% include 'matches/_fixture_icon.html' %}
+              <a href="{{ match.get_absolute_url }}">{% include 'matches/_fixture_icon.html' %}</a>
             </td>
   
-            <td class="g-valign-middle">{{ match.our_team|capfirst }}</td>
-            <td class="g-valign-middle text-center text-nowrap g-color-gray-light-v1">vs</td>
-            <td class="g-valign-middle g-width-90x g-pos-rel">
-              <div class="ellipsis-container">
-                <div class="ellipsis-overflow g-pt-2">
-                  {{ match.opp_team.genderless_name }}
-                </div>
-              </div>
+            <td class="g-valign-middle">
+              <a href="{{ match.get_absolute_url }}">{{ match.our_team|capfirst }}</a>
             </td>
-            <td class="g-valign-middle d-flex align-items-center justify-content-end">
-              {% if match.kit_clash %}<i class="g-color-yellow fas fa-user g-px-5" title="Away kit"></i>{% endif %}
-              <span class="g-font-size-75x">
-                {% if match.alt_outcome %}
-                  {{ match.get_alt_outcome_display }}
+            <td class="g-valign-middle text-center text-nowrap g-color-gray-light-v1">
+              <a href="{{ match.get_absolute_url }}">vs</a>
+            </td>
+            <td class="g-valign-middle g-width-90x g-pos-rel">
+              <a href="{{ match.get_absolute_url }}">
+                <div class="ellipsis-container">
+                  <div class="ellipsis-overflow g-pt-2">
+                    {{ match.opp_team.genderless_name }}
+                  </div>
+                </div>
+              </a>
+            </td>
+            <td class="g-valign-middle">
+              <a class="d-flex d-flex align-items-center justify-content-end" href="{{ match.get_absolute_url }}">
+                {% if match.kit_clash %}<i class="g-color-yellow fas fa-user g-px-5" title="Away kit"></i>{% endif %}
+                <span class="g-font-size-75x">
+                  {% if match.alt_outcome %}
+                    {{ match.get_alt_outcome_display }}
+                  {% else %}
+                    {{ match.time_display }}
+                  {% endif %}
+                </span>
+                {% if match.is_home %}
+                  <div class="g-font-weight-600 g-ml-10 g-px-4 p-py-2 g-my-2 g-color-black g-bg-gray-light-v5" title="{{ match.venue.name }}">H</div>
                 {% else %}
-                  {{ match.time_display }}
+                  <div class="g-font-weight-600 g-ml-10 g-px-4 p-py-2 g-my-2" title="{{ match.venue.name }}">A</div>
                 {% endif %}
-              </span>
-              {% if match.is_home %}
-                <div class="g-font-weight-600 g-ml-10 g-px-4 p-py-2 g-my-2 g-color-black g-bg-gray-light-v5" title="{{ match.venue.name }}">H</div>
-              {% else %}
-                <div class="g-font-weight-600 g-ml-10 g-px-4 p-py-2 g-my-2" title="{{ match.venue.name }}">A</div>
-              {% endif %}
+              </a>
             </td>
           </tr>
         {% endfor %}

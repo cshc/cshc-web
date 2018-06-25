@@ -218,6 +218,9 @@
       $(".home-banner .table .match").click(function() {
         window.location = $(this).data("href");
       });
+      $(".home-banner .table .match td > a").on("click",function(e){
+        e.stopPropagation();
+      });
     });
   </script>
 {% endblock body_js %}

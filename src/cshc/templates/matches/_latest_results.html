@@ -14,26 +14,34 @@ Context should have a 'latest_results' list of Match objects.
           {% for match in date.matches %}
             <tr class="match{% if last_appearance_match_id == match.id %} my-match{% endif %}" title="View match details" data-href="{{ match.get_absolute_url }}">
               <td class="g-valign-middle fixture-icon gender-{{ match.our_team.get_gender_display|lower }}">
-                {% include 'matches/_fixture_icon.html' %}
+                <a href="{{ match.get_absolute_url }}">{% include 'matches/_fixture_icon.html' %}</a>
               </td>
     
-              <td class="g-valign-middle">{{ match.our_team|capfirst }}</td>
-              <td class="g-valign-middle text-center text-nowrap">
-                <div class="g-px-4 g-py-2 result result-{{ match.result_display|lower }}">
-                  {{ match.score_display }}
-                </div>
+              <td class="g-valign-middle">
+                <a href="{{ match.get_absolute_url }}">{{ match.our_team|capfirst }}</a>
               </td>
-              <td class="g-valign-middle g-width-90x g-pos-rel">
-                <div class="ellipsis-container">
-                  <div class="ellipsis-overflow g-pt-2">
-                    {{ match.opp_team.genderless_name }}
+              <td class="g-valign-middle text-center text-nowrap">
+                <a href="{{ match.get_absolute_url }}">
+                  <div class="g-px-4 g-py-2 result result-{{ match.result_display|lower }}">
+                    {{ match.score_display }}
                   </div>
-                </div>
+                </a>
+              </td>
+              <td class="g-valign-middle g-pos-rel g-width-90x">
+                <a href="{{ match.get_absolute_url }}">
+                  <div class="ellipsis-container">
+                    <div class="ellipsis-overflow g-pt-2">
+                      {{ match.opp_team.genderless_name }}
+                    </div>
+                  </div>
+                </a>
               </td>
               <td class="g-valign-middle text-center">
-                {% if match.has_report %}
-                  <i class="fas fa-fw fa-file-alt"></i>
-                {% endif %}
+                <a href="{{ match.get_absolute_url }}">
+                  {% if match.has_report %}
+                    <i class="fas fa-fw fa-file-alt"></i>
+                  {% endif %}
+                </a>
               </td>
             </tr>
           {% endfor %}
