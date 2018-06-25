@@ -85,7 +85,7 @@
     </div>
   </section>
   {% comment %} Member Profile Form {% endcomment %}
-  <form class="g-brd-around g-brd-gray-light-v4 g-pa-30 g-my-30" action="{% url 'user_profile' %}" method="post">{% csrf_token %}
+  <form enctype="multipart/form-data" class="g-brd-around g-brd-gray-light-v4 g-pa-30 g-my-30" action="{% url 'user_profile' %}" method="post">{% csrf_token %}
     {% unify_form_non_field_errors %}
     {% for hidden in form.hidden_fields %}
     {{ hidden }}
