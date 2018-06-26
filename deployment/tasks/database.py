@@ -64,11 +64,11 @@ def connect_local(cnx):
 
 
 @task
-def dump_prod(cnx):
+def dump_prod(cnx, compatible=None):
     """ Dump the production database data to a SQL file """
     data = {
         'remote_root': cnx.config.remote_root,
-        'flags': '--no-create-db --no-create-info --skip-add-locks --complete-insert --compatible=ansi ',
+        'flags': '--no-create-db --no-create-info --skip-add-locks --complete-insert{} '.format('--compatible={}'.format(compatible) if compatible else ''),
         'db_host': cnx.config.database.host,
         'db_name': cnx.config.database.name,
         'tables': ' '.join(tables_to_dump),
@@ -84,9 +84,9 @@ def dump_prod(cnx):
 
 
 @task
-def get_prod_dump(cnx):
+def get_prod_dump(cnx, compatible=None):
     """ Copy the dumped prod database data to the local machine """
-    dump_prod(cnx)
+    dump_prod(cnx, compatible)
     remote_file = '{remote_root}/{database.dump_filename}'.format(**cnx.config)
     local_file = path.join(cnx.config.local_root,
                            cnx.config.database.dump_filename)
@@ -121,7 +121,7 @@ def import_dumped_data(cnx, flush_extra=False):
 
 
 @task
-def import_prod_data(cnx, flush_extra=False):
+def import_prod_data(cnx, flush_extra=False, compatible=None):
     """ Import prod data """
-    get_prod_dump(cnx)
+    get_prod_dump(cnx, compatible)
     import_dumped_data(cnx, flush_extra)
