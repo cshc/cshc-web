@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { VictoryPie } from 'victory';
+import { Pie } from 'react-chartjs-2';
 import Member from 'models/member';
 import ProgressBar from 'components/common/ProgressBar';
 import MemberAvatar from 'components/members/MemberAvatar';
@@ -16,20 +16,46 @@ const SquadRosterCard = ({ memberStats, teamTotals }) => {
   const playedPercentage = 100 * (memberStats.played / teamTotals.played);
   const goalsPercentage = 100 * (memberStats.goals / teamTotals.goals);
   const wldData = [];
-  const wldColors = [];
+  const wldLabels = [];
+  const wldBgColors = [];
+  const wldHoverColors = [];
   if (memberStats.won > 0) {
-    wldData.push({ x: 'W', y: memberStats.won });
-    wldColors.push('#00ff00');
+    wldLabels.push('Won');
+    wldData.push(memberStats.won);
+    wldBgColors.push('#00ff00');
+    wldHoverColors.push('#00ff00');
   }
   if (memberStats.drawn > 0) {
-    wldData.push({ x: 'D', y: memberStats.drawn });
-    wldColors.push('lightgrey');
+    wldLabels.push('Drawn');
+    wldData.push(memberStats.drawn);
+    wldBgColors.push('lightgrey');
+    wldHoverColors.push('lightgrey');
   }
   if (memberStats.lost > 0) {
-    wldData.push({ x: 'L', y: memberStats.lost });
-    wldColors.push('red');
+    wldLabels.push('Lost');
+    wldData.push(memberStats.lost);
+    wldBgColors.push('red');
+    wldHoverColors.push('red');
   }
-
+  const wld = {
+    labels: wldLabels,
+    datasets: [
+      {
+        data: wldData,
+        backgroundColor: wldBgColors,
+        hoverBackgroundColor: wldHoverColors,
+      },
+    ],
+  };
+  const wldOptions = {
+    responsive: true,
+    legend: {
+      display: false,
+      layout: {
+        padding: 0,
+      },
+    },
+  };
   const mom = <AwardCount iconClass="star" awardCount={memberStats.mom} />;
   const lom = <AwardCount iconClass="lemon" awardCount={memberStats.lom} />;
   const captain = memberStats.isCaptain || memberStats.isViceCaptain;
@@ -71,16 +97,7 @@ const SquadRosterCard = ({ memberStats, teamTotals }) => {
               />
             </div>
             <div className={styles.pie}>
-              <VictoryPie
-                colorScale={wldColors}
-                data={wldData}
-                height={150}
-                width={150}
-                padding={10}
-                labelRadius={28}
-                style={{ labels: { fontSize: 25, fontWeight: 'bold' } }}
-                labels={d => d.x}
-              />
+              <Pie data={wld} options={wldOptions} />
             </div>
           </div>
         </div>
