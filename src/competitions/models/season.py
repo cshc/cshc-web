@@ -117,5 +117,6 @@ class Season(models.Model):
             year=start_year, month=SEASON_START_MONTH, day=SEASON_START_DAY)
         current.end = datetime(year=start_year + 1,
                                month=SEASON_END_MONTH, day=SEASON_END_DAY)
+        current.clean()
         current.save()
         return current
