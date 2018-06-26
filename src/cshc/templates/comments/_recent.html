@@ -1,3 +1,5 @@
 {% for comment in comments %}
   {% include 'comments/comment.html' with link=True %}
+{% empty %}
+  <p class="lead g-font-style-italic g-text-center">(No comments yet)</p>
 {% endfor %}
