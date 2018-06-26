@@ -7,27 +7,24 @@
 }
 .imageOverlay {
   position: absolute;
-  bottom: 0;
+  bottom: 0.5rem;
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px;
+  padding: 0.8rem;
   font-weight: bold;
+  border-radius: 50%;
 }
 .mom {
   composes: imageOverlay;
-  left: 0;
-}
-.captain {
-  composes: imageOverlay;
-  left: 0;
-  right: 0;
+  left: 0.5rem;
+  background-color: #6639b6;
 }
 .lom {
   composes: imageOverlay;
-  right: 0;
+  right: 0.5rem;
+  background-color: #e8e800;
 }
 .progress {
   flex: 1;

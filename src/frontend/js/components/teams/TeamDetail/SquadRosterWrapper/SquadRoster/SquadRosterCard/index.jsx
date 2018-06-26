@@ -58,25 +58,21 @@ const SquadRosterCard = ({ memberStats, teamTotals }) => {
   };
   const mom = <AwardCount iconClass="star" awardCount={memberStats.mom} />;
   const lom = <AwardCount iconClass="lemon" awardCount={memberStats.lom} />;
-  const captain = memberStats.isCaptain || memberStats.isViceCaptain;
   return (
     <div className="col-md-6 col-lg-3 g-mb-30">
       <article className="g-bg-white">
         <figure className={styles.imageContainer}>
           <MemberAvatar member={memberStats.member} rounded={false} />
-          {captain && (
-            <div className={styles.captain}>
-              {mom}
-              <div>{memberStats.isCaptain ? 'Captain' : 'Vice-Captain'}</div>
-              {lom}
-            </div>
-          )}
-          {!captain && memberStats.mom > 0 && <div className={styles.mom}>{mom}</div>}
-          {!captain && memberStats.lom > 0 && <div className={styles.lom}>{lom}</div>}
+          {memberStats.mom > 0 && <div className={styles.mom}>{mom}</div>}
+          {memberStats.lom > 0 && <div className={styles.lom}>{lom}</div>}
         </figure>
         <div className="u-shadow-v24 g-pa-25">
           <a href={Urls.member_detail(memberStats.member.id)} title="View Profile">
-            <h3 className="h5 g-mb-5 text-center">{Member.fullName(memberStats.member)}</h3>
+            <h3 className="h5 g-mb-5 text-center">
+              {Member.fullName(memberStats.member)}
+              {memberStats.isCaptain && ' (C)'}
+              {memberStats.isViceCaptain && ' (VC)'}
+            </h3>
           </a>
           <p className="text-center g-mb-5">
             &nbsp;{memberStats.member.prefPosition !== 'Not known' &&
