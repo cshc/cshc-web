@@ -581,3 +581,7 @@ COMPRESS_OFFLINE = True
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',
                         'compressor.filters.cssmin.rCSSMinFilter']
 # ########## END django-compressor CONFIGURATION
+
+# ########## Availability CONFIGURATION
+AVAILABILITY_ENABLED = False
+# ########## END Availability CONFIGURATION

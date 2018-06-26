@@ -17,6 +17,8 @@ const PageRoute = {
   UmpiringAvailability: '/umpiring-availability',
 };
 
+const enableAvailability = window.props.ENABLE_AVAILABILITY;
+
 /**
  * Top-level component within the Member Detail React app
  * 
@@ -40,7 +42,7 @@ const MemberDetail = ({ isMe, member }) => (
           </span>
         </NavLink>
       </ListGroup>
-      {isMe ? (
+      {isMe && enableAvailability ? (
         <ListGroup className="g-mt-40">
           <span className="list-group-item g-bg-gray-light-v4">Member Tools</span>
           <NavLink className="list-group-item" to={PageRoute.PlayingAvailability}>
@@ -68,14 +70,18 @@ const MemberDetail = ({ isMe, member }) => (
           path={PageRoute.ClubInvolvement}
           render={() => <MemberClubInvolvement member={member} />}
         />
-        <Route
-          path={PageRoute.PlayingAvailability}
-          render={() => <PlayingAvailability member={member} />}
-        />
-        <Route
-          path={PageRoute.UmpiringAvailability}
-          render={() => <UmpiringAvailability member={member} />}
-        />
+        {enableAvailability && (
+          <Route
+            path={PageRoute.PlayingAvailability}
+            render={() => <PlayingAvailability member={member} />}
+          />
+        )}
+        {enableAvailability && (
+          <Route
+            path={PageRoute.UmpiringAvailability}
+            render={() => <UmpiringAvailability member={member} />}
+          />
+        )}
         <Redirect from={PageRoute.Home} to={PageRoute.PlayingRecord} />
       </Switch>
     </div>

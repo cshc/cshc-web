@@ -23,6 +23,7 @@ def utils(request):
         'VERSION': settings.VERSION,
         'STATIC_URL': settings.STATIC_URL,
         "GMAPS_API_KEY": settings.GMAPS_API_KEY,
+        "ENABLE_AVAILABILITY": settings.AVAILABILITY_ENABLED,
         'TEAMS': [
             {
                 'title': 'Mens',
