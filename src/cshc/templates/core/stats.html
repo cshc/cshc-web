@@ -38,13 +38,118 @@ Static landing page for stats - mainly a redirect from the old site.
   </div>
 </div>
 
-<div class="btn-group" role="group">
-  <a class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" href="{% url 'goal_king' %}">Goal King</a>
-  <a class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" href="{% url 'southerners_league' %}">Southerners League</a>
-  <a class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" href="{% url 'opposition_club_list' %}">Rivals</a>
-  <a class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" href="{% url 'accidental_tourist' %}">Accidental Tourist</a>
-  <a class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" href="{% url 'playing_record' %}">Team Playing Records</a>
-  <a class="btn btn-md u-btn-outline-primary g-mr-10 g-mb-15" href="{% url 'naughty_step' %}">The Naughty Step</a>
+<div class="row">
+  <div class="col-lg-4 g-mb-30">
+    <div class="media g-mb-15">
+      <div class="d-flex mr-4">
+        <span class="u-icon-v2 u-icon-size--sm g-color-white g-bg-pink rounded-circle">
+          <i class="fas fa-user"></i>
+        </span>
+      </div>
+      <div class="media-body">
+        <h3 class="h5 g-color-black g-line-height-1_6"><a href="{% url 'member_list' %}">Member Playing Records</a></h3>
+        <p class="g-color-gray-dark-v4">Who's played the most matches for the club? Scored the most goals?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 g-mb-30">
+    <div class="media g-mb-15">
+      <div class="d-flex mr-4">
+        <span class="u-icon-v2 u-icon-size--sm g-color-white g-bg-cyan rounded-circle">
+          <i class="fas fa-users"></i>
+        </span>
+      </div>
+      <div class="media-body">
+        <h3 class="h5 g-color-black g-line-height-1_6"><a href="{% url 'playing_record' %}">Team Playing Records</a></h3>
+        <p class="g-color-gray-dark-v4">Season summaries for each team.</p>
+      </div>
+    </div>
+  </div>
+    
+  <div class="col-lg-4 g-mb-30">
+    <div class="media g-mb-15">
+      <div class="d-flex mr-4">
+        <span class="u-icon-v2 u-icon-size--sm g-color-white g-bg-primary rounded-circle">
+          <i class="fas fa-crown"></i>
+        </span>
+      </div>
+      <div class="media-body">
+        <h3 class="h5 g-color-black g-line-height-1_6"><a href="{% url 'goal_king' %}">Goal King</a></h3>
+        <p class="g-color-gray-dark-v4">Who's scored the most goals? And who's scoring the most <em>per game</em>?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 g-mb-30">
+    <div class="media g-mb-15">
+      <div class="d-flex mr-4">
+        <span class="u-icon-v2 u-icon-size--sm g-color-white g-bg-red rounded-circle">
+          <i class="fas fa-chart-bar"></i>
+        </span>
+      </div>
+      <div class="media-body">
+        <h3 class="h5 g-color-black g-line-height-1_6"><a href="{% url 'southerners_league' %}">Southerner's League</a></h3>
+        <p class="g-color-gray-dark-v4">How do the various Cambridge South teams stack up against each other?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 g-mb-30">
+    <div class="media g-mb-15">
+      <div class="d-flex mr-4">
+        <span class="u-icon-v2 u-icon-size--sm g-color-white g-bg-orange rounded-circle">
+          <i class="fas fa-table"></i>
+        </span>
+      </div>
+      <div class="media-body">
+        <h3 class="h5 g-color-black g-line-height-1_6"><a href="{% url 'opposition_club_list' %}">Rivals</a></h3>
+        <p class="g-color-gray-dark-v4">Comprehensive stats on Cambridge South's performance against each rival club.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 g-mb-30">
+    <div class="media g-mb-15">
+      <div class="d-flex mr-4">
+        <span class="u-icon-v2 u-icon-size--sm g-color-white g-bg-blue rounded-circle">
+          <i class="fas fa-car"></i>
+        </span>
+      </div>
+      <div class="media-body">
+        <h3 class="h5 g-color-black g-line-height-1_6"><a href="{% url 'accidental_tourist' %}">Accidental Tourist</a></h3>
+        <p class="g-color-gray-dark-v4">Who's travelled the furthest for the cause? And who is a 'Reluctant Traveller'?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 g-mb-30">
+    <div class="media g-mb-15">
+      <div class="d-flex mr-4">
+        <span class="u-icon-v2 u-icon-size--sm g-color-white g-bg-teal rounded-circle">
+          <i class="fas fa-user-clock"></i>
+        </span>
+      </div>
+      <div class="media-body">
+        <h3 class="h5 g-color-black g-line-height-1_6"><a href="{% url 'naughty_step' %}">The Naughty Step</a></h3>
+        <p class="g-color-gray-dark-v4">Cambridge South's very own Wall Of Shame - sort of! Find out which players the umpires have carded the most.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 g-mb-30">
+    <div class="media g-mb-15">
+      <div class="d-flex mr-4">
+        <span class="u-icon-v2 u-icon-size--sm g-color-white g-bg-bluegray rounded-circle">
+          <i class="fas fa-trophy"></i>
+        </span>
+      </div>
+      <div class="media-body">
+        <h3 class="h5 g-color-black g-line-height-1_6"><a href="{% url 'end_of_season_award_winners_list' %}">End of Season Awards</a></h3>
+        <p class="g-color-gray-dark-v4">Each season we hand out lots of awards. Find out who's won them each year.</p>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 

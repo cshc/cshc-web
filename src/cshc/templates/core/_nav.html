@@ -126,6 +126,12 @@
             <li class="dropdown-item g-brd-bottom g-brd-white {% active_link 'stats' %}">
               <a href="{% url 'stats' %}" class="nav-link">Overview</a>
             </li>
+            <li class="dropdown-item {% active_link 'member_list' %}">
+                <a href="{% url 'member_list' %}" class="nav-link">Member Playing Records</a>
+            </li>
+            <li class="dropdown-item {% active_link 'playing_record' %}">
+              <a href="{% url 'playing_record' %}" class="nav-link">Team Playing Records</a>
+            </li>
             <li class="dropdown-item {% active_link 'goal_king' %}">
               <a href="{% url 'goal_king' %}" class="nav-link">Goal King</a>
             </li>
@@ -138,11 +144,11 @@
             <li class="dropdown-item {% active_link 'accidental_tourist' %}">
               <a href="{% url 'accidental_tourist' %}" class="nav-link">Accidental Tourist</a>
             </li>
-            <li class="dropdown-item {% active_link 'playing_record' %}">
-              <a href="{% url 'playing_record' %}" class="nav-link">Playing Records</a>
-            </li>
             <li class="dropdown-item {% active_link 'naughty_step' %}">
               <a href="{% url 'naughty_step' %}" class="nav-link">The Naughty Step</a>
+            </li>
+            <li class="dropdown-item {% active_link 'end_of_season_award_winners_list' %}">
+              <a href="{% url 'end_of_season_award_winners_list' %}" class="nav-link">Club Award Winners</a>
             </li>
           </ul>
         </li>
