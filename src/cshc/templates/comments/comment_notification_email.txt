@@ -1,7 +1,7 @@
 {% extends "emails/html/base.html" %}
 {% autoescape off %}
 
-{% load static from staticfiles %}
+{% load static %}
 {% load cshc_tags %}
 {% load account %}
 {% block title %}CSHC - New Comment{% endblock title %}
