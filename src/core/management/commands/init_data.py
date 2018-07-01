@@ -135,6 +135,8 @@ docs = [
         'CSHC_AGM_2015_Minutes.pdf'), 'timestamp': '2015-07-01'},
     {'id': 63, 'title': 'March 2018', 'category_id': 2, 'file': doc(
         'CSHC_Cmte_Mar_2018_Minutes.pdf'), 'timestamp': '2018-04-01'},
+    {'id': 64, 'title': 'CSHC AGM 2018', 'category_id': 3, 'file': doc(
+        'CSHC_AGM_2018_Minutes.pdf'), 'timestamp': '2018-06-26'},
 ]
 
 offers = [
