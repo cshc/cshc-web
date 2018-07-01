@@ -15,6 +15,12 @@ export const urlPropsQueryConfig = {
   [FilterName.Captains]: {
     type: UrlQueryParamTypes.boolean,
   },
+  [FilterName.Umpires]: {
+    type: UrlQueryParamTypes.boolean,
+  },
+  [FilterName.Coaches]: {
+    type: UrlQueryParamTypes.boolean,
+  },
   [FilterName.Gender]: {
     type: UrlQueryParamTypes.string,
   },
@@ -57,16 +63,28 @@ const MemberFilterSet = ({ teams }) => {
         filterName={FilterName.TextSearch}
         urlQueryConfig={urlPropsQueryConfig[FilterName.TextSearch]}
       />
-      <BooleanFilter
-        filterName={FilterName.Current}
-        urlQueryConfig={urlPropsQueryConfig[FilterName.Current]}
-        label="Current"
-      />
-      <BooleanFilter
-        filterName={FilterName.Captains}
-        urlQueryConfig={urlPropsQueryConfig[FilterName.Captains]}
-        label="Captains/Vice-Captains only"
-      />
+      <FilterGroup title="Only show...">
+        <BooleanFilter
+          filterName={FilterName.Current}
+          urlQueryConfig={urlPropsQueryConfig[FilterName.Current]}
+          label="Current players"
+        />
+        <BooleanFilter
+          filterName={FilterName.Captains}
+          urlQueryConfig={urlPropsQueryConfig[FilterName.Captains]}
+          label="Captains/Vice-Captains"
+        />
+        <BooleanFilter
+          filterName={FilterName.Umpires}
+          urlQueryConfig={urlPropsQueryConfig[FilterName.Umpires]}
+          label="Umpires"
+        />
+        <BooleanFilter
+          filterName={FilterName.Coaches}
+          urlQueryConfig={urlPropsQueryConfig[FilterName.Coaches]}
+          label="Coaches"
+        />
+      </FilterGroup>
       <FilterGroup title="Gender">
         <OptionListFilter
           filterName={FilterName.Gender}

@@ -32,7 +32,8 @@ class MemberFilter(AndFilter):
         model = Member
         fields = ['is_current', 'gender', 'pref_position', 'first_name', 'known_as', 'last_name',
                   'appearances__match__season__slug', 'appearances__match__our_team__slug',
-                  'teamcaptaincy__season__slug', 'squadmembership__season__slug', 'squadmembership__team__slug']
+                  'teamcaptaincy__season__slug', 'squadmembership__season__slug', 'squadmembership__team__slug',
+                  'is_umpire', 'is_coach']
 
 
 class CommitteePositionType(DjangoObjectType):

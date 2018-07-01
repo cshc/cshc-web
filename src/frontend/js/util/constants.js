@@ -74,6 +74,8 @@ const FilterName = {
   Division: 'division',
   Current: 'current',
   Captains: 'captains',
+  Coaches: 'coaches',
+  Umpires: 'umpires',
   Gender: 'gender',
   Position: 'position',
   GoalKingGender: 'goalKingGender',

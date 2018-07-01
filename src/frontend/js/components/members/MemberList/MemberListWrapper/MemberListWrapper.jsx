@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Marker } from 'react-google-maps';
-import GoogleMap, { MapIcons } from 'components/common/GoogleMap';
-import Member from 'models/member';
-import { getPosition } from 'util/cshc';
-import { ViewType, Gender } from 'util/constants';
+import GoogleMap from 'components/common/GoogleMap';
+import { ViewType } from 'util/constants';
 import { ViewSwitcher, ViewSwitcherView } from 'components/common/ViewSwitcher';
 import MemberTable from './MemberTable';
 import MemberMarker from './MemberMarker';

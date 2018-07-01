@@ -9,6 +9,8 @@ export const MEMBER_LIST_QUERY = gql`
     $name: String
     $isCurrent: Boolean
     $gender: String
+    $isUmpire: Boolean
+    $isCoach: Boolean
     $squadmembership_Season_Slug: String
     $squadmembership_Team_Slug: String
     $prefPosition_In: String
@@ -18,6 +20,8 @@ export const MEMBER_LIST_QUERY = gql`
       name: $name
       isCurrent: $isCurrent
       gender: $gender
+      isUmpire: $isUmpire
+      isCoach: $isCoach
       squadmembership_Season_Slug: $squadmembership_Season_Slug
       squadmembership_Team_Slug: $squadmembership_Team_Slug
       prefPosition_In: $prefPosition_In
@@ -39,11 +43,23 @@ export const MEMBER_LIST_QUERY = gql`
 `;
 
 export const memberListOptions = {
-  options: ({ currentSeason, textSearch, current, captains, gender, position, team }) => ({
+  options: ({
+    currentSeason,
+    textSearch,
+    current,
+    captains,
+    umpires,
+    coaches,
+    gender,
+    position,
+    team,
+  }) => ({
     variables: {
       name: textSearch || undefined,
       isCurrent: current || undefined,
       gender: gender !== NoFilter ? gender : undefined,
+      isUmpire: umpires || undefined,
+      isCoach: coaches || undefined,
       prefPosition_In: Member.getPreferredPositions(position),
       squadmembership_Season_Slug: team && team !== NoFilter ? currentSeason : undefined,
       squadmembership_Team_Slug: team && team !== NoFilter ? team : undefined,

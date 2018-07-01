@@ -18,9 +18,10 @@ class MemberAdmin(ImageCroppingMixin, admin.ModelAdmin):
     model = Member
     inlines = (SquadMembershipInline,)
     search_fields = ('first_name', 'known_as', 'last_name')
-    list_filter = ('is_current', 'gender', 'pref_position')
+    list_filter = ('is_current', 'gender', 'pref_position',
+                   'is_umpire', 'is_coach')
     list_display = ('full_name_with_option', 'user', 'gender',
-                    'pref_position', 'is_current')
+                    'pref_position', 'is_current', 'is_umpire', 'is_coach')
     fieldsets = [
         ('Personal', {'fields': ['user', 'first_name', 'known_as', 'last_name',
                                  'gender', 'profile_pic', 'profile_pic_cropping']}),
