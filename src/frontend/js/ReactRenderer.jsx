@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { RouterToUrlQuery } from 'react-url-query';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/es/integration/react';
-import Loading from 'components/common/Loading';
+import PersistLoading from 'components/common/PersistLoading';
 import getClient from './network/client';
 import buildStore from './redux/store';
 
@@ -24,7 +24,7 @@ export default (Component, reducers = {}, initialState, baseUrl = '/', props = w
     <AppContainer>
       <ApolloProvider client={getClient(store)}>
         <Provider store={store}>
-          <PersistGate loading={<Loading />} persistor={persistStore(store)}>
+          <PersistGate loading={<PersistLoading />} persistor={persistStore(store)}>
             <Router basename={baseUrl}>
               <RouterToUrlQuery>
                 <Component {...props} />

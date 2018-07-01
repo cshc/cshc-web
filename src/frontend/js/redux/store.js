@@ -3,14 +3,14 @@ import { apolloReducer } from 'apollo-cache-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistCombineReducers, purgeStoredState } from 'redux-persist';
 import createRavenMiddleware from 'raven-for-redux';
-import storage from 'redux-persist/es/storage'; // default: localStorage if web, AsyncStorage if react-native
+import localForage from 'localforage';
 import Urls from 'util/urls';
 
 /* eslint-disable no-underscore-dangle */
 const buildStore = (key, reducers, initialState) => {
   const persistConfig = {
     key,
-    storage,
+    storage: localForage,
     blacklist: ['ui', 'matchState'],
   };
   if (Urls.getParameterByName('purge')) {
