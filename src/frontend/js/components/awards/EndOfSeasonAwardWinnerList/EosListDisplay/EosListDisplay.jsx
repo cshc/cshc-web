@@ -48,8 +48,7 @@ class EosListDisplay extends React.Component {
             },
             {
               Header: 'Awardee',
-              id: 'member',
-              sortable: false,
+              id: 'member_first_name',
               Cell: ({ original }) =>
                 (original.member ? (
                   <MemberLink member={original.member} useFullName />

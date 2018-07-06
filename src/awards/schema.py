@@ -26,6 +26,7 @@ class EndOfSeasonAwardWinnerFilter(AndFilter):
             ('award__name', 'award'),
             ('season__slug', 'season'),
             ('member__id', 'member'),
+            ('member__first_name', 'member_first_name'),
         )
     )
 
