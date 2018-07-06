@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTable from 'react-table';
 import { NetworkStatus as NS } from 'apollo-client';
 import Match from 'models/match';
 import OurTeam from 'components/matches/OurTeam';
@@ -9,6 +8,7 @@ import OppositionTeam from 'components/matches/OppositionTeam';
 import MatchVenue from 'components/matches/MatchVenue';
 import MatchDate from 'components/matches/MatchDate';
 import MatchLink from 'components/matches/MatchLink';
+import UrlSyncedReactTable from 'components/common/UrlSyncedReactTable';
 import commonStyles from 'components/common/style.scss';
 
 class MatchListDisplay extends React.Component {
@@ -21,7 +21,7 @@ class MatchListDisplay extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ loading: !nextProps.matches && nextProps.networkStatus === NS.loading });
+    this.setState({ loading: nextProps.networkStatus === NS.loading });
   }
 
   onSortedChange(newSorted) {
@@ -30,13 +30,18 @@ class MatchListDisplay extends React.Component {
   }
 
   render() {
-    const { matches, queryVariables: { pageSize }, onChangePage, onChangePageSize } = this.props;
+    const {
+      matches,
+      queryVariables: { pageSize, page },
+      onChangePage,
+      onChangeUrlQueryParams,
+    } = this.props;
     const { loading } = this.state;
     return (
       <div className={commonStyles.reactTable}>
-        <ReactTable
+        <UrlSyncedReactTable
           className="-highlight"
-          showPageJump={false}
+          manual
           columns={[
             {
               Header: '',
@@ -100,12 +105,13 @@ class MatchListDisplay extends React.Component {
           ]}
           data={matches ? matches.results : []}
           loading={loading}
-          manual
-          onPageChange={page => onChangePage(page + 1)}
-          onPageSizeChange={onChangePageSize}
-          defaultPageSize={pageSize}
+          page={page}
+          pageSize={pageSize}
+          onChangePage={onChangePage}
+          onChangeUrlQueryParams={onChangeUrlQueryParams}
           onSortedChange={this.onSortedChange}
-          pages={matches ? Math.ceil(matches.totalCount / pageSize) : 0}
+          multiSort={false}
+          totalCount={matches ? matches.totalCount : 0}
         />
         {matches && <div className="g-py-20">{matches.totalCount} matches</div>}
       </div>
@@ -117,10 +123,11 @@ MatchListDisplay.propTypes = {
   networkStatus: PropTypes.number.isRequired,
   queryVariables: PropTypes.shape({
     pageSize: PropTypes.number,
+    page: PropTypes.number,
   }).isRequired,
   matches: PropTypes.shape(),
   onChangePage: PropTypes.func.isRequired,
-  onChangePageSize: PropTypes.func.isRequired,
+  onChangeUrlQueryParams: PropTypes.func.isRequired,
   onChangeOrderBy: PropTypes.func.isRequired,
 };
 

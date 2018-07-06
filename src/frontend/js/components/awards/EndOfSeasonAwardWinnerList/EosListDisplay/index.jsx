@@ -6,6 +6,12 @@ import { urlPropsQueryConfig } from 'components/awards/EndOfSeasonAwardWinnerLis
 import EosListWithData from './eosQuery';
 import EosListDisplay from './EosListDisplay';
 
-const Filterable = addUrlProps({ urlPropsQueryConfig });
+const Filterable = addUrlProps({
+  urlPropsQueryConfig: {
+    ...urlPropsQueryConfig,
+    ...Paged,
+    ...Orderable,
+  },
+});
 
-export default compose(Paged, Orderable, Filterable, EosListWithData)(EosListDisplay);
+export default compose(Filterable, EosListWithData)(EosListDisplay);

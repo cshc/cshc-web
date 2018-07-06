@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTable from 'react-table';
+import UrlSyncedReactTable from 'components/common/UrlSyncedReactTable';
 import { NetworkStatus as NS } from 'apollo-client';
 import MemberLink from 'components/members/MemberLink';
 import commonStyles from 'components/common/style.scss';
@@ -16,7 +16,7 @@ class EosListDisplay extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      loading: !nextProps.endOfSeasonAwardWinners && nextProps.networkStatus === NS.loading,
+      loading: nextProps.networkStatus === NS.loading,
     });
   }
 
@@ -26,13 +26,19 @@ class EosListDisplay extends React.Component {
   }
 
   render() {
-    const { endOfSeasonAwardWinners, page, pageSize, onChangePage, onChangePageSize } = this.props;
+    const {
+      endOfSeasonAwardWinners,
+      page,
+      pageSize,
+      onChangePage,
+      onChangeUrlQueryParams,
+    } = this.props;
     const { loading } = this.state;
     return (
       <div className={commonStyles.reactTable}>
-        <ReactTable
+        <UrlSyncedReactTable
           className="-highlight"
-          showPageJump={false}
+          manual
           columns={[
             {
               Header: 'Season',
@@ -59,15 +65,13 @@ class EosListDisplay extends React.Component {
           ]}
           data={endOfSeasonAwardWinners ? endOfSeasonAwardWinners.results : []}
           loading={loading}
-          manual
-          page={page - 1}
-          onPageChange={p => onChangePage(p + 1)}
-          onPageSizeChange={onChangePageSize}
-          defaultPageSize={pageSize}
+          page={page}
+          pageSize={pageSize}
+          onChangePage={onChangePage}
+          onChangeUrlQueryParams={onChangeUrlQueryParams}
           onSortedChange={this.onSortedChange}
-          pages={
-            endOfSeasonAwardWinners ? Math.ceil(endOfSeasonAwardWinners.totalCount / pageSize) : 0
-          }
+          multiSort={false}
+          totalCount={endOfSeasonAwardWinners ? endOfSeasonAwardWinners.totalCount : 0}
         />
         {endOfSeasonAwardWinners && (
           <div className="g-py-20">{endOfSeasonAwardWinners.totalCount} award winners</div>
@@ -79,13 +83,12 @@ class EosListDisplay extends React.Component {
 
 EosListDisplay.propTypes = {
   networkStatus: PropTypes.number.isRequired,
-  error: PropTypes.instanceOf(Error),
   endOfSeasonAwardWinners: PropTypes.shape(),
   pageSize: PropTypes.number.isRequired,
   page: PropTypes.number.isRequired,
   onChangePage: PropTypes.func.isRequired,
-  onChangePageSize: PropTypes.func.isRequired,
   onChangeOrderBy: PropTypes.func.isRequired,
+  onChangeUrlQueryParams: PropTypes.func.isRequired,
 };
 
 EosListDisplay.defaultProps = {

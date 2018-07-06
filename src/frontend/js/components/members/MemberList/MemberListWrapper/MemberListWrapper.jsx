@@ -6,7 +6,7 @@ import { ViewSwitcher, ViewSwitcherView } from 'components/common/ViewSwitcher';
 import MemberTable from './MemberTable';
 import MemberMarker from './MemberMarker';
 
-const MemberListWrapper = ({ canViewMap, data, viewType, onSelectViewType }) => (
+const MemberListWrapper = ({ canViewMap, data, viewType, onSelectViewType, ...props }) => (
   <div>
     {canViewMap ? (
       <ViewSwitcher currentView={viewType} onSelectViewType={onSelectViewType}>
@@ -15,7 +15,7 @@ const MemberListWrapper = ({ canViewMap, data, viewType, onSelectViewType }) => 
       </ViewSwitcher>
     ) : null}
     {!canViewMap || viewType === ViewType.List ? (
-      <MemberTable members={data.results} />
+      <MemberTable members={data.results} {...props} />
     ) : (
       <GoogleMap
         markers={data.results

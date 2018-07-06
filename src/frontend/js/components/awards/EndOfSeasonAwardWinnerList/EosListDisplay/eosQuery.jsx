@@ -50,9 +50,8 @@ export const eosListOptions = {
     },
     fetchPolicy: 'cache-and-network',
   }),
-  props: ({ ownProps, data: { networkStatus, error, endOfSeasonAwardWinners }, ...props }) => ({
+  props: ({ ownProps, data: { networkStatus, endOfSeasonAwardWinners }, ...props }) => ({
     networkStatus,
-    error,
     endOfSeasonAwardWinners,
     ...ownProps,
     ...props,

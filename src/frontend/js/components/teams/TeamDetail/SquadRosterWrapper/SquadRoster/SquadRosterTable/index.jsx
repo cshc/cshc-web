@@ -4,7 +4,7 @@ import ReactTable from 'react-table';
 import commonStyles from 'components/common/style.scss';
 import MemberAvatar from 'components/members/MemberAvatar';
 import Member from 'models/member';
-import { PositionValue } from 'util/constants';
+import { PositionValue, DefaultPageSizeOptions } from 'util/constants';
 import Urls from 'util/urls';
 import styles from './style.scss';
 
@@ -123,6 +123,7 @@ const SquadRosterTable = ({ squadStats: { squad } }) => (
           },
         ]}
         defaultPageSize={50}
+        pageSizeOptions={DefaultPageSizeOptions}
         minRows={0}
         data={squad}
       />

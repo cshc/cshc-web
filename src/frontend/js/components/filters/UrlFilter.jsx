@@ -1,13 +1,14 @@
 import React from 'react';
 import { addUrlProps } from 'react-url-query';
+import Paged from 'components/common/Paged';
 import BooleanFilter from './BooleanFilter';
 import SelectFilter from './SelectFilter';
 import OptionListFilter from './OptionListFilter';
 import TextFilter from './TextFilter';
 import DateFilter from './DateFilter';
 
-const handlerName = urlQueryPropName =>
-  `onChange${urlQueryPropName.charAt(0).toUpperCase() + urlQueryPropName.substr(1)}`;
+// const handlerName = urlQueryPropName =>
+//   `onChange${urlQueryPropName.charAt(0).toUpperCase() + urlQueryPropName.substr(1)}`;
 
 const UrlFilter = WrappedFilter => ({
   filterName,
@@ -27,13 +28,22 @@ const UrlFilter = WrappedFilter => ({
       }
       onSetFilter={(_, filterValue) => {
         const newValue = filterValue === props.defaultValue ? undefined : filterValue;
-        props[handlerName(props.filterName)](newValue);
+        // We need to reset the page number to 1 every time we re-filter
+        props.onChangeUrlQueryParams({
+          page: 1,
+          [props.filterName]: newValue,
+        });
       }}
       {...otherProps}
     />
   );
 
-  const UrlWrapped = addUrlProps({ urlPropsQueryConfig })(UrlQueryFilter);
+  const UrlWrapped = addUrlProps({
+    urlPropsQueryConfig: {
+      ...urlPropsQueryConfig,
+      ...Paged,
+    },
+  })(UrlQueryFilter);
 
   return (
     <UrlWrapped

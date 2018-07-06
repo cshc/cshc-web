@@ -1,4 +1,4 @@
-import { addUrlProps, UrlQueryParamTypes } from 'react-url-query';
+import { UrlQueryParamTypes } from 'react-url-query';
 
 const urlPropsQueryConfig = {
   orderBy: {
@@ -6,4 +6,4 @@ const urlPropsQueryConfig = {
   },
 };
 
-export default addUrlProps({ urlPropsQueryConfig });
+export default urlPropsQueryConfig;

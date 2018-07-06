@@ -45,7 +45,13 @@ class VenueList(DjangoListObjectType):
         pagination = get_paginator()
 
 
+# We're forced to call distinct() on the queryset as we're filtering
+# on manytomany related fields and it returns duplicate entries
+def post_optimize_venues(queryset, **kwargs):
+    return queryset.distinct()
+
+
 class Query(graphene.ObjectType):
     """ GraphQL query for venues """
     venues = OptimizedDjangoListObjectField(
-        VenueList, filterset_class=VenueFilter)
+        VenueList, filterset_class=VenueFilter, post_optimize=post_optimize_venues)

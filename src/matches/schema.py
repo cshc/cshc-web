@@ -166,12 +166,6 @@ class GoalKingType(DjangoObjectType):
     def resolve_gender(self, info):
         return self.member.gender
 
-    def resolve_gpg(self, info):
-        return self.goals_per_game()
-
-    def resolve_mpg(self, info):
-        return self.miles_per_game()
-
 
 class GoalKingList(DjangoListObjectType):
     class Meta:

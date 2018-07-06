@@ -44,6 +44,9 @@ const saturdaysBetweenDates = (date1, date2) => {
   return saturdays;
 };
 
+const numPages = (totalCount, pageSize) =>
+  (totalCount !== null ? Math.ceil(totalCount / pageSize) : 0);
+
 module.exports = {
   toTitleCase,
   toGraphQLId,
@@ -53,4 +56,5 @@ module.exports = {
   rounded,
   djangoDate,
   saturdaysBetweenDates,
+  numPages,
 };

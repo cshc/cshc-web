@@ -18,7 +18,7 @@ export const urlPropsQueryConfig = {
   [FilterName.HomeGround]: {
     type: UrlQueryParamTypes.boolean,
   },
-  [FilterName.CurrentSeason]: {
+  [FilterName.Season]: {
     type: UrlQueryParamTypes.string,
   },
   [FilterName.Team]: {
@@ -64,7 +64,7 @@ const VenueFilterSet = ({ currentSeason, teams, divisions }) => {
         label="Current Season only"
         defaultValue={false}
         trueValue={currentSeason}
-        urlQueryConfig={urlPropsQueryConfig[FilterName.CurrentSeason]}
+        urlQueryConfig={urlPropsQueryConfig[FilterName.Season]}
       />
       <FilterGroup title="Team">
         <OptionListFilter

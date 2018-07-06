@@ -1,17 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTable from 'react-table';
+import UrlSyncedReactTable from 'components/common/UrlSyncedReactTable';
 import Urls from 'util/urls';
 import Venue from 'models/venue';
 import commonStyles from 'components/common/style.scss';
 
-const VenueTable = ({ venues }) => (
+const VenueTable = ({ venues, page, pageSize, onChangePage, onChangeUrlQueryParams }) => (
   <div className={commonStyles.reactTable}>
-    <ReactTable
+    <UrlSyncedReactTable
       className="-highlight"
-      showPageJump={false}
-      defaultPageSize={20}
-      data={venues}
+      data={venues || []}
+      page={page}
+      pageSize={pageSize}
+      onChangePage={onChangePage}
+      onChangeUrlQueryParams={onChangeUrlQueryParams}
       columns={[
         {
           Header: 'Venue',
@@ -53,6 +55,15 @@ const VenueTable = ({ venues }) => (
 
 VenueTable.propTypes = {
   venues: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  pageSize: PropTypes.number,
+  page: PropTypes.number,
+  onChangePage: PropTypes.func.isRequired,
+  onChangeUrlQueryParams: PropTypes.func.isRequired,
+};
+
+VenueTable.defaultProps = {
+  pageSize: 20,
+  page: 1,
 };
 
 export default VenueTable;

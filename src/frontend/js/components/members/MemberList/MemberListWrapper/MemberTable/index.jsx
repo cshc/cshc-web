@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTable from 'react-table';
+import UrlSyncedReactTable from 'components/common/UrlSyncedReactTable';
 import commonStyles from 'components/common/style.scss';
 import Urls from 'util/urls';
 import styles from './style.scss';
 
-const MemberTable = ({ members }) => (
+const MemberTable = ({ members, page, pageSize, onChangePage, onChangeUrlQueryParams }) => (
   <div className={commonStyles.reactTable}>
-    <ReactTable
+    <UrlSyncedReactTable
       className="-highlight"
-      showPageJump={false}
       columns={[
         {
           Header: 'First Name',
@@ -66,6 +65,10 @@ const MemberTable = ({ members }) => (
         },
       ]}
       data={members || []}
+      page={page}
+      pageSize={pageSize}
+      onChangePage={onChangePage}
+      onChangeUrlQueryParams={onChangeUrlQueryParams}
       getTdProps={(state, rowInfo) => ({
         onClick: () => {
           window.location = Urls.member_detail(rowInfo.original.id);
@@ -80,6 +83,15 @@ const MemberTable = ({ members }) => (
 
 MemberTable.propTypes = {
   members: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  pageSize: PropTypes.number,
+  page: PropTypes.number,
+  onChangePage: PropTypes.func.isRequired,
+  onChangeUrlQueryParams: PropTypes.func.isRequired,
+};
+
+MemberTable.defaultProps = {
+  pageSize: 20,
+  page: 1,
 };
 
 export default MemberTable;

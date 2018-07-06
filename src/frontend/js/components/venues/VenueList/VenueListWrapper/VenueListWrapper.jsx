@@ -6,14 +6,14 @@ import { ViewSwitcher, ViewSwitcherView } from 'components/common/ViewSwitcher';
 import VenueTable from './VenueTable';
 import VenueMarker from './VenueMarker';
 
-const VenueListWrapper = ({ data, viewType, onSelectViewType }) => (
+const VenueListWrapper = ({ data, viewType, onSelectViewType, ...props }) => (
   <div>
     <ViewSwitcher currentView={viewType} onSelectViewType={onSelectViewType}>
       <ViewSwitcherView iconClass="fas fa-table" label={ViewType.List} />
       <ViewSwitcherView iconClass="far fa-map" label={ViewType.Map} />
     </ViewSwitcher>
     {viewType === ViewType.List ? (
-      <VenueTable venues={data.results} />
+      <VenueTable venues={data.results} {...props} />
     ) : (
       <GoogleMap
         markers={data.results.map(venue => <VenueMarker key={venue.slug} venue={venue} />)}
