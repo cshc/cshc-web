@@ -59,8 +59,10 @@
           </td>
           <td class="g-hidden-sm-down text-center">{{ gk.games_played }}</td>
           <td class="text-center">{{ gk.total_miles }}</td>
-          <td class="text-center">{{ gk.miles_per_game|floatformat:1 }}</td>
+          <td class="text-center">{{ gk.mpg|floatformat:1 }}</td>
         </tr>
+      {% empty %}
+        <tr><td class="lead g-font-style-italic text-center" colspan="6">(No appearances in {{season}})</td></tr>
       {% endfor %}
     </tbody>
   </table>
