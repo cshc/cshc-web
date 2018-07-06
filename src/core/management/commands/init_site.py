@@ -22,6 +22,8 @@ from django.core.management.base import BaseCommand, CommandError
 from django.contrib.sites.models import Site
 from django.core.management import call_command
 from allauth.socialaccount.models import SocialApp
+from competitions.models import Season
+from matches.models import GoalKing
 
 
 SOCIAL_APPS = [
@@ -87,7 +89,7 @@ class Command(BaseCommand):
 
         # 1. Flush the Database first
         print('Flushing DB tables')
-        os.chmod('../deployment/flush_db.sh', stat.S_IXOTH)
+        # os.chmod('../deployment/flush_db.sh', stat.S_IXOTH)
         subprocess.call(['../deployment/flush_db.sh'])
 
         # 2. Migrate the saved blog entry data
@@ -96,7 +98,7 @@ class Command(BaseCommand):
 
         # 3. Import the rest of the data from the previous database
         print('Importing data from previous database')
-        os.chmod('../deployment/import_db.sh', stat.S_IXOTH)
+        # os.chmod('../deployment/import_db.sh', stat.S_IXOTH)
         subprocess.call(['../deployment/import_db.sh', prod_dump_file])
 
         # 4. Update the default/first site object with the correct name and domain (provided on the command line)
@@ -138,3 +140,7 @@ class Command(BaseCommand):
 
         # 9. Auto-verify the email addresses of each existing user
         call_command('init_emailaddresses')
+
+        # 10. Update new GoalKing fields
+        for season in Season.objects.all():
+            GoalKing.update_for_season(season)

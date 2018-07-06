@@ -22,7 +22,7 @@ class Command(BaseCommand):
         parser.add_argument(
             '--sim',
             action='store_true',
-            dest='sim',
+            dest='simulate',
             default=False,
             help='Simulation mode (database will not be written to)',
         )

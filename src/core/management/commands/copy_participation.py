@@ -30,7 +30,8 @@ class Command(BaseCommand):
         prev_season = Season.objects.previous(season)
 
         if ClubTeamSeasonParticipation.objects.by_season(season).exists():
-            print "ERROR: ClubTeamSeasonParticipation entries already exist for {0}. To run this command, first delete all ClubTeamSeasonParticipation entries for {0}".format(season)
+            print(
+                "ERROR: ClubTeamSeasonParticipation entries already exist for {0}. To run this command, first delete all ClubTeamSeasonParticipation entries for {0}".format(season))
             return
 
         prev_parts = ClubTeamSeasonParticipation.objects.by_season(prev_season)
@@ -47,4 +48,4 @@ class Command(BaseCommand):
             if not options['simulate']:
                 part_copy.save()
             else:
-                print "Saving new participation: {}".format(part_copy)
+                print("Saving new participation: {}".format(part_copy))
