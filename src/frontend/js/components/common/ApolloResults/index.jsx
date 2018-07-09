@@ -12,21 +12,23 @@ import Loading from 'components/common/Loading';
  */
 /* eslint-disable react/prefer-stateless-function */
 const withApolloResults = (WrappedComponent) => {
-  const ApolloResults = ({ networkStatus, error, data, ...props }) => {
+  const ApolloResults = ({ networkStatus, error, data, loadingMessage, ...props }) => {
     if (error) return <ErrorDisplay errorMessage="Failed to load data" />;
     if (!data && networkStatus === NS.loading) {
-      return <Loading message="Fetching data..." />;
+      return <Loading message={loadingMessage} />;
     }
     return <WrappedComponent {...props} data={data} />;
   };
 
   ApolloResults.propTypes = {
+    loadingMessage: PropTypes.string,
     networkStatus: PropTypes.number.isRequired,
     error: PropTypes.instanceOf(Error),
     data: PropTypes.oneOfType([PropTypes.shape(), PropTypes.arrayOf(PropTypes.shape())]),
   };
 
   ApolloResults.defaultProps = {
+    loadingMessage: 'Fetching data...',
     error: undefined,
     data: undefined,
   };

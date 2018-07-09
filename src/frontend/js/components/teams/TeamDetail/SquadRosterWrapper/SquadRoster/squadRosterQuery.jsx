@@ -52,6 +52,7 @@ export const squadRosterOptions = {
     networkStatus,
     error,
     data: squadStats,
+    loadingMessage: 'Loading squad...',
     ...props,
   }),
 };

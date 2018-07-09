@@ -44,6 +44,7 @@ export const clubStatsOptions = {
     networkStatus,
     error,
     data: oppositionClubStats,
+    loadingMessage: 'Loading club stats...',
     ...props,
   }),
 };

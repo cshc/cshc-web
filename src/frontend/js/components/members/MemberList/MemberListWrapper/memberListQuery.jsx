@@ -71,6 +71,7 @@ export const memberListOptions = {
     networkStatus,
     error,
     data: members,
+    loadingMessage: 'Loading members...',
     ...props,
   }),
 };

@@ -51,6 +51,7 @@ export const venueListOptions = {
     networkStatus,
     error,
     data: venues,
+    loadingMessage: 'Loading venues...',
     ...props,
   }),
 };

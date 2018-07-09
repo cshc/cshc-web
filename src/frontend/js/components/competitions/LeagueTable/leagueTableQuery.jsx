@@ -49,6 +49,7 @@ export const leagueTableOptions = {
     networkStatus,
     error,
     data: divisionResults,
+    loadingMessage: 'Loading league table...',
     ...props,
   }),
 };

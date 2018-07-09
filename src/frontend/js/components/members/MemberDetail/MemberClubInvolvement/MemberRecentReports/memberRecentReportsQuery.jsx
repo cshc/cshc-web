@@ -28,6 +28,7 @@ export const memberReportsOptions = {
   props: ({ data: { networkStatus, error, matches }, ...props }) => ({
     networkStatus,
     error,
+    loadingMessage: 'Loading reports...',
     matches,
     ...props,
   }),

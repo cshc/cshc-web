@@ -43,6 +43,7 @@ export const goalKingOptions = {
     networkStatus,
     error,
     data: goalKingEntries,
+    loadingMessage: 'Loading...',
     ...props,
   }),
 };

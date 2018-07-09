@@ -61,6 +61,7 @@ export const memberStatsOptions = {
     error,
     clubTeams,
     data: memberStats,
+    loadingMessage: 'Loading member stats...',
     ...props,
   }),
 };

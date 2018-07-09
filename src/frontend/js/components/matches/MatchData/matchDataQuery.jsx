@@ -119,6 +119,7 @@ export const matchDataOptions = {
   props: ({ data: { networkStatus, error, matches }, ...props }) => ({
     networkStatus,
     error,
+    loadingMessage: 'Loading matches...',
     data: matches,
     ...props,
   }),

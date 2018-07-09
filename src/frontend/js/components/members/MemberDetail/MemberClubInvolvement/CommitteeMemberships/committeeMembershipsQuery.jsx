@@ -28,6 +28,7 @@ export const committeeMembershipsOptions = {
     networkStatus,
     error,
     data: committeeMemberships,
+    loadingMessage: 'Loading committee...',
     ...props,
   }),
 };
