@@ -1,4 +1,5 @@
 import isPast from 'date-fns/is_past';
+import parse from 'date-fns/parse';
 import sortBy from 'lodash/sortBy';
 import reduce from 'lodash/reduce';
 import sumBy from 'lodash/sumBy';
@@ -129,7 +130,7 @@ const Match = {
 
   datetime(match) {
     if (!match) return undefined;
-    return new Date(`${match.date} ${match.time}`);
+    return parse(`${match.date} ${match.time}`);
   },
 
   simpleVenueName(match) {
