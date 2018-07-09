@@ -1,17 +1,29 @@
-.team-name {
-  flex: 1;
+.match-header table {
+  table-layout: fixed;
 }
-.team-score {
-  flex: 0 auto;
+.match-header a {
+  color: rgba(255, 255, 255, 0.8);
+}
+.match-header a:hover {
+  color: white;
+}
+td.team-score {
   white-space: nowrap;
 }
+
+td.team-name {
+  width: 50%;
+}
+.team-name.our-team,
+td.scorers {
+  padding-right: 1rem;
+}
+.team-name.opp-team {
+  padding-left: 1rem;
+}
 .team-name a {
-  color: white;
   line-height: 1.2;
   font-weight: 600;
-}
-.team-name a:hover {
-  color: white;
 }
 .team-score-box {
   background-color: #6639b6;
