@@ -1,663 +1,699 @@
 [
-{
-  "model": "documents.documentcategory",
-  "pk": 1,
-  "fields": {
-    "name": "Committee",
-    "parent": null
+  {
+    "model": "documents.documentcategory",
+    "pk": 1,
+    "fields": {
+      "name": "Committee",
+      "parent": null
+    }
+  },
+  {
+    "model": "documents.documentcategory",
+    "pk": 2,
+    "fields": {
+      "name": "Committee Meetings",
+      "parent": 1
+    }
+  },
+  {
+    "model": "documents.documentcategory",
+    "pk": 3,
+    "fields": {
+      "name": "Club General Meetings",
+      "parent": 1
+    }
+  },
+  {
+    "model": "documents.documentcategory",
+    "pk": 4,
+    "fields": {
+      "name": "Club Accounts",
+      "parent": 1
+    }
+  },
+  {
+    "model": "documents.documentcategory",
+    "pk": 5,
+    "fields": {
+      "name": "Juniors",
+      "parent": null
+    }
+  },
+  {
+    "model": "documents.documentcategory",
+    "pk": 6,
+    "fields": {
+      "name": "General",
+      "parent": null
+    }
+  },
+  {
+    "model": "documents.documentcategory",
+    "pk": 7,
+    "fields": {
+      "name": "Newsletters",
+      "parent": 1
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 2,
+    "fields": {
+      "title": "CSHC Constitution",
+      "description": "The boring but important stuff!",
+      "timestamp": "2017-06-01T00:00:00Z",
+      "file":
+        "uploads/documents/d7c35b75-19c2-40f3-ad33-114f24e4b228-CSHC_Constitution_June_2017.pdf",
+      "category": 1
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 3,
+    "fields": {
+      "title": "Registration and Consent Form",
+      "description":
+        "<p>Return by email to <strong>join@cambridgesouthhockeyclub.co.uk</strong> or hand to a club officer or team captain at any match or training session.</p>",
+      "timestamp": "2017-11-13T14:11:10.771Z",
+      "file": "uploads/documents/d9652cc9-1827-4afc-81cb-d8f402832f7b-CSHC_Player_Registration.pdf",
+      "category": 6
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 4,
+    "fields": {
+      "title": "Club Accounts 2015-16",
+      "description": "",
+      "timestamp": "2016-05-01T00:00:00Z",
+      "file": "uploads/documents/e6b2ba0a-c975-4fa8-b7f1-b6aff0ae66fc-CSHC_2015_16_Accounts.pdf",
+      "category": 4
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 5,
+    "fields": {
+      "title": "Club Accounts 2014-15",
+      "description": "",
+      "timestamp": "2015-05-01T00:00:00Z",
+      "file": "uploads/documents/8b4a6261-b0b0-4b3e-8c52-79665ab1197d-CSHC_2014_15_Accounts.pdf",
+      "category": 4
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 6,
+    "fields": {
+      "title": "January 2017",
+      "description": "",
+      "timestamp": "2017-01-01T00:00:00Z",
+      "file":
+        "uploads/documents/470ff23b-0093-44b3-ab43-857054d5acfb-CSHC_Cmte_Jan_2017_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 7,
+    "fields": {
+      "title": "CSHC AGM 2017",
+      "description": "",
+      "timestamp": "2017-07-01T00:00:00Z",
+      "file": "uploads/documents/54a12342-0bfe-4d4f-8b8e-9db03e0e42dc-CSHC_AGM_2017_Minutes.pdf",
+      "category": 3
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 8,
+    "fields": {
+      "title": "Registration and Consent Form",
+      "description": "<p>One form per child. We can&#39;t train your child without it!</p>",
+      "timestamp": "2017-11-14T08:30:43.130Z",
+      "file": "uploads/documents/f4de36e9-42f1-47aa-b03e-70d87285c602-CSHC_Junior_Registration.pdf",
+      "category": 5
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 9,
+    "fields": {
+      "title": "Safeguarding and Protecting Policy",
+      "description":
+        "<p>England Hockey&rsquo;s policy on protecting young people. We have fun but we take our responsibilities with minors seriously.</p>\r\n\r\n<p>Please see for information on:</p>\r\n\r\n<ul>\r\n\t<li>England Hockey / Club policy on children&#39;s welfare at hockey</li>\r\n\t<li>England Hockey / Club policy on children&#39;s welfare at outside of hockey</li>\r\n\t<li>Code of conduct for working with junior member / young people</li>\r\n</ul>",
+      "timestamp": "2017-11-14T08:31:42.630Z",
+      "file":
+        "uploads/documents/00cd51f2-a236-4270-9da5-a3711df12edc-CSHC_Safeguarding_Protecting_Policy.pdf",
+      "category": 5
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 10,
+    "fields": {
+      "title": "Safeguarding and Protecting Commitment",
+      "description":
+        "<p>Cambridge South has adopted the England Hockey Safeguarding &amp; Protecting policy.</p>",
+      "timestamp": "2017-11-14T08:32:15.496Z",
+      "file":
+        "uploads/documents/5fc9372d-8b4f-4382-8c2c-f347edbc9dda-CSHC_Safeguarding_Protecting_Commitment.pdf",
+      "category": 5
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 11,
+    "fields": {
+      "title": "Reporting concerns about a child's welfare",
+      "description": "<p>Policies and procedures for dealing with concerns.</p>",
+      "timestamp": "2017-11-14T08:32:48.444Z",
+      "file":
+        "uploads/documents/ee444565-7523-4520-becf-c92d004a8898-CSHC_Reporting_Procedures.pdf",
+      "category": 5
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 12,
+    "fields": {
+      "title": "Photography Best Practice Guidance",
+      "description":
+        "<p>England Hockey&rsquo;s guidance on photographing and videoing of junior hockey, which Cambridge South follows.</p>",
+      "timestamp": "2017-11-14T08:33:18.985Z",
+      "file":
+        "uploads/documents/f4adc01a-ffc5-4633-93c4-5195818957a3-CSHC_Photography_Guidance.pdf",
+      "category": 5
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 15,
+    "fields": {
+      "title": "CSHC AGM 2016",
+      "description": "",
+      "timestamp": "2016-07-01T00:00:00Z",
+      "file": "uploads/documents/d420e320-3f98-453c-b1d6-d78a5de5c60c-CSHC_AGM_2016_Minutes.pdf",
+      "category": 3
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 16,
+    "fields": {
+      "title": "CSHC AGM 2014",
+      "description": "",
+      "timestamp": "2014-07-01T00:00:00Z",
+      "file": "uploads/documents/19d11154-d2eb-4268-9cf1-a7b8d43f6ad7-CSHC_AGM_2014_Minutes.pdf",
+      "category": 3
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 17,
+    "fields": {
+      "title": "CSHC AGM 2013",
+      "description": "",
+      "timestamp": "2013-07-01T00:00:00Z",
+      "file": "uploads/documents/7eebe3d8-1818-4e9e-bcfc-e25ccc7eebc9-CSHC_AGM_2013_Minutes.pdf",
+      "category": 3
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 18,
+    "fields": {
+      "title": "CSHC AGM 2012",
+      "description": "",
+      "timestamp": "2012-07-01T00:00:00Z",
+      "file": "uploads/documents/c0d9c4c6-49fc-47c2-a5bb-33c6407cffc6-CSHC_AGM_2012_Minutes.pdf",
+      "category": 3
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 19,
+    "fields": {
+      "title": "CSHC AGM 2011",
+      "description": "",
+      "timestamp": "2011-07-01T00:00:00Z",
+      "file": "uploads/documents/3543edbb-6b90-42f8-9046-eb0b4edf801c-CSHC_AGM_2011_Minutes.pdf",
+      "category": 3
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 20,
+    "fields": {
+      "title": "CSHC AGM 2010",
+      "description": "",
+      "timestamp": "2010-07-01T00:00:00Z",
+      "file": "uploads/documents/4115e05f-11f6-46bb-b8c1-b1ecdf8da187-CSHC_AGM_2010_Minutes.pdf",
+      "category": 3
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 21,
+    "fields": {
+      "title": "Men's EGM 2009",
+      "description": "",
+      "timestamp": "2009-07-03T00:00:00Z",
+      "file": "uploads/documents/6b2724c5-e6a3-4f07-93bb-5162daa2898e-CSMHC_EGM_2009_Minutes.pdf",
+      "category": 3
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 22,
+    "fields": {
+      "title": "Ladies' EGM 2009",
+      "description": "",
+      "timestamp": "2009-07-02T00:00:00Z",
+      "file": "uploads/documents/cd221f6d-7dc1-4a55-a5ce-6adc80441f13-CSLHC_EGM_2009_Minutes.pdf",
+      "category": 3
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 23,
+    "fields": {
+      "title": "Men's AGM 2009",
+      "description": "",
+      "timestamp": "2009-07-01T00:00:00Z",
+      "file": "uploads/documents/fb0fd98a-0359-41bf-9453-690c1dbe82a5-CSMHC_AGM_2009_Minutes.pdf",
+      "category": 3
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 24,
+    "fields": {
+      "title": "Men's AGM 2003",
+      "description": "",
+      "timestamp": "2003-07-01T00:00:00Z",
+      "file":
+        "uploads/documents/fd5635c8-ae22-400e-98cc-7ae3429f8a6e-CSHC_Mens_AGM_2003_Minutes.pdf",
+      "category": 3
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 25,
+    "fields": {
+      "title": "November 2017",
+      "description": "",
+      "timestamp": "2017-11-01T00:00:00Z",
+      "file":
+        "uploads/documents/27a5c514-b27a-45cf-816b-f60d6c58b55a-CSHC_Cmte_Nov_2017_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 26,
+    "fields": {
+      "title": "September 2017",
+      "description": "",
+      "timestamp": "2017-09-01T00:00:00Z",
+      "file":
+        "uploads/documents/65e7db33-58eb-4c18-a064-a90db9c455a9-CSHC_Cmte_Sep_2017_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 27,
+    "fields": {
+      "title": "May 2017",
+      "description": "",
+      "timestamp": "2017-05-01T00:00:00Z",
+      "file":
+        "uploads/documents/49599904-d43b-4d19-9742-70b5850f0630-CSHC_Cmte_May_2017_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 29,
+    "fields": {
+      "title": "November 2016",
+      "description": "",
+      "timestamp": "2016-11-01T00:00:00Z",
+      "file":
+        "uploads/documents/eda1c090-be5a-4297-bcd6-f4dcab29a525-CSHC_Cmte_Nov_2016_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 30,
+    "fields": {
+      "title": "May 2016",
+      "description": "",
+      "timestamp": "2016-05-01T00:00:00Z",
+      "file":
+        "uploads/documents/50884234-264c-4200-9f90-457afb2cd4b0-CSHC_Cmte_May_2016_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 31,
+    "fields": {
+      "title": "January 2016",
+      "description": "",
+      "timestamp": "2016-01-01T00:00:00Z",
+      "file":
+        "uploads/documents/77d2cf7a-7bc0-4005-9186-47d108b8a698-CSHC_Cmte_Jan_2016_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 32,
+    "fields": {
+      "title": "November 2015",
+      "description": "",
+      "timestamp": "2015-11-01T00:00:00Z",
+      "file":
+        "uploads/documents/0e62772d-d41b-4221-94bd-74ccd5c4a515-CSHC_Cmte_Nov_2015_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 33,
+    "fields": {
+      "title": "June 2015",
+      "description": "",
+      "timestamp": "2015-06-01T00:00:00Z",
+      "file":
+        "uploads/documents/19ebab1c-12af-4762-bdd7-df9ec1c357bb-CSHC_Cmte_Jun_2015_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 34,
+    "fields": {
+      "title": "April 2014",
+      "description": "",
+      "timestamp": "2014-04-01T00:00:00Z",
+      "file":
+        "uploads/documents/3df8d83b-54a8-46c4-94cd-eb6035933869-CSHC_Cmte_Apr_2014_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 35,
+    "fields": {
+      "title": "May 2013",
+      "description": "",
+      "timestamp": "2013-05-01T00:00:00Z",
+      "file":
+        "uploads/documents/78ed6862-28ec-4921-a3c2-2f22e0e87915-CSHC_Cmte_May_2013_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 36,
+    "fields": {
+      "title": "April 2012",
+      "description": "",
+      "timestamp": "2012-04-01T00:00:00Z",
+      "file":
+        "uploads/documents/68c38bc7-17d9-4f8a-af99-984b2a226983-CSHC_Cmte_Apr_2012_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 37,
+    "fields": {
+      "title": "January 2012",
+      "description": "",
+      "timestamp": "2012-01-01T00:00:00Z",
+      "file":
+        "uploads/documents/53aef07b-3d61-44d9-bf44-db70fc8f345b-CSHC_Cmte_Jan_2012_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 38,
+    "fields": {
+      "title": "April 2011",
+      "description": "",
+      "timestamp": "2011-04-01T00:00:00Z",
+      "file":
+        "uploads/documents/42fbf0fd-68d3-4888-b452-c719f4011326-CSHC_Cmte_Apr_2011_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 39,
+    "fields": {
+      "title": "December 2010",
+      "description": "",
+      "timestamp": "2010-12-01T00:00:00Z",
+      "file":
+        "uploads/documents/2d332b97-85f8-44ff-9e96-fcba3f75d36c-CSHC_Cmte_Dec_2010_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 40,
+    "fields": {
+      "title": "September 2010",
+      "description": "",
+      "timestamp": "2010-09-01T00:00:00Z",
+      "file":
+        "uploads/documents/59096e16-6dea-4430-aadc-581e70cb54bb-CSHC_Cmte_Sep_2010_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 41,
+    "fields": {
+      "title": "June 2010",
+      "description": "",
+      "timestamp": "2010-06-01T00:00:00Z",
+      "file":
+        "uploads/documents/98c9ee1a-8944-4b59-b5be-a1f8964ba341-CSHC_Cmte_Jun_2010_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 42,
+    "fields": {
+      "title": "January 2010",
+      "description": "",
+      "timestamp": "2010-01-01T00:00:00Z",
+      "file":
+        "uploads/documents/87d5be9e-3586-4efe-bebf-46bac470f623-CSHC_Cmte_Jan_2010_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 43,
+    "fields": {
+      "title": "Febuary 2009",
+      "description": "",
+      "timestamp": "2009-02-01T00:00:00Z",
+      "file":
+        "uploads/documents/3332febc-2b4b-4fb9-82aa-1951fceb4520-CSHC_Cmte_Feb_2009_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 44,
+    "fields": {
+      "title": "Club Accounts 2013-14",
+      "description": "",
+      "timestamp": "2014-05-01T00:00:00Z",
+      "file": "uploads/documents/dba5b78b-605a-4d69-8aea-ce4b90c5511c-CSHC_2013_14_Accounts.pdf",
+      "category": 4
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 45,
+    "fields": {
+      "title": "Club Accounts 2012-13",
+      "description": "",
+      "timestamp": "2013-05-01T00:00:00Z",
+      "file": "uploads/documents/9e2a693e-095b-4b35-a89a-9efd230fd48b-CSHC_2012_13_Accounts.pdf",
+      "category": 4
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 46,
+    "fields": {
+      "title": "Club Accounts 2011-12",
+      "description": "",
+      "timestamp": "2012-05-01T00:00:00Z",
+      "file": "uploads/documents/7b1ecc9e-8b4b-49f8-b115-90b201efcd4c-CSHC_2011_12_Accounts.pdf",
+      "category": 4
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 47,
+    "fields": {
+      "title": "Club Accounts 2010-11 (Ladies)",
+      "description": "",
+      "timestamp": "2011-05-02T00:00:00Z",
+      "file":
+        "uploads/documents/4fd5525a-3f54-4448-bd4d-588c4ac484b6-CSHC_2010_11_Accounts_Ladies.pdf",
+      "category": 4
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 48,
+    "fields": {
+      "title": "Club Accounts 2010-11 (Mens)",
+      "description": "",
+      "timestamp": "2011-05-01T00:00:00Z",
+      "file":
+        "uploads/documents/276e62e5-6899-47f1-ab23-2e0ab37a9255-CSHC_2010_11_Accounts_Men.pdf",
+      "category": 4
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 49,
+    "fields": {
+      "title": "Club Accounts 2009-10 (Ladies)",
+      "description": "",
+      "timestamp": "2010-05-01T00:00:00Z",
+      "file":
+        "uploads/documents/40070eca-282a-483d-a109-cfef89912247-CSHC_2009_10_Accounts_Ladies.pdf",
+      "category": 4
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 50,
+    "fields": {
+      "title": "Club Accounts 2008-09 (Ladies)",
+      "description": "",
+      "timestamp": "2009-05-01T00:00:00Z",
+      "file":
+        "uploads/documents/b40e1171-5fbd-47f5-92b3-8a474d6f5874-CSHC_2008_09_Accounts_Ladies.pdf",
+      "category": 4
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 51,
+    "fields": {
+      "title": "January 2018",
+      "description": "",
+      "timestamp": "2018-01-01T00:00:00Z",
+      "file":
+        "uploads/documents/f0d8bb0a-9f3b-470a-843f-969fa7914799-CSHC_Cmte_Jan_2018_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 52,
+    "fields": {
+      "title": "March 2017",
+      "description": "",
+      "timestamp": "2017-03-01T00:00:00Z",
+      "file":
+        "uploads/documents/110b01f6-9698-4920-8d4b-87673ffe013e-CSHC_Cmte_Mar_2017_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 53,
+    "fields": {
+      "title": "September 2016",
+      "description": "",
+      "timestamp": "2016-09-01T00:00:00Z",
+      "file":
+        "uploads/documents/9e844b1e-e87d-433f-aab5-b62f2b3fd5e8-CSHC_Cmte_Sep_2016_Minutes.pdf",
+      "category": 2
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 54,
+    "fields": {
+      "title": "SMHC AGM 1998",
+      "description": "",
+      "timestamp": "1998-07-01T00:00:00Z",
+      "file": "uploads/documents/50b6594f-a751-40b5-8f8e-6eea97b4bea1-SMHC_AGM_1998_Minutes.pdf",
+      "category": 3
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 55,
+    "fields": {
+      "title": "SMHC AGM 1997",
+      "description": "",
+      "timestamp": "1997-07-01T00:00:00Z",
+      "file": "uploads/documents/bfd47488-e1a2-4c54-a3d9-3cdfb7e6e4f9-SMHC_AGM_1997_Minutes.pdf",
+      "category": 3
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 56,
+    "fields": {
+      "title": "SMHC Newsletter April 1997",
+      "description": "",
+      "timestamp": "1997-04-01T00:00:00Z",
+      "file": "uploads/documents/fad9c471-7552-4259-8f04-d49ec2f4c483-SMHC_Newsletter_Apr_1997.pdf",
+      "category": 7
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 57,
+    "fields": {
+      "title": "SMHC Newsletter December 1997",
+      "description": "",
+      "timestamp": "1997-12-01T00:00:00Z",
+      "file": "uploads/documents/43dc0b37-8d96-4845-811a-9cb33ab02c1a-SMHC_Newsletter_Dec_1997.pdf",
+      "category": 7
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 58,
+    "fields": {
+      "title": "SMHC Newsletter January 1997",
+      "description": "",
+      "timestamp": "1997-01-01T00:00:00Z",
+      "file": "uploads/documents/d5cb7eb4-a639-4113-9209-a06faaf40e12-SMHC_Newsletter_Jan_1997.pdf",
+      "category": 7
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 59,
+    "fields": {
+      "title": "SMHC Newsletter November 1997",
+      "description": "",
+      "timestamp": "1997-11-01T00:00:00Z",
+      "file": "uploads/documents/4594e496-7c93-4094-b61f-60f64c176b75-SMHC_Newsletter_Nov_1997.pdf",
+      "category": 7
+    }
   }
-},
-{
-  "model": "documents.documentcategory",
-  "pk": 2,
-  "fields": {
-    "name": "Committee Meetings",
-    "parent": 1
-  }
-},
-{
-  "model": "documents.documentcategory",
-  "pk": 3,
-  "fields": {
-    "name": "Club General Meetings",
-    "parent": 1
-  }
-},
-{
-  "model": "documents.documentcategory",
-  "pk": 4,
-  "fields": {
-    "name": "Club Accounts",
-    "parent": 1
-  }
-},
-{
-  "model": "documents.documentcategory",
-  "pk": 5,
-  "fields": {
-    "name": "Juniors",
-    "parent": null
-  }
-},
-{
-  "model": "documents.documentcategory",
-  "pk": 6,
-  "fields": {
-    "name": "General",
-    "parent": null
-  }
-},
-{
-  "model": "documents.documentcategory",
-  "pk": 7,
-  "fields": {
-    "name": "Newsletters",
-    "parent": 1
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 2,
-  "fields": {
-    "title": "CSHC Constitution",
-    "description": "The boring but important stuff!",
-    "timestamp": "2017-06-01T00:00:00Z",
-    "file": "uploads/documents/d7c35b75-19c2-40f3-ad33-114f24e4b228-CSHC_Constitution_June_2017.pdf",
-    "category": 1
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 3,
-  "fields": {
-    "title": "Registration and Consent Form",
-    "description": "<p>Return by email to <a href=\"mailto:join@cambridgesouthhockeyclub.co.uk\">join@cambridgesouthhockeyclub.co.uk</a> or hand to a club officer or team captain at any match or training session.</p>",
-    "timestamp": "2017-11-13T14:11:10.771Z",
-    "file": "uploads/documents/d9652cc9-1827-4afc-81cb-d8f402832f7b-CSHC_Player_Registration.pdf",
-    "category": 6
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 4,
-  "fields": {
-    "title": "Club Accounts 2015-16",
-    "description": "",
-    "timestamp": "2016-05-01T00:00:00Z",
-    "file": "uploads/documents/e6b2ba0a-c975-4fa8-b7f1-b6aff0ae66fc-CSHC_2015_16_Accounts.pdf",
-    "category": 4
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 5,
-  "fields": {
-    "title": "Club Accounts 2014-15",
-    "description": "",
-    "timestamp": "2015-05-01T00:00:00Z",
-    "file": "uploads/documents/8b4a6261-b0b0-4b3e-8c52-79665ab1197d-CSHC_2014_15_Accounts.pdf",
-    "category": 4
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 6,
-  "fields": {
-    "title": "January 2017",
-    "description": "",
-    "timestamp": "2017-01-01T00:00:00Z",
-    "file": "uploads/documents/470ff23b-0093-44b3-ab43-857054d5acfb-CSHC_Cmte_Jan_2017_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 7,
-  "fields": {
-    "title": "CSHC AGM 2017",
-    "description": "",
-    "timestamp": "2017-07-01T00:00:00Z",
-    "file": "uploads/documents/54a12342-0bfe-4d4f-8b8e-9db03e0e42dc-CSHC_AGM_2017_Minutes.pdf",
-    "category": 3
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 8,
-  "fields": {
-    "title": "Registration and Consent Form",
-    "description": "<p>One form per child. We can&#39;t train your child without it!</p>",
-    "timestamp": "2017-11-14T08:30:43.130Z",
-    "file": "uploads/documents/f4de36e9-42f1-47aa-b03e-70d87285c602-CSHC_Junior_Registration.pdf",
-    "category": 5
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 9,
-  "fields": {
-    "title": "Safeguarding and Protecting Policy",
-    "description": "<p>England Hockey&rsquo;s policy on protecting young people. We have fun but we take our responsibilities with minors seriously.</p>\r\n\r\n<p>Please see for information on:</p>\r\n\r\n<ul>\r\n\t<li>England Hockey / Club policy on children&#39;s welfare at hockey</li>\r\n\t<li>England Hockey / Club policy on children&#39;s welfare at outside of hockey</li>\r\n\t<li>Code of conduct for working with junior member / young people</li>\r\n</ul>",
-    "timestamp": "2017-11-14T08:31:42.630Z",
-    "file": "uploads/documents/00cd51f2-a236-4270-9da5-a3711df12edc-CSHC_Safeguarding_Protecting_Policy.pdf",
-    "category": 5
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 10,
-  "fields": {
-    "title": "Safeguarding and Protecting Commitment",
-    "description": "<p>Cambridge South has adopted the England Hockey Safeguarding &amp; Protecting policy.</p>",
-    "timestamp": "2017-11-14T08:32:15.496Z",
-    "file": "uploads/documents/5fc9372d-8b4f-4382-8c2c-f347edbc9dda-CSHC_Safeguarding_Protecting_Commitment.pdf",
-    "category": 5
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 11,
-  "fields": {
-    "title": "Reporting concerns about a child's welfare",
-    "description": "<p>Policies and procedures for dealing with concerns.</p>",
-    "timestamp": "2017-11-14T08:32:48.444Z",
-    "file": "uploads/documents/ee444565-7523-4520-becf-c92d004a8898-CSHC_Reporting_Procedures.pdf",
-    "category": 5
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 12,
-  "fields": {
-    "title": "Photography Best Practice Guidance",
-    "description": "<p>England Hockey&rsquo;s guidance on photographing and videoing of junior hockey, which Cambridge South follows.</p>",
-    "timestamp": "2017-11-14T08:33:18.985Z",
-    "file": "uploads/documents/f4adc01a-ffc5-4633-93c4-5195818957a3-CSHC_Photography_Guidance.pdf",
-    "category": 5
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 15,
-  "fields": {
-    "title": "CSHC AGM 2016",
-    "description": "",
-    "timestamp": "2016-07-01T00:00:00Z",
-    "file": "uploads/documents/d420e320-3f98-453c-b1d6-d78a5de5c60c-CSHC_AGM_2016_Minutes.pdf",
-    "category": 3
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 16,
-  "fields": {
-    "title": "CSHC AGM 2014",
-    "description": "",
-    "timestamp": "2014-07-01T00:00:00Z",
-    "file": "uploads/documents/19d11154-d2eb-4268-9cf1-a7b8d43f6ad7-CSHC_AGM_2014_Minutes.pdf",
-    "category": 3
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 17,
-  "fields": {
-    "title": "CSHC AGM 2013",
-    "description": "",
-    "timestamp": "2013-07-01T00:00:00Z",
-    "file": "uploads/documents/7eebe3d8-1818-4e9e-bcfc-e25ccc7eebc9-CSHC_AGM_2013_Minutes.pdf",
-    "category": 3
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 18,
-  "fields": {
-    "title": "CSHC AGM 2012",
-    "description": "",
-    "timestamp": "2012-07-01T00:00:00Z",
-    "file": "uploads/documents/c0d9c4c6-49fc-47c2-a5bb-33c6407cffc6-CSHC_AGM_2012_Minutes.pdf",
-    "category": 3
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 19,
-  "fields": {
-    "title": "CSHC AGM 2011",
-    "description": "",
-    "timestamp": "2011-07-01T00:00:00Z",
-    "file": "uploads/documents/3543edbb-6b90-42f8-9046-eb0b4edf801c-CSHC_AGM_2011_Minutes.pdf",
-    "category": 3
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 20,
-  "fields": {
-    "title": "CSHC AGM 2010",
-    "description": "",
-    "timestamp": "2010-07-01T00:00:00Z",
-    "file": "uploads/documents/4115e05f-11f6-46bb-b8c1-b1ecdf8da187-CSHC_AGM_2010_Minutes.pdf",
-    "category": 3
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 21,
-  "fields": {
-    "title": "Men's EGM 2009",
-    "description": "",
-    "timestamp": "2009-07-03T00:00:00Z",
-    "file": "uploads/documents/6b2724c5-e6a3-4f07-93bb-5162daa2898e-CSMHC_EGM_2009_Minutes.pdf",
-    "category": 3
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 22,
-  "fields": {
-    "title": "Ladies' EGM 2009",
-    "description": "",
-    "timestamp": "2009-07-02T00:00:00Z",
-    "file": "uploads/documents/cd221f6d-7dc1-4a55-a5ce-6adc80441f13-CSLHC_EGM_2009_Minutes.pdf",
-    "category": 3
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 23,
-  "fields": {
-    "title": "Men's AGM 2009",
-    "description": "",
-    "timestamp": "2009-07-01T00:00:00Z",
-    "file": "uploads/documents/fb0fd98a-0359-41bf-9453-690c1dbe82a5-CSMHC_AGM_2009_Minutes.pdf",
-    "category": 3
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 24,
-  "fields": {
-    "title": "Men's AGM 2003",
-    "description": "",
-    "timestamp": "2003-07-01T00:00:00Z",
-    "file": "uploads/documents/fd5635c8-ae22-400e-98cc-7ae3429f8a6e-CSHC_Mens_AGM_2003_Minutes.pdf",
-    "category": 3
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 25,
-  "fields": {
-    "title": "November 2017",
-    "description": "",
-    "timestamp": "2017-11-01T00:00:00Z",
-    "file": "uploads/documents/27a5c514-b27a-45cf-816b-f60d6c58b55a-CSHC_Cmte_Nov_2017_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 26,
-  "fields": {
-    "title": "September 2017",
-    "description": "",
-    "timestamp": "2017-09-01T00:00:00Z",
-    "file": "uploads/documents/65e7db33-58eb-4c18-a064-a90db9c455a9-CSHC_Cmte_Sep_2017_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 27,
-  "fields": {
-    "title": "May 2017",
-    "description": "",
-    "timestamp": "2017-05-01T00:00:00Z",
-    "file": "uploads/documents/49599904-d43b-4d19-9742-70b5850f0630-CSHC_Cmte_May_2017_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 29,
-  "fields": {
-    "title": "November 2016",
-    "description": "",
-    "timestamp": "2016-11-01T00:00:00Z",
-    "file": "uploads/documents/eda1c090-be5a-4297-bcd6-f4dcab29a525-CSHC_Cmte_Nov_2016_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 30,
-  "fields": {
-    "title": "May 2016",
-    "description": "",
-    "timestamp": "2016-05-01T00:00:00Z",
-    "file": "uploads/documents/50884234-264c-4200-9f90-457afb2cd4b0-CSHC_Cmte_May_2016_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 31,
-  "fields": {
-    "title": "January 2016",
-    "description": "",
-    "timestamp": "2016-01-01T00:00:00Z",
-    "file": "uploads/documents/77d2cf7a-7bc0-4005-9186-47d108b8a698-CSHC_Cmte_Jan_2016_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 32,
-  "fields": {
-    "title": "November 2015",
-    "description": "",
-    "timestamp": "2015-11-01T00:00:00Z",
-    "file": "uploads/documents/0e62772d-d41b-4221-94bd-74ccd5c4a515-CSHC_Cmte_Nov_2015_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 33,
-  "fields": {
-    "title": "June 2015",
-    "description": "",
-    "timestamp": "2015-06-01T00:00:00Z",
-    "file": "uploads/documents/19ebab1c-12af-4762-bdd7-df9ec1c357bb-CSHC_Cmte_Jun_2015_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 34,
-  "fields": {
-    "title": "April 2014",
-    "description": "",
-    "timestamp": "2014-04-01T00:00:00Z",
-    "file": "uploads/documents/3df8d83b-54a8-46c4-94cd-eb6035933869-CSHC_Cmte_Apr_2014_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 35,
-  "fields": {
-    "title": "May 2013",
-    "description": "",
-    "timestamp": "2013-05-01T00:00:00Z",
-    "file": "uploads/documents/78ed6862-28ec-4921-a3c2-2f22e0e87915-CSHC_Cmte_May_2013_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 36,
-  "fields": {
-    "title": "April 2012",
-    "description": "",
-    "timestamp": "2012-04-01T00:00:00Z",
-    "file": "uploads/documents/68c38bc7-17d9-4f8a-af99-984b2a226983-CSHC_Cmte_Apr_2012_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 37,
-  "fields": {
-    "title": "January 2012",
-    "description": "",
-    "timestamp": "2012-01-01T00:00:00Z",
-    "file": "uploads/documents/53aef07b-3d61-44d9-bf44-db70fc8f345b-CSHC_Cmte_Jan_2012_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 38,
-  "fields": {
-    "title": "April 2011",
-    "description": "",
-    "timestamp": "2011-04-01T00:00:00Z",
-    "file": "uploads/documents/42fbf0fd-68d3-4888-b452-c719f4011326-CSHC_Cmte_Apr_2011_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 39,
-  "fields": {
-    "title": "December 2010",
-    "description": "",
-    "timestamp": "2010-12-01T00:00:00Z",
-    "file": "uploads/documents/2d332b97-85f8-44ff-9e96-fcba3f75d36c-CSHC_Cmte_Dec_2010_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 40,
-  "fields": {
-    "title": "September 2010",
-    "description": "",
-    "timestamp": "2010-09-01T00:00:00Z",
-    "file": "uploads/documents/59096e16-6dea-4430-aadc-581e70cb54bb-CSHC_Cmte_Sep_2010_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 41,
-  "fields": {
-    "title": "June 2010",
-    "description": "",
-    "timestamp": "2010-06-01T00:00:00Z",
-    "file": "uploads/documents/98c9ee1a-8944-4b59-b5be-a1f8964ba341-CSHC_Cmte_Jun_2010_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 42,
-  "fields": {
-    "title": "January 2010",
-    "description": "",
-    "timestamp": "2010-01-01T00:00:00Z",
-    "file": "uploads/documents/87d5be9e-3586-4efe-bebf-46bac470f623-CSHC_Cmte_Jan_2010_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 43,
-  "fields": {
-    "title": "Febuary 2009",
-    "description": "",
-    "timestamp": "2009-02-01T00:00:00Z",
-    "file": "uploads/documents/3332febc-2b4b-4fb9-82aa-1951fceb4520-CSHC_Cmte_Feb_2009_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 44,
-  "fields": {
-    "title": "Club Accounts 2013-14",
-    "description": "",
-    "timestamp": "2014-05-01T00:00:00Z",
-    "file": "uploads/documents/dba5b78b-605a-4d69-8aea-ce4b90c5511c-CSHC_2013_14_Accounts.pdf",
-    "category": 4
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 45,
-  "fields": {
-    "title": "Club Accounts 2012-13",
-    "description": "",
-    "timestamp": "2013-05-01T00:00:00Z",
-    "file": "uploads/documents/9e2a693e-095b-4b35-a89a-9efd230fd48b-CSHC_2012_13_Accounts.pdf",
-    "category": 4
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 46,
-  "fields": {
-    "title": "Club Accounts 2011-12",
-    "description": "",
-    "timestamp": "2012-05-01T00:00:00Z",
-    "file": "uploads/documents/7b1ecc9e-8b4b-49f8-b115-90b201efcd4c-CSHC_2011_12_Accounts.pdf",
-    "category": 4
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 47,
-  "fields": {
-    "title": "Club Accounts 2010-11 (Ladies)",
-    "description": "",
-    "timestamp": "2011-05-02T00:00:00Z",
-    "file": "uploads/documents/4fd5525a-3f54-4448-bd4d-588c4ac484b6-CSHC_2010_11_Accounts_Ladies.pdf",
-    "category": 4
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 48,
-  "fields": {
-    "title": "Club Accounts 2010-11 (Mens)",
-    "description": "",
-    "timestamp": "2011-05-01T00:00:00Z",
-    "file": "uploads/documents/276e62e5-6899-47f1-ab23-2e0ab37a9255-CSHC_2010_11_Accounts_Men.pdf",
-    "category": 4
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 49,
-  "fields": {
-    "title": "Club Accounts 2009-10 (Ladies)",
-    "description": "",
-    "timestamp": "2010-05-01T00:00:00Z",
-    "file": "uploads/documents/40070eca-282a-483d-a109-cfef89912247-CSHC_2009_10_Accounts_Ladies.pdf",
-    "category": 4
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 50,
-  "fields": {
-    "title": "Club Accounts 2008-09 (Ladies)",
-    "description": "",
-    "timestamp": "2009-05-01T00:00:00Z",
-    "file": "uploads/documents/b40e1171-5fbd-47f5-92b3-8a474d6f5874-CSHC_2008_09_Accounts_Ladies.pdf",
-    "category": 4
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 51,
-  "fields": {
-    "title": "January 2018",
-    "description": "",
-    "timestamp": "2018-01-01T00:00:00Z",
-    "file": "uploads/documents/f0d8bb0a-9f3b-470a-843f-969fa7914799-CSHC_Cmte_Jan_2018_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 52,
-  "fields": {
-    "title": "March 2017",
-    "description": "",
-    "timestamp": "2017-03-01T00:00:00Z",
-    "file": "uploads/documents/110b01f6-9698-4920-8d4b-87673ffe013e-CSHC_Cmte_Mar_2017_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 53,
-  "fields": {
-    "title": "September 2016",
-    "description": "",
-    "timestamp": "2016-09-01T00:00:00Z",
-    "file": "uploads/documents/9e844b1e-e87d-433f-aab5-b62f2b3fd5e8-CSHC_Cmte_Sep_2016_Minutes.pdf",
-    "category": 2
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 54,
-  "fields": {
-    "title": "SMHC AGM 1998",
-    "description": "",
-    "timestamp": "1998-07-01T00:00:00Z",
-    "file": "uploads/documents/50b6594f-a751-40b5-8f8e-6eea97b4bea1-SMHC_AGM_1998_Minutes.pdf",
-    "category": 3
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 55,
-  "fields": {
-    "title": "SMHC AGM 1997",
-    "description": "",
-    "timestamp": "1997-07-01T00:00:00Z",
-    "file": "uploads/documents/bfd47488-e1a2-4c54-a3d9-3cdfb7e6e4f9-SMHC_AGM_1997_Minutes.pdf",
-    "category": 3
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 56,
-  "fields": {
-    "title": "SMHC Newsletter April 1997",
-    "description": "",
-    "timestamp": "1997-04-01T00:00:00Z",
-    "file": "uploads/documents/fad9c471-7552-4259-8f04-d49ec2f4c483-SMHC_Newsletter_Apr_1997.pdf",
-    "category": 7
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 57,
-  "fields": {
-    "title": "SMHC Newsletter December 1997",
-    "description": "",
-    "timestamp": "1997-12-01T00:00:00Z",
-    "file": "uploads/documents/43dc0b37-8d96-4845-811a-9cb33ab02c1a-SMHC_Newsletter_Dec_1997.pdf",
-    "category": 7
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 58,
-  "fields": {
-    "title": "SMHC Newsletter January 1997",
-    "description": "",
-    "timestamp": "1997-01-01T00:00:00Z",
-    "file": "uploads/documents/d5cb7eb4-a639-4113-9209-a06faaf40e12-SMHC_Newsletter_Jan_1997.pdf",
-    "category": 7
-  }
-},
-{
-  "model": "documents.document",
-  "pk": 59,
-  "fields": {
-    "title": "SMHC Newsletter November 1997",
-    "description": "",
-    "timestamp": "1997-11-01T00:00:00Z",
-    "file": "uploads/documents/4594e496-7c93-4094-b61f-60f64c176b75-SMHC_Newsletter_Nov_1997.pdf",
-    "category": 7
-  }
-}
 ]
