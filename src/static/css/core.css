@@ -196,6 +196,12 @@ main {
 .flex-0-auto {
   flex: 0 auto !important;
 }
+.flex-2 {
+  flex: 2 !important;
+}
+.flex-3 {
+  flex: 3 !important;
+}
 .geoposition-address {
   display: none;
 }

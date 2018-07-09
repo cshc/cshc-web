@@ -9,12 +9,12 @@ Expects context containing:
 <div class="row g-my-20">
   {% for app in appearances %}
     <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-      <div class="text-center g-mb-20">
-        <a title="View profile" href="{{ app.member.get_absolute_url }}">
-          {% profile_pic member=app.member size="200x200" className="w-100 g-mb-10 g-px-10" %}
-          <h4 class="h5 g-font-weight-600 mb-1">{{ app.member.pref_first_name}}<br/>{{ app.member.last_name}}</h4>
-        </a>
-      </div>
+      <a title="View profile" href="{{ app.member.get_absolute_url }}">
+        <div class="d-flex align-items-center g-mb-20">
+          {% profile_pic member=app.member size="60x60" className="flex-2 g-pr-10" %}
+          <h4 class="flex-3 ellipsize g-font-size-18 g-font-size-18--md g-font-size-16--lg g-font-weight-600 mb-1">{{ app.member.pref_first_name}}<br/>{{ app.member.last_name}}</h4>
+        </div>
+      </a>
     </div>
   {% endfor %}
 </div>

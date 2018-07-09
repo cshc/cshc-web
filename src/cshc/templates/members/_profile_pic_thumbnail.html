@@ -13,7 +13,7 @@ Expected context:
   {% thumbnail member.profile_pic size crop="center" as im %}
     <img class="u-shadow-v29 w-100 rounded-circle" src="{{ im.url }}">
   {% empty %}
-    <div class="u-shadow-v29 w-100 rounded-circle shirt-wrapper">
+    <div class=" g-pos-rel w-100 u-shadow-v29 rounded-circle shirt-wrapper" style="width: {{ width }};">
       <img class="w-100" src="{{ fallbackImage }}">
       <div class="g-pos-abs text-center shirt-number">{{ member.shirt_number|default:"" }}</div>
     </div>

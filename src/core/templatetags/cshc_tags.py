@@ -186,10 +186,13 @@ def profile_pic(member, size, className):
     fallback_image = 'img/kit/ladies_shirt_sq.png' if (
         member and member.gender == Gender.Female) else 'img/kit/mens_shirt_sq.png'
     fallback_image_url = static(fallback_image)
+    size_split = size.split('x')
     return {
         'member': member,
         'size': size,
         'class': className,
+        'width': size_split[0] + 'px',
+        'height': size_split[1] + 'px',
         'fallbackImage': fallback_image_url,
     }
 
