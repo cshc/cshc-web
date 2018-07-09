@@ -10,5 +10,9 @@ Renders the match report, with title and author.
   {% endif %}
 </div>
 <div class="g-mb-20 cshc-article g-color-main">
-  {{ match.report_body|strip_new_lines|safe }}
+  {% if match.report_body.content %}
+    {{ match.report_body|strip_new_lines|safe }}
+  {% else %}
+    <p class="lead g-font-style-italic">No match report (yet)</p>
+  {% endif %}
 </div>
