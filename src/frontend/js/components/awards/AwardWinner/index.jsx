@@ -6,7 +6,7 @@ const AwardWinner = ({ awardWinner, className }) => {
   if (awardWinner.member) {
     return <MemberLink key={awardWinner.member.id} member={awardWinner.member} useFullName />;
   }
-  return <div className={className}>{awardWinner.awardee}</div>;
+  return <span className={className}>{awardWinner.awardee}</span>;
 };
 
 AwardWinner.propTypes = {

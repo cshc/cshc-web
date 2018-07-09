@@ -3,12 +3,12 @@ Renders the match report, with title and author.
 {% endcomment %}
 {% load cshc_tags %}
 
-<div class="g-mb-20">
+<div class="g-mb-20 g-color-main">
   <h3>{{ match.match_title_text }}</h3>
   {% if match.report_author %}
     <i class="fas fa-pencil-alt g-mr-5"></i>{{ match.report_author|urlise_model }}
   {% endif %}
 </div>
-<div class="g-mb-20 cshc-article">
+<div class="g-mb-20 cshc-article g-color-main">
   {{ match.report_body|strip_new_lines|safe }}
 </div>

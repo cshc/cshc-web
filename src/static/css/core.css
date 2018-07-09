@@ -77,6 +77,25 @@ main {
   overflow: hidden;
   white-space: nowrap;
 }
+@media (min-width: 576px) {
+  .no-break--sm {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+@media (min-width: 768px) {
+  .no-break--md {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+@media (min-width: 992px) {
+  .no-break--lg {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
 .shirt-wrapper {
   background-color: #e4e4e4;
   padding: 15%;
@@ -198,4 +217,7 @@ main {
 /* Make sure the Django Debug Toolbar button is below the Hypothesis Toolbar buttons */
 #djDebug #djDebugToolbarHandle {
   top: 130px !important;
+}
+p > a {
+  font-weight: 500;
 }

@@ -29,7 +29,7 @@ const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
         </td>
       )}
       {incl(TC.date) && (
-        <td className={priority(TC.date)}>
+        <td className={`${priority(TC.date)} no-break--md`}>
           <MatchDate date={match.date} format={dateFormat} />
         </td>
       )}
@@ -87,7 +87,7 @@ const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
             <div className={styles.flexWrap}>
               {Match.mom(match).map((awardWinner, index, awardWinners) => (
                 <span key={index}>
-                  <AwardWinner awardWinner={awardWinner} className="g-mr-10" />
+                  <AwardWinner awardWinner={awardWinner} />
                   {index < awardWinners.length - 1 && <span>,&nbsp;</span>}
                 </span>
               ))}
@@ -101,7 +101,7 @@ const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
             <div className={styles.flexWrap}>
               {Match.lom(match).map((awardWinner, index, awardWinners) => (
                 <span key={index}>
-                  <AwardWinner awardWinner={awardWinner} className="g-mr-10" />
+                  <AwardWinner awardWinner={awardWinner} />
                   {index < awardWinners.length - 1 && <span>,&nbsp;</span>}
                 </span>
               ))}

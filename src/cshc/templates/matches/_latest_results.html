@@ -8,7 +8,7 @@ Context should have a 'latest_results' list of Match objects.
     <table class="table table-sm g-ma-0">
       <tbody>
         {% for date in latest_results %}
-          <tr class="date g-color-gray-light-v1 g-brd-bottom g-brd-gray-dark-v4">
+          <tr class="date g-font-size-85x g-color-white g-brd-bottom g-brd-gray-light-v3">
             <td colspan="5">{{ date.date|date:"jS M" }}</td>
           </tr>
           {% for match in date.matches %}

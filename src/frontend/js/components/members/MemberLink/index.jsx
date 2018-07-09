@@ -12,7 +12,7 @@ const MemberLink = ({ member, badgeCount, useFullName }) => {
   return (
     <a href={Urls.member_detail(member.id)} title={title}>
       {label}
-      {badgeCount > 1 && <span className=""> ({badgeCount})</span>}
+      {badgeCount > 1 && <span> ({badgeCount})</span>}
     </a>
   );
 };

@@ -28,6 +28,12 @@ table td .ellipsis-container {
   padding: 0.3rem;
 }
 
+@media (min-width: 768px) {
+  table td .ellipsis-container {
+    padding: 0.1rem 0.3rem;
+  }
+}
+
 table td .ellipsis-overflow {
   box-sizing: border-box;
   overflow: hidden;

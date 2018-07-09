@@ -5,3 +5,9 @@
 .spacer {
   background-color: #f6f6f6;
 }
+:global {
+  #team-details .table-sm td,
+  #team-details .table-sm th {
+    padding: 0.1rem 0.3rem;
+  }
+}
