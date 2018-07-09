@@ -1,0 +1,12 @@
+{% comment %} 
+A re-usable Tab navigation template.
+
+Expects context containing:
+  target = the ID of the tab element that this nav item relates to (do not include the '#')
+  title = the tab navigation title
+  active = if set, the tab will be active
+{% endcomment %}
+
+<li class="nav-item">
+  <a class="nav-link{% if active %} active{% endif %}" data-toggle="tab" href="#{{ target }}" role="tab">{{ title }}</a>
+</li>

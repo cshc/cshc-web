@@ -16,6 +16,7 @@
   {% compress css %}
   <link rel="stylesheet" type="text/css" href="{% static "fluent_comments/css/ajaxcomments.css" %}" />
   <link rel="stylesheet" href="{% static "css/match_detail.css" %}">
+  <link rel="stylesheet" href="{% static "css/tabs.css" %}">
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
   {% endcompress %}
   {% if not match.is_in_past %}
@@ -110,27 +111,31 @@
   </div>
 </section>
 <section class="container g-pt-20 g-pb-40">
-  <div id="match-accordion" class="u-accordion u-accordion-color-primary u-accordion-brd-primary" role="tablist" aria-multiselectable="true">
-    {% if not match.is_in_past %}
-      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='venue' show='show' cardTitle='Venue' cardContent='matches/_venue.html' venue=match.venue %}
+  <!-- Nav tabs -->
+  <ul class="nav u-nav-cshc u-nav-primary" role="tablist" data-target="tabs-match-detail" data-btn-classes="btn btn-md btn-block u-btn-outline-primary">
+    {% if match.is_in_past %}
+      {% include 'blocks/_tab_nav.html' with target='tab-report' title='Match Report' active=True %}
+      {% include 'blocks/_tab_nav.html' with target='tab-team' title='Team' %}
+      {% include 'blocks/_tab_nav.html' with target='tab-awards' title='Awards' %}
+    {% else %}
+      {% include 'blocks/_tab_nav.html' with target='tab-venue' title='Venue' active=True %}
+      {% include 'blocks/_tab_nav.html' with target='tab-previous' title='Fixture History' %}
     {% endif %}
-    {% if appearances %}
-      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='team' show='show' cardTitle='Team' cardContent='matches/_players.html' %}
-    {% endif %}
-    {% if mom_winners or lom_winners %}
-      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='awards' show='show' cardTitle='Awards' cardContent='matches/_awards.html' %}
-    {% endif %}
-    {% if match.report_body.content %}
-      {% include 'blocks/_accordion_card.html' with accordionId='match' cardId='report' show='show' cardTitle='Match Report' cardContent='matches/_report.html' %}
-    {% endif %}
-    {% if not match.is_in_past %}
-      {% include 'react/react_div.html' %}
+  </ul>
+  <!-- End Nav tabs -->
+
+  <!-- Tab panes -->
+  <div id="tabs-match-detail" class="tab-content g-pt-20">
+    {% if match.is_in_past %}
+      {% include 'blocks/_tab.html' with tabId='tab-report' tabContent='matches/_report.html' active=True %}
+      {% include 'blocks/_tab.html' with tabId='tab-team' tabContent='matches/_players.html' %}
+      {% include 'blocks/_tab.html' with tabId='tab-awards' tabContent='matches/_awards.html' %}
+    {% else %}
+      {% include 'blocks/_tab.html' with tabId='tab-venue' tabContent='matches/_venue.html' active=True venue=match.venue %}
+      {% include 'blocks/_tab.html' with tabId='tab-previous' tabContent='react/react_div.html' %}
     {% endif %}
   </div>
-  <div id="comments g-py-40">
-    <div class="sharethis-inline-share-buttons"></div>
-    {% include 'core/_comments.html' with object=match %}
-  </div>
+  <!-- End Tab panes -->
   
   <div class="g-pt-20 text-right">
     {% if match.is_in_past %}
@@ -150,6 +155,7 @@
 <script src="{% static "vendor/jquery.fittext.js" %}"></script>
 {% endcompress %}
 
+{% include 'blocks/_tabs_js.html' %}
 <script>
     $(function () {
       jQuery(".shirt-wrapper .shirt-number").fitText(0.8);
@@ -159,4 +165,5 @@
   {% include 'react/react_js.html' with bundle_name='MatchDetail' %}
   {% include 'maps/_map_body_js.html' with venue=match.venue mapId="map" %}
 {% endif %}
+
 {% endblock body_js %}

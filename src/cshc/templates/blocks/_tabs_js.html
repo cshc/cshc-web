@@ -1,0 +1,19 @@
+{% load static %}
+{% load compress %}
+
+{% compress js %}
+<script src="{% static "vendor/unify/js/components/hs.tabs.js" %}"></script>
+{% endcompress %}
+
+<script>
+  $(document).on('ready', function () {
+    // initialization of tabs
+    $.HSCore.components.HSTabs.init('[role="tablist"]');
+  });
+
+  $(window).on('resize', function () {
+    setTimeout(function () {
+      $.HSCore.components.HSTabs.init('[role="tablist"]');
+    }, 200);
+  });
+</script>

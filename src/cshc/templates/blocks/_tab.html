@@ -1,0 +1,12 @@
+{% comment %} 
+A re-usable Tab template.
+
+Expects context containing:
+  tabId = a unique identifier for this tab
+  tabContent = a path to a template that contains the tab content
+  active = if set, the tab will be active
+{% endcomment %}
+
+<div class="tab-pane fade show{% if active %} active{% endif %}" id="{{ tabId }}" role="tabpanel">
+  {% include tabContent %}
+</div>

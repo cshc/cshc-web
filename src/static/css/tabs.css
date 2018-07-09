@@ -1,0 +1,72 @@
+/* Copied from unify.css (u-nav-v4-1) but removed the media queries so tabs remain on mobile views */
+
+.u-nav-cshc {
+  border-color: #6639b6 !important;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #eee;
+}
+.u-nav-cshc .nav-item {
+  margin-bottom: -2px; /* Modified from -1px to fix bottom border showing through */
+}
+.u-nav-cshc .nav-link {
+  border-style: solid;
+  border-width: 2px 1px 1px;
+  border-color: transparent;
+}
+.u-nav-cshc .nav-link.active {
+  border-color: #ccc #eee #fff;
+  background-color: #fff; /* Added to fix bottom border showing through */
+}
+.u-nav-cshc.u-nav-light .nav-link {
+  color: #fff;
+}
+.u-nav-cshc.u-nav-light .nav-link.active {
+  color: #fff;
+  border-color: #ccc #eee transparent;
+  background-color: #333;
+}
+.u-nav-cshc.u-nav-light.flex-column .nav-link.active {
+  border-color: #ccc transparent #ccc #eee;
+  border-width: 1px 0 1px 1px;
+  background-color: #333;
+}
+.u-nav-cshc.u-nav-primary .nav-link.active {
+  border-color: #6639b6 #eee #fff;
+}
+.u-nav-cshc.u-nav-dark .nav-link.active {
+  border-color: #333 #eee #fff;
+}
+
+.u-nav-cshc-column {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.u-nav-cshc-column .u-nav-cshc {
+  border-bottom: none;
+}
+.u-nav-cshc-column .u-nav-cshc .nav-item {
+  margin: 0 -1px 0 0;
+  z-index: 2;
+}
+.u-nav-cshc-column .u-nav-cshc .nav-link {
+  border-style: solid;
+  border-width: 1px 1px 1px 2px;
+  border-color: transparent;
+}
+.u-nav-cshc-column .u-nav-cshc .nav-link.active {
+  border-color: #eee #fff #eee #ccc;
+}
+.u-nav-cshc-column .u-nav-cshc.u-nav-primary .nav-link.active {
+  border-color: #eee #fff #eee #6639b6;
+}
+.u-nav-cshc-column .u-nav-cshc.u-nav-dark .nav-link.active {
+  border-color: #eee #fff #eee #333;
+}
+.u-nav-cshc-column .nav {
+  width: 30%;
+}
+.u-nav-cshc-column .tab-content {
+  width: 70%;
+}
