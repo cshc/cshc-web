@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Match from 'models/match';
 import { MatchItem } from 'util/constants';
 import MatchData from 'components/matches/MatchData';
 import LeagueTable from 'components/competitions/LeagueTable';
+import Tabs from 'components/Unify/Tabs';
 import Accordion from 'components/common/Accordion';
 import AccordionCard from 'components/common/Accordion/AccordionCard';
 import SquadRosterWrapper from './SquadRosterWrapper';
@@ -16,29 +16,36 @@ import SquadRosterWrapper from './SquadRosterWrapper';
  * - League Table
  * - Squad Roster
  */
-const TeamDetail = ({ data, division, teamId, teamGenderlessName, seasonId }) => (
-  <Accordion multiselectable accordionId="team-details">
-    <AccordionCard
-      cardId="results_fixtures"
-      accordionId="team-details"
-      title="Results &amp; Fixtures"
-    >
-      {data.results.length > 0 ? (
-        <MatchData matches={data.results} exclude={[MatchItem.ourTeam]} fillBlankSaturdays />
-      ) : (
-        <p className="lead g-font-style-italic">No matches</p>
-      )}
-    </AccordionCard>
-    {division.id && (
-      <AccordionCard cardId="league-table" accordionId="team-details" title="League Table">
+const TeamDetail = ({ data, division, teamId, teamGenderlessName, seasonId }) => {
+  const tabItems = [
+    {
+      tabId: 'matches',
+      title: 'Results/Fixtures',
+      active: true,
+      content:
+        data.results.length > 0 ? (
+          <MatchData matches={data.results} exclude={[MatchItem.ourTeam]} fillBlankSaturdays />
+        ) : (
+          <p className="lead g-font-style-italic">No matches</p>
+        ),
+    },
+  ];
+  if (division.id) {
+    tabItems.push({
+      tabId: 'league-table',
+      title: 'League Table',
+      content: (
         <LeagueTable divisionId={division.id} seasonId={seasonId} teamName={teamGenderlessName} />
-      </AccordionCard>
-    )}
-    <AccordionCard cardId="squad-roster" accordionId="team-details" title="Squad Roster">
-      <SquadRosterWrapper teamId={teamId} seasonId={seasonId} />
-    </AccordionCard>
-  </Accordion>
-);
+      ),
+    });
+  }
+  tabItems.push({
+    tabId: 'squad-roster',
+    title: 'Squad Roster',
+    content: <SquadRosterWrapper teamId={teamId} seasonId={seasonId} />,
+  });
+  return <Tabs items={tabItems} />;
+};
 
 TeamDetail.propTypes = {
   data: PropTypes.shape(),
