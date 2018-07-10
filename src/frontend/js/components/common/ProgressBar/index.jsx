@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
  * 
  * Ref: https://htmlstream.com/preview/unify-v2.2/unify-main/shortcodes/shortcode-base-progress-bars.html#shortcode16
  */
-const ProgressBar = ({ label, value, progressValue, min, max, color }) => (
+const ProgressBar = ({ label, value, progressItems, min, max }) => (
   <div className="g-mb-10">
     <h6>
       {label}
@@ -14,14 +14,16 @@ const ProgressBar = ({ label, value, progressValue, min, max, color }) => (
     </h6>
 
     <div className="progress g-height-20 rounded-0">
-      <div
-        className={`progress-bar u-progress-bar--sm g-bg-${color}`}
-        role="progressbar"
-        style={{ width: `${progressValue}%` }}
-        aria-valuenow={progressValue}
-        aria-valuemin={min}
-        aria-valuemax={max}
-      />
+      {progressItems.map(item => (
+        <div
+          className="progress-bar u-progress-bar--sm"
+          role="progressbar"
+          style={{ width: `${100 * (item.value / max)}%`, backgroundColor: item.color }}
+          aria-valuenow={item.value}
+          aria-valuemin={min}
+          aria-valuemax={max}
+        />
+      ))}
     </div>
   </div>
 );
@@ -29,16 +31,19 @@ const ProgressBar = ({ label, value, progressValue, min, max, color }) => (
 ProgressBar.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
-  progressValue: PropTypes.number.isRequired,
+  progressItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number.isRequired,
+      color: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
   min: PropTypes.number,
   max: PropTypes.number,
-  color: PropTypes.string,
 };
 
 ProgressBar.defaultProps = {
   min: 0,
   max: 100,
-  color: 'teal',
 };
 
 export default ProgressBar;

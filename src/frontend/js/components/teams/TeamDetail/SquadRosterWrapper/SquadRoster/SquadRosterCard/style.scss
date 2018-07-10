@@ -2,38 +2,7 @@
   position: relative;
   background-color: #f7f7f7;
 }
-.image {
-  width: 100%;
-}
-.imageOverlay {
-  position: absolute;
-  bottom: 0.5rem;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.8rem;
-  font-weight: bold;
-  border-radius: 50%;
-}
-.mom {
-  composes: imageOverlay;
-  left: 0.5rem;
-  background-color: #6639b6;
-}
-.lom {
-  composes: imageOverlay;
-  right: 0.5rem;
-  background-color: #e8e800;
-}
 .progress {
   flex: 1;
   padding-right: 10px;
-}
-.pie {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: -25px;
 }
