@@ -16,7 +16,9 @@ Renders the match report, with title and author.
     <p class="lead g-font-style-italic">No match report (yet)</p>
   {% endif %}
 </div>
-<div id="comments g-py-40">
+<div id="sharing" class="g-pt-20">
   <div class="sharethis-inline-share-buttons"></div>
+</div>
+<div id="comments" class="g-pt-20">
   {% include 'core/_comments.html' with object=match %}
 </div>
