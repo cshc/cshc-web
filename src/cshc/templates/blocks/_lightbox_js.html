@@ -1,0 +1,13 @@
+{% load static %}
+{% load compress %}
+
+{% compress js %}
+<script  src="{% static "vendor/fancybox/jquery.fancybox.min.js" %}"></script>
+<script src="{% static "vendor/unify/js/components/hs.popup.js" %}"></script>
+{% endcompress %}
+<script >
+  $(document).on('ready', function () {
+    // initialization of popups
+    $.HSCore.components.HSPopup.init('.js-fancybox');
+  });
+</script>
