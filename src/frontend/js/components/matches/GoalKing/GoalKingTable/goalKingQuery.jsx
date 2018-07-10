@@ -32,9 +32,9 @@ export const GOAL_KING_QUERY = gql`
 `;
 
 export const goalKingOptions = {
-  options: ({ currentSeason, season, team }) => ({
+  options: ({ season, team }) => ({
     variables: {
-      season_Slug: season || currentSeason,
+      season_Slug: season,
       team: team !== NoFilter ? team : undefined,
     },
     fetchPolicy: 'cache-and-network',

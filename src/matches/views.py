@@ -324,16 +324,22 @@ class MatchEditView(PermissionRequiredMixin, SelectRelatedMixin, DetailView):
         return context
 
 
-class GoalKingView(TemplateView):
+class GoalKingSeasonView(TemplateView):
     """ View for displaying the Goal King stats for a particular season. """
     template_name = 'matches/goalking.html'
 
     def get_context_data(self, **kwargs):
-        context = super(GoalKingView, self).get_context_data(**kwargs)
+        context = super(GoalKingSeasonView, self).get_context_data(**kwargs)
+        season = get_season_from_kwargs(kwargs)
+
+        season_slug_list = list(GoalKing.objects.order_by(
+            '-season').values_list('season__slug', flat=True).distinct())
+
+        add_season_selector(context, season, season_slug_list)
+
         context['props'] = {
-            'seasons':  list(GoalKing.objects.order_by('-season').values_list('season__slug', flat=True).distinct()),
             'teams': list(ClubTeam.objects.active().values('long_name', 'slug')),
-            'current_season': Season.current().slug,
+            'season': season.slug,
         }
         return context
 

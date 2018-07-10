@@ -22,6 +22,15 @@ class MatchStatsSitemap(Sitemap):
         return reverse(obj)
 
 
+class GoalKingSeasonSitemap(SeasonalSitemap):
+    """ Sitemap of the goal king pages for each season. """
+    priority = 0.5
+    changefreq = 'weekly'
+
+    def url_name(self):
+        return 'goal_king_season'
+
+
 class AccidentalTouristSeasonSitemap(SeasonalSitemap):
     """ Sitemap of the accidental tourist pages for each season. """
     priority = 0.5
@@ -54,6 +63,7 @@ class MatchDetailSitemap(Sitemap):
 
 MatchesSitemap = {
     'match-stats': MatchStatsSitemap,
+    'goal-king': GoalKingSeasonSitemap,
     'accidental-tourist-season': AccidentalTouristSeasonSitemap,
     'naughty-step-season': NaughtyStepSitemap,
     'match-detail': MatchDetailSitemap,

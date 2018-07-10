@@ -29,8 +29,14 @@ urlpatterns = [
 
     # E.g. '/matches/goal-king/'            - Goal King table
     url(r'^goal-king/$',
-        views.GoalKingView.as_view(),
+        views.GoalKingSeasonView.as_view(),
         name="goal_king"
+        ),
+
+    # E.g. '/matches/goal-king/2011-2012/'     - Goal King table for previous seasons
+    url(r'^goal-king/(?P<season_slug>[-\w]+)/$',
+        views.GoalKingSeasonView.as_view(),
+        name="goal_king_season"
         ),
 
     # E.g. '/matches/accidental-tourist/'   - Accidental Tourist table for the current season
