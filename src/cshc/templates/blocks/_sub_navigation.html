@@ -1,7 +1,7 @@
-<div id="sub-navigation" class="g-pos-rel g-z-index-4 g-hidden-sm-down">
+<div id="sub-navigation" class="g-pos-rel g-z-index-4{% if not mobile_row %} g-hidden-sm-down{% endif %}">
   <div class="u-secondary-navigation u-shadow-v19 g-bg-white g-line-height-1_3 g-py-20 g-m-reset">
     <div class="container">
-      <ul id="js-scroll-nav" class="nav flex-column flex-sm-row justify-content-sm-center text-center text-uppercase">
+      <ul id="js-scroll-nav" class="nav {% if mobile_row %}flex-row justify-content-center{% else %}flex-column flex-sm-row justify-content-sm-center{% endif %} text-center text-uppercase">
         {% for item in sub_nav_items %}
           <li class="nav-item g-brd-right--sm g-brd-gray-light-v4 g-color-primary--active">
             <a href="#{{ item.id }}" class="nav-link g-px-20">{{ item.label }}</a>
