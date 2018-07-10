@@ -199,7 +199,8 @@ def profile_pic(member, size, className):
 
 @register.filter()
 def strip_new_lines(text_field):
-    return mark_safe(text_field.content.replace("\\r\\n", ""))
+    str = text_field.content if hasattr(text_field, 'content') else text_field
+    return mark_safe(str.replace("\\r\\n", ""))
 
 
 @register.filter()
