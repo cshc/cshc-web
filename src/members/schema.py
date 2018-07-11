@@ -81,7 +81,7 @@ class SquadMembershipList(DjangoListObjectType):
 
 class MemberType(DjangoObjectType):
     """ GraphQL node representing a club member """
-    thumb_url = graphene.String(profile=graphene.String())
+    thumb_url = graphene.String(size=graphene.String())
     pref_position = graphene.String()
     num_appearances = graphene.Int()
     goals = graphene.Int()
@@ -116,8 +116,8 @@ class MemberType(DjangoObjectType):
     def resolve_goals(self, info):
         return self.goals
 
-    def resolve_thumb_url(self, info, profile='avatar'):
-        return get_thumbnail_url(self.profile_pic, profile, self.profile_pic_cropping)
+    def resolve_thumb_url(self, info, size='50x50'):
+        return get_thumbnail_url(self.profile_pic, size, self.profile_pic_cropping)
 
     def resolve_pref_position(self, info):
         return self.get_pref_position_display()

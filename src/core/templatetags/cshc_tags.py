@@ -20,7 +20,7 @@ from fluent_comments.models import FluentComment
 from graphql_relay.node.node import to_global_id
 from zinnia.models.entry import Entry
 from core.models import Gender, DivisionResult, ClubInfo
-from sorl.thumbnail import get_thumbnail
+from core.utils import get_thumbnail_url
 
 register = template.Library()
 
@@ -107,7 +107,7 @@ def message_alert(message):
 
 
 @register.inclusion_tag("blocks/_lightbox_link.html")
-def lightbox_link(image_field, alt, size):
+def lightbox_link(image_field, alt, size, cropping_field=None):
     """
     Render a lightbox image linked to the full-size image.
     """
@@ -115,11 +115,9 @@ def lightbox_link(image_field, alt, size):
         'fullsize_image_url': image_field.url,
         'alt': alt
     }
-    try:
-        im = get_thumbnail(image_field, size)
-        context['thumbnail_image_url'] = im.url
-    except Exception as e:
-        traceback.print_exc()
+    context['thumbnail_image_url'] = get_thumbnail_url(
+        image_field, size, cropping_field)
+    if not context['thumbnail_image_url']:
         context['thumbnail_image_url'] = image_field.url
 
     return context

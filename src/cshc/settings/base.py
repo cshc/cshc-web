@@ -455,15 +455,6 @@ THUMBNAIL_PROCESSORS = (
 ) + thumbnail_settings.THUMBNAIL_PROCESSORS
 IMAGE_CROPPING_BACKEND = 'core.backends.image_backend.ResizedImageSorlThumbnailBackend'
 THUMBNAIL_PRESERVE_FORMAT = True
-THUMBNAIL_ALIASES = {
-    '': {
-        'avatar': {'size': (50, 50), 'crop': True},
-        'member-link': {'size': (30, 30), 'crop': True},
-        'squad-list': {'size': (255, 255), 'crop': True},
-        'news-list': {'size': (350, 233), 'crop': True},
-        'member-detail': {'size': (255, 255), 'crop': True},
-    },
-}
 
 IMAGE_CROPPING_JQUERY_URL = "None"
 

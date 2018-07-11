@@ -32,7 +32,7 @@ export const SQUAD_ROSTER_QUERY = gql`
           prefPosition
           shirtNumber
           gender
-          thumbUrl(profile: "squad-list")
+          thumbUrl(size: "255x255")
         }
       }
     }
