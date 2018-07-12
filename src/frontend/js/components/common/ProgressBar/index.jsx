@@ -16,6 +16,7 @@ const ProgressBar = ({ label, value, progressItems, min, max }) => (
     <div className="progress g-height-20 rounded-0">
       {progressItems.map(item => (
         <div
+          key={item.color}
           className="progress-bar u-progress-bar--sm"
           role="progressbar"
           style={{ width: `${100 * (item.value / max)}%`, backgroundColor: item.color }}
