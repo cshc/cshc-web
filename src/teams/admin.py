@@ -3,6 +3,7 @@ Configuration of Teams models for the admin interface.
 """
 
 from django.contrib import admin
+from image_cropping import ImageCroppingMixin
 from teams.models import ClubTeam, TeamCaptaincy, ClubTeamSeasonParticipation
 # from teams.forms import ClubTeamSeasonParticipationForm
 
@@ -35,7 +36,7 @@ class ClubTeamAdmin(admin.ModelAdmin):
 
 
 @admin.register(ClubTeamSeasonParticipation)
-class ClubTeamSeasonParticipationAdmin(admin.ModelAdmin):
+class ClubTeamSeasonParticipationAdmin(ImageCroppingMixin, admin.ModelAdmin):
     """ Admin interface for the ClubTeamSeasonParticipation model.
 
         Note - the customized fieldset deliberately omits the automatically
@@ -49,7 +50,7 @@ class ClubTeamSeasonParticipationAdmin(admin.ModelAdmin):
                     'final_pos', 'division_result')
     fieldsets = [
         ('Basics', {
-            'fields': ['team', 'season', 'division', 'blurb', 'team_photo', 'team_photo_caption']
+            'fields': ['team', 'season', 'division', 'blurb', 'team_photo', 'team_photo_cropping', 'team_photo_caption']
         }),
         ('Links', {
             'fields': ['division_tables_url', 'division_fixtures_url']

@@ -8,6 +8,7 @@ from image_cropping.backends.easy_thumbs import EasyThumbnailsBackend
 from easy_thumbnails.source_generators import pil_image
 from sorl.thumbnail import get_thumbnail
 
+
 class ResizedImageEasyThumbnailsBackend(EasyThumbnailsBackend):
     """ Custom Thumbnail backend that supports both easy-thumbnails and django-resized """
     WIDGETS = {
@@ -17,7 +18,6 @@ class ResizedImageEasyThumbnailsBackend(EasyThumbnailsBackend):
         'ImageCropField': widgets.ImageCropWidget,
         'ResizedImageField': widgets.ImageCropWidget,
     }
-
 
 
 class ResizedImageSorlThumbnailBackend(ImageBackend):
@@ -31,7 +31,8 @@ class ResizedImageSorlThumbnailBackend(ImageBackend):
     }
 
     def get_thumbnail_url(self, image_path, thumbnail_options):
-        thumb = get_thumbnail(image_path, "{}x{}".format(thumbnail_options['size'][0], thumbnail_options['size'][1]), crop='center')
+        thumb = get_thumbnail(image_path, "{}x{}".format(
+            thumbnail_options['size'][0], thumbnail_options['size'][1]))
         return thumb.url
 
     def get_size(self, image):

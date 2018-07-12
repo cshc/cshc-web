@@ -168,7 +168,7 @@
     </div>
     <div class="col-12 col-md-5 text-center">
       {% if participation and participation.team_photo %}
-        {% lightbox_link participation.team_photo team.long_name '500' %}
+        {% lightbox_link participation.team_photo team.long_name '500' None participation.team_photo_cropping %}
         <p class="g-my-20">{{ participation.team_photo_caption|strip_new_lines|safe }}</p>
       {% endif %}
     </div>

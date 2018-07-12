@@ -107,16 +107,21 @@ def message_alert(message):
 
 
 @register.inclusion_tag("blocks/_lightbox_link.html")
-def lightbox_link(image_field, alt, size, cropping_field=None):
+def lightbox_link(image_field, alt, size, crop=None, cropping_field=None):
     """
     Render a lightbox image linked to the full-size image.
     """
     context = {
-        'fullsize_image_url': image_field.url,
         'alt': alt
     }
+    context['fullsize_image_url'] = get_thumbnail_url(
+        image_field,
+        "{}x{}".format(image_field.width, image_field.height),
+        crop,
+        cropping_field)
+
     context['thumbnail_image_url'] = get_thumbnail_url(
-        image_field, size, cropping_field)
+        image_field, size, crop, cropping_field)
     if not context['thumbnail_image_url']:
         context['thumbnail_image_url'] = image_field.url
 

@@ -175,7 +175,7 @@ class MemberDetailView(DetailView):
                 firstName=member.pref_first_name(),
                 lastName=member.last_name,
                 profilePicUrl=get_thumbnail_url(
-                    member.profile_pic, '255x255', member.profile_pic_cropping),
+                    member.profile_pic, '255x255', 'center', member.profile_pic_cropping),
                 prefPosition=member.get_pref_position_display(),
                 squad=squad,
                 isUmpire=member.is_umpire,

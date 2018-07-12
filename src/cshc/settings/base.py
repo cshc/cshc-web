@@ -452,7 +452,7 @@ BREADCRUMBS_TEMPLATE = "core/_breadcrumbs.html"
 # Ref: https://github.com/jonasundderwolf/django-image-cropping
 THUMBNAIL_PROCESSORS = (
     'image_cropping.thumbnail_processors.crop_corners',
-) + thumbnail_settings.THUMBNAIL_PROCESSORS
+)
 IMAGE_CROPPING_BACKEND = 'core.backends.image_backend.ResizedImageSorlThumbnailBackend'
 THUMBNAIL_PRESERVE_FORMAT = True
 

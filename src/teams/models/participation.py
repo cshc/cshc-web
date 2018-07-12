@@ -60,11 +60,11 @@ class ClubTeamSeasonParticipation(models.Model):
         Division, on_delete=models.SET_NULL, null=True, blank=True)
     """The division in which the team participated in, if any."""
 
-    team_photo = ResizedImageField("Team photo", size=[900, 600],
+    team_photo = ResizedImageField("Team photo", size=[1200, 1200],
                                    upload_to=get_file_name, null=True, blank=True)
     """A team photo (if available) from this sesason"""
 
-    team_photo_cropping = ImageRatioField('team_photo', '900x600')
+    team_photo_cropping = ImageRatioField('team_photo', '1200x800')
     """ Image cropping for the team photo """
 
     team_photo_caption = RichTextField(blank=True)

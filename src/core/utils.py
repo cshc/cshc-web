@@ -41,13 +41,13 @@ def ordinal(num):
     return str(num) + suffix
 
 
-def get_thumbnail_url(image_field, size, cropping_field=None):
+def get_thumbnail_url(image_field, size, crop=None, cropping_field=None):
     """ Gets the thumbnail URL for a given ImageField if it exists. 
         Returns None if no image field is set
     """
-    kwargs = {
-        'crop': 'center',
-    }
+    kwargs = {}
+    if crop:
+        kwargs['crop'] = crop
     if cropping_field:
         cropbox = str(cropping_field)
         if cropbox != '0x0':
