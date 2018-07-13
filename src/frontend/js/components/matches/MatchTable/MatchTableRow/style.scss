@@ -5,6 +5,9 @@
 .spacer {
   background-color: #f6f6f6;
 }
+.venue {
+  min-width: 6rem; // Specific to make sure 'Long Road' fits on one line
+}
 :global {
   #team-details .table-sm td,
   #team-details .table-sm th {

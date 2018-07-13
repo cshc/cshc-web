@@ -50,7 +50,7 @@ const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
         </td>
       )}
       {incl(TC.venue) && (
-        <td className={priority(TC.venue, 2)}>
+        <td className={`${priority(TC.venue, 2)} ${styles.venue}`}>
           {!match.isSpacer ? <MatchVenue match={match} /> : null}
         </td>
       )}
