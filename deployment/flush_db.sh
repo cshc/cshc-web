@@ -1,1 +1,1 @@
-mysql -h $RDS_HOSTNAME -u $RDS_USERNAME -p$RDS_PASSWORD $RDS_DB_NAME < ./deployment/flush_db.sql
+mysql -h $RDS_HOSTNAME -u $RDS_USERNAME -p$RDS_PASSWORD $RDS_DB_NAME < ../deployment/flush_db.sql
