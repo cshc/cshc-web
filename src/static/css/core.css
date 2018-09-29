@@ -227,3 +227,7 @@ main {
 p > a {
   font-weight: 500;
 }
+
+.comment-text p {
+  margin-bottom: 0;
+}

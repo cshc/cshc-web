@@ -23,7 +23,7 @@
 {% load thumbnail from sorl_thumbnail %}
 
 {% if preview %}<h3>{% trans "Preview of your comment" %}</h3>{% endif %}
-<div{% if preview %} id="comment-preview"{% else %} id="c{{ comment.id }}"{% endif %} class="media g-mb-30">
+<div{% if preview %} id="comment-preview"{% else %} id="c{{ comment.id }}"{% endif %} class="media g-mb-15">
   {% if comment.user and comment.user.member %}
     {% thumbnail comment.user.member.profile_pic "50x50" crop="center" as im %}
       <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="{{ im.url }}">
@@ -33,19 +33,19 @@
   {% else %}
     <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="{% static "img/avatar-placeholder.jpg" %}">
   {% endif %}
-  <div class="media-body u-shadow-v22 g-bg-secondary g-px-10 g-pt-10 g-pb-5 g-px-30--md g-pt-30--md g-pb-15--md">
-    <div class="g-mb-10">
-      <h5 class="h5 g-color-gray-dark-v1 mb-0">
+  <div class="media-body u-shadow-v22 g-bg-secondary g-pa-10">
+    <div class="g-mb-5">
+      <h6 class="h6 g-color-gray-dark-v1 mb-0">
         {% block comment_title %}
           {% if comment.user and comment.user.member %}<a href="{{ comment.user.member.get_absolute_url }}" title="Member details">{% endif %}
           {{ comment.name }}
           {% if comment.user and comment.user.member %}</a>{% endif %}
           {% if not comment.is_public %}<span class="comment-moderated-flag">({% trans "moderated" %})</span>{% endif %}
         {% endblock %}
-      </h5>
-      <span class="g-color-gray-dark-v4 g-font-size-12">{{ comment.submit_date|naturaltime }}</span>
+        <span class="g-color-gray-dark-v4 g-font-size-12">{{ comment.submit_date|naturaltime }}</span>
+      </h6>
     </div>
-    {{ comment.comment|linebreaks }}
+    <div class="comment-text">{{ comment.comment|linebreaks }}</div>
     {% if link %}<div><a href="{{ comment.get_content_object_url }}">{{ comment.content_object }}</a></div>{% endif %}
   </div>
 </div>

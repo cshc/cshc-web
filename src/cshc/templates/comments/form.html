@@ -31,11 +31,11 @@
     {% else %}
       <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="{% static "img/avatar-placeholder.jpg" %}">
     {% endif %}
-    <div class="media-body u-shadow-v22 g-bg-secondary g-px-10 g-pt-10 g-pb-5 g-px-30--md g-pt-30--md g-pb-15--md">
-      <div class="g-mb-15">
-        <h5 class="h5 g-color-gray-dark-v1 mb-0">
+    <div class="media-body u-shadow-v22 g-bg-secondary g-pa-10">
+      <div class="g-mb-5">
+        <h6 class="h6 g-color-gray-dark-v1 mb-0">
           {% user_display user %}
-        </h5>
+        </h6>
       </div>
       {% if not form.helper or not form.helper.form_tag %}
         <form id="comment-form-{{ form.target_object.pk }}" data-object-id="{{ form.target_object.pk }}" action="{% comment_form_target %}" method="post" class="{% block form_class %}{{ form.helper.form_class|default:'js-comments-form comments-form form-horizontal' }}{% endblock %}"
