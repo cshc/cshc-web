@@ -39,7 +39,7 @@ bleach==2.1.1
 
 # Django CKEditor (wysiwyg editor support)
 # Ref: https://django-ckeditor.readthedocs.io/en/latest/
-django-ckeditor==5.4.0
+django-ckeditor==5.6.1
 
 # Django extensions
 # Ref: https://django-extensions.readthedocs.io/en/latest/
