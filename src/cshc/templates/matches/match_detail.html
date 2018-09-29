@@ -16,6 +16,7 @@
   {% compress css %}
   <link rel="stylesheet" type="text/css" href="{% static "fluent_comments/css/ajaxcomments.css" %}" />
   <link rel="stylesheet" href="{% static "css/match_detail.css" %}">
+  <link rel="stylesheet" href="{% static "css/tabs.css" %}">
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
   {% endcompress %}
   {% if not match.is_in_past %}
@@ -109,39 +110,34 @@
     </div>
   </div>
 </section>
-  
-  {% include 'blocks/_sub_navigation.html' with mobile_row=True %}
+<section class="container g-pt-20 g-pb-40">
+  <!-- Nav tabs -->
+  <ul class="nav u-nav-cshc u-nav-primary" role="tablist" data-target="tabs-match-detail" data-btn-classes="btn btn-md btn-block u-btn-outline-primary">
+    {% if match.is_in_past %}
+      {% include 'blocks/_tab_nav.html' with target='tab-report' title='Match Report' active=True %}
+      {% include 'blocks/_tab_nav.html' with target='tab-team' title='Team' %}
+      {% include 'blocks/_tab_nav.html' with target='tab-awards' title='Awards' %}
+    {% else %}
+      {% include 'blocks/_tab_nav.html' with target='tab-venue' title='Venue' active=True %}
+      {% include 'blocks/_tab_nav.html' with target='tab-previous' title='Fixture History' %}
+    {% endif %}
+  </ul>
+  <!-- End Nav tabs -->
 
-  {% if match.is_in_past %}
+  <!-- Tab panes -->
+  <div id="tabs-match-detail" class="tab-content g-pt-20">
+    {% if match.is_in_past %}
+      {% include 'blocks/_tab.html' with tabId='tab-report' tabContent='matches/_report.html' active=True %}
+      {% include 'blocks/_tab.html' with tabId='tab-team' tabContent='matches/_players.html' %}
+      {% include 'blocks/_tab.html' with tabId='tab-awards' tabContent='matches/_awards.html' %}
+    {% else %}
+      {% include 'blocks/_tab.html' with tabId='tab-venue' tabContent='matches/_venue.html' active=True venue=match.venue %}
+      {% include 'blocks/_tab.html' with tabId='tab-previous' tabContent='react/react_div.html' %}
+    {% endif %}
+  </div>
+  <!-- End Tab panes -->
   
-    <section id="team" class="g-bg-gray-light-v5">
-      <div class="container g-py-40">
-        {% include 'blocks/_middle_heading.html' with title="Team" %}
-        {% include 'matches/_players.html' %}
-      </div>
-    </section>
-    <section id="awards" class="container g-pt-40">
-      {% include 'blocks/_middle_heading.html' with title="Awards" %}
-      {% include 'matches/_awards.html' %}
-    </section>
-    <section id="report" class="container g-pt-10">
-      {% include 'blocks/_middle_heading.html' with title="Match Report" %}
-      {% include 'matches/_report.html' %}
-    </section>
-  {% else %}
-    <section id="venue" class="g-bg-gray-light-v5">
-      <div class="container g-py-40">
-        {% include 'blocks/_middle_heading.html' with title="Venue" %}
-        {% include 'matches/_venue.html' with venue=match.venue %}
-      </div>
-    </section>
-    <section id="previous" class="container g-pt-40">
-      {% include 'blocks/_middle_heading.html' with title="Fixture History" %}
-      {% include 'react/react_div.html' %}
-    </section>
-  {% endif %}
-  
-  <div class="container g-py-20 text-right">
+  <div class="g-pt-20 text-right">
     {% if match.is_in_past %}
       {% instance_admin_links match change=True change_url=edit_url %}
     {% else %}
@@ -159,7 +155,7 @@
 <script src="{% static "vendor/jquery.fittext.js" %}"></script>
 {% endcompress %}
 
-{% include 'blocks/_scroll_nav_js.html' %}
+{% include 'blocks/_tabs_js.html' %}
 <script>
     $(function () {
       jQuery(".shirt-wrapper .shirt-number").fitText(0.8);

@@ -63,19 +63,6 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
         context = super(MatchDetailView, self).get_context_data(**kwargs)
         match = context["match"]
 
-        # Sub-navigation elements
-        if match.is_in_past():
-            context['sub_nav_items'] = [
-                {'id': 'team', 'label': 'Team'},
-                {'id': 'awards', 'label': 'Awards'},
-                {'id': 'report', 'label': 'Match Report'},
-            ]
-        else:
-            context['sub_nav_items'] = [
-                {'id': 'venue', 'label': 'Venue'},
-                {'id': 'previous', 'label': 'Fixture History'},
-            ]
-
         # Get all the other matches on this date
         same_date_matches_qs = Match.objects.select_related('our_team', 'opp_team__club').filter(
             date=match.date).exclude(pk=match.pk).order_by('our_team__position')
