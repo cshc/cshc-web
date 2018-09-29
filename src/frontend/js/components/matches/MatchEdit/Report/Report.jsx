@@ -65,6 +65,7 @@ class Report extends React.Component {
   render() {
     const { authorOptions, report } = this.props;
     const { content, title } = this.state;
+    const editorConfig = CkEditorConfig();
     return (
       <div className="card-block">
         <div className="form-group g-mb-20">
@@ -96,7 +97,7 @@ class Report extends React.Component {
           <label htmlFor="report-content">Match Report</label>
           <CKEditor
             activeClass=""
-            config={CkEditorConfig}
+            config={editorConfig}
             isScriptLoaded
             content={content}
             events={{ change: this.updateContent, blur: this.onBlurContent }}

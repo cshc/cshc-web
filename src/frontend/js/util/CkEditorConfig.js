@@ -1,4 +1,4 @@
-const CkEditorConfig = {
+const CkEditorConfig = () => ({
   skin: 'moono-lisa',
   toolbar_Basic: [['Source', '-', 'Bold', 'Italic']],
   toolbar_Full: [
@@ -15,10 +15,10 @@ const CkEditorConfig = {
   filebrowserWindowHeight: 725,
   removePlugins: 'stylesheetparser',
   allowedContent: true,
-  customConfig: '/static/js/ckeditor-custom.js',
+  customConfig: `${window.STATIC_URL}js/ckeditor-custom.js`,
   filebrowserUploadUrl: '/ckeditor/upload/',
   filebrowserBrowseUrl: '/ckeditor/browse/',
   language: 'en-gb',
-};
+});
 
 export default CkEditorConfig;
