@@ -22,8 +22,10 @@ A React page for editing the details of a match.
 
 {% block head_js %}
   {{ block.super }}
+  {% compress js %}
   <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
   <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+  {% endcompress %}
 {% endblock head_js %}
 
 {% block breadcrumbs %}
