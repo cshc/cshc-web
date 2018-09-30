@@ -98,7 +98,7 @@ class Report extends React.Component {
           <CKEditor
             activeClass=""
             config={editorConfig}
-            isScriptLoaded
+            isScriptLoaded={false}
             content={content}
             events={{ change: this.updateContent, blur: this.onBlurContent }}
           />
