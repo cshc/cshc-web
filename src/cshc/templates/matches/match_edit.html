@@ -20,6 +20,12 @@ A React page for editing the details of a match.
   {% include 'react/react_css.html' with bundle_name='MatchEdit' %}
 {% endblock link %}
 
+{% block head_js %}
+  {{ block.super }}
+  <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+  <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+{% endblock head_js %}
+
 {% block breadcrumbs %}
   {{ block.super }}
   {% clear_breadcrumbs %}
@@ -35,12 +41,10 @@ A React page for editing the details of a match.
 {% block body_js %}
   {{ block.super }}
   {% include 'blocks/_focus_state_js.html' %}
-
+  
+  {% include 'react/react_js.html' with bundle_name='MatchEdit' %}
   {% compress js %}
-  <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
-  <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
   <script src="{% static "vendor/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js" %}"></script>
   {% endcompress %}
 
-  {% include 'react/react_js.html' with bundle_name='MatchEdit' %}
 {% endblock body_js %}
