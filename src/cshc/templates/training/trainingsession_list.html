@@ -55,9 +55,9 @@
       <div class="u-ns-bg-v1-bottom u-ns-bg-v1-right--md g-bg-white g-py-30 g-px-50 text-center">
         <h4 class="h4 g-color-black g-mb-15">Ladies' Squads</h4>
         <div class="g-mb-10"><a href="{{ long_road_url }}" title="Venue details">Long Road Sixth Form College</a></div>
-        <div class="g-font-style-italic  g-mb-20">Thursdays, 7:30pm - 9:30pm</div>
-        <p class="lead g-color-gray-dark-v5 g-font-weight-600">The ladies' teams train on Thursday nights. Training is slightly staggered by squads: the L2s, L3s and L4s train from 
-          7:30pm to 9pm and the L1s from 8pm to 9:30pm.</p>
+        <div class="g-font-style-italic  g-mb-20">Thursdays, 7pm - 10pm</div>
+        <p class="lead g-color-gray-dark-v5 g-font-weight-600">The ladies' teams train on Thursday nights. The Ladies' 3s and Ladies' 4s - including 
+          players new or returning to hockey - train from 7pm to 8.30pm, followed by the Ladies' 1s and Ladies' 2s from 8.30pm to 10pm.</p>
       </div>
     </div>
     <div class="col-md-6 px-0">
@@ -75,8 +75,8 @@
           <h4 class="h4 g-color-black g-mb-15">Mens Squads</h4>
           <div class="g-mb-10"><a href="{{ long_road_url }}" title="Venue details">Long Road Sixth Form College</a></div>
           <div class="g-font-style-italic  g-mb-20">Tuesdays, 7:30pm - 9:30pm</div>
-          <p class="lead g-color-gray-dark-v5 g-font-weight-600">The men's teams train on Tuesday nights, meeting at 7:15pm to warm-up with training from 7:30pm until 9:00pm. 
-            The M1s/M2s stay on for an extra half hour until 9:30pm.
+          <p class="lead g-color-gray-dark-v5 g-font-weight-600">The men's teams train on Tuesdays nights, meeting at 7.15 to warm-up. All teams train 
+            from 7.30-9pm, divided into higher and lower teams each on half a pitch. The Men's 1s and Men's 2s continue until 9.30pm on the full pitch.
           </p>
         </div>
       </div>
@@ -88,28 +88,21 @@
       {% endthumbnail %}
     </div>
   </figure>
-
-  <div class="alert fade show g-bg-gray-light-v4 rounded-0 g-my-40" role="alert">
-    <div class="media">
-      <span class="d-flex g-mr-10 g-mt-5">
-        <i class="icon-info g-font-size-25"></i>
-      </span>
-      <span class="media-body align-self-center">
-        <strong>Note:</strong> Both men’s and ladies’ training sessions are split into higher and lower team sections, to ensure level-appropriate training for all players.
-      </span>
-    </div>
-  </div>
-    
 </section>
 
 <section class="g-bg-secondary">
   <div class="container g-py-40">
-    {% include 'blocks/_middle_heading.html' with title="Beginners Training and Back to Hockey" %}
+    {% include 'blocks/_middle_heading.html' with title="Goalkeeper Training" %}
     <p class="lead">
-      For newcomers to hockey or those wanting to refresh their skills, we have separately-coached sessions alongside our regular squad training.
+        Both men's and ladies' training includes fortnightly dedicated training for goalkeepers, running in the first 45 minutes of the 
+        sessions before the keepers integrate with the outfielders for the remainder of the session. See the club calendar for the training 
+        schedule. Keepers should arrive early and be kitted up and ready for the start of the session.
     </p>
+    {% include 'blocks/_divider.html' %}
+    {% include 'blocks/_middle_heading.html' with title="1st Team Training" %}
     <p class="lead">
-      For women looking to try out hockey or coming back to the sport, we have Back to Hockey basic skills sessions on Thursdays 7.30-9pm.
+      The Men's 1s and Ladies' 1s run a second hour of training from 8.30-9.30pm on Wednesday evenings, using half a pitch each. There 
+      is a supplemental fee for this session for 1st XI players (£40 for the season / £20 unwaged).
     </p>
     {% include 'blocks/_divider.html' %}
     {% include 'blocks/_middle_heading.html' with title="Juniors' Training" %}
