@@ -42,6 +42,7 @@ def utils(request):
                     ('l2', 'Ladies 2nds',),
                     ('l3', 'Ladies 3rds',),
                     ('l4', 'Ladies 4ths',),
+                    ('l5', 'Ladies 5ths',),
                 ],
             },
             {
