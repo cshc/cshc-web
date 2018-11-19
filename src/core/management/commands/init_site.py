@@ -65,16 +65,16 @@ class Command(BaseCommand):
             nargs='?',
             default='cshc-web-prod.eu-west-1.elasticbeanstalk.com',
             help='The site domain')
-        parser.add_argument(
-            '-b', '--blog_entries_file',
-            dest='blog_entry_file',
-            default='./fixtures/zinnia_entry.csv',
-            help='The CSV dump of Zinnia blog entries')
-        parser.add_argument(
-            '-p', '--prod_dump_sql',
-            dest='prod_dump_sql',
-            default='/home/ec2-user/prod_dump.sql',
-            help='The SQL dump of data from the previous database')
+        # parser.add_argument(
+        #     '-b', '--blog_entries_file',
+        #     dest='blog_entry_file',
+        #     default='./fixtures/zinnia_entry.csv',
+        #     help='The CSV dump of Zinnia blog entries')
+        # parser.add_argument(
+        #     '-p', '--prod_dump_sql',
+        #     dest='prod_dump_sql',
+        #     default='/home/ec2-user/prod_dump.sql',
+        #     help='The SQL dump of data from the previous database')
         parser.add_argument(
             '-g', '--group_spaces_file',
             dest='group_spaces_file',
@@ -82,24 +82,24 @@ class Command(BaseCommand):
             help='The CSV dump of the Group Spaces member database')
 
     def handle(self, *args, **options):
-        # Sanity-check
-        prod_dump_file = options.get('prod_dump_sql')
-        if not os.path.isfile(prod_dump_file):
-            raise CommandError('No prod dump file found at: ' + prod_dump_file)
+        # # Sanity-check
+        # prod_dump_file = options.get('prod_dump_sql')
+        # if not os.path.isfile(prod_dump_file):
+        #     raise CommandError('No prod dump file found at: ' + prod_dump_file)
 
-        # 1. Flush the Database first
-        print('Flushing DB tables')
-        # os.chmod('../deployment/flush_db.sh', stat.S_IXOTH)
-        subprocess.call(['../deployment/flush_db.sh'])
+        # # 1. Flush the Database first
+        # print('Flushing DB tables')
+        # # os.chmod('../deployment/flush_db.sh', stat.S_IXOTH)
+        # subprocess.call(['../deployment/flush_db.sh'])
 
-        # 2. Migrate the saved blog entry data
-        print('Migrating Zinnia blog entries')
-        call_command('migrate_blog_entries', options['blog_entries_file'])
+        # # 2. Migrate the saved blog entry data
+        # print('Migrating Zinnia blog entries')
+        # call_command('migrate_blog_entries', options['blog_entries_file'])
 
-        # 3. Import the rest of the data from the previous database
-        print('Importing data from previous database')
-        # os.chmod('../deployment/import_db.sh', stat.S_IXOTH)
-        subprocess.call(['../deployment/import_db.sh', prod_dump_file])
+        # # 3. Import the rest of the data from the previous database
+        # print('Importing data from previous database')
+        # # os.chmod('../deployment/import_db.sh', stat.S_IXOTH)
+        # subprocess.call(['../deployment/import_db.sh', prod_dump_file])
 
         # 4. Update the default/first site object with the correct name and domain (provided on the command line)
         print('Updating default site object')
