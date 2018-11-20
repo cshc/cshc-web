@@ -15,8 +15,8 @@ const Appearance = {
         id: s[0],
         name: s[1],
         member: app.member,
-        greenCard: app.cards.includes('g'),
-        yellowCard: app.cards.includes('y'),
+        greenCardCount: app.cards.split('g').length - 1,
+        yellowCardCount: app.cards.split('y').length - 1,
         redCard: app.cards.includes('r'),
         goals: app.goals,
       };
@@ -38,8 +38,8 @@ const Appearance = {
     return appearances.map(app => ({
       memberId: parseInt(app.id, 10),
       goals: app.goals,
-      greenCard: app.greenCard,
-      yellowCard: app.yellowCard,
+      greenCardCount: app.greenCardCount,
+      yellowCardCount: app.yellowCardCount,
       redCard: app.redCard,
     }));
   },

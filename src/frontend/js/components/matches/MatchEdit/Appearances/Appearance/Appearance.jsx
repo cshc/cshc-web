@@ -7,8 +7,8 @@ import styles from './style.scss';
 export const AppearancePropType = PropTypes.shape({
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  greenCard: PropTypes.bool.isRequired,
-  yellowCard: PropTypes.bool.isRequired,
+  greenCardCount: PropTypes.number.isRequired,
+  yellowCardCount: PropTypes.number.isRequired,
   redCard: PropTypes.bool.isRequired,
   goals: PropTypes.number.isRequired,
 });
@@ -21,7 +21,8 @@ export const AppearancePropType = PropTypes.shape({
 class Appearance extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.toggleCard = this.toggleCard.bind(this);
+    this.toggleCardCount = this.toggleCardCount.bind(this);
+    this.toggleRedCard = this.toggleRedCard.bind(this);
     this.updateGoals = this.updateGoals.bind(this);
   }
 
@@ -32,10 +33,18 @@ class Appearance extends React.PureComponent {
     });
   }
 
-  toggleCard(cardProp) {
+  // TODO: Need to add support in the UI for multiple cards
+  toggleCardCount(cardProp) {
     this.props.onUpdateAppearance(this.props.index, {
       ...this.props.appearance,
-      [cardProp]: !this.props.appearance[cardProp],
+      [cardProp]: this.props.appearance[cardProp] ? 0 : 1,
+    });
+  }
+
+  toggleRedCard() {
+    this.props.onUpdateAppearance(this.props.index, {
+      ...this.props.appearance,
+      redCard: !this.props.appearance.redCard,
     });
   }
 
@@ -50,20 +59,20 @@ class Appearance extends React.PureComponent {
           <AppearanceCard
             color="Green"
             imagePath="img/green_card.png"
-            isSelected={appearance.greenCard}
-            onClick={() => this.toggleCard('greenCard')}
+            isSelected={appearance.greenCardCount > 0}
+            onClick={() => this.toggleCardCount('greenCardCount')}
           />
           <AppearanceCard
             color="Yellow"
             imagePath="img/yellow_card.png"
-            isSelected={appearance.yellowCard}
-            onClick={() => this.toggleCard('yellowCard')}
+            isSelected={appearance.yellowCardCount > 0}
+            onClick={() => this.toggleCardCount('yellowCardCount')}
           />
           <AppearanceCard
             color="Red"
             imagePath="img/red_card.png"
             isSelected={appearance.redCard}
-            onClick={() => this.toggleCard('redCard')}
+            onClick={this.toggleRedCard}
           />
         </div>
         <div className={styles.remove}>

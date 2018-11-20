@@ -35,8 +35,8 @@ const newApperance = (memberId, memberName) => ({
   id: memberId,
   name: memberName,
   member: `${memberId}:${memberName}`,
-  greenCard: false,
-  yellowCard: false,
+  greenCardCount: 0,
+  yellowCardCount: 0,
   redCard: false,
   goals: 0,
 });

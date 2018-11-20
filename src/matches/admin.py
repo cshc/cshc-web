@@ -34,8 +34,6 @@ class AppearanceInlineForm(ModelForm):
         model = Appearance
         exclude = ['own_goals']
         widgets = {
-            'green_card': widgets.NullBooleanSelect(attrs={'class': 'input-small'}),
-            'yellow_card': widgets.NullBooleanSelect(attrs={'class': 'input-small'}),
             'red_card': widgets.NullBooleanSelect(attrs={'class': 'input-small'}),
         }
 
@@ -91,7 +89,7 @@ class AppearanceAdmin(admin.ModelAdmin):
     model = Appearance
     search_fields = ('member__first_name',
                      'member__known_as', 'member__last_name')
-    list_filter = ('green_card', 'yellow_card', 'red_card')
+    list_filter = ('green_card_count', 'yellow_card_count', 'red_card')
 
 
 # NOTE: We do not register the GoalKing model - this is derived from other models

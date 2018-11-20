@@ -177,8 +177,8 @@ class GoalKingList(DjangoListObjectType):
 class AppearanceInput(graphene.InputObjectType):
     member_id = graphene.Int()
     match_id = graphene.Int(required=False)
-    greenCard = graphene.Boolean(required=False)
-    yellowCard = graphene.Boolean(required=False)
+    greenCardCount = graphene.Int(required=False)
+    yellowCardCount = graphene.Int(required=False)
     redCard = graphene.Boolean(required=False)
     goals = graphene.Int(required=False)
 
@@ -237,8 +237,8 @@ class UpdateMatch(graphene.relay.ClientIDMutation):
                 app, created = Appearance.objects.get_or_create(
                     member_id=app_data.member_id, match_id=match_data.match_id)
                 app.goals = app_data.goals if app_data.goals else 0
-                app.greenCard = app_data.greenCard if app_data.greenCard else False
-                app.yellowCard = app_data.yellowCard if app_data.yellowCard else False
+                app.greenCardCount = app_data.greenCardCount if app_data.greenCardCount else 0
+                app.yellowCardCount = app_data.yellowCardCount if app_data.yellowCardCount else 0
                 app.redCard = app_data.redCard if app_data.redCard else False
                 app.clean()
                 app.save()

@@ -25,7 +25,7 @@ const initialMatchState = {
   ...window.props.matchState,
   // Player options, encoded as {id}:{name} are mapped to value ({id}:{name})/label ({name}) pairs
   playerOptions: window.props.matchState.playerOptions.map(toSelectOption),
-  // Appearances are mapped to objects with greenCard, yellowCard, redCard boolean fields
+  // Appearances are mapped to objects with greenCardCount, yellowCardCount integer fields and a redCard boolean field
   appearances: Appearance.initAppearances(window.props.matchState.appearances),
 };
 

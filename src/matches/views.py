@@ -90,9 +90,9 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
         for app in appearances:
             if app.goals > 0:
                 scorers.append(app)
-            if app.green_card:
+            for card in app.green_card_range():
                 green_cards.append(app.member)
-            if app.yellow_card:
+            for card in app.yellow_card_range():
                 yellow_cards.append(app.member)
             if app.red_card:
                 red_cards.append(app.member)
@@ -182,9 +182,9 @@ class MatchEditView(PermissionRequiredMixin, SelectRelatedMixin, DetailView):
     def encode_cards(self, appearance):
         """ Encode the cards associated with an appearance as a comma-separated list (e.g. 'g,y') """
         cards = []
-        if appearance.green_card:
+        for _ in appearance.green_card_range():
             cards.append('g')
-        if appearance.yellow_card:
+        for _ in appearance.yellow_card_range():
             cards.append('y')
         if appearance.red_card:
             cards.append('r')
@@ -343,7 +343,7 @@ class NaughtyStepSeasonView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(NaughtyStepSeasonView, self).get_context_data(**kwargs)
 
-        query = Q(red_card=True) | Q(yellow_card=True) | Q(green_card=True)
+        query = Q(red_card=True) | Q(yellow_card_count__gt=0) | Q(green_card_count__gt=0)
         qs = Appearance.objects.select_related('match', 'member').filter(query)
 
         season_slug = kwargs_or_none('season_slug', **kwargs)
@@ -394,10 +394,12 @@ class NaughtyPlayer(object):
                 "This appearance, {}, does not relate to {}.".format(appearance, self.member))
         if appearance.red_card:
             self.red_cards.append(appearance)
-        elif appearance.yellow_card:
-            self.yellow_cards.append(appearance)
-        elif appearance.green_card:
-            self.green_cards.append(appearance)
+        if appearance.yellow_card_count:
+            for _ in range(appearance.yellow_card_count):
+                self.yellow_cards.append(appearance)
+        if appearance.green_card_count:
+            for _ in range(appearance.green_card_count):
+                self.green_cards.append(appearance)
 
 
 class AccidentalTouristSeasonView(TemplateView):

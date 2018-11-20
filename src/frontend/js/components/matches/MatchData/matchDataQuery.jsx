@@ -92,8 +92,8 @@ export const MATCH_DATA_QUERY = gql`
               shirtNumber
             }
             goals
-            greenCard
-            yellowCard
+            greenCardCount
+            yellowCardCount
             redCard
           }
         }
