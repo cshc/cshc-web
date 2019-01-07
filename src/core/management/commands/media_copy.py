@@ -52,22 +52,41 @@ class Command(BaseCommand):
         try:
             s3 = boto3.resource('s3')
             old_prod_bucket = s3.Bucket(OLD_PROD_BUCKET_NAME)
-            new_staging_bucket = s3.Bucket(NEW_STAGING_BUCKET_NAME)
-            new_prod_bucket = s3.Bucket(NEW_PROD_BUCKET_NAME)
+            new_bucket = None
+            new_objects = {}
+
+            if options['new_prod']:
+                new_bucket = s3.Bucket(NEW_PROD_BUCKET_NAME)
+
+            if options['staging']:
+                new_bucket = s3.Bucket(NEW_STAGING_BUCKET_NAME)
+
+            if new_bucket:
+                new_objects = dict(
+                    ((elt.key, elt.size), elt.last_modified)
+                    for elt in new_bucket.objects.filter(Prefix='media')
+                )
+
             for obj_summary in old_prod_bucket.objects.filter(Prefix='media'):
                 copy_source = {
                     'Bucket': OLD_PROD_BUCKET_NAME,
                     'Key': obj_summary.key,
                 }
-                print('Copying ' + obj_summary.key)
 
-                if options['new_prod']:
-                    new_prod_bucket.copy(
-                        copy_source, obj_summary.key, ExtraArgs=extra_args)
+                if new_bucket:
+                    ts = new_objects.get((obj_summary.key, obj_summary.size))
+                    if ts is not None and ts >= obj_summary.last_modified:
+                        print('Skipping {}'.format(obj_summary.key))
+                        continue
 
-                if options['staging']:
-                    new_staging_bucket.copy(
-                        copy_source, obj_summary.key, ExtraArgs=extra_args)
+                print('Copying {}'.format(obj_summary.key))
+
+                if new_bucket:
+                    new_bucket.copy(
+                        copy_source,
+                        obj_summary.key,
+                        ExtraArgs=extra_args,
+                    )
 
                 if options['local'] and not obj_summary.key.endswith('/'):
                     if not os.path.isfile(obj_summary.key):

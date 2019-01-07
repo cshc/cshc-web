@@ -28,7 +28,7 @@ DATABASES = {
 # Ref: Comment on http://stackoverflow.com/a/5270072
 if 'migrate' in sys.argv or 'syncdb' in sys.argv:
     DATABASES['default']['OPTIONS'] = {
-        'init_command': 'SET storage_engine=MyISAM', }
+        'init_command': 'SET default_storage_engine=MyISAM', }
 
 # END DATABASE CONFIGURATION
 

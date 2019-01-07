@@ -20,6 +20,13 @@ if __name__ == "__main__":
             )
         raise
 
+    for path in '../env.py', '../../env.py':
+        try:
+            with open(path) as envpy:
+                exec(envpy.read())
+        except FileNotFoundError:
+            pass
+
     # Force the use of the S3 settings if we're running the 'print_mail' management
     # command and we haven't specified a settings file on the command line.
     argv = sys.argv
