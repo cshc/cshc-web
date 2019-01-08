@@ -120,7 +120,7 @@ class Member(models.Model):
     """ The member's emergency contact's relationship to them """
 
     emergency_phone = models.CharField(
-        "Emergency contact phone", max_length=15, null=True, blank=True, help_text="Phone number of person to contact in an emergency")
+        "Emergency contact phone", max_length=20, null=True, blank=True, help_text="Phone number of person to contact in an emergency")
     """ Phone number of person to contact in an emergency """
 
     medical_notes = models.TextField(
@@ -131,7 +131,7 @@ class Member(models.Model):
     """ Member's email address """
 
     phone = models.CharField(
-        "Phone number", max_length=15, null=True, blank=True)
+        "Phone number", max_length=20, null=True, blank=True)
     """ Member's phone number """
 
     addr_street = models.CharField(
