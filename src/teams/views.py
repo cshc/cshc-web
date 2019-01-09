@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.http import Http404
 from competitions.models import Season
+from core.utils import get_thumbnail_url
 from core.views import kwargs_or_none, add_season_selector, get_season_from_kwargs
 from .models import ClubTeam, ClubTeamSeasonParticipation, Southerner
 
@@ -38,6 +39,12 @@ class ClubTeamListView(TemplateView):
                                                                 else 'Other')
 
             team.participation = team.current_participation()
+
+            if team.participation and team.participation.team_photo:
+                photo_url = get_thumbnail_url(
+                    team.participation.team_photo, '600x393', 'center', team.participation.team_photo_cropping),
+                if photo_url:
+                    team.photo_url = photo_url[0] if isinstance(photo_url, tuple) else photo_url
 
             team.ical = reverse('clubteam_ical_feed',
                                 kwargs={'slug': team.slug})

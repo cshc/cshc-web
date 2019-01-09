@@ -49,11 +49,11 @@
     <div class="cbp-item identity {{ team.category }}">
       <a class="g-color-white" href="{{ team.get_absolute_url }}" title="Team Details...">
         <div class="g-parent">
-          {% thumbnail team.participation.team_photo "600x393" crop="center" cropbox=team.participation.team_photo_cropping as thumb %}
-          <img class="img-fluid" src="{{ thumb.url }}" alt="Team photo">
-          {% empty %}
+          {% if team.photo_url %}
+          <img class="img-fluid" src="{{ team.photo_url }}" alt="Team photo">
+          {% else %}
           <img class="img-fluid" src="{% static "img/teams/placeholder.jpg" %}" alt="Team photo">
-          {% endthumbnail %}
+          {% endif %}
         </div>
 
         <div class="bg-team-type g-color-white text-center g-pa-25 mb-1">
