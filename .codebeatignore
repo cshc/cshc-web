@@ -1,0 +1,9 @@
+backup/**
+deployment/**
+docs/**
+requirements/**
+src/assets/**
+**/migrations/**
+src/fixtures/**
+src/media/**
+src/static/**
