@@ -89,7 +89,7 @@ class GoalKing(models.Model):
         "Goals for Mixed team", default=0)
     indoor_goals = models.PositiveSmallIntegerField(
         "Goals for the Indoor team", default=0)
-    vets_goals = models.PositiveSmallIntegerField(
+    mv_goals = models.PositiveSmallIntegerField(
         "Goals for the Vets team", null=True, blank=True, default=0)
 
     # Own-goal tallies for each team
@@ -117,7 +117,7 @@ class GoalKing(models.Model):
         "Own goals for Mixed team", default=0)
     indoor_own_goals = models.PositiveSmallIntegerField(
         "Own goals for the Indoor team", default=0)
-    vets_own_goals = models.PositiveSmallIntegerField(
+    mv_own_goals = models.PositiveSmallIntegerField(
         "Own goals for the Vets team", null=True, blank=True, default=0)
 
     # These are attributes (db fields) rather than just methods so that we can take advantage of
@@ -150,12 +150,12 @@ class GoalKing(models.Model):
         self.total_goals = (self.m1_goals + self.m2_goals + self.m3_goals + self.m4_goals +
                             self.m5_goals + self.l1_goals + self.l2_goals + self.l3_goals +
                             self.l4_goals + self.l5_goals + self.mixed_goals + self.indoor_goals + 
-                            self.vets_goals)
+                            self.mv_goals)
         self.total_own_goals = (self.m1_own_goals + self.m2_own_goals + self.m3_own_goals +
                                 self.m4_own_goals + self.m5_own_goals + self.l1_own_goals +
                                 self.l2_own_goals + self.l3_own_goals + self.l4_own_goals +
                                 self.l5_own_goals + self.mixed_own_goals + self.indoor_own_goals + 
-                                self.vets_own_goals)
+                                self.mv_own_goals)
 
         self.gpg = self.goals_per_game()
         self.mpg = self.miles_per_game()
@@ -195,7 +195,7 @@ class GoalKing(models.Model):
         self.l5_goals = 0
         self.mixed_goals = 0
         self.indoor_goals = 0
-        self.vets_goals = 0
+        self.mv_goals = 0
         self.m1_own_goals = 0
         self.m2_own_goals = 0
         self.m3_own_goals = 0
@@ -208,7 +208,7 @@ class GoalKing(models.Model):
         self.l5_own_goals = 0
         self.mixed_own_goals = 0
         self.indoor_own_goals = 0
-        self.vets_own_goals = 0
+        self.mv_own_goals = 0
 
     def add_appearance(self, appearance):
         """ Adds the details of an appearance to the GoalKing stat"""
@@ -250,8 +250,8 @@ class GoalKing(models.Model):
                 self.indoor_goals += appearance.goals
                 self.indoor_own_goals += appearance.own_goals
             elif ordinal == TeamOrdinal.TVets:
-                self.vets_goals += appearance.goals
-                self.vets_own_goals += appearance.own_goals
+                self.mv_goals += appearance.goals
+                self.mv_own_goals += appearance.own_goals
             else:
                 raise AssertionError(
                     "Unexpected mens team: {}".format(ordinal))

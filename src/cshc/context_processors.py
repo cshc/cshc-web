@@ -50,7 +50,7 @@ def utils(request):
                 'list': [
                     ('mixed', 'Mixed',),
                     ('indoor', 'Indoor',),
-                    ('vets', 'Vets',),
+                    ('mv', 'Vets',),
                 ],
             },
         ],
