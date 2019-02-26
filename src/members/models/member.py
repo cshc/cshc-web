@@ -14,6 +14,7 @@ from django.conf import settings
 from django.db import models
 from django.dispatch import receiver
 from django_resized import ResizedImageField
+from django.db.models.functions import Coalesce
 from allauth.account.signals import email_changed
 from image_cropping import ImageRatioField
 from geoposition.fields import GeopositionField
@@ -46,6 +47,9 @@ def get_file_name(instance, filename):
 
 class MemberManager(models.Manager):
     """ Model Manager for the Member model """
+
+    def get_query_set(self):
+        return super(MemberManager, self).get_query_set().annotate(pref_name=Coalesce('known_as', 'first_name')).order_by('pref_name')
 
     def safe_get(self, **kwargs):
         try:
