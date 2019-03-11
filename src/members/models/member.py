@@ -49,7 +49,7 @@ class MemberManager(models.Manager):
     """ Model Manager for the Member model """
 
     def get_query_set(self):
-        return super(MemberManager, self).get_query_set().annotate(pref_name=Coalesce('known_as', 'first_name')).order_by('pref_name')
+        return super(MemberManager, self).get_query_set().annotate(pref_name=Coalesce('known_as', 'first_name')).order_by('pref_name', 'last_name')
 
     def safe_get(self, **kwargs):
         try:
