@@ -19,6 +19,7 @@ from unify.widgets import (
     UnifyDateInput,
     UnifyPhoneInput,
     UnifyPasswordInput,
+    UnifyEmailInput,
 )
 from core.widgets import CshcCropWidget
 from .models import Member
@@ -71,13 +72,12 @@ class MemberProfileForm(forms.ModelForm):
 class UnifyLoginForm(LoginForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['login'].widget = UnifyTextInput(
+        self.fields['login'].widget = UnifyEmailInput(
             attrs={
                 'type': 'email',
                 'placeholder': 'E-mail address',
                 'class': 'g-py-15 g-pr-15',
-            },
-            left_icon='fas fa-envelope')
+            })
 
         self.fields['password'].widget = UnifyPasswordInput(
             attrs={
@@ -110,16 +110,14 @@ class UnifyAddEmailForm(AddEmailForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['email'].widget = UnifyTextInput(attrs={'type': 'email', 'placeholder': 'E-mail address'},
-                                                     left_icon='fas fa-envelope')
+        self.fields['email'].widget = UnifyEmailInput(attrs={'placeholder': 'E-mail address'})
 
 
 class UnifyResetPasswordForm(ResetPasswordForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['email'].widget = UnifyTextInput(attrs={'type': 'email', 'placeholder': 'E-mail address'},
-                                                     left_icon='fas fa-envelope')
+        self.fields['email'].widget = UnifyEmailInput(attrs={'placeholder': 'E-mail address'})
 
 
 class UnifyResetPasswordKeyForm(ResetPasswordKeyForm):
