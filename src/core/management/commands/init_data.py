@@ -139,6 +139,10 @@ docs = [
         'CSHC_AGM_2018_Minutes.pdf'), 'timestamp': '2018-06-26'},
     {'id': 65, 'title': 'September 2018', 'category_id': 2, 'file': doc(
         'CSHC_Cmte_Sep_2018_Minutes.pdf'), 'timestamp': '2018-09-13'},
+    {'id': 66, 'title': 'RESPECT - Code of Ethics and Behaviour', 'file': doc(
+        'Juniors', 'CSHC_Code_of_Behaviour.pdf'), 'timestamp': '2019-04-12'},
+    {'id': 67, 'title': 'May 2019', 'category_id': 2, 'file': doc(
+        'CSHC_Cmte_May_2019_Minutes.pdf'), 'timestamp': '2019-05-13'},
 ]
 
 offers = [
