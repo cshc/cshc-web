@@ -115,7 +115,7 @@ def import_dumped_data(cnx, flush_extra=False):
     local_file = path.join(cnx.config.local_root,
                            cnx.config.database.dump_filename)
     conn = connect_local(cnx)
-    with open(local_file, 'r') as sql_file:
+    with open(local_file, 'r', encoding='utf-8') as sql_file:
         sql = sql_file.read()
         conn.executescript(sql)
 

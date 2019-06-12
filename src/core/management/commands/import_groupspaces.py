@@ -43,7 +43,7 @@ class Command(BaseCommand):
         """ Parse the whole CSV file into a list or (parsed) rows """
         rows = []
         cols = {}
-        with open(self._options['csv_file'], newline='') as source_file:
+        with open(self._options['csv_file'], newline='', encoding='utf-8') as source_file:
             reader = csv.reader(source_file)
             try:
                 for row in reader:

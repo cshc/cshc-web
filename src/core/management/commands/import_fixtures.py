@@ -100,7 +100,7 @@ class Command(BaseCommand):
 
         simulate = options['simulate']
 
-        with open(file_path, 'rb') as source_file:
+        with open(file_path, 'r', encoding='utf-8') as source_file:
             reader = csv.reader(source_file)
 
             # First cache references to the club teams
