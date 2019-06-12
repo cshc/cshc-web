@@ -7,7 +7,7 @@ from django.contrib.flatpages.models import FlatPage
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from zinnia.models import Entry, Category
 from zinnia.admin.forms import EntryAdminForm, CategoryAdminForm
-from unify.widgets import UnifyTextInput, UnifyPhoneInput, UnifyTextarea, UnifySelect, UnifyCheckboxInput
+from unify.widgets import UnifyTextInput, UnifyPhoneInput, UnifyTextarea, UnifySelect, UnifyCheckboxInput, UnifyEmailInput
 from .models import JuniorsContactSubmission, ContactSubmission, CshcUser
 
 
@@ -50,12 +50,11 @@ class SignupFormExtra(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['email'].widget = UnifyTextInput(
+        self.fields['email'].widget = UnifyEmailInput(
             attrs={
                 'placeholder': 'E-mail address',
                 'class': 'g-py-15 g-pr-15',
-            },
-            left_icon='fas fa-envelope')
+            })
 
     def signup(self, request, user):
         """
@@ -82,7 +81,7 @@ class ContactSubmissionForm(forms.ModelForm):
         widgets = {
             'first_name': UnifyTextInput(attrs={'placeholder': 'First Name*'}, left_icon='fas fa-user'),
             'last_name': UnifyTextInput(attrs={'placeholder': 'Last Name*'}, left_icon='fas fa-user'),
-            'email': UnifyTextInput(attrs={'placeholder': 'E-mail Address*'}, left_icon='fas fa-envelope'),
+            'email': UnifyEmailInput(attrs={'placeholder': 'E-mail Address*'}),
             'phone': UnifyPhoneInput(attrs={'placeholder': 'Phone'}),
             'message': UnifyTextarea(attrs={'placeholder': 'Message*', 'rows': '5'}),
             'mailing_list': UnifyCheckboxInput(label='I would like to join the Club mailing list'),
@@ -107,7 +106,7 @@ class JuniorsContactSubmissionForm(forms.ModelForm):
         widgets = {
             'first_name': UnifyTextInput(attrs={'placeholder': 'First Name*'}, left_icon='fas fa-user'),
             'last_name': UnifyTextInput(attrs={'placeholder': 'Last Name*'}, left_icon='fas fa-user'),
-            'email': UnifyTextInput(attrs={'placeholder': 'E-mail Address*'}, left_icon='fas fa-envelope'),
+            'email': UnifyEmailInput(attrs={'placeholder': 'E-mail Address*'}),
             'phone': UnifyPhoneInput(attrs={'placeholder': 'Phone'}),
             'child_name': UnifyTextInput(attrs={'placeholder': 'Name*'}, left_icon='fas fa-user'),
             'child_gender': UnifySelect,

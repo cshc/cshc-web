@@ -61,6 +61,14 @@ class UnifyPhoneInput(UnifyTextInput):
         super(UnifyPhoneInput, self).__init__(attrs, 'fas fa-phone')
 
 
+class UnifyEmailInput(UnifyTextInput):
+    """ Unify-styled email input widget """
+    input_type = 'email'
+
+    def __init__(self, attrs=None):
+        super(UnifyEmailInput, self).__init__(attrs, 'fas fa-envelope')
+
+
 class UnifyTimeInput(UnifyWidget, forms.TimeInput):
     """ Unify-styled time input widget """
     input_type = 'time'

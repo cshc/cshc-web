@@ -80,3 +80,8 @@
 .home-banner tr.date td {
   padding: 0;
 }
+
+#training td,
+#training th {
+  text-align: left;
+}
