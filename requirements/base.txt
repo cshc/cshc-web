@@ -47,7 +47,7 @@ django-extensions==1.9.9
 
 # Django Authentication
 # Ref: http://django-allauth.readthedocs.io/en/latest
-django-allauth==0.34.0
+django-allauth==0.39.1
 
 # Django User Agents
 # Ref: https://github.com/selwin/django-user_agents

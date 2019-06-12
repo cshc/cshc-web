@@ -125,6 +125,7 @@ SOCIALACCOUNT_PROVIDERS = {
     'linkedin': {
         'SCOPE': [
             'r_emailaddress',
+            'r_liteprofile',
         ],
         'PROFILE_FIELDS': [
             'id',
