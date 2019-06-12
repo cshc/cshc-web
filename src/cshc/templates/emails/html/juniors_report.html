@@ -2,7 +2,7 @@
 {% load static %}
 {% load cshc_tags %}
 {% block title %}CSHC - Juniors Contact Form Submitted{% endblock title %}
-{% block preheader %}{{ message }}{% endblock %}
+{% block preheader %}{{ message|truncatechars:100 }}{% endblock %}
 
 {% block content %}
 <tr bgcolor="#ffffff">
