@@ -73,7 +73,7 @@ class Command(BaseCommand):
 
         for participation in participations:
             try:
-                league_scraper.get_east_leagues_division(
+                league_scraper.get_hockey_east_division(
                     participation.division_tables_url, participation.division, season)
                 print('Scraped league table for ' +
                       participation.division_tables_url)

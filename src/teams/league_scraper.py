@@ -27,6 +27,41 @@ def parse_url(url):
     source = urlopen(url).read()
     return BeautifulSoup(source, "html5lib")
 
+def get_hockey_east_division(url, division, season):
+    existing_teams = DivisionResult.objects.league_table(
+        season=season, division=division)
+    division_results = []
+    soup = parse_url(url)
+    table = soup.find(class_='table-standings')
+    for row in table.select('tbody tr'):
+        dr = DivisionResult()
+        dr.division = division
+        dr.season = season
+        dr.position = int(row.find(class_='team-standings__pos').text)
+        name = row.find(class_='team-meta__name').text
+        set_team(dr, name, division)
+        dr.played = int(row.find(class_='team-standings__played').text)
+        dr.won = int(row.find(class_='team-standings__win').text)
+        dr.drawn = int(row.find(class_='team-standings__drawn').text)
+        dr.lost = int(row.find(class_='team-standings__lose').text)
+        dr.goals_for = int(row.find(class_='team-standings__goals-for').text)
+        dr.goals_against = int(row.find(class_='team-standings__goals-against').text)
+        dr.goal_difference = int(row.find(class_='team-standings__goals-diff').text)
+        dr.points = int(row.find(class_='team-standings__total-points').text)
+        dr.notes = row.find(class_='team-standings__points-diff').text
+        division_results.append(dr)
+        LOG.debug("Parsed team: {}".format(dr))
+
+    # Only replace existing entries if we've got at least as many entries
+    if len(division_results) >= len(existing_teams):
+        existing_teams.delete()
+        for dr in division_results:
+            dr.save()
+    else:
+        LOG.debug("Did not save division results for {}: Only {} teams parsed ({} teams before)".format(
+            url, len(division_results), len(existing_teams)))
+    return division_results
+
 
 def get_east_leagues_division(url, division, season):
     """ Returns a ScrapedDivision object with the scraped league table from the specified
