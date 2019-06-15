@@ -1,0 +1,131 @@
+{% extends "emails/html/base.html" %}
+{% load static %}
+{% load cshc_tags %}
+{% block title %}CSHC - New Comment{% endblock title %}
+{% block preheader %}{{ comment.comment|truncatechars:100 }}{% endblock %}
+
+{% block content %}
+<tr bgcolor="#ffffff">
+  <td align="center">
+    <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
+      {% include 'emails/html/_spacer.html' %}
+      {% include 'emails/html/_title.html' with text=comment.user.get_full_name|formatstr:"New comment by <strong>{}</strong>" %}
+      <tr>
+        <td>
+          <table width="580" cellpadding="0" cellspacing="0" border="0" style="line-height: 2;" >
+            <tr>
+              <td style="font-style: italic;">Email</td>
+              <td style="font-weight: 600;"><a href="mailto:{{ comment.user.email }}"></a>{{ comment.user.email }}</a></td>
+            </tr>
+            <tr>
+              <td style="line-height: 2;">
+                Comment:
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F2F2F2" >
+                  {% include 'emails/html/_spacer.html' %}
+                  <tr style="font-style: italic;">
+                    <td width="10"></td>
+                    <td>
+                        {{ comment.comment }}
+                    </td>
+                    <td width="10"></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            {% include 'emails/html/_spacer.html' %}
+            <tr>
+              <td>
+                <table width="180" height="44" cellpadding="0" cellspacing="0" border="0" bgcolor="#6639b6" style="border-radius:4px; border: 2px solid #6639b6; margin: 0 10px;">
+                  <tr>
+                    <td align="center" valign="middle" height="44" style="font-family: Arial, sans-serif; font-size:14px; font-weight:bold;">
+                      <a href="{{ request.scheme }}://{{ site.domain }}{{ comment.get_absolute_url }}" target="_blank" style="font-family: Arial, sans-serif; color:#ffffff; display: inline-block; text-decoration: none; line-height:44px; width:180px; font-weight:bold;">View comment</a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td>
+                <table width="180" height="44" cellpadding="0" cellspacing="0" border="0" style="border-radius:4px; border: 2px solid #6639b6; margin: 0 10px;">
+                  <tr>
+                    <td align="center" valign="middle" height="44" style="font-family: Arial, sans-serif; font-size:14px; font-weight:bold;">
+                      <a href="{{ request.scheme }}://{{ site.domain }}{% url 'comments-flag' comment.pk %}" target="_blank" style="font-family: Arial, sans-serif; color:#6639b6; display: inline-block; text-decoration: none; line-height:44px; width:180px; font-weight:bold;">Flag comment</a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td>
+                <table width="180" height="44" cellpadding="0" cellspacing="0" border="0" style="border-radius:4px; border: 2px solid #6639b6; margin: 0 10px;">
+                  <tr>
+                    <td align="center" valign="middle" height="44" style="font-family: Arial, sans-serif; font-size:14px; font-weight:bold;">
+                      <a href="{{ request.scheme }}://{{ site.domain }}{% url 'comments-delete' comment.pk %}" target="_blank" style="font-family: Arial, sans-serif; color:#6639b6; display: inline-block; text-decoration: none; line-height:44px; width:180px; font-weight:bold;">Delete comment</a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      {% include 'emails/html/_spacer.html' %}
+   </table>
+  </td>
+</tr>
+{% endblock content %}
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>{{ site }}: New comment</title>
+
+  <style type="text/css">
+    span.preheader { display: none !important; }
+  </style>
+</head>
+
+<body>
+  <span class="preheader">Posted by: {{ comment.user_name|default:comment.user }}</span>
+  
+  <div>
+    A new comment has been posted on your site "{{ site }}", to the page entitled 
+    <a target="_blank" href="{{ request.scheme }}://{{ site.domain }}{{ content_object.get_absolute_url }}">{{ content_object }}</a>.
+  </div>
+
+  <br>
+
+  {% if comment.title %}
+  <div>Title: <strong>{{ comment.title }}</strong></div>
+  {% endif %}
+  <div>Name: <strong>{{ comment.user_name|default:comment.user }}</strong></div>
+  <div>Email: <strong>{{ comment.user_email }}</strong></div>
+  <div>Homepage: <strong>{{ comment.user_url }}</strong></div>
+  <div>Moderated: <strong>{{ comment.is_public|yesno:'no,yes' }}</strong></div>
+
+  <div>
+    Comment:<br>
+    <strong>{{ comment.comment }}</strong>
+  </div>
+
+  <hr>
+
+  <div>You have the following options available:</div>
+  <ul>
+    <li><a target="_blank" href="{{ request.scheme }}://{{ site.domain }}{{ comment.get_absolute_url }}">View comment</a></li>
+    <li><a target="_blank" href="{{ request.scheme }}://{{ site.domain }}{% url 'comments-flag' comment.pk %}">Flag comment</a></li>
+    <li><a target="_blank" href="{{ request.scheme }}://{{ site.domain }}{% url 'comments-delete' comment.pk %}">Delete comment</a></li>
+  </ul>
+
+</body>
+</html>

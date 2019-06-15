@@ -95,7 +95,8 @@ raven==6.4.0
 
 # Comments
 # Ref: https://github.com/django-fluent/django-fluent-comments
-django-fluent-comments==2.0
+# django-fluent-comments==2.1
+-e git+https://github.com/django-fluent/django-fluent-comments.git@bfe98d55b56fedd8ca2e2659eed53a6390e53adf#egg=django-fluent-comments
 
 # Zinnia blog
 # Ref: http://docs.django-blog-zinnia.com/en/latest
