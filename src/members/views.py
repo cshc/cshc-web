@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import UpdateView
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.sites.models import Site
@@ -58,7 +58,8 @@ def send_link_req(request):
             template_name='req_player_link',
             context={
                 'user': request.user,
-                'base_url': "//" + Site.objects.get_current().domain
+                'base_url': "//" + Site.objects.get_current().domain,
+                'members_admin_url': "{}?q={}".format(reverse('admin:members_member_changelist'), request.user.get_full_name())
             },
         )
     except:

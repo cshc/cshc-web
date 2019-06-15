@@ -5,48 +5,45 @@
 {% block preheader %}We've received your message!{% endblock %}
 
 {% block content %}
-<tr bgcolor="#ffffff">
-  <td align="center">
-    <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
-      {% include 'emails/html/_spacer.html' %}
-      {% include 'emails/html/_paragraph.html' with text=first_name|formatstr:"Hi {}," %}
-      {% include 'emails/html/_paragraph.html' with text="Thanks for contacting us about junior hockey. We'll get back to you with more information as soon as possible." %}
-      {% include 'emails/html/_paragraph.html' with text="Best Regards," %}
-      <tr>
-        <td>
-          Louisa Warburton
-        </td>
-      </tr>
-      <tr>
-        <td style="font-style: italic;">
-          Juniors Membership Officer
-        </td>
-      </tr>
-      {% include 'emails/html/_spacer.html' %}
-      {% if message %}
-      <tr>
-        <td style="line-height: 2;">
-          Your message:
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F2F2F2" >
-            {% include 'emails/html/_spacer.html' %}
-            <tr style="font-style: italic;">
-              <td width="10"></td>
-              <td>
-                  {{ message }}
-              </td>
-              <td width="10"></td>
-            </tr>
-            {% include 'emails/html/_spacer.html' %}
-          </table>
-        </td>
-      </tr>
-      {% include 'emails/html/_spacer.html' %}
-      {% endif %}
-   </table>
-  </td>
-</tr>
+
+<table role="presentation" class="main" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="wrapper">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td valign="center" align="center">
+            <h1>Thanks for contacting us!</h1>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>Hi {{ first_name }},</p>
+            <p>Thanks for contacting us about junior hockey. We'll get back to you with more information as soon as possible.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Louisa Warburton
+          </td>
+        </tr>
+        <tr>
+          <td style="font-style: italic;">
+            <p>Juniors Membership Officer</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>Your message:</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {% include 'emails/html/_quote.html' with message=message %}
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
 {% endblock content %}

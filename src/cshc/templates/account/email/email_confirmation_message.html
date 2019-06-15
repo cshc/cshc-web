@@ -8,19 +8,26 @@
 {% block content %}
 {% user_display user as user_display %}
 
-<tr bgcolor="#ffffff">
-  <td align="center">
-    <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
-      {% include 'emails/html/_title.html' with text="Confirm your e-mail address" %}
-      {% include 'emails/html/_paragraph.html' with text=user_display|formatstr:"Hi {}," %}
-      {% include 'emails/html/_paragraph.html' with text="Please verify this e-mail address by clicking on the button below:" %}
-      <tr>
-        <td align="center" valign="center">
-          {% include 'emails/html/_button.html' with label="Confirm my e-mail address" link=activate_url %}
-        </td>
-      </tr>
-    </table>
-  </td>
-</tr>
-{% include 'emails/html/_spacer.html' with bgcolor="#F2F2F2" %}
+<table role="presentation" class="main" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="wrapper">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td valign="center" align="center">
+            <h1>Confirm your e-mail address</h1>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>Hi {{ user_display }},</p>
+            <p>Please verify this e-mail address by clicking on the button below:</p>
+            {% include 'emails/html/_button.html' with label="Confirm my e-mail address" link=activate_url primary=True %}
+
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
 {% endblock content %}

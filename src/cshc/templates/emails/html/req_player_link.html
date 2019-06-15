@@ -5,20 +5,27 @@
 {% block preheader %}Action Required!{% endblock %}
 
 {% block content %}
-{% url 'admin:members_member_changelist' as admin_url_list %}
 
-<tr bgcolor="#ffffff">
-  <td align="center">
-    <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
-      {% include 'emails/html/_spacer.html' %}
-      {% include 'emails/html/_paragraph.html' with text=user.get_full_name|formatstr:"<strong>{}</strong> has requested their account be linked to a player/club member." %}
-      <tr>
-        <td>
-            To action this, find the matching 'Member' entry in the <a href="{{ base_url }}{{ admin_url_list }}">admin interface</a>, set the 'User' property to '{{ user.get_full_name }}' from the dropdown list, and save it.
-        </td>
-      </tr>
-      {% include 'emails/html/_spacer.html' %}
-   </table>
-  </td>
-</tr>
+<table role="presentation" class="main" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="wrapper">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td valign="center" align="center">
+            <h1>Player Link Request</h1>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p><strong>{{ user.get_full_name }}</strong> has requested their account be linked to a player/club member.</p>
+            <p>To action this, find the matching 'Member' entry in the admin interface, set the 'User' property to '{{ user.get_full_name }}' from the
+              dropdown list, and save it.</p>
+            {% include 'emails/html/_button.html' with label="Link User to Member" link=members_admin_url primary=True %}
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
 {% endblock content %}
