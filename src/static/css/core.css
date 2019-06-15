@@ -231,3 +231,7 @@ p > a {
 .comment-text p {
   margin-bottom: 0;
 }
+
+.comments-form #div_id_comment>div {
+  width: 100%;
+}
