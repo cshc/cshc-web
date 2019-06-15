@@ -163,7 +163,7 @@ def addstr(arg1, arg2):
 @register.filter
 def formatstr(token, text):
     """ Replace '{}' with the token value """
-    return text.replace("{}", token)
+    return text.replace("{}", str(token))
 
 
 @register.filter
