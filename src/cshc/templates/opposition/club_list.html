@@ -10,6 +10,7 @@
   {% compress css %}
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
   {% endcompress %}
+  {% include 'react/react_css.html' with bundle_name='OppositionClubList' %}
 {% endblock link %}
 
 {% block breadcrumbs %}
@@ -26,6 +27,9 @@
   off rival clubs. The higher the average, the better is South's record against that club.</p>
 <p>You can click on a club name to see a breakdown of the matches played and then drill into Match Reports.</p>
 
+
+{% include 'react/react_div.html' %}
+<!-- 
 <div class="table-responsive">
   <table class="table table-sm table-hover">
     <thead>
@@ -60,6 +64,12 @@
     {% endfor %}
     </tbody>
   </table>
-</div>
+</div> -->
 
 {% endblock content %}
+
+{% block body_js %}
+{{ block.super }}
+{% include 'react/react_js.html' with bundle_name='OppositionClubList' %}
+{% endblock body_js %}
+

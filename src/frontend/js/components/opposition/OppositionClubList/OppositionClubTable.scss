@@ -1,0 +1,25 @@
+.clubTable {
+  font-size: 1rem;
+  @media (max-width: 767px) {
+    font-size: 0.8rem;
+  }
+}
+
+// // Override the automatic inline width and flex styles for smaller screens
+// .name {
+//   // min-width: 300px !important;
+//   @media (max-width: 767px) {
+//     // min-width: 100px !important;
+//     width: 160px !important;
+//     flex: 0 auto !important;
+//   }
+// }
+// Override the automatic inline styling of the head and body divs
+// This allows the table width to shrink if columns are hidden responsively
+:global {
+  // .rt-thead,
+  // .rt-tbody {
+  //   min-width: 0px !important;
+  //   overflow-y: scroll;
+  // }
+}

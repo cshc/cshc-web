@@ -20,14 +20,6 @@ class ClubListView(TemplateView):
     template_name = 'opposition/club_list.html'
     model = Club
 
-    def get_context_data(self, **kwargs):
-        context = super(ClubListView, self).get_context_data(**kwargs)
-
-        all_club_stats = ClubStats.objects.totals()
-        context['clubstats_list'] = [
-            x for x in all_club_stats if x.total_played > 0]
-        return context
-
 
 class ClubDetailView(SelectRelatedMixin, DetailView):
     """ View for a particular opposition club.
