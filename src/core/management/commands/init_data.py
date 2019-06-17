@@ -26,10 +26,10 @@ docs = [
     {'id': 2, 'file': doc('CSHC_Constitution_June_2017.pdf'),
      'timestamp': '2017-06-01'},
     {'id': 3, 'file': doc('CSHC_Player_Registration.pdf')},
-    {'id': 4, 'file': doc('CSHC_2015_16_Accounts.pdf'),
-     'timestamp': '2016-05-01'},
-    {'id': 5, 'file': doc('CSHC_2014_15_Accounts.pdf'),
-     'timestamp': '2015-05-01'},
+    {'id': 4, 'title': 'Club Accounts 2015-16', 'category_id': 4, 
+        'file': doc('CSHC_2015_16_Accounts.pdf'), 'timestamp': '2016-05-01'},
+    {'id': 5, 'title': 'Club Accounts 2014-15', 'category_id': 4, 
+        'file': doc('CSHC_2014_15_Accounts.pdf'), 'timestamp': '2015-05-01'},
     {'id': 6, 'file': doc('CSHC_Cmte_Jan_2017_Minutes.pdf'),
      'timestamp': '2017-01-01'},
     {'id': 7, 'file': doc('CSHC_AGM_2017_Minutes.pdf'),
@@ -143,6 +143,9 @@ docs = [
         'Juniors', 'CSHC_Code_of_Behaviour.pdf'), 'timestamp': '2019-04-12'},
     {'id': 67, 'title': 'May 2019', 'category_id': 2, 'file': doc(
         'CSHC_Cmte_May_2019_Minutes.pdf'), 'timestamp': '2019-05-13'},
+    {'id': 68, 'title': 'Club Accounts 2017-18', 'category_id': 4,
+        'file': doc('CSHC_2017_18_Accounts.pdf'), 'timestamp': '2018-05-01'},
+   
 ]
 
 offers = [
