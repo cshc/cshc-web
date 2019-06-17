@@ -58,10 +58,6 @@ class CshcUser(AbstractUser):
     class Meta:
         verbose_name = u'CSHC user'
         verbose_name_plural = u'CSHC users'
-        permissions = (
-            ("can_annotate",
-             "Can access UI annotation tools (provided by hypothesis.is)"),
-        )
 
     def get_full_name(self):
         return u"{} {}".format(self.first_name, self.last_name).strip()
