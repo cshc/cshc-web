@@ -77,17 +77,17 @@ This displays the red, yellow and green cards received by all players.
           <td class="g-width-200--lg">{{ p.member|urlise_model }}</td>
           <td>
             {% for red_card_app in p.red_cards %}
-              <a href="{{ red_card_app.match.get_absolute_url }}" title="Match report...">
+              <a href="{{ red_card_app.match.get_absolute_url }}" title="Match report..." class="g-text-underline--none--hover">
                 <img class="g-pb-3 umpire-card" src="{% static "img/red_card.png" %}">
               </a>
             {% endfor %}
             {% for yellow_card_app in p.yellow_cards %}
-              <a href="{{ yellow_card_app.match.get_absolute_url }}" title="Match report...">
+              <a href="{{ yellow_card_app.match.get_absolute_url }}" title="Match report..." class="g-text-underline--none--hover">
                 <img class="g-pb-3 umpire-card {% if yellow_card_app.match.fixture_type == 'League' %}league-card{% endif %}" src="{% static "img/yellow_card.png" %}">
               </a>
             {% endfor %}
             {% for green_card_app in p.green_cards %}
-              <a href="{{ green_card_app.match.get_absolute_url }}" title="Match report...">
+              <a href="{{ green_card_app.match.get_absolute_url }}" title="Match report..." class="g-text-underline--none--hover">
                 <img class="g-pb-3 umpire-card" src="{% static "img/green_card.png" %}">
               </a>
             {% endfor %}

@@ -14,8 +14,8 @@ class AddMember extends React.PureComponent {
     // We only show the gender radio buttons if its a mixed match. Otherwise we
     // set the gender to the gender of the team.
     let gender;
-    if (props.ourTeamGender === Gender.Ladies) gender = Gender.Female;
-    else if (props.ourTeamGender === Gender.Mens) gender = Gender.Male;
+    if (props.ourTeamGender === Gender.Ladies) gender = 'Female';
+    else if (props.ourTeamGender === Gender.Mens) gender = 'Male';
     this.state = {
       updating: false,
       firstName: '',
@@ -141,8 +141,8 @@ class AddMember extends React.PureComponent {
                 className="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
                 name="rb-male"
                 type="radio"
-                value={Gender.Male}
-                checked={gender === Gender.Male}
+                value="Male"
+                checked={gender === 'Male'}
                 onChange={this.updateGender}
               />
               <div className="u-check-icon-radio-v4 g-absolute-centered--y g-left-0 g-width-18 g-height-18">
@@ -159,8 +159,8 @@ class AddMember extends React.PureComponent {
                 className="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
                 name="rb-female"
                 type="radio"
-                value={Gender.Female}
-                checked={gender === Gender.Female}
+                value="Female"
+                checked={gender === 'Female'}
                 onChange={this.updateGender}
               />
               <div className="u-check-icon-radio-v4 g-absolute-centered--y g-left-0 g-width-18 g-height-18">

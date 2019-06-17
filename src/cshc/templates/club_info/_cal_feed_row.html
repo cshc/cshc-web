@@ -2,7 +2,9 @@
   <td class="text-nowrap">{{ title }}</td>
   <td>
     <a href="{{ cal_link }}" title="{{ link_title }}">
+      {% if cal_link|slice:":4" != "http" %}
       {{ request.get_host }}
+      {% endif %}
       {% if request.user_agent.is_mobile %}
         {{ cal_link|truncatechars:20 }}
       {% else %}

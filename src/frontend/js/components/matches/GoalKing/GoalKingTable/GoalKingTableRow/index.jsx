@@ -34,19 +34,19 @@ const GoalKingTableRow = ({ entry, teamFilter, maxGoals }) => {
           />
         </div>
       </td>
-      <td className={teamClass('m1')}>{entry.m1Goals}</td>
-      <td className={teamClass('m2')}>{entry.m2Goals}</td>
-      <td className={teamClass('m3')}>{entry.m3Goals}</td>
-      <td className={teamClass('m4')}>{entry.m4Goals}</td>
-      <td className={teamClass('m5')}>{entry.m5Goals}</td>
-      <td className={teamClass('l1')}>{entry.l1Goals}</td>
-      <td className={teamClass('l2')}>{entry.l2Goals}</td>
-      <td className={teamClass('l3')}>{entry.l3Goals}</td>
-      <td className={teamClass('l4')}>{entry.l4Goals}</td>
-      <td className={teamClass('l5')}>{entry.l5Goals}</td>
-      <td className={teamClass('mixed')}>{entry.mixedGoals}</td>
-      <td className={teamClass('indoor')}>{entry.indoorGoals}</td>
-      <td className={teamClass('mv')}>{entry.mvGoals}</td>
+      <td className={teamClass('m1')}>{entry.m1Goals || ''}</td>
+      <td className={teamClass('m2')}>{entry.m2Goals || ''}</td>
+      <td className={teamClass('m3')}>{entry.m3Goals || ''}</td>
+      <td className={teamClass('m4')}>{entry.m4Goals || ''}</td>
+      <td className={teamClass('m5')}>{entry.m5Goals || ''}</td>
+      <td className={teamClass('l1')}>{entry.l1Goals || ''}</td>
+      <td className={teamClass('l2')}>{entry.l2Goals || ''}</td>
+      <td className={teamClass('l3')}>{entry.l3Goals || ''}</td>
+      <td className={teamClass('l4')}>{entry.l4Goals || ''}</td>
+      <td className={teamClass('l5')}>{entry.l5Goals || ''}</td>
+      <td className={teamClass('mixed')}>{entry.mixedGoals || ''}</td>
+      <td className={teamClass('indoor')}>{entry.indoorGoals || ''}</td>
+      <td className={teamClass('mv')}>{entry.mvGoals || ''}</td>
       <td className={teamFilter === NoFilter ? 'g-font-weight-600' : ''}>{entry.totalGoals}</td>
       <td>{round(entry.gpg, 2)}</td>
     </tr>

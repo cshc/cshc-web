@@ -33,9 +33,9 @@ class TeamCaptaincyManager(models.Manager):
 
 
 class TeamCaptaincy(models.Model):
-    """ Represents a member's term as captain/vice-captain of a team"""
+    """ Represents a member's term as captain/vice-captain of a team """
 
-    member = models.ForeignKey('members.Member', on_delete=models.CASCADE)
+    member = models.ForeignKey('members.Member', related_name="teamcaptaincy", on_delete=models.CASCADE)
 
     team = models.ForeignKey('teams.ClubTeam', on_delete=models.CASCADE)
 

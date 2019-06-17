@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load user_agents %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
 {% load compress %}
@@ -101,20 +102,16 @@
       </div>
     </div>
 
-    <div class="col-md-4 g-mb-20 text-md-right">
+    <div class="col-md-4 g-mb-20 d-flex flex-column">
       {% if venue.url %}
-      <a href="{{ venue.url }}" title="View this venue on the East Leagues website" class="btn btn-xl u-btn-outline-primary u-btn-content g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-2 g-mb-15">
-        <i class="fas fa-external-link-alt float-left g-font-size-42 g-mr-10"></i>
-        <span class="float-right text-left">
-            East Leagues
-          <span class="d-block g-font-size-11">More details about this venue</span>
-        </span>
-      </a>
+      {% include 'blocks/_big_button.html' with link=venue.url icon="fas fa-external-link-alt" title="View this venue on the East Leagues website" label="East Leagues" sub_label="More details about this venue" %}
       {% endif %}
     
       {% if venue.address_known %}
-        {% include 'maps/_maps_app_link.html' %}
-        {% include 'maps/_directions_link.html' %}
+        {% include 'blocks/_big_button.html' with icon="fas fa-car" link_class="gmap-dir-link" title="Directions" label="Driving Directions" sub_label="From Cambridge" %}
+        {% if request|is_mobile %}
+        {% include 'blocks/_big_button.html' with icon="fas fa-map" title="View in Google Maps" link_class="gmap-link" label="Open in Maps app" sub_label="View venue in the maps app" %}
+        {% endif %}
       {% endif %}
     </div>
   </div>

@@ -48,10 +48,11 @@ class PlayerSelection extends React.PureComponent {
       nextProps.playerOptions !== this.props.playerOptions
     ) {
       this.setState({
+        playerFilter: '',
         filteredPlayerOptions: filterPlayerOptions(
           nextProps.playerOptions,
           nextProps.appearances,
-          this.state.playerFilter,
+          '',
         ),
       });
     }

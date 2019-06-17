@@ -70,6 +70,9 @@ main {
     left: 16.7%;
   }
 }
+.g-width-100x {
+  width: 100%;
+}
 .g-text-center {
   text-align: center;
 }
@@ -219,10 +222,6 @@ main {
 }
 .cshc-article img {
   max-width: 100%;
-}
-/* Make sure the Django Debug Toolbar button is below the Hypothesis Toolbar buttons */
-#djDebug #djDebugToolbarHandle {
-  top: 130px !important;
 }
 p > a {
   font-weight: 500;

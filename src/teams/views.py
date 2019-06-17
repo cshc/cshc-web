@@ -104,6 +104,9 @@ class ClubTeamDetailView(TemplateView):
         add_season_selector(
             context, season, list(part_seasons.values_list('slug', flat=True)))
 
+        context['ical_url'] = reverse('clubteam_ical_feed', kwargs={'slug': team.slug})
+        context['rss_url'] = reverse('clubteam_match_rss_feed', kwargs={'slug': team.slug})
+
         context['props'] = {
             'teamId': team.id,
             'teamGenderlessName': team.genderless_abbr_name(),

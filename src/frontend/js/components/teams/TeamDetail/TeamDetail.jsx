@@ -4,8 +4,6 @@ import { MatchItem } from 'util/constants';
 import MatchData from 'components/matches/MatchData';
 import LeagueTable from 'components/competitions/LeagueTable';
 import Tabs from 'components/Unify/Tabs';
-import Accordion from 'components/common/Accordion';
-import AccordionCard from 'components/common/Accordion/AccordionCard';
 import SquadRosterWrapper from './SquadRosterWrapper';
 
 /**

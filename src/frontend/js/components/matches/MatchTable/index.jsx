@@ -1,7 +1,9 @@
 import React from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { saturdaysBetweenDates } from 'util/cshc';
 import { MatchItem as TC } from 'util/constants';
+import styles from './style.scss';
 import MatchTableRow from './MatchTableRow';
 
 /**
@@ -23,7 +25,7 @@ const MatchTable = ({ matches, excludeColumns, dateFormat, priorities, fillBlank
             {incl(TC.time) && <th className={priority(TC.time, 2)}>Time</th>}
             {incl(TC.venue) && <th className={priority(TC.venue, 2)}>Venue</th>}
             {incl(TC.result) && (
-              <th className={`g-text-center ${priority(TC.result)}`}>
+              <th className={classNames(styles.headerMatchResult, 'g-text-center', priority(TC.result))}>
                 Result<br />(CS-Op)
               </th>
             )}
