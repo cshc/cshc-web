@@ -4,7 +4,7 @@ import ReactTable from 'react-table';
 import commonStyles from 'components/common/style.scss';
 import MemberAvatar from 'components/members/MemberAvatar';
 import Member from 'models/member';
-import { PositionValue, DefaultPageSizeOptions } from 'util/constants';
+import { PositionValue } from 'util/constants';
 import Urls from 'util/urls';
 import styles from './style.scss';
 
@@ -16,7 +16,9 @@ const SquadRosterTable = ({ squadStats: { squad } }) => (
     <div className={commonStyles.reactTable}>
       <ReactTable
         className="-highlight"
-        showPageJump={false}
+        showPagination={false}
+        pageSize={squad ? squad.length : 0}
+        data={squad}
         columns={[
           {
             Header: '',
@@ -122,10 +124,6 @@ const SquadRosterTable = ({ squadStats: { squad } }) => (
             Cell: row => (row.value > 0 ? row.value : ''),
           },
         ]}
-        defaultPageSize={50}
-        pageSizeOptions={DefaultPageSizeOptions}
-        minRows={0}
-        data={squad}
       />
     </div>
   </div>

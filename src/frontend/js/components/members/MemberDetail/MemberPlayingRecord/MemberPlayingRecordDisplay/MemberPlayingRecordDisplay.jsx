@@ -9,7 +9,7 @@ import MemberPlayingRecordCharts from './MemberPlayingRecordCharts';
  */
 const MemberPlayingRecordDisplay = ({ viewType, clubTeams, data, ...props }) =>
   (viewType === ViewType.Table ? (
-    <MemberPlayingRecordTables data={data} {...props} />
+    <MemberPlayingRecordTables data={[...data].reverse()} {...props} />
   ) : (
     <MemberPlayingRecordCharts data={data} {...props} clubTeams={clubTeams.results} />
   ));

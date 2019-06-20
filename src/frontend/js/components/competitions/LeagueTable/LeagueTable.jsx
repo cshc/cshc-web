@@ -23,6 +23,9 @@ const LeagueTable = ({ data, teamName }) => {
     );
   };
 
+  // eslint-disable-next-line no-nested-ternary
+  const relative = value => `${value === 0 ? '' : (value < 0 ? '-' : '+')}${Math.abs(value)}`;
+
   return (
     <div className="table-responsive">
       { data.results && data.results.length ? (
@@ -71,7 +74,7 @@ const LeagueTable = ({ data, teamName }) => {
                   <td>{row.lost}</td>
                   <td>{row.goalsFor}</td>
                   <td>{row.goalsAgainst}</td>
-                  <td>{row.goalDifference}</td>
+                  <td>{relative(row.goalDifference)}</td>
                   <td>{row.points}</td>
                   <td>{row.notes}</td>
                 </tr>

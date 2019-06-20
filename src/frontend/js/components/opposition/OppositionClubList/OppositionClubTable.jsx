@@ -7,7 +7,7 @@ import commonStyles from 'components/common/style.scss';
 import styles from './OppositionClubTable.scss';
 
 // eslint-disable-next-line no-nested-ternary
-const avg = row => `${row.value === 0 ? '' : (row.value < 0 ? '+' : '-')}${row.value.toFixed(1)}`;
+const avg = row => `${row.value === 0 ? '' : (row.value < 0 ? '-' : '+')}${Math.abs(row.value).toFixed(1)}`;
 
 const OppositionClubList = ({ data }) => (
   <div className={commonStyles.reactTable}>
@@ -66,7 +66,7 @@ const OppositionClubList = ({ data }) => (
               className: 'text-center',
               width: 70,
               accessor: c => c.avgGf,
-              Cell: avg,
+              Cell: row => row.value.toFixed(1),
             },
             {
               Header: <abbr title="Average Goals Against">GA</abbr>,
@@ -74,7 +74,7 @@ const OppositionClubList = ({ data }) => (
               className: 'text-center',
               width: 70,
               accessor: c => c.avgGa,
-              Cell: avg,
+              Cell: row => row.value.toFixed(1),
             },
             {
               Header: <abbr title="Average Goal Difference">GD</abbr>,
@@ -92,7 +92,7 @@ const OppositionClubList = ({ data }) => (
           className: 'text-center',
           width: 90,
           accessor: c => c.avgPoints,
-          Cell: avg,
+          Cell: row => row.value.toFixed(1),
         },
       ]}
     />

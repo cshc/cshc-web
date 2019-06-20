@@ -121,7 +121,7 @@ class SquadPlayingStats(object):
         self.totals = TeamPlayingStats()
 
     def squad(self):
-        return sorted(self.squad_lookup.values(), key=lambda playerstats: (-playerstats.is_captain, -playerstats.is_vice_captain, -playerstats.played))
+        return sorted(self.squad_lookup.values(), key=lambda playerstats: (-playerstats.is_captain, -playerstats.is_vice_captain, playerstats.member.first_name, playerstats.member.last_name))
 
     def add_appearance(self, appearance):
         """ Add the specified appearance to the team playing stats """

@@ -142,11 +142,11 @@ class JuniorsContactSubmissionCreateView(CreateView):
 
         # Sub-navigation elements
         context['sub_nav_items'] = [
-            {'id': 'contacts', 'label': 'Contacts'},
+            {'id': 'contact-us', 'label': 'Get In Touch'},
             {'id': 'resources', 'label': 'Resources'},
             {'id': 'calendar', 'label': 'Calendar'},
+            {'id': 'key_people', 'label': 'Key People'},
             {'id': 'news', 'label': 'News'},
-            {'id': 'contact-us', 'label': 'Get In Touch'},
         ]
 
         return context
