@@ -1,26 +1,28 @@
 {% load cshc_tags %}
 
-{% if team.captain %}
 <div class="card rounded-0 g-mb-40">
   <h3 class="card-header h5 rounded-0">
     {{ team.name }}
   </h3>
 
-  <div class="card-block d-flex">
-    <div class="g-flex-centered-item">
-      {% if team.captain %}
-        {% profile_pic member=team.captain.member size="200x200" className="w-100 g-mb-10 g-px-10" %}
-        <h4 class="h5 g-font-weight-600 mb-1 g-pt-10"><a title="View profile" href="{{ team.captain.member.get_absolute_url }}">{{ team.captain.member.full_name }}</a></h4>
-        <div class="g-color-gray-dark-v4 g-font-size-18 g-font-weight-600">{{ captain_title }}</div>
-      {% endif %}
-    </div>
-    <div class="g-flex-centered-item">
-      {% if team.vice_captain %}
-        {% profile_pic member=team.vice_captain.member size="200x200" className="w-100 g-mb-10 g-px-10" %}
-        <h4 class="h5 g-font-weight-600 mb-1 g-pt-10"><a title="View profile" href="{{ team.vice_captain.member.get_absolute_url }}">{{ team.vice_captain.member.full_name }}</a></h4>
-        <div class="g-color-gray-dark-v4 g-font-size-18 g-font-weight-600">{{ vice_captain_title }}</div>
-      {% endif %}
-    </div>
+  <div class="card-block d-flex justify-content-center">
+    {% if not team.captain and not team.vice_captain %}
+      <p class="lead g-font-style-italic text-center">Captains not assigned</p>
+    {% else %}
+      <div class="g-flex-centered-item">
+        {% if team.captain %}
+          {% profile_pic member=team.captain.member size="200x200" className="w-100 g-mb-10 g-px-10" %}
+          <h4 class="h5 g-font-weight-600 mb-1 g-pt-10"><a title="View profile" href="{{ team.captain.member.get_absolute_url }}">{{ team.captain.member.full_name }}</a></h4>
+          <div class="g-color-gray-dark-v4 g-font-size-18 g-font-weight-600">{{ captain_title }}</div>
+        {% endif %}
+      </div>
+      <div class="g-flex-centered-item">
+        {% if team.vice_captain %}
+          {% profile_pic member=team.vice_captain.member size="200x200" className="w-100 g-mb-10 g-px-10" %}
+          <h4 class="h5 g-font-weight-600 mb-1 g-pt-10"><a title="View profile" href="{{ team.vice_captain.member.get_absolute_url }}">{{ team.vice_captain.member.full_name }}</a></h4>
+          <div class="g-color-gray-dark-v4 g-font-size-18 g-font-weight-600">{{ vice_captain_title }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
   </div>
 </div>
-{% endif %}

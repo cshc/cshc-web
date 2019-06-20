@@ -91,6 +91,12 @@
         <td class="text-center">{{ team.total_points }}</td>
         <td class="text-center">{{ team.avg_points_per_game|floatformat:1 }}</td>
       </tr>
+      {% empty %}
+        <tr>
+          <td colspan="12">
+            <p class="lead g-font-style-italic text-center">(No matches played)</p>
+          </td>
+        </tr>
       {% endfor %}
     </tbody>
   </table>

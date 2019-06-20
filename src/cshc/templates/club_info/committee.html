@@ -90,6 +90,10 @@
         <div class="g-color-gray-dark-v4 g-font-size-14 g-font-weight-600">{{ member.position.name }}</div>
       </div>
     </div>
+  {% empty %}
+    <div class="col-12 g-mb-20">
+      <p class="lead g-font-style-italic">Committee positions not know for this season.</p>
+    </div>
   {% endfor %}
 </div>
 

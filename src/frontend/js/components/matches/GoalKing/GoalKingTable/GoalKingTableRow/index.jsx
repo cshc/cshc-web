@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import round from 'lodash/round';
 import Member from 'models/member';
 import { Gender, NoFilter } from 'util/constants';
 import Urls from 'util/urls';
@@ -48,7 +47,7 @@ const GoalKingTableRow = ({ entry, teamFilter, maxGoals }) => {
       <td className={teamClass('indoor')}>{entry.indoorGoals || ''}</td>
       <td className={teamClass('mv')}>{entry.mvGoals || ''}</td>
       <td className={teamFilter === NoFilter ? 'g-font-weight-600' : ''}>{entry.totalGoals}</td>
-      <td>{round(entry.gpg, 2)}</td>
+      <td>{entry.gpg.toFixed(2)}</td>
     </tr>
   );
 };
