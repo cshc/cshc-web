@@ -108,24 +108,3 @@ OppositionClubList.defaultProps = {
 };
 
 export default OppositionClubList;
-
-// {
-//   Header: 'Address',
-//   id: 'address',
-//   accessor: venue => venue,
-//   headerClassName: 'text-left',
-//   Cell: row => Venue.full_address(row.value),
-//   sortMethod: (a, b) => {
-//     const addressA = Venue.full_address(a);
-//     const addressB = Venue.full_address(b);
-//     return addressA.trim().localeCompare(addressB.trim());
-//   },
-// },
-// {
-//   Header: () => <abbr title="Distance in miles from Cambridge">Distance</abbr>,
-//   id: 'distance',
-//   accessor: 'distance',
-//   className: 'text-center',
-//   width: 70,
-//   headerClassName: 'text-center',
-// },
