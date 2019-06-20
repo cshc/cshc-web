@@ -1,5 +1,15 @@
 import reduce from 'lodash/reduce';
 
+/**
+ * Unify CSS breakpoints
+ */
+const Breakpoints = {
+  s: 576,
+  m: 768,
+  l: 992,
+  xl: 1200,
+};
+
 const toDict = keys =>
   reduce(
     keys,
@@ -186,4 +196,5 @@ module.exports = {
   AltOutcome,
   MatchAvailability,
   PositionValue,
+  Breakpoints,
 };

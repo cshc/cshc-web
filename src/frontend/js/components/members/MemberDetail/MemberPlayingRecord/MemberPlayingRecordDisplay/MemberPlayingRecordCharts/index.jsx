@@ -4,6 +4,8 @@ import { Bar } from 'react-chartjs-2';
 import { rounded } from 'util/cshc';
 import { getTeamColorScales, getTeamColor } from 'util/colors';
 import { Panel } from 'components/Unify';
+import withWindowSize from 'util/withWindowSize';
+import { Breakpoints } from 'util/constants';
 import { getAllTeams } from '../util';
 
 const primaryAxis = 'y-axis-1';
@@ -77,8 +79,15 @@ const yAxisSecondaryStacked = {
  * 2) Team Representations
  * 3) Success Record
  */
-const MemberPlayingRecordChart = ({ clubTeams, data }) => {
+const MemberPlayingRecordChart = ({ clubTeams, data, windowWidth }) => {
   const panelProps = { outlineColor: 'teal', headerColor: 'teal' };
+
+  const windowOptions = windowWidth < Breakpoints.m ? {
+    aspectRatio: 1,
+    maintainAspectRatio: false,
+  } : {
+    maintainAspectRatio: true,
+  };
 
   const allTeams = getAllTeams(data);
   const teamColorScales = getTeamColorScales(
@@ -138,6 +147,7 @@ const MemberPlayingRecordChart = ({ clubTeams, data }) => {
 
   const matchesOptions = {
     ...baseOptions,
+    ...windowOptions,
     scales: {
       xAxes: [
         {
@@ -171,6 +181,7 @@ const MemberPlayingRecordChart = ({ clubTeams, data }) => {
 
   const teamsOptions = {
     ...baseOptions,
+    ...windowOptions,
     scales: {
       xAxes: [xAxis],
       yAxes: [yAxisPrimary],
@@ -196,6 +207,7 @@ const MemberPlayingRecordChart = ({ clubTeams, data }) => {
 
   const successOptions = {
     ...baseOptions,
+    ...windowOptions,
     scales: {
       xAxes: [
         {
@@ -211,17 +223,17 @@ const MemberPlayingRecordChart = ({ clubTeams, data }) => {
     <div>
       <Panel title="Matches, Goals and Awards" {...panelProps}>
         <div className="card-block">
-          <Bar data={matchesData} options={matchesOptions} />
+          <Bar data={matchesData} options={matchesOptions} height={null} width={null} />
         </div>
       </Panel>
       <Panel title="Team Representations" {...panelProps}>
         <div className="card-block">
-          <Bar data={teamsData} options={teamsOptions} />
+          <Bar data={teamsData} options={teamsOptions} height={null} width={null} />
         </div>
       </Panel>
       <Panel title="Success Record" {...panelProps}>
         <div className="card-block">
-          <Bar data={successData} options={successOptions} />
+          <Bar data={successData} options={successOptions} height={null} width={null} />
         </div>
       </Panel>
     </div>
@@ -229,8 +241,9 @@ const MemberPlayingRecordChart = ({ clubTeams, data }) => {
 };
 
 MemberPlayingRecordChart.propTypes = {
+  windowWidth: PropTypes.number.isRequired,
   clubTeams: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
-export default MemberPlayingRecordChart;
+export default withWindowSize(MemberPlayingRecordChart);
