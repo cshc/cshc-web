@@ -44,3 +44,7 @@ AWS_PRELOAD_METADATA = True
 # Needed for django-compressor
 COMPRESS_URL = STATIC_URL
 COMPRESS_STORAGE = 's3_folder_storage.s3.DefaultStorage'
+
+# Ref: https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
+# All files will inherit the bucket's ACL
+AWS_DEFAULT_ACL = None
