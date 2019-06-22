@@ -11,6 +11,7 @@ from datetime import timedelta
 from django.utils import timezone
 from django.db.models import Q
 from django.core.management.base import BaseCommand
+from django.core.management import call_command
 from matches.models import GoalKing
 from competitions.models import Season
 from teams import league_scraper
@@ -80,6 +81,12 @@ class Command(BaseCommand):
             except Exception as e:
                 errors.append("Failed to scrape league table from {}: {}".format(
                     participation.division_tables_url, e))
+
+        # Backup database
+        try:
+            call_command('dbbackup')
+        except Exception as e:
+            errors.append("Failed to backup database")
 
         for error in errors:
             print(error)

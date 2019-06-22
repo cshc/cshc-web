@@ -83,3 +83,5 @@ INSTALLED_APPS = ['collectfast'] + INSTALLED_APPS
 # correct value of STATIC_URL is used
 from .common.ckeditor import get_ckeditor_config
 CKEDITOR_CONFIGS = get_ckeditor_config(STATIC_URL)
+
+DBBACKUP_HOSTNAME = 'cambridgesouthhockeyclub.co.uk'

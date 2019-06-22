@@ -541,10 +541,12 @@ SPLIT_DEFAULT_PARAGRAPHS = 1
 
 # Ref: https://github.com/django-dbbackup/django-dbbackup
 DBBACKUP_STORAGE = 'dbbackup.storage.s3_storage'
-DBBACKUP_S3_BUCKET = get_env_setting('AWS_STORAGE_BUCKET_NAME')
-DBBACKUP_S3_ACCESS_KEY = get_env_setting('AWS_ACCESS_KEY_ID')
-DBBACKUP_S3_SECRET_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY')
-DBBACKUP_S3_DIRECTORY = 'django-dbbackups/'
+DBBACKUP_STORAGE_OPTIONS = {
+    'access_key': get_env_setting('AWS_ACCESS_KEY_ID'),
+    'secret_key': get_env_setting('AWS_SECRET_ACCESS_KEY'),
+    'bucket_name': get_env_setting('AWS_STORAGE_BUCKET_NAME'),
+}
+# DBBACKUP_S3_DIRECTORY = 'django-dbbackups/'
 
 # ########## END django-dbbackup CONFIGURATION
 
