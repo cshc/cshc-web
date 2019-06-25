@@ -116,6 +116,8 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
         context["lom_winners"] = [
             x for x in award_winners if x.award.name == MatchAward.LOM]
         context["appearances"] = appearances
+        context["team_title"] = "Team ({})".format(len(appearances)) if appearances else "Team"
+        context["awards_title"] = "Awards ({})".format(len(award_winners)) if award_winners else "Awards"
         context["prev_match"] = prev_match
         context["next_match"] = next_match
 
