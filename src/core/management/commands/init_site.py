@@ -63,7 +63,7 @@ class Command(BaseCommand):
         parser.add_argument(
             'domain',
             nargs='?',
-            default='cshc-web-prod.eu-west-1.elasticbeanstalk.com',
+            default='cambridgesouthhockeyclub.co.uk',
             help='The site domain')
         # parser.add_argument(
         #     '-b', '--blog_entries_file',
