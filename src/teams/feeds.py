@@ -61,7 +61,7 @@ class RssClubTeamMatchReportsFeed(Feed):
         return "Cambridge South Hockey Club {} Match Reports".format(obj.long_name)
 
     def link(self, obj):
-        return "//" + Site.objects.get_current().domain
+        return "https://" + Site.objects.get_current().domain
 
     icon = static('ico/favicon.ico')
 

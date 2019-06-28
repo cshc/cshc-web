@@ -49,7 +49,7 @@ class RssMatchReportsFeed(Feed):
     icon = static('ico/favicon.ico')
 
     def link(self, obj):
-        return "//" + Site.objects.get_current().domain
+        return "https://" + Site.objects.get_current().domain
 
     def feed_extra_kwargs(self, obj):
         return {'image_url': static('img/crest/full_badge/South-Cambs-Hockey-Club-Badge-flat-1.3.png')}

@@ -58,7 +58,7 @@ def send_link_req(request):
             template_name='req_player_link',
             context={
                 'user': request.user,
-                'base_url': "//" + Site.objects.get_current().domain,
+                'base_url': "https://" + Site.objects.get_current().domain,
                 'members_admin_url': "{}?q={}".format(reverse('admin:members_member_changelist'), request.user.get_full_name())
             },
         )
