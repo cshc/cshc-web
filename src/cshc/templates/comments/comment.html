@@ -23,8 +23,8 @@
 {% load thumbnail from sorl_thumbnail %}
 
 {% if preview %}<h3>{% trans "Preview of your comment" %}</h3>{% endif %}
-<div{% if preview %} id="comment-preview"{% else %} id="c{{ comment.id }}"{% endif %} class="media g-mb-15">
-  {% if comment.user and comment.user.member %}
+<div {% if preview %}id="comment-preview" {% else %}id="c{{ comment.id }}" {% endif %} class="media g-mb-15">
+  {% if comment.user and comment.user.has_member %}
     {% thumbnail comment.user.member.profile_pic "50x50" crop="center" as im %}
       <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="{{ im.url }}">
     {% empty %}
@@ -37,9 +37,9 @@
     <div class="g-mb-5">
       <h6 class="h6 g-color-gray-dark-v1 mb-0">
         {% block comment_title %}
-          {% if comment.user and comment.user.member %}<a href="{{ comment.user.member.get_absolute_url }}" title="Member details">{% endif %}
+          {% if comment.user and comment.user.has_member %}<a href="{{ comment.user.member.get_absolute_url }}" title="Member details">{% endif %}
           {{ comment.name }}
-          {% if comment.user and comment.user.member %}</a>{% endif %}
+          {% if comment.user and comment.user.has_member %}</a>{% endif %}
           {% if not comment.is_public %}<span class="comment-moderated-flag">({% trans "moderated" %})</span>{% endif %}
         {% endblock %}
         <span class="g-color-gray-dark-v4 g-font-size-12">{{ comment.submit_date|naturaltime }}</span>

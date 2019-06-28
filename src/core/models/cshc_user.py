@@ -64,3 +64,6 @@ class CshcUser(AbstractUser):
 
     def get_short_name(self):
         return str(self.first_name.strip())
+
+    def has_member(self):
+        return hasattr(self, 'member') and self.member is not None

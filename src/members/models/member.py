@@ -32,7 +32,7 @@ def on_email_change(sender, **kwargs):
     Updates the associated member's email address (if there is a member associated with this user)
     """
     user = kwargs['user']
-    if user.member is not None:
+    if user.has_member():
         # Note that the to_email_address field is an instance of the allauth.EmailAddress model
         email_address_instance = kwargs['to_email_address']
         user.member.email = email_address_instance.email

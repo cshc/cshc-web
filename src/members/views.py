@@ -166,7 +166,7 @@ class MemberDetailView(DetailView):
                      name=current_squad.team.long_name) if current_squad is not None else None
 
         is_me = (self.request.user.is_authenticated and
-                 self.request.user.member is not None and
+                 self.request.user.has_member() and
                  self.request.user.member.id == member.id)
 
         context['props'] = dict(

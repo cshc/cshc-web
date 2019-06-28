@@ -22,7 +22,7 @@
 
 {% else %}
   <div class="media g-mb-30">
-    {% if user.member %}
+    {% if user.has_member %}
       {% thumbnail user.member.profile_pic "50x50" crop="center" as im %}
         <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="{{ im.url }}">
       {% empty %}
