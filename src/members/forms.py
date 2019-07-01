@@ -59,6 +59,7 @@ class MemberProfileForm(forms.ModelForm):
         }
         help_texts = {
             'emergency_relationship': 'Your emergency contact\'s relationship to you',
+            'profile_pic': 'Only upload photos you have taken yourself or have permission to use. Do not use pictures taken off the Internet.',
         }
         fields = ('email', 'first_name', 'known_as', 'last_name', 'profile_pic', 'profile_pic_cropping',  # Personal
                   # Playing
