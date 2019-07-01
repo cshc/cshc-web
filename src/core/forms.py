@@ -112,7 +112,6 @@ class JuniorsContactSubmissionForm(forms.ModelForm):
             'child_gender': UnifySelect,
             'child_age': UnifySelect,
             'message': UnifyTextarea(attrs={'placeholder': 'Message*', 'rows': '5'}),
-            'mailing_list': UnifyCheckboxInput(label='I would like to join the Club mailing list'),
             'trigger': UnifySelect,
         }
 

@@ -165,7 +165,6 @@ class JuniorsContactSubmissionCreateView(CreateView):
             'child_age': JuniorsContactSubmission.AGE[form.cleaned_data['child_age']],
             'child_gender': JuniorsContactSubmission.GENDER[form.cleaned_data['child_gender']],
             'trigger': trigger_text,
-            'join_mail_list': form.cleaned_data['mailing_list'],
             'message': str(form.cleaned_data['message']),
         }
 
