@@ -19,7 +19,8 @@ class JuniorsContactSubmission(models.Model):
         ('A12', '12'),
         ('A13', '13'),
         ('A14', '14'),
-        ('AGT14', '> 14'))
+        ('A15', '15'),
+        ('A16', '16'))
     TRIGGER = Choices(
         ('not_selected', '-- Select --'),
         ('web_search', 'Web search (e.g. Google)'),
