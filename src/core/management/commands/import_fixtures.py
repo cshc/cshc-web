@@ -23,7 +23,7 @@ import traceback
 from datetime import datetime
 from django.core.management.base import BaseCommand
 from django.db.models import Q
-from matches.models import Match
+from matches.models import Match, FixtureType, HomeAway
 from opposition.models import Team
 from teams.models import ClubTeam
 from venues.models import Venue
@@ -48,15 +48,15 @@ DATE_COL = 0
 
 # Lookup table for fixture-types (all caps are converted to lower case prior to comparison)
 MATCH_TYPE = {
-    'f': Match.FIXTURE_TYPE.Friendly,
-    'l': Match.FIXTURE_TYPE.League,
-    'c': Match.FIXTURE_TYPE.Cup,
+    'f': FixtureType.Friendly,
+    'l': FixtureType.League,
+    'c': FixtureType.Cup,
 }
 
 # Lookup table for home/away designations (all caps are converted to lower case prior to comparison)
 HOME_AWAY = {
-    'h': Match.HOME_AWAY.Home,
-    'a': Match.HOME_AWAY.Away,
+    'h': HomeAway.Home,
+    'a': HomeAway.Away,
 }
 
 ###############################################################################
@@ -80,6 +80,8 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
+            'csv_file', help='The CSV file to import fixtures from')
+        parser.add_argument(
             '--sim',
             action='store_true',
             dest='simulate',
@@ -88,12 +90,12 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        if len(args) != 1:
+        if len(args) > 2:
             print_usage()
             return
 
         # Check fixtures file argument
-        file_path = args[0]
+        file_path = options['csv_file'];
         if not os.path.isfile(file_path):
             print("ERROR: No such file '{}'".format(file_path))
             return
@@ -113,7 +115,7 @@ class Command(BaseCommand):
             # Then loop through the dates
             try:
                 while True:
-                    csv_row = reader.next()
+                    csv_row = reader.__next__()
                     date_field = csv_row[DATE_COL]
                     try:
                         fixture_date = datetime.strptime(
@@ -154,8 +156,8 @@ class Command(BaseCommand):
                   team's 'short name' on the website.
         """
         club_teams = []
-        reader.next()                   # Ignore first line (heading)
-        team_names_row = reader.next()  # Second line contains the team names
+        reader.__next__()                   # Ignore first line (heading)
+        team_names_row = reader.__next__()  # Second line contains the team names
         club_teams = [{'name': x, 'team': None}
                       for x in team_names_row if x != '']
 
@@ -198,7 +200,7 @@ class Command(BaseCommand):
         # Create or retrieve Match model (based on opposition team, our team and date)
         if not simulate:
             match, created = Match.objects.get_or_create(
-                season=fixture_season, opp_team=opp, our_team=our_team, date=fixture_date)
+                season=fixture_season, opp_team=opp, our_team=our_team, date=fixture_date, defaults={'report_body': '', 'pre_match_hype': ''})
         else:
             created = not Match.objects.filter(
                 season=fixture_season, opp_team=opp, our_team=our_team, date=fixture_date).exists()
@@ -241,9 +243,9 @@ class Command(BaseCommand):
                 name_q = Q(name=venue_name) | Q(short_name=venue_name)
                 match.venue = Venue.objects.get(name_q)
             except Venue.DoesNotExist:
-                print("ERROR: Could not find venue '{}' for {} on {}".format(
+                print("WARNING: Could not find venue '{}' for {} on {}".format(
                     venue_name, team_name, fixture_date))
-                return
+                match.venue = None;
 
         if not simulate:
             match.save()

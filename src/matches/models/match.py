@@ -160,7 +160,7 @@ class Match(models.Model):
 
     # A short paragraph that can be used to hype up the match before its played - can be HTML
     # TODO: Prevent entering pre-match hype for matches in the past?
-    pre_match_hype = SplitField("Pre-match hype", blank=True, null=True)
+    pre_match_hype = SplitField("Pre-match hype", blank=True, default='')
 
     # The (optional) title of the match report
     report_title = models.CharField(
@@ -171,7 +171,7 @@ class Match(models.Model):
                                       on_delete=models.SET_NULL, related_name="match_reports")
 
     # The actual match report text - can be HTML
-    report_body = SplitField("Match report", blank=True, null=True)
+    report_body = SplitField("Match report", blank=True, default='')
 
     # The datetime at which the report was first published
     report_pub_timestamp = models.DateTimeField("Match report publish timestamp", editable=False,
@@ -294,7 +294,7 @@ class Match(models.Model):
     def save(self, *args, **kwargs):
         """ Set a few automatic fields and then save """
         # Timestamp the report publish datetime when its first created
-        if self.report_pub_timestamp is None and self.report_body.content:
+        if self.report_pub_timestamp is None and self.report_body is not None and self.report_body.content:
             self.report_pub_timestamp = datetime.now()
 
         super(Match, self).save(*args, **kwargs)
