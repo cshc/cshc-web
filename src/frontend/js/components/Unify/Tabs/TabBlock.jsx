@@ -10,8 +10,12 @@ const TabBlock = ({ id, active, children }) => (
 
 TabBlock.propTypes = {
   id: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   active: PropTypes.bool.isRequired,
+};
+
+TabBlock.defaultProps = {
+  children: null,
 };
 
 export default TabBlock;

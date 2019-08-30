@@ -42,7 +42,7 @@ const TeamDetail = ({ data, division, teamId, teamGenderlessName, seasonId }) =>
     title: 'Squad Roster',
     content: <SquadRosterWrapper teamId={teamId} seasonId={seasonId} />,
   });
-  return <Tabs items={tabItems} />;
+  return <Tabs items={tabItems} unmountInactive />;
 };
 
 TeamDetail.propTypes = {

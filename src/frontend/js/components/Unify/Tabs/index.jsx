@@ -17,7 +17,7 @@ class Tabs extends React.Component {
   }
 
   render() {
-    const { tabsId, items } = this.props;
+    const { tabsId, items, unmountInactive } = this.props;
     const { activeTabId } = this.state;
     return (
       <div>
@@ -40,7 +40,7 @@ class Tabs extends React.Component {
         <div id={tabsId} className="tab-content g-pt-20">
           {items.map(item => (
             <TabBlock key={item.tabId} id={item.tabId} active={item.tabId === activeTabId}>
-              {item.content}
+              { item.tabId === activeTabId || !unmountInactive ? item.content : null }
             </TabBlock>
           ))}
         </div>
@@ -58,10 +58,12 @@ Tabs.propTypes = {
     }),
   ).isRequired,
   tabsId: PropTypes.string,
+  unmountInactive: PropTypes.bool,
 };
 
 Tabs.defaultProps = {
   tabsId: 'tabs',
+  unmountInactive: false,
 };
 
 export default Tabs;

@@ -114,12 +114,12 @@
   <!-- Nav tabs -->
   <ul class="nav u-nav-cshc u-nav-primary" role="tablist" data-target="tabs-match-detail" data-btn-classes="btn btn-md btn-block u-btn-outline-primary">
     {% if match.is_in_past %}
-      {% include 'blocks/_tab_nav.html' with target='tab-report' title='Match Report' active=True %}
-      {% include 'blocks/_tab_nav.html' with target='tab-team' title=team_title %}
-      {% include 'blocks/_tab_nav.html' with target='tab-awards' title=awards_title %}
+      {% include 'blocks/_tab_nav.html' with id="tab-nav-report" target='tab-report' title='Match Report' active=True %}
+      {% include 'blocks/_tab_nav.html' with id="tab-nav-team" target='tab-team' title=team_title %}
+      {% include 'blocks/_tab_nav.html' with id="tab-nav-awards" target='tab-awards' title=awards_title %}
     {% else %}
-      {% include 'blocks/_tab_nav.html' with target='tab-venue' title='Venue' active=True %}
-      {% include 'blocks/_tab_nav.html' with target='tab-previous' title='Fixture History' %}
+      {% include 'blocks/_tab_nav.html' with id="tab-nav-venue" target='tab-venue' title='Venue' active=True %}
+      {% include 'blocks/_tab_nav.html' with id="tab-nav-previous" target='tab-previous' title='Fixture History' %}
     {% endif %}
   </ul>
   <!-- End Nav tabs -->
@@ -159,6 +159,11 @@
 <script>
     $(function () {
       jQuery(".shirt-wrapper .shirt-number").fitText(0.8);
+      jQuery("#tab-nav-team, #tab-nav-awards").on('click', function () {
+        window.setTimeout(function () {
+          jQuery(".shirt-wrapper .shirt-number").fitText(0.8);
+        }, 300);
+      });
     })
 </script>
 {% if not match.is_in_past %}
