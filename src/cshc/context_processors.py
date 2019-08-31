@@ -33,6 +33,8 @@ def utils(request):
                     ('m3', 'Mens 3rds',),
                     ('m4', 'Mens 4ths',),
                     ('m5', 'Mens 5ths',),
+                    ('mind', 'Mens Indoor', True),  # Add a border above this item
+                    ('mv', 'Mens Vets',),
                 ],
             },
             {
@@ -43,14 +45,14 @@ def utils(request):
                     ('l3', 'Ladies 3rds',),
                     ('l4', 'Ladies 4ths',),
                     ('l5', 'Ladies 5ths',),
+                    ('lind', 'Ladies Indoor', True),  # Add a border above this item
+                    ('lv', 'Ladies Vets',),
                 ],
             },
             {
                 'title': 'Other',
                 'list': [
                     ('mixed', 'Mixed',),
-                    ('indoor', 'Indoor',),
-                    ('mv', 'Vets',),
                 ],
             },
         ],

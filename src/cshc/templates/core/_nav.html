@@ -36,7 +36,7 @@
                   <h4 class="h5 text-uppercase g-font-weight-600">{{ team.title }}</h4>
                   <ul class="list-unstyled">
                     {% for item in team.list %}
-                    <li class="dropdown-item {% active_link 'clubteam_detail' item.0 %}">
+                    <li class="dropdown-item {% active_link 'clubteam_detail' item.0 %}{% if item.2 %} g-brd-top g-brd-gray-dark-v3{% endif %}">
                       <a href="{% url 'clubteam_detail' item.0 %}" class="nav-link">{{ item.1 }}</a>
                     </li>
                     {% endfor %}

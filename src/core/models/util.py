@@ -59,8 +59,10 @@ TeamOrdinal = Choices(
     ('T10', '10ths'),
     ('T11', '11ths'),
     ('T12', '12ths'),
-    ('TVets', 'Vets'),
-    ('TIndoor', 'Indoor'),
+    ('TMVets', "Men's Vets"),
+    ('TLVets', "Ladies' Vets"),
+    ('TMIndoor', "Men's Indoor"),
+    ('TLIndoor', "Ladies' Indoor"),
     ('TOther', 'Other')
 )
 

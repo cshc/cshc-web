@@ -24,54 +24,6 @@ class ClubTeamQuerySet(QuerySet):
         """ Returns only ladies teams"""
         return self.filter(gender=TeamGender.Ladies)
 
-    def m1(self):
-        """ Returns the Men's 1sts team"""
-        return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T1)
-
-    def m2(self):
-        """ Returns the Men's 2nds team"""
-        return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T2)
-
-    def m3(self):
-        """ Returns the Men's 3rds team"""
-        return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T3)
-
-    def m4(self):
-        """ Returns the Men's 4ths team"""
-        return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T4)
-
-    def l1(self):
-        """ Returns the Ladies 1sts team"""
-        return self.get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T1)
-
-    def l2(self):
-        """ Returns the Ladies 2nds team"""
-        return self.get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T2)
-
-    def l3(self):
-        """ Returns the Ladies 3rds team"""
-        return self.get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T3)
-
-    def l4(self):
-        """ Returns the Ladies 4ths team"""
-        return self.get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T4)
-
-    def l5(self):
-        """ Returns the Ladies 5ths team"""
-        return self.get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T5)
-
-    def mixed(self):
-        """ Return the mixed team"""
-        return self.get(gender=TeamGender.Mixed, ordinal=TeamOrdinal.TOther)
-
-    def indoor(self):
-        """ Return the indoor team"""
-        return self.get(gender=TeamGender.Mixed, ordinal=TeamOrdinal.TIndoor)
-
-    def vets(self):
-        """ Return the vets team"""
-        return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.TVets)
-
 
 class ClubTeam(models.Model):
     """ Represents a Cambridge South team"""
@@ -160,8 +112,16 @@ class ClubTeam(models.Model):
 
     def abbr_name(self):
         """ Returns an abbreviated name, including the club (e.g. 'Cambridge South Mens 1')"""
-        if self.short_name in ['Mixed', 'Indoor']:
-            return "Cambridge South {}".format(self.short_name)
+        if self.short_name == 'Mixed':
+            return "Cambridge South Mixed"
+        elif self.short_name == 'MV':
+            return "Cambridge South Mens Vets"
+        elif self.short_name == 'LV':
+            return "Cambridge South Ladies Vets"
+        elif self.short_name == 'MInd':
+            return "Cambridge South Mens Indoor"
+        elif self.short_name == 'LInd':
+            return "Cambridge South Ladies Indoor"
         elif self.gender == TeamGender.Ladies:
             return "Cambridge South Ladies {}".format(ordinal_from_TeamOrdinal(self.ordinal))
         else:

@@ -87,10 +87,14 @@ class GoalKing(models.Model):
         "Goals for Ladies 5ths", default=0)
     mixed_goals = models.PositiveSmallIntegerField(
         "Goals for Mixed team", default=0)
-    indoor_goals = models.PositiveSmallIntegerField(
-        "Goals for the Indoor team", default=0)
+    mind_goals = models.PositiveSmallIntegerField(
+        "Goals for the Men's Indoor team", default=0)
     mv_goals = models.PositiveSmallIntegerField(
-        "Goals for the Vets team", null=True, blank=True, default=0)
+        "Goals for the Men's Vets team", null=True, blank=True, default=0)
+    lind_goals = models.PositiveSmallIntegerField(
+        "Goals for the Ladies' Indoor team", default=0)
+    lv_goals = models.PositiveSmallIntegerField(
+        "Goals for the Ladies' Vets team", null=True, blank=True, default=0)
 
     # Own-goal tallies for each team
     m1_own_goals = models.PositiveSmallIntegerField(
@@ -115,10 +119,14 @@ class GoalKing(models.Model):
         "Own goals for Ladies 5ths", default=0)
     mixed_own_goals = models.PositiveSmallIntegerField(
         "Own goals for Mixed team", default=0)
-    indoor_own_goals = models.PositiveSmallIntegerField(
-        "Own goals for the Indoor team", default=0)
+    mind_own_goals = models.PositiveSmallIntegerField(
+        "Own goals for the Men's Indoor team", default=0)
     mv_own_goals = models.PositiveSmallIntegerField(
-        "Own goals for the Vets team", null=True, blank=True, default=0)
+        "Own goals for the Men's Vets team", null=True, blank=True, default=0)
+    lind_own_goals = models.PositiveSmallIntegerField(
+        "Own goals for the Ladies' Indoor team", default=0)
+    lv_own_goals = models.PositiveSmallIntegerField(
+        "Own goals for the Ladies' Vets team", null=True, blank=True, default=0)
 
     # These are attributes (db fields) rather than just methods so that we can take advantage of
     # SQL ordering - we typically want to order goal king entries by total goals.
@@ -149,13 +157,13 @@ class GoalKing(models.Model):
         # Calculate non-editable, derived fields
         self.total_goals = (self.m1_goals + self.m2_goals + self.m3_goals + self.m4_goals +
                             self.m5_goals + self.l1_goals + self.l2_goals + self.l3_goals +
-                            self.l4_goals + self.l5_goals + self.mixed_goals + self.indoor_goals + 
-                            self.mv_goals)
+                            self.l4_goals + self.l5_goals + self.mixed_goals + self.mind_goals + 
+                            self.mv_goals + self.lind_goals + self.lv_goals)
         self.total_own_goals = (self.m1_own_goals + self.m2_own_goals + self.m3_own_goals +
                                 self.m4_own_goals + self.m5_own_goals + self.l1_own_goals +
                                 self.l2_own_goals + self.l3_own_goals + self.l4_own_goals +
-                                self.l5_own_goals + self.mixed_own_goals + self.indoor_own_goals + 
-                                self.mv_own_goals)
+                                self.l5_own_goals + self.mixed_own_goals + self.mind_own_goals + 
+                                self.mv_own_goals + self.lind_own_goals + self.lv_own_goals)
 
         self.gpg = self.goals_per_game()
         self.mpg = self.miles_per_game()
@@ -188,27 +196,31 @@ class GoalKing(models.Model):
         self.m3_goals = 0
         self.m4_goals = 0
         self.m5_goals = 0
+        self.mind_goals = 0
+        self.mv_goals = 0
         self.l1_goals = 0
         self.l2_goals = 0
         self.l3_goals = 0
         self.l4_goals = 0
         self.l5_goals = 0
+        self.lind_goals = 0
+        self.lv_goals = 0
         self.mixed_goals = 0
-        self.indoor_goals = 0
-        self.mv_goals = 0
         self.m1_own_goals = 0
         self.m2_own_goals = 0
         self.m3_own_goals = 0
         self.m4_own_goals = 0
         self.m5_own_goals = 0
+        self.mind_own_goals = 0
+        self.mv_own_goals = 0
         self.l1_own_goals = 0
         self.l2_own_goals = 0
         self.l3_own_goals = 0
         self.l4_own_goals = 0
         self.l5_own_goals = 0
+        self.lind_own_goals = 0
+        self.lv_own_goals = 0
         self.mixed_own_goals = 0
-        self.indoor_own_goals = 0
-        self.mv_own_goals = 0
 
     def add_appearance(self, appearance):
         """ Adds the details of an appearance to the GoalKing stat"""
@@ -227,59 +239,56 @@ class GoalKing(models.Model):
         if appearance.goals == 0 and appearance.own_goals == 0:
             return
 
-        gender = appearance.match.our_team.gender
-        ordinal = appearance.match.our_team.ordinal
+        short_name = appearance.match.our_team.short_name
 
-        if gender == TeamGender.Mens:
-            if ordinal == TeamOrdinal.T1:
-                self.m1_goals += appearance.goals
-                self.m1_own_goals += appearance.own_goals
-            elif ordinal == TeamOrdinal.T2:
-                self.m2_goals += appearance.goals
-                self.m2_own_goals += appearance.own_goals
-            elif ordinal == TeamOrdinal.T3:
-                self.m3_goals += appearance.goals
-                self.m3_own_goals += appearance.own_goals
-            elif ordinal == TeamOrdinal.T4:
-                self.m4_goals += appearance.goals
-                self.m4_own_goals += appearance.own_goals
-            elif ordinal == TeamOrdinal.T5:
-                self.m5_goals += appearance.goals
-                self.m5_own_goals += appearance.own_goals
-            elif ordinal == TeamOrdinal.TIndoor:
-                self.indoor_goals += appearance.goals
-                self.indoor_own_goals += appearance.own_goals
-            elif ordinal == TeamOrdinal.TVets:
-                self.mv_goals += appearance.goals
-                self.mv_own_goals += appearance.own_goals
-            else:
-                raise AssertionError(
-                    "Unexpected mens team: {}".format(ordinal))
-        elif gender == TeamGender.Ladies:
-            if ordinal == TeamOrdinal.T1:
-                self.l1_goals += appearance.goals
-                self.l1_own_goals += appearance.own_goals
-            elif ordinal == TeamOrdinal.T2:
-                self.l2_goals += appearance.goals
-                self.l2_own_goals += appearance.own_goals
-            elif ordinal == TeamOrdinal.T3:
-                self.l3_goals += appearance.goals
-                self.l3_own_goals += appearance.own_goals
-            elif ordinal == TeamOrdinal.T4:
-                self.l4_goals += appearance.goals
-                self.l4_own_goals += appearance.own_goals
-            elif ordinal == TeamOrdinal.T5:
-                self.l5_goals += appearance.goals
-                self.l5_own_goals += appearance.own_goals
-            else:
-                raise AssertionError(
-                    "Unexpected ladies team: {}".format(ordinal))
-        elif gender == TeamGender.Mixed:
+        if short_name == 'M1':
+            self.m1_goals += appearance.goals
+            self.m1_own_goals += appearance.own_goals
+        elif short_name == 'M2':
+            self.m2_goals += appearance.goals
+            self.m2_own_goals += appearance.own_goals
+        elif short_name == 'M3':
+            self.m3_goals += appearance.goals
+            self.m3_own_goals += appearance.own_goals
+        elif short_name == 'M4':
+            self.m4_goals += appearance.goals
+            self.m4_own_goals += appearance.own_goals
+        elif short_name == 'M5':
+            self.m5_goals += appearance.goals
+            self.m5_own_goals += appearance.own_goals
+        elif short_name == 'MInd':
+            self.mind_goals += appearance.goals
+            self.mind_own_goals += appearance.own_goals
+        elif short_name == 'MV':
+            self.mv_goals += appearance.goals
+            self.mv_own_goals += appearance.own_goals
+        elif short_name == 'L1':
+            self.l1_goals += appearance.goals
+            self.l1_own_goals += appearance.own_goals
+        elif short_name == 'L2':
+            self.l2_goals += appearance.goals
+            self.l2_own_goals += appearance.own_goals
+        elif short_name == 'L3':
+            self.l3_goals += appearance.goals
+            self.l3_own_goals += appearance.own_goals
+        elif short_name == 'L4':
+            self.l4_goals += appearance.goals
+            self.l4_own_goals += appearance.own_goals
+        elif short_name == 'L5':
+            self.l5_goals += appearance.goals
+            self.l5_own_goals += appearance.own_goals
+        elif short_name == 'LInd':
+            self.lind_goals += appearance.goals
+            self.lind_own_goals += appearance.own_goals
+        elif short_name == 'LV':
+            self.lv_goals += appearance.goals
+            self.lv_own_goals += appearance.own_goals
+        elif short_name == 'Mixed':
             self.mixed_goals += appearance.goals
             self.mixed_own_goals += appearance.own_goals
         else:
             raise AssertionError(
-                "Unexpected team: {}-{}".format(gender, ordinal))
+                "Unexpected team: {}".format(short_name))
 
     @staticmethod
     def update_for_season(season):

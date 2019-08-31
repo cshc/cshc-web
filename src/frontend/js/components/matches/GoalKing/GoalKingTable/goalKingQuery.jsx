@@ -18,13 +18,16 @@ export const GOAL_KING_QUERY = gql`
         m3Goals
         m4Goals
         m5Goals
+        mvGoals
+        mindGoals
         l1Goals
         l2Goals
         l3Goals
         l4Goals
         l5Goals
+        lvGoals
+        lindGoals
         mixedGoals
-        indoorGoals
         totalGoals
         gpg
       }

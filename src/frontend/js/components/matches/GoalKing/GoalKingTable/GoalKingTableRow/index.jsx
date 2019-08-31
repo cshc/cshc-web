@@ -43,9 +43,11 @@ const GoalKingTableRow = ({ entry, teamFilter, maxGoals }) => {
       <td className={teamClass('l3')}>{entry.l3Goals || ''}</td>
       <td className={teamClass('l4')}>{entry.l4Goals || ''}</td>
       <td className={teamClass('l5')}>{entry.l5Goals || ''}</td>
-      <td className={teamClass('mixed')}>{entry.mixedGoals || ''}</td>
-      <td className={teamClass('indoor')}>{entry.indoorGoals || ''}</td>
       <td className={teamClass('mv')}>{entry.mvGoals || ''}</td>
+      <td className={teamClass('lv')}>{entry.lvGoals || ''}</td>
+      <td className={teamClass('mind')}>{entry.mindGoals || ''}</td>
+      <td className={teamClass('lind')}>{entry.lindGoals || ''}</td>
+      <td className={teamClass('mixed')}>{entry.mixedGoals || ''}</td>
       <td className={teamFilter === NoFilter ? 'g-font-weight-600' : ''}>{entry.totalGoals}</td>
       <td>{entry.gpg.toFixed(2)}</td>
     </tr>
