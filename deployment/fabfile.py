@@ -5,8 +5,8 @@ from tasks import database, django, common
 
 ns = Collection(database, django, common)
 ns.configure({
-    'user': os.environ['MYTHIC_BEASTS_SSH_USER'],
+    'user': os.environ['CSHC_AWS_SSH_USER'],
     'connect_kwargs': {
-        'password': os.environ['MYTHIC_BEASTS_SSH_PASSWORD'],
+        'key_filename': os.environment['CSHC_WEB_KEY_PAIR_FILENAME'],
     },
 })

@@ -1,5 +1,5 @@
 database:
-    host: "mysql-51.int.mythic-beasts.com"
+    host: "ec2-35-176-194-167.eu-west-2.compute.amazonaws.com"
     name: "cshc"
     dump_filename: 'prod_dump.sql'
     local_sqlite_db: 'db.sqlite3'
