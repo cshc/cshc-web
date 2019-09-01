@@ -3,7 +3,6 @@
   "prettier.trailingComma": "es5",
   "javascript.validate.enable": false,
   "javascript.format.enable": false,
-  "editor.formatOnSave": true,
   "prettier.eslintIntegration": true,
   "python.venvPath": "${workspaceRoot}/venv",
   "python.pythonPath": "${workspaceRoot}/venv/Scripts/python.exe",
@@ -26,12 +25,12 @@
     "**/.DS_Store": true,
     "flow-typed": true
   },
-  "html.format.enable": false,
-  "restructuredtext.linter.executablePath":
-    "${workspaceRoot}/venv/Scripts/restructuredtext-lint.exe",
-  "restructuredtext.linter.run": "onSave",
+  "html.format.enable": true,
+  "restructuredtext.linter.executablePath": "${workspaceRoot}/venv/Scripts/restructuredtext-lint.exe",
+  "restructuredtext.linter.run": "off",
   "restructuredtext.builtDocumentationPath": "${workspaceRoot}/docs/_build/html",
   "restructuredtext.confPath": "c:\\cshcV3\\cshc-web/docs",
   "restructuredtext.updateOnTextChanged": "true",
-  "restructuredtext.sphinxBuildPath": "${workspaceRoot}/venv/Scripts"
+  "restructuredtext.sphinxBuildPath": "${workspaceRoot}/venv/Scripts",
+  "html.format.wrapLineLength": 200
 }
