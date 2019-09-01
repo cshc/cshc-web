@@ -29,7 +29,7 @@ INSTALLED_APPS += [
 
 MIDDLEWARE += [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'cshc.middleware.SQLPrintingMiddleware',
+    # 'cshc.middleware.SQLPrintingMiddleware',
 ]
 
 # Used by DJANGO_DEBUG_TOOLBAR - DEV ONLY
