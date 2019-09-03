@@ -18,7 +18,7 @@ def forwards_func(apps, schema_editor):
     # Change the short_name, ordinal and slug of the Men's Indoor Team
     mind = manager.get(short_name='Indoor')
     mind.short_name = 'MInd'
-    mind.ordinal = TeamOrdinal.TMInd
+    mind.ordinal = TeamOrdinal.TMIndoor
     mind.slug = 'mind'
     mind.save()
     

@@ -21,7 +21,7 @@ def forwards_func(apps, schema_editor):
         short_name='LInd',
         long_name="Ladies' Indoor Team",
         gender=TeamGender.Ladies,
-        ordinal=TeamOrdinal.TLInd,
+        ordinal=TeamOrdinal.TLIndoor,
         position=14,
         southerners=True,
         rivals=True,
