@@ -72,6 +72,7 @@ class MatchFilter(AndFilter):
     class Meta:
         model = Match
         fields = {
+            'home_away': ['exact'],
             'mom': ['exact'],
             'lom': ['exact'],
             'result': ['result'],

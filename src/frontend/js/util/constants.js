@@ -77,6 +77,7 @@ const MatchItem = toDict([
  */
 const FilterName = {
   HomeGround: 'homeGround',
+  HomeAway: 'homeAway',
   Season: 'season',
   CurrentSeason: 'currentSeason',
   TextSearch: 'textSearch',

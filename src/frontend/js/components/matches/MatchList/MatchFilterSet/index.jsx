@@ -24,6 +24,9 @@ export const urlPropsQueryConfig = {
   [FilterName.Division]: {
     type: UrlQueryParamTypes.string,
   },
+  [FilterName.HomeAway]: {
+    type: UrlQueryParamTypes.string,
+  },
   [FilterName.Venue]: {
     type: UrlQueryParamTypes.string,
   },
@@ -58,6 +61,10 @@ const MatchFilterSet = ({ teams, divisions, opposition_clubs, seasons, venues, m
     value: String(club.slug),
     label: club.name,
   }));
+  const homeAwayOptions = [
+    { value: 'Home', label: 'Home' },
+    { value: 'Away', label: 'Away' },
+  ];
   const resultOptions = ['Won', 'Drawn', 'Lost'].map(r => ({ value: r.toLowerCase(), label: r }));
   const seasonOptions = seasons.map(season => ({ value: season, label: season }));
   const fixtureTypeOptions = keys(FixtureType).map(ft => ({ value: ft, label: ft }));
@@ -115,6 +122,13 @@ const MatchFilterSet = ({ teams, divisions, opposition_clubs, seasons, venues, m
         filterName={FilterName.Result}
         options={resultOptions}
         urlQueryConfig={urlPropsQueryConfig[FilterName.Result]}
+        stacked
+      />
+      <SelectFilter
+        label="Home/Away"
+        filterName={FilterName.HomeAway}
+        options={homeAwayOptions}
+        urlQueryConfig={urlPropsQueryConfig[FilterName.HomeAway]}
         stacked
       />
       <SelectFilter
