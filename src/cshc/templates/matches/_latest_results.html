@@ -24,7 +24,9 @@ Context should have a 'latest_results' list of Match objects.
               </td>
     
               <td class="g-valign-middle">
-                <a href="{{ match.get_absolute_url }}">{{ match.our_team|capfirst }}</a>
+                <a class="decorated-link" title="View team details" href="{{ match.our_team.get_absolute_url }}">
+                  {{ match.our_team|capfirst }}
+                </a>
               </td>
               <td class="g-valign-middle text-center text-nowrap">
                 <a href="{{ match.get_absolute_url }}">
