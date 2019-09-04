@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import format from 'date-fns/format';
 import { NetworkStatus as NS } from 'apollo-client';
 import Match from 'models/match';
 import OurTeam from 'components/matches/OurTeam';
@@ -60,6 +61,14 @@ class MatchListDisplay extends React.Component {
               headerClassName: 'text-left',
               width: 90,
               Cell: row => <MatchDate date={row.value} format="Do MMM YY" />,
+            },
+            {
+              Header: 'Time',
+              id: 'time',
+              className: 'align-self-center',
+              headerClassName: 'text-left',
+              width: 90,
+              accessor: match => (match.time ? format(Match.datetime(match), 'H:mm') : null),
             },
             {
               Header: 'Team',

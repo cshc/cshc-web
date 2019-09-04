@@ -95,6 +95,7 @@ class MatchFilter(AndFilter):
         fields=(
             ('our_score', 'score'),
             ('date', 'date'),
+            ('time', 'time'),
             ('fixture_type', 'fixtureType'),
             ('our_team__short_name', 'ourTeam'),
             ('opp_team__name', 'oppTeam'),
