@@ -25,10 +25,19 @@
   }
 }
 
+.home-banner .table .date a,
+.home-banner .table .date a:hover {
+  color: #fff;
+}
+
 .home-banner .table .match td a,
 .home-banner .table .match td a:hover {
   color: #fff;
   text-decoration: none;
+}
+
+.home-banner .table .match td a.decorated-link:hover {
+  text-decoration: underline;
 }
 
 .home-banner tr.match {
