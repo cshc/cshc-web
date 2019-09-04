@@ -3,13 +3,19 @@ This re-usable template displays the next fixture for each team in the club.
 Context should have a 'next_fixtures' list of Match objects.
 {% endcomment %}
 
+{% url 'match_list' as matches_url %}
+
 {% if next_fixtures %}
 <div class="table-responsive">
   <table class="table table-sm g-ma-0">
     <tbody>
       {% for date in next_fixtures %}
         <tr class="date g-font-size-85x g-color-white g-brd-bottom g-brd-gray-light-v3">
-          <td colspan="5">{{ date.date|date:"jS M" }}</td>
+          <td colspan="5">
+            <a href="{{ matches_url }}?date={{ date.date|date:"d-m-Y" }}&orderBy=time" title="Matches on {{ date.date|date:"jS M" }}">
+              {{ date.date|date:"jS M" }}
+            </a>
+          </td>
         </tr>
         {% for match in date.matches %}
           <tr class="match" title="View match details" data-href="{{ match.get_absolute_url }}">
