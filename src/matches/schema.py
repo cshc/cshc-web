@@ -239,9 +239,9 @@ class UpdateMatch(graphene.relay.ClientIDMutation):
                 app, created = Appearance.objects.get_or_create(
                     member_id=app_data.member_id, match_id=match_data.match_id)
                 app.goals = app_data.goals if app_data.goals else 0
-                app.greenCardCount = app_data.greenCardCount if app_data.greenCardCount else 0
-                app.yellowCardCount = app_data.yellowCardCount if app_data.yellowCardCount else 0
-                app.redCard = app_data.redCard if app_data.redCard else False
+                app.green_card_count = app_data.greenCardCount if app_data.greenCardCount else 0
+                app.yellow_card_count = app_data.yellowCardCount if app_data.yellowCardCount else 0
+                app.red_card = app_data.redCard if app_data.redCard else False
                 app.clean()
                 app.save()
                 if created:
