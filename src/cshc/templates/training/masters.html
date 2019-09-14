@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap_breadcrumbs %}
+{% load thumbnail from sorl_thumbnail %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Women's Masters{% endblock %}
+
+{% block link %}
+  {% include 'blocks/_dszparallaxer_css.html' %}
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+
+{% block main %}
+
+{% url 'venue_detail' 'long-road' as long_road_url %}
+
+<div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll is-touch" data-options="{
+  settings_mode_oneelement_max_offset: '150'
+ }">
+  <!-- Parallax Image -->
+  <div class="divimage dzsparallaxer--target w-100" style="height: 140%; background-image: url(&quot;{% static "img/womens-masters-banner.jpg" %}&quot;); transform: translate3d(0px, 0px, 0px);"></div>
+  <section class="g-flex-centered g-height-500 g-color-white u-bg-overlay g-bg-black-opacity-0_6--after g-py-20">
+    <div class="container text-center u-bg-overlay__inner">
+      <h2 class="g-font-size-60 g-mb-80">Women's Masters Hockey</h2>
+      <p class="g-font-size-32 g-font-style-italic">Informal hockey for those over 35</p>
+    </div>
+  </section>
+</div>
+
+{% include 'core/_messages.html' %}
+
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
+  {% render_breadcrumbs %}
+
+  <p class="g-mb-20 g-mb-40--md g-font-size-16 g-font-size-24--md text-center">Cambridge South runs informal women’s over-35s hockey each week on Thursday evenings from 7pm to 7:45pm at
+  <a href="{{ long_road_url }}">Long Road Sixth Form College</a>.</p>
+  
+  <p class="lead">The sessions consist of a small-sided knock-around casual game on a half pitch. There are no umpires or keeping score, just a chance to run around with a hockey stick for some fun and exercise in a friendly, non-competitive session. Players don't have to be club members and new people are very welcome, whether complete beginners or coming back to the sport after a break. Spare sticks are available to borrow for players without their own, all you need is some comfortable sportswear. A mouthguard and shin pads are recommended.
+  </p>
+
+  {% include 'blocks/_divider.html' %}
+  
+  <section class="g-brd-around g-brd-5 g-brd-gray-light-v4 g-pa-30">
+    <div class="row">
+      <div class="col-md-9 align-self-center">
+        <h3 class="h4">If you'd like to come along and give it a go, do  
+          <a class="g-color-primary" href="mailto:masters@cambridgesouthhockeyclub.co.uk">email us</a>
+        </h3>
+        <p class="lead g-mb-20 g-mb-0--md">...or else just turn up at the pitch and introduce yourself. Sessions are 'pay as you go' and there's no need to book. The cost is £3 or £1.50 if unwaged, which can be paid by cash or card on the night.</p>
+      </div>
+
+      <div class="col-md-3 align-self-center text-md-right">
+        <a class="btn btn-md u-btn-primary g-brd-2 rounded-0" href="mailto:masters@cambridgesouthhockeyclub.co.uk">I'm interested!</a>
+      </div>
+    </div>
+  </section>
+
+</section>
+
+
+
+
+{% endblock main %}
+
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'blocks/_dszparallaxer_js.html' %}
+{% endblock %}

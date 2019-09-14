@@ -2,6 +2,7 @@
   URL endpoints for Training Sessions
 """
 from django.conf.urls import url
+from django.views.generic import TemplateView
 
 from . import views, feeds
 
@@ -30,5 +31,11 @@ urlpatterns = [
     url(r'^cshc_training.ics$',
         feeds.TrainingSessionICalFeed(),
         name="trainingsession_ical_feed"
+        ),
+
+    # E.g. '/training/masters/'             - Womens Masters details
+    url(r'^masters/$',
+        TemplateView.as_view(template_name='training/masters.html'),
+        name="training_masters"
         ),
 ]
