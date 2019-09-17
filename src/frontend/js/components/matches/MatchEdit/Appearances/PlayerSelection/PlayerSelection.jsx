@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FlipMove from 'react-flip-move';
 import some from 'lodash/some';
+import debounce from 'lodash/debounce';
 import { SelectValueLabelOptionsPropType } from 'components/common/PropTypes';
 import { CustomScrollbar } from 'components/Unify';
 import { AppearancePropType } from '../Appearance/Appearance';
@@ -14,6 +15,9 @@ const filterPlayerOptions = (playerOptions, appearances, playerFilter) => {
     const id = p.value.split(':')[0];
     if (appIds.includes(id)) return false;
     if (playerFilter) {
+      if (p.label.toLowerCase().startsWith(playerFilter)) {
+        return true;
+      }
       const split = p.label.split(' ');
       return some(split, n => n.toLowerCase().startsWith(playerFilter));
     }
@@ -64,14 +68,14 @@ class PlayerSelection extends React.PureComponent {
   }
 
   updateFilter(filterText) {
-    const playerFilter = filterText.toLowerCase();
+    const filteredPlayerOptions = filterPlayerOptions(
+      this.props.playerOptions,
+      this.props.appearances,
+      filterText.toLowerCase(),
+    );
     this.setState({
-      playerFilter,
-      filteredPlayerOptions: filterPlayerOptions(
-        this.props.playerOptions,
-        this.props.appearances,
-        playerFilter,
-      ),
+      playerFilter: filterText,
+      filteredPlayerOptions,
     });
   }
 
@@ -87,7 +91,7 @@ class PlayerSelection extends React.PureComponent {
             placeholder="Search for player..."
             value={playerFilter}
             onChange={(ev) => {
-              this.updateFilter(ev.target.value);
+              debounce(this.updateFilter(ev.target.value), 500);
             }}
           />
           <div className="input-group-append">
