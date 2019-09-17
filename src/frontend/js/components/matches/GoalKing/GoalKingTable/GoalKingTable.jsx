@@ -44,6 +44,7 @@ const GoalKingTable = ({ data, team, goalKingGender }) => {
             <th className="priority3">M3</th>
             <th className="priority3">M4</th>
             <th className="priority3">M5</th>
+            <th className="priority3">M6</th>
             <th className="priority3">L1</th>
             <th className="priority3">L2</th>
             <th className="priority3">L3</th>

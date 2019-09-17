@@ -32,7 +32,7 @@ class ClubTeamAdmin(admin.ModelAdmin):
     """ Admin interface for the ClubTeam model. """
     readonly_fields = ('slug',)
     list_display = ('short_name', 'long_name', 'slug', 'active', 'southerners',
-                    'rivals', 'fill_blanks', 'personal_stats')
+                    'rivals', 'fill_blanks', 'personal_stats', 'position')
 
 
 @admin.register(ClubTeamSeasonParticipation)
