@@ -179,7 +179,7 @@ class MatchEditView(PermissionRequiredMixin, SelectRelatedMixin, DetailView):
         """ Encode member as a "id:full-name" string """
         if not member:
             return ''
-        return "{id}:{first_name} {last_name}".format(**member.__dict__)
+        return "{id}:{first_name} {last_name}".format(id=member.id, first_name=member.pref_first_name(), last_name=member.last_name)
 
     def encode_cards(self, appearance):
         """ Encode the cards associated with an appearance as a comma-separated list (e.g. 'g,y') """
