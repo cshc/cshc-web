@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import debounce from 'lodash/debounce';
 import CKEditor from 'react-ckeditor-component';
 import CkEditorConfig from 'util/CkEditorConfig';
 import { SelectValueLabelOptionsPropType } from 'components/common/PropTypes';
@@ -26,20 +27,17 @@ class Report extends React.Component {
     const decodedReportContent = dom.body.innerHTML.replace(/\\r\\n/g, ' ');
 
     this.state = {
-      title: props.report.title || '',
       content: decodedReportContent || '',
     };
-    this.onBlurContent = this.onBlurContent.bind(this);
     this.updateAuthor = this.updateAuthor.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
     this.updateContent = this.updateContent.bind(this);
-  }
-
-  onBlurContent() {
-    this.props.onUpdateReport({
-      ...this.props.report,
-      content: this.state.content,
-    });
+    this.onUpdateReport = debounce(() => {
+      this.props.onUpdateReport({
+        ...this.props.report,
+        content: this.state.content,
+      });
+    }, 400);
   }
 
   updateAuthor(value) {
@@ -50,7 +48,6 @@ class Report extends React.Component {
   }
 
   updateTitle(ev) {
-    this.setState({ title: ev.target.value });
     this.props.onUpdateReport({
       ...this.props.report,
       title: ev.target.value,
@@ -59,12 +56,12 @@ class Report extends React.Component {
 
   updateContent(ev) {
     const newContent = ev.editor.getData();
-    this.setState({ content: newContent });
+    this.setState({ content: newContent }, this.onUpdateReport);
   }
 
   render() {
     const { authorOptions, report } = this.props;
-    const { content, title } = this.state;
+    const { content } = this.state;
     const editorConfig = CkEditorConfig();
     return (
       <div className="card-block">
@@ -89,7 +86,7 @@ class Report extends React.Component {
             id="report-title"
             className="form-control form-control-md rounded-0 g-max-width-400--md"
             type="text"
-            value={title}
+            value={report.title || ''}
             onChange={this.updateTitle}
           />
         </div>
@@ -100,7 +97,7 @@ class Report extends React.Component {
             config={editorConfig}
             isScriptLoaded={false}
             content={content}
-            events={{ change: this.updateContent, blur: this.onBlurContent }}
+            events={{ change: this.updateContent }}
           />
         </div>
       </div>
