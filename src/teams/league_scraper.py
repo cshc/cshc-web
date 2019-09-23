@@ -40,7 +40,8 @@ def get_hockey_east_division(url, division, season):
         dr.position = int(row.find(class_='team-standings__pos').text)
         name = row.find(class_='team-meta__name').text
         set_team(dr, name, division)
-        dr.played = int(row.find(class_='team-standings__played').text)
+        # HACK: Currently the club column also has the 'team-standings__played' class name
+        dr.played = int(row.find_all(class_='team-standings__played')[-1].text) 
         dr.won = int(row.find(class_='team-standings__win').text)
         dr.drawn = int(row.find(class_='team-standings__drawn').text)
         dr.lost = int(row.find(class_='team-standings__lose').text)
