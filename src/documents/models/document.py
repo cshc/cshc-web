@@ -7,6 +7,7 @@ Documents can be assigned a category and any number of tags.
 
 import os
 from django.db import models
+from django.utils import timezone
 from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
 from core.models import make_unique_filename
@@ -37,7 +38,7 @@ class Document(models.Model):
     description = RichTextField(blank=True)
     """ Description of the document """
 
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(default=timezone.now)
     """ Timestamp to associate with this document. Can be used to order documents chronologically. """
 
     file = models.FileField(upload_to=get_file_name)
