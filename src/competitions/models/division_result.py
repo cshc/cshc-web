@@ -63,7 +63,7 @@ class DivisionResult(models.Model):
     goals_for = models.PositiveSmallIntegerField(default=0)
     goals_against = models.PositiveSmallIntegerField(default=0)
     goal_difference = models.SmallIntegerField(default=0)
-    points = models.PositiveSmallIntegerField(default=0)
+    points = models.SmallIntegerField(default=0)
     notes = models.TextField(blank=True,
                              help_text="E.g. C for champion, P for promoted, R for relegated")
 
