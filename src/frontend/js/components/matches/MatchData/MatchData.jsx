@@ -12,36 +12,61 @@ import MatchTimeline from '../MatchTimeline';
  * 
  * Also supports excluding columns by name and setting priorities for columns (for responsive display)
  */
-const MatchData = ({
-  viewType,
-  matches,
-  onSelectViewType,
-  exclude,
-  priorities,
-  dateFormat,
-  showViewTypeSwitcher,
-  fillBlankSaturdays,
-}) => (
-  <div>
-    {showViewTypeSwitcher && (
-      <ViewSwitcher currentView={viewType} onSelectViewType={onSelectViewType}>
-        <ViewSwitcherView iconClass="fas fa-list" label={ViewType.Timeline} />
-        <ViewSwitcherView iconClass="fas fa-table" label={ViewType.Table} />
-      </ViewSwitcher>
-    )}
-    {viewType === ViewType.Timeline ? (
-      <MatchTimeline matches={matches} exclude={exclude} dateFormat={dateFormat} />
-    ) : (
-      <MatchTable
-        matches={matches}
-        excludeColumns={exclude}
-        dateFormat={dateFormat}
-        priorities={priorities}
-        fillBlankSaturdays={fillBlankSaturdays}
-      />
-    )}
-  </div>
-);
+class MatchData extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+    };
+  }
+
+  componentDidCatch(error) {
+    console.error('Unhandled exception caught by component', error);
+    this.setState({ error });
+  }
+
+  render() {
+    const {
+      viewType,
+      matches,
+      onSelectViewType,
+      exclude,
+      priorities,
+      dateFormat,
+      showViewTypeSwitcher,
+      fillBlankSaturdays,
+    } = this.props;
+    const { error } = this.state;
+    if (error) {
+      return (
+        <div>
+          <p className="lead g-font-style-italic">Sorry - match data not available</p>
+        </div>
+      );
+    }
+    return (
+      <div>
+        {showViewTypeSwitcher && (
+          <ViewSwitcher currentView={viewType} onSelectViewType={onSelectViewType}>
+            <ViewSwitcherView iconClass="fas fa-list" label={ViewType.Timeline} />
+            <ViewSwitcherView iconClass="fas fa-table" label={ViewType.Table} />
+          </ViewSwitcher>
+        )}
+        {viewType === ViewType.Timeline ? (
+          <MatchTimeline matches={matches} exclude={exclude} dateFormat={dateFormat} />
+        ) : (
+          <MatchTable
+            matches={matches}
+            excludeColumns={exclude}
+            dateFormat={dateFormat}
+            priorities={priorities}
+            fillBlankSaturdays={fillBlankSaturdays}
+          />
+        )}
+      </div>
+    );
+  }
+}
 
 MatchData.propTypes = {
   viewType: PropTypes.string.isRequired,

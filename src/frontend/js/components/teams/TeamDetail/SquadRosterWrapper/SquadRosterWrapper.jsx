@@ -15,6 +15,7 @@ class SquadRosterWrapper extends React.Component {
     super(props);
     this.state = {
       fixtureType: NoFilter,
+      error: null,
     };
     this.onSetFixtureType = this.onSetFixtureType.bind(this);
   }
@@ -23,8 +24,21 @@ class SquadRosterWrapper extends React.Component {
     this.setState({ fixtureType });
   }
 
+  componentDidCatch(error) {
+    console.error('Unhandled exception caught by component', error);
+    this.setState({ error });
+  }
+
   render() {
     const { teamId, seasonId, viewType, onSelectViewType } = this.props;
+    const { error } = this.state;
+    if (error) {
+      return (
+        <div>
+          <p className="lead g-font-style-italic">Sorry - squad roster not available</p>
+        </div>
+      );
+    }
     return (
       <div>
         <div className="row g-mb-15">
