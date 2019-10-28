@@ -120,7 +120,7 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
         'EXCHANGE_TOKEN': True,
         'VERIFIED_EMAIL': False,
-        'VERSION': 'v2.10',
+        'VERSION': 'v4.0',
     },
     'linkedin': {
         'SCOPE': [
