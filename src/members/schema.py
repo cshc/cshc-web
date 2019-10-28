@@ -213,6 +213,11 @@ class AddMember(graphene.relay.ClientIDMutation):
             gender=member_data.gender,
             defaults={'is_current': True},
         )
+        # Make sure they're current now, if they weren't before
+        if not created and not member.is_current:
+            member.is_current = True;
+            member.save()
+
         errors = ['This member already exists'] if not created else None
 
         return cls(new_member=member, errors=errors)
