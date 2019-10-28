@@ -127,7 +127,7 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
         context["enable_live_comments"] = live_comments_enabled.value in [
             'True', 'true', 'yes', '1']
 
-        if match.our_team.slug in ['mind', 'lind']:
+        if match.our_team.slug in ['m-in', 'l-in']:
             context['background_image_full'] = "img/matches/indoor.jpg"
         else:
             context['background_image_full'] = "img/matches/{}.jpg".format(

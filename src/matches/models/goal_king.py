@@ -265,7 +265,7 @@ class GoalKing(models.Model):
         elif short_name == 'M6':
             self.m6_goals += appearance.goals
             self.m6_own_goals += appearance.own_goals
-        elif short_name == 'MInd':
+        elif short_name == 'M-In':
             self.mind_goals += appearance.goals
             self.mind_own_goals += appearance.own_goals
         elif short_name == 'MV':
@@ -286,7 +286,7 @@ class GoalKing(models.Model):
         elif short_name == 'L5':
             self.l5_goals += appearance.goals
             self.l5_own_goals += appearance.own_goals
-        elif short_name == 'LInd':
+        elif short_name == 'L-In':
             self.lind_goals += appearance.goals
             self.lind_own_goals += appearance.own_goals
         elif short_name == 'LV':

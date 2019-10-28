@@ -57,10 +57,10 @@ const GoalKingTable = ({ data, team, goalKingGender }) => {
               <abbr title="Ladies' Vets team">LV</abbr>
             </th>
             <th className="priority3">
-              <abbr title="Men's Indoor team">MInd</abbr>
+              <abbr title="Men's Indoor team">M-In</abbr>
             </th>
             <th className="priority3">
-              <abbr title="Ladies' Indoor team">LInd</abbr>
+              <abbr title="Ladies' Indoor team">L-In</abbr>
             </th>
             <th className="priority3">
               <abbr title="Mixed team">Mix</abbr>

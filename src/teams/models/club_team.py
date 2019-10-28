@@ -118,9 +118,9 @@ class ClubTeam(models.Model):
             return "Cambridge South Mens Vets"
         elif self.short_name == 'LV':
             return "Cambridge South Ladies Vets"
-        elif self.short_name == 'MInd':
+        elif self.short_name == 'M-In':
             return "Cambridge South Mens Indoor"
-        elif self.short_name == 'LInd':
+        elif self.short_name == 'L-In':
             return "Cambridge South Ladies Indoor"
         elif self.gender == TeamGender.Ladies:
             return "Cambridge South Ladies {}".format(ordinal_from_TeamOrdinal(self.ordinal))
