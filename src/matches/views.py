@@ -276,10 +276,11 @@ class MatchEditView(PermissionRequiredMixin, SelectRelatedMixin, DetailView):
             last_match = Match.objects.filter(our_team_id=match.our_team_id,
                                               date__lt=match.date).order_by('-date').first()
 
-            last_match_player_qs = Member.objects.filter(
-                appearances__match_id=last_match.id).order_by('-first_name', '-last_name').only(*member_fields)
+            if last_match:
+                last_match_player_qs = Member.objects.filter(
+                    appearances__match_id=last_match.id).order_by('-first_name', '-last_name').only(*member_fields)
 
-            last_match_players = self.to_player_list(last_match_player_qs)
+                last_match_players = self.to_player_list(last_match_player_qs)
         except Match.DoesNotExist:
             pass
 
