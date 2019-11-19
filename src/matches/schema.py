@@ -16,18 +16,26 @@ from .models import Match, Appearance, GoalKing
 
 LOG = logging.getLogger(__name__)
 
+def map_team_name(team):
+    if team == 'm-in':
+        return 'mind'
+    elif team == 'l-in':
+        return 'lind'
+    return team
+
 
 class GoalKingFilter(AndFilter):
     """ Goal King Filters """
     team = django_filters.CharFilter(name='team', method='filter_team')
 
     def filter_team(self, queryset, name, value):
+        team = map_team_name(value)
         # filter for entries where the player has scored for the corresponding team.
-        filter_name = "{}_goals__gt".format(value)
+        filter_name = "{}_goals__gt".format(team)
         kwargs = {
             filter_name: 0
         }
-        return queryset.filter(**kwargs).order_by("-{}_goals".format(value))
+        return queryset.filter(**kwargs).order_by("-{}_goals".format(team))
 
     class Meta:
         model = GoalKing
@@ -308,9 +316,10 @@ def post_optimize_goal_king_entries(queryset, **kwargs):
     order_field = '-total_goals'
     if 'team' in kwargs:
         team = kwargs.pop('team')
-        order_field = '-{}_goals'.format(team)
+        team_name = map_team_name(team)
+        order_field = '-{}_goals'.format(team_name)
         team_kwargs = {}
-        team_kwargs["{}_goals__gt".format(team)] = 0
+        team_kwargs["{}_goals__gt".format(team_name)] = 0
         queryset = queryset.filter(**team_kwargs)
 
     return queryset.filter(total_goals__gt=0).order_by(order_field, '-gpg')
