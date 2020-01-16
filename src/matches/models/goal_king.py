@@ -87,6 +87,8 @@ class GoalKing(models.Model):
         "Goals for Ladies 4ths", default=0)
     l5_goals = models.PositiveSmallIntegerField(
         "Goals for Ladies 5ths", default=0)
+    l6_goals = models.PositiveSmallIntegerField(
+        "Goals for Ladies 6ths", default=0)
     mixed_goals = models.PositiveSmallIntegerField(
         "Goals for Mixed team", default=0)
     mind_goals = models.PositiveSmallIntegerField(
@@ -121,6 +123,8 @@ class GoalKing(models.Model):
         "Own goals for Ladies 4ths", default=0)
     l5_own_goals = models.PositiveSmallIntegerField(
         "Own goals for Ladies 5ths", default=0)
+    l6_own_goals = models.PositiveSmallIntegerField(
+        "Own goals for Ladies 6ths", default=0)
     mixed_own_goals = models.PositiveSmallIntegerField(
         "Own goals for Mixed team", default=0)
     mind_own_goals = models.PositiveSmallIntegerField(
@@ -161,12 +165,12 @@ class GoalKing(models.Model):
         # Calculate non-editable, derived fields
         self.total_goals = (self.m1_goals + self.m2_goals + self.m3_goals + self.m4_goals +
                             self.m5_goals + self.m6_goals + self.l1_goals + self.l2_goals + self.l3_goals +
-                            self.l4_goals + self.l5_goals + self.mixed_goals + self.mind_goals + 
+                            self.l4_goals + self.l5_goals + self.l6_goals + self.mixed_goals + self.mind_goals + 
                             self.mv_goals + self.lind_goals + self.lv_goals)
         self.total_own_goals = (self.m1_own_goals + self.m2_own_goals + self.m3_own_goals +
                                 self.m4_own_goals + self.m5_own_goals + self.m6_own_goals + self.l1_own_goals +
                                 self.l2_own_goals + self.l3_own_goals + self.l4_own_goals +
-                                self.l5_own_goals + self.mixed_own_goals + self.mind_own_goals + 
+                                self.l5_own_goals + self.l6_own_goals + self.mixed_own_goals + self.mind_own_goals + 
                                 self.mv_own_goals + self.lind_own_goals + self.lv_own_goals)
 
         self.gpg = self.goals_per_game()
@@ -208,6 +212,7 @@ class GoalKing(models.Model):
         self.l3_goals = 0
         self.l4_goals = 0
         self.l5_goals = 0
+        self.l6_goals = 0
         self.lind_goals = 0
         self.lv_goals = 0
         self.mixed_goals = 0
@@ -224,6 +229,7 @@ class GoalKing(models.Model):
         self.l3_own_goals = 0
         self.l4_own_goals = 0
         self.l5_own_goals = 0
+        self.l6_own_goals = 0
         self.lind_own_goals = 0
         self.lv_own_goals = 0
         self.mixed_own_goals = 0
@@ -286,6 +292,9 @@ class GoalKing(models.Model):
         elif short_name == 'L5':
             self.l5_goals += appearance.goals
             self.l5_own_goals += appearance.own_goals
+        elif short_name == 'L6':
+            self.l6_goals += appearance.goals
+            self.l6_own_goals += appearance.own_goals
         elif short_name == 'L-In':
             self.lind_goals += appearance.goals
             self.lind_own_goals += appearance.own_goals
