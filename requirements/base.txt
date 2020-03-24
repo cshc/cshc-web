@@ -36,7 +36,7 @@ attrs==17.3.0
 django-cursor-pagination==0.1.2
 
 # Bleach - used by json template tag filter
-bleach==2.1.1
+bleach==3.1.2
 
 # Django CKEditor (wysiwyg editor support)
 # Ref: https://django-ckeditor.readthedocs.io/en/latest/
