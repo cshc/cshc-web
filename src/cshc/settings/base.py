@@ -222,6 +222,7 @@ LOCAL_APPS = [
     'awards.apps.AwardsConfig',
     'documents.apps.DocumentsConfig',
     'offers.apps.OffersConfig',
+    'announcements.apps.AnnouncementsConfig',
     'unify.apps.UnifyConfig',
     'availability.apps.AvailabilityConfig',
 ]
@@ -343,6 +344,11 @@ LOGGING = {
         },
         'sorl.thumbnail': {
             'level': 'WARN',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'announcements': {
+            'level': 'INFO',
             'handlers': ['console'],
             'propagate': False,
         },

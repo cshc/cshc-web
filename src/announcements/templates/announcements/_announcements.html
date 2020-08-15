@@ -1,0 +1,23 @@
+{% load cshc_tags %}
+{% load announcements %}
+{% load static %}
+
+{% if announcements %}
+<section class="cshc-messages container">
+  {% for announcement in announcements %}
+    <div class="alert alert-dismissible fade show {{ announcement.color }} rounded-0 g-my-10" role="alert">
+      <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="media">
+        <span class="d-flex g-mr-10 g-mt-5">
+          <i class="{{ announcement.icon }} g-font-size-25"></i>
+        </span>
+        <span class="media-body align-self-center">
+          <strong>{{ announcement.title }}</strong>&nbsp;{{ announcement.content|safe }}
+        </span>
+      </div>
+    </div>
+  {% endfor %}
+</section>
+{% endif %}

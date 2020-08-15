@@ -5,6 +5,7 @@
 {% load cshc_tags %}
 {% load zinnia %}
 {% load compress %}
+{% load announcements %}
 
 {% block breadcrumbs %}
 {{ block.super }}
@@ -61,6 +62,8 @@
         </div>
     </div>
 </section>  
+
+{% list_announcements template="announcements/_announcements.html" %}
 
 {% include 'core/_messages.html' %}
 
