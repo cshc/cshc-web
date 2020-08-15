@@ -30,9 +30,6 @@ const Urls = {
 
   get: urlName => Urls.buildUrl(urlName),
 
-  about_committee_season: slug =>
-    Urls.buildUrl('about_committee_season', { [window.cshcUrls.slugPlaceholder]: slug }),
-
   eos_award_winners: () => Urls.buildUrl('eos_award_winners', {}),
 
   member_detail: id => Urls.buildUrl('member_detail', { [window.cshcUrls.pkPlaceholder]: id }),

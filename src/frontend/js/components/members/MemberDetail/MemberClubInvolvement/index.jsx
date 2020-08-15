@@ -50,13 +50,6 @@ const MemberClubInvolvement = ({ member }) => {
         <div className="col-md-6 g-mb-20">
           <Panel className="g-mb-0 g-height-100x" title="Committee Positions" {...panelProps}>
             <div className="card-block">
-              <p>
-                Full details of the CSHC committee for each year can be found{' '}
-                <a href={Urls.get('about_committee')} title="Committee Details">
-                  here
-                </a>. Alternatively, click on a year in the timeline below to see the full committee
-                for that year.
-              </p>
               <CommitteeMemberships memberId={member.id} />
             </div>
           </Panel>

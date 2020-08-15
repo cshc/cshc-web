@@ -48,12 +48,14 @@ urlpatterns = [
     url(r'^join-us/$',
         TemplateView.as_view(template_name='club_info/join_us.html'), name='join_us'),
 
-    url(r'^about/committee/$', CommitteeSeasonView.as_view(), name="about_committee"),
+    # TEMP: Hide the committee page
+    # url(r'^about/committee/$', CommitteeSeasonView.as_view(), name="about_committee"),
+
     # E.g. '/about/committee/2011-2012/'
-    url(r'^about/committee/(?P<season_slug>[-\w]+)/$',
-        CommitteeSeasonView.as_view(),
-        name="about_committee_season",
-        ),
+    # url(r'^about/committee/(?P<season_slug>[-\w]+)/$',
+    #     CommitteeSeasonView.as_view(),
+    #     name="about_committee_season",
+    #     ),
 
     url(r'^archive/minutes/$', TemplateView.as_view(
         template_name='club_info/minutes.html'), name='about_minutes'),

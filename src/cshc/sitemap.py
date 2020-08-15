@@ -31,7 +31,7 @@ class MainStaticViewSitemap(Sitemap):
     def items(self):
         return [
             'homepage', 'about_us', 'about_social', 'directions', 'about_kit', 'member_offers',
-            'calendar', 'join_us', 'about_committee', 'juniors_index', 'contact_us',
+            'calendar', 'join_us', 'juniors_index', 'contact_us',
             'stats',
         ]
 
@@ -53,23 +53,23 @@ class ArchiveStaticViewSitemap(Sitemap):
         return reverse(obj)
 
 
-class CommitteeSitemap(SeasonalSitemap):
-    """ Sitemap of committee pages through the years. """
+# class CommitteeSitemap(SeasonalSitemap):
+#     """ Sitemap of committee pages through the years. """
 
-    def priority(self, item):
-        if item == Season.current():
-            return 1.0
-        else:
-            return 0.7
+#     def priority(self, item):
+#         if item == Season.current():
+#             return 1.0
+#         else:
+#             return 0.7
 
-    def changefreq(self, item):
-        if item == Season.current():
-            return 'monthly'
-        else:
-            return 'yearly'
+#     def changefreq(self, item):
+#         if item == Season.current():
+#             return 'monthly'
+#         else:
+#             return 'yearly'
 
-    def url_name(self):
-        return 'about_committee_season'
+#     def url_name(self):
+#         return 'about_committee_season'
 
 
 # Dictionary of sitemap sections to Sitemap classes
@@ -85,7 +85,6 @@ CshcSitemap = {
     'flatpages': FlatPageSitemap,
     'main': MainStaticViewSitemap,
     'archive': ArchiveStaticViewSitemap,
-    'committee': CommitteeSitemap,
 
     # Zinnia Blog - ref: http://django-blog-zinnia.readthedocs.org/en/latest/getting-started/configuration.html#module-zinnia.sitemaps
     'tags': TagSitemap,
