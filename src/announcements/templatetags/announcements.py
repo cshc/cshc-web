@@ -31,6 +31,5 @@ def list_announcements(template):
     } for a in Announcement.objects.active()]
     for a in announcements:
         a.update(getAttribs(a))
-    print(announcements)
     return {'template': template,
             'announcements': announcements}
