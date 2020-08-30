@@ -13,30 +13,36 @@
 {% block content %}
 
 {% url 'match_ical_feed' as all_fixtures_cal %}
-{% url 'clubteam_ical_feed' 'm1' as m1_cal %}
-{% url 'clubteam_ical_feed' 'm2' as m2_cal %}
-{% url 'clubteam_ical_feed' 'm3' as m3_cal %}
-{% url 'clubteam_ical_feed' 'm4' as m4_cal %}
-{% url 'clubteam_ical_feed' 'm5' as m5_cal %}
-{% url 'clubteam_ical_feed' 'l1' as l1_cal %}
-{% url 'clubteam_ical_feed' 'l2' as l2_cal %}
-{% url 'clubteam_ical_feed' 'l3' as l3_cal %}
-{% url 'clubteam_ical_feed' 'l4' as l4_cal %}
-{% url 'clubteam_ical_feed' 'l5' as l5_cal %}
 {% url 'trainingsession_ical_feed' as training_cal %}
 
 {% heading "Calendar" %}
 
 {% comment %} Embedded Google Calendar {% endcomment %}
-<iframe frameborder="0" height="900" scrolling="no" src="https://www.google.com/calendar/embed?showTitle=0&amp;showCalendars=0&amp;showTz=0&amp;
-mode={% if request.user_agent.is_mobile %}AGENDA{% else %}MONTH{% endif %}&amp;
-height800&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;
-{% for team in teams %}{% if team.google_calendar_url %}src={{ team.google_calendar_url }}&amp;color=%{% if team.gender == 'Male' %}23125A12{% else %}232952A3{% endif %}&amp;{% endif %}{% endfor %}
-src={{ training_gcal }}&amp;color=%23000000&amp;
-src={{ events_gcal }}&amp;color=%23000000&amp;
-src={{ juniors_gcal }}&amp;color=%23FF0000&amp;
-ctz=Europe%2FLondon" style="border-right-width: 0px; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" width="100%"></iframe>
 
+<iframe src="https://calendar.google.com/calendar/embed?height=900&amp;wkst=2&amp;bgcolor=%23ffffff&amp;ctz=Europe%2FLondon&amp;
+mode={% if request.user_agent.is_mobile %}AGENDA{% else %}MONTH{% endif %}&amp;
+src=NG9hdGk3ZWU2MjMxaGI2Z3RhamlmdDVodnNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;
+src=dDdkaGwxazU0cnFiNm1tdDBodXU3NzhhYzhAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;
+src=Y2hnMGI3MzhiMDRwOWppM3F0ZDVzN3Uya3IxaDk4bmpAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+src=azM2bGxpZjRlMWdiOTczbGdzMWFrc2pibGl1NDVybHJAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+src=M3I5cWFiamNiaGg2am1ma3NiZDNyZGhsZHE0MXNzMnNAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+src=MnZrcmhzaThsYTg5YmJjODhnYnZrYThvMHBobWdkcTFAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+src=bHMxNTJidmgxN2E0aDN0NjkyMHFiZGc5ZmxyMmZodW9AaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+src=Y2Y5cHQxbTZqam1kbjB1ZmZoMnVzZGJ1bGVrMDE0cDNAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+src=dGlldmJoMjM4MGdrZGtxYXU4ZjBzaThicm1tMjA0NmVAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+src=cWYwNG5kMTM3Y2hxY2I0c2ZqMTRpdjlycWVlbzhyMTJAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+src=OGJmbmVpa2kxcGwwdjJkZ203ZG9rN29lYWk1cDU0NW5AaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+src=NWxkcnU2dm9hMmJmbGkwZHQ3cTFhZm1vcGR0czFlODJAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+src=MG1iajhoM2cxdGphMG1hdTZ2c3I0MmxzdWFwamIyajNAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+src=YzVrY3FiOW52ZzQyNDllNGwyb2k2MmY1cjczY2JjaDZAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+src=cnRubWkwYnRkazFmaTQ5ZWZybzVtMjhlbGVycmYxdDRAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+src=OWZrOG5wODNwZTRra29ka2FlZmwwZTNzdGduM3Nvc2ZAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+src=NTViNzZrcDA5dm1tY2sxNzk4NWp0OHFjZTA4ZTlqZWVAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;
+color=%23EF6C00&amp;color=%23C0CA33&amp;color=%23F6BF26&amp;color=%23A79B8E&amp;color=%23795548&amp;
+color=%23039BE5&amp;color=%23E4C441&amp;color=%237CB342&amp;color=%237986CB&amp;color=%23F6BF26&amp;
+color=%23F4511E&amp;color=%23B39DDB&amp;color=%23D81B60&amp;color=%23616161&amp;color=%238E24AA&amp;
+color=%23A79B8E&amp;color=%233F51B5&amp;showTitle=0&amp;showPrint=0&amp;hl=en_GB" 
+style="border-width:0" width="100%" height="900" frameborder="0" scrolling="no"></iframe>
 
 <section id="feeds" class="g-pt-40">
     {% subheading "Calendar Feeds" %}
