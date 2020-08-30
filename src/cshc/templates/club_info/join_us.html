@@ -57,13 +57,16 @@
 </div>
 
 {% include 'blocks/_middle_heading.html' with title="Annual Subscriptions" id="fees" %}
+
+{% clubinfo 'SubsFull' as subs_full %}
+{% clubinfo 'SubsDiscount' as subs_discount %}
 <div class="row justify-content-center">
   <div class="col-12 col-md-6 col-lg-4">
     <div class="u-shadow-v1-5 g-bg-primary g-color-white g-line-height-2 g-pa-40 g-mb-30 text-center">
         <h3 class="h2 g-font-weight-300 g-mb-20">Waged</h3>
       <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
         <span class="g-valign-top g-font-size-default">&pound;</span>
-        110
+        {{ subs_full }}
         <span class="g-font-size-default">/ year</span>
       </strong>
     </div>
@@ -73,7 +76,7 @@
         <h3 class="h2 g-font-weight-300 g-mb-20">Students/Unwaged</h3>
       <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
         <span class="g-valign-top g-font-size-default">&pound;</span>
-        55
+        {{ subs_discount }}
         <span class="g-font-size-default">/ year</span>
       </strong>
     </div>
@@ -83,13 +86,15 @@
 
 {% include 'blocks/_middle_heading.html' with title="Match Fees*" %}
 
+{% clubinfo 'MatchFeesFull' as match_fees_full %}
+{% clubinfo 'MatchFeesDiscount' as match_fees_discount %}
 <div class="row justify-content-center">
   <div class="col-12 col-md-6 col-lg-4">
     <div class="u-shadow-v1-5 g-bg-primary g-color-white g-line-height-2 g-pa-40 g-mb-30 text-center">
         <h3 class="h2 g-font-weight-300 g-mb-20">Waged</h3>
       <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
         <span class="g-valign-top g-font-size-default">&pound;</span>
-        9
+        {{ match_fees_full }}
         <span class="g-font-size-default">/ match</span>
       </strong>
     </div>
@@ -99,7 +104,7 @@
         <h3 class="h2 g-font-weight-300 g-mb-20">Students/Unwaged</h3>
       <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
         <span class="g-valign-top g-font-size-default">&pound;</span>
-        4.50
+        {{ match_fees_discount }}
         <span class="g-font-size-default">/ match</span>
       </strong>
     </div>

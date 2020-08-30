@@ -52,12 +52,12 @@
       on Saturday mornings and older groups on Wednesday evenings. Training sessions are led by professional coaches assisted by club player-coaches.
   </p>
   <p class="lead">
-    The sessions are for boys and girls, aimed at players from year 2 to year 11. Training is based 
-    around the <a href="http://www.playquicksticks.co.uk" target="_blank"/>‘Quicksticks’</a> (for younger children) and 
+    The sessions are for boys and girls, aimed at players from year 2 to year 9 (ages 6 to 14). Training is based around the 
+    <a href="http://www.playquicksticks.co.uk" target="_blank"/>‘Quicksticks’</a> (for younger children) and 
     <a href="http://in2hockey.englandhockey.co.uk/">In2Hockey</a> (for older players) forms of the game played in schools. The 
     junior sessions are focused on teaching and developing basic skills and team play, ultimately providing a pathway towards 
-    senior team hockey. Junior players can start to train and play with the club’s senior teams, alongside their age-group based 
-    hockey, from age 13 upwards.
+    senior team hockey. Junior players can start to train and play with the <a href="{{ training }}" title="Seniors Training">club’s senior teams</a>, 
+    alongside their age-group based hockey, from age 13 upwards.
   </p>
   <p class="lead">
     We offer a <strong>free 3 session taster</strong> for new players to try out without commitment. The subscription fee is due your fourth 
@@ -74,21 +74,21 @@
           </tr>
           <tr>
             <td class="jnr-table--heading">Time</td>
-            <td class="jnr-table--details">U8-U12 (years 2-7): Saturdays 9-10am<br />U14-U16 (years 8-11): Wednesdays 6.30-7.30pm</td>
+            <td class="jnr-table--details">U8-U10 (years 2-5): Saturdays 9-10am<br />U12-U14 (years 6-9): Wednesdays 6.30-7.30pm</td>
           </tr>
           <tr>
             <td class="jnr-table--heading">Dates</td>
             <td class="jnr-table--details">
-              <div class="jnr-table--title">2019/20</div><br/>
+              <div class="jnr-table--title">2020/21</div><br/>
               <div class="jnr-table--heading">Autumn term (12 weeks)</div>
               <div class="jnr-table--context">
-                U8-U12: 7th September - 7th December (half term break 19th &amp; 26th October)<br />
-                U14-U16: 11th September - 4th December (half term break 23rd October)
+                U8-U10: 12th September - 12th December (half term break 24th &amp; 31st October)<br />
+                U12-U14: 16th September - 9th December (half term break 28th October)
               </div><br/>
               <div class="jnr-table--heading">Spring term (10 weeks)</div>
               <div class="jnr-table--context">
-                U8-U12: 11th January - 28th March (half term break 15th &amp; 22nd February)<br />
-                U14-U16: 15th January - 25th March (half term break 19th February)
+                U8-U10: 9th January - 27th March (half term break 13th &amp; 20th February)<br />
+                U12-U14: 13th January - 24th March (half term break 17th February)
               </div>
             </td>
           </tr>
@@ -106,7 +106,7 @@
     </div>
     <div class="col-md-4">
       <div class="u-shadow-v5 g-bg-white g-brd-around g-brd-gray-light-v4 g-pa-20 text-center" role="alert">
-        <p>Membership subscription includes a<br/><strong>free club T-shirt</strong></p>
+        <p>New members receive a<br/><strong>free club T-shirt</strong></p>
         {% abs_static_url "img/kit/junior_playing_t_shirt.jpg" as juniors_shirt_image %}
         {% thumbnail juniors_shirt_image "320" as juniors_shirt_image_thumbnail %}
           <img class="w-100" src="{{ juniors_shirt_image_thumbnail.url }}"/>
@@ -218,8 +218,8 @@
   </div>
 </section>
 
+{% static "img/members/kendra_seed.jpg" as kendra_pic %}
 {% static "img/members/laura_edge.jpg" as laura_pic %}
-{% static "img/avatar-placeholder.jpg" as jack_pic %}
 {% static "img/members/bhav_virdi.jpg" as bhav_pic %}
 <section id="key_people" class="g-bg-secondary">
   <div class="container g-py-60">
@@ -227,15 +227,15 @@
 
     <div class="row justify-content-md-center">
       <div class="col-lg-3 col-sm-6 g-mb-30">
-        {% include 'club_info/_junior_contact.html' with thumbnail=laura_pic name="Laura Edge" email="juniors@cambridgesouthhockeyclub.co.uk" position="Juniors Membership Officer" blurb="Laura has been a member of the club since 2013. For the past three years she has been the captain for the ladies development side in the Club, transitioning players from junior members to senior training and league games." %}
+        {% include 'club_info/_junior_contact.html' with thumbnail=kendra_pic name="Kendra Seed" email="juniors@cambridgesouthhockeyclub.co.uk" position="Juniors Coordinator" blurb="Kendra has been at Cambridge South since 2009 and has played for the L1s and L2s. She is a Level 2 Certificate England Hockey Coach, coaching our junior hockey on Saturdays and is a games teacher during the week. She co-ordinates the Juniors' fixtures and overseas the Junior section. Her passion is to see as many children from different backgrounds as possible playing and enjoying hockey." %}
       </div>
 
       <div class="col-lg-3 col-sm-6 g-mb-30">
-        {% include 'club_info/_junior_contact.html' with thumbnail=jack_pic name="Jack Chalk" email="welfare@cambridgesouthhockeyclub.co.uk" position="Welfare Officer" blurb="The Welfare Officer is a member of the club committee and represents the interests of junior members during Cambridge South Hockey Club committee meetings, to ensure that club policies decided at these meetings comply to those outlined by England Hockey." %}
+        {% include 'club_info/_junior_contact.html' with thumbnail=bhav_pic name="Bhav Virdi" position="Juniors Coach" blurb="Bhav's been at CSHC since 2009 and has played for the M1s and M2s in his time at the club. He is a Level 2 Certificate England Hockey Coach. He coaches the juniors on Saturday mornings and has also coached our senior Ladies’ sides." %}
       </div>
 
       <div class="col-lg-3 col-sm-6 g-mb-30">
-        {% include 'club_info/_junior_contact.html' with thumbnail=bhav_pic name="Bhav Virdi" position="Juniors Coach" blurb="Bhav's been at CSHC since 2009 and has played for the M1s and M2s in the past years. He is a Level 2 Certificate England Hockey Coach. He coaches the juniors on Saturday mornings and also coaches the Ladies 4s and 5s on Thursday evenings." %}
+        {% include 'club_info/_junior_contact.html' with thumbnail=laura_pic name="Laura Edge" email="welfare@cambridgesouthhockeyclub.co.uk" position="Juniors Welfare Officer" blurb="Laura has been a member of the club since 2013. She has previously been captain of the Ladies' development side, transitioning players from junior members to senior training and league games, and now deals with any welfare issues or concerns." %}
       </div>
     </div>
   </div>
