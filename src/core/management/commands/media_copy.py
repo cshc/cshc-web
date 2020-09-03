@@ -28,7 +28,14 @@ class Command(BaseCommand):
             action='store_true',
             dest='local',
             default=False,
-            help='Copy to the local media folder as well',
+            help='Copy to the local media folder',
+        )
+        parser.add_argument(
+            '--staging',
+            action='store_true',
+            dest='staging',
+            default=False,
+            help='Copy to the staging media folder',
         )
 
     def handle(self, *args, **options):
@@ -38,7 +45,7 @@ class Command(BaseCommand):
             staging_bucket = s3.Bucket(STAGING_BUCKET_NAME)
             new_objects = {}
 
-            if staging_bucket:
+            if options['staging'] and staging_bucket:
                 new_objects = dict(
                     ((elt.key, elt.size), elt.last_modified)
                     for elt in staging_bucket.objects.filter(Prefix='media')
@@ -50,7 +57,7 @@ class Command(BaseCommand):
                     'Key': obj_summary.key,
                 }
 
-                if staging_bucket:
+                if options['staging'] and staging_bucket:
                     ts = new_objects.get((obj_summary.key, obj_summary.size))
                     if ts is not None and ts >= obj_summary.last_modified:
                         print('Skipping {}'.format(obj_summary.key))
@@ -58,7 +65,7 @@ class Command(BaseCommand):
 
                 print('Copying {}'.format(obj_summary.key))
 
-                if staging_bucket:
+                if options['staging'] and staging_bucket:
                     staging_bucket.copy(
                         copy_source,
                         obj_summary.key,
@@ -69,6 +76,7 @@ class Command(BaseCommand):
                     if not os.path.isfile(obj_summary.key):
                         os.makedirs(os.path.dirname(
                             obj_summary.key), exist_ok=True)
+                        print('Downloading {}'.format(obj_summary.key))
                         prod_bucket.download_file(
                             obj_summary.key, obj_summary.key)
         except:
