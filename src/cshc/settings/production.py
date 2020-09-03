@@ -15,18 +15,6 @@ SECURE_SSL_REDIRECT = True
 
 ALLOWED_HOSTS = ['*']
 
-# DATABASE CONFIGURATION
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ['RDS_DB_NAME'],
-        'USER': os.environ['RDS_USERNAME'],
-        'PASSWORD': os.environ['RDS_PASSWORD'],
-        'HOST': os.environ['RDS_HOSTNAME'],
-        'PORT': os.environ['RDS_PORT'],
-    }
-}
-
 # Only specify this option for syncdb or migrate calls (for efficiency)
 # Ref: Comment on http://stackoverflow.com/a/5270072
 if 'migrate' in sys.argv or 'syncdb' in sys.argv:

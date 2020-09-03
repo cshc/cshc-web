@@ -15,17 +15,15 @@ mysqldump --skip-extended-insert --compact --default-character-set=utf8 cshc > d
 
 2. Download the `dump_mysql.sql` file to your local machine.
 
-3. Download the `mysql2sqlite` script from [here](https://github.com/dumblob/mysql2sqlite)
-
-4. Run the script to create a new sqlite database file from the MySQL export:
+3. Import the database:
 
 ```
-./mysql2sqlite dump_mysql.sql | sqlite3 db.sqlite3
+mysql -u root -p cshc < /path/to/dump_mysql.sql
 ```
 
-5. Replace the existing `src/db.sqlite3` file with the one created in the previous step.
+4. Copy the media files from production to the local dev environment.
 
-6. Copy the media files from production to the local dev environment. Note this also copies them to the (unused) staging bucket.
+5. **IMPORTANT**: Change the URL of the single `sites` entry via the admin interface to `localhost:8000`
 
 ```
 python manage.py media_copy --local

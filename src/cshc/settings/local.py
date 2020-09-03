@@ -10,17 +10,6 @@ ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# DATABASE CONFIGURATION
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': join(SITE_ROOT, 'db.sqlite3'),
-    }
-}
-# END DATABASE CONFIGURATION
-
 INSTALLED_APPS += [
     'debug_toolbar',
     'django_extensions',
