@@ -15,10 +15,10 @@ export const MATCH_DATA_QUERY = gql`
     $oppTeam_Club_Slug: String
     $appearances_MemberId_In: ID
     $appearances_MemberId: ID
-    $date_Lt: String
-    $date_Lte: String
-    $date_Gt: String
-    $date_Gte: String
+    $date_Lt: Date
+    $date_Lte: Date
+    $date_Gt: Date
+    $date_Gte: Date
     $result: String
   ) {
     matches(

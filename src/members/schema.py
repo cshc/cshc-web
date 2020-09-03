@@ -24,8 +24,8 @@ class NumberInFilter(django_filters.BaseInFilter, django_filters.CharFilter):
 
 class MemberFilter(AndFilter):
     # Do 'in' lookups on 'pref_position'
-    pref_position__in = NumberInFilter(name='pref_position', lookup_expr='in')
-    name = django_filters.CharFilter(name='first_name', method="filter_name")
+    pref_position__in = NumberInFilter(field_name='pref_position', lookup_expr='in')
+    name = django_filters.CharFilter(field_name='first_name', method="filter_name")
 
     def filter_name(self, queryset, name, value):
         # filter by first name or last name

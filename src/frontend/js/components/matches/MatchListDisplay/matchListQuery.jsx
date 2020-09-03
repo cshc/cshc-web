@@ -15,7 +15,7 @@ export const MATCH_LIST_QUERY = gql`
     $season_Slug: String
     $fixtureType: String
     $venueId: ID
-    $date: String
+    $date: Date
     $reportAuthorId: ID
     $appearances_MemberId_In: ID
     $mom: String

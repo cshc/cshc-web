@@ -8,7 +8,7 @@ export const MEMBER_REPORTS_QUERY = gql`
     $pageSize: Int
     $orderBy: String
     $reportAuthorId: ID
-    $date_Lte: String
+    $date_Lte: Date
   ) {
     matches(orderBy: $orderBy, reportAuthorId: $reportAuthorId, date_Lte: $date_Lte) {
       results(pageSize: $pageSize, page: $page) {

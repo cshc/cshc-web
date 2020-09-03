@@ -26,7 +26,7 @@ def map_team_name(team):
 
 class GoalKingFilter(AndFilter):
     """ Goal King Filters """
-    team = django_filters.CharFilter(name='team', method='filter_team')
+    team = django_filters.CharFilter(field_name='team', method='filter_team')
 
     def filter_team(self, queryset, name, value):
         team = map_team_name(value)
@@ -43,9 +43,9 @@ class GoalKingFilter(AndFilter):
 
 
 class MatchFilter(AndFilter):
-    mom = django_filters.CharFilter(name='mom', method='filter_mom')
-    lom = django_filters.CharFilter(name='lom', method='filter_lom')
-    result = django_filters.CharFilter(name='result', method='filter_result')
+    mom = django_filters.CharFilter(field_name='mom', method='filter_mom')
+    lom = django_filters.CharFilter(field_name='lom', method='filter_lom')
+    result = django_filters.CharFilter(field_name='result', method='filter_result')
 
     def filter_mom(self, queryset, name, value):
         # filter for matches where the given member won the Man of the Match award.
@@ -81,9 +81,6 @@ class MatchFilter(AndFilter):
         model = Match
         fields = {
             'home_away': ['exact'],
-            'mom': ['exact'],
-            'lom': ['exact'],
-            'result': ['result'],
             'venue__slug': ['exact'],
             'venue_id': ['exact'],
             'opp_team__name': ['exact'],

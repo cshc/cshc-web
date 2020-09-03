@@ -3,8 +3,8 @@ Reusable filter classes and utilities
 """
 
 import django_filters
-from django.utils import six
-
+# from django.utils import six
+import six
 
 class AndFilter(django_filters.FilterSet):
     """

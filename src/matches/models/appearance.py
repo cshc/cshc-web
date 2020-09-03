@@ -45,7 +45,7 @@ class Appearance(models.Model):
                                          help_text="The number of green cards the player received in the match")
     yellow_card_count = models.PositiveSmallIntegerField(default=0, null=True, blank=True, 
                                           help_text="The number of yellow cards the player received in the match")
-    red_card = models.NullBooleanField(default=False,
+    red_card = models.BooleanField(default=False, null=True,
                                        help_text="Did the player receive a red card in the match?")
 
     objects = AppearanceQuerySet.as_manager()
