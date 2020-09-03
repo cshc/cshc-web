@@ -29,6 +29,11 @@ class Command(BaseCommand):
         season = Season.current()
 
         try:
+            call_command('clearsessions')
+        except Exception as e:
+            errors.append("Failed to clear old exceptions: {}".format(e))
+  
+        try:
             # Update goal king
             GoalKing.update_for_season(season)
             print('Updated Goal King entries for the current season')
