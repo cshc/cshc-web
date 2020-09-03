@@ -2,6 +2,7 @@
     an astro pitch but can also be used for clubhouses etc.
 """
 
+from django.urls import reverse
 from django.db import models
 from django.db.models.query import QuerySet
 from django.template.defaultfilters import slugify
@@ -89,10 +90,9 @@ class Venue(models.Model):
         # Auto-populate the slug field
         self.slug = slugify(self.short_name)
 
-    @models.permalink
     def get_absolute_url(self):
         """ Gets the url corresponding to this instance."""
-        return ('venue_detail', [self.slug])
+        return reverse('venue_detail', args=[self.slug])
 
     @property
     def address_known(self):

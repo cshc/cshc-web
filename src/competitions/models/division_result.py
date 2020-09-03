@@ -22,6 +22,7 @@
 
 """
 
+from django.urls import reverse
 from django.db import models
 from django.db.models.query import QuerySet
 from django.core.exceptions import ValidationError
@@ -107,7 +108,6 @@ class DivisionResult(models.Model):
         """ Gets the team (may be an instance of CSHC ClubTeam or opposition Team)"""
         return self.opp_team if self.opp_team else self.our_team
 
-    @models.permalink
     def get_absolute_url(self):
         """ returns the url either for the CSHC team or the opposition team's club."""
         if self.opp_team:

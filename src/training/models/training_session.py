@@ -8,6 +8,7 @@
     been cancelled (rather than just deleting it).
 """
 
+from django.urls import reverse
 from django.utils import timezone
 from django.db import models
 from django.db.models.query import QuerySet
@@ -78,7 +79,6 @@ class TrainingSession(models.Model):
     def __str__(self):
         return "{} ({})".format(self.description, self.datetime)
 
-    @models.permalink
     def get_absolute_url(self):
         """ Returns the url for this training session."""
-        return ('trainingsession_detail', [self.pk])
+        return reverse('trainingsession_detail', args=[self.pk])

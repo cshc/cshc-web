@@ -4,6 +4,7 @@
     as we frequently have matches against other teams in our club.
 """
 
+from django.urls import reverse
 from django.db import models
 from django.template.defaultfilters import slugify
 from core.models import TeamGender
@@ -49,10 +50,9 @@ class Club(models.Model):
     def __str__(self):
         return str(self.name)
 
-    @models.permalink
     def get_absolute_url(self):
         """ Returns the url for this club instance."""
-        return ('opposition_club_detail', [self.slug])
+        return reverse('opposition_club_detail', args=[self.slug])
 
     def kit_clash(self, team_gender):
         """Returns true if, for the specified team gender, this club's kit clashes with our kit"""

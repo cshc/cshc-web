@@ -10,6 +10,7 @@
 import logging
 import os
 import geocoder
+from django.urls import reverse
 from django.conf import settings
 from django.db import models
 from django.dispatch import receiver
@@ -201,10 +202,9 @@ class Member(models.Model):
             if modified:
                 self.user.save()
 
-    @models.permalink
     def get_absolute_url(self):
         """ Returns the url for this member instance."""
-        return ('member_detail', [self.pk])
+        return reverse('member_detail', args=[self.pk])
 
     def pref_first_name(self):
         """ Returns the member's preferred first name (known_as if set; otherwise first_name) """

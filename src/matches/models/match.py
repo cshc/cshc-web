@@ -3,6 +3,7 @@
 """
 
 from datetime import datetime, time, timedelta
+from django.urls import reverse
 from django.db import models
 from django.db.models.query import QuerySet
 from django.core.exceptions import ValidationError
@@ -219,10 +220,9 @@ class Match(models.Model):
     def __str__(self):
         return str("{} vs {} ({}, {})".format(self.our_team, self.opp_team, self.fixture_type, self.date))
 
-    @models.permalink
     def get_absolute_url(self):
         """ Returns the url for this match."""
-        return ('match_detail', [self.pk])
+        return reverse('match_detail', args=[self.pk])
 
     def clean(self):
         # If its a walkover, check the score is a valid walkover score

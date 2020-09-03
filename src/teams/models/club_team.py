@@ -1,6 +1,7 @@
 """ The ClubTeam model represents a Cambridge South team.
 """
 
+from django.urls import reverse
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.db.models.query import QuerySet
@@ -105,10 +106,9 @@ class ClubTeam(models.Model):
     def __str__(self):
         return str(self.short_name)
 
-    @models.permalink
     def get_absolute_url(self):
         """ Returns the URL for this ClubTeam instance. """
-        return ('clubteam_detail', [self.slug])
+        return reverse('clubteam_detail', args=[self.slug])
 
     def abbr_name(self):
         """ Returns an abbreviated name, including the club (e.g. 'Cambridge South Mens 1')"""
