@@ -9,12 +9,12 @@ const teamNameCell = (row, isCSHCTeam, isOurTeam) => {
   if (isOurTeam) {
     return row.teamName;
   }
-  return row.oppTeam ? (
-    <a href={Urls.opposition_club_detail(row.oppTeam.club.slug)} title="Club Details">
+  return row.ourTeam ? (
+    <a href={Urls.clubteam_detail(row.ourTeam.slug)} title="Team Details">
       {row.teamName}
     </a>
   ) : (
-    <a href={Urls.clubteam_detail(row.ourTeam.slug)} title="Team Details">
+    <a href={row.oppTeam ? Urls.opposition_club_detail(row.oppTeam.club.slug) : undefined} title="Club Details">
       {row.teamName}
     </a>
   );
