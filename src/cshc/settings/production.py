@@ -2,6 +2,9 @@
 """
 import sys
 import os
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 from cshc.settings.base import *
 
 DEBUG = False
@@ -85,3 +88,13 @@ from .common.ckeditor import get_ckeditor_config
 CKEDITOR_CONFIGS = get_ckeditor_config(STATIC_URL)
 
 DBBACKUP_HOSTNAME = 'cambridgesouthhockeyclub.co.uk'
+
+
+sentry_sdk.init(
+    dsn=get_env_setting('SENTRY_DNS'),
+    integrations=[DjangoIntegration()],
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)

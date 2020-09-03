@@ -205,7 +205,6 @@ THIRD_PARTY_APPS = [
     'sorl.thumbnail',
     'tagging',
     'taggit',
-    'raven.contrib.django.raven_compat',
     'webpack_loader',
     'zinnia',
 ]
@@ -303,10 +302,6 @@ STATICFILES_FINDERS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
-    'root': {
-        'level': 'WARNING',
-        'handlers': ['sentry'],
-    },
     'formatters': {
         'verbose': {
             'format': '%(levelname)s %(asctime)s %(module)s '
@@ -314,12 +309,6 @@ LOGGING = {
         },
     },
     'handlers': {
-        'sentry': {
-            # To capture more than ERROR, change to WARNING, INFO, etc.
-            'level': 'ERROR',
-            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-            'tags': {'custom-tag': 'x'},
-        },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
@@ -329,16 +318,6 @@ LOGGING = {
     'loggers': {
         'django.db.backends': {
             'level': 'ERROR',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-        'raven': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-        'sentry.errors': {
-            'level': 'DEBUG',
             'handlers': ['console'],
             'propagate': False,
         },
@@ -511,16 +490,6 @@ TEMPLATED_EMAIL_FILE_EXTENSION = 'html'
 
 # ########## END django-templated-email CONFIGURATION
 
-# ########## raven CONFIGURATION
-
-# Ref: https://sentry.io/onboarding/cambridge-south-hockey-club/cshc-django/configure/python-django
-RAVEN_CONFIG = {
-    'dsn': get_env_setting('SENTRY_DNS'),
-    'release': VERSION,
-}
-
-# ########## END raven CONFIGURATION
-
 # ########## Zinnia CONFIGURATION
 
 # Ref: http://docs.django-blog-zinnia.com/en/latest/getting-started/configuration.html
@@ -587,3 +556,8 @@ COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',
 # ########## Availability CONFIGURATION
 AVAILABILITY_ENABLED = False
 # ########## END Availability CONFIGURATION
+
+# ########## django-jet CONFIGURATION
+# Ref: https://github.com/Barukimang/django-jet#dashboard-installation
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+# ########## END django-jet CONFIGURATION

@@ -1,6 +1,6 @@
 -r base.txt
 
-django-debug-toolbar==1.9.1
+django-debug-toolbar==2.2
 
 # AWS Elastic Beanstalk CLI
-awsebcli==3.12.4
+awsebcli==3.18.2
