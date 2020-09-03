@@ -41,6 +41,7 @@ class Command(BaseCommand):
                                                     season=season,
                                                     division=part.division,
                                                     team_photo=part.team_photo,
+                                                    team_photo_cropping=part.team_photo_cropping,
                                                     team_photo_caption=part.team_photo_caption,
                                                     division_tables_url=part.division_tables_url,
                                                     division_fixtures_url=part.division_fixtures_url,
