@@ -89,7 +89,7 @@ class Command(BaseCommand):
 
         # Backup database
         try:
-            call_command('dbbackup')
+            call_command('dbbackup', clean=True)
         except Exception as e:
             errors.append("Failed to backup database")
 
