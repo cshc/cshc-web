@@ -33,7 +33,7 @@ export const urlPropsQueryConfig = {
   [FilterName.Players]: {
     type: UrlQueryParamTypes.string,
   },
-  [FilterName.MOM]: {
+  [FilterName.POM]: {
     type: UrlQueryParamTypes.string,
   },
   [FilterName.LOM]: {
@@ -153,10 +153,10 @@ const MatchFilterSet = ({ teams, divisions, opposition_clubs, seasons, venues, m
         multi
       />
       <SelectFilter
-        label="Man of the Match"
-        filterName={FilterName.MOM}
+        label="Player of the Match"
+        filterName={FilterName.POM}
         options={memberOptions}
-        urlQueryConfig={urlPropsQueryConfig[FilterName.MOM]}
+        urlQueryConfig={urlPropsQueryConfig[FilterName.POM]}
         stacked
       />
       <SelectFilter

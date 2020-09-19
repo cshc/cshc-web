@@ -25,11 +25,11 @@ class Award(models.Model):
 class MatchAwardManager(models.Manager):
     """ Queries that relate to any Match Award Winners"""
 
-    def mom(self):
-        """ Returns the Man of the Match award, creating it
+    def pom(self):
+        """ Returns the Player of the Match award, creating it
             if it doesn't already exist.
         """
-        award, _ = self.get_or_create(name=MatchAward.MOM)
+        award, _ = self.get_or_create(name=MatchAward.POM)
         return award
 
     def lom(self):
@@ -46,7 +46,7 @@ class MatchAward(Award):
     objects = MatchAwardManager()
 
     # Constants - these awards should always exist
-    MOM = "Man of the Match"
+    POM = "Player of the Match"
     LOM = "Lemon of the Match"
 
 

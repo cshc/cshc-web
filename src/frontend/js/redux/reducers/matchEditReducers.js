@@ -50,7 +50,7 @@ const newAwardWinner = () => {
     member: undefined,
     awardee: undefined,
     comment: '',
-    award: MatchAward.MOM,
+    award: MatchAward.POM,
   };
 };
 

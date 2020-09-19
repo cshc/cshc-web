@@ -1,6 +1,6 @@
 # Awards
 
-This app deals with awards - both those awarded each match (i.e. Man of the Match and Lemon of the Match) and at the End of Season dinner (e.g. Player of the Season, etc.).
+This app deals with awards - both those awarded each match (i.e. Player of the Match and Lemon of the Match) and at the End of Season dinner (e.g. Player of the Season, etc.).
 
 This is a very simple app - there are no views directly associated with it. Typically you just add match award winners as you enter the details for a match result and end of season award winners once they're decided at the end of a season.
 
@@ -19,10 +19,10 @@ Awards appear on the website in the following locations:
 |Name                       | Description  |
 |---------------------------|----------------
 |**Award**                  |A base class with common award functionality (the award name)|
-|**MatchAward**             |The various awards that can be awarded at a match. Currently there are just two instances - MOM and LOM|
+|**MatchAward**             |The various awards that can be awarded at a match. Currently there are just two instances - POM and LOM|
 |**EndOfSeasonAward**       |The various awards that can be awarded at the end of a season. Note - these can change from year to year so some years you may need to add some awards (via the admin interface)|
 |**AwardWinner**            |A base class with common award winner functionality (member, comment etc)|
-|**MatchAwardWinner**       |All the MOM and LOM award winners|
+|**MatchAwardWinner**       |All the POM and LOM award winners|
 |**EndOfSeasonAwardWinner** |All the end of season award winners|
 
 ### GraphQL

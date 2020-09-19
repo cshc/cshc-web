@@ -21,7 +21,7 @@ export const SQUAD_ROSTER_QUERY = gql`
         lost
         goals
         cleanSheets
-        mom
+        pom
         lom
         isCaptain
         isViceCaptain

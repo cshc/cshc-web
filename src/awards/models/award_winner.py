@@ -1,5 +1,5 @@
 """ These models keep track of all the times members won an award,
-    be it a match award (MOM, LOM) or an end of season award.
+    be it a match award (POM, LOM) or an end of season award.
 """
 
 from django.db import models
@@ -24,9 +24,9 @@ class AwardWinnerManager(models.Manager):
 class MatchAwardWinnerManager(AwardWinnerManager):
     """ Model manager for Match Award Winners """
 
-    def mom(self):
-        """Returns only Man of the Match award winners"""
-        return self.get_queryset().filter(award__name=MatchAward.MOM)
+    def pom(self):
+        """Returns only Player of the Match award winners"""
+        return self.get_queryset().filter(award__name=MatchAward.POM)
 
     def lom(self):
         """Returns only Lemon of the Match award winners"""

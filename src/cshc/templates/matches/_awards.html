@@ -2,14 +2,14 @@
 Re-usable template for rendering a list of match awards
 
 Expects context containing:
-  mom_winners - a list of AwardWinner model instances
+  pom_winners - a list of AwardWinner model instances
   lom_winners - a list of AwardWinner model instances
 {% endcomment %}
 <div class="row g-my-20">
-  {% if not mom_winners and not lom_winners %}
+  {% if not pom_winners and not lom_winners %}
   <div class="col-12"><p class="lead g-font-style-italic">No award winners (yet)</p></div>
   {% endif %}
-  {% for award_winner in mom_winners %}
+  {% for award_winner in pom_winners %}
     <div class="col-12 col-md-6 col-lg-6">
       {% include 'matches/_match_award_card.html' %}
     </div>

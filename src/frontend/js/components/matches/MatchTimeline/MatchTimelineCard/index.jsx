@@ -18,7 +18,7 @@ import styles from './style.scss';
  */
 const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
   const incl = item => !exclude.includes(item);
-  const moms = Match.mom(match);
+  const poms = Match.pom(match);
   const loms = Match.lom(match);
   const scorers = Match.scorers(match);
   return (
@@ -79,10 +79,10 @@ const MatchTimelineCard = ({ match, exclude, dateFormat }) => {
               {(incl(MatchItem.awards) || incl(MatchItem.scorers)) && (
                 <div className={`${styles.flexWrap} g-mb-10`}>
                   {incl(MatchItem.awards) &&
-                    moms.length > 0 && (
+                    poms.length > 0 && (
                       <span className={styles.flexWrap}>
-                        <i className="far fa-lg fa-star g-mr-5 g-mt-7" title="Man of the Match" />
-                        {moms.map((awardWinner, index) => (
+                        <i className="far fa-lg fa-star g-mr-5 g-mt-7" title="Player of the Match" />
+                        {poms.map((awardWinner, index) => (
                           <AwardWinner
                             key={index}
                             awardWinner={awardWinner}

@@ -37,7 +37,7 @@ const HomeAway = {
 };
 
 const MatchAward = {
-  MOM: 'Man of the Match',
+  POM: 'Player of the Match',
   LOM: 'Lemon of the Match',
 };
 
@@ -94,7 +94,7 @@ const FilterName = {
   Opposition: 'opposition',
   Venue: 'venue',
   Member: 'member',
-  MOM: 'mom',
+  POM: 'pom',
   LOM: 'lom',
   ReportAuthor: 'reportAuthor',
   Players: 'players',

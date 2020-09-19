@@ -73,7 +73,7 @@ const MemberPlayingRecordTables = ({ data, fixtureType, memberId }) => {
                 </th>
                 <th>
                   <i className="fas fa-star g-mr-5" />
-                  <ResponsiveAbbr verbose="Man of the Match" abbreviated="MOM" />
+                  <ResponsiveAbbr verbose="Player of the Match" abbreviated="POM" />
                 </th>
                 <th>
                   <i className="fas fa-lemon g-mr-5" />
@@ -91,9 +91,9 @@ const MemberPlayingRecordTables = ({ data, fixtureType, memberId }) => {
                   <td>{nonZero(seasonStats.memberStats.goals)}</td>
                   <td>{nonZero(seasonStats.memberStats.cleanSheets)}</td>
                   <td>
-                    {linkedMatchList(nonZero(seasonStats.memberStats.mom), {
+                    {linkedMatchList(nonZero(seasonStats.memberStats.pom), {
                       season: seasonStats.season.slug,
-                      mom: memberId,
+                      pom: memberId,
                     })}
                   </td>
                   <td>
@@ -109,7 +109,7 @@ const MemberPlayingRecordTables = ({ data, fixtureType, memberId }) => {
                 <td>{linkedMatchList(totalPlayed, {})}</td>
                 <td>{total(data, 'goals')}</td>
                 <td>{total(data, 'cleanSheets')}</td>
-                <td>{linkedMatchList(total(data, 'mom'), { mom: memberId })}</td>
+                <td>{linkedMatchList(total(data, 'pom'), { pom: memberId })}</td>
                 <td>{linkedMatchList(total(data, 'lom'), { lom: memberId })}</td>
               </tr>
             </tbody>

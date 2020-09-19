@@ -99,12 +99,12 @@ const SquadRosterTable = ({ squadStats: { squad } }) => (
             Header: () => (
               <span>
                 <i className="fas fa-star g-mr-5" />
-                <abbr title="Man of the Match">MOM</abbr>
+                <abbr title="Player of the Match">POM</abbr>
               </span>
             ),
-            id: 'mom',
+            id: 'pom',
             width: 70,
-            accessor: 'mom',
+            accessor: 'pom',
             className: 'g-hidden-sm-down text-center align-self-center',
             headerClassName: 'g-hidden-sm-down',
             Cell: row => (row.value > 0 ? row.value : ''),

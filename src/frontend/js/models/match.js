@@ -85,11 +85,11 @@ const Match = {
   },
 
   awardsIsComplete(matchState) {
-    // Awards are complete if we've got at least one valid MOM award and one valid LOM award.
+    // Awards are complete if we've got at least one valid POM award and one valid LOM award.
     return (
       some(
         matchState.awardWinners,
-        aw => MatchAwardWinner.isValid(aw) && aw.award === MatchAward.MOM,
+        aw => MatchAwardWinner.isValid(aw) && aw.award === MatchAward.POM,
       ) &&
       some(
         matchState.awardWinners,
@@ -171,9 +171,9 @@ const Match = {
     return sortBy(match.appearances.results.filter(a => a.goals > 0), m => -m.goals);
   },
 
-  mom(match) {
+  pom(match) {
     if (!match.awardWinners || !match.awardWinners.results) return [];
-    return match.awardWinners.results.filter(aw => aw.award.name === MatchAward.MOM);
+    return match.awardWinners.results.filter(aw => aw.award.name === MatchAward.POM);
   },
 
   lom(match) {

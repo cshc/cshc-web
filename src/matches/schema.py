@@ -43,15 +43,15 @@ class GoalKingFilter(AndFilter):
 
 
 class MatchFilter(AndFilter):
-    mom = django_filters.CharFilter(name='mom', method='filter_mom')
+    pom = django_filters.CharFilter(name='pom', method='filter_pom')
     lom = django_filters.CharFilter(name='lom', method='filter_lom')
     result = django_filters.CharFilter(name='result', method='filter_result')
 
-    def filter_mom(self, queryset, name, value):
-        # filter for matches where the given member won the Man of the Match award.
+    def filter_pom(self, queryset, name, value):
+        # filter for matches where the given member won the Player of the Match award.
         kwargs = {
             'award_winners__member_id': value,
-            'award_winners__award__name': MatchAward.MOM,
+            'award_winners__award__name': MatchAward.POM,
         }
         return queryset.filter(**kwargs)
 
@@ -81,7 +81,7 @@ class MatchFilter(AndFilter):
         model = Match
         fields = {
             'home_away': ['exact'],
-            'mom': ['exact'],
+            'pom': ['exact'],
             'lom': ['exact'],
             'result': ['result'],
             'venue__slug': ['exact'],
@@ -263,7 +263,7 @@ class UpdateMatch(graphene.relay.ClientIDMutation):
                 len(match_data.appearances), match_data.match_id))
 
             # UPDATE ALL AWARD WINNERS
-            mom = MatchAward.objects.mom()
+            pom = MatchAward.objects.pom()
             lom = MatchAward.objects.lom()
 
             # 1. Delete award winners not listed in the mutation input
@@ -284,7 +284,7 @@ class UpdateMatch(graphene.relay.ClientIDMutation):
             for award_winner_data in match_data.awardWinners:
                 query_kwargs = {
                     'match_id': match_data.match_id,
-                    'award_id': mom.id if award_winner_data.award == MatchAward.MOM else lom.id,
+                    'award_id': pom.id if award_winner_data.award == MatchAward.POM else lom.id,
                 }
                 if award_winner_data.member_id:
                     query_kwargs['member_id'] = award_winner_data.member_id

@@ -54,7 +54,7 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
         In addition to the 'match' item, the following are also added to the context:
             - same_date_matches:    a list of matches on the same day (not including
                                     the match being viewed)
-            - mom_winners:          a list of 'Man of the Match' award winners
+            - pom_winners:          a list of 'Player of the Match' award winners
             - lom_winners:          a list of 'Lemon of the Match' award winners
             - appearances:          a list of appearances in this match
             - prev_match:           the previous match this team played
@@ -111,8 +111,8 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
         next_match = match_qs.filter(date__gt=match.date).first()
 
         context["same_date_matches"] = same_date_matches
-        context["mom_winners"] = [
-            x for x in award_winners if x.award.name == MatchAward.MOM]
+        context["pom_winners"] = [
+            x for x in award_winners if x.award.name == MatchAward.POM]
         context["lom_winners"] = [
             x for x in award_winners if x.award.name == MatchAward.LOM]
         context["appearances"] = appearances

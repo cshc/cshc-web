@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * A simple list of icons (e.g. for displaying MOM/LOM votes, cards etc)
+ * A simple list of icons (e.g. for displaying POM/LOM votes, cards etc)
  */
 const IconList = ({ className, iconClass, count }) => {
   const icons = [];

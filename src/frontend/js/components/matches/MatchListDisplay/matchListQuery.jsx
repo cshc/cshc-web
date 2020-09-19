@@ -18,7 +18,7 @@ export const MATCH_LIST_QUERY = gql`
     $date: String
     $reportAuthorId: ID
     $appearances_MemberId_In: ID
-    $mom: String
+    $pom: String
     $lom: String
     $result: String
     $homeAway: String
@@ -36,7 +36,7 @@ export const MATCH_LIST_QUERY = gql`
       date: $date
       reportAuthorId: $reportAuthorId
       appearances_MemberId_In: $appearances_MemberId_In
-      mom: $mom
+      pom: $pom
       lom: $lom
       result: $result
       homeAway: $homeAway

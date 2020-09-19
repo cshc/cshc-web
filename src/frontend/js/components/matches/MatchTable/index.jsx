@@ -32,7 +32,7 @@ const MatchTable = ({ matches, excludeColumns, dateFormat, priorities, fillBlank
             {incl(TC.scorers) && <th className={priority(TC.scorers, 3)}>Scorers</th>}
             {incl(TC.awards) && (
               <th className={priority(TC.awards, 3)}>
-                <abbr title="Man of the Match">
+                <abbr title="Player of the Match">
                   <i className="far fa-star" />
                 </abbr>
               </th>

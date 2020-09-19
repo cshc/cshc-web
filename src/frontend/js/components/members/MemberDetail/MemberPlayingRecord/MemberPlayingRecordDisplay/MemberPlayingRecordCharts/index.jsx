@@ -131,8 +131,8 @@ const MemberPlayingRecordChart = ({ clubTeams, data, windowWidth }) => {
       addLine('goals', 'Goals Scored', 'blue', primaryAxis),
       addLine('cleanSheets', 'Clean Sheets', 'green', primaryAxis),
       addBar(
-        'Man of the Match',
-        data.map(seasonStats => seasonStats.memberStats.mom),
+        'Player of the Match',
+        data.map(seasonStats => seasonStats.memberStats.pom),
         'purple',
         secondaryAxis,
       ),

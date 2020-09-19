@@ -19,7 +19,7 @@ export const MEMBER_STATS_QUERY = gql`
         goalsAgainst
         totalPoints
         cleanSheets
-        mom
+        pom
         lom
         teamRepresentations {
           team {

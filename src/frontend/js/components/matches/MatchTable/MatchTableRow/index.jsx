@@ -85,7 +85,7 @@ const MatchTableRow = ({ match, excludeColumns, priorities, dateFormat }) => {
         <td className={priority(TC.awards, 3)}>
           {!match.isSpacer ? (
             <div className={styles.flexWrap}>
-              {Match.mom(match).map((awardWinner, index, awardWinners) => (
+              {Match.pom(match).map((awardWinner, index, awardWinners) => (
                 <span key={index}>
                   <AwardWinner awardWinner={awardWinner} />
                   {index < awardWinners.length - 1 && <span>,&nbsp;</span>}

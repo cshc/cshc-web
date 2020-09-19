@@ -28,7 +28,7 @@ class MemberPlayingStats(object):
         self.goals_for = 0
         self.goals_against = 0
         self.clean_sheets = 0
-        self.mom = 0
+        self.pom = 0
         self.lom = 0
         self.is_captain = False
         self.is_vice_captain = False
@@ -55,8 +55,8 @@ class MemberPlayingStats(object):
 
     def add_award(self, award):
         """ Add the specified award to the member's stats"""
-        if award.name == MatchAward.MOM:
-            self.mom += 1
+        if award.name == MatchAward.POM:
+            self.pom += 1
         elif award.name == MatchAward.LOM:
             self.lom += 1
 

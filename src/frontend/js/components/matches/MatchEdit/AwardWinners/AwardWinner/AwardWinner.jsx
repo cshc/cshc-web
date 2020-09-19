@@ -13,13 +13,13 @@ export const AwardWinnerPropType = PropTypes.shape({
   member: PropTypes.string,
   awardee: PropTypes.string,
   comment: PropTypes.string,
-  award: PropTypes.oneOf([MatchAward.MOM, MatchAward.LOM]).isRequired,
+  award: PropTypes.oneOf([MatchAward.POM, MatchAward.LOM]).isRequired,
 });
 
 /**
  * The card for editing the details of a particular award winner.
  * 
- * The user can toggle the award type (Man of the Match/Lemon of the Match),
+ * The user can toggle the award type (Player of the Match/Lemon of the Match),
  * select a member or enter the name of a non-member as the award winner,
  * and enter a comment about why the person won the award.
  */
@@ -92,14 +92,14 @@ class AwardWinner extends React.PureComponent {
   render() {
     const { index, awardWinner, memberOptions, onRemoveAwardWinner } = this.props;
     const { selectingMember, comment } = this.state;
-    const isMom = awardWinner.award === MatchAward.MOM;
-    const momClass = classnames('btn g-mr-10', {
-      'u-btn-primary': isMom,
-      'btn-link': !isMom,
+    const isPom = awardWinner.award === MatchAward.POM;
+    const pomClass = classnames('btn g-mr-10', {
+      'u-btn-primary': isPom,
+      'btn-link': !isPom,
     });
     const lomClass = classnames('btn g-mr-10', {
-      'u-btn-yellow': !isMom,
-      'btn-link': isMom,
+      'u-btn-yellow': !isPom,
+      'btn-link': isPom,
     });
     const selectId = `select-award-member-${awardWinner.member || 'new'}`;
     const textAreaId = `ta-award-member-${awardWinner.member || 'new'}`;
@@ -108,10 +108,10 @@ class AwardWinner extends React.PureComponent {
         <div className="d-flex justify-content-between">
           <div className="d-flex align-items-center">
             <button
-              className={momClass}
-              title={MatchAward.MOM}
+              className={pomClass}
+              title={MatchAward.POM}
               onClick={() => {
-                this.updateAwardType(MatchAward.MOM);
+                this.updateAwardType(MatchAward.POM);
               }}
             >
               <i className="fas fa-star" />

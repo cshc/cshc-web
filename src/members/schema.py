@@ -155,7 +155,7 @@ class MemberStatsType(graphene.ObjectType):
     total_points = graphene.Int()
     clean_sheets = graphene.Int()
     lom = graphene.Int()
-    mom = graphene.Int()
+    pom = graphene.Int()
     is_captain = graphene.Boolean()
     is_vice_captain = graphene.Boolean()
     team_representations = graphene.List(TeamRepresentationType)

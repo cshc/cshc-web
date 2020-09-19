@@ -115,7 +115,7 @@ class SquadMember(object):
         self.goals = 0
         self.appearances = 0
         self.clean_sheets = 0
-        self.mom = 0
+        self.pom = 0
         self.lom = 0
 
     def add_appearance(self, appearance):
@@ -127,7 +127,7 @@ class SquadMember(object):
 
     def add_award(self, award):
         """ Add the specified award to the squad member's stats"""
-        if award.name == MatchAward.MOM:
-            self.mom += 1
+        if award.name == MatchAward.POM:
+            self.pom += 1
         elif award.name == MatchAward.LOM:
             self.lom += 1

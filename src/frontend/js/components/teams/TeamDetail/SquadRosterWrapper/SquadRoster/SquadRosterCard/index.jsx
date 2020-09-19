@@ -47,10 +47,10 @@ const SquadRosterCard = ({ memberStats, teamTotals }) => {
           </a>
           <div className="d-flex justify-content-between">
             <div className="g-min-width-35">
-              {memberStats.mom > 0 && (
+              {memberStats.pom > 0 && (
                 <span>
                   <i className="far fa-star g-mr-3" />
-                  {memberStats.mom}
+                  {memberStats.pom}
                 </span>
               )}
             </div>
