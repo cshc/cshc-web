@@ -2,7 +2,7 @@
 node_modules
 
 # Virtual Environment
-venv/*
+venv*/*
 
 # Webpack artifacts
 webpack-stats.json

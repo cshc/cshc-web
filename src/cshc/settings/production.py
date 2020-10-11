@@ -34,19 +34,19 @@ if 'migrate' in sys.argv or 'syncdb' in sys.argv:
 
 # EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'anymail.backends.sendinblue.EmailBackend'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
-EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_HOST = 'smtp.sendgrid.net'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
-EMAIL_HOST_PASSWORD = get_env_setting('EMAIL_HOST_PASSWORD')
+# EMAIL_HOST_PASSWORD = get_env_setting('EMAIL_HOST_PASSWORD')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-user
-EMAIL_HOST_USER = get_env_setting('EMAIL_HOST_USER')
+# EMAIL_HOST_USER = get_env_setting('EMAIL_HOST_USER')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-port
-EMAIL_PORT = 587
+# EMAIL_PORT = 587
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
 EMAIL_SUBJECT_PREFIX = '[%s] ' % SITE_NAME

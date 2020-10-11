@@ -78,6 +78,9 @@ django-resized==0.3.8
 django-image-cropping==1.1.0
 python-memcached==1.59
 
+# Email Service Provider integration
+django-anymail==8.1
+
 # GraphQL support
 # Ref: https://github.com/graphql-python/graphene-django
 graphene-django==2.0.0

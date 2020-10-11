@@ -188,6 +188,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.linkedin_oauth2',
+    'anymail',
     'captcha',
     'ckeditor',
     'ckeditor_uploader',
@@ -587,3 +588,9 @@ COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',
 # ########## Availability CONFIGURATION
 AVAILABILITY_ENABLED = False
 # ########## END Availability CONFIGURATION
+
+# ########## django-anymail CONFIGURATION
+ANYMAIL = {
+    'SENDINBLUE_API_KEY': get_env_setting('SENDINBLUE_API_KEY'),
+}
+# ########## END django-anymail CONFIGURATION
