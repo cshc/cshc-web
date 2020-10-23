@@ -44,7 +44,7 @@ class MemberListView(TemplateView):
         context['props'] = {
             'canViewMap': self.request.user.has_perm('members.view_personal_data'),
             'currentSeason': current_season.slug,
-            'teams': list(ClubTeam.objects.active().exclude(slug__in=['mv', 'lv', 'm-in', 'l-in', 'mixed']).values('long_name', 'slug')),
+            'teams': list(ClubTeam.objects.active().exclude(slug__in=['mv', 'lv', 'm-in', 'l-in', 'mixed-a', 'mixed-b']).values('long_name', 'slug')),
         }
         return context
 

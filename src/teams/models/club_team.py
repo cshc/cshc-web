@@ -112,8 +112,10 @@ class ClubTeam(models.Model):
 
     def abbr_name(self):
         """ Returns an abbreviated name, including the club (e.g. 'Cambridge South Mens 1')"""
-        if self.short_name == 'Mixed':
-            return "Cambridge South Mixed"
+        if self.short_name == 'Mixed-A':
+            return "Cambridge South Mixed A"
+        elif self.short_name == 'Mixed-B':
+            return "Cambridge South Mixed B"
         elif self.short_name == 'MV':
             return "Cambridge South Mens Vets"
         elif self.short_name == 'LV':

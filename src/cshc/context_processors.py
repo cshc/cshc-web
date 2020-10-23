@@ -57,7 +57,8 @@ def utils(request):
             {
                 'title': 'Other',
                 'list': [
-                    ('mixed', 'Mixed',),
+                    ('mixed-a', 'Mixed A',),
+                    ('mixed-b', 'Mixed B',),
                 ],
             },
         ],
