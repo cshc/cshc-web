@@ -5,6 +5,7 @@ import traceback
 import logging
 from django.views.generic.edit import CreateView
 from django.contrib import messages
+from django.conf import settings
 from django.urls import reverse_lazy
 from templated_email import send_templated_mail
 from competitions.models import Season
@@ -81,10 +82,11 @@ class ContactSubmissionCreateView(CreateView):
             recipient_email = 'secretary@cambridgesouthhockeyclub.co.uk'
 
         send_templated_mail(
-            from_email=email,
+            from_email=settings.SERVER_EMAIL,
             recipient_list=[recipient_email],
             template_name='contact_secretary',
             context=context,
+            headers={'Reply-To': email},
         )
 
     def email_to_enquirer(self, form):
@@ -170,10 +172,11 @@ class JuniorsContactSubmissionCreateView(CreateView):
 
         recipient_email = 'juniors@cambridgesouthhockeyclub.co.uk'
         send_templated_mail(
-            from_email=email,
+            from_email=settings.SERVER_EMAIL,
             recipient_list=[recipient_email],
             template_name='juniors_report',
             context=context,
+            headers={'Reply-To': email},
         )
 
     def email_to_enquirer(self, form):
