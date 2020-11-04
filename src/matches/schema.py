@@ -21,6 +21,10 @@ def map_team_name(team):
         return 'mind'
     elif team == 'l-in':
         return 'lind'
+    elif team == 'mixed-a':
+        return 'mixedA'
+    elif team == 'mixed-b':
+        return 'mixedB'
     return team
 
 
