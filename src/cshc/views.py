@@ -37,6 +37,7 @@ class HomeView(TemplateView):
             {'id': 'news', 'label': 'Latest News'},
             {'id': 'comments', 'label': 'Recent Comments'},
             {'id': 'tweets', 'label': 'Tweets'},
+            {'id': 'strava', 'label': 'Strava'},
         ]
 
         if member:

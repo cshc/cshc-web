@@ -192,24 +192,29 @@
   </div>
 </section>
 
-<section class="g-py-60 g-bg-gray-light-v5">
-  <div class="container">
-    <div class="row">
-      <div id="comments" class="col-md-6">
-        <div class="u-shadow-v2 g-bg-white g-brd-around g-brd-gray-light-v4 g-line-height-2 g-pa-20 g-pa-30--md g-pa-40--lg g-mb-30">
-          <h1 class="h2 g-color-black g-font-weight-600 text-center g-mb-40">Recent Comments</h1>
-          {% recent_comments count=6 %}
-        </div>
+<section class="container-fluid g-py-60 g-bg-gray-light-v5">
+  <div class="row">
+    <div id="comments" class="col-md-6 col-lg-4">
+      <div class="u-shadow-v2 g-bg-white g-brd-around g-brd-gray-light-v4 g-line-height-2 g-pa-20 g-pa-30--md g-pa-40--lg g-mb-30">
+        <h1 class="h2 g-color-black g-font-weight-600 text-center g-mb-40">Recent Comments</h1>
+        {% recent_comments count=6 %}
       </div>
-      <div id="tweets" class="col-md-6">
-        <div class="u-shadow-v2 g-bg-white g-brd-around g-brd-gray-light-v4 g-line-height-2 g-pa-20 g-pa-30--md g-pa-40--lg g-mb-30">
-          <h1 class="h2 g-color-black g-font-weight-600 text-center g-mb-40">Twitterings</h1>
-          <div class="text-center">
-            <a class='text-center twitter-follow-button' data-show-count='true' href='https://twitter.com/CambSouthHC'>Follow us on Twitter</a>  
-          </div>
-          <a class="twitter-timeline" data-tweet-limit="6" data-chrome="nofooter noheader noborders noscrollbar transparent" href="https://twitter.com/cambsouthhc?ref_src=twsrc%5Etfw">Tweets by cambsouthhc</a> 
-          <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+    <div id="tweets" class="col-md-6 col-lg-4">
+      <div class="u-shadow-v2 g-bg-white g-brd-around g-brd-gray-light-v4 g-line-height-2 g-pa-20 g-pa-30--md g-pa-40--lg g-mb-30">
+        <h1 class="h2 g-color-black g-font-weight-600 text-center g-mb-40">Twitterings</h1>
+        <div class="text-center">
+          <a class='text-center twitter-follow-button' data-show-count='true' href='https://twitter.com/CambSouthHC'>Follow us on Twitter</a>  
         </div>
+        <a class="twitter-timeline" data-tweet-limit="6" data-chrome="nofooter noheader noborders noscrollbar transparent" href="https://twitter.com/cambsouthhc?ref_src=twsrc%5Etfw">Tweets by cambsouthhc</a> 
+        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </div>
+    </div>
+    <div id="strava" class="col-md-6 col-lg-4">
+      <div class="u-shadow-v2 g-bg-white g-brd-around g-brd-gray-light-v4 g-line-height-2 g-pa-20 g-pa-30--md g-pa-40--lg g-mb-30">
+        <h1 class="h2 g-color-black g-font-weight-600 text-center g-mb-40">Strava</h1>
+        <iframe allowtransparency frameborder='0' height='160' scrolling='no' src='https://www.strava.com/clubs/609771/latest-rides/443d144260c41b4bc2518ddd3c77b4aa4beba466?show_rides=false' width='100%'></iframe>
+        <iframe allowtransparency frameborder='0' height='454' scrolling='no' src='https://www.strava.com/clubs/609771/latest-rides/443d144260c41b4bc2518ddd3c77b4aa4beba466?show_rides=true' width='100%'></iframe>
       </div>
     </div>
   </div>
