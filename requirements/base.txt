@@ -24,7 +24,7 @@ django-storages==1.7.1
 # Django Rest Framework - used by graphene-django-extras
 # Need to use < 3.8 due to compatibility issues
 # https://github.com/eamigo86/graphene-django-extras/issues/40
-djangorestframework==3.7.7
+djangorestframework==3.11.2
 
 # Extra utils for using Graphene with Django
 graphene_django_extras==0.3.2
