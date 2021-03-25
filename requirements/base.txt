@@ -52,7 +52,7 @@ django-allauth==0.39.1
 
 # Django User Agents
 # Ref: https://github.com/selwin/django-user_agents
-pyYAML==3.12
+pyYAML==5.4
 ua-parser==0.7.3
 user-agents==1.1.0
 django-user-agents==0.3.2
