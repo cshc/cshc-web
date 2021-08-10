@@ -57,7 +57,8 @@
         <div class="g-mb-10"><a href="{{ long_road_url }}" title="Venue details">Long Road Sixth Form College</a></div>
         <div class="g-font-style-italic  g-mb-20">
           1st & 2nd XIs - Wednesdays, 7:30pm - 9:30pm*<br/>
-          3rd to 6th XIs - Thursdays, 7pm - 8:30pm
+          3rd & 4th XIs - Thursdays, 8.30pm - 10pm<br/>
+          5th & 6th XIs - Thursdays, 7pm - 8.30pm
           <div class="g-font-size-14 g-pt-10 g-color-gray-dark-v5">Please arrive 15 minutes early to warm up</div>
         </div>
         <p class="lead g-color-gray-dark-v5 g-font-weight-600">The Ladies' 1s and Ladies' 2s squads train on Wednesday nights, while the remaining teams - including 
@@ -80,14 +81,15 @@
           <h4 class="h4 g-color-black g-mb-15">Men's Squads</h4>
           <div class="g-mb-10"><a href="{{ long_road_url }}" title="Venue details">Long Road Sixth Form College</a></div>
           <div class="g-font-style-italic  g-mb-20">
-            1st & 2nd XIs - Mondays, 8pm - 10pm*<br/>
-            3rd to 6th XIs - Thursdays, 8:30pm - 10pm
+            1st & 2nd XIs - Tuesdays, 7.30 - 9.30pm*<br/>
+            3rd & 4th XIs - Mondays, 8.30 - 10pm<br/>
+            5th & 6th XIs - Mondays, 7pm - 8.30pm
             <div class="g-font-size-14 g-pt-10 g-color-gray-dark-v5">Please arrive 15 minutes early to warm up</div>
           </div>
-          <p class="lead g-color-gray-dark-v5 g-font-weight-600">The Men's 1s and 2s squads train on Monday nights while the remaining teams train on Thursday nights.
+          <p class="lead g-color-gray-dark-v5 g-font-weight-600">The Men's 1s and 2s squads train on Tuesday nights while the remaining teams train on Monday nights.
           </p>
           <p>
-            *9:30pm - 10pm for the Men's 1s and 2s has a surcharge.
+            *9pm - 9.30pm for the Men's 1s and 2s has a surcharge.
           </p>
         </div>
       </div>
@@ -127,17 +129,17 @@
     {% if in_season == 'in' %}
       {% include 'blocks/_middle_heading.html' with title="Pay and Play" %}
       <p class="lead">
-        Cambridge South also offers informal hockey each week on Tuesday and Friday evenings from 7:30pm to 8:30pm at
+        Cambridge South also offers informal hockey each week on Friday evenings at
         <a href="{{ long_road_url }}">Long Road Sixth Form College</a> during the season.
       </p>
       <p class="lead">
-        A typical session consists of a couple of small-sided knock-around games, each on a half pitch. The sessions are mixed men's 
+        There is the option of higher and lower level small-sided knock-around games, each on a half pitch, or a full pitch all-abilities game. The sessions are mixed men's 
         and ladies' hockey and open to everyone. You don't have to be a club member to come along and new players are very welcome.
       </p>
       <p class="lead">
-        If you'd like to play then pre-book for a session via the club's <a href="https://www.teamo.chat/club/register/camsouth">Teamo registration app</a> or if you’re new to the club, contact
-        {% clubinfo_email 'SecretaryEmail' sec_name %}. The cost is &pound;4 or &pound;2 for students and the unwaged. If you're new 
-        to the club, your first session is free!
+        To play, pre-book for a session via the <em>Spond</em> app or web portal. If you’re new to the club, contact the Club Secretary, {% clubinfo_email 'SecretaryEmail' sec_name %}, to 
+        be registered with us on Spond. The cost is &pound;4 per session or &pound;2 for students and the unwaged, payable on the night via contactless payment. 
+        If you're new to the club, your first session is free!
       </p>
     {% else %}
       {% subheading "Summer Hockey" %}
