@@ -23,7 +23,14 @@ const CommitteeMemberships = ({ data }) => {
         {sorted.map(seasonSlug => (
           <Timeline2Item
             key={seasonSlug}
-            dateSmall={seasonSlug}
+            dateSmall={
+              <a
+                href={Urls.about_committee_season(seasonSlug)}
+                title={`View ${seasonSlug} Committee details`}
+              >
+                {seasonSlug}
+              </a>
+            }
           >
             {grouped[seasonSlug].map(cm => (
               <h6 className="h6" key={cm.position.name}>
