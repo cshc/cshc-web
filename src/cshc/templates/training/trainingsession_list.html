@@ -56,14 +56,15 @@
         <h4 class="h4 g-color-black g-mb-15">Ladies' Squads</h4>
         <div class="g-mb-10"><a href="{{ long_road_url }}" title="Venue details">Long Road Sixth Form College</a></div>
         <div class="g-font-style-italic  g-mb-20">
-          1st & 2nd XIs - Wednesdays, 7:30pm - 9:30pm*<br/>
-          3rd & 4th XIs - Thursdays, 8.30pm - 10pm<br/>
-          5th & 6th XIs - Thursdays, 7pm - 8.30pm
+          1st &amp; 2nd XIs - Tuesdays, 7:30pm - 9:30pm*<br/>
+          3rd &amp; 4th XIs - Thursdays, 7pm - 8:30pm or 8:30pm - 10pm**<br/>
+          5th &amp; 6th XIs - Thursdays, 7pm - 8:30pm or 8:30pm - 10pm**
           <div class="g-font-size-14 g-pt-10 g-color-gray-dark-v5">Please arrive 15 minutes early to warm up</div>
         </div>
-        <p class="lead g-color-gray-dark-v5 g-font-weight-600">The Ladies' 1s and Ladies' 2s squads train on Wednesday nights, while the remaining teams - including 
+        <p class="lead g-color-gray-dark-v5 g-font-weight-600">The Ladies' 1s and Ladies' 2s squads train on Wednesday nights, while the remaining teams - including
           players new or returning to hockey - train on Thursday evenings.</p>
-        <p>*9pm - 9:30pm for the Ladies' 1s and 2s has a surcharge.</p>
+        <p>* 9pm - 9:30pm for the Ladies' 1s and 2s has a surcharge.</p>
+        <p>** Training times alternate weekly.</p>
       </div>
     </div>
     <div class="col-md-6 px-0">
@@ -81,15 +82,15 @@
           <h4 class="h4 g-color-black g-mb-15">Men's Squads</h4>
           <div class="g-mb-10"><a href="{{ long_road_url }}" title="Venue details">Long Road Sixth Form College</a></div>
           <div class="g-font-style-italic  g-mb-20">
-            1st & 2nd XIs - Tuesdays, 7.30pm - 9.30pm*<br/>
-            3rd & 4th XIs - Mondays, 8.30pm - 10pm<br/>
-            5th & 6th XIs - Mondays, 7pm - 8.30pm
+            1st &amp; 2nd XIs - Wednesdays, 7:30pm - 9:30pm*<br/>
+            3rd &amp; 4th XIs - Mondays, 8:30pm - 10pm<br/>
+            5th &amp; 6th XIs - Mondays, 7pm - 8:30pm
             <div class="g-font-size-14 g-pt-10 g-color-gray-dark-v5">Please arrive 15 minutes early to warm up</div>
           </div>
           <p class="lead g-color-gray-dark-v5 g-font-weight-600">The Men's 1s and 2s squads train on Tuesday nights while the remaining teams train on Monday nights.
           </p>
           <p>
-            *9pm - 9.30pm for the Men's 1s and 2s has a surcharge.
+            * 9pm - 9:30pm for the Men's 1s and 2s has a surcharge.
           </p>
         </div>
       </div>
@@ -107,13 +108,13 @@
   <div class="container g-py-40">
     {% include 'blocks/_middle_heading.html' with title="Goalkeeper Training" %}
     <p class="lead">
-        As well as being included within the main men's and ladies' training sessions, the club also arranges fortnightly specialist training for 
+        As well as being included within the main men's and ladies' training sessions, the club also arranges fortnightly specialist training for
         goalkeepers. See the club calendar for the full training schedule. Keepers should arrive early and be kitted up and ready for the start of the session.
     </p>
     {% include 'blocks/_divider.html' with bg_color="g-bg-secondary" %}
     {% include 'blocks/_middle_heading.html' with title="1st and 2nd Team Training" %}
     <p class="lead">
-        The Men's and Ladies' 1s and 2s run an extra half hour of training on their respective evenings. There is a supplemental fee of £30 per season 
+        The Men's and Ladies' 1s and 2s run an extra half hour of training on their respective evenings. There is a supplemental fee of £30 per season
         for this session.
     </p>
     {% include 'blocks/_divider.html' with bg_color="g-bg-secondary" %}
@@ -133,22 +134,22 @@
         <a href="{{ long_road_url }}">Long Road Sixth Form College</a> during the season.
       </p>
       <p class="lead">
-        There is the option of higher and lower level small-sided knock-around games, each on a half pitch, or a full pitch all-abilities game. The sessions are mixed men's 
+        There is the option of higher and lower level small-sided knock-around games, each on a half pitch, or a full pitch all-abilities game. The sessions are mixed men's
         and ladies' hockey and open to everyone. You don't have to be a club member to come along and new players are very welcome.
       </p>
       <p class="lead">
-        To play, pre-book for a session via the <em>Spond</em> app or web portal. If you’re new to the club, contact the Club Secretary, {% clubinfo_email 'SecretaryEmail' sec_name %}, to 
-        be registered with us on Spond. The cost is &pound;4 per session or &pound;2 for students and the unwaged, payable on the night via contactless payment. 
+        To play, pre-book for a session via the <em>Spond</em> app or web portal. If you’re new to the club, contact the Club Secretary, {% clubinfo_email 'SecretaryEmail' sec_name %}, to
+        be registered with us on Spond. The cost is &pound;4 per session or &pound;2 for students and the unwaged, payable on the night via contactless payment.
         If you're new to the club, your first session is free!
       </p>
     {% else %}
       {% subheading "Summer Hockey" %}
       <p class="lead">
-        Cambridge South also offers informal weekly hockey on Wednesday evenings year-round, including over the summer off-season, from 7:30-8:30pm at
+        Cambridge South also offers informal weekly hockey on Wednesday evenings year-round, including over the summer off-season, from 7:30pm - 8:30pm at
         <a href="{{ long_road_url }}">Long Road Sixth Form College</a>.
       </p>
       <p class="lead">
-        A typical session consists of a couple of small-sided knock-around games, each on a half pitch. The sessions are mixed men's and ladies' 
+        A typical session consists of a couple of small-sided knock-around games, each on a half pitch. The sessions are mixed men's and ladies'
         hockey and open to everyone. You don't have to be a club member to come along and new players are very welcome.
       </p>
       <div class="alert alert-warning fade show g-my-10" role="alert">
@@ -157,7 +158,7 @@
             <i class="fas fa-exclamation-triangle"></i>
           </span>
           <div class="media-body">
-            <p><strong>Note: </strong>From April through August, additional sessions run at the same time on Tuesday and Thursday evenings. The Thursday sessions are suspended for 5 weeks from 30 May to 27 June, and moved back an hour to 8.30-9.30pm in August, preceded by a basic skills and game session for beginners and players returning to hockey from 7.30-8.30pm.
+            <p><strong>Note: </strong>From April through August, additional sessions run at the same time on Tuesday and Thursday evenings. The Thursday sessions are suspended for 5 weeks from 30 May to 27 June, and moved back an hour to 8:30pm - 9:30pm in August, preceded by a basic skills and game session for beginners and players returning to hockey from 7:30pm - 8:30pm.
             </p>
             <p>Tuesday and Thursday summer sessions are restricted to club members (or new players not affiliated to any club).
             </p>
@@ -165,12 +166,12 @@
         </div>
       </div>
       <p class="lead">
-        If you build up a thirst then there is usually a group of us going on for a drink or two afterwards at a nearby pub - a great way to get 
+        If you build up a thirst then there is usually a group of us going on for a drink or two afterwards at a nearby pub - a great way to get
         to know people in the club!
       </p>
       <p class="lead">
-        If you'd like to play, either contact {% clubinfo_email 'SecretaryEmail' sec_name %} any time during the week prior to the session 
-        you wish to attend or else just turn up at the pitch and introduce yourself. The cost is &pound;4 or &pound;2 for students and the 
+        If you'd like to play, either contact {% clubinfo_email 'SecretaryEmail' sec_name %} any time during the week prior to the session
+        you wish to attend or else just turn up at the pitch and introduce yourself. The cost is &pound;4 or &pound;2 for students and the
         unwaged. If you're new to the club, your first session is free, as are all the Thursday beginner sessions!
       </p>
     {% endif %}
@@ -192,7 +193,7 @@
         <div class="g-bg-gray-light-v5 g-pa-30 text-center">
           <h4>Make it easy for yourself!</h4>
           <p class="lead g-py-20">
-            All Cambridge South training sessions are available as a <strong>.ics calendar feed</strong> that you can link into your own 
+            All Cambridge South training sessions are available as a <strong>.ics calendar feed</strong> that you can link into your own
             calendar client (Outlook, iPhone etc).
           </p>
           <a class="btn btn-md u-btn-outline-primary g-brd-2 rounded-0" href="{{ calendar }}#feeds"><i class="far fa-calendar-plus g-mr-5"></i>Subscribe</a>
