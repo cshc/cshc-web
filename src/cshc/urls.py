@@ -36,8 +36,9 @@ urlpatterns = [
 
     url(r'^about/$', TemplateView.as_view(template_name='club_info/about_us.html'),
         name='about_us'),
-    url(r'^about/social/$',
-        TemplateView.as_view(template_name='club_info/social.html'), name='about_social'),
+    # MAYBE TEMP: Hide the social page
+    # url(r'^about/social/$',
+    #     TemplateView.as_view(template_name='club_info/social.html'), name='about_social'),
     url(r'^about/directions/$', DirectionsView.as_view(), name='directions'),
     url(r'^about/kit/$',
         TemplateView.as_view(template_name='club_info/kit.html'), name='about_kit'),

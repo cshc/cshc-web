@@ -30,7 +30,7 @@ class MainStaticViewSitemap(Sitemap):
 
     def items(self):
         return [
-            'homepage', 'about_us', 'about_social', 'directions', 'about_kit', 'member_offers',
+            'homepage', 'about_us', 'directions', 'about_kit', 'member_offers',
             'calendar', 'join_us', 'about_committee', 'juniors_index', 'contact_us',
             'stats',
         ]
