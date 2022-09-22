@@ -28,8 +28,8 @@ class VenueQuerySet(QuerySet):
 class Venue(models.Model):
     """Represents a match venue"""
 
-    # Currently we pay 17p per mile towards petrol for away matches
-    PENCE_PER_MILE = 17
+    # we pay 23p per mile towards petrol for away matches
+    PENCE_PER_MILE = 23
 
     name = models.CharField("Venue Name", max_length=255,
                             default=None, unique=True)
