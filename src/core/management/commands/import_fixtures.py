@@ -24,7 +24,7 @@ from datetime import datetime
 from django.core.management.base import BaseCommand
 from django.db.models import Q
 from matches.models import Match, FixtureType, HomeAway
-from opposition.models import Team
+from opposition.models import Club, Team
 from teams.models import ClubTeam
 from venues.models import Venue
 from competitions.models import Season
@@ -197,6 +197,13 @@ class Command(BaseCommand):
                 opp_team_name))
             return
 
+        try:
+            opp_default_venue_name = opp.club.default_venue.name
+        except (Club.DoesNotExist, Venue.DoesNotExist):
+            print("ERROR: Could not find default venue for team with name '{}'".format(
+                opp_team_name))
+            return
+
         # Create or retrieve Match model (based on opposition team, our team and date)
         if not simulate:
             match, created = Match.objects.get_or_create(
@@ -236,7 +243,12 @@ class Command(BaseCommand):
             match.time = None
 
         # Match Venue (can be null)
+        # Use default venue for away games without explicit venues
         if venue_name.lower() == 'away' or (home_away.lower() == 'a' and venue_name.lower() == ''):
+            venue_name = opp_default_venue_name
+        if venue_name == '':
+            print("WARNING: No venue for {} on {}".format(
+                team_name, fixture_date))
             match.venue = None
         else:
             try:
