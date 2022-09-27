@@ -243,6 +243,9 @@ class Command(BaseCommand):
             match.time = None
 
         # Match Venue (can be null)
+        # Use default venue for home games without explicit venues
+        if venue_name.lower() == 'home' or (home_away.lower() == 'h' and venue_name.lower() == ''):
+            venue_name = 'Long Road'
         # Use default venue for away games without explicit venues
         if venue_name.lower() == 'away' or (home_away.lower() == 'a' and venue_name.lower() == ''):
             venue_name = opp_default_venue_name
