@@ -16,7 +16,7 @@ from .forms import TrainingSessionForm
 LOG = logging.getLogger(__name__)
 
 # The max number of upcoming training sessions to display
-MAX_SESSIONS_TO_DISPLAY = 5
+MAX_SESSIONS_TO_DISPLAY = 6
 
 
 class UpcomingTrainingSessionsView(ListView):
