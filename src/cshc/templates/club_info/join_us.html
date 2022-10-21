@@ -127,7 +127,8 @@
 
 {% subheading "Umpires" %}
 
-<p>Players who umpire receive a fee of &pound;10 per game and for away games can claim fuel expenses if they take 
+{% clubinfo 'UmpireFee' as umpire_fee %}
+<p>Players who umpire receive a fee of &pound;{{ umpire_fee }} per game and for away games can claim fuel expenses if they take
   a team player in accordance with the Travel Costs on the relevant venue page.</p>
 
 
