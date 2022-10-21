@@ -99,16 +99,17 @@ class TrainingSessionForm(forms.Form):
                 for i in range(0, cleaned_repeat_count):
                     sessions.append(self.new_session(step*i))
             else:
-                LOG.info("Saving repeated training sessions up to {}".format(
-                    self.cleaned_data['repeat_until']))
-                week_offset = 0
-                start_date = self.cleaned_data['date']
-                end = (
+                cleaned_repeat_until = (
                     self.cleaned_data['repeat_until_weekly']
                     if self.cleaned_data['repeat_option'] == UNTIL_WEEKLY
                     else
                     self.cleaned_data['repeat_until_biweekly']
                 )
+                LOG.info("Saving repeated training sessions up to {}".format(
+                    cleaned_repeat_until))
+                week_offset = 0
+                start_date = self.cleaned_data['date']
+                end = cleaned_repeat_until
                 while end > (start_date + timedelta(days=week_offset*7)):
                     sessions.append(self.new_session(week_offset))
                     week_offset += step
