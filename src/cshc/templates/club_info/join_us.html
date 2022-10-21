@@ -114,12 +114,10 @@
 <p>* Match fees are reduced proportionally for substitutes playing part of a game</p>
 
 {% clubinfo 'TreasurerName' as treasurer_name %}
+{% clubinfo 'SecretaryName' as secretary_name %}
 <div class="g-brd-around g-brd-gray-light-v4 g-brd-left-4 g-brd-primary-left g-line-height-1_8 g-rounded-3 g-pa-20 g-mb-30" role="alert">
   <h3 class="g-color-primary g-font-weight-600">Payment of annual subscriptions</h3>
-  <p class="g-font-size-16">Annual subscriptions should be given to your team captain or the Club Treasurer ({{ treasurer_name }}). 
-      Payment can be made by cheque payable to <q>Cambridge South Hockey Club</q> or directly by bank transfer: 
-      contact {% clubinfo_email 'TreasurerEmail' treasurer_name %} for bank details and to notify them of your payment.
-  </p>
+  <p class="g-font-size-16">Annual Subscriptions are paid through Spond, the club's communication platform.  To be sent a Payment Request link please email the {% clubinfo_email 'TreasurerEmail' treasurer_name %}, or the {% clubinfo_email 'SecretaryEmail' secretary_name %}.</p>
   <p class="mb-0"><strong>Note: Players who have not paid their subscription by 31st October will no longer be covered by our members' 
     insurance and so will not able to be selected until they have paid.</strong></p>
 </div>
