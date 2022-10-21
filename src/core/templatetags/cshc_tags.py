@@ -3,6 +3,7 @@ Template tags for the CSHC Website
 """
 import logging
 import codecs
+import datetime
 import os
 import re
 import traceback
@@ -318,6 +319,25 @@ def obfuscate(email, linktext=None, autoescape=None):
 
 
 obfuscate.needs_autoescape = True
+
+
+@register.simple_tag
+def _in_season(negate=False):
+    """Return True if we are in-season (or False if 'negate' is True)
+
+    We have "clubinfo 'InSeason'" but this needs to be changed
+    manually when the season starts/ends.  For most use cases we can
+    automate the decision, because the season starts/ends at around
+    the same time each year.
+
+    Named with a leading underscore to avoid conflicts with existing
+    'in_season' variables.
+
+    """
+    now = datetime.datetime.now()
+    off_season = 4 <= now.month <= 9
+    in_season = not off_season
+    return not in_season if negate else in_season
 
 
 ############################################################################################

@@ -26,7 +26,7 @@
 {% url 'trainingsession_create' as create_training_session %}
 
 {% clubinfo 'SecretaryName' as sec_name %}
-{% clubinfo 'InSeason' as in_season %}
+{% _in_season as in_season %}
 
 <div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll is-touch" data-options="{
   settings_mode_oneelement_max_offset: '150'
@@ -129,11 +129,15 @@
   <div class="container g-py-40">
     {% include 'blocks/_middle_heading.html' with title="Pay and Play" %}
     <p class="lead">
+      {% if in_season %}<span style="font-weight: bold">{% endif %}
       Cambridge South offers informal hockey each week on Friday evenings at
-      <a href="{{ long_road_url }}">Long Road Sixth Form College</a> during the season.
+      <a href="{{ long_road_url }}">Long Road Sixth Form College</a> during the season (September - March).
+      {% if in_season %}</span>{% endif %}
     </p>
     <p class="lead">
-      Cambridge South also offers informal hockey during the off season:<br />
+      {% if not in_season %}<span style="font-weight: bold">{% endif %}
+      Cambridge South also offers informal hockey during the off-season (April to August):
+      {% if not in_season %}</span>{% endif %}<br />
       Mixed half pitch higher and lower games: Mondays, 7pm - 8pm and Wednesdays, 7:30pm - 8:30pm<br />
       Mixed full pitch all-abilities game - Fridays, 7pm - 8pm<br />
       Ladies game - Thursdays, 7pm - 8pm<br />
