@@ -19,12 +19,16 @@ from .models import TrainingSession
 LOG = logging.getLogger(__name__)
 
 NO_REPEAT = 'N'
-MULTIPLE = 'M'
-UNTIL = 'U'
+MULTIPLE_WEEKLY = 'MW'
+UNTIL_WEEKLY = 'UW'
+MULTIPLE_BIWEEKLY = 'MB'
+UNTIL_BIWEEKLY = 'UB'
 REPEAT_CHOICES = (
     (NO_REPEAT, "One-off"),
-    (MULTIPLE, "Multiple"),
-    (UNTIL, "Until")
+    (MULTIPLE_WEEKLY, "Multiple (Weekly)"),
+    (UNTIL_WEEKLY, "Until (Weekly)"),
+    (MULTIPLE_BIWEEKLY, "Multiple (Biweekly)"),
+    (UNTIL_BIWEEKLY, "Until (Biweekly)"),
 )
 
 DATE_INPUT_FORMATS = ['%Y-%m-%d', '%d/%m/%Y',
@@ -56,12 +60,21 @@ class TrainingSessionForm(forms.Form):
     repeat_option = forms.ChoiceField(label="Repeat", choices=REPEAT_CHOICES,
                                       widget=UnifyRadioInput)
 
-    repeat_count = forms.IntegerField(
+    repeat_count_weekly = forms.IntegerField(
         label="",
         min_value=2, max_value=52, initial=10, required=False,
         widget=UnifyNumericInput)
 
-    repeat_until = forms.DateField(
+    repeat_until_weekly = forms.DateField(
+        label="",
+        input_formats=DATE_INPUT_FORMATS, required=False, widget=UnifyDateInput(attrs={'class': 'g-width-120'}))
+
+    repeat_count_biweekly = forms.IntegerField(
+        label="",
+        min_value=2, max_value=52, initial=10, required=False,
+        widget=UnifyNumericInput)
+
+    repeat_until_biweekly = forms.DateField(
         label="",
         input_formats=DATE_INPUT_FORMATS, required=False, widget=UnifyDateInput(attrs={'class': 'g-width-120'}))
 
@@ -73,20 +86,32 @@ class TrainingSessionForm(forms.Form):
         else:
             # Save multiple training sessions
             sessions = []
-            if self.cleaned_data['repeat_option'] == MULTIPLE:
+            step = 2 if self.cleaned_data['repeat_option'] in (MULTIPLE_BIWEEKLY, UNTIL_BIWEEKLY) else 1
+            if self.cleaned_data['repeat_option'] in (MULTIPLE_WEEKLY, MULTIPLE_BIWEEKLY):
+                cleaned_repeat_count = (
+                    self.cleaned_data['repeat_count_weekly']
+                    if self.cleaned_data['repeat_option'] == MULTIPLE_WEEKLY
+                    else
+                    self.cleaned_data['repeat_count_biweekly']
+                )
                 LOG.info("Saving {} repeated training sessions".format(
-                    self.cleaned_data['repeat_count']))
-                for i in range(0, self.cleaned_data['repeat_count']):
-                    sessions.append(self.new_session(i))
+                    cleaned_repeat_count))
+                for i in range(0, cleaned_repeat_count):
+                    sessions.append(self.new_session(step*i))
             else:
                 LOG.info("Saving repeated training sessions up to {}".format(
                     self.cleaned_data['repeat_until']))
                 week_offset = 0
                 start_date = self.cleaned_data['date']
-                end = self.cleaned_data['repeat_until']
+                end = (
+                    self.cleaned_data['repeat_until_weekly']
+                    if self.cleaned_data['repeat_option'] == UNTIL_WEEKLY
+                    else
+                    self.cleaned_data['repeat_until_biweekly']
+                )
                 while end > (start_date + timedelta(days=week_offset*7)):
                     sessions.append(self.new_session(week_offset))
-                    week_offset += 1
+                    week_offset += step
             return sessions
 
     def new_session(self, week_offset=0):

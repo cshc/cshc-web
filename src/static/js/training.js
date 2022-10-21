@@ -2,25 +2,37 @@
 
 $(() => {
   let repeatOptionInputs = $('input[type=radio][name=repeat_option]'),
-    repeatCountInput = $('#id_repeat_count'),
-    repeatUntilInput = $('#id_repeat_until'),
-    repeatCountGroup = $('#repeat-count-input-group'),
-    repeatUntilGroup = $('#repeat-until-input-group');
+    repeatCountWeeklyInput = $('#id_repeat_count_weekly'),
+    repeatUntilWeeklyInput = $('#id_repeat_until_weekly'),
+    repeatCountWeeklyGroup = $('#repeat-count-weekly-input-group'),
+    repeatUntilWeeklyGroup = $('#repeat-until-weekly-input-group');
+    repeatCountBiweeklyInput = $('#id_repeat_count_biweekly'),
+    repeatUntilBiweeklyInput = $('#id_repeat_until_biweekly'),
+    repeatCountBiweeklyGroup = $('#repeat-count-biweekly-input-group'),
+    repeatUntilBiweeklyGroup = $('#repeat-until-biweekly-input-group');
 
   // Disable the repeat inputs based on which type of repeat is selected
   repeatOptionInputs.change(function () {
-    repeatCountInput.prop('disabled', this.value != 'M');
-    repeatUntilInput.prop('disabled', this.value != 'U');
+    repeatCountWeeklyInput.prop('disabled', this.value != 'MW');
+    repeatUntilWeeklyInput.prop('disabled', this.value != 'UW');
+    repeatCountBiweeklyInput.prop('disabled', this.value != 'MB');
+    repeatUntilBiweeklyInput.prop('disabled', this.value != 'UB');
 
     if (this.value == 'N') {
-      repeatCountGroup.addClass('u-has-disabled-v1');
-      repeatUntilGroup.addClass('u-has-disabled-v1');
-    } else if (this.value == 'M') {
-      repeatUntilGroup.addClass('u-has-disabled-v1');
-      repeatCountGroup.removeClass('u-has-disabled-v1');
-    } else if (this.value == 'U') {
-      repeatUntilGroup.removeClass('u-has-disabled-v1');
-      repeatCountGroup.addClass('u-has-disabled-v1');
+      repeatCountWeeklyGroup.addClass('u-has-disabled-v1');
+      repeatUntilWeeklyGroup.addClass('u-has-disabled-v1');
+    } else if (this.value == 'MW') {
+      repeatUntilWeeklyGroup.addClass('u-has-disabled-v1');
+      repeatCountWeeklyGroup.removeClass('u-has-disabled-v1');
+    } else if (this.value == 'UW') {
+      repeatUntilWeeklyGroup.removeClass('u-has-disabled-v1');
+      repeatCountWeeklyGroup.addClass('u-has-disabled-v1');
+    } else if (this.value == 'MB') {
+      repeatUntilBiweeklyGroup.addClass('u-has-disabled-v1');
+      repeatCountBiweeklyGroup.removeClass('u-has-disabled-v1');
+    } else if (this.value == 'UB') {
+      repeatUntilBiweeklyGroup.removeClass('u-has-disabled-v1');
+      repeatCountBiweeklyGroup.addClass('u-has-disabled-v1');
     }
   });
 });

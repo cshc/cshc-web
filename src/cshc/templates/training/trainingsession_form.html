@@ -63,17 +63,17 @@
           </li>
           <li class="d-flex align-items-center flex-wrap">
             <label class="u-check g-pl-30 g-mr-20 g-mb-20 g-min-width-110" for="id_repeat_option_1">
-              <input type="radio" name="repeat_option" checked="checked" value="M" class="list-unstyled g-hidden-xs-up g-pos-abs g-top-0 g-left-0" required="" id="id_repeat_option_1">
+              <input type="radio" name="repeat_option" checked="checked" value="MW" class="list-unstyled g-hidden-xs-up g-pos-abs g-top-0 g-left-0" required="" id="id_repeat_option_1">
               <div class="u-check-icon-font g-absolute-centered--y g-left-0">
                 <i class="far" data-check-icon="" data-uncheck-icon=""></i>
               </div>
-              Multiple
+              Multiple (Weekly)
             </label>
-            <div id="repeat-count-input-group" class="js-quantity input-group u-quantity-v1 g-width-170 g-brd-primary--focus g-mb-20 g-mr-10">
+            <div id="repeat-count-weekly-input-group" class="js-quantity input-group u-quantity-v1 g-width-170 g-brd-primary--focus g-mb-20 g-mr-10">
               <div class="js-minus input-group-prepend g-width-55 g-color-gray">
                 <span class="input-group-text rounded-0 w-100"><i class="ti ti-minus"></i></span>
               </div>
-              <input type="text" name="repeat_count" value="10" class="js-result form-control text-center rounded-0 g-pa-15" min="2" max="52" id="id_repeat_count">
+              <input type="text" name="repeat_count_weekly" value="10" class="js-result form-control text-center rounded-0 g-pa-15" min="2" max="52" id="id_repeat_count_weekly">
               <div class="js-plus input-group-append g-width-55 g-color-gray">
                 <span class="input-group-text rounded-0 w-100"><i class="ti ti-plus"></i></span>
               </div>
@@ -82,14 +82,48 @@
           </li>
           <li class="d-flex align-items-center flex-wrap">
             <label class="u-check g-pl-30 g-mr-20 g-min-width-110 g-mb-20" for="id_repeat_option_2">
-              <input type="radio" name="repeat_option" value="U" class="list-unstyled g-hidden-xs-up g-pos-abs g-top-0 g-left-0" required="" id="id_repeat_option_2">
+              <input type="radio" name="repeat_option" value="UW" class="list-unstyled g-hidden-xs-up g-pos-abs g-top-0 g-left-0" required="" id="id_repeat_option_2">
               <div class="u-check-icon-font g-absolute-centered--y g-left-0">
                 <i class="far" data-check-icon="" data-uncheck-icon=""></i>
               </div>
-              Until
+              Until (Weekly)
             </label>
-            <div id="repeat-until-input-group" class="input-group g-brd-primary--focus g-width-170 g-mb-20">
-              <input type="text" name="repeat_until" class="g-width-120 form-control form-control-md u-datepicker-v1 g-brd-right-none rounded-0 unify-datepicker" id="id_repeat_until" disabled="">
+            <div id="repeat-until-weekly-input-group" class="input-group g-brd-primary--focus g-width-170 g-mb-20">
+              <input type="text" name="repeat_until_weekly" class="g-width-120 form-control form-control-md u-datepicker-v1 g-brd-right-none rounded-0 unify-datepicker" id="id_repeat_until_weekly" disabled="">
+              <div class="input-group-append">
+                <span class="input-group-text rounded-0 g-color-gray-light-v1"><i class="far fa-calendar-alt"></i></span>
+              </div>
+            </div>
+          </li>
+          <li class="d-flex align-items-center flex-wrap">
+            <label class="u-check g-pl-30 g-mr-20 g-mb-20 g-min-width-110" for="id_repeat_option_3">
+              <input type="radio" name="repeat_option" value="MB" class="list-unstyled g-hidden-xs-up g-pos-abs g-top-0 g-left-0" required="" id="id_repeat_option_3">
+              <div class="u-check-icon-font g-absolute-centered--y g-left-0">
+                <i class="far" data-check-icon="" data-uncheck-icon=""></i>
+              </div>
+              Multiple (Biweekly)
+            </label>
+            <div id="repeat-count-biweekly-input-group" class="js-quantity input-group u-quantity-v1 g-width-170 g-brd-primary--focus g-mb-20 g-mr-10">
+              <div class="js-minus input-group-prepend g-width-55 g-color-gray">
+                <span class="input-group-text rounded-0 w-100"><i class="ti ti-minus"></i></span>
+              </div>
+              <input type="text" name="repeat_count_biweekly" value="10" class="js-result form-control text-center rounded-0 g-pa-15" min="2" max="52" id="id_repeat_count_biweekly">
+              <div class="js-plus input-group-append g-width-55 g-color-gray">
+                <span class="input-group-text rounded-0 w-100"><i class="ti ti-plus"></i></span>
+              </div>
+            </div>
+            <div class="g-mb-20">times</div>
+          </li>
+          <li class="d-flex align-items-center flex-wrap">
+            <label class="u-check g-pl-30 g-mr-20 g-min-width-110 g-mb-20" for="id_repeat_option_4">
+              <input type="radio" name="repeat_option" value="UB" class="list-unstyled g-hidden-xs-up g-pos-abs g-top-0 g-left-0" required="" id="id_repeat_option_4">
+              <div class="u-check-icon-font g-absolute-centered--y g-left-0">
+                <i class="far" data-check-icon="" data-uncheck-icon=""></i>
+              </div>
+              Until (Biweekly)
+            </label>
+            <div id="repeat-until-biweekly-input-group" class="input-group g-brd-primary--focus g-width-170 g-mb-20">
+              <input type="text" name="repeat_until_biweekly" class="g-width-120 form-control form-control-md u-datepicker-v1 g-brd-right-none rounded-0 unify-datepicker" id="id_repeat_until_biweekly" disabled="">
               <div class="input-group-append">
                 <span class="input-group-text rounded-0 g-color-gray-light-v1"><i class="far fa-calendar-alt"></i></span>
               </div>
