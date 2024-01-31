@@ -21,6 +21,7 @@
 {% url 'calendar' as calendar %}
 {% url 'venue_detail' 'long-road' as long_road_url %}
 {% url 'venue_detail' 'wilberforce-road' as uni_url %}
+{% url 'venue_detail' 'st-marys' as st_marys_url %}
 {% url 'trainingsession_create' as create_training_session %}
 {% url 'juniors_index' as juniors %}
 {% url 'trainingsession_create' as create_training_session %}
@@ -48,7 +49,7 @@
   {% include 'blocks/_middle_heading.html' with title="Squad Training" %}
 
   <p class="lead g-mb-40">Cambridge South runs professionally coached training sessions for men and women of all standards throughout the season from September to March at
-  <a href="{{ long_road_url }}">Long Road Sixth Form College</a>. All standard training sessions are free to attend, for club members and newcomers, with no booking required.</p>
+  <a href="{{ long_road_url }}">Long Road Sixth Form College</a> or <a href="{{ st_marys_url }}">St Mary's and Homerton Sports Ground</a>. All standard training sessions are free to attend, for club members and newcomers, with no booking required.</p>
 
   <figure class="row flex-md-row align-items-center">
     <div class="col-md-6 px-0">
@@ -83,11 +84,15 @@
           <div class="g-mb-10"><a href="{{ long_road_url }}" title="Venue details">Long Road Sixth Form College</a></div>
           <div class="g-font-style-italic  g-mb-20">
             1st &amp; 2nd XIs - Wednesdays, 7:30pm - 9:30pm*<br/>
-            3rd &amp; 4th XIs - Mondays, 8:30pm - 10pm<br/>
-            5th &amp; 6th XIs - Mondays, 7pm - 8:30pm
+            3rd &amp; 4th XIs - Mondays, 8:30pm - 10pm
             <div class="g-font-size-14 g-pt-10 g-color-gray-dark-v5">Please arrive 15 minutes early to warm up</div>
           </div>
-          <p class="lead g-color-gray-dark-v5 g-font-weight-600">The Men's 1s and 2s squads train on Wednesday nights while the remaining teams train on Monday nights.
+          <div class="g-mb-10"><a href="{{ st_marys_url }}" title="Venue details">St Mary's & Homerton Sports Ground</a></div>
+          <div class="g-font-style-italic  g-mb-20">
+            5th &amp; 6th XIs - Tuesdays, 7:30pm - 9pm
+            <div class="g-font-size-14 g-pt-10 g-color-gray-dark-v5">Please arrive 15 minutes early to warm up</div>
+          </div>
+          <p class="lead g-color-gray-dark-v5 g-font-weight-600">The Men's 1s and 2s squads train on Wednesday nights while the remaining teams train on other nights.
           </p>
           <p>
             * 9pm - 9:30pm for the Men's 1s and 2s has a surcharge.
