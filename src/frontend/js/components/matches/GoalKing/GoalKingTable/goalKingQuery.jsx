@@ -19,6 +19,7 @@ export const GOAL_KING_QUERY = gql`
         m4Goals
         m5Goals
         m6Goals
+        m7Goals        
         mvGoals
         mindGoals
         l1Goals
