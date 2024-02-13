@@ -34,6 +34,7 @@ def utils(request):
                     ('m4', 'Mens 4ths',),
                     ('m5', 'Mens 5ths',),
                     ('m6', 'Mens 6ths',),
+                    ('m7', 'Mens 7ths',),
                     # Add a border above this item
                     ('m-in', 'Mens Indoor', True),
                     ('mv', 'Mens Vets',),

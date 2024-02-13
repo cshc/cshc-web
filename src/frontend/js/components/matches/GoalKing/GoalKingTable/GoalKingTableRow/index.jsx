@@ -39,6 +39,7 @@ const GoalKingTableRow = ({ entry, teamFilter, maxGoals }) => {
       <td className={teamClass('m4')}>{entry.m4Goals || ''}</td>
       <td className={teamClass('m5')}>{entry.m5Goals || ''}</td>
       <td className={teamClass('m6')}>{entry.m6Goals || ''}</td>
+      <td className={teamClass('m7')}>{entry.m7Goals || ''}</td>      
       <td className={teamClass('l1')}>{entry.l1Goals || ''}</td>
       <td className={teamClass('l2')}>{entry.l2Goals || ''}</td>
       <td className={teamClass('l3')}>{entry.l3Goals || ''}</td>
