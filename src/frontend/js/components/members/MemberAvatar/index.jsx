@@ -21,7 +21,7 @@ class MemberAvatar extends React.Component {
     const { member, badgeCount, className, rounded } = this.props;
     const title = `${Member.fullName(member)} - view profile`;
     const fallbackImage =
-      member.gender === Gender.Male ? 'img/kit/mens_shirt_sq.png' : 'img/kit/ladies_shirt_sq.png';
+      member.gender === Gender.Male ? 'img/kit/mens_shirt_sq_y1.png' : 'img/kit/ladies_shirt_sq_y1.png';
     const fallbackImageUrl = Urls.static(fallbackImage);
     const imgClass = classnames('w-100', {
       'u-shadow-v29 rounded-circle': rounded,
