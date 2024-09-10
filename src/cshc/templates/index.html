@@ -170,17 +170,6 @@
   </div>
 </section>
 
-<section id="training" class="g-bg-gray-light-v5">
-  <div class="container text-center g-py-60">
-    {% include 'blocks/_middle_heading.html' with title="Upcoming Training Sessions" %}
-    <div class="row justify-content-center">
-      <div class="col-lg-9">
-        {% include 'training/_next_training.html' %}
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="news" class="container g-py-60">
   {% include 'blocks/_middle_heading.html' with title="Latest News" %}
   {% get_recent_entries 3 'core/_recent_articles.html' %}
