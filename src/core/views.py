@@ -146,7 +146,6 @@ class JuniorsContactSubmissionCreateView(CreateView):
         context['sub_nav_items'] = [
             {'id': 'contact-us', 'label': 'Get In Touch'},
             {'id': 'resources', 'label': 'Resources'},
-            {'id': 'calendar', 'label': 'Calendar'},
             {'id': 'key_people', 'label': 'Key People'},
             {'id': 'news', 'label': 'News'},
         ]

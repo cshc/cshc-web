@@ -57,15 +57,15 @@
         <h4 class="h4 g-color-black g-mb-15">Ladies' Squads</h4>
         <div class="g-mb-10"><a href="{{ long_road_url }}" title="Venue details">Long Road Sixth Form College</a></div>
         <div class="g-font-style-italic  g-mb-20">
-          1st &amp; 2nd XIs - Tuesdays, 7:30pm - 9:30pm*<br/>
-          3rd &amp; 4th XIs - Thursdays, 7pm - 8:30pm or 8:30pm - 10pm**<br/>
-          5th &amp; 6th XIs - Thursdays, 7pm - 8:30pm or 8:30pm - 10pm**
+          1st &amp; 2nd XIs - Tuesdays, 7:30pm - 9:30pm<br/>
+          5th &amp; 6th XIs - Mondays, 7:30pm - 9pm
           <div class="g-font-size-14 g-pt-10 g-color-gray-dark-v5">Please arrive 15 minutes early to warm up</div>
         </div>
-        <p class="lead g-color-gray-dark-v5 g-font-weight-600">The Ladies' 1s and Ladies' 2s squads train on Tuesday nights, while the remaining teams - including
-          players new or returning to hockey - train on Thursday evenings.</p>
-        <p>* 9pm - 9:30pm for the Ladies' 1s and 2s has a surcharge.</p>
-        <p>** Training times alternate weekly.</p>
+        <div class="g-mb-10"><a href="{{ st_marys_url }}" title="Venue details">St Mary's & Homerton Sports Ground</a></div>
+        <div class="g-font-style-italic  g-mb-20">
+          3rd &amp; 4th XIs - Thursdays, 7:30pm - 9pm<br/>
+          <div class="g-font-size-14 g-pt-10 g-color-gray-dark-v5">Please arrive 15 minutes early to warm up</div>
+        </div>
       </div>
     </div>
     <div class="col-md-6 px-0">
@@ -83,20 +83,15 @@
           <h4 class="h4 g-color-black g-mb-15">Men's Squads</h4>
           <div class="g-mb-10"><a href="{{ long_road_url }}" title="Venue details">Long Road Sixth Form College</a></div>
           <div class="g-font-style-italic  g-mb-20">
-            1st &amp; 2nd XIs - Wednesdays, 7:30pm - 9:30pm*<br/>
-            3rd &amp; 4th XIs - Mondays, 8:30pm - 10pm
+            1st &amp; 2nd XIs - Wednesdays, 7:30pm - 9:30pm<br/>
+            3rd &amp; 4th XIs - Thursdays, 8pm - 9:30pm
             <div class="g-font-size-14 g-pt-10 g-color-gray-dark-v5">Please arrive 15 minutes early to warm up</div>
           </div>
           <div class="g-mb-10"><a href="{{ st_marys_url }}" title="Venue details">St Mary's & Homerton Sports Ground</a></div>
           <div class="g-font-style-italic  g-mb-20">
-            5th &amp; 6th XIs - Tuesdays, 7:30pm - 9pm
+            5th, 6th &amp; 7th XIs - Tuesdays, 7:30pm - 9pm
             <div class="g-font-size-14 g-pt-10 g-color-gray-dark-v5">Please arrive 15 minutes early to warm up</div>
           </div>
-          <p class="lead g-color-gray-dark-v5 g-font-weight-600">The Men's 1s and 2s squads train on Wednesday nights while the remaining teams train on other nights.
-          </p>
-          <p>
-            * 9pm - 9:30pm for the Men's 1s and 2s has a surcharge.
-          </p>
         </div>
       </div>
     </div>
@@ -154,40 +149,9 @@
     </p>
     <p class="lead">
       To play, pre-book for a session via the <em>Spond</em> app or web portal. If you’re new to the club, contact {% clubinfo_email 'SecretaryEmail' sec_name %}, to
-      be registered with us on Spond. The cost is &pound;4 per session or &pound;2 for students and the unwaged, payable on the night via contactless payment.
+      be registered with us on Spond. The cost is &pound;5 per session or &pound;2.50 for students and the unwaged, payable on the night via contactless payment.
       If you're new to the club, your first session is free!
     </p>
-  </div>
-</section>
-
-<section>
-  <div class="container g-mb-40">
-    <div class="row">
-      <div class="col-12 col-lg-8 g-mb-20">
-        <div class="card g-brd-primary rounded-0">
-          <h3 class="card-header g-bg-primary g-brd-transparent g-color-white g-font-size-16 rounded-0 mb-0">
-            Next Training Sessions
-          </h3>
-          {% include 'training/_next_training.html' %}
-        </div>
-      </div>
-      <div class="col-12 col-lg-4 g-mb-20">
-        <div class="g-bg-gray-light-v5 g-pa-30 text-center">
-          <h4>Make it easy for yourself!</h4>
-          <p class="lead g-py-20">
-            All Cambridge South training sessions are available as a <strong>.ics calendar feed</strong> that you can link into your own
-            calendar client (Outlook, iPhone etc).
-          </p>
-          <a class="btn btn-md u-btn-outline-primary g-brd-2 rounded-0" href="{{ calendar }}#feeds"><i class="far fa-calendar-plus g-mr-5"></i>Subscribe</a>
-        </div>
-      </div>
-    </div>
-    {% if perms.training.add_trainingsession %}
-      <div class="g-py-20">
-        <a href="{{ create_training_session }}" title="Add training sessions in bulk" class="btn u-btn-outline-primary">Add training sessions</a>
-      </div>
-    {% endif %}
-    {% model_admin_links 'training' 'trainingsession' %}
   </div>
 </section>
 
