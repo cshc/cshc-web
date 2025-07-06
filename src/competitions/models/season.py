@@ -9,10 +9,11 @@ from django.db.models.query import QuerySet
 from django.core.exceptions import ValidationError
 
 # Define the default season start/end dates
-SEASON_START_MONTH = 9  # Sept
-SEASON_END_MONTH = 8    # Aug
+# To aid preparation and August friendlies, seasons un from 01-Jul to 30-Jun.
+SEASON_START_MONTH = 7  # July
+SEASON_END_MONTH = 6    # June
 SEASON_START_DAY = 1
-SEASON_END_DAY = 31
+SEASON_END_DAY = 30
 
 LOG = logging.getLogger(__name__)
 
@@ -108,7 +109,7 @@ class Season(models.Model):
         """ Utility method to create the current season."""
         current = Season()
         dtnow = datetime.now()
-        if dtnow.month >= 9:
+        if dtnow.month >= SEASON_START_MONTH:
             start_year = dtnow.year
         else:
             start_year = dtnow.year - 1
