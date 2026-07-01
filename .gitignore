@@ -24,8 +24,10 @@ src/media/*
 docs/_build/*
 
 # Production database dump file
-prod_dump.sql
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+prod_dump.sql
+*.dump
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
