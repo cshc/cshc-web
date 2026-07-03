@@ -27,7 +27,7 @@ export const MEMBER_LIST_QUERY = gql`
       prefPosition_In: $prefPosition_In
       teamcaptaincy_Season_Slug: $teamcaptaincy_Season_Slug
     ) {
-      results(pageSize: 1000) {
+      results(pageSize: 5000) {
         firstName
         lastName
         id
