@@ -45,6 +45,7 @@ class MemberListView(TemplateView):
             'canViewMap': self.request.user.has_perm('members.view_personal_data'),
             'currentSeason': current_season.slug,
             'teams': list(ClubTeam.objects.active().exclude(slug__in=['mv', 'lv', 'm-in', 'l-in', 'mixed-a', 'mixed-b']).values('long_name', 'slug')),
+            'seasons': list(Season.objects.all().order_by('-slug').values_list('slug', flat=True)),
         }
         return context
 
