@@ -116,6 +116,7 @@ class MatchListDisplay extends React.Component {
           loading={loading}
           page={page}
           pageSize={pageSize}
+          minRows={matches && matches.length > 0 ? 0 : 5}
           onChangePage={onChangePage}
           onChangeUrlQueryParams={onChangeUrlQueryParams}
           onSortedChange={this.onSortedChange}
