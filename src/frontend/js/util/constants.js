@@ -177,7 +177,7 @@ const DefaultPageSize = 10;
 /**
  * The default page size options for paginated results
  */
-const DefaultPageSizeOptions = [10, 20, 25, 50];
+const DefaultPageSizeOptions = [10, 20, 25, 50, 100];
 
 module.exports = {
   Gender,
