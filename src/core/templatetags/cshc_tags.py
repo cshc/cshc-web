@@ -33,7 +33,8 @@ def abs_static_url(context, url):
     """ Get the absolute URL of a static resource """
     if re.match('(http:|https:)?//', settings.STATIC_URL):
         return ''.join([settings.STATIC_URL, url])
-    return ''.join(["http://", context.request.META['HTTP_HOST'], settings.STATIC_URL, url])
+    host = settings.ABSOLUTE_URL_HOST if settings.ABSOLUTE_URL_OVERRIDE else context.request.META['HTTP_HOST']
+    return ''.join(["http://", host, settings.STATIC_URL, url])
 
 
 @register.simple_tag

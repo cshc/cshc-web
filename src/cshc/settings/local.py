@@ -10,6 +10,11 @@ ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# Override the absolute static URL host
+# Needed when doing local development in Docker and accessing from a different host
+ABSOLUTE_URL_HOST = os.environ.get('ABSOLUTE_URL_HOST')
+ABSOLUTE_URL_OVERRIDE = bool(ABSOLUTE_URL_HOST)
+
 # DATABASE CONFIGURATION
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -62,3 +67,5 @@ CKEDITOR_CONFIGS = get_ckeditor_config(STATIC_URL)
 
 if DEBUG:
     THUMBNAIL_DEBUG = True
+
+THUMBNAIL_URL_TIMEOUT = 1
