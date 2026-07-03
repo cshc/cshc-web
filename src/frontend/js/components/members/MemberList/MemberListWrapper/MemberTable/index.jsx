@@ -70,6 +70,7 @@ const MemberTable = ({ members, page, pageSize, onChangePage, onChangeUrlQueryPa
       minRows={members && members.length > 0 ? 0 : 5}
       onChangePage={onChangePage}
       onChangeUrlQueryParams={onChangeUrlQueryParams}
+      NoDataComponent={() => <div className="rt-noData">No members found</div>}
       getTdProps={(state, rowInfo) => ({
         onClick: () => {
           window.location = Urls.member_detail(rowInfo.original.id);
