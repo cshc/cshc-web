@@ -67,6 +67,7 @@ const MemberTable = ({ members, page, pageSize, onChangePage, onChangeUrlQueryPa
       data={members || []}
       page={page}
       pageSize={pageSize}
+      minRows={members && members.length > 0 ? 0 : 5}
       onChangePage={onChangePage}
       onChangeUrlQueryParams={onChangeUrlQueryParams}
       getTdProps={(state, rowInfo) => ({
