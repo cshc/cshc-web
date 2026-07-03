@@ -50,7 +50,7 @@ def get_thumbnail_url(image_field, size, crop=None, cropping_field=None):
         kwargs['crop'] = crop
     if cropping_field:
         cropbox = str(cropping_field)
-        if cropbox != '0x0':
+        if cropbox and cropbox != '0x0' and 'NaN' not in cropbox:
             kwargs['cropbox'] = cropbox
     if not image_field or not image_field.url:
         return None
