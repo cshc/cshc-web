@@ -10,12 +10,19 @@ Expected context:
 {% load thumbnail from sorl_thumbnail %}
 
 <div class="{{ class }} g-pos-rel">
-  {% thumbnail member.profile_pic size crop="center" as im %}
-    <img class="u-shadow-v29 w-100 rounded-circle" src="{{ im.url }}">
-  {% empty %}
-    <div class=" g-pos-rel w-100 u-shadow-v29 rounded-circle shirt-wrapper" style="width: {{ width }};">
-      <img class="w-100" src="{{ fallbackImage }}">
-      <div class="g-pos-abs text-center shirt-number">{{ member.shirt_number|default:"" }}</div>
-    </div>
-  {% endthumbnail %}
+  {% if member.profile_pic %}
+    {% thumbnail member.profile_pic size crop="center" as im %}
+      <img class="u-shadow-v29 w-100 rounded-circle" src="{{ im.url }}">
+    {% empty %}
+      <div class=" g-pos-rel w-100 u-shadow-v29 rounded-circle shirt-wrapper" style="width: {{ width }};">
+        <img class="w-100" src="{{ fallbackImage }}">
+        <div class="g-pos-abs text-center shirt-number">{{ member.shirt_number|default:"" }}</div>
+      </div>
+    {% endthumbnail %}
+  {% else %}
+      <div class=" g-pos-rel w-100 u-shadow-v29 rounded-circle shirt-wrapper" style="width: {{ width }};">
+        <img class="w-100" src="{{ fallbackImage }}">
+        <div class="g-pos-abs text-center shirt-number">{{ member.shirt_number|default:"" }}</div>
+      </div>
+  {% endif %}
 </div>
