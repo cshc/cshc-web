@@ -37,13 +37,12 @@ export const urlPropsQueryConfig = {
 
 const MemberFilterSet = ({ teams, seasons }) => {
   const teamOptions = teams.map(team => ({ value: team.slug, label: team.long_name }));
-  teamOptions.unshift({ value: NoFilter, label: 'All' });
   const genderOptions = [
-    { value: NoFilter, label: 'Men & Ladies' },
     { value: 'Male', label: 'Men' },
     { value: 'Female', label: 'Ladies' },
   ];
   const seasonOptions = seasons.map(season => ({ value: season, label: season }));
+  seasonOptions.unshift({ value: NoFilter, label: 'All' });
   const positionOptions = [
     { value: Position.Goalkeeper, label: Position.Goalkeeper },
     { value: Position.Defence, label: Position.Defence },
@@ -89,6 +88,14 @@ const MemberFilterSet = ({ teams, seasons }) => {
           label="Coaches"
         />
       </FilterGroup>
+      <FilterGroup title="Gender">
+        <SelectFilter
+          filterName={FilterName.Gender}
+          options={genderOptions}
+          urlQueryConfig={urlPropsQueryConfig[FilterName.Gender]}
+          stacked
+        />
+      </FilterGroup>
       <FilterGroup title="Season">
         <SelectFilter
           filterName={FilterName.Season}
@@ -97,20 +104,12 @@ const MemberFilterSet = ({ teams, seasons }) => {
           stacked
         />
       </FilterGroup>
-      <FilterGroup title="Gender">
-        <OptionListFilter
-          filterName={FilterName.Gender}
-          urlQueryConfig={urlPropsQueryConfig[FilterName.Gender]}
-          defaultValue={NoFilter}
-          options={genderOptions}
-        />
-      </FilterGroup>
-      <FilterGroup title="Squad">
-        <OptionListFilter
+      <FilterGroup title="Team">
+        <SelectFilter
           filterName={FilterName.Team}
-          urlQueryConfig={urlPropsQueryConfig[FilterName.Team]}
-          defaultValue={NoFilter}
           options={teamOptions}
+          urlQueryConfig={urlPropsQueryConfig[FilterName.Team]}
+          stacked
         />
       </FilterGroup>
       <FilterGroup title="Position">
