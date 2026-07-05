@@ -48,6 +48,23 @@ const MemberTable = ({ members, page, pageSize, onChangePage, onChangeUrlQueryPa
           className: 'g-hidden-sm-down text-center',
           headerClassName: 'g-hidden-sm-down',
           width: 60,
+          sortMethod: (a, b) => {
+            if (!a && !b) return 0;
+            if (!a) return 1;
+            if (!b) return -1;
+            
+            const numA = parseInt(a, 10);
+            const numB = parseInt(b, 10);
+            
+            if (!isNaN(numA) && !isNaN(numB)) {
+              return numA - numB;
+            }
+            
+            if (!isNaN(numA)) return -1;
+            if (!isNaN(numB)) return 1;
+            
+            return String(a).localeCompare(String(b));
+          },
         },
         {
           Header: <abbr title="Appearances">Apps</abbr>,
