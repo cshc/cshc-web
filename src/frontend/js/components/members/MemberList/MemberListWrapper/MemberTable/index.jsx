@@ -5,7 +5,7 @@ import commonStyles from 'components/common/style.scss';
 import Urls from 'util/urls';
 import styles from './style.scss';
 
-const MemberTable = ({ members, page, pageSize, onChangePage, onChangeUrlQueryParams }) => (
+const MemberTable = ({ members, page, pageSize, sorted, onChangePage, onChangeSorted, onChangeUrlQueryParams }) => (
   <div className={commonStyles.reactTable}>
     <UrlSyncedReactTable
       className="-highlight"
@@ -84,8 +84,10 @@ const MemberTable = ({ members, page, pageSize, onChangePage, onChangeUrlQueryPa
       data={members || []}
       page={page}
       pageSize={pageSize}
+      sorted={sorted}
       minRows={members && members.length > 0 ? 0 : 5}
       onChangePage={onChangePage}
+      onSortedChange={onChangeSorted}
       onChangeUrlQueryParams={onChangeUrlQueryParams}
       NoDataComponent={() => <div className="rt-noData">No members found</div>}
       getTdProps={(state, rowInfo) => ({
@@ -104,13 +106,16 @@ MemberTable.propTypes = {
   members: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   pageSize: PropTypes.number,
   page: PropTypes.number,
+  sorted: PropTypes.arrayOf(PropTypes.shape()),
   onChangePage: PropTypes.func.isRequired,
+  onChangeSorted: PropTypes.func.isRequired,
   onChangeUrlQueryParams: PropTypes.func.isRequired,
 };
 
 MemberTable.defaultProps = {
   pageSize: 20,
   page: 1,
+  sorted: [],
 };
 
 export default MemberTable;

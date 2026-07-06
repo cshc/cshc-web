@@ -5,7 +5,20 @@ import { ViewType } from 'util/constants';
 import { ViewSwitcher, ViewSwitcherView } from 'components/common/ViewSwitcher';
 import MemberTable from './MemberTable';
 import MemberMarker from './MemberMarker';
-const MemberListWrapper = ({ canViewMap, data, viewType, onSelectViewType, networkStatus, loading, ...props }) => {
+
+const MemberListWrapper = ({ 
+  canViewMap, 
+  data, 
+  viewType, 
+  onSelectViewType, 
+  networkStatus, 
+  loading,
+  sorted,
+  onChangePage,
+  onChangeSorted,
+  onChangeUrlQueryParams,
+  ...props 
+}) => {
   const isLoading = loading || networkStatus === 1 || networkStatus === 2 || networkStatus === 4;
   const hasData = data && data.results;
   
@@ -20,11 +33,18 @@ const MemberListWrapper = ({ canViewMap, data, viewType, onSelectViewType, netwo
       {isLoading && (
         <div className="text-center g-py-50">
           <i className="fas fa-spinner fa-spin fa-3x g-color-primary"></i>
-          <p className="g-mt-20">Loading members...</p>
+          <p className="g-mt-20">Loading members ...</p>
         </div>
       )}
       {!isLoading && hasData && (!canViewMap || viewType === ViewType.List) ? (
-        <MemberTable members={data.results} {...props} />
+        <MemberTable 
+          members={data.results} 
+          sorted={sorted}
+          onChangePage={onChangePage}
+          onChangeSorted={onChangeSorted}
+          onChangeUrlQueryParams={onChangeUrlQueryParams}
+          {...props} 
+        />
       ) : !isLoading && hasData && (
         <GoogleMap
           markers={data.results
@@ -43,12 +63,17 @@ MemberListWrapper.propTypes = {
   onSelectViewType: PropTypes.func.isRequired,
   networkStatus: PropTypes.number,
   loading: PropTypes.bool,
+  sorted: PropTypes.arrayOf(PropTypes.shape()),
+  onChangePage: PropTypes.func.isRequired,
+  onChangeSorted: PropTypes.func.isRequired,
+  onChangeUrlQueryParams: PropTypes.func.isRequired,
 };
 
 MemberListWrapper.defaultProps = {
   data: undefined,
   networkStatus: 7,
   loading: false,
+  sorted: [],
 };
 
 export default MemberListWrapper;

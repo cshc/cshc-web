@@ -7,6 +7,9 @@ const urlPropsQueryConfig = {
   pageSize: {
     type: UrlQueryParamTypes.number,
   },
+  sorted: {
+      type: UrlQueryParamTypes.json,
+    },
 };
 
 export default urlPropsQueryConfig;
