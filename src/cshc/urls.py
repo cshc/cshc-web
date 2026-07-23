@@ -42,6 +42,8 @@ urlpatterns = [
     url(r'^about/directions/$', DirectionsView.as_view(), name='directions'),
     url(r'^about/kit/$',
         TemplateView.as_view(template_name='club_info/kit.html'), name='about_kit'),
+    url(r'^conduct/$',
+        TemplateView.as_view(template_name='club_info/conduct.html'), name='code_of_conduct'),
     url(r'^offers$', TemplateView.as_view(template_name='club_info/member_offer_list.html'),
         name='member_offers'),
 
