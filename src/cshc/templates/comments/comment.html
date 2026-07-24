@@ -24,7 +24,7 @@
 
 {% if preview %}<h3>{% trans "Preview of your comment" %}</h3>{% endif %}
 <div {% if preview %}id="comment-preview" {% else %}id="c{{ comment.id }}" {% endif %} class="media g-mb-15">
-  {% if comment.user and comment.user.has_member %}
+  {% if comment.user and comment.user.has_member and comment.user.member.profile_pic %}
     {% thumbnail comment.user.member.profile_pic "50x50" crop="center" as im %}
       <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="{{ im.url }}">
     {% empty %}
