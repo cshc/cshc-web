@@ -50,26 +50,34 @@ class Command(BaseCommand):
                     'Key': obj_summary.key,
                 }
 
+                skip_staging = False
                 if staging_bucket:
                     ts = new_objects.get((obj_summary.key, obj_summary.size))
                     if ts is not None and ts >= obj_summary.last_modified:
-                        print('Skipping {}'.format(obj_summary.key))
-                        continue
+                        print('Skipping staging copy for {}'.format(obj_summary.key))
+                        skip_staging = True
 
-                print('Copying {}'.format(obj_summary.key))
+                if not skip_staging:
+                    print('Copying {}'.format(obj_summary.key))
 
-                if staging_bucket:
-                    staging_bucket.copy(
-                        copy_source,
-                        obj_summary.key,
-                        ExtraArgs=extra_args,
-                    )
+                    if staging_bucket:
+                        staging_bucket.copy(
+                            copy_source,
+                            obj_summary.key,
+                            ExtraArgs=extra_args,
+                        )
 
                 if options['local'] and not obj_summary.key.endswith('/'):
-                    if not os.path.isfile(obj_summary.key):
-                        os.makedirs(os.path.dirname(
-                            obj_summary.key), exist_ok=True)
+                    dir_name = os.path.dirname(obj_summary.key).lower()
+                    file_name = os.path.basename(obj_summary.key)
+                    local_path = os.path.join(dir_name, file_name)
+                    
+                    if os.path.isfile(local_path):
+                        print('Skipping local copy for {} (already exists)'.format(obj_summary.key))
+                    else:
+                        print('Copying locally {}'.format(obj_summary.key))
+                        os.makedirs(dir_name, exist_ok=True)
                         prod_bucket.download_file(
-                            obj_summary.key, obj_summary.key)
+                            obj_summary.key, local_path)
         except:
             traceback.print_exc()
