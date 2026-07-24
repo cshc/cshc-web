@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MatchListDisplay from 'components/matches/MatchListDisplay';
-import { DefaultPageSize } from 'util/constants';
 
 const MatchListWrapper = ({
   page,
@@ -65,7 +64,7 @@ MatchListWrapper.propTypes = {
 };
 
 MatchListWrapper.defaultProps = {
-  pageSize: DefaultPageSize,
+  pageSize: 20,
   page: 1,
   orderBy: undefined,
   gender: undefined,
