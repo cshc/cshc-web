@@ -5,7 +5,7 @@ import commonStyles from 'components/common/style.scss';
 import Urls from 'util/urls';
 import styles from './style.scss';
 
-const MemberTable = ({ members, page, pageSize, onChangePage, onChangeUrlQueryParams }) => (
+const MemberTable = ({ members, page, pageSize, sorted, onChangePage, onChangeSorted, onChangeUrlQueryParams }) => (
   <div className={commonStyles.reactTable}>
     <UrlSyncedReactTable
       className="-highlight"
@@ -48,6 +48,23 @@ const MemberTable = ({ members, page, pageSize, onChangePage, onChangeUrlQueryPa
           className: 'g-hidden-sm-down text-center',
           headerClassName: 'g-hidden-sm-down',
           width: 60,
+          sortMethod: (a, b) => {
+            if (!a && !b) return 0;
+            if (!a) return 1;
+            if (!b) return -1;
+            
+            const numA = parseInt(a, 10);
+            const numB = parseInt(b, 10);
+            
+            if (!isNaN(numA) && !isNaN(numB)) {
+              return numA - numB;
+            }
+            
+            if (!isNaN(numA)) return -1;
+            if (!isNaN(numB)) return 1;
+            
+            return String(a).localeCompare(String(b));
+          },
         },
         {
           Header: <abbr title="Appearances">Apps</abbr>,
@@ -67,8 +84,12 @@ const MemberTable = ({ members, page, pageSize, onChangePage, onChangeUrlQueryPa
       data={members || []}
       page={page}
       pageSize={pageSize}
+      sorted={sorted}
+      minRows={members && members.length > 0 ? 0 : 5}
       onChangePage={onChangePage}
+      onSortedChange={onChangeSorted}
       onChangeUrlQueryParams={onChangeUrlQueryParams}
+      NoDataComponent={() => <div className="rt-noData">No members found</div>}
       getTdProps={(state, rowInfo) => ({
         onClick: () => {
           window.location = Urls.member_detail(rowInfo.original.id);
@@ -85,13 +106,16 @@ MemberTable.propTypes = {
   members: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   pageSize: PropTypes.number,
   page: PropTypes.number,
+  sorted: PropTypes.arrayOf(PropTypes.shape()),
   onChangePage: PropTypes.func.isRequired,
+  onChangeSorted: PropTypes.func.isRequired,
   onChangeUrlQueryParams: PropTypes.func.isRequired,
 };
 
 MemberTable.defaultProps = {
   pageSize: 20,
   page: 1,
+  sorted: [],
 };
 
 export default MemberTable;

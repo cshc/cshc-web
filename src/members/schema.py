@@ -241,6 +241,9 @@ def post_optimize_members(queryset, **kwargs):
     queryset = queryset.annotate(num_appearances=Count(
         'appearances'), goals=Sum('appearances__goals'))
 
+    # Sort by known_as (or first_name if known_as is empty), then last_name
+    queryset = queryset.order_by('known_as', 'first_name', 'last_name')
+
     return queryset
 
 

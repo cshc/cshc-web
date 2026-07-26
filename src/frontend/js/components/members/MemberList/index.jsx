@@ -4,8 +4,8 @@ import FilterableList from 'components/common/FilterableList';
 import MemberFilterSet from './MemberFilterSet';
 import MemberListWrapper from './MemberListWrapper';
 
-const MemberList = ({ canViewMap, currentSeason, teams }) => {
-  const filterSet = <MemberFilterSet teams={teams} />;
+const MemberList = ({ canViewMap, currentSeason, teams, seasons }) => {
+  const filterSet = <MemberFilterSet teams={teams} seasons={seasons} />;
   const listWrapper = <MemberListWrapper currentSeason={currentSeason} canViewMap={canViewMap} />;
   return <FilterableList filterSet={filterSet} listWrapper={listWrapper} />;
 };
@@ -19,6 +19,7 @@ MemberList.propTypes = {
       long_name: PropTypes.string,
     }),
   ).isRequired,
+  seasons: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default MemberList;

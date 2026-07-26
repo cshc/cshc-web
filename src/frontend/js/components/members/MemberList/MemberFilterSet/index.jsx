@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { UrlQueryParamTypes, pushUrlQuery } from 'react-url-query';
 import { FilterName, Position, NoFilter } from 'util/constants';
 import { FilterGroup } from 'components/filters';
-import { BooleanFilter, TextFilter, OptionListFilter } from 'components/filters/UrlFilter';
+import { BooleanFilter, TextFilter, OptionListFilter, SelectFilter } from 'components/filters/UrlFilter';
 
 export const urlPropsQueryConfig = {
   [FilterName.TextSearch]: {
@@ -27,19 +27,22 @@ export const urlPropsQueryConfig = {
   [FilterName.Team]: {
     type: UrlQueryParamTypes.string,
   },
+  [FilterName.Season]: {
+    type: UrlQueryParamTypes.string,
+  },
   [FilterName.Position]: {
     type: UrlQueryParamTypes.array,
   },
 };
 
-const MemberFilterSet = ({ teams }) => {
+const MemberFilterSet = ({ teams, seasons }) => {
   const teamOptions = teams.map(team => ({ value: team.slug, label: team.long_name }));
-  teamOptions.unshift({ value: NoFilter, label: 'All' });
   const genderOptions = [
-    { value: NoFilter, label: 'Men & Ladies' },
     { value: 'Male', label: 'Men' },
     { value: 'Female', label: 'Ladies' },
   ];
+  const seasonOptions = seasons.map(season => ({ value: season, label: season }));
+  seasonOptions.unshift({ value: NoFilter, label: 'All' });
   const positionOptions = [
     { value: Position.Goalkeeper, label: Position.Goalkeeper },
     { value: Position.Defence, label: Position.Defence },
@@ -86,19 +89,27 @@ const MemberFilterSet = ({ teams }) => {
         />
       </FilterGroup>
       <FilterGroup title="Gender">
-        <OptionListFilter
+        <SelectFilter
           filterName={FilterName.Gender}
-          urlQueryConfig={urlPropsQueryConfig[FilterName.Gender]}
-          defaultValue={NoFilter}
           options={genderOptions}
+          urlQueryConfig={urlPropsQueryConfig[FilterName.Gender]}
+          stacked
         />
       </FilterGroup>
-      <FilterGroup title="Current Squad">
-        <OptionListFilter
+      <FilterGroup title="Season">
+        <SelectFilter
+          filterName={FilterName.Season}
+          options={seasonOptions}
+          urlQueryConfig={urlPropsQueryConfig[FilterName.Season]}
+          stacked
+        />
+      </FilterGroup>
+      <FilterGroup title="Team">
+        <SelectFilter
           filterName={FilterName.Team}
-          urlQueryConfig={urlPropsQueryConfig[FilterName.Team]}
-          defaultValue={NoFilter}
           options={teamOptions}
+          urlQueryConfig={urlPropsQueryConfig[FilterName.Team]}
+          stacked
         />
       </FilterGroup>
       <FilterGroup title="Position">
@@ -120,6 +131,7 @@ MemberFilterSet.propTypes = {
       long_name: PropTypes.string,
     }),
   ).isRequired,
+  seasons: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default MemberFilterSet;

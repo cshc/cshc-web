@@ -15,6 +15,8 @@ export const MEMBER_LIST_QUERY = gql`
     $squadmembership_Team_Slug: String
     $prefPosition_In: String
     $teamcaptaincy_Season_Slug: String
+    $appearances_Match_Season_Slug: String
+    $appearances_Match_OurTeam_Slug: String
   ) {
     members(
       name: $name
@@ -26,8 +28,10 @@ export const MEMBER_LIST_QUERY = gql`
       squadmembership_Team_Slug: $squadmembership_Team_Slug
       prefPosition_In: $prefPosition_In
       teamcaptaincy_Season_Slug: $teamcaptaincy_Season_Slug
+      appearances_Match_Season_Slug: $appearances_Match_Season_Slug
+      appearances_Match_OurTeam_Slug: $appearances_Match_OurTeam_Slug
     ) {
-      results(pageSize: 1000) {
+      results(pageSize: 5000) {
         firstName
         lastName
         id
@@ -53,6 +57,7 @@ export const memberListOptions = {
     gender,
     position,
     team,
+    season,
   }) => ({
     variables: {
       name: textSearch || undefined,
@@ -61,16 +66,19 @@ export const memberListOptions = {
       isUmpire: umpires || undefined,
       isCoach: coaches || undefined,
       prefPosition_In: Member.getPreferredPositions(position),
-      squadmembership_Season_Slug: team && team !== NoFilter ? currentSeason : undefined,
-      squadmembership_Team_Slug: team && team !== NoFilter ? team : undefined,
-      teamcaptaincy_Season_Slug: captains ? currentSeason : undefined,
+      squadmembership_Season_Slug: undefined,
+      squadmembership_Team_Slug: undefined,
+      teamcaptaincy_Season_Slug: captains ? (season && season !== NoFilter ? season : currentSeason) : undefined,
+      appearances_Match_Season_Slug: season && season !== NoFilter ? season : undefined,
+      appearances_Match_OurTeam_Slug: team && team !== NoFilter ? team : undefined,
     },
     fetchPolicy: 'cache-and-network',
   }),
-  props: ({ data: { networkStatus, error, members }, ...props }) => ({
-    networkStatus,
-    error,
-    data: members,
+  props: ({ data, ...props }) => ({
+    networkStatus: data.networkStatus,
+    loading: data.loading,
+    error: data.error,
+    data: data.members,
     loadingMessage: 'Loading members...',
     ...props,
   }),
