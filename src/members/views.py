@@ -24,6 +24,7 @@ from competitions.models import Season
 from teams.models import ClubTeam
 from .models import Member
 from .forms import MemberProfileForm
+from members import settings as member_settings
 
 LOG = logging.getLogger(__name__)
 
@@ -152,6 +153,8 @@ def profile(request):
         context['form'] = MemberProfileForm(
             instance=member) if member is not None else UserProfileForm(instance=request.user)
 
+    context['member_settings'] = member_settings
+    
     response = render(request, 'account/profile.html', context)
     response.set_cookie(link_req_cookie, context.get('link_req_sent', 0))
     return response
@@ -175,6 +178,44 @@ def get_available_shirt_numbers(request):
     # The limit will come from settings by default, or can be overridden here if needed
     available_numbers = Member.objects.get_available_shirt_numbers(member.gender)
     return JsonResponse({'available_numbers': available_numbers})
+
+
+@login_required
+@require_GET
+def check_shirt_number_availability(request):
+    """
+    AJAX endpoint to check if a specific numerical shirt number is available
+    for the current user's gender.
+    Returns a JSON response with 'is_available': true/false.
+    """
+    member = getattr(request.user, 'member', None)
+    if not member:
+        return JsonResponse({'error': 'User is not associated with a member profile.'}, status=400)
+
+    if not member.gender:
+        return JsonResponse({'error': 'Member gender not specified. Cannot check shirt number availability.'}, status=400)
+
+    shirt_number_str = request.GET.get('shirt_number')
+    if not shirt_number_str:
+        return JsonResponse({'error': 'No shirt number provided.'}, status=400)
+
+    try:
+        shirt_number_int = int(shirt_number_str)
+    except ValueError:
+        return JsonResponse({'error': 'Invalid shirt number format. Must be an integer.'}, status=400)
+
+    # Validate against max_number from settings
+    if not (1 <= shirt_number_int <= member_settings.MEMBERS_MAX_SHIRT_NUMBER):
+        return JsonResponse({'error': f'Shirt number must be between 1 and {member_settings.MEMBERS_MAX_SHIRT_NUMBER}.'}, status=400)
+
+    # Check if the number is available using the manager method
+    # We pass limit=None to get all available numbers for a comprehensive check
+    # and current_only=True (default) to only consider current players.
+    available_numbers = Member.objects.get_available_shirt_numbers(member.gender, limit=None)
+
+    is_available = shirt_number_int in available_numbers
+
+    return JsonResponse({'is_available': is_available})
 
 
 @login_required
