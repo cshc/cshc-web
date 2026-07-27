@@ -16,4 +16,4 @@ MEMBERS_FREE_SHIRT_NUMBER_LIMIT = getattr(
 
 MEMBERS_FREE_SHIRT_CURRENT_ONLY = getattr(
     settings, 'MEMBERS_FREE_SHIRT_CURRENT_ONLY', False)
-""" Whether to check current playing member shirt numbers only """
+""" Whether to only check current playing member shirt numbers when looking for used numbers """
