@@ -17,4 +17,8 @@ urlpatterns = [
         views.MemberDetailView.as_view(),
         name="member_detail"
         ),
+
+    # New AJAX endpoints for shirt numbers
+    url(r'^members/available-shirt-numbers/$', views.get_available_shirt_numbers, name='available_shirt_numbers'),
+    url(r'^members/assign-shirt-number/$', views.assign_shirt_number, name='assign_shirt_number'),
 ]

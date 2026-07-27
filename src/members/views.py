@@ -4,8 +4,10 @@ Views relating to CSHC Members
 
 import logging
 import copy
+import json
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import UpdateView
@@ -13,6 +15,7 @@ from django.urls import reverse, reverse_lazy
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.sites.models import Site
+from django.http import JsonResponse
 from templated_email import send_templated_mail
 from core.models import CshcUser
 from core.forms import UserProfileForm
@@ -152,6 +155,69 @@ def profile(request):
     response = render(request, 'account/profile.html', context)
     response.set_cookie(link_req_cookie, context.get('link_req_sent', 0))
     return response
+
+
+@login_required
+@require_GET
+def get_available_shirt_numbers(request):
+    """
+    AJAX endpoint to get available *numerical* shirt numbers for the current user's gender.
+    Returns a JSON response with a list of numbers.
+    """
+    member = getattr(request.user, 'member', None)
+    if not member:
+        return JsonResponse({'error': 'User is not associated with a member profile.'}, status=400)
+
+    if not member.gender:
+        return JsonResponse({'error': 'Member gender not specified. Cannot determine available shirt numbers.'}, status=400)
+
+    # Use the manager method to fetch available numbers
+    # The limit will come from settings by default, or can be overridden here if needed
+    available_numbers = Member.objects.get_available_shirt_numbers(member.gender)
+    return JsonResponse({'available_numbers': available_numbers})
+
+
+@login_required
+@require_POST
+def assign_shirt_number(request):
+    """
+    AJAX endpoint to assign a selected *numerical* shirt number to the current user's member profile.
+    Expects a POST request with JSON data containing 'shirt_number'.
+    """
+    member = getattr(request.user, 'member', None)
+    if not member:
+        return JsonResponse({'error': 'User is not associated with a member profile.'}, status=400)
+
+    try:
+        data = json.loads(request.body)
+        selected_number_int = int(data.get('shirt_number')) # Get as int for validation
+    except (json.JSONDecodeError, TypeError, ValueError):
+        return JsonResponse({'error': 'Invalid data provided.'}, status=400)
+
+    # Basic validation for typical shirt numbers
+    if not (1 <= selected_number_int <= 999): # Allowing up to 3 digits, adjust as per MEMBERS_MAX_SHIRT_NUMBER
+        return JsonResponse({'error': 'Invalid shirt number. Must be a positive integer.'}, status=400)
+
+    if not member.gender:
+        return JsonResponse({'error': 'Member gender not specified. Cannot assign shirt number.'}, status=400)
+
+    # Robust check: ensure the number is still available for this gender
+    # We fetch all available numbers (limit=None) to be sure, not just the first few.
+    if selected_number_int not in Member.objects.get_available_shirt_numbers(member.gender, limit=None):
+        return JsonResponse({'error': f'Shirt number {selected_number_int} is no longer available for your gender or is invalid.'}, status=400)
+
+    # Convert to string before saving to CharField
+    selected_number_str = str(selected_number_int)
+
+    # Check if the number is already assigned to *this* member (no change needed)
+    if member.shirt_number == selected_number_str:
+        return JsonResponse({'message': f'Shirt number {selected_number_str} is already assigned to you.'}, status=200)
+
+    # Assign the number and save
+    member.shirt_number = selected_number_str
+    member.save()
+
+    return JsonResponse({'message': f'Shirt number {selected_number_str} successfully assigned.'})
 
 
 class MemberDetailView(DetailView):
