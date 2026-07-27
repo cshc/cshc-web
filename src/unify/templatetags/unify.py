@@ -78,3 +78,16 @@ def unify_cropped_image_form_field(context, field_name, cropping_field_name, ori
         'field': form[field_name],
         'cropping_field': form[cropping_field_name],
     }))
+
+
+@register.simple_tag
+def unify_read_only_display(label, value=None, orientation='horizontal', hide_label=False):
+    """
+    Render a read-only display field with Unify styling, consistent with form fields.
+    """
+    display_template = 'unify/forms/{}/read_only_display.html'.format(orientation)
+
+    return mark_safe(render_to_string(display_template, {
+        'label': label if not hide_label else None,
+        'value': value,
+    }))
