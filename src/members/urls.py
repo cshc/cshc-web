@@ -18,7 +18,8 @@ urlpatterns = [
         name="member_detail"
         ),
 
-    # New AJAX endpoints for shirt numbers
-    url(r'^members/available-shirt-numbers/$', views.get_available_shirt_numbers, name='available_shirt_numbers'),
-    url(r'^members/assign-shirt-number/$', views.assign_shirt_number, name='assign_shirt_number'),
+    # AJAX endpoints for shirt numbers
+    url(r'^available-shirt-numbers/$', views.get_available_shirt_numbers, name='available_shirt_numbers'),
+    url(r'^check-shirt-number-availability/$', views.check_shirt_number_availability, name='check_shirt_number_availability'),
+    url(r'^assign-shirt-number/$', views.assign_shirt_number, name='assign_shirt_number'),
 ]
