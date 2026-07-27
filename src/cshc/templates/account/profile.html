@@ -104,6 +104,16 @@ jQuery-UI CSS must be included before Unify CSS
 
   {% unify_form_section_divider %}
   {% unify_form_section_heading 'Playing' %}
+  {% if member.shirt_number %}
+    {% unify_read_only_display label='Shirt number' value=member.shirt_number orientation='horizontal' %}
+  {% else %}
+  <div class="form-group row g-mb-25">
+    <div class="col-sm-3 col-form-label g-mb-10">Shirt number:</div>
+    <div class="col-sm-9">
+      <button type="button" class="btn u-btn-outline-primary g-brd-2 g-py-12 g-px-30" disabled>Request Shirt Number</button>
+    </div>
+  </div>
+  {% endif %}
   {% unify_form_field 'pref_position' 'horizontal' %}
 
   {% unify_form_section_divider %}

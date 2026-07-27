@@ -1,0 +1,10 @@
+<div class="form-group row g-mb-25">
+  {% if not hide_label %}
+  <div class="col-sm-3 col-form-label g-mb-10">{{ label }}</div>
+  {% else %}
+    <div class="col-sm-3 col-form-label g-mb-10"></div>
+  {% endif %}
+  <div class="col-sm-9">
+    <input type="text" class="form-control form-control-md" value="{{ value }}" disabled>
+  </div>
+</div>
