@@ -110,7 +110,7 @@ jQuery-UI CSS must be included before Unify CSS
   <div class="form-group row g-mb-25">
     <div class="col-sm-3 col-form-label g-mb-10">Shirt number:</div>
     <div class="col-sm-9">
-      <button type="button" class="btn u-btn-outline-primary g-brd-2 g-py-12 g-px-30" disabled>Request Shirt Number</button>
+      <button type="button" class="btn u-btn-outline-primary g-brd-2 g-py-12 g-px-30" data-toggle="modal" data-target="#requestShirtNumberModal" id="requestShirtNumberBtn">Get Shirt Number</button>
     </div>
   </div>
   {% endif %}
@@ -153,6 +153,85 @@ jQuery-UI CSS must be included before Unify CSS
 </form>
 {% endif %}
 
+<!-- Request Shirt Number Modal -->
+<div class="modal fade" id="requestShirtNumberModal" tabindex="-1" role="dialog" aria-labelledby="requestShirtNumberModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="requestShirtNumberModalLabel">Select a Shirt Number</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="alert alert-warning g-mb-20">
+          <strong>Important:</strong> Once a shirt number is selected and assigned, it cannot be changed. Please choose carefully.
+        </p>
+        <p>Please select an available shirt number:</p>
+        <div class="w-75 mx-auto">
+          <div id="availableShirtNumbersContainer" class="row justify-content-center g-mb-20">
+            <!-- Numbers will be loaded here by JavaScript -->
+            <div class="col-12 text-center">
+              <p class="text-muted" id="loadingNumbers">Loading available numbers...</p>
+              <p class="text-danger d-none" id="errorNumbers">Could not load numbers. Please try again later.</p>
+            </div>
+          </div>
+        </div>
+        <div class="g-mt-20 text-center">
+            <p class="g-mb-10">Selected Number: <strong id="selectedNumberDisplay">None</strong></p>
+            <button type="button" class="btn u-btn-primary g-brd-2 g-py-12 g-px-30" id="assignShirtNumberBtn" disabled>Assign Selected Number</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn u-btn-outline-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Request Shirt Number Modal -->
+
+<!-- Generic Success Feedback Modal -->
+<div class="modal fade" id="feedbackSuccessModal" tabindex="-1" role="dialog" aria-labelledby="feedbackSuccessModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="feedbackSuccessModalLabel">Success!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="feedbackSuccessModalBody">
+        <!-- Success message will be inserted here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn u-btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Generic Success Feedback Modal -->
+
+<!-- Generic Error Feedback Modal -->
+<div class="modal fade" id="feedbackErrorModal" tabindex="-1" role="dialog" aria-labelledby="feedbackErrorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="feedbackErrorModalLabel">Error!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="feedbackErrorModalBody">
+        <!-- Error message will be inserted here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn u-btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Generic Error Feedback Modal -->
+
 {% endblock content %}
 
 
@@ -160,4 +239,116 @@ jQuery-UI CSS must be included before Unify CSS
 {{ block.super }}
 {% include 'blocks/_focus_state_js.html' %}
 {{ form.media }}
+
+<script>
+  $(document).ready(function() {
+    var selectedShirtNumber = null;
+    var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+
+    // Function to show a generic feedback modal
+    function showFeedbackModal(type, message) {
+      var modalId = (type === 'success') ? '#feedbackSuccessModal' : '#feedbackErrorModal';
+      var modalBodyId = (type === 'success') ? '#feedbackSuccessModalBody' : '#feedbackErrorModalBody';
+      $(modalBodyId).text(message);
+      $(modalId).modal('show');
+    }
+
+    // Event listener for when the modal is about to be shown
+    $('#requestShirtNumberModal').on('show.bs.modal', function (e) {
+      // Reset modal state
+      var $container = $('#availableShirtNumbersContainer');
+      $container.html('<div class="col-12 text-center"><p class="text-muted" id="loadingNumbers">Loading available numbers...</p></div>');
+      $('#selectedNumberDisplay').text('None');
+      $('#assignShirtNumberBtn').prop('disabled', true).text('Assign Selected Number');
+      selectedShirtNumber = null;
+
+      // Fetch available numbers via AJAX
+      $.ajax({
+        url: "{% url 'available_shirt_numbers' %}",
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          var $container = $('#availableShirtNumbersContainer');
+          $container.empty(); // Clear loading message
+
+          if (data.available_numbers && data.available_numbers.length > 0) {
+            $.each(data.available_numbers, function(index, number) {
+              // Create a column div for each number to ensure even distribution
+              var numberOptionHtml = `
+                <div class="col-sm-2 col-4 g-mb-10 text-center">
+                  <span class="u-label u-label--sm u-label--rounded g-px-15 g-py-10 g-cursor-pointer g-bg-gray-light-v4 g-color-gray-dark-v4 shirt-number-option" data-number="${number}">${number}</span>
+                </div>
+              `;
+              $container.append(numberOptionHtml);
+            });
+          } else {
+            $container.html('<div class="col-12 text-center"><p class="text-muted">No available shirt numbers found at this time for your gender.</p></div>');
+          }
+        },
+        error: function(xhr, status, error) {
+          var $container = $('#availableShirtNumbersContainer');
+          $container.empty();
+          var errorMessage = 'Error loading numbers. Please try again later.';
+          if (xhr.responseJSON && xhr.responseJSON.error) {
+            errorMessage = xhr.responseJSON.error;
+          }
+          $container.html(`<div class="col-12 text-center"><p class="text-danger">${errorMessage}</p></div>`);
+          console.error("Error fetching available shirt numbers:", error, xhr.responseText);
+        }
+      });
+    });
+
+    // Handle selection of a shirt number within the modal
+    $('#availableShirtNumbersContainer').on('click', '.shirt-number-option', function() {
+      // Remove selection styling from all options
+      $('.shirt-number-option').removeClass('g-bg-primary g-color-white').addClass('g-bg-gray-light-v4 g-color-gray-dark-v4');
+      // Apply selection styling to the clicked option
+      $(this).removeClass('g-bg-gray-light-v4 g-color-gray-dark-v4').addClass('g-bg-primary g-color-white');
+      selectedShirtNumber = $(this).data('number');
+      $('#selectedNumberDisplay').text(selectedShirtNumber);
+      $('#assignShirtNumberBtn').prop('disabled', false); // Enable the assign button
+    });
+
+    // Handle assignment of the selected shirt number
+    $('#assignShirtNumberBtn').on('click', function() {
+      if (selectedShirtNumber === null) {
+        showFeedbackModal('error', 'Please select a shirt number first.');
+        return;
+      }
+
+      var $btn = $(this);
+      $btn.prop('disabled', true).text('Assigning...'); // Disable button and show loading text
+
+      $.ajax({
+        url: "{% url 'assign_shirt_number' %}",
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ 'shirt_number': selectedShirtNumber }),
+        headers: {
+          'X-CSRFToken': csrfToken
+        },
+        success: function(data) {
+          $('#requestShirtNumberModal').modal('hide'); // Close the selection modal
+          showFeedbackModal('success', data.message); // Show success modal
+
+          // Reload the page after the success modal is hidden
+          $('#feedbackSuccessModal').on('hidden.bs.modal', function (e) {
+            location.reload();
+          });
+        },
+        error: function(xhr, status, error) {
+          var errorMessage = 'An unknown error occurred.';
+          if (xhr.responseJSON && xhr.responseJSON.error) {
+            errorMessage = xhr.responseJSON.error;
+          } else if (error) {
+            errorMessage = error;
+          }
+          showFeedbackModal('error', 'Error assigning shirt number: ' + errorMessage); // Show error modal
+          console.error("Error assigning shirt number:", error, xhr.responseText);
+          $btn.prop('disabled', false).text('Assign Selected Number'); // Re-enable button
+        }
+      });
+    });
+  });
+</script>
 {% endblock %}

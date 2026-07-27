@@ -57,6 +57,51 @@ class MemberManager(models.Manager):
         except Member.DoesNotExist:
             return None
 
+    def get_available_shirt_numbers(self, gender, 
+                                    limit=member_settings.MEMBERS_FREE_SHIRT_NUMBER_LIMIT, 
+                                    max_number=member_settings.MEMBERS_MAX_SHIRT_NUMBER, 
+                                    current_only=member_settings.MEMBERS_FREE_SHIRT_CURRENT_ONLY):
+        """
+        Returns a list of available *numerical* shirt numbers for a given gender.
+        An available number is one not currently assigned to any member
+        of the specified gender with a numerical shirt number.
+        If limit is None, returns all available numbers up to max_number.
+        :param gender: The gender to filter by.
+        :param limit: The maximum number of available numbers to return.
+        :param max_number: The highest shirt number to consider.
+        :param current_only: If True, only consider 'is_current' members for used numbers.
+        """
+        if not gender:
+            return []
+
+        # Start with the base queryset for members of the specified gender
+        queryset = self.filter(gender=gender)
+
+        # Apply the current_only filter if specified
+        if current_only:
+            queryset = queryset.filter(is_current=True)
+
+        # Get all shirt numbers currently in use by members in the filtered queryset
+        used_shirt_numbers_str = queryset.filter(
+            shirt_number__isnull=False
+        ).exclude(shirt_number='').values_list('shirt_number', flat=True)
+
+        used_numbers_set = set()
+        for num_str in used_shirt_numbers_str:
+            try:
+                num_int = int(num_str)
+                used_numbers_set.add(num_int)
+            except ValueError:
+                # Ignore non-numeric shirt numbers (e.g., "GK") for this availability check
+                pass
+
+        available_numbers = []
+        for i in range(1, max_number + 1): # Iterate through possible numerical shirt numbers (1-99)
+            if i not in used_numbers_set:
+                available_numbers.append(i)
+            if limit is not None and len(available_numbers) >= limit:
+                break # Stop if the limit is reached
+        return available_numbers
 
 class Member(models.Model):
     """ Represents a member of Cambridge South Hockey Club. Alternatively this can
