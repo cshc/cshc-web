@@ -24,7 +24,7 @@ def js_clubteams(active_only=False):
 
 
 class ClubTeamListView(TemplateView):
-    """ View of a list of all CSHC teams. """
+    """ View of a list of all active CSHC teams. """
 
     model = ClubTeam
     template_name = 'teams/clubteam_list.html'
@@ -32,11 +32,10 @@ class ClubTeamListView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ClubTeamListView, self).get_context_data(**kwargs)
 
-        all_teams = list(ClubTeam.objects.all())
+        all_teams = list(ClubTeam.objects.active())
 
         for team in all_teams:
-            team.category = 'Inactive' if not team.active else (team.get_gender_display() if (team.long_name.startswith('Men\'s') or team.long_name.startswith('Ladies'))
-                                                                else 'Other')
+            team.category = team.get_gender_display() if (team.long_name.startswith('Men\'s') or team.long_name.startswith('Ladies')) else 'Other'
 
             team.participation = team.team_photo_participation()
 
