@@ -136,3 +136,22 @@ class ClubTeam(models.Model):
     def current_participation(self):
         participations = self.clubteamseasonparticipation_set.current()
         return participations[0] if participations.exists() else None
+
+    def team_photo_participation(self, previous_seasons=1):
+        """
+        Returns the ClubTeamSeasonParticipation instance to use for displaying a team photo.
+        Uses the current season first, then previous seasons, up to the number of previous_seasons specified.
+
+        Args:
+            previous_seasons (int): The number of previous seasons to check for a team photo if
+                the current season does not have one. Defaults to 1.
+        Returns:
+            ClubTeamSeasonParticipation: The participation instance with a team photo, or None if none found.
+        """
+
+        participations = self.clubteamseasonparticipation_set.order_by('-season__start')[:previous_seasons]
+        for participation in participations:
+            if participation and participation.team_photo:
+                return participation
+
+        return None
