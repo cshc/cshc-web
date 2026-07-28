@@ -37,7 +37,13 @@ const NumberInput = ({
       <button
         disabled={disabled}
         className="btn btn-link g-pa-0"
-        onClick={() => onChangeValue((value || 0) + 1)}
+        onClick={() => {
+          if (value === undefined || value === null) {
+            onChangeValue(0);
+          } else {
+            onChangeValue(value + 1);
+          }
+        }}
       >
         <i className={upIconClass} />
       </button>
