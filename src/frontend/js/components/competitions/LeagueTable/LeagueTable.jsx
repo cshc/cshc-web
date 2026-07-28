@@ -92,7 +92,18 @@ class LeagueTable extends React.PureComponent {
                     <td>{row.goalsAgainst}</td>
                     <td>{relative(row.goalDifference)}</td>
                     <td>{row.points}</td>
-                    <td>{row.notes}</td>
+                    <td>
+                      {row.notes && row.notes.trim() !== '' ? (
+                        <span
+                          id={`note-tooltip-${row.teamName.replace(/\s/g, '-')}`}
+                          title={row.notes}
+                          className="far fa-file-alt" 
+                          style={{ cursor: 'pointer' }}
+                        ></span>
+                      ) : (
+                        ''
+                      )}
+                    </td>
                   </tr>
                 );
               })}
