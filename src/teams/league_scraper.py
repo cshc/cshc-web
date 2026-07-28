@@ -170,14 +170,25 @@ def get_east_england_hockey_division(page_url, division, season_obj, team_name=N
     """
     Scrapes the league table data directly from the England Hockey API,
     following a structured sequence of API calls.
+    
+    1. Open the initial page URL to extract the necessary IDs (season, competition
+       group, area), and the API base URL and API key from the HTML.
+    2. Use the extracted IDs to call the competitionGroups API endpoint and find the
+       specific competition group that matches the division.
+    3. From the matched competition group, retrieve the 'tables' link and call it
+       to get the full league table data.
+    4. Parse the returned JSON data to extract the relevant division table and its teams,
+       creating DivisionResult objects for each team.
 
     Args:
         page_url (str): The initial URL to scrape for the API base URL and key.
         division (competitions.models.Division): The Division object, containing
                                                  name, short_name, and gender.
         season_obj (competitions.models.Season): The local Season object for which
-                                                  to scrape data. Its slug (e.g., "2024-2025")
-                                                  will be used for API matching.
+                                                 to scrape data. Its slug (e.g., "2024-2025")
+                                                 will be used for API matching.
+        team_name (str, optional): The name of the team being scraped. Used for logging
+                                   purposes. Defaults to None.
 
     Returns:
         list[DivisionResult]: A list of DivisionResult objects parsed from the API.
@@ -210,7 +221,7 @@ def get_east_england_hockey_division(page_url, division, season_obj, team_name=N
         if not api_base_url or not api_key:
             LOG.error(f"Could not extract API base URL or API key from {page_url}")
             return []
-        LOG.debug(f"API Base URL: {api_base_url}, API Key: {api_key[:5]}...") # Log partial key for security
+        LOG.debug(f"API Base URL: {api_base_url}, API Key: {api_key[:5]}...")
 
         # Extract IDs directly from the HTML select elements
         season_select = soup.find('select', {'id': 'season'})
@@ -298,7 +309,7 @@ def get_east_england_hockey_division(page_url, division, season_obj, team_name=N
         LOG.debug(f"Derived page_url_slug from database URL: '{page_url_slug}'")
 
         target_division_table_entry = None
-        all_available_division_table_slugs = [] # For better error logging
+        all_available_division_table_slugs = []
 
         # Iterate directly through the list of division table entries
         for current_division_entry in division_tables_from_api_data:
@@ -308,7 +319,7 @@ def get_east_england_hockey_division(page_url, division, season_obj, team_name=N
             
             current_division_table_slug = current_division_entry.get('entityUrlSlug')
             if current_division_table_slug:
-                all_available_division_table_slugs.append(current_division_table_slug) # Collect all slugs for error message
+                all_available_division_table_slugs.append(current_division_table_slug)
 
             # This is the direct match we're looking for
             if current_division_table_slug == page_url_slug:
@@ -324,7 +335,7 @@ def get_east_england_hockey_division(page_url, division, season_obj, team_name=N
         
         # Now that we have the correct division entry, extract the 'table' (list of teams) from it
         eh_division_name = target_division_table_entry.get('name')
-        team_list = target_division_table_entry.get('table', []) # <--- Correctly accessing 'table' key which holds the list of teams
+        team_list = target_division_table_entry.get('table', [])
         if not isinstance(team_list, list):
             LOG.error(f"Expected 'table' field within matched division entry to be a list, but got {type(team_list)}")
             return []
@@ -343,10 +354,9 @@ def get_east_england_hockey_division(page_url, division, season_obj, team_name=N
             dr = DivisionResult()
             dr.division = division
             dr.season = season_obj
-            dr.position = i + 1 # Assign position based on 1-indexed list order
+            dr.position = i + 1
                                                      
             name = team_data.get('teamName')
-            # Removed: name = _clean_team_name(name)
             set_team(dr, name, division)
 
             dr.played = team_data.get('gamesPlayed', 0)
