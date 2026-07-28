@@ -189,13 +189,13 @@ def get_east_england_hockey_division(page_url, division, season_obj, team_name=N
     api_base_url = None
     api_key = None
 
-    # Suppress InsecureRequestWarning when verify=False
-    requests.packages.urllib3.disable_warnings(requests.packages.urllib3.exceptions.InsecureRequestWarning)
+    request_timeout = 10
+    request_verify = True
 
     try:
         # Step 1: Call the full URL to get the API key and base URL, and filter IDs
         LOG.debug(f"Step 1: Fetching main page to extract API details and filter IDs from {page_url}")
-        main_page_response = requests.get(page_url, timeout=10, verify=False)
+        main_page_response = requests.get(page_url, timeout=request_timeout, verify=request_verify)
         main_page_response.raise_for_status()
         soup = BeautifulSoup(main_page_response.text, "html5lib")
 
@@ -231,7 +231,7 @@ def get_east_england_hockey_division(page_url, division, season_obj, team_name=N
         # Step 2: Construct and call the competitionGroups URL directly using extracted IDs
         full_competition_groups_url = f"{api_base_url}/seasons/{extracted_season_id}/areas/{extracted_area_id}/competitiongroups"
         LOG.debug(f"Step 2: Fetching competition groups from {full_competition_groups_url}")
-        competition_groups_response = requests.get(full_competition_groups_url, headers=headers, timeout=30, verify=False)
+        competition_groups_response = requests.get(full_competition_groups_url, headers=headers, timeout=request_timeout, verify=request_verify)
         competition_groups_response.raise_for_status()
         competition_groups_data = competition_groups_response.json()
 
@@ -270,7 +270,7 @@ def get_east_england_hockey_division(page_url, division, season_obj, team_name=N
         # The tables_link from the API is already a full URL, no need to prepend api_base_url
         full_tables_url = tables_link
         LOG.debug(f"Step 3: Fetching tables data from {full_tables_url}")
-        tables_response = requests.get(full_tables_url, headers=headers, timeout=10, verify=False)
+        tables_response = requests.get(full_tables_url, headers=headers, timeout=request_timeout, verify=request_verify)
         tables_response.raise_for_status()
         api_response_for_tables_endpoint = tables_response.json()
 
