@@ -10,7 +10,10 @@ import traceback
 import boto3
 from django.core.management.base import BaseCommand
 
-PROD_BUCKET_NAME = 'cshc-v3'
+PROD_BUCKET_NAME  = 'cshc-v3'                                   # Production S3 bucket name
+DB_BACKUP_PATH    = 'backups/db-backups/'                       # Path in the S3 bucket where database dumps are stored
+DB_DUMP_EXTENSION = '.dump'                                     # Extension of the database dump files
+DB_DUMP_PREFIX    = 'default-cambridgesouthhockeyclub.co.uk-'   # Prefix of the database dump files
 
 class Command(BaseCommand):
 
@@ -23,10 +26,9 @@ class Command(BaseCommand):
             prod_bucket = s3.Bucket(PROD_BUCKET_NAME)
             dump_objects = []
 
-            # Find all .dump files in the root of the bucket
-            for obj_summary in prod_bucket.objects.filter(Prefix='default-cambridgesouthhockeyclub.co.uk-'):
-                # Only include files that end with .dump and are in the root (no '/' in key except potential trailing)
-                if obj_summary.key.endswith('.dump') and obj_summary.key.count('/') == 0:
+            # Find all backup files in the backup path
+            for obj_summary in prod_bucket.objects.filter(Prefix=DB_BACKUP_PATH):
+                if obj_summary.key.endswith(DB_DUMP_EXTENSION) and obj_summary.key.startswith(DB_BACKUP_PATH + DB_DUMP_PREFIX):
                     dump_objects.append(obj_summary)
 
             if not dump_objects:
@@ -38,7 +40,7 @@ class Command(BaseCommand):
             print('Latest dump file: {}'.format(latest_dump.key))
 
             # Download the latest dump file
-            local_filename = latest_dump.key
+            local_filename = os.path.basename(latest_dump.key)
                        
             if os.path.isfile(local_filename):
                 print('File already exists locally: {}'.format(local_filename))

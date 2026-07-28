@@ -552,6 +552,7 @@ DBBACKUP_STORAGE_OPTIONS = {
     'access_key': get_env_setting('AWS_ACCESS_KEY_ID'),
     'secret_key': get_env_setting('AWS_SECRET_ACCESS_KEY'),
     'bucket_name': get_env_setting('AWS_STORAGE_BUCKET_NAME'),
+    'location': 'backups/db-backups/',
 }
 # DBBACKUP_S3_DIRECTORY = 'django-dbbackups/'
 
