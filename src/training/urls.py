@@ -33,9 +33,4 @@ urlpatterns = [
         name="trainingsession_ical_feed"
         ),
 
-    # E.g. '/training/masters/'             - Womens Masters details
-    url(r'^masters/$',
-        TemplateView.as_view(template_name='training/masters.html'),
-        name="training_masters"
-        ),
 ]
