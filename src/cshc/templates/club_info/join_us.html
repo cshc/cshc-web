@@ -83,8 +83,25 @@
   </div>
 </div>
 
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
+    <div class="alert fade show g-bg-gray-light-v4 rounded-0 g-my-20" role="alert">
+      <div class="media">
+        <span class="d-flex g-mr-10 g-mt-5">
+          <i class="icon-info g-font-size-25"></i>
+        </span>
+        <span class="media-body align-self-center">
+          <p><strong>1st and 2nd Team Training -</strong> The Men's and Ladies' 1s and 2s run an extra half hour of training on their 
+            respective evenings. There is an annual supplemental fee of £30 per season for these sessions.</p>
+          <p><strong>Goalkeepers -</strong> Goalkeepers who buy and maintain their own kit pay the Students/Unwaged subscription rate.
+            Goalkeepers who use club kit pay the applicable subscription rate.</p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
-{% include 'blocks/_middle_heading.html' with title="Match Fees*" %}
+{% include 'blocks/_middle_heading.html' with title="Match Fees" %}
 
 {% clubinfo 'MatchFeesFull' as match_fees_full %}
 {% clubinfo 'MatchFeesDiscount' as match_fees_discount %}
@@ -111,7 +128,21 @@
   </div>
 </div>
 
-<p>* Match fees are reduced proportionally for substitutes playing part of a game</p>
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
+    <div class="alert fade show g-bg-gray-light-v4 rounded-0 g-my-20" role="alert">
+      <div class="media">
+        <span class="d-flex g-mr-10 g-mt-5">
+          <i class="icon-info g-font-size-25"></i>
+        </span>
+        <span class="media-body align-self-center">
+          <strong>Goalkeepers -</strong> Match fees are waived for goalkeepers who buy and maintain their own kit.
+            Goalkeepers who use club kit pay the applicable match fees rate.
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% clubinfo 'TreasurerName' as treasurer_name %}
 {% clubinfo 'SecretaryName' as secretary_name %}
