@@ -114,13 +114,19 @@
         As well as being included within the main men's and ladies' training sessions, the club also arranges fortnightly specialist training for
         goalkeepers. See the club calendar for the full training schedule. Keepers should arrive early and be kitted up and ready for the start of the session.
     </p>
-    {% include 'blocks/_divider.html' with bg_color="g-bg-secondary" %}
+  </div>
+</section>
+<section>
+  <div class="container g-py-40">
     {% include 'blocks/_middle_heading.html' with title="1st and 2nd Team Training" %}
     <p class="lead">
         The Men's and Ladies' 1s and 2s run an extra half hour of training on their respective evenings. There is a supplemental fee of £30 per season
         for this session.
     </p>
-    {% include 'blocks/_divider.html' with bg_color="g-bg-secondary" %}
+  </div>
+</section>
+<section class="g-bg-secondary">
+  <div class="container g-py-40">
     {% include 'blocks/_middle_heading.html' with title="Juniors' Training" %}
     <p class="lead">
       For details of Juniors training, including upcoming session dates and times, check out the dedicated <a href="{{ juniors }}">Juniors page</a>.
@@ -132,34 +138,43 @@
   <div class="container g-py-40">
     {% include 'blocks/_middle_heading.html' with title="Pay and Play" %}
     <p class="lead">
-      {% if in_season %}<span style="font-weight: bold">{% endif %}
-      Cambridge South offers informal hockey each week on Friday evenings at
-      <a href="{{ long_road_url }}">Long Road Sixth Form College</a> during the season (September - March).
-      {% if in_season %}</span>{% endif %}
-    </p>
+      Cambridge South offers informal "pay and play" hockey at <a href="{{ long_road_url }}">Long Road Sixth Form College</a> almost every week, all year round.</p>
+    <p class="lead">You don't have to be a club member to come along and new players are very welcome. There is the option of higher and lower level 
+      small-sided knock-around games, each on a half pitch, or a full pitch all-abilities game on Fridays.</p>
+    <p class="lead">"Lower" games are for players in the 4s and below, and those looking for a more relaxed hockey. "Higher" games are more intense and competitive,
+       for players in the 3s and above.</p>
+
     <p class="lead">
-      {% if not in_season %}<span style="font-weight: bold">{% endif %}
-      Cambridge South also offers informal hockey during the off-season (April to August):
-      {% if not in_season %}</span>{% endif %}<br />
-      Mixed half pitch higher and lower games: Mondays, 7pm - 8pm and Wednesdays, 7:30pm - 8:30pm<br />
-      Mixed full pitch all-abilities game - Fridays, 7pm - 8pm<br />
-      Ladies game - Thursdays, 7pm - 8pm<br />
-      Ladies’ Masters (30+) game - Mondays, 8pm - 9pm
-    </p>
-    <p class="lead">
-      There is the option of higher and lower level small-sided knock-around games, each on a half pitch, or a full pitch all-abilities game. The sessions are mixed men's
-      and ladies' hockey and open to everyone. You don't have to be a club member to come along and new players are very welcome.
-    </p>
-    <p class="lead">
-      To play, pre-book for a session via the <em>Spond</em> app or web portal. If you’re new to the club, contact {% clubinfo_email 'SecretaryEmail' sec_name %}, to
-      be registered with us on Spond. The cost is &pound;5 per session or &pound;2.50 for students and the unwaged, payable on the night via contactless payment.
-      If you're new to the club, your first session is free!
-    </p>
+      To play, pre-book for a session via <em>Spond</em>. If you’re new to the club, contact {% clubinfo_email 'SecretaryEmail' sec_name %}, to
+      be registered with us on Spond. The cost is &pound;6 per session or &pound;4 for students and the unwaged, payable on the night via contactless payment.</p>
+    
+    <p class="lead">If you're new to the club, your first session is free!</p>
+
+    <h4>During the season (September - March)</h4>
+    <div class="lead">
+      <ul>
+        <li><strong>Fridays, 7.30pm to 8.30pm</strong> - Mixed half or full pitch all-abilities game</li>
+      </ul>
+    </div>
+    
+    <h4>During the off-season (April to August)</h4>
+    <div class="lead">
+    <ul>
+      <li>Mondays, 7.30pm to 8.30pm - Mixed half pitch, split into higher and lower games</li>
+      <li>Wednesdays, 7.30pm to 8.30pm - Mixed half pitch, split into higher and lower games</li>
+      <li>Thursdays, 7.30pm to 8.30pm -
+        <ul>
+          <li>Men's higher teams (M1-M3) half-pitch</li>
+          <li>Ladies' half pitch</li>
+        </ul>
+      </li>
+      <li>Fridays, 7.30pm to 8.30pm - Mixed half or full pitch all-abilities game</li>
+    </ul>
+    </div>
   </div>
 </section>
 
 {% endblock main %}
-
 
 {% block body_js %}
   {{ block.super }}
