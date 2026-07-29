@@ -4,6 +4,7 @@
 import logging
 from matches.models import Match
 from opposition.models import Club, ClubStats
+from teams.models import ClubTeam
 
 LOG = logging.getLogger(__name__)
 
@@ -40,6 +41,15 @@ def update_club_stats_for_club(club):
     # Reset all the entries
     for stat in s_entries:
         stat.reset()
+
+        if stat.team_id is not None:
+            try:
+                _ = stat.team
+            except ClubTeam.DoesNotExist:
+                LOG.warning("Unable to resolve {} team with ID {}. Removing stats entry {}.".format(club.name, stat.team_id, stat.pk))
+                stat.delete()
+                continue
+
         if not stat.is_club_total():
             s_lookup[stat.team_id] = stat
         else:
