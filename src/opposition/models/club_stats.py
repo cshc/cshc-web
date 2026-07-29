@@ -134,7 +134,7 @@ class ClubStats(models.Model):
         """ Returns true if this instance represents the totals for a club
             (rather than being specific to a particular CSHC team).
         """
-        return self.team is None
+        return self.team_id is None
 
     def reset(self):
         """Resets all stats to zero"""
