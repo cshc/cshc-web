@@ -46,7 +46,8 @@ urlpatterns = [
         TemplateView.as_view(template_name='club_info/conduct.html'), name='code_of_conduct'),
     url(r'^offers$', TemplateView.as_view(template_name='club_info/member_offer_list.html'),
         name='member_offers'),
-
+    url(r'^payandplay/$',
+        TemplateView.as_view(template_name='training/payandplay.html'), name='pay_and_play'),
     url(r'^calendar/$', CalendarView.as_view(), name='calendar'),
     url(r'^join-us/$',
         TemplateView.as_view(template_name='club_info/join_us.html'), name='join_us'),
