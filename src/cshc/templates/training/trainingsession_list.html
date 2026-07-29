@@ -48,84 +48,209 @@
   {% render_breadcrumbs %}
   {% include 'blocks/_middle_heading.html' with title="Squad Training" %}
 
-  <p class="lead g-mb-40">Cambridge South runs professionally coached training sessions for men and women of all standards throughout the season from September to March at
-  <a href="{{ long_road_url }}">Long Road Sixth Form College</a> or <a href="{{ st_marys_url }}">St Mary's and Homerton Sports Ground</a>. All standard training sessions are free to attend, for club members and newcomers, with no booking required.</p>
-
-  <figure class="row flex-md-row align-items-center">
-    <div class="col-md-6 px-0">
-      <div class="u-ns-bg-v1-bottom u-ns-bg-v1-right--md g-bg-white g-py-30 g-px-50 text-center">
-        <h4 class="h4 g-color-black g-mb-15">Ladies' Squads</h4>
-        <div class="g-mb-10"><a href="{{ long_road_url }}" title="Venue details">Long Road Sixth Form College</a></div>
-        <div class="g-font-style-italic  g-mb-20">
-          Goalkeepers &amp; 1st XI - Thursdays (fortnightly), 7pm - 8pm<br/>
-          1st &amp; 2nd XIs - Tuesdays, 7:30pm - 9:30pm<br/>
-          3rd &amp; 4th XIs - Thursdays, 8pm - 9:30pm
-          <div class="g-font-size-14 g-pt-10 g-color-gray-dark-v5">Please arrive 15 minutes early to warm up</div>
-        </div>
-        <div class="g-mb-10"><a href="{{ st_marys_url }}" title="Venue details">St Mary's & Homerton Sports Ground</a></div>
-        <div class="g-font-style-italic  g-mb-20">
-          5th &amp; 6th XIs - Mondays, 7:30pm - 9pm<br/>
-          <div class="g-font-size-14 g-pt-10 g-color-gray-dark-v5">Please arrive 15 minutes early to warm up</div>
+  <p class="lead">Cambridge South runs professionally coached training sessions for men and women of all standards 
+    throughout the season from September to March at <a href="{{ long_road_url }}">Long Road Sixth Form College</a>
+    or <a href="{{ st_marys_url }}">St Mary's and Homerton Sports Ground</a>.</p>
+  <p class="lead">All standard training sessions are free to attend, for club members and newcomers, with no booking required.</p>
+  
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-10">
+      <div class="alert fade show g-bg-gray-light-v4 rounded-0 g-my-20" role="alert">
+        <div class="media">
+          <span class="d-flex g-mr-10 g-mt-5">
+            <i class="icon-info g-font-size-25"></i>
+          </span>
+          <span class="media-body align-self-center">
+            For all sessions, <strong>please arrive 15 minutes early to warm up</strong> so everyone can get the most out of the session.
+          </span>
         </div>
       </div>
     </div>
-    <div class="col-md-6 px-0">
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 align-self-center g-py-20 g-pr-40 order-1 order-md-1">
+        <div>
+          <h2 class="h4 text-uppercase g-letter-spacing-1 g-mb-20 text-center">Ladies' Squads</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered g-font-size-14">
+              <thead>
+                <tr>
+                  <th>Squad</th>
+                  <th>Day</th>
+                  <th>Time</th>
+                  <th>Venue</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>L1s</td>
+                  <td>Thursdays (fortnightly)</td>
+                  <td>7-8pm</td>
+                  <td><a href="{{ long_road_url }}">Long Road</a></td>
+                </tr>
+                <tr>
+                  <td>L1s &amp; L2s</td>
+                  <td>Tuesdays</td>
+                  <td>7:30-9:30pm</td>
+                  <td><a href="{{ long_road_url }}">Long Road</a></td>
+                </tr>
+                <tr>
+                  <td>L3s &amp; L4s</td>
+                  <td>Thursdays</td>
+                  <td>8-9:30pm</td>
+                  <td><a href="{{ long_road_url }}">Long Road</a></td>
+                </tr>
+                <tr>
+                  <td>L5s &amp; L6s</td>
+                  <td>Thursdays</td>
+                  <td>7:30-9pm</td>
+                  <td><a href="{{ st_marys_url }}">St Mary's</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div> 
+      </div>
+      <div class="col-md-6 align-self-center g-py-20 order-2 order-md-2">
       {% abs_static_url "img/ladies_training20250810.jpg" as ladies_training_image %}
-      {% thumbnail ladies_training_image "580" as ladies_training_image_thumbnail %}
+      {% thumbnail ladies_training_image "540" as ladies_training_image_thumbnail %}
         <img class="w-100" src="{{ ladies_training_image_thumbnail.url }}" alt="Ladies training">
       {% endthumbnail %}
-    </div>
-  </figure>
-
-  <figure class="row flex-md-row align-items-center">
-    <div class="col-md-6 order-md-2 px-0">
-      <div class="u-ns-bg-v1-bottom u-ns-bg-v1-left--md g-bg-white g-py-30 g-px-50 text-center">
-        <div class="g-mb-25">
-          <h4 class="h4 g-color-black g-mb-15">Men's Squads</h4>
-          <div class="g-mb-10"><a href="{{ long_road_url }}" title="Venue details">Long Road Sixth Form College</a></div>
-          <div class="g-font-style-italic  g-mb-20">
-            1st XI - Mondays, 9pm - 10pm<br/>
-            1st &amp; 2nd XIs - Wednesdays, 7:30pm - 9:30pm<br/>
-            3rd &amp; 4th XIs - Mondays, 7:30pm - 9pm<br/>
-            Goalkeepers - Thursdays (fortnightly), 7pm - 8pm
-            <div class="g-font-size-14 g-pt-10 g-color-gray-dark-v5">Please arrive 15 minutes early to warm up</div>
-          </div>
-          <div class="g-mb-10"><a href="{{ st_marys_url }}" title="Venue details">St Mary's & Homerton Sports Ground</a></div>
-          <div class="g-font-style-italic  g-mb-20">
-            5th &amp; 6th XIs - Tuesdays, 7:30pm - 9pm
-            <div class="g-font-size-14 g-pt-10 g-color-gray-dark-v5">Please arrive 15 minutes early to warm up</div>
-          </div>
-        </div>
       </div>
     </div>
-    <div class="col-md-6 order-md-1 px-0">
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 align-self-center g-py-20 g-pr-40 order-1 order-md-2">
+        <div>
+          <h2 class="h4 text-uppercase g-letter-spacing-1 g-mb-20 text-center">Men's Squads</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered g-font-size-14">
+              <thead>
+                <tr>
+                  <th>Squad</th>
+                  <th>Day</th>
+                  <th>Time</th>
+                  <th>Venue</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>M1s</td>
+                  <td>Mondays</td>
+                  <td>9-10pm</td>
+                  <td><a href="{{ long_road_url }}">Long Road</a></td>
+                </tr>
+                <tr>
+                  <td>M1s &amp; M2s</td>
+                  <td>Wednesdays</td>
+                  <td>7:30-9:30pm</td>
+                  <td><a href="{{ long_road_url }}">Long Road</a></td>
+                </tr>
+                <tr>
+                  <td>M3s &amp; M4s</td>
+                  <td>Mondays</td>
+                  <td>7:30-9pm</td>
+                  <td><a href="{{ long_road_url }}">Long Road</a></td>
+                </tr>
+                <tr>
+                  <td>M5s &amp; M6s</td>
+                  <td>Tuesdays</td>
+                  <td>7:30-9pm</td>
+                  <td><a href="{{ st_marys_url }}">St Mary's</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div> 
+      </div>
+      <div class="col-md-6 align-self-center g-py-20 order-2 order-md-1">
       {% abs_static_url "img/mens_training.jpg" as training_image %}
-      {% thumbnail training_image "580" as training_image_thumbnail %}
+      {% thumbnail training_image "540" as training_image_thumbnail %}
         <img class="w-100" src="{{ training_image_thumbnail.url }}" alt="Mens training">
       {% endthumbnail %}
+      </div>
     </div>
-  </figure>
+  </div>
+  <div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
+    <div class="alert fade show g-bg-gray-light-v4 rounded-0 g-my-20" role="alert">
+      <div class="media">
+        <span class="d-flex g-mr-10 g-mt-5">
+          <i class="icon-info g-font-size-25"></i>
+        </span>
+        <span class="media-body align-self-center">
+          <p><strong>1st and 2nd Team Training -</strong> The Men's and Ladies' 1s and 2s run an extra half hour of training on their 
+            respective evenings. There is an annual supplemental fee of £30 per season for these sessions.</p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 </section>
 
 <section class="g-bg-secondary">
   <div class="container g-py-40">
     {% include 'blocks/_middle_heading.html' with title="Goalkeeper Training" %}
     <p class="lead">
-        As well as being included within the main men's and ladies' training sessions, the club also arranges fortnightly specialist training for
-        goalkeepers. See the club calendar for the full training schedule. Keepers should arrive early and be kitted up and ready for the start of the session.
-    </p>
+        As well as training with their squads in the standard men's and ladies' training sessions, goalkeepers can also attend a
+        fortnightly specialist goalkeeper training session.</p>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10">
+        <div class="alert fade show g-bg-gray-light-v4 rounded-0 g-my-20" role="alert">
+          <div class="media">
+            <span class="d-flex g-mr-10 g-mt-5">
+              <i class="icon-info g-font-size-25"></i>
+            </span>
+            <span class="media-body align-self-center">
+              <strong>Please be kitted up and ready for the start of the session.</strong>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 align-self-center g-py-20 g-pr-40 order-1 order-md-1">
+        <div>
+          <h2 class="h4 text-uppercase g-letter-spacing-1 g-mb-20 text-center">Goalkeepers</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered g-font-size-14">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Time</th>
+                  <th>Venue</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Thursdays (fortnightly)</td>
+                  <td>7-8pm</td>
+                  <td><a href="{{ long_road_url }}">Long Road</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div> 
+      </div>
+      <div class="col-md-6 align-self-center g-py-20 order-2 order-md-2">
+      {% abs_static_url "img/keeper_training.jpg" as training_image %}
+      {% thumbnail training_image "540" as training_image_thumbnail %}
+        <img class="w-100" src="{{ training_image_thumbnail.url }}" alt="Keeper training">
+      {% endthumbnail %}
+      </div>
+    </div>
   </div>
 </section>
+
 <section>
-  <div class="container g-py-40">
-    {% include 'blocks/_middle_heading.html' with title="1st and 2nd Team Training" %}
-    <p class="lead">
-        The Men's and Ladies' 1s and 2s run an extra half hour of training on their respective evenings. There is a supplemental fee of £30 per season
-        for this session.
-    </p>
-  </div>
-</section>
-<section class="g-bg-secondary">
   <div class="container g-py-40">
     {% include 'blocks/_middle_heading.html' with title="Juniors' Training" %}
     <p class="lead">
@@ -134,7 +259,7 @@
   </div>
 </section>
 
-<section>
+<section class="g-bg-secondary">
   <div class="container g-py-40">
     {% include 'blocks/_middle_heading.html' with title="Pay and Play" %}
     <p class="lead">
