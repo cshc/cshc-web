@@ -72,7 +72,6 @@ class ContactSubmissionCreateView(CreateView):
             'name': u"{} {}".format(form.cleaned_data['first_name'], form.cleaned_data['last_name']),
             'phone': form.cleaned_data['phone'],
             'sender_email': email,
-            'join_mail_list': form.cleaned_data['mailing_list'],
             'message': str(form.cleaned_data['message']),
         }
 
