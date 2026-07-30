@@ -12,7 +12,7 @@ from training.views import UpcomingTrainingSessionsView
 from core.models import TeamGender
 from core.views import get_season_from_kwargs, add_season_selector
 from competitions.models import Season
-from teams.models import ClubTeam
+from teams.models import ClubTeam, TeamCaptaincy
 from matches.models import Match, Appearance
 from members.models import CommitteeMembership
 from members.utils import member_from_request
@@ -152,58 +152,65 @@ class CommitteeSeasonView(TemplateView):
     """ View for displaying the Club Committee members for a particular season. """
     template_name = 'club_info/committee.html'
 
-    def get_captains(self, committee_list, team_names):
-        """ 
-        Gets a list of team objects with captains and vice-captains populated
-
-        Returns: a list of objects, each with name, captain and vice_captain fields
-        """
-        return [
-            {
-                'name': team_name,
-                'captain': next((m for m in committee_list if m.position.name == "{} Captain".format(team_name)), None),
-                'vice_captain': next((m for m in committee_list if m.position.name == "{} Vice-Captain".format(team_name)), None)
-            } for team_name in team_names
-        ]
-
     def get_context_data(self, **kwargs):
         context = super(CommitteeSeasonView, self).get_context_data(**kwargs)
 
-        # If we're viewing this season's committee we may not have a season_slug keyword arg.
         season = get_season_from_kwargs(kwargs)
+        current_season_obj = Season.current()
 
-        all_members = CommitteeMembership.objects.select_related(
+        all_committee_memberships = CommitteeMembership.objects.select_related(
             'position', 'member', 'season').filter(season=season).order_by('position__index')
 
+        mens_captains_list = []
+        ladies_captains_list = []
+        mixed_captains_list = []
+
+        if season == current_season_obj:
+            participating_teams_qs = ClubTeam.objects.active().order_by('position')
+        else:
+            participating_teams_qs = ClubTeam.objects.filter(
+                clubteamseasonparticipation__season=season
+            ).active().order_by('position').distinct()
+
+        for team in participating_teams_qs:
+            team.name = team.long_name
+
+            captains_qs = TeamCaptaincy.get_captains(team=team, season=season)
+            vice_captains_qs = TeamCaptaincy.get_vice_captains(team=team, season=season)
+
+            if team.gender == TeamGender.Mixed:
+                co_captains = list(captains_qs)
+                if len(co_captains) > 0:
+                    team.captain = co_captains[0]
+                    if len(co_captains) > 1:
+                        team.vice_captain = co_captains[1]
+                    else:
+                        team.vice_captain = None
+                else:
+                    team.captain = None
+                    team.vice_captain = None
+                mixed_captains_list.append(team)
+            else:
+                team.captain = captains_qs.first()
+                team.vice_captain = vice_captains_qs.first()
+                if team.gender == TeamGender.Mens:
+                    mens_captains_list.append(team)
+                elif team.gender == TeamGender.Ladies:
+                    ladies_captains_list.append(team)
+
+        context['mens_captains'] = mens_captains_list
+        context['ladies_captains'] = ladies_captains_list
+        context['mixed_captains'] = mixed_captains_list
+
         context['general_committee'] = [
-            m for m in all_members if m.position.gender == TeamGender.Mixed]
-        ladies_committee = [
-            m for m in all_members if m.position.gender == TeamGender.Ladies]
-        mens_committee = [
-            m for m in all_members if m.position.gender == TeamGender.Mens]
+            m for m in all_committee_memberships
+            if not ("Captain" in m.position.name or "Co-Captain" in m.position.name)
+        ]
 
-        ladies_team_names = list(
-            ClubTeam.objects.ladies().values_list('long_name', flat=True))
-        mens_team_names = list(
-            ClubTeam.objects.mens().values_list('long_name', flat=True))
-
-        context['mens_captains'] = self.get_captains(
-            mens_committee, mens_team_names)
-
-        context['ladies_captains'] = self.get_captains(
-            ladies_committee, ladies_team_names)
-
-        context['mixed_captains'] = {
-            'name': "Mixed XI",
-            'captain': next((m for m in mens_committee if m.position.name == "Men's Mixed XI Co-Captain"), None),
-            'vice_captain': next((m for m in ladies_committee if m.position.name == "Ladies' Mixed XI Co-Captain"), None)
-        }
-
-        season_slug_list = list(CommitteeMembership.objects.order_by(
-            '-season').values_list('season__slug', flat=True).distinct())
-
-        add_season_selector(
-            context, season, season_slug_list)
+        season_slug_list = list(Season.objects.filter(
+            clubteamseasonparticipation__isnull=False
+        ).values_list('slug', flat=True).distinct().order_by('-start'))
+        add_season_selector(context, season, season_slug_list)
 
         return context
 
