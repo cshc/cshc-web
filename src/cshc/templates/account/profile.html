@@ -167,14 +167,17 @@ jQuery-UI CSS must be included before Unify CSS
         <p class="alert alert-warning g-mb-20">
           <strong>Important:</strong> Once a shirt number is selected and assigned, it cannot be changed. Please choose carefully.
         </p>
-        <p>Please select an available shirt number:</p>
+        <p class="g-mb-10" id="availableNumbersLabel">Please select an available shirt number:</p>
+        <div class="col-12 text-center" id="loadingAndErrorMessages">
+          <div class="g-pt-30 g-pb-20" id="loadingNumbers">
+            <i class="fas fa-spinner fa-spin fa-2x g-color-primary g-mb-10"></i>
+            <p class="text-muted">Finding available numbers...</p>
+          </div>
+          <p class="text-danger d-none" id="errorNumbers">Could not load numbers. Please try again later.</p>
+        </div>
         <div class="w-75 mx-auto">
           <div id="availableShirtNumbersContainer" class="row justify-content-center g-mb-20">
             <!-- Numbers will be loaded here by JavaScript -->
-            <div class="col-12 text-center">
-              <p class="text-muted" id="loadingNumbers">Loading available numbers...</p>
-              <p class="text-danger d-none" id="errorNumbers">Could not load numbers. Please try again later.</p>
-            </div>
           </div>
         </div>
         <hr class="g-my-30">

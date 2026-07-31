@@ -6,14 +6,18 @@ MEMBERS_PHOTO_DIR = getattr(
     settings, 'MEMBERS_PHOTO_DIR', 'uploads/profile_pics')
 """ The directory where uploaded profile pictures should be stored (within MEDIA_URL) """
 
-MEMBERS_MAX_SHIRT_NUMBER = getattr(
-    settings, 'MEMBERS_MAX_SHIRT_NUMBER', 299)
+MEMBERS_SHIRT_NUMBER_MAX = getattr(
+    settings, 'MEMBERS_SHIRT_NUMBER_MAX', 299)
 """ The maximum permitted shirt number """
 
-MEMBERS_FREE_SHIRT_NUMBER_LIMIT = getattr(
-    settings, 'MEMBERS_FREE_SHIRT_NUMBER_LIMIT', 12)
+MEMBERS_SHIRT_NUMBER_LIMIT = getattr(
+    settings, 'MEMBERS_SHIRT_NUMBER_LIMIT', 24)
 """ The number of available shirt numbers to return """
 
-MEMBERS_FREE_SHIRT_CURRENT_ONLY = getattr(
-    settings, 'MEMBERS_FREE_SHIRT_CURRENT_ONLY', False)
-""" Whether to only check current playing member shirt numbers when looking for used numbers """
+MEMBERS_SHIRT_NUMBER_INCLUDE_NOT_CURRENT = getattr(
+    settings, 'MEMBERS_SHIRT_NUMBER_INCLUDE_NOT_CURRENT', True)
+""" Whether to include non-current members when looking for available shirt numbers """
+
+MEMBERS_SHIRT_NUMBER_GRACE_PERIOD = getattr(
+    settings, 'MEMBERS_SHIRT_NUMBER_GRACE_PERIOD', 2)
+""" Number of seasons after which non-current members' assigned shirt numbers are considered for reuse """

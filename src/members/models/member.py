@@ -12,6 +12,7 @@ import os
 import geocoder
 from django.conf import settings
 from django.db import models
+from django.db.models import Max, Q
 from django.dispatch import receiver
 from django_resized import ResizedImageField
 from django.db.models.functions import Coalesce
@@ -20,6 +21,7 @@ from image_cropping import ImageRatioField
 from geoposition.fields import GeopositionField
 from core.models import make_unique_filename, Gender, Position, EmergencyContactRelationship
 from members import settings as member_settings
+from competitions.models import Season
 
 LOG = logging.getLogger(__name__)
 
@@ -57,10 +59,8 @@ class MemberManager(models.Manager):
         except Member.DoesNotExist:
             return None
 
-    def get_available_shirt_numbers(self, gender, 
-                                    limit=member_settings.MEMBERS_FREE_SHIRT_NUMBER_LIMIT, 
-                                    max_number=member_settings.MEMBERS_MAX_SHIRT_NUMBER, 
-                                    current_only=member_settings.MEMBERS_FREE_SHIRT_CURRENT_ONLY):
+    def get_available_shirt_numbers(self, gender,
+                                    limit=member_settings.MEMBERS_SHIRT_NUMBER_LIMIT):
         """
         Returns a list of available *numerical* shirt numbers for a given gender.
         An available number is one not currently assigned to any member
@@ -68,21 +68,33 @@ class MemberManager(models.Manager):
         If limit is None, returns all available numbers up to max_number.
         :param gender: The gender to filter by.
         :param limit: The maximum number of available numbers to return.
-        :param max_number: The highest shirt number to consider.
-        :param current_only: If True, only consider 'is_current' members for used numbers.
+        :return: A list of available shirt numbers.
         """
         if not gender:
             return []
 
-        # Start with the base queryset for members of the specified gender
-        queryset = self.filter(gender=gender)
+        base_queryset = self.filter(gender=gender)
 
-        # Apply the current_only filter if specified
-        if current_only:
-            queryset = queryset.filter(is_current=True)
+        if member_settings.MEMBERS_SHIRT_NUMBER_INCLUDE_NOT_CURRENT:
+            annotated_queryset = base_queryset.annotate(
+                last_appearance_season_start=Max('appearances__match__season__start')
+            )
+            stale_cutoff_season_start_date = None
 
-        # Get all shirt numbers currently in use by members in the filtered queryset
-        used_shirt_numbers_str = queryset.filter(
+            seasons = Season.objects.order_by('-start')[:member_settings.MEMBERS_SHIRT_NUMBER_GRACE_PERIOD + 1]
+            stale_cutoff_season_start_date = seasons[len(seasons)-1].start
+
+            members_with_used_numbers = annotated_queryset.filter(
+                Q(is_current=True) |
+                (Q(is_current=False) & (
+                    Q(last_appearance_season_start__isnull=False) &
+                    Q(last_appearance_season_start__gte=stale_cutoff_season_start_date)
+                ))
+            )
+        else:
+            members_with_used_numbers = base_queryset
+
+        used_shirt_numbers_str = members_with_used_numbers.filter(
             shirt_number__isnull=False
         ).exclude(shirt_number='').values_list('shirt_number', flat=True)
 
@@ -92,15 +104,14 @@ class MemberManager(models.Manager):
                 num_int = int(num_str)
                 used_numbers_set.add(num_int)
             except ValueError:
-                # Ignore non-numeric shirt numbers (e.g., "GK") for this availability check
                 pass
 
         available_numbers = []
-        for i in range(1, max_number + 1): # Iterate through possible numerical shirt numbers (1-99)
+        for i in range(1, member_settings.MEMBERS_SHIRT_NUMBER_MAX + 1):
             if i not in used_numbers_set:
                 available_numbers.append(i)
             if limit is not None and len(available_numbers) >= limit:
-                break # Stop if the limit is reached
+                break
         return available_numbers
 
 class Member(models.Model):
