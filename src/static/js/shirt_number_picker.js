@@ -3,6 +3,11 @@ $(document).ready(function() {
   var csrfToken = CSHC_CONFIG.csrfToken;
   var maxShirtNumber = CSHC_CONFIG.maxShirtNumber || 199; // Default to 199 if not set or invalid
 
+  // Get references to the loading/error elements
+  const $loadingNumbers = $('#loadingNumbers');
+  const $errorNumbers = $('#errorNumbers');
+  const $availableShirtNumbersContainer = $('#availableShirtNumbersContainer');
+  
   // Function to show a generic feedback modal
   function showFeedbackModal(type, message) {
     var modalId = (type === 'success') ? '#feedbackSuccessModal' : '#feedbackErrorModal';
@@ -34,11 +39,14 @@ $(document).ready(function() {
   // Event listener for when the modal is about to be shown
   $('#requestShirtNumberModal').on('show.bs.modal', function (e) {
     // Reset modal state
-    var $container = $('#availableShirtNumbersContainer');
-    $container.html('<div class="col-12 text-center"><p class="text-muted" id="loadingNumbers">Loading available numbers...</p></div>');
+    $availableShirtNumbersContainer.empty(); // Clear any previously loaded numbers
     $('#manualShirtNumberInput').val(''); // Clear manual input
     resetCheckButtonState(); // Reset check button and input group
     resetAssignState();
+
+    // Show loading spinner and hide error message
+    $loadingNumbers.removeClass('d-none');
+    $errorNumbers.addClass('d-none');
 
     // Fetch available numbers via AJAX
     $.ajax({
@@ -46,9 +54,7 @@ $(document).ready(function() {
       method: 'GET',
       dataType: 'json',
       success: function(data) {
-        var $container = $('#availableShirtNumbersContainer');
-        $container.empty(); // Clear loading message
-
+        $loadingNumbers.addClass('d-none'); // Hide loading spinner
         if (data.available_numbers && data.available_numbers.length > 0) {
           $.each(data.available_numbers, function(index, number) {
             var numberOptionHtml = `
@@ -56,20 +62,20 @@ $(document).ready(function() {
                 <span class="u-label u-label--sm u-label--rounded g-px-15 g-py-10 g-cursor-pointer g-bg-gray-light-v4 g-color-gray-dark-v4 shirt-number-option" data-number="${number}">${number}</span>
               </div>
             `;
-            $container.append(numberOptionHtml);
+            $availableShirtNumbersContainer.append(numberOptionHtml);
           });
         } else {
-          $container.html('<div class="col-12 text-center"><p class="text-muted">No available shirt numbers found at this time for your gender.</p></div>');
+          $availableShirtNumbersContainer.html('<div class="col-12 text-center"><p class="text-muted">No available shirt numbers found at this time for your gender.</p></div>');
         }
       },
       error: function(xhr, status, error) {
-        var $container = $('#availableShirtNumbersContainer');
-        $container.empty();
+        $loadingNumbers.addClass('d-none'); // Hide loading spinner
+        $errorNumbers.removeClass('d-none'); // Show error message
         var errorMessage = 'Error loading numbers. Please try again later.';
         if (xhr.responseJSON && xhr.responseJSON.error) {
           errorMessage = xhr.responseJSON.error;
         }
-        $container.html(`<div class="col-12 text-center"><p class="text-danger">${errorMessage}</p></div>`);
+        $errorNumbers.text(errorMessage); // Update error message text
         console.error("Error fetching available shirt numbers:", error, xhr.responseText);
       }
     });

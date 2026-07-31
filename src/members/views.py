@@ -174,8 +174,6 @@ def get_available_shirt_numbers(request):
     if not member.gender:
         return JsonResponse({'error': 'Member gender not specified. Cannot determine available shirt numbers.'}, status=400)
 
-    # Use the manager method to fetch available numbers
-    # The limit will come from settings by default, or can be overridden here if needed
     available_numbers = Member.objects.get_available_shirt_numbers(member.gender)
     return JsonResponse({'available_numbers': available_numbers})
 
@@ -204,15 +202,10 @@ def check_shirt_number_availability(request):
     except ValueError:
         return JsonResponse({'error': 'Invalid shirt number format. Must be an integer.'}, status=400)
 
-    # Validate against max_number from settings
-    if not (1 <= shirt_number_int <= member_settings.MEMBERS_MAX_SHIRT_NUMBER):
-        return JsonResponse({'error': f'Shirt number must be between 1 and {member_settings.MEMBERS_MAX_SHIRT_NUMBER}.'}, status=400)
+    if not (1 <= shirt_number_int <= member_settings.MEMBERS_SHIRT_NUMBER_MAX):
+        return JsonResponse({'error': f'Shirt number must be between 1 and {member_settings.MEMBERS_SHIRT_NUMBER_MAX}.'}, status=400)
 
-    # Check if the number is available using the manager method
-    # We pass limit=None to get all available numbers for a comprehensive check
-    # and current_only=True (default) to only consider current players.
     available_numbers = Member.objects.get_available_shirt_numbers(member.gender, limit=None)
-
     is_available = shirt_number_int in available_numbers
 
     return JsonResponse({'is_available': is_available})
@@ -235,26 +228,20 @@ def assign_shirt_number(request):
     except (json.JSONDecodeError, TypeError, ValueError):
         return JsonResponse({'error': 'Invalid data provided.'}, status=400)
 
-    # Basic validation for typical shirt numbers
-    if not (1 <= selected_number_int <= 999): # Allowing up to 3 digits, adjust as per MEMBERS_MAX_SHIRT_NUMBER
-        return JsonResponse({'error': 'Invalid shirt number. Must be a positive integer.'}, status=400)
+    if not (1 <= selected_number_int <= member_settings.MEMBERS_SHIRT_NUMBER_MAX):
+        return JsonResponse({'error': f'Invalid shirt number. Must be a positive integer between 1 and {member_settings.MEMBERS_SHIRT_NUMBER_MAX}.'}, status=400)
 
     if not member.gender:
         return JsonResponse({'error': 'Member gender not specified. Cannot assign shirt number.'}, status=400)
 
-    # Robust check: ensure the number is still available for this gender
-    # We fetch all available numbers (limit=None) to be sure, not just the first few.
     if selected_number_int not in Member.objects.get_available_shirt_numbers(member.gender, limit=None):
         return JsonResponse({'error': f'Shirt number {selected_number_int} is no longer available for your gender or is invalid.'}, status=400)
 
-    # Convert to string before saving to CharField
     selected_number_str = str(selected_number_int)
 
-    # Check if the number is already assigned to *this* member (no change needed)
     if member.shirt_number == selected_number_str:
         return JsonResponse({'message': f'Shirt number {selected_number_str} is already assigned to you.'}, status=200)
 
-    # Assign the number and save
     member.shirt_number = selected_number_str
     member.save()
 
