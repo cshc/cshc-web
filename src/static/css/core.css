@@ -234,3 +234,19 @@ p > a {
 .comments-form #div_id_comment>div {
   width: 100%;
 }
+
+.hs-has-mega-menu {
+  z-index: 10; /* Default z-index for non-hovered menu items */
+}
+
+.hs-has-mega-menu:hover {
+  z-index: 100; /* Higher z-index for the currently hovered menu item */
+}
+
+.hs-mega-menu.animated.fadeIn {
+  animation-duration: 0.3s !important;
+}
+
+.hs-mega-menu.animated.fadeOut {
+  animation-duration: 0.0s !important;
+}
