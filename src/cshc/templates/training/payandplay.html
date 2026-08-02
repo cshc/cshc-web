@@ -20,6 +20,8 @@
 {% url 'venue_detail' 'long-road' as long_road_url %}
 {% _in_season as in_season %}
 {% clubinfo 'SecretaryName' as secretary_name %}
+{% clubinfo 'PayAndPlayFull' as pnp_full %}
+{% clubinfo 'PayAndPlayDiscount' as pnp_discount %}
 
 <div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll is-touch" data-options="{
   settings_mode_oneelement_max_offset: '150'
@@ -55,7 +57,7 @@
           <h3 class="h2 g-font-weight-300 g-mb-20">Waged</h3>
         <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
           <span class="g-valign-top g-font-size-default">&pound;</span>
-          6
+          {{ pnp_full }}
           <span class="g-font-size-default">/ session</span>
         </strong>
       </div>
@@ -65,7 +67,7 @@
           <h3 class="h2 g-font-weight-300 g-mb-20">Students/Unwaged</h3>
         <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
           <span class="g-valign-top g-font-size-default">&pound;</span>
-          4
+          {{ pnp_discount }}
           <span class="g-font-size-default">/ session</span>
         </strong>
       </div>
