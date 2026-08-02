@@ -19,7 +19,7 @@ from django.db.models.functions import Coalesce
 from allauth.account.signals import email_changed
 from image_cropping import ImageRatioField
 from geoposition.fields import GeopositionField
-from core.models import make_unique_filename, Gender, Position, EmergencyContactRelationship
+from core.models import make_unique_filename, ClubInfo, Gender, Position, EmergencyContactRelationship
 from members import settings as member_settings
 from competitions.models import Season
 
@@ -60,28 +60,40 @@ class MemberManager(models.Manager):
             return None
 
     def get_available_shirt_numbers(self, gender,
-                                    limit=member_settings.MEMBERS_SHIRT_NUMBER_LIMIT):
+                                    max_count=None):
         """
         Returns a list of available *numerical* shirt numbers for a given gender.
         An available number is one not currently assigned to any member
         of the specified gender with a numerical shirt number.
-        If limit is None, returns all available numbers up to max_number.
+        If max_count is None, returns all available numbers up to max_number.
         :param gender: The gender to filter by.
-        :param limit: The maximum number of available numbers to return.
+        :param max_count: The maximum number of available numbers to return.
         :return: A list of available shirt numbers.
         """
         if not gender:
             return []
 
+        max_shirt_number, _ = ClubInfo.objects.get_or_create(
+                    key='ShirtNumMax', defaults={'value': '199'})
+
+        shirt_number_include_not_current, _ = ClubInfo.objects.get_or_create(
+                key='ShirtNumIncNonCurr', defaults={'value': 'True'})
+
+        include_not_current = shirt_number_include_not_current.value in [
+            'True', 'true', 'yes', '1']
+
+        shirt_number_grace_seasons, _ = ClubInfo.objects.get_or_create(
+                    key='ShirtNumGraceSeasons', defaults={'value': '1'})
+
         base_queryset = self.filter(gender=gender)
 
-        if member_settings.MEMBERS_SHIRT_NUMBER_INCLUDE_NOT_CURRENT:
+        if include_not_current:
             annotated_queryset = base_queryset.annotate(
                 last_appearance_season_start=Max('appearances__match__season__start')
             )
             stale_cutoff_season_start_date = None
 
-            seasons = Season.objects.order_by('-start')[:member_settings.MEMBERS_SHIRT_NUMBER_GRACE_PERIOD + 1]
+            seasons = Season.objects.order_by('-start')[:int(shirt_number_grace_seasons.value) + 1]
             stale_cutoff_season_start_date = seasons[len(seasons)-1].start
 
             members_with_used_numbers = annotated_queryset.filter(
@@ -107,10 +119,10 @@ class MemberManager(models.Manager):
                 pass
 
         available_numbers = []
-        for i in range(1, member_settings.MEMBERS_SHIRT_NUMBER_MAX + 1):
+        for i in range(1, int(max_shirt_number.value) + 1):
             if i not in used_numbers_set:
                 available_numbers.append(i)
-            if limit is not None and len(available_numbers) >= limit:
+            if max_count is not None and len(available_numbers) >= max_count:
                 break
         return available_numbers
 
