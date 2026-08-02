@@ -76,47 +76,4 @@
   {% model_admin_links 'members' 'committeemembership' %}
 </div>
 
-{% subheading "Men's Captains" %}
-
-<div class="row text-center">
-  {% for team in mens_captains %}
-    <div class="col-lg-4">
-      {% include 'club_info/_captain_panel.html' with team=team captain_title="Captain" vice_captain_title="Vice-Captain" %}
-    </div>
-  {% endfor %}
-</div>
-
-{% if ladies_captains %}
-{% subheading "Ladies' Captains" %}
-
-<div class="row text-center">
-  {% for team in ladies_captains %}
-    <div class="col-lg-4">
-      {% include 'club_info/_captain_panel.html' with team=team captain_title="Captain" vice_captain_title="Vice-Captain" %}
-    </div>
-  {% endfor %}
-</div>
-{% endif %}
-
-{% if mixed_captains %}
-{% subheading "Mixed Captains" %}
-
-<div class="row text-center">
-  {% for team in mixed_captains %}
-    <div class="col-lg-4">
-      {# For mixed teams, we assume captain and vice_captain are co-captains #}
-      {% include 'club_info/_captain_panel.html' with team=team captain_title="Co-Captain" vice_captain_title="Co-Captain" %}
-    </div>
-  {% empty %} {# <-- Add empty block for mixed teams #}
-    <div class="col-12 g-mb-20">
-      <p class="lead g-font-style-italic">Mixed team captains not assigned for this season.</p>
-    </div>
-  {% endfor %}
-</div>
-{% endif %}
-
-<div class="g-py-20">
-  {% model_admin_links 'teams' 'teamcaptaincy' %}
-</div>
-
 {% endblock content %}

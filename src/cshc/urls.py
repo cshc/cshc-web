@@ -25,7 +25,7 @@ from django.conf.urls.static import static
 from core.views import JuniorsContactSubmissionCreateView, ContactSubmissionCreateView
 from members.views import profile
 from venues.views import DirectionsView
-from .views import HomeView, CalendarView, CommitteeSeasonView, templateTestView, CshcGraphQLView
+from .views import HomeView, CalendarView, CommitteeSeasonView, CaptainsSeasonView, templateTestView, CshcGraphQLView
 from .sitemap import CshcSitemap
 
 
@@ -56,6 +56,13 @@ urlpatterns = [
     url(r'^about/committee/(?P<season_slug>[-\w]+)/$',
         CommitteeSeasonView.as_view(),
         name="about_committee_season",
+        ),
+
+    url(r'^about/teamcaptains/$', CaptainsSeasonView.as_view(), name="team_captains"),
+    # E.g. '/about/teamcaptains/2011-2012/'
+    url(r'^about/teamcaptains/(?P<season_slug>[-\w]+)/$',
+        CaptainsSeasonView.as_view(),
+        name="team_captains_season",
         ),
 
     url(r'^archive/minutes/$', TemplateView.as_view(

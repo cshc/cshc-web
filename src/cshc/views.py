@@ -156,10 +156,31 @@ class CommitteeSeasonView(TemplateView):
         context = super(CommitteeSeasonView, self).get_context_data(**kwargs)
 
         season = get_season_from_kwargs(kwargs)
-        current_season_obj = Season.current()
-
         all_committee_memberships = CommitteeMembership.objects.select_related(
             'position', 'member', 'season').filter(season=season).order_by('position__index')
+
+        context['general_committee'] = [
+            m for m in all_committee_memberships
+            if not ("Captain" in m.position.name or "Co-Captain" in m.position.name)
+        ]
+
+        season_slug_list = list(Season.objects.filter(
+            clubteamseasonparticipation__isnull=False
+        ).values_list('slug', flat=True).distinct().order_by('-start'))
+        add_season_selector(context, season, season_slug_list)
+
+        return context
+
+
+class CaptainsSeasonView(TemplateView):
+    """ View for displaying the Club Captains for a particular season. """
+    template_name = 'club_info/teamcaptains.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CaptainsSeasonView, self).get_context_data(**kwargs)
+
+        season = get_season_from_kwargs(kwargs)
+        current_season_obj = Season.current()
 
         mens_captains_list = []
         ladies_captains_list = []
@@ -202,18 +223,13 @@ class CommitteeSeasonView(TemplateView):
         context['ladies_captains'] = ladies_captains_list
         context['mixed_captains'] = mixed_captains_list
 
-        context['general_committee'] = [
-            m for m in all_committee_memberships
-            if not ("Captain" in m.position.name or "Co-Captain" in m.position.name)
-        ]
-
         season_slug_list = list(Season.objects.filter(
             clubteamseasonparticipation__isnull=False
         ).values_list('slug', flat=True).distinct().order_by('-start'))
         add_season_selector(context, season, season_slug_list)
 
         return context
-
+    
 
 @user_passes_test(lambda u: u.is_superuser)
 def templateTestView(request, template):
