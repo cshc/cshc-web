@@ -1,0 +1,9 @@
+{% block subject %}Shirt Number Assigned for {{ member.full_name }}{% endblock subject %}
+
+{% block plain %}
+{% include 'emails/txt/shirt_number_assigned.txt' %}
+{% endblock plain %}
+
+{% block html %}
+{% include 'emails/html/shirt_number_assigned.html' %}
+{% endblock html %}

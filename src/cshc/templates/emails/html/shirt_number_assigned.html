@@ -1,0 +1,28 @@
+{% extends "emails/html/base.html" %}
+{% load static %}
+{% load cshc_tags %}
+{% block title %}CSHC - Shirt Number Assigned{% endblock title %}
+
+{% block content %}
+
+<table role="presentation" class="main" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="wrapper">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td valign="center" align="center">
+            <h1>Shirt Number Assigned</h1>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p><strong>{{ member.full_name }}</strong> has been assigned the shirt number {{ shirt_number }}.</p>
+            {% include 'emails/html/_button.html' with label="View Member Details" link=members_admin_url primary=True %}
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+{% endblock content %}
