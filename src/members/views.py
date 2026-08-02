@@ -17,7 +17,7 @@ from django.contrib import messages
 from django.contrib.sites.models import Site
 from django.http import JsonResponse
 from templated_email import send_templated_mail
-from core.models import CshcUser
+from core.models import CshcUser, ClubInfo
 from core.forms import UserProfileForm
 from core.utils import get_thumbnail_url
 from competitions.models import Season
@@ -244,6 +244,30 @@ def assign_shirt_number(request):
 
     member.shirt_number = selected_number_str
     member.save()
+
+    # Send email to club admins about the new shirt number assignment
+    try:
+        try:
+            sec_email = ClubInfo.objects.get(key='SecretaryEmail').value
+        except ClubInfo.DoesNotExist:
+            sec_email = 'secretary@cambridgesouthhockeyclub.co.uk'
+
+        send_templated_mail(
+            from_email=settings.SERVER_EMAIL,
+            recipient_list=[sec_email],
+            template_name='shirt_number_assigned',
+            context={
+                'shirt_number': selected_number_str,
+                'member': member,
+                'base_url': "https://" + Site.objects.get_current().domain,
+                'members_admin_url': "{}?q={}".format(reverse('admin:members_member_changelist'), request.user.get_full_name())
+            },
+        )
+        LOG.info(f"Sent shirt number assignment email for member {member.id} to admins.")
+        messages.success(request, f"Shirt number {selected_number_str} successfully assigned. Club admins have been notified.")
+    except Exception as e:
+        LOG.error(f"Failed to send shirt number assignment email for member {member.id}: {e}", exc_info=True, extra={'request': request})
+        messages.warning(request, f"Shirt number {selected_number_str} successfully assigned, but there was an issue notifying club admins.")
 
     return JsonResponse({'message': f'Shirt number {selected_number_str} successfully assigned.'})
 

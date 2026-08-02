@@ -1,0 +1,8 @@
+Hi,
+
+{{ member.full_name }} has been assigned the shirt number {{ shirt_number }}.
+
+You can view their profile here: {{ base_url }}{{ member_admin_url }}
+
+Thanks,
+Your Website
