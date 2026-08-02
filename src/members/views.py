@@ -173,10 +173,11 @@ def get_available_shirt_numbers(request):
     if not member.gender:
         return JsonResponse({'error': 'Member gender not specified. Cannot determine available shirt numbers.'}, status=400)
 
-    shirt_number_count, _ = ClubInfo.objects.get_or_create(
+    shirt_number_count_obj, _ = ClubInfo.objects.get_or_create(
                 key='ShirtNumsToShow', defaults={'value': '24'})
+    shirt_number_count = int(shirt_number_count_obj.value)
 
-    available_numbers = Member.objects.get_available_shirt_numbers(member.gender, max_count=int(shirt_number_count.value))
+    available_numbers = Member.objects.get_available_shirt_numbers(member.gender, max_count=shirt_number_count)
     return JsonResponse({'available_numbers': available_numbers})
 
 
@@ -199,19 +200,12 @@ def check_shirt_number_availability(request):
     if not shirt_number_str:
         return JsonResponse({'error': 'No shirt number provided.'}, status=400)
 
-    max_shirt_number, _ = ClubInfo.objects.get_or_create(
-                key='ShirtNumMax', defaults={'value': '199'})
-
     try:
         shirt_number_int = int(shirt_number_str)
     except ValueError:
         return JsonResponse({'error': 'Invalid shirt number format. Must be an integer.'}, status=400)
 
-    if not (1 <= shirt_number_int <= int(max_shirt_number.value)):
-        return JsonResponse({'error': f'Shirt number must be between 1 and {max_shirt_number.value}.'}, status=400)
-
-    available_numbers = Member.objects.get_available_shirt_numbers(member.gender, max_count=None)
-    is_available = shirt_number_int in available_numbers
+    is_available = Member.objects.is_shirt_number_available(member.gender, shirt_number_int)
 
     return JsonResponse({'is_available': is_available})
 
@@ -227,8 +221,9 @@ def assign_shirt_number(request):
     if not member:
         return JsonResponse({'error': 'User is not associated with a member profile.'}, status=400)
 
-    max_shirt_number, _ = ClubInfo.objects.get_or_create(
+    max_shirt_number_obj, _ = ClubInfo.objects.get_or_create(
                 key='ShirtNumMax', defaults={'value': '199'})
+    max_shirt_number = int(max_shirt_number_obj.value)
 
     try:
         data = json.loads(request.body)
@@ -236,13 +231,13 @@ def assign_shirt_number(request):
     except (json.JSONDecodeError, TypeError, ValueError):
         return JsonResponse({'error': 'Invalid data provided.'}, status=400)
 
-    if not (1 <= selected_number_int <= int(max_shirt_number.value)):
-        return JsonResponse({'error': f'Invalid shirt number. Must be a positive integer between 1 and {max_shirt_number.value}.'}, status=400)
+    if not (1 <= selected_number_int <= max_shirt_number):
+        return JsonResponse({'error': f'Invalid shirt number. Must be a positive integer between 1 and {max_shirt_number}.'}, status=400)
 
     if not member.gender:
         return JsonResponse({'error': 'Member gender not specified. Cannot assign shirt number.'}, status=400)
 
-    if selected_number_int not in Member.objects.get_available_shirt_numbers(member.gender, max_count=None):
+    if not Member.objects.is_shirt_number_available(member.gender, selected_number_int):
         return JsonResponse({'error': f'Shirt number {selected_number_int} is no longer available for your gender or is invalid.'}, status=400)
 
     selected_number_str = str(selected_number_int)
