@@ -49,8 +49,7 @@ class Command(BaseCommand):
 
         try:
             # Update opposition stats
-            update_all_club_stats()
-            print('Updated all opposition club stats')
+            call_command('update_oppo_stats')
         except Exception as e:
             errors.append(
                 "Failed to update Opposition Club Stats: {}".format(e))
