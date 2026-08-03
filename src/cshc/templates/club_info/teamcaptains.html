@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap_breadcrumbs %}
+{% load cshc_tags documents %}
+{% load compress %}
+
+{% block title %}{{ block.super }} | Team Captains{% endblock %}
+
+
+{% block link %}
+  {% compress css %}
+  <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
+  {% endcompress %}
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Captains" "team_captains" %}
+  {% if not is_current_season %}
+  {% breadcrumb season.slug "team_captains" season_slug=season.slug %}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% url 'team_captains' as base_captains_url %}
+
+<header class="g-mb-20">
+  <h2 class="h1 g-font-weight-300 text-uppercase">Team Captains
+    {% include 'blocks/_season_selector.html' with base_url=base_captains_url %}
+  </h2>
+</header>
+
+<div class="row">
+  <div class="col-lg-12">
+    <p class="lead">Team captains are elected each year at the Annual General Meeting with appointments running for a single season.</p>
+  </div>
+</div>
+
+{% subheading "Men's Captains" %}
+
+<div class="row text-center">
+  {% for team in mens_captains %}
+    <div class="col-lg-4">
+      {% include 'club_info/_captain_panel.html' with team=team captain_title="Captain" vice_captain_title="Vice-Captain" %}
+    </div>
+  {% endfor %}
+</div>
+
+{% if ladies_captains %}
+{% subheading "Ladies' Captains" %}
+
+<div class="row text-center">
+  {% for team in ladies_captains %}
+    <div class="col-lg-4">
+      {% include 'club_info/_captain_panel.html' with team=team captain_title="Captain" vice_captain_title="Vice-Captain" %}
+    </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if mixed_captains %}
+{% subheading "Mixed Captains" %}
+
+<div class="row text-center">
+  {% for team in mixed_captains %}
+    <div class="col-lg-4">
+      {# For mixed teams, we assume captain and vice_captain are co-captains #}
+      {% include 'club_info/_captain_panel.html' with team=team captain_title="Co-Captain" vice_captain_title="Co-Captain" %}
+    </div>
+  {% empty %} {# <-- Add empty block for mixed teams #}
+    <div class="col-12 g-mb-20">
+      <p class="lead g-font-style-italic">Mixed team captains not assigned for this season.</p>
+    </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="g-py-20">
+  {% model_admin_links 'teams' 'teamcaptaincy' %}
+</div>
+
+{% endblock content %}

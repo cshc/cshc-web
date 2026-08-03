@@ -76,39 +76,4 @@
   {% model_admin_links 'members' 'committeemembership' %}
 </div>
 
-{% subheading "Men's Captains" %}
-
-<div class="row text-center">
-  {% for team in mens_captains %}
-    <div class="col-lg-4">
-      {% include 'club_info/_captain_panel.html' with captain_title="Captain" vice_captain_title="Vice-Captain" %}
-    </div>
-  {% endfor %}
-</div>
-
-{% subheading "Ladies' Captains" %}
-
-<div class="row text-center">
-  {% for team in ladies_captains %}
-    <div class="col-lg-4">
-      {% include 'club_info/_captain_panel.html' with captain_title="Captain" vice_captain_title="Vice-Captain" %}
-    </div>
-  {% endfor %}
-</div>
-
-{% subheading "Mixed Captains" %}
-
-<div class="row text-center">
-  <div class="col-lg-4">
-    {% include 'club_info/_captain_panel.html' with team=mixed_captains captain_title="Mens Co-Captain" vice_captain_title="Ladies Co-Captain" %}
-  </div>
-</div>
-
-<div class="g-py-20">
-  {% model_admin_links 'teams' 'teamcaptaincy' %}
-</div>
-
 {% endblock content %}
-
-
-  

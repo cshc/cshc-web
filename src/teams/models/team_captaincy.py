@@ -3,33 +3,38 @@
 """
 
 from django.db import models
+from django.db.models.query import QuerySet
 
-
-class TeamCaptaincyManager(models.Manager):
-    """ Queries relating to the TeamCaptaincy model. """
-
-    def get_queryset(self):
-        return super(TeamCaptaincyManager, self).get_queryset().select_related('member', 'team', 'season')
+# 1. Define a custom QuerySet class
+class TeamCaptaincyQuerySet(QuerySet):
+    """ Custom QuerySet for TeamCaptaincy models, providing chainable filtering methods. """
 
     def by_team(self, team):
         """ Returns only entries for the specified team. """
-        return self.get_queryset().filter(team=team)
+        return self.filter(team=team)
 
     def by_member(self, member):
         """ Returns only entries for the specified member. """
-        return self.get_queryset().filter(member=member)
+        return self.filter(member=member)
 
     def by_season(self, season):
         """ Returns only entries for the specified season. """
-        return self.get_queryset().filter(season=season)
+        return self.filter(season=season)
 
     def captains(self):
         """ Returns only captains (as opposed to vice-captains). """
-        return self.get_queryset().filter(is_vice=False)
+        return self.filter(is_vice=False)
 
     def vice_captains(self):
         """ Returns only vice-captains (as opposed to captains). """
-        return self.get_queryset().filter(is_vice=True)
+        return self.filter(is_vice=True)
+
+
+class TeamCaptaincyManager(models.Manager):
+    """ Model Manager for the TeamCaptaincy model. """
+
+    def get_queryset(self):
+        return TeamCaptaincyQuerySet(self.model, using=self._db).select_related('member', 'team', 'season')
 
 
 class TeamCaptaincy(models.Model):
@@ -72,11 +77,11 @@ class TeamCaptaincy(models.Model):
         """ Returns TeamCaptaincy objects corresponding to the captains for
             the specified team and season.
         """
-        return TeamCaptaincy.objects.by_team(team=team).by_season(season).captains()
+        return TeamCaptaincy.objects.all().by_team(team=team).by_season(season).captains()
 
     @staticmethod
     def get_vice_captains(team, season):
         """ Returns TeamCaptaincy objects corresponding to the vice captains for
             the specified team and season.
         """
-        return TeamCaptaincy.objects.by_team(team).by_season(season).vice_captains()
+        return TeamCaptaincy.objects.all().by_team(team).by_season(season).vice_captains()
