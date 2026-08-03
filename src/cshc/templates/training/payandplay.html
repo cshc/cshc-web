@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap_breadcrumbs %}
+{% load thumbnail from sorl_thumbnail %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Pay and Play{% endblock %}
+
+{% block link %}
+  {% include 'blocks/_dszparallaxer_css.html' %}
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block main %}
+
+{% url 'venue_detail' 'long-road' as long_road_url %}
+{% _in_season as in_season %}
+{% clubinfo 'SecretaryName' as secretary_name %}
+{% clubinfo 'PayAndPlayFull' as pnp_full %}
+{% clubinfo 'PayAndPlayDiscount' as pnp_discount %}
+
+<div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll is-touch" data-options="{
+  settings_mode_oneelement_max_offset: '150'
+ }">
+  <!-- Parallax Image -->
+  <div class="divimage dzsparallaxer--target w-100" style="height: 140%; background-image: url(&quot;{% static "img/l1-3b.jpg" %}&quot;); transform: translate3d(0px, 0px, 0px);"></div>
+  <section class="g-flex-centered g-height-500 g-color-white u-bg-overlay g-bg-black-opacity-0_6--after g-py-20">
+    <div class="container text-center u-bg-overlay__inner">
+      <h2 class="g-font-size-60 g-mb-80">Pay and Play</h2>
+      <p class="g-font-size-32 g-font-style-italic">Casual hockey for everyone, all year round</p>
+    </div>
+  </section>
+</div>
+
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
+  <p class="lead">Cambridge South offers informal "pay and play" hockey at <a href="{{ long_road_url }}">Long Road Sixth Form College</a>
+      almost every week, all year round.</p>
+  <p class="lead">You don't have to be a club member to come along and new players are very welcome. There is the option of higher and lower level
+      small-sided knock-around games, each on a half pitch, or a full pitch all-abilities game on Fridays.</p>
+  <div class="lead">
+    <ul>
+      <li>Higher games are aimed at players in the 3s and above, and those looking for faster, more intense hockey.</li>
+      <li>Lower games are aimed at players in the 4s and below, and those looking for more relaxed hockey.</li>
+    </ul>
+  </div>
+
+  <p class="lead g-mb-40">If you're new to the club, your first session is free!</p>
+
+  {% include 'blocks/_middle_heading.html' with title="Prices" %}
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="u-shadow-v1-5 g-bg-primary g-color-white g-line-height-2 g-pa-40 g-mb-30 text-center">
+          <h3 class="h2 g-font-weight-300 g-mb-20">Waged</h3>
+        <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
+          <span class="g-valign-top g-font-size-default">&pound;</span>
+          {{ pnp_full }}
+          <span class="g-font-size-default">/ session</span>
+        </strong>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="u-shadow-v1-5 g-line-height-2 g-pa-40 g-mb-30 text-center">
+          <h3 class="h2 g-font-weight-300 g-mb-20">Students/Unwaged</h3>
+        <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
+          <span class="g-valign-top g-font-size-default">&pound;</span>
+          {{ pnp_discount }}
+          <span class="g-font-size-default">/ session</span>
+        </strong>
+      </div>
+    </div>
+  </div>
+
+  <p class="lead text-center g-mb-40">
+    <em>The session fee is payable via Spond.</em>
+  </p>
+
+  {% include 'blocks/_middle_heading.html' with title="Sessions" %}
+  <div class="d-flex flex-column">
+    {# "During the Season" table block #}
+    <div class="row justify-content-center {% if in_season %}order-1{% else %}order-2{% endif %}">
+      <div class="col-md-8 align-self-center g-py-20">
+        <div>
+          <h2 class="h4 text-uppercase g-letter-spacing-1 g-mb-20 text-center">During the Season (September - March)</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered g-font-size-14">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Time</th>
+                  <th>Type</th>
+                  <th>Pitch</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Fridays</td>
+                  <td>7.30-8.30pm</td>
+                  <td>Mixed all abilities</td>
+                  <td>Half or full pitch (depending on numbers)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center {% if in_season %}order-2{% else %}order-1{% endif %}">
+      <div class="col-md-8 align-self-center g-py-20">
+        <div>
+          <h2 class="h4 text-uppercase g-letter-spacing-1 g-mb-20 text-center">During the Off Season (April - August)</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered g-font-size-14">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Time</th>
+                  <th>Type</th>
+                  <th>Pitch</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mondays</td>
+                  <td>7.30-8.30pm</td>
+                  <td>Mixed, split into higher and lower</td>
+                  <td>Half pitch</td>
+                </tr>
+                <tr>
+                  <td>Wednesdays</td>
+                  <td>7.30-8.30pm</td>
+                  <td>Mixed, split into higher and lower</td>
+                  <td>Half pitch</td>
+                </tr>
+                <tr>
+                  <td>Thursdays</td>
+                  <td>7.30-8.30pm</td>
+                  <td>Men's higher teams (M1-M3)</td>
+                  <td>Half pitch</td>
+                </tr>
+                <tr>
+                  <td>Thursdays</td>
+                  <td>7.30-8.30pm</td>
+                  <td>Ladies all abilities</td>
+                  <td>Half pitch</td>
+                </tr>
+                <tr>
+                  <td>Fridays</td>
+                  <td>7.30-8.30pm</td>
+                  <td>Mixed all abilities</td>
+                  <td>Half or full pitch (depending on numbers)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include 'blocks/_middle_heading.html' with title="Booking" %}
+  <p class="lead">
+      Pre-booking is essential. To play, pre-book for a session via <em>Spond</em>. If you’re new to the club,
+      contact {% clubinfo_email 'SecretaryEmail' secretary_name %}, to be registered with us on Spond.</p>
+
+  <p class="lead">
+      If an event is full you can join the waiting list. If you book a session but are unable to attend, please
+       cancel as soon as possible to ensure some on the waiting list can take your place.</p>
+
+  <div class="row justify-content-center g-mt-30 g-mb-30">
+    <div class="col-12 col-lg-10">
+      <div class="alert alert-secondary d-flex align-items-center" role="alert">
+        <i class="icon-exclamation g-font-size-25 g-mr-10"></i>
+        <div>No-shows or last minutes cancellations may result in a two-week suspension from pay and play sessions.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock main %}
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'blocks/_dszparallaxer_js.html' %}
+{% endblock %}

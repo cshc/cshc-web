@@ -28,7 +28,7 @@ Contact Us page with contact form
   <div class="col-md-8">
     <p class="lead">
       If you're interested in playing hockey with us, whether casually or competitively, or would just like more information about the club, 
-      simply fill in this form. Joining the club mailing lists means you will receive email alerts about games, training, socials etc.
+      simply fill in this form.
     </p>
     <p class="lead">
       Alternatively, come along to our evening <a href="{{ training }}">club training</a> and introduce yourself.
@@ -65,11 +65,7 @@ Contact Us page with contact form
   </div>
   <div class="row justify-content-md-center">
     <div class="col-md-8">
-      {% unify_form_field 'mailing_list' 'inline' hide_label=True %}
-    </div>
-  </div>
-  <div class="row justify-content-md-center">
-    <div class="col-md-8">
+      {% unify_form_required_fields_footnote 'inline' %}
       <div class="form-group">
         {{ form.captcha }}
         {% if form.errors.captcha %}<small class="form-control-feedback">{{ form.errors.captcha }}</small>{% endif %}
@@ -78,8 +74,7 @@ Contact Us page with contact form
   </div>
   <div class="row justify-content-md-center">
     <div class="col-md-8">
-      {% unify_form_submit_button 'Send' 'inline' %}
-      {% unify_form_required_fields_footnote 'inline' %}
+      {% unify_form_submit_button 'SEND' 'inline' %}
     </div>
   </div>
 </form>
