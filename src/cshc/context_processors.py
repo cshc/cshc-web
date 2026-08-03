@@ -34,10 +34,10 @@ def utils(request):
                     ('m4', 'Mens 4ths',),
                     ('m5', 'Mens 5ths',),
                     ('m6', 'Mens 6ths',),
-                    ('m7', 'Mens 7ths',),
+                    #('m7', 'Mens 7ths',),
                     # Add a border above this item
-                    ('m-in', 'Mens Indoor', True),
-                    ('mv', 'Mens Vets',),
+                    #('m-in', 'Mens Indoor', True),
+                    ('mv', 'Mens Vets', True),
                 ],
             },
             {
@@ -49,10 +49,10 @@ def utils(request):
                     ('l4', 'Ladies 4ths',),
                     ('l5', 'Ladies 5ths',),
                     ('l6', 'Ladies 6ths',),
-                    ('l7', 'Ladies 7ths',),
+                    #('l7', 'Ladies 7ths',),
                     # Add a border above this item
-                    ('l-in', 'Ladies Indoor', True),
-                    ('lv', 'Ladies Vets',),
+                    #('l-in', 'Ladies Indoor', True),
+                    ('lv', 'Ladies Vets', True),
                 ],
             },
             {

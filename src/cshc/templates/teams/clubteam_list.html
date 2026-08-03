@@ -34,9 +34,6 @@
     <li class="list-inline-item cbp-filter-item g-brd-around g-brd-gray-light-v4 g-brd-primary--active g-color-gray-dark-v4 g-color-primary--hover g-color-primary--active g-font-size-12 rounded g-transition-0_3 g-px-20 g-py-7 mb-2" role="button" data-filter=".Other">
       Other
     </li>
-    <li class="list-inline-item cbp-filter-item g-brd-around g-brd-gray-light-v4 g-brd-primary--active g-color-gray-dark-v4 g-color-primary--hover g-color-primary--active g-font-size-12 rounded g-transition-0_3 g-px-20 g-py-7 mb-2" role="button" data-filter=".Inactive">
-      Inactive
-    </li>
   </ul>
 
   <div class="cbp" data-controls="#filterControls" data-animation="quicksand" data-x-gap="30" data-y-gap="30" data-media-queries='[
@@ -63,8 +60,6 @@
           <p class="g-color-white-opacity-0_7 mb-0">
             {% if team.participation and team.participation.division %}
               {{team.participation.division}}
-            {% elif not team.active %}
-              (Inactive)
             {% else %}
               &nbsp;
             {% endif %}
