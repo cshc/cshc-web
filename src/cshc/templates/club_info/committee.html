@@ -28,7 +28,7 @@
 {% url 'about_committee' as base_committee_url %}
 
 <header class="g-mb-20">
-  <h2 class="h1 g-font-weight-300 text-uppercase">CSHC Committee and Constitution
+  <h2 class="h1 g-font-weight-300 text-uppercase">Committee
     {% include 'blocks/_season_selector.html' with base_url=base_committee_url %}
   </h2>
 </header>
@@ -67,7 +67,7 @@
     </div>
   {% empty %}
     <div class="col-12 g-mb-20">
-      <p class="lead g-font-style-italic">Committee positions not know for this season.</p>
+      <p class="lead g-font-style-italic">Committee positions not known for this season.</p>
     </div>
   {% endfor %}
 </div>
