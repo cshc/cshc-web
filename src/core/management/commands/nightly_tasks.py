@@ -72,19 +72,10 @@ class Command(BaseCommand):
             errors.append("Failed to purge training sessions: {}".format(e))
 
         # Scrape league tables
-        query = Q(division_tables_url__isnull=True) | Q(division_tables_url='')
-        participations = ClubTeamSeasonParticipation.objects.current(
-        ).exclude(query).select_related('team', 'division')
-
-        for participation in participations:
-            try:
-                league_scraper.get_hockey_east_division(
-                    participation.division_tables_url, participation.division, season)
-                print('Scraped league table for ' +
-                      participation.division_tables_url)
-            except Exception as e:
-                errors.append("Failed to scrape league table from {}: {}".format(
-                    participation.division_tables_url, e))
+        try:
+            call_command('scrape_leagues')
+        except Exception as e:
+            errors.append("Failed to scrape leagues: {}".format(e))
 
         # Backup database
         try:
