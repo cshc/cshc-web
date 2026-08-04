@@ -36,7 +36,7 @@
                   <h4 class="h5 text-uppercase g-font-weight-600">{{ team.title }}</h4>
                   <ul class="list-unstyled">
                     {% for item in team.list %}
-                    <li class="dropdown-item {% active_link 'clubteam_detail' item.0 %}{% if item.2 %} g-brd-top g-brd-gray-dark-v3{% endif %}">
+                    <li class="dropdown-item {% if season_slug and season_slug != 'All seasons' %}{% active_link 'clubteam_season_detail' item.0 season_slug %}{% else %}{% active_link 'clubteam_detail' item.0 %}{% endif %}{% if item.2 %} g-brd-top g-brd-gray-dark-v3{% endif %}">
                       <a href="{% url 'clubteam_detail' item.0 %}" class="nav-link">{{ item.1 }}</a>
                     </li>
                     {% endfor %}
@@ -94,10 +94,10 @@
                     <li class="dropdown-item {% active_link 'zinnia:entry_archive_index' %}">
                       <a href="{% url 'zinnia:entry_archive_index' %}" class="nav-link">News</a>
                     </li>
-                    <li class="dropdown-item {% active_link 'about_committee' %}">
+                    <li class="dropdown-item {% if season_slug and season_slug != 'All seasons' %} {% active_link 'about_committee_season' season_slug %}{% else %}{% active_link 'about_committee' %}{% endif %}">
                       <a href="{% url 'about_committee' %}" class="nav-link">Committee</a>
                     </li>
-                    <li class="dropdown-item {% active_link 'team_captains' %}">
+                    <li class="dropdown-item {% if season_slug and season_slug != 'All seasons' %} {% active_link 'team_captains_season' season_slug %}{% else %}{% active_link 'team_captains' %}{% endif %}">
                       <a href="{% url 'team_captains' %}" class="nav-link">Team Captains</a>
                     </li>
                     <li class="dropdown-item {% active_link 'calendar' %}">
@@ -138,19 +138,19 @@
             <li class="dropdown-item {% active_link 'playing_record' %}">
               <a href="{% url 'playing_record' %}" class="nav-link">Team Playing Records</a>
             </li>
-            <li class="dropdown-item {% active_link 'goal_king' %}">
+            <li class="dropdown-item {% if season_slug and season_slug != 'All seasons' %}{% active_link 'goal_king_season' season_slug %}{% else %}{% active_link 'goal_king' %}{% endif %}">
               <a href="{% url 'goal_king' %}" class="nav-link">Goal King</a>
             </li>
-            <li class="dropdown-item {% active_link 'southerners_league' %}">
+            <li class="dropdown-item {% if season_slug and season_slug != 'All seasons' %}{% active_link 'southerners_league_season' season_slug %}{% else %}{% active_link 'southerners_league' %}{% endif %}">
               <a href="{% url 'southerners_league' %}" class="nav-link">Southerners League</a>
             </li>
             <li class="dropdown-item {% active_link 'opposition_club_list' %}">
               <a href="{% url 'opposition_club_list' %}" class="nav-link">Rivals</a>
             </li>
-            <li class="dropdown-item {% active_link 'accidental_tourist' %}">
+            <li class="dropdown-item {% if season_slug and season_slug != 'All seasons' %}{% active_link 'accidental_tourist_season' season_slug %}{% else %}{% active_link 'accidental_tourist' %}{% endif %}">
               <a href="{% url 'accidental_tourist' %}" class="nav-link">Accidental Tourist</a>
             </li>
-            <li class="dropdown-item {% active_link 'naughty_step' %}">
+            <li class="dropdown-item {% if season_slug and season_slug != 'All seasons' %}{% active_link 'naughty_step_season' season_slug %}{% else %}{% active_link 'naughty_step' %}{% endif %}">
               <a href="{% url 'naughty_step' %}" class="nav-link">The Naughty Step</a>
             </li>
             <li class="dropdown-item {% active_link 'end_of_season_award_winners_list' %}">
