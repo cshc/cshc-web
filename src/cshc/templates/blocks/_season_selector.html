@@ -1,10 +1,19 @@
-<div class="btn-group link-dropdown subtitle-dropdown {{ class }}">
-  <button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    {{ season }}
-  </button>
-  <div class="dropdown-menu">
-    {% for season_slug in season_slug_list %}
-    <a class="dropdown-item {% if season_slug == season.slug %}active{% endif %}" href="{{ base_url }}{{ season_slug }}">{{ season_slug }}</a>
-    {% endfor %}
+<div class="season-selector {{ class }}">
+  <div class="dropdown">
+    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{ season }}
+    </button>
+    <div class="dropdown-menu dropdown-menu-right season-selector__menu">
+      <a class="dropdown-item season-selector__shortcut {% if is_current_season %}active{% endif %}" href="{{ base_url }}">
+        {{ current_season.slug }}
+        <span class="badge badge-light g-ml-5">Current</span>
+      </a>
+      <div class="dropdown-divider"></div>
+      {% for season_slug in season_slug_list %}
+      {% if season_slug != current_season.slug %}
+      <a class="dropdown-item {% if season_slug == season.slug %}active{% endif %}" href="{{ base_url }}{{ season_slug }}">{{ season_slug }}</a>
+      {% endif %}
+      {% endfor %}
+    </div>
   </div>
 </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GoogleMap from 'components/common/GoogleMap';
+import Loading from 'components/common/Loading';
 import { ViewType } from 'util/constants';
 import { ViewSwitcher, ViewSwitcherView } from 'components/common/ViewSwitcher';
 import MemberTable from './MemberTable';
@@ -30,12 +31,7 @@ const MemberListWrapper = ({
           <ViewSwitcherView iconClass="far fa-map" label={ViewType.Map} />
         </ViewSwitcher>
       ) : null}
-      {isLoading && (
-        <div className="text-center g-py-50">
-          <i className="fas fa-spinner fa-spin fa-3x g-color-primary"></i>
-          <p className="g-mt-20">Loading members ...</p>
-        </div>
-      )}
+      {isLoading && <Loading message="Loading members..." />}
       {!isLoading && hasData && (!canViewMap || viewType === ViewType.List) ? (
         <MemberTable 
           members={data.results} 

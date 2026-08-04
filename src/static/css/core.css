@@ -1,3 +1,8 @@
+html {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
 body {
   background-color: #111;
 }
@@ -136,6 +141,46 @@ main {
 .btn-group.link-dropdown .btn-link:hover {
   text-decoration: none;
 }
+.season-selector {
+  display: flex;
+  justify-content: flex-end;
+}
+.season-selector .btn {
+  white-space: nowrap;
+}
+.season-selector__menu {
+  max-height: 20rem;
+  overflow-y: auto;
+}
+.season-selector__shortcut {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+.season-selector__shortcut.active,
+.season-selector__shortcut:active {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+.season-selector__shortcut:hover,
+.season-selector__shortcut:focus {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+.season-selector__shortcut.active:hover,
+.season-selector__shortcut.active:focus,
+.season-selector__shortcut:active:hover,
+.season-selector__shortcut:active:focus {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+@media (max-width: 767.98px) {
+  .season-selector {
+    justify-content: flex-start;
+  }
+}
 .form-control-feedback ul {
   list-style: none;
   padding-left: 0;
@@ -248,5 +293,5 @@ p > a {
 }
 
 .hs-mega-menu.animated.fadeOut {
-  animation-duration: 0.0s !important;
+  animation-duration: 0.01s !important;
 }

@@ -23,10 +23,9 @@
 
   {% url 'goal_king' as base_goal_king_url %}
 
-  <header class="g-mb-20">
-    <h2 class="h1 g-font-weight-300 text-uppercase">Goal King
-      {% include 'blocks/_season_selector.html' with class='g-mt-7 g-ml-10' base_url=base_goal_king_url %}
-    </h2>
+  <header class="g-mb-20 d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+    <h2 class="h1 g-font-weight-300 text-uppercase g-mb-10 g-mb-md-0">Goal King</h2>
+    {% include 'blocks/_season_selector.html' with base_url=base_goal_king_url %}
   </header>
   
   <p class="lead">This table includes all goals scored outdoors and indoors in competitive and friendly matches against external teams.</p>

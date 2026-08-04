@@ -25,20 +25,25 @@ This displays the red, yellow and green cards received by all players.
 
 {% block content %}
 
-<header class="g-mb-20">
-    <h2 class="h1 g-font-weight-300 text-uppercase">The Naughty Step
-      <div class="btn-group link-dropdown subtitle-dropdown g-mt-7 g-ml-10">
-        <button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ season_slug }}
-        </button>
-        <div class="dropdown-menu">
-          {% for s in season_slug_list %}
-          <a class="dropdown-item {% if s == season_slug %}active{% endif %}" href="{% url 'naughty_step' %}{% if s != "All seasons" %}{{ s }}{% endif %}">{{s}}</a>
-          {% endfor %}
-        </div>
+<header class="g-mb-20 d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+  <h2 class="h1 g-font-weight-300 text-uppercase g-mb-10 g-mb-md-0">The Naughty Step</h2>
+  <div class="season-selector">
+    <div class="dropdown">
+      <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{ season_slug }}
+      </button>
+      <div class="dropdown-menu dropdown-menu-right season-selector__menu">
+        <a class="dropdown-item season-selector__shortcut {% if season_slug == 'All seasons' %}active{% endif %}" href="{% url 'naughty_step' %}">All seasons</a>
+        <div class="dropdown-divider"></div>
+        {% for s in season_slug_list %}
+        {% if s != 'All seasons' %}
+        <a class="dropdown-item {% if s == season_slug %}active{% endif %}" href="{% url 'naughty_step_season' s %}">{{ s }}</a>
+        {% endif %}
+        {% endfor %}
       </div>
-    </h2>
-  </header>
+    </div>
+  </div>
+</header>
   
 
 
