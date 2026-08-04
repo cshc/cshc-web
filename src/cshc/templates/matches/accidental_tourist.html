@@ -23,10 +23,9 @@
 
 {% url 'accidental_tourist' as base_accidental_tourist_url %}
 
-<header class="g-mb-20">
-  <h2 class="h1 g-font-weight-300 text-uppercase">Accidental Tourist
-    {% include 'blocks/_season_selector.html' with class='g-mt-7 g-ml-10' base_url=base_accidental_tourist_url %}
-  </h2>
+<header class="g-mb-20 d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+  <h2 class="h1 g-font-weight-300 text-uppercase g-mb-10 g-mb-md-0">Accidental Tourist</h2>
+  {% include 'blocks/_season_selector.html' with base_url=base_accidental_tourist_url %}
 </header>
 
 <p class="lead">This table shows the total miles and miles-per-game travelled by each player during the season.</p>

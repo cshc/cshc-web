@@ -25,10 +25,9 @@
 
 {% url 'team_captains' as base_captains_url %}
 
-<header class="g-mb-20">
-  <h2 class="h1 g-font-weight-300 text-uppercase">Team Captains
-    {% include 'blocks/_season_selector.html' with base_url=base_captains_url %}
-  </h2>
+<header class="g-mb-20 d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+  <h2 class="h1 g-font-weight-300 text-uppercase g-mb-10 g-mb-md-0">Team Captains</h2>
+  {% include 'blocks/_season_selector.html' with base_url=base_captains_url %}
 </header>
 
 <div class="row">

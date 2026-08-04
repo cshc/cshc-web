@@ -348,6 +348,7 @@ class NaughtyStepSeasonView(TemplateView):
 
         query = Q(red_card=True) | Q(yellow_card_count__gt=0) | Q(green_card_count__gt=0)
         qs = Appearance.objects.select_related('match', 'member').filter(query)
+        current_season = Season.current()
 
         season_slug = kwargs_or_none('season_slug', **kwargs)
         if season_slug is not None:
@@ -360,6 +361,12 @@ class NaughtyStepSeasonView(TemplateView):
 
         seasons = reduce(lambda l, x: l +
                          [x] if x not in l else l, season_list, [])
+        if current_season.slug not in seasons:
+            seasons = list(
+                Season.objects.filter(slug__in=seasons + [current_season.slug])
+                .order_by('-start')
+                .values_list('slug', flat=True)
+            )
 
         players = {}
         for app in card_apps:
@@ -377,6 +384,8 @@ class NaughtyStepSeasonView(TemplateView):
         context['players'] = players
 
         context['season_slug'] = season_slug if season_slug else 'All seasons'
+        context['current_season'] = current_season
+        context['is_current_season'] = season_slug == current_season.slug
         context['season_slug_list'] = ['All seasons'] + seasons
         return context
 

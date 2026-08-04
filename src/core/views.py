@@ -51,7 +51,21 @@ def add_season_selector(context, season, season_slug_list):
 
         Returns the updated context.
     """
+    season_slug_list = list(dict.fromkeys(season_slug_list))
+    current_season = Season.current()
+
+    # Some views derive the selector options from historical stats/participation
+    # rows, so the selected/current season can be missing before any data exists.
+    required_slugs = [season.slug, current_season.slug]
+    if any(slug not in season_slug_list for slug in required_slugs):
+        season_slug_list = list(
+            Season.objects.filter(slug__in=season_slug_list + required_slugs)
+            .order_by('-start')
+            .values_list('slug', flat=True)
+        )
+
     context['season'] = season
+    context['current_season'] = current_season
     context['season_slug_list'] = season_slug_list
     context['is_current_season'] = Season.is_current_season(season.id)
     return context
