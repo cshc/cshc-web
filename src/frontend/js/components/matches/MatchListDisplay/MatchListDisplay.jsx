@@ -9,20 +9,14 @@ import OppositionTeam from 'components/matches/OppositionTeam';
 import MatchVenue from 'components/matches/MatchVenue';
 import MatchDate from 'components/matches/MatchDate';
 import MatchLink from 'components/matches/MatchLink';
+import Loading from 'components/common/Loading';
 import UrlSyncedReactTable from 'components/common/UrlSyncedReactTable';
 import commonStyles from 'components/common/style.scss';
 
 class MatchListDisplay extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loading: !this.props.matches && this.props.networkStatus === NS.loading,
-    };
     this.onSortedChange = this.onSortedChange.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({ loading: nextProps.networkStatus === NS.loading });
   }
 
   onSortedChange(newSorted) {
@@ -32,12 +26,21 @@ class MatchListDisplay extends React.Component {
 
   render() {
     const {
+      networkStatus,
       matches,
       queryVariables: { pageSize, page },
       onChangePage,
       onChangeUrlQueryParams,
     } = this.props;
-    const { loading } = this.state;
+    const isLoading = 
+      networkStatus === NS.loading ||
+      networkStatus === NS.setVariables ||
+      networkStatus === NS.refetch;
+
+    if (isLoading) {
+      return <Loading message="Loading matches..." />;
+    }
+
     return (
       <div className={commonStyles.reactTable}>
         <UrlSyncedReactTable
@@ -113,7 +116,7 @@ class MatchListDisplay extends React.Component {
             },
           ]}
           data={matches ? matches.results : []}
-          loading={loading}
+          loading={false}
           page={page}
           pageSize={pageSize}
           minRows={matches && matches.length > 0 ? 0 : 5}
