@@ -248,5 +248,5 @@ p > a {
 }
 
 .hs-mega-menu.animated.fadeOut {
-  animation-duration: 0.0s !important;
+  animation-duration: 0.01s !important;
 }
