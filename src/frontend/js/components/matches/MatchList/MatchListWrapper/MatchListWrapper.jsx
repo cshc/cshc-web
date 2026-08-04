@@ -66,7 +66,7 @@ MatchListWrapper.propTypes = {
 MatchListWrapper.defaultProps = {
   pageSize: 20,
   page: 1,
-  orderBy: undefined,
+  orderBy: '-date',
   gender: undefined,
   team: undefined,
   opposition: undefined,
