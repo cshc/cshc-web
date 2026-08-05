@@ -20,21 +20,17 @@
   <meta name="keywords" content="Cambridge, Hockey, Club, {% block meta-keywords %}{% endblock meta-keywords %}">
   <meta name="google-site-verification" content="eUvtMzSkmJ0mzqjwpjJNy0-hEfemcWuWE2yf33Xqg70" />
   <meta name="version" content="{{ VERSION }}">
+  <meta name="apple-mobile-web-app-title" content="CSHC" />
   {% block meta %}{% endblock meta %} 
 
   {% block pre_link %}{% endblock pre_link %}
   
   <!-- Favicon and touch icons -->
-  <link rel="shortcut icon" href="{% static "ico/favicon.ico" %}">
-  <link rel="apple-touch-icon-precomposed" href="{% static "ico/apple-touch-icon.png" %}" />
-  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static "ico/apple-touch-icon-57x57.png" %}" />
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static "ico/apple-touch-icon-72x72.png" %}" />
-  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{% static "ico/apple-touch-icon-76x76.png" %}" />
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "ico/apple-touch-icon-114x114.png" %}" />
-  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{% static "ico/apple-touch-icon-120x120.png" %}" />
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static "ico/apple-touch-icon-144x144.png" %}" />
-  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static "ico/apple-touch-icon-152x152.png" %}" />
-  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="{% static "ico/apple-touch-icon-180x180.png" %}" />
+  <link rel="shortcut icon" href="{% static "ico/favicon.ico" %}?v=20260805"/>
+  <link rel="icon" type="image/png" href="{% static "ico/favicon-96x96.png" %}?v=20260805" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="{% static "ico/favicon.svg" %}?v=20260805" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static "ico/apple-touch-icon.png" %}?v=20260805" />
+  <link rel="manifest" href="{% url 'site_webmanifest' %}?v=20260805" />
 
   {% compress css %}
   <!-- CSS Global Compulsory -->

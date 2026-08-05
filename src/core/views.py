@@ -7,6 +7,8 @@ from django.views.generic.edit import CreateView
 from django.contrib import messages
 from django.conf import settings
 from django.urls import reverse_lazy
+from django.http import HttpResponse
+from django.template.loader import render_to_string
 from templated_email import send_templated_mail
 from competitions.models import Season
 from .models import JuniorsContactSubmission, ContactSubmission, ClubInfo
@@ -69,6 +71,17 @@ def add_season_selector(context, season, season_slug_list):
     context['season_slug_list'] = season_slug_list
     context['is_current_season'] = Season.is_current_season(season.id)
     return context
+
+
+def site_webmanifest(request):
+    """Serve the web app manifest dynamically so static URLs can vary by environment."""
+    content = render_to_string(
+        "site.webmanifest",
+        {
+            "static_url": settings.STATIC_URL,
+        },
+    )
+    return HttpResponse(content, content_type="application/manifest+json")
 
 
 class ContactSubmissionCreateView(CreateView):
