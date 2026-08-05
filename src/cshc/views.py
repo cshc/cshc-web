@@ -35,7 +35,6 @@ class HomeView(TemplateView):
         context['sub_nav_items'] = [
             {'id': 'news', 'label': 'Latest News'},
             {'id': 'comments', 'label': 'Recent Comments'},
-            {'id': 'tweets', 'label': 'Tweets'},
             {'id': 'strava', 'label': 'Strava'},
         ]
 
