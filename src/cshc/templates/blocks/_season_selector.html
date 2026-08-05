@@ -4,14 +4,14 @@
       {{ season }}
     </button>
     <div class="dropdown-menu dropdown-menu-right season-selector__menu">
-      <a class="dropdown-item season-selector__shortcut {% if is_current_season %}active{% endif %}" href="{{ base_url }}">
-        {{ current_season.slug }}
-        <span class="badge badge-light g-ml-5">Current</span>
-      </a>
-      <div class="dropdown-divider"></div>
+      {% if show_current_season_shortcut %}
+      <a class="dropdown-item  {% if is_current_season %}active{% endif %}" href="{{ base_url }}">{{ current_season.slug }}</a>
+      {% if season_slug_list|length > 1 %}
+      {% endif %}
+      {% endif %}
       {% for season_slug in season_slug_list %}
       {% if season_slug != current_season.slug %}
-      <a class="dropdown-item {% if season_slug == season.slug %}active{% endif %}" href="{{ base_url }}{{ season_slug }}">{{ season_slug }}</a>
+      <a class="dropdown-item {% if season_slug == season.slug %}active{% endif %}" href="{% if season_slug == base_season_slug %}{{ base_url }}{% else %}{{ base_url }}{{ season_slug }}{% endif %}">{{ season_slug }}</a>
       {% endif %}
       {% endfor %}
     </div>
