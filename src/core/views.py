@@ -7,6 +7,8 @@ from django.views.generic.edit import CreateView
 from django.contrib import messages
 from django.conf import settings
 from django.urls import reverse_lazy
+from django.http import HttpResponse
+from django.template.loader import render_to_string
 from templated_email import send_templated_mail
 from competitions.models import Season
 from .models import JuniorsContactSubmission, ContactSubmission, ClubInfo
@@ -45,7 +47,7 @@ def get_season_from_kwargs(kwargs):
     return season
 
 
-def add_season_selector(context, season, season_slug_list):
+def add_season_selector(context, season, season_slug_list, include_current=True):
     """ Adds season information to the given context, facilitating
         the use of the core/_season_selector.html template.
 
@@ -55,8 +57,10 @@ def add_season_selector(context, season, season_slug_list):
     current_season = Season.current()
 
     # Some views derive the selector options from historical stats/participation
-    # rows, so the selected/current season can be missing before any data exists.
-    required_slugs = [season.slug, current_season.slug]
+    # rows, so the selected season can be missing before any data exists.
+    required_slugs = [season.slug]
+    if include_current:
+        required_slugs.append(current_season.slug)
     if any(slug not in season_slug_list for slug in required_slugs):
         season_slug_list = list(
             Season.objects.filter(slug__in=season_slug_list + required_slugs)
@@ -67,8 +71,21 @@ def add_season_selector(context, season, season_slug_list):
     context['season'] = season
     context['current_season'] = current_season
     context['season_slug_list'] = season_slug_list
+    context['base_season_slug'] = season_slug_list[0] if season_slug_list else None
+    context['show_current_season_shortcut'] = current_season.slug in season_slug_list
     context['is_current_season'] = Season.is_current_season(season.id)
     return context
+
+
+def site_webmanifest(request):
+    """Serve the web app manifest dynamically so static URLs can vary by environment."""
+    content = render_to_string(
+        "site.webmanifest",
+        {
+            "static_url": settings.STATIC_URL,
+        },
+    )
+    return HttpResponse(content, content_type="application/manifest+json")
 
 
 class ContactSubmissionCreateView(CreateView):

@@ -52,6 +52,9 @@ main {
 .g-bg-black h6 {
   color: #fff;
 }
+.nav-logo {
+  height: 48px;
+}
 .nav-item .hs-mega-menu h4 {
   padding: 0.21429rem 1.07143rem;
 }
@@ -151,6 +154,7 @@ main {
 .season-selector__menu {
   max-height: 20rem;
   overflow-y: auto;
+  min-width: auto;
 }
 .season-selector__shortcut {
   position: sticky;

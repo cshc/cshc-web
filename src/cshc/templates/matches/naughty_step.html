@@ -33,8 +33,7 @@ This displays the red, yellow and green cards received by all players.
         {{ season_slug }}
       </button>
       <div class="dropdown-menu dropdown-menu-right season-selector__menu">
-        <a class="dropdown-item season-selector__shortcut {% if season_slug == 'All seasons' %}active{% endif %}" href="{% url 'naughty_step' %}">All seasons</a>
-        <div class="dropdown-divider"></div>
+        <a class="dropdown-item {% if season_slug == 'All seasons' %}active{% endif %}" href="{% url 'naughty_step' %}">All seasons</a>
         {% for s in season_slug_list %}
         {% if s != 'All seasons' %}
         <a class="dropdown-item {% if s == season_slug %}active{% endif %}" href="{% url 'naughty_step_season' s %}">{{ s }}</a>
@@ -44,8 +43,6 @@ This displays the red, yellow and green cards received by all players.
     </div>
   </div>
 </header>
-  
-
 
 <div class="row g-mb-40">
   <div class="col-12 col-lg-8">

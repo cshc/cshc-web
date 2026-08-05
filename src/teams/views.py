@@ -101,7 +101,11 @@ class ClubTeamDetailView(TemplateView):
             raise Http404
 
         add_season_selector(
-            context, season, list(part_seasons.values_list('slug', flat=True)))
+            context,
+            season,
+            list(part_seasons.values_list('slug', flat=True)),
+            include_current=False,
+        )
 
         context['ical_url'] = reverse('clubteam_ical_feed', kwargs={'slug': team.slug})
         context['rss_url'] = reverse('clubteam_match_rss_feed', kwargs={'slug': team.slug})

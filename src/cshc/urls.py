@@ -22,7 +22,7 @@ from django.contrib.flatpages import views as flatpage_views
 from django.contrib import admin
 from django.conf.urls.static import static
 
-from core.views import JuniorsContactSubmissionCreateView, ContactSubmissionCreateView
+from core.views import JuniorsContactSubmissionCreateView, ContactSubmissionCreateView, site_webmanifest
 from members.views import profile
 from venues.views import DirectionsView
 from .views import HomeView, CalendarView, CommitteeSeasonView, CaptainsSeasonView, templateTestView, CshcGraphQLView
@@ -34,6 +34,8 @@ urlpatterns = [
     # The main landing page
     url(r'^$', HomeView.as_view(), name='homepage'),
 
+    url(r'^site\.webmanifest$', site_webmanifest, name='site_webmanifest'),
+    
     url(r'^about/$', TemplateView.as_view(template_name='club_info/about_us.html'),
         name='about_us'),
     # MAYBE TEMP: Hide the social page
@@ -100,6 +102,7 @@ urlpatterns = [
     url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': CshcSitemap}),
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemap_views.sitemap,
         {'sitemaps': CshcSitemap}, name='django.contrib.sitemaps.views.sitemap'),
+
 
 ] + \
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \

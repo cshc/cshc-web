@@ -6,7 +6,7 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.template.defaultfilters import slugify
 from geoposition.fields import GeopositionField
-
+from core.models import ClubInfo
 
 def rounded(value, base=5):
     """ Rounds the given number."""
@@ -27,9 +27,6 @@ class VenueQuerySet(QuerySet):
 
 class Venue(models.Model):
     """Represents a match venue"""
-
-    # we pay 23p per mile towards petrol for away matches
-    PENCE_PER_MILE = 23
 
     name = models.CharField("Venue Name", max_length=255,
                             default=None, unique=True)
@@ -132,8 +129,11 @@ class Venue(models.Model):
         """ Calculates the cost (in pounds) of a round-trip journey to this venue,
             based on the preset price per mile.
         """
+        _pence_per_mile_obj, _ = ClubInfo.objects.get_or_create(key='MileageRatePence', defaults={'value': '23'})
+        pence_per_mile = float(_pence_per_mile_obj.value)
+
         if self.distance is None:
             return None
-        total_pence = Venue.PENCE_PER_MILE * self.approx_round_trip_distance()
+        total_pence = pence_per_mile * self.approx_round_trip_distance()
         rounded_pence = rounded(total_pence, 50)
         return float(rounded_pence) / float(100)
