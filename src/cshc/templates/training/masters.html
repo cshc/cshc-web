@@ -20,18 +20,7 @@
 
 {% url 'venue_detail' 'long-road' as long_road_url %}
 
-<div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll is-touch" data-options="{
-  settings_mode_oneelement_max_offset: '150'
- }">
-  <!-- Parallax Image -->
-  <div class="divimage dzsparallaxer--target w-100" style="height: 140%; background-image: url(&quot;{% static "img/womens-masters-banner.jpg" %}&quot;); transform: translate3d(0px, 0px, 0px);"></div>
-  <section class="g-flex-centered g-height-500 g-color-white u-bg-overlay g-bg-black-opacity-0_6--after g-py-20">
-    <div class="container text-center u-bg-overlay__inner">
-      <h2 class="g-font-size-60 g-mb-80">Women's Masters Hockey</h2>
-      <p class="g-font-size-32 g-font-style-italic">Informal hockey for those over 30</p>
-    </div>
-  </section>
-</div>
+{% include "blocks/_parallax_hero.html" with image="img/womens-masters-banner.jpg" title="Women's Masters Hockey" subtitle="Informal hockey for those over 30" %}
 
 {% include 'core/_messages.html' %}
 

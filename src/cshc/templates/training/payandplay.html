@@ -23,18 +23,7 @@
 {% clubinfo 'PayAndPlayFull' as pnp_full %}
 {% clubinfo 'PayAndPlayDiscount' as pnp_discount %}
 
-<div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll is-touch" data-options="{
-  settings_mode_oneelement_max_offset: '150'
- }">
-  <!-- Parallax Image -->
-  <div class="divimage dzsparallaxer--target w-100" style="height: 140%; background-image: url(&quot;{% static "img/l1-3b.jpg" %}&quot;); transform: translate3d(0px, 0px, 0px);"></div>
-  <section class="g-flex-centered g-height-500 g-color-white u-bg-overlay g-bg-black-opacity-0_6--after g-py-20">
-    <div class="container text-center u-bg-overlay__inner">
-      <h2 class="g-font-size-60 g-mb-80">Pay and Play</h2>
-      <p class="g-font-size-32 g-font-style-italic">Casual hockey for everyone, all year round</p>
-    </div>
-  </section>
-</div>
+{% include "blocks/_parallax_hero.html" with image="img/l1-3b.jpg" title="Pay and Play" subtitle="Casual hockey for everyone, all year round" %}
 
 <section class="container g-mt-20 g-mt-40--md g-mb-40">
   <p class="lead">Cambridge South offers informal "pay and play" hockey at <a href="{{ long_road_url }}">Long Road Sixth Form College</a>

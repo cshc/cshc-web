@@ -42,7 +42,10 @@ class TrainingSessionManager(models.Manager):
     def this_season(self):
         """Returns only training sessions for this season"""
         season = Season.current()
-        return self.get_queryset().filter(datetime__gte=season.start, datetime__lte=season.end).order_by('datetime')
+        return self.get_queryset().filter(
+            datetime__date__gte=season.start,
+            datetime__date__lte=season.end,
+        ).order_by('datetime')
 
 
 class TrainingSession(models.Model):

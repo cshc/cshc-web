@@ -299,3 +299,13 @@ p > a {
 .hs-mega-menu.animated.fadeOut {
   animation-duration: 0.01s !important;
 }
+
+.parallax-hero-height {
+  height: 350px;
+}
+
+@media (min-width: 768px) {
+  .parallax-hero-height {
+    height: 450px;
+  }
+}

@@ -334,7 +334,7 @@ LOGGING = {
             'propagate': False,
         },
         'raven': {
-            'level': 'DEBUG',
+            'level': 'WARN',
             'handlers': ['console'],
             'propagate': False,
         },

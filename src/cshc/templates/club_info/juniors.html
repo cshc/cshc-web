@@ -29,18 +29,7 @@
 {% url 'join_us' as join_us %}
 {% clubinfo 'InSeason' as in_season %}
 
-<div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll is-touch" data-options="{
-  settings_mode_oneelement_max_offset: '150'
- }">
-  <!-- Parallax Image -->
-  <div class="divimage dzsparallaxer--target w-100" style="height: 140%; background-image: url(&quot;{% static "img/l1-3b.jpg" %}&quot;); transform: translate3d(0px, 0px, 0px);"></div>
-  <section class="g-flex-centered g-height-500 g-color-white u-bg-overlay g-bg-black-opacity-0_6--after g-py-20">
-    <div class="container text-center u-bg-overlay__inner">
-      <h2 class="g-font-size-60 g-mb-80">Juniors</h2>
-      <p class="g-font-size-32 g-font-style-italic">Hockey training for boys and girls aged 6 - 14</p>
-    </div>
-  </section>
-</div>
+{% include "blocks/_parallax_hero.html" with image="img/l1-3b.jpg" title="Juniors" subtitle="Hockey for boys and girls aged 6 to 14" %}
 
 {% include 'core/_messages.html' %}
 
