@@ -4,114 +4,137 @@
 {% load thumbnail from sorl_thumbnail %}
 {% load cshc_tags %}
 
-{% block title %}{{ block.super }} | Conduct{% endblock %}
+{% block title %}{{ block.super }} | Code of Conduct{% endblock %}
+
+{% block link %}
+  {% include 'blocks/_dszparallaxer_css.html' %}
+{% endblock link %}
 
 {% block breadcrumbs %}
   {{ block.super }}
   {% clear_breadcrumbs %}
 {% endblock %}
 
-{% block content %}
+{% block main %}
 
-{% heading "Code of Conduct" %}
+{% include "blocks/_parallax_hero.html" with image="img/ladies-1.jpg" title="Code of Conduct" subtitle="Keeping Cambridge's friendliest hockey club friendly" %}
 
-<h3 class="g-mb-20">Keeping Cambridge's Friendliest Hockey Club Friendly</h3>
-<p class="lead g-pb-20">We're proud to be the friendliest hockey club in Cambridge. To help keep it that way, we ask all members to 
-  follow our Code of Conduct and look after each other on and off the pitch.</p>
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
+  <p class="lead">We're proud to be the friendliest hockey club in Cambridge. To help keep it that way, we ask all members to 
+    follow our Code of Conduct and look after each other on and off the pitch.</p>
+</section>
 
-<div id="think-south" class="g-pb-10">
-  {% subheading "Think SOUTH" %}
-  <p class="lead">We want everyone to feel welcome, included, and safe, and we want to make sure hockey is fun for everyone.
-    Our Code of Conduct is built around the Think SOUTH principles.</p>
-  <div class="text-center">
-    {% abs_static_url "img/think_south.jpg" as think_south_img %}
-    {% thumbnail think_south_img "600" as think_south_img_thumbnail %}
-      <img class="img-fluid" src="{{ think_south_img_thumbnail.url }}" alt="Think SOUTH">
-    {% endthumbnail %}
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
+  <div id="think-south" class="g-pb-10">
+    {% subheading "Think SOUTH" %}
+    <p class="lead">We want everyone to feel welcome, included, and safe, and we want to make sure hockey is fun for everyone.
+      Our Code of Conduct is built around the Think SOUTH principles.</p>
+    <div class="text-center">
+      {% abs_static_url "img/think_south.jpg" as think_south_img %}
+      {% thumbnail think_south_img "600" as think_south_img_thumbnail %}
+        <img class="img-fluid" src="{{ think_south_img_thumbnail.url }}" alt="Think SOUTH">
+      {% endthumbnail %}
+    </div>
   </div>
-</div>
+</section>
 
-<div id="reporting" class="g-pb-10">
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
   {% subheading "If There's an Issue" %}
   <p class="lead">It's everyone's responsibility to help maintain our friendly culture. If you witness or experience behaviour that doesn't
      align with our Code of Conduct, please let a captain, club captain, or committee member know.</p>
   <p class="lead">Issues should be reported as soon as possible so that they can be addressed quickly.</p>
-</div>
+</section>
 
-<div id="three-card-system" class="g-pb-10">
-  {% subheading "Three Card System" %}
-  <p class="lead">If issues do arise, we'll use the following Club Card system to help address them fairly and consistently.</p>
-  <div class="text-center g-mb-20">
-    {% abs_static_url "img/three_card_system.jpg" as three_card_system_img %}
-    {% thumbnail three_card_system_img "800" as three_card_system_img_thumbnail %}
-      <img class="img-fluid" src="{{ three_card_system_img_thumbnail.url }}" alt="Three card system">
-    {% endthumbnail %}
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
+  <div id="three-card-system" class="g-pb-10">
+    {% subheading "Three Card System" %}
+    <p class="lead">If issues do arise, we'll use the following Club Card system to help address them fairly and consistently.</p>
+    <div class="text-center g-mb-20">
+      {% abs_static_url "img/three_card_system.jpg" as three_card_system_img %}
+      {% thumbnail three_card_system_img "800" as three_card_system_img_thumbnail %}
+        <img class="img-fluid" src="{{ three_card_system_img_thumbnail.url }}" alt="Three card system">
+      {% endthumbnail %}
+    </div>
+    <p class="lead">This system isn't about punishment. It's about maintaining a welcoming, inclusive and respectful environment where everyone can 
+      enjoy their hockey and feel part of the club.</p>
+    <p class="lead">Please note that Club Cards are separate to the cards awarded by umpires during matches, and will only be noted within our club.</p>
   </div>
-  <p class="lead">This system isn't about punishment. It's about maintaining a welcoming, inclusive and respectful environment where everyone can 
-    enjoy their hockey and feel part of the club.</p>
-  <p class="lead">Please note that Club Cards are separate to the cards awarded by umpires during matches, and will only be noted within our club.</p>
-</div>
+</section>
 
-<div id="how-system-works" class="g-pb-10">
-  {% subheading "How The System Works" %}
-  <h4 class="g-font-weight-600 g-mb-15">First Incident</h4>
-  <ul class="lead g-mb-30">
-    <li>Most issues will begin and (hopefully) end with a Green Card and an informal conversation with your captain, coach, or committee member.</li>
-    <li>However, more serious incidents may result in a Yellow or Red Card straight away.</li>
-  </ul>
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
+  <div id="how-system-works" class="g-pb-10">
+    {% subheading "How The System Works" %}
+    <h4 class="g-font-weight-600 g-mb-15">First Incident</h4>
+    <ul class="lead g-mb-30">
+      <li>Most issues will begin and (hopefully) end with a Green Card and an informal conversation with your captain, coach, or committee member.</li>
+      <li>However, more serious incidents may result in a Yellow or Red Card straight away.</li>
+    </ul>
 
-  <h4 class="g-font-weight-600 g-mb-15">Repeated Issues</h4>
-  <ul class="lead g-mb-30">
-    <li>Two Green Cards in a season may result in a Yellow Card at which point you will get a formal warning from the Men's or Ladies' Club Captain.</li>
-    <li>Three Yellow Cards within a 12-month period may result in a Red Card, which will result in a formal review by the committee.</li>
-  </ul>
+    <h4 class="g-font-weight-600 g-mb-15">Repeated Issues</h4>
+    <ul class="lead g-mb-30">
+      <li>Two Green Cards in a season may result in a Yellow Card at which point you will get a formal warning from the Men's or Ladies' Club Captain.</li>
+      <li>Three Yellow Cards within a 12-month period may result in a Red Card, which will result in a formal review by the committee.</li>
+    </ul>
 
-  <h4 class="g-font-weight-600 g-mb-15">Serious Misconduct</h4>
-  <p class="lead">The club may issue an immediate Red Card for serious matters including:</p>
-  <ul class="lead g-mb-30">
-    <li>Abuse of umpires or officials</li>
-    <li>Physical aggression or fighting</li>
-    <li>Bullying or harassment</li>
-    <li>Discrimination</li>
-    <li>Safeguarding breaches</li>
-    <li>Behaviour that seriously damages the club's reputation or culture</li>
-  </ul>
-</div>
-
-<div id="possible-outcomes" class="g-pb-10">
-  {% subheading "Possible Outcomes" %}
-  <p class="lead">Depending on the circumstances, outcomes may include:</p>
-  <ul class="lead g-mb-30">
-    <li>A conversation with club captains or committee members</li>
-    <li>A written warning</li>
-    <li>An apology to those affected</li>
-    <li>Relevant training or education</li>
-    <li>Temporary removal from leadership roles</li>
-    <li>Suspension from matches, training sessions, or social events</li>
-    <li>In exceptional circumstances, termination of membership</li>
-  </ul>
-</div>
-
-<div id="appeals" class="g-pb-10">
-  {% subheading "Appeals" %}
-  <p class="lead g-mb-30">Members may ask for a decision to be reviewed by the committee if they feel it has been applied unfairly.</p>
-</div>
-
-<div id="england-hockey" class="g-pb-10">
-  {% subheading "England Hockey" %}
-  <p class="lead">We also follow England Hockey's Spirit of Hockey - Code of Conduct. All club members are expected to adhere to this,
-    just as we expect members of opposing clubs to do the same.</p>
-  <p class="lead">More information is available on the England Hockey website.</p>
-  <div class="text-center g-pb-30">
-    {% abs_static_url "img/hockey_values.jpg" as hockey_values_img %}
-    {% thumbnail hockey_values_img "600" as hockey_values_img_thumbnail %}
-      <img class="img-fluid" src="{{ hockey_values_img_thumbnail.url }}" alt="Spirit of Hockey values">
-    {% endthumbnail %}
+    <h4 class="g-font-weight-600 g-mb-15">Serious Misconduct</h4>
+    <p class="lead">The club may issue an immediate Red Card for serious matters including:</p>
+    <ul class="lead">
+      <li>Abuse of umpires or officials</li>
+      <li>Physical aggression or fighting</li>
+      <li>Bullying or harassment</li>
+      <li>Discrimination</li>
+      <li>Safeguarding breaches</li>
+      <li>Behaviour that seriously damages the club's reputation or culture</li>
+    </ul>
   </div>
-    <div class="text-center g-pb-10">
-    <a class="text-uppercase btn btn-lg u-btn-outline-primary rounded-0" 
-    href="https://www.englandhockey.co.uk/governance/rules-and-regulations/discipline-and-misconduct/spirit-of-hockey/england-hockey-s-spirit-of-hockey-code-of-conduct" target="_new">Spirit of Hockey - Code of Conduct</a>
-  </div>
-</div>
+</section>
 
-{% endblock content %}
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
+  <div id="possible-outcomes" class="g-pb-10">
+    {% subheading "Possible Outcomes" %}
+    <p class="lead">Depending on the circumstances, outcomes may include:</p>
+    <ul class="lead">
+      <li>A conversation with club captains or committee members</li>
+      <li>A written warning</li>
+      <li>An apology to those affected</li>
+      <li>Relevant training or education</li>
+      <li>Temporary removal from leadership roles</li>
+      <li>Suspension from matches, training sessions, or social events</li>
+      <li>In exceptional circumstances, termination of membership</li>
+    </ul>
+  </div>
+</section>
+
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
+  <div id="appeals" class="g-pb-10">
+    {% subheading "Appeals" %}
+    <p class="lead">Members may ask for a decision to be reviewed by the committee if they feel it has been applied unfairly.</p>
+  </div>
+</section>
+
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
+  <div id="england-hockey" class="g-pb-10">
+    {% subheading "England Hockey" %}
+    <p class="lead">We also follow England Hockey's Spirit of Hockey - Code of Conduct. All club members are expected to adhere to this,
+      just as we expect members of opposing clubs to do the same.</p>
+    <p class="lead">More information is available on the England Hockey website.</p>
+    <div class="text-center g-pb-30">
+      {% abs_static_url "img/hockey_values.jpg" as hockey_values_img %}
+      {% thumbnail hockey_values_img "600" as hockey_values_img_thumbnail %}
+        <img class="img-fluid" src="{{ hockey_values_img_thumbnail.url }}" alt="Spirit of Hockey values">
+      {% endthumbnail %}
+    </div>
+      <div class="text-center g-pb-10">
+      <a class="text-uppercase btn btn-lg u-btn-outline-primary rounded-0" 
+      href="https://www.englandhockey.co.uk/governance/rules-and-regulations/discipline-and-misconduct/spirit-of-hockey/england-hockey-s-spirit-of-hockey-code-of-conduct" target="_new">Spirit of Hockey - Code of Conduct</a>
+    </div>
+  </div>
+</section>
+{% endblock main %}
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'blocks/_dszparallaxer_js.html' %}
+  {% include 'blocks/_scroll_nav_js.html' %}
+  {% include 'blocks/_focus_state_js.html' %}
+{% endblock %}
