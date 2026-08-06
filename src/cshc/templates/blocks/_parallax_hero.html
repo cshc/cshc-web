@@ -1,0 +1,24 @@
+{% load static %}
+
+<div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll is-touch" data-options="{settings_mode_oneelement_max_offset: '150'}">
+  <div
+    class="divimage dzsparallaxer--target w-100"
+    style="height: 140%; background-image: url('{% static image %}'); transform: translate3d(0px, 0px, 0px);">
+  </div>
+
+  <section class="g-flex-centered parallax-hero-height g-color-white u-bg-overlay g-bg-black-opacity-0_6--after g-py-20">
+    <div class="container text-center u-bg-overlay__inner">
+      <h2 class="d-inline-block g-font-size-36 g-font-size-60--md g-mb-20 g-mb-25--md g-font-weight-600 text-uppercase g-letter-spacing-2 g-letter-spacing-3--md g-brd-around g-brd-white g-brd-2 g-px-20 g-px-40--md g-py-15 g-py-20--md"
+          style="border-width: 4px;">
+        {{ title }}
+      </h2>
+
+      {% if subtitle %}
+        <div class="d-flex justify-content-center g-mb-15 g-mb-20--md g-mt-20--md">
+          <span class="d-inline-block g-bg-white" style="width: 120px; height: 2px;"></span>
+        </div>
+        <p class="g-font-size-18 g-font-size-28--md g-mb-0">{{ subtitle }}</p>
+      {% endif %}
+    </div>
+  </section>
+</div>
