@@ -37,7 +37,7 @@ class ClubTeamListView(TemplateView):
         for team in all_teams:
             team.category = team.get_gender_display() if (team.long_name.startswith('Men\'s') or team.long_name.startswith('Ladies')) else 'Other'
 
-            team.participation = team.team_photo_participation()
+            team.participation = team.current_or_previous_participation()
 
             if team.participation and team.participation.team_photo:
                 photo_url = get_thumbnail_url(
