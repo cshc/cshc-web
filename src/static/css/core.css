@@ -309,3 +309,17 @@ p > a {
     height: 450px;
   }
 }
+
+.middle-heading--custom.u-heading-v6-1 .u-heading-v6__title::after,
+.middle-heading--custom.u-heading-v6-1.text-center .u-heading-v6__title::before {
+  border-top-width: 1.5px;
+  border-top-color: #6639b6;
+}
+
+.bg-purple {
+  background-color: #6639b6;
+}
+
+.bg-purple-lighter {
+  background-color: #E8E1F4;
+}
