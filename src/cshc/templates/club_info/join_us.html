@@ -8,6 +8,7 @@
 {% block title %}{{ block.super }} | Join Us{% endblock %}
 
 {% block link %}
+  {% include 'blocks/_dszparallaxer_css.html' %}
   {% compress css %}
   <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
   <link rel="stylesheet" href="{% static "vendor/icon-line/css/simple-line-icons.css" %}">
@@ -19,146 +20,146 @@
   {% clear_breadcrumbs %}
 {% endblock %}
 
-{% block content %}
-{% url 'juniors_index' as juniors_url %}
+{% block main %}
 
-{% heading "New Players" %}
-
-<div class="row g-pb-20">
-  <div class="col-12 col-lg-7">
-    <p>Cambridge South has men’s and ladies’ teams across a range of levels from beginner upwards. We welcome anyone interested in playing hockey, whatever your standard or experience. In line with England Hockey regulations, the minimum age for participation in senior training and matches is 13.</p>
-    <p>New players who wish to train or play with Cambridge South must complete and return the <a href="#reg-form">Player Registration and Consent form</a> available on this page. Forms can be returned by email to <a href="mailto:join@cambridgesouthhockeyclub.co.uk">join@cambridgesouthhockeyclub.co.uk</a> or handed to a club officer or team captain at any match or training session.</p>
-    <p>You can attend up to three games or training sessions with Cambridge South to try us out before deciding whether to pay your annual subscription and join the club to continue playing. Current subscriptions rates and information about how to pay can be found under <a href="#fees">Annual Subscriptions.</a></p>
-    <p>For players who join part way through the season, a proportional reduction will be made to the annual subscription due. If you join after the New Year then you will usually pay 50% of the normal subscription.</p>
-    <p>Of course, we're sure you'll be champing at the bit to join us and hand over your subscription after your first game!</p>
-  </div>
-  <div class="col-12 col-lg-5">
-    {% abs_static_url "img/new_players.jpg" as new_players_image %}
-    {% thumbnail new_players_image "450" as new_players_image_thumbnail %}
-      <img class="img-fluid" src="{{ new_players_image_thumbnail.url }}"/>
-    {% endthumbnail %}
-  </div>
-</div>
-
-<div id="reg-form">
-  {% document title="Registration and Consent Form" category="General" %}
-</div> 
-
-<div class="alert fade show g-bg-gray-light-v4 rounded-0 g-my-40" role="alert">
-  <div class="media">
-    <span class="d-flex g-mr-10 g-mt-5">
-      <i class="icon-info g-font-size-25"></i>
-    </span>
-    <span class="media-body align-self-center">
-      <strong>Note:</strong> Young players who wish to join the club junior section should use the Juniors 
-      Registration form found on the <a class="g-font-weight-500" href="{{ juniors_url }}">Juniors</a> page
-    </span>
-  </div>
-</div>
-
-{% include 'blocks/_middle_heading.html' with title="Annual Subscriptions" id="fees" %}
-
-{% clubinfo 'SubsFull' as subs_full %}
-{% clubinfo 'SubsDiscount' as subs_discount %}
-<div class="row justify-content-center">
-  <div class="col-12 col-md-6 col-lg-4">
-    <div class="u-shadow-v1-5 g-bg-primary g-color-white g-line-height-2 g-pa-40 g-mb-30 text-center">
-        <h3 class="h2 g-font-weight-300 g-mb-20">Waged</h3>
-      <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
-        <span class="g-valign-top g-font-size-default">&pound;</span>
-        {{ subs_full }}
-        <span class="g-font-size-default">/ year</span>
-      </strong>
+{% include "blocks/_parallax_hero.html" with image="img/club_night.jpg" title="Join Us" subtitle="New members always welcome" %}
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
+  {% url 'juniors_index' as juniors_url %}
+  <div class="row">
+    <div class="col-12 col-lg-7 g-font-size-16">
+      <p>Cambridge South has men's and ladies' teams across a range of levels from beginner upwards. We welcome anyone interested in 
+        playing hockey, whatever your standard or experience.</p>
+      <p>In line with England Hockey regulations, the minimum age for participation in senior training and matches is 13. Younger 
+        players who wish to join the club junior section should use the Juniors Registration form found on the <a href="{{ juniors_url }}">Juniors</a> page</p>
+      <p>New players who wish to train or play with Cambridge South must complete and return the <strong>Player Registration and Consent Form</strong>
+        available on this page.</p>
+      <p>Forms can be returned by email to <a href="mailto:join@cambridgesouthhockeyclub.co.uk">join@cambridgesouthhockeyclub.co.uk</a>
+        or handed to a club officer or team captain at any match or training session.</p>
+      <p>You can attend up to three games or training sessions with Cambridge South to try us out before deciding whether to pay your annual subscription
+        and join the club to continue playing.</p>
+      <p>For players who join part way through the season, a proportional reduction will be made to the annual subscription due. If you join
+        after the New Year then you will usually pay 50% of the normal subscription.</p>
+      <p>Goalkeepers who own and maintain their own kit pay reduced subscriptions and no match fees!</p>
+      <p>Current subscriptions rates and information about how to pay can be found under <a href="#fees">Annual Subscriptions.</a></p>
+      <p>Of course, we're sure you'll be champing at the bit to join us and hand over your subscription after your first game!</p>
+    </div>
+    <div class="col-12 col-lg-5">
+      <div class="text-center g-mt-20">
+        {% abs_static_url "img/new_players.jpg" as new_players_image %}
+        {% thumbnail new_players_image "400" as new_players_image_thumbnail %}
+          <img class="img-fluid" src="{{ new_players_image_thumbnail.url }}"/>
+        {% endthumbnail %}
+      </div>
+      <div id="reg-form" class="g-mt-40">
+        {% document title="Registration and Consent Form" category="General" %}
+      </div>
+      <div class="text-center">
+        <a class="text-uppercase btn btn-md u-btn-primary rounded-1" title="Send Email" href="mailto:join@cambridgesouthhockeyclub.co.uk?subject=Joining Cambridge South">
+          Email Us
+        </a>
+      </div> 
     </div>
   </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <div class="u-shadow-v1-5 g-line-height-2 g-pa-40 g-mb-30 text-center">
-        <h3 class="h2 g-font-weight-300 g-mb-20">Students/Unwaged</h3>
-      <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
-        <span class="g-valign-top g-font-size-default">&pound;</span>
-        {{ subs_discount }}
-        <span class="g-font-size-default">/ year</span>
-      </strong>
-    </div>
-  </div>
-</div>
+</section>
 
-<div class="row justify-content-center">
-  <div class="col-12 col-lg-10">
-    <div class="alert fade show g-bg-gray-light-v4 rounded-0 g-my-20" role="alert">
-      <div class="media">
-        <span class="d-flex g-mr-10 g-mt-5">
-          <i class="icon-info g-font-size-25"></i>
-        </span>
-        <span class="media-body align-self-center">
-          <p><strong>1st and 2nd Team Training -</strong> The Men's and Ladies' 1s and 2s run an extra half hour of training on their 
-            respective evenings. There is an annual supplemental fee of £30 per season for these sessions.</p>
-          <p><strong>Goalkeepers -</strong> Goalkeepers who buy and maintain their own kit pay the Students/Unwaged subscription rate.
-            Goalkeepers who use club kit pay the applicable subscription rate.</p>
-        </span>
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
+  {% include 'blocks/_middle_heading.html' with title="Annual Subscriptions" id="fees" %}
+  {% clubinfo 'SecretaryName' as secretary_name %}
+  {% clubinfo 'TreasurerName' as treasurer_name %}
+  {% clubinfo 'SubsFull' as subs_full %}
+  {% clubinfo 'SubsDiscount' as subs_discount %}
+  <p class="g-font-size-16">Annual Subscriptions are paid through Spond, the club's communication platform. Payment requests will be sent to existing
+    members shortly after the start of each season. New members should receive a payment request once they have completed their three free
+    matches or training sessions.</p>
+  <p class="g-font-size-16">For any queries, please
+    contact the {% clubinfo_email 'TreasurerEmail' treasurer_name %}, or the {% clubinfo_email 'SecretaryEmail' secretary_name %}.</p>
+
+  <div class="row justify-content-center g-mt-30 g-mb-20">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="u-shadow-v1-5 g-bg-primary g-color-white g-line-height-2 g-pa-40 g-mb-30 text-center">
+          <h3 class="h2 g-font-weight-300 g-mb-20">Waged</h3>
+        <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
+          <span class="g-valign-top g-font-size-default">&pound;</span>
+          {{ subs_full }}
+          <span class="g-font-size-default">/ year</span>
+        </strong>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="u-shadow-v1-5 g-line-height-2 g-pa-40 g-mb-30 text-center">
+          <h3 class="h2 g-font-weight-300 g-mb-20">Students/Unwaged</h3>
+        <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
+          <span class="g-valign-top g-font-size-default">&pound;</span>
+          {{ subs_discount }}
+          <span class="g-font-size-default">/ year</span>
+        </strong>
       </div>
     </div>
   </div>
-</div>
+  {% include 'blocks/_info.html' with message="Existing players who have not paid their subscription by October 31st each year will no longer be covered by our members' insurance and so will not able to be selected for matches until they have paid." %}
 
-{% include 'blocks/_middle_heading.html' with title="Match Fees" %}
+  {% include 'blocks/_middle_subheading.html' with title="First and Second Team Supplement" %}
+  <p class="g-font-size-16">The Men's and Ladies' 1s and 2s run an extra half hour of training on their respective
+              squad training evenings. There is an annual supplement of £30 for these sessions.</p>
+</section>
 
-{% clubinfo 'MatchFeesFull' as match_fees_full %}
-{% clubinfo 'MatchFeesDiscount' as match_fees_discount %}
-<div class="row justify-content-center">
-  <div class="col-12 col-md-6 col-lg-4">
-    <div class="u-shadow-v1-5 g-bg-primary g-color-white g-line-height-2 g-pa-40 g-mb-30 text-center">
-        <h3 class="h2 g-font-weight-300 g-mb-20">Waged</h3>
-      <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
-        <span class="g-valign-top g-font-size-default">&pound;</span>
-        {{ match_fees_full }}
-        <span class="g-font-size-default">/ match</span>
-      </strong>
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
+  {% include 'blocks/_middle_heading.html' with title="Match Fees" %}
+  {% clubinfo 'MatchFeesFull' as match_fees_full %}
+  {% clubinfo 'MatchFeesDiscount' as match_fees_discount %}
+  <p class="g-font-size-16">Match fees are payable for each match played and are collected on match days through Spond.</p>
+  <div class="row justify-content-center g-mt-30 g-mb-20">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="u-shadow-v1-5 g-bg-primary g-color-white g-line-height-2 g-pa-40 g-mb-30 text-center">
+          <h3 class="h2 g-font-weight-300 g-mb-20">Waged</h3>
+        <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
+          <span class="g-valign-top g-font-size-default">&pound;</span>
+          {{ match_fees_full }}
+          <span class="g-font-size-default">/ match</span>
+        </strong>
+      </div>
     </div>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <div class="u-shadow-v1-5 g-line-height-2 g-pa-40 g-mb-30 text-center">
-        <h3 class="h2 g-font-weight-300 g-mb-20">Students/Unwaged</h3>
-      <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
-        <span class="g-valign-top g-font-size-default">&pound;</span>
-        {{ match_fees_discount }}
-        <span class="g-font-size-default">/ match</span>
-      </strong>
-    </div>
-  </div>
-</div>
-
-<div class="row justify-content-center">
-  <div class="col-12 col-lg-10">
-    <div class="alert fade show g-bg-gray-light-v4 rounded-0 g-my-20" role="alert">
-      <div class="media">
-        <span class="d-flex g-mr-10 g-mt-5">
-          <i class="icon-info g-font-size-25"></i>
-        </span>
-        <span class="media-body align-self-center">
-          <strong>Goalkeepers -</strong> Match fees are waived for goalkeepers who buy and maintain their own kit.
-            Goalkeepers who use club kit pay the applicable match fees rate.
-        </span>
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="u-shadow-v1-5 g-line-height-2 g-pa-40 g-mb-30 text-center">
+          <h3 class="h2 g-font-weight-300 g-mb-20">Students/Unwaged</h3>
+        <strong class="d-block g-font-size-50 g-line-height-0_7 g-mb-20">
+          <span class="g-valign-top g-font-size-default">&pound;</span>
+          {{ match_fees_discount }}
+          <span class="g-font-size-default">/ match</span>
+        </strong>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-{% clubinfo 'TreasurerName' as treasurer_name %}
-{% clubinfo 'SecretaryName' as secretary_name %}
-<div class="g-brd-around g-brd-gray-light-v4 g-brd-left-4 g-brd-primary-left g-line-height-1_8 g-rounded-3 g-pa-20 g-mb-30" role="alert">
-  <h3 class="g-color-primary g-font-weight-600">Payment of annual subscriptions</h3>
-  <p class="g-font-size-16">Annual Subscriptions are paid through Spond, the club's communication platform.  To be sent a Payment Request link please email the {% clubinfo_email 'TreasurerEmail' treasurer_name %}, or the {% clubinfo_email 'SecretaryEmail' secretary_name %}.</p>
-  <p class="mb-0"><strong>Note: Players who have not paid their subscription by 31st October will no longer be covered by our members' 
-    insurance and so will not able to be selected until they have paid.</strong></p>
-</div>
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
+  {% include 'blocks/_middle_heading.html' with title="Goalkeepers" %}
+  <p class="g-font-size-16">Goalkeepers who are new to the club have the option of using their own kit or using shared club kit. If using club kit, 
+    after playing twelve matches in goal the club will provide a dedicated kit (which remains the property of the club) for the goalkeeper to use.</p>
+  <p class="g-font-size-16">Goalkeepers who use club kit pay the annual subscription and match fees which are applicable to them. Goalkeepers who 
+    provide and maintain their own kit pay the reduced annual subscription, and no match fees.</p>
+</section>
 
+<section class="container g-mt-20 g-mt-40--md g-mb-40">
+  {% include 'blocks/_middle_heading.html' with title="Umpiring" %}
+  {% clubinfo 'UmpireFee' as umpire_fee %}
+  <p class="g-font-size-16">Players who umpire receive a payment of &pound;{{ umpire_fee }} per game and for away games can claim a contribution
+    towards travel costs if they take a team player in accordance with the Travel Costs on the relevant venue page.</p>
+</section>
 
-{% subheading "Umpires" %}
+<section class="container g-mt-20 g-mt-40--md g-mb-80">
+  {% include 'blocks/_middle_heading.html' with title="Travel Costs" %}
+  {% clubinfo 'MileageRatePence' as mileage_rate %}
+  <p class="g-font-size-16">Players can claim a contribution towards travel costs if they drive to an away game and take at least one other player with them.
+    The contribution is calculated at a rate of {{ mileage_rate }}p per mile based on the round trip distance from Cambridge, rounded to the nearest 5 miles and 50p.</p>
+  <p class="g-font-size-16">Reimbursement amounts are specificed in the venue information for each away match, and are normal given as credits against match fees.</p>
+</section>
 
-{% clubinfo 'UmpireFee' as umpire_fee %}
-<p>Players who umpire receive a fee of &pound;{{ umpire_fee }} per game and for away games can claim fuel expenses if they take
-  a team player in accordance with the Travel Costs on the relevant venue page.</p>
+{% endblock main %}
 
-
-{% endblock content %}
+{% block body_js %}
+  {{ block.super }}
+  {% include 'blocks/_dszparallaxer_js.html' %}
+  {% include 'blocks/_scroll_nav_js.html' %}
+  {% include 'blocks/_focus_state_js.html' %}
+{% endblock %}
