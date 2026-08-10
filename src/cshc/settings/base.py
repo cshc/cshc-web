@@ -6,7 +6,6 @@ from easy_thumbnails.conf import Settings as thumbnail_settings
 # Normally you should not import ANYTHING from Django directly
 # into your settings, but ImproperlyConfigured is an exception.
 from django.core.exceptions import ImproperlyConfigured
-from raven.transport.threaded_requests import ThreadedRequestsHTTPTransport
 
 
 def get_env_setting(setting):
@@ -207,7 +206,6 @@ THIRD_PARTY_APPS = [
     'sorl.thumbnail',
     'tagging',
     'taggit',
-    'raven.contrib.django.raven_compat',
     'webpack_loader',
     'zinnia',
 ]
@@ -518,20 +516,6 @@ TEMPLATED_EMAIL_FILE_EXTENSION = 'html'
 
 # ########## END django-templated-email CONFIGURATION
 
-# ########## raven CONFIGURATION
-
-# Ref: https://sentry.io/onboarding/cambridge-south-hockey-club/cshc-django/configure/python-django
-RAVEN_CONFIG = {
-    'dsn': get_env_setting('SENTRY_DNS'),
-    'release': VERSION,
-    'transport': ThreadedRequestsHTTPTransport,
-    'ignore_exceptions': [
-        'django.http.request.UnreadablePostError',
-        'django.http.UnreadablePostError',
-    ],
-}
-
-# ########## END raven CONFIGURATION
 
 # ########## Zinnia CONFIGURATION
 
