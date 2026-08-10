@@ -328,6 +328,11 @@ LOGGING = {
         }
     },
     'loggers': {
+        'django.request': {
+            'level': 'ERROR',
+            'handlers': ['console'],
+            'propagate': False, 
+        },
         'django.db.backends': {
             'level': 'ERROR',
             'handlers': ['console'],
@@ -518,6 +523,10 @@ TEMPLATED_EMAIL_FILE_EXTENSION = 'html'
 RAVEN_CONFIG = {
     'dsn': get_env_setting('SENTRY_DNS'),
     'release': VERSION,
+    'ignore_exceptions': [
+        'django.http.request.UnreadablePostError',
+        'django.http.UnreadablePostError',
+    ],
 }
 
 # ########## END raven CONFIGURATION
