@@ -6,6 +6,7 @@ from easy_thumbnails.conf import Settings as thumbnail_settings
 # Normally you should not import ANYTHING from Django directly
 # into your settings, but ImproperlyConfigured is an exception.
 from django.core.exceptions import ImproperlyConfigured
+from raven.transport.threaded_requests import ThreadedRequestsHTTPTransport
 
 
 def get_env_setting(setting):
@@ -523,6 +524,7 @@ TEMPLATED_EMAIL_FILE_EXTENSION = 'html'
 RAVEN_CONFIG = {
     'dsn': get_env_setting('SENTRY_DNS'),
     'release': VERSION,
+    'transport': ThreadedRequestsHTTPTransport,
     'ignore_exceptions': [
         'django.http.request.UnreadablePostError',
         'django.http.UnreadablePostError',
