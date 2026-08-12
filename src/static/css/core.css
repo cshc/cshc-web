@@ -369,3 +369,8 @@ p > a {
 .division-result--champions .fa-trophy {
   color: #7a5c00;
 }
+
+.league-table__position {
+  width: 1%;
+  white-space: nowrap;
+}

@@ -48,6 +48,7 @@ class LeagueTable extends React.PureComponent {
           <table className="table table-sm table-hover">
             <thead>
               <tr>
+                <th></th>
                 <th>Team</th>
                 <th>
                   <abbr title="Played">P</abbr>
@@ -83,6 +84,7 @@ class LeagueTable extends React.PureComponent {
                 const rowClass = isOurTeam ? 'table-success g-color-black g-font-weight-600' : '';
                 return (
                   <tr key={row.teamName} className={rowClass}>
+                    <td className="text-center league-table__position">{row.position}</td>
                     <td>{teamNameCell(row, isCSHCTeam, isOurTeam)}</td>
                     <td>{row.played}</td>
                     <td>{row.won}</td>
