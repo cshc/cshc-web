@@ -144,44 +144,44 @@ main {
 .btn-group.link-dropdown .btn-link:hover {
   text-decoration: none;
 }
-.season-selector {
+.season-team-selector {
   display: flex;
   justify-content: flex-end;
 }
-.season-selector .btn {
+.season-team-selector .btn {
   white-space: nowrap;
 }
-.season-selector__menu {
+.season-team-selector__menu {
   max-height: 20rem;
   overflow-y: auto;
   min-width: auto;
 }
-.season-selector__shortcut {
+.season-team-selector__shortcut {
   position: sticky;
   top: 0;
   z-index: 1;
   background-color: #f8f9fa;
   color: #212529;
 }
-.season-selector__shortcut.active,
-.season-selector__shortcut:active {
+.season-team-selector__shortcut.active,
+.season-team-selector__shortcut:active {
   background-color: #f8f9fa;
   color: #212529;
 }
-.season-selector__shortcut:hover,
-.season-selector__shortcut:focus {
+.season-team-selector__shortcut:hover,
+.season-team-selector__shortcut:focus {
   background-color: #f8f9fa;
   color: #212529;
 }
-.season-selector__shortcut.active:hover,
-.season-selector__shortcut.active:focus,
-.season-selector__shortcut:active:hover,
-.season-selector__shortcut:active:focus {
+.season-team-selector__shortcut.active:hover,
+.season-team-selector__shortcut.active:focus,
+.season-team-selector__shortcut:active:hover,
+.season-team-selector__shortcut:active:focus {
   background-color: #f8f9fa;
   color: #212529;
 }
 @media (max-width: 767.98px) {
-  .season-selector {
+  .season-team-selector {
     justify-content: flex-start;
   }
 }

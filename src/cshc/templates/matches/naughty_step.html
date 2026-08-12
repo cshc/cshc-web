@@ -27,12 +27,12 @@ This displays the red, yellow and green cards received by all players.
 
 <header class="g-mb-20 d-flex flex-column flex-md-row justify-content-between align-items-md-center">
   <h2 class="h1 g-font-weight-300 text-uppercase g-mb-10 g-mb-md-0">The Naughty Step</h2>
-  <div class="season-selector">
+  <div class="season-team-selector">
     <div class="dropdown">
       <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{ season_slug }}
       </button>
-      <div class="dropdown-menu dropdown-menu-right season-selector__menu">
+      <div class="dropdown-menu dropdown-menu-right season-team-selector__menu">
         <a class="dropdown-item {% if season_slug == 'All seasons' %}active{% endif %}" href="{% url 'naughty_step' %}">All seasons</a>
         {% for s in season_slug_list %}
         {% if s != 'All seasons' %}

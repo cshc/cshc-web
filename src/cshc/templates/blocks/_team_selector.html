@@ -1,0 +1,15 @@
+<div class="season-team-selector g-mb-10 {{ class }}">
+  <div class="dropdown">
+    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{ team.long_name }}
+    </button>
+    <div class="dropdown-menu">
+      {% for team in TEAMS %}
+        {% for item in team.list %}
+          <a class="dropdown-item {% if item.1 == team.long_name %}active{% endif %}" href="{% url 'clubteam_season_detail' item.0 season.slug %}">{{item.1}}</a>
+        {% endfor %}
+        {% if not forloop.last %}<div class="dropdown-divider"></div>{% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
