@@ -9,6 +9,7 @@
 {% block link %}
   {{ block.super }}
   {% include 'blocks/_portfolio_css.html' %}
+  {% include 'blocks/_dszparallaxer_css.html' %}
 {% endblock link %}
 
 {% block breadcrumbs %}
@@ -17,10 +18,10 @@
 {% endblock %}
 
 
-{% block content %}
-<section class="g-py-40--md">
-  {% include 'blocks/_middle_heading.html' with title='Cambridge South Hockey Club Teams' %}
-
+{% block main %}
+{% include 'core/_messages.html' %}
+{% include "blocks/_parallax_hero.html" with image="img/astro1.jpg" title="Cambridge South Teams" %}
+<section class="container g-pt-20 g-pb-40">
   <ul id="filterControls" class="d-block list-inline text-center g-mb-50--md g-mt-40">
     <li class="list-inline-item cbp-filter-item cbp-filter-item-active g-brd-around g-brd-gray-light-v4 g-brd-primary--active g-color-gray-dark-v4 g-color-primary--hover g-color-primary--active g-font-size-12 rounded g-transition-0_3 g-px-20 g-py-7 mb-2" role="button" data-filter="*">
       All
@@ -78,9 +79,10 @@
     {% endfor %}
   </div>
 </section>
-{% endblock content %}
+{% endblock main %}
 
 {% block body_js %}
   {{ block.super }}
   {% include 'blocks/_portfolio_js.html' %}
+  {% include 'blocks/_dszparallaxer_js.html' %}
 {% endblock body_js %}
