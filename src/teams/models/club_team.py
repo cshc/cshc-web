@@ -5,7 +5,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.db.models.query import QuerySet
 from core.models import TeamGender, TeamOrdinal, ordinal_from_TeamOrdinal
-
+from core.utils import get_thumbnail_url
+from competitions.models import Season
 
 # pylint: disable=C0103
 
@@ -137,21 +138,34 @@ class ClubTeam(models.Model):
         participations = self.clubteamseasonparticipation_set.current()
         return participations[0] if participations.exists() else None
 
-    def team_photo_participation(self, previous_seasons=1):
+    def current_or_previous_participation(self):
+        season = Season.current()
+        prev_season = Season.objects.previous(season)
+        if self.clubteamseasonparticipation_set.by_season(season).exists():
+            return self.clubteamseasonparticipation_set.by_season(season)[0]
+        if self.clubteamseasonparticipation_set.by_season(prev_season).exists():
+            return self.clubteamseasonparticipation_set.by_season(prev_season)[0]
+
+        return None
+
+    def latest_photo_url(self, previous_seasons=1):
         """
-        Returns the ClubTeamSeasonParticipation instance to use for displaying a team photo.
-        Uses the current season first, then previous seasons, up to the number of previous_seasons specified.
+        Returns the latest photo URL from the given number of previous seasons
 
         Args:
             previous_seasons (int): The number of previous seasons to check for a team photo if
                 the current season does not have one. Defaults to 1.
         Returns:
-            ClubTeamSeasonParticipation: The participation instance with a team photo, or None if none found.
+            The URL to the latest team photo, or None if none found.
         """
 
         participations = self.clubteamseasonparticipation_set.order_by('-season__start')[:previous_seasons]
         for participation in participations:
             if participation and participation.team_photo:
-                return participation
+                photo_url = get_thumbnail_url(
+                    participation.team_photo, '600x393', 'center', participation.team_photo_cropping),
+                if photo_url:
+                    photo_url = photo_url[0] if isinstance(photo_url, tuple) else photo_url
+                    return photo_url
 
         return None

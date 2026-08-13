@@ -1,9 +1,9 @@
-<div class="season-selector g-mb-10 {{ class }}">
+<div class="season-team-selector g-mb-10 {{ class }}">
   <div class="dropdown">
     <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {{ season }}
     </button>
-    <div class="dropdown-menu dropdown-menu-right season-selector__menu">
+    <div class="dropdown-menu dropdown-menu-right season-team-selector__menu">
       {% if show_current_season_shortcut %}
       <a class="dropdown-item  {% if is_current_season %}active{% endif %}" href="{{ base_url }}">{{ current_season.slug }}</a>
       {% if season_slug_list|length > 1 %}

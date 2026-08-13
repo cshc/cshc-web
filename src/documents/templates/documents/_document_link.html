@@ -6,18 +6,21 @@ Note: The following css is required:
 
 {% endcomment %}
 
-<a class="g-text-underline--none--hover" href="{{ document.file.url }}" target="_blank" title="Download ({{ document.file.size|filesizeformat }})">
-  <div class="media g-mb-20">
-    <div class="d-flex mr-3">
-      <span class="u-icon-v2 g-color-white g-bg-cyan-gradient-opacity-v1 g-rounded-5">
-        <i class="icon-education-087 u-line-icon-pro"></i>
+<div class="media g-mb-20">
+  <div class="d-flex mr-3">
+    <a class="g-text-underline--none--hover" href="{{ document.file.url }}" target="_blank" title="Download ({{ document.file.size|filesizeformat }})">
+      <span class="u-icon-v2 g-color-white g-rounded-5">
+        <i class="far fa-file-alt fa-2x g-color-primary"></i>
       </span>
-    </div>
-    <div class="media-body align-self-center">
-      <h3 class="h5 g-line-height-1_6 mb-0">
-        {{ document.title }}
-      </h3>
-      {% if document.description %}<span class="d-block g-color-gray-dark-v5">{{ document.description|safe }}</span>{% endif %}
-    </div>
+    </a>
   </div>
-</a>
+  <div class="media-body align-self-center">
+    <h3 class="h5 g-line-height-1_6 mb-0">
+      <a class="g-text-underline--none--hover" href="{{ document.file.url }}" target="_blank" title="Download ({{ document.file.size|filesizeformat }})">
+         {{ document.title }}
+      </a>
+    </h3>
+    {% if document.description %}<span class="d-block g-color-gray-dark-v5">{{ document.description|safe }}</span>{% endif %}
+  </div>
+
+</div>

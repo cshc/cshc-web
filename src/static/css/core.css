@@ -144,44 +144,44 @@ main {
 .btn-group.link-dropdown .btn-link:hover {
   text-decoration: none;
 }
-.season-selector {
+.season-team-selector {
   display: flex;
   justify-content: flex-end;
 }
-.season-selector .btn {
+.season-team-selector .btn {
   white-space: nowrap;
 }
-.season-selector__menu {
+.season-team-selector__menu {
   max-height: 20rem;
   overflow-y: auto;
   min-width: auto;
 }
-.season-selector__shortcut {
+.season-team-selector__shortcut {
   position: sticky;
   top: 0;
   z-index: 1;
   background-color: #f8f9fa;
   color: #212529;
 }
-.season-selector__shortcut.active,
-.season-selector__shortcut:active {
+.season-team-selector__shortcut.active,
+.season-team-selector__shortcut:active {
   background-color: #f8f9fa;
   color: #212529;
 }
-.season-selector__shortcut:hover,
-.season-selector__shortcut:focus {
+.season-team-selector__shortcut:hover,
+.season-team-selector__shortcut:focus {
   background-color: #f8f9fa;
   color: #212529;
 }
-.season-selector__shortcut.active:hover,
-.season-selector__shortcut.active:focus,
-.season-selector__shortcut:active:hover,
-.season-selector__shortcut:active:focus {
+.season-team-selector__shortcut.active:hover,
+.season-team-selector__shortcut.active:focus,
+.season-team-selector__shortcut:active:hover,
+.season-team-selector__shortcut:active:focus {
   background-color: #f8f9fa;
   color: #212529;
 }
 @media (max-width: 767.98px) {
-  .season-selector {
+  .season-team-selector {
     justify-content: flex-start;
   }
 }
@@ -308,4 +308,69 @@ p > a {
   .parallax-hero-height {
     height: 450px;
   }
+}
+
+.middle-heading--custom.u-heading-v6-1 .u-heading-v6__title::after,
+.middle-heading--custom.u-heading-v6-1.text-center .u-heading-v6__title::before {
+  border-top-width: 1.5px;
+  border-top-color: #6639b6;
+}
+
+.bg-purple {
+  background-color: #6639b6;
+}
+
+.bg-purple-lighter {
+  background-color: #E8E1F4;
+}
+
+.division-result {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.division-result--lg {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.division-result--neutral {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+  color: #495057;
+}
+
+.division-result--promoted {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: #fff;
+}
+
+.division-result--relegated {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+}
+
+.division-result--champions {
+  background: linear-gradient(135deg, #f7e08a 0%, #d4af37 100%);
+  border-color: #c9a227;
+  color: #4a3b00;
+}
+
+.division-result--champions .fa-trophy {
+  color: #7a5c00;
+}
+
+.league-table__position {
+  width: 1%;
+  white-space: nowrap;
 }

@@ -257,13 +257,18 @@ def division_result(part, size=None):
     """
     Render a division result
     """
-    class_name = 'g-bg-black-opacity-0_1 g-color-black'
-    if part.division_result in [DivisionResult.Champions, DivisionResult.Promoted]:
-        class_name = 'g-bg-green'
+    class_name = 'division-result division-result--neutral'
+
+    if part.division_result == DivisionResult.Champions:
+        class_name = 'division-result division-result--champions'
+    elif part.division_result == DivisionResult.Promoted:
+        class_name = 'division-result division-result--promoted'
     elif part.division_result == DivisionResult.Relegated:
-        class_name = 'g-bg-red'
+        class_name = 'division-result division-result--relegated'
+
     if size == 'lg':
-        class_name += ' u-label--lg'
+        class_name += ' division-result--lg'
+
     return {
         'class_name': class_name,
         'part': part,
