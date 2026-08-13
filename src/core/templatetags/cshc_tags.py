@@ -478,7 +478,31 @@ class AdminLinksCreator(object):
             ctx['list_url'] = None
             ctx['list_label'] = None
 
+        actions = []
+        if ctx['change_url']:
+            actions.append({
+                'url': ctx['change_url'],
+                'label': ctx['change_label'] or 'Edit',
+                'short_label': 'Edit',
+            })
+        if ctx['add_url']:
+            actions.append({
+                'url': ctx['add_url'],
+                'label': ctx['add_label'] or 'Add',
+                'short_label': 'Add',
+            })
+        if ctx['list_url']:
+            actions.append({
+                'url': ctx['list_url'],
+                'label': ctx['list_label'] or 'List',
+                'short_label': 'List',
+            })
+
         ctx['display_admin_links'] = should_display
+        ctx['action_count'] = len(actions)
+        ctx['single_action_url'] = actions[0]['url'] if len(actions) == 1 else None
+        ctx['single_action_label'] = actions[0]['label'] if len(actions) == 1 else None
+        ctx['single_action_short_label'] = actions[0]['short_label'] if len(actions) == 1 else None
         return ctx
 
     def get_admin_change_url(self):
