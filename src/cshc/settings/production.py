@@ -3,6 +3,7 @@
 import sys
 import os
 from cshc.settings.base import *
+from raven.transport.threaded_requests import ThreadedRequestsHTTPTransport
 
 DEBUG = False
 
@@ -85,3 +86,21 @@ from .common.ckeditor import get_ckeditor_config
 CKEDITOR_CONFIGS = get_ckeditor_config(STATIC_URL)
 
 DBBACKUP_HOSTNAME = 'cambridgesouthhockeyclub.co.uk'
+
+# ########## Raven CONFIGURATION
+INSTALLED_APPS += [
+    'raven.contrib.django.raven_compat',
+]
+
+# Ref: https://sentry.io/onboarding/cambridge-south-hockey-club/cshc-django/configure/python-django
+RAVEN_CONFIG = {
+    'dsn': get_env_setting('SENTRY_DNS'),
+    'release': VERSION,
+    'transport': ThreadedRequestsHTTPTransport,
+    'ignore_exceptions': [
+        'django.http.request.UnreadablePostError',
+        'django.http.UnreadablePostError',
+    ],
+}
+
+# ########## END Raven CONFIGURATION

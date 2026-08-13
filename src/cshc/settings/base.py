@@ -206,7 +206,6 @@ THIRD_PARTY_APPS = [
     'sorl.thumbnail',
     'tagging',
     'taggit',
-    'raven.contrib.django.raven_compat',
     'webpack_loader',
     'zinnia',
 ]
@@ -328,6 +327,11 @@ LOGGING = {
         }
     },
     'loggers': {
+        'django.request': {
+            'level': 'ERROR',
+            'handlers': ['console'],
+            'propagate': False, 
+        },
         'django.db.backends': {
             'level': 'ERROR',
             'handlers': ['console'],
@@ -512,15 +516,6 @@ TEMPLATED_EMAIL_FILE_EXTENSION = 'html'
 
 # ########## END django-templated-email CONFIGURATION
 
-# ########## raven CONFIGURATION
-
-# Ref: https://sentry.io/onboarding/cambridge-south-hockey-club/cshc-django/configure/python-django
-RAVEN_CONFIG = {
-    'dsn': get_env_setting('SENTRY_DNS'),
-    'release': VERSION,
-}
-
-# ########## END raven CONFIGURATION
 
 # ########## Zinnia CONFIGURATION
 

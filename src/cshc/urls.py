@@ -103,6 +103,8 @@ urlpatterns = [
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemap_views.sitemap,
         {'sitemaps': CshcSitemap}, name='django.contrib.sitemaps.views.sitemap'),
 
+    # development and testing
+    url(r'^devtest/', include('devtest.urls')),
 
 ] + \
     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
