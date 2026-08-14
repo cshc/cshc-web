@@ -3,9 +3,10 @@ Views relating to CSHC Members
 """
 
 import logging
-import copy
+import json
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import UpdateView
@@ -13,14 +14,16 @@ from django.urls import reverse, reverse_lazy
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.sites.models import Site
+from django.http import JsonResponse
 from templated_email import send_templated_mail
-from core.models import CshcUser
+from core.models import CshcUser, ClubInfo
 from core.forms import UserProfileForm
 from core.utils import get_thumbnail_url
 from competitions.models import Season
 from teams.models import ClubTeam
 from .models import Member
 from .forms import MemberProfileForm
+from members import settings as member_settings
 
 LOG = logging.getLogger(__name__)
 
@@ -149,9 +152,127 @@ def profile(request):
         context['form'] = MemberProfileForm(
             instance=member) if member is not None else UserProfileForm(instance=request.user)
 
+    context['member_settings'] = member_settings
+    
     response = render(request, 'account/profile.html', context)
     response.set_cookie(link_req_cookie, context.get('link_req_sent', 0))
     return response
+
+
+@login_required
+@require_GET
+def get_available_shirt_numbers(request):
+    """
+    AJAX endpoint to get available *numerical* shirt numbers for the current user's gender.
+    Returns a JSON response with a list of numbers.
+    """
+    member = getattr(request.user, 'member', None)
+    if not member:
+        return JsonResponse({'error': 'User is not associated with a member profile.'}, status=400)
+
+    if not member.gender:
+        return JsonResponse({'error': 'Member gender not specified. Cannot determine available shirt numbers.'}, status=400)
+
+    shirt_number_count_obj, _ = ClubInfo.objects.get_or_create(
+                key='ShirtNumsToShow', defaults={'value': '24'})
+    shirt_number_count = int(shirt_number_count_obj.value)
+
+    available_numbers = Member.objects.get_available_shirt_numbers(member.gender, max_count=shirt_number_count)
+    return JsonResponse({'available_numbers': available_numbers})
+
+
+@login_required
+@require_GET
+def check_shirt_number_availability(request):
+    """
+    AJAX endpoint to check if a specific numerical shirt number is available
+    for the current user's gender.
+    Returns a JSON response with 'is_available': true/false.
+    """
+    member = getattr(request.user, 'member', None)
+    if not member:
+        return JsonResponse({'error': 'User is not associated with a member profile.'}, status=400)
+
+    if not member.gender:
+        return JsonResponse({'error': 'Member gender not specified. Cannot check shirt number availability.'}, status=400)
+
+    shirt_number_str = request.GET.get('shirt_number')
+    if not shirt_number_str:
+        return JsonResponse({'error': 'No shirt number provided.'}, status=400)
+
+    try:
+        shirt_number_int = int(shirt_number_str)
+    except ValueError:
+        return JsonResponse({'error': 'Invalid shirt number format. Must be an integer.'}, status=400)
+
+    is_available = Member.objects.is_shirt_number_available(member.gender, shirt_number_int)
+
+    return JsonResponse({'is_available': is_available})
+
+
+@login_required
+@require_POST
+def assign_shirt_number(request):
+    """
+    AJAX endpoint to assign a selected *numerical* shirt number to the current user's member profile.
+    Expects a POST request with JSON data containing 'shirt_number'.
+    """
+    member = getattr(request.user, 'member', None)
+    if not member:
+        return JsonResponse({'error': 'User is not associated with a member profile.'}, status=400)
+
+    max_shirt_number_obj, _ = ClubInfo.objects.get_or_create(
+                key='ShirtNumMax', defaults={'value': '199'})
+    max_shirt_number = int(max_shirt_number_obj.value)
+
+    try:
+        data = json.loads(request.body)
+        selected_number_int = int(data.get('shirt_number')) # Get as int for validation
+    except (json.JSONDecodeError, TypeError, ValueError):
+        return JsonResponse({'error': 'Invalid data provided.'}, status=400)
+
+    if not (1 <= selected_number_int <= max_shirt_number):
+        return JsonResponse({'error': f'Invalid shirt number. Must be a positive integer between 1 and {max_shirt_number}.'}, status=400)
+
+    if not member.gender:
+        return JsonResponse({'error': 'Member gender not specified. Cannot assign shirt number.'}, status=400)
+
+    if not Member.objects.is_shirt_number_available(member.gender, selected_number_int):
+        return JsonResponse({'error': f'Shirt number {selected_number_int} is no longer available for your gender or is invalid.'}, status=400)
+
+    selected_number_str = str(selected_number_int)
+
+    if member.shirt_number == selected_number_str:
+        return JsonResponse({'message': f'Shirt number {selected_number_str} is already assigned to you.'}, status=200)
+
+    member.shirt_number = selected_number_str
+    member.save()
+
+    # Send email to club admins about the new shirt number assignment
+    try:
+        try:
+            sec_email = ClubInfo.objects.get(key='SecretaryEmail').value
+        except ClubInfo.DoesNotExist:
+            sec_email = 'secretary@cambridgesouthhockeyclub.co.uk'
+
+        send_templated_mail(
+            from_email=settings.SERVER_EMAIL,
+            recipient_list=[sec_email],
+            template_name='shirt_number_assigned',
+            context={
+                'shirt_number': selected_number_str,
+                'member': member,
+                'base_url': "https://" + Site.objects.get_current().domain,
+                'members_admin_url': "{}?q={}".format(reverse('admin:members_member_changelist'), request.user.get_full_name())
+            },
+        )
+        LOG.info(f"Sent shirt number assignment email for member {member.id} to admins.")
+        messages.success(request, f"Shirt number {selected_number_str} successfully assigned. Club admins have been notified.")
+    except Exception as e:
+        LOG.error(f"Failed to send shirt number assignment email for member {member.id}: {e}", exc_info=True, extra={'request': request})
+        messages.warning(request, f"Shirt number {selected_number_str} successfully assigned, but there was an issue notifying club admins.")
+
+    return JsonResponse({'message': f'Shirt number {selected_number_str} successfully assigned.'})
 
 
 class MemberDetailView(DetailView):

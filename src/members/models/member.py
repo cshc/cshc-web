@@ -12,14 +12,16 @@ import os
 import geocoder
 from django.conf import settings
 from django.db import models
+from django.db.models import Max, Q
 from django.dispatch import receiver
 from django_resized import ResizedImageField
 from django.db.models.functions import Coalesce
 from allauth.account.signals import email_changed
 from image_cropping import ImageRatioField
 from geoposition.fields import GeopositionField
-from core.models import make_unique_filename, Gender, Position, EmergencyContactRelationship
+from core.models import make_unique_filename, ClubInfo, Gender, Position, EmergencyContactRelationship
 from members import settings as member_settings
+from competitions.models import Season
 
 LOG = logging.getLogger(__name__)
 
@@ -57,6 +59,114 @@ class MemberManager(models.Manager):
         except Member.DoesNotExist:
             return None
 
+    def _get_members_with_active_shirt_numbers_queryset(self, gender):
+        """
+        Helper method to build the queryset of members whose shirt numbers
+        should be considered 'in use' for a given gender, respecting
+        is_current status and grace periods.
+        """
+        base_queryset = self.filter(gender=gender)
+
+        shirt_number_include_not_current_obj, _ = ClubInfo.objects.get_or_create(
+                key='ShirtNumIncNonCurr', defaults={'value': 'True'})
+        include_not_current = shirt_number_include_not_current_obj.value in [
+            'True', 'true', 'yes', '1']
+
+        if include_not_current:
+            shirt_number_grace_seasons_obj, _ = ClubInfo.objects.get_or_create(
+                        key='ShirtNumGraceSeasons', defaults={'value': '1'})
+            grace_seasons = int(shirt_number_grace_seasons_obj.value)
+
+            annotated_queryset = base_queryset.annotate(
+                last_appearance_season_start=Max('appearances__match__season__start')
+            )
+            stale_cutoff_season_start_date = None
+
+            seasons = Season.objects.order_by('-start')
+            if len(seasons) > grace_seasons:
+                stale_cutoff_season_start_date = seasons[grace_seasons].start
+            elif seasons: # If there are fewer seasons than grace_seasons, consider all existing seasons
+                 stale_cutoff_season_start_date = seasons[-1].start # Oldest season start
+
+            if stale_cutoff_season_start_date:
+                return annotated_queryset.filter(
+                    Q(is_current=True) |
+                    (Q(is_current=False) & (
+                        Q(last_appearance_season_start__isnull=False) &
+                        Q(last_appearance_season_start__gte=stale_cutoff_season_start_date)
+                    ))
+                )
+            else:
+                return annotated_queryset.filter(is_current=True)
+        else:
+            return base_queryset.filter(is_current=True)
+
+    def get_available_shirt_numbers(self, gender,
+                                    max_count=None):
+        """
+        Returns a list of available *numerical* shirt numbers for a given gender.
+        An available number is one not currently assigned to any member
+        of the specified gender with a numerical shirt number.
+        If max_count is None, returns all available numbers up to max_number.
+        :param gender: The gender to filter by.
+        :param max_count: The maximum number of available numbers to return.
+        :return: A list of available shirt numbers.
+        """
+        if not gender:
+            return []
+
+        max_shirt_number_obj, _ = ClubInfo.objects.get_or_create(
+                    key='ShirtNumMax', defaults={'value': '199'})
+        max_shirt_number = int(max_shirt_number_obj.value)
+
+        members_with_used_numbers = self._get_members_with_active_shirt_numbers_queryset(gender)
+
+        used_shirt_numbers_str = members_with_used_numbers.filter(
+            shirt_number__isnull=False
+        ).exclude(shirt_number='').values_list('shirt_number', flat=True)
+
+        used_numbers_set = set()
+        for num_str in used_shirt_numbers_str:
+            try:
+                num_int = int(num_str)
+                used_numbers_set.add(num_int)
+            except ValueError:
+                pass
+
+        available_numbers = []
+        for i in range(1, max_shirt_number + 1):
+            if i not in used_numbers_set:
+                available_numbers.append(i)
+            if max_count is not None and len(available_numbers) >= max_count:
+                break
+        return available_numbers
+
+    def is_shirt_number_available(self, gender, shirt_number_int):
+        """
+        Checks if a specific numerical shirt number is available for a given gender.
+        An available number is one not currently assigned to any member
+        of the specified gender with a numerical shirt number, considering
+        'is_current' status and grace periods.
+        :param gender: The gender to filter by.
+        :param shirt_number_int: The specific shirt number (integer) to check.
+        :return: True if available, False otherwise.
+        """
+        if not gender:
+            return False
+
+        max_shirt_number_obj, _ = ClubInfo.objects.get_or_create(
+                    key='ShirtNumMax', defaults={'value': '199'})
+        max_shirt_number = int(max_shirt_number_obj.value)
+
+        if not (1 <= shirt_number_int <= max_shirt_number):
+            return False
+
+        shirt_number_str = str(shirt_number_int)
+
+        members_with_active_numbers = self._get_members_with_active_shirt_numbers_queryset(gender)
+        used_by_member_exists = members_with_active_numbers.filter(shirt_number=shirt_number_str).exists()
+
+        return not used_by_member_exists
 
 class Member(models.Model):
     """ Represents a member of Cambridge South Hockey Club. Alternatively this can

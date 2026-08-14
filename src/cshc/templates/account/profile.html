@@ -104,6 +104,16 @@ jQuery-UI CSS must be included before Unify CSS
 
   {% unify_form_section_divider %}
   {% unify_form_section_heading 'Playing' %}
+  {% if member.shirt_number %}
+    {% unify_read_only_display label='Shirt number' value=member.shirt_number orientation='horizontal' %}
+  {% else %}
+  <div class="form-group row g-mb-25">
+    <div class="col-sm-3 col-form-label g-mb-10">Shirt number:</div>
+    <div class="col-sm-9">
+      <button type="button" class="btn u-btn-outline-primary g-brd-2 g-py-12 g-px-30" data-toggle="modal" data-target="#requestShirtNumberModal" id="requestShirtNumberBtn">Get Shirt Number</button>
+    </div>
+  </div>
+  {% endif %}
   {% unify_form_field 'pref_position' 'horizontal' %}
 
   {% unify_form_section_divider %}
@@ -143,6 +153,100 @@ jQuery-UI CSS must be included before Unify CSS
 </form>
 {% endif %}
 
+<!-- Request Shirt Number Modal -->
+<div class="modal fade" id="requestShirtNumberModal" tabindex="-1" role="dialog" aria-labelledby="requestShirtNumberModalLabel" aria-hidden="true" data-max-shirt-number="{{ member_settings.MEMBERS_MAX_SHIRT_NUMBER }}">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="requestShirtNumberModalLabel">Select a Shirt Number</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="alert alert-warning g-mb-20">
+          <strong>Important:</strong> Once a shirt number is selected and assigned, it cannot be changed. Please choose carefully.
+        </p>
+        <p class="g-mb-10" id="availableNumbersLabel">Please select an available shirt number:</p>
+        <div class="col-12 text-center" id="loadingAndErrorMessages">
+          <div class="g-pt-30 g-pb-20" id="loadingNumbers">
+            <i class="fas fa-spinner fa-spin fa-2x g-color-primary g-mb-10"></i>
+            <p class="text-muted">Finding available numbers...</p>
+          </div>
+          <p class="text-danger d-none" id="errorNumbers">Could not load numbers. Please try again later.</p>
+        </div>
+        <div class="w-75 mx-auto">
+          <div id="availableShirtNumbersContainer" class="row justify-content-center g-mb-20">
+            <!-- Numbers will be loaded here by JavaScript -->
+          </div>
+        </div>
+        <hr class="g-my-30">
+        <p class="g-mb-10">...or enter a specific number to check its availability:</p>
+        <div class="col-md-8 col-8 mx-auto g-mb-10">
+          <div class="input-group" id="manualShirtNumberInputGroup"> {# Added ID for border manipulation #}
+            <input type="text" class="form-control form-control-md rounded-0" id="manualShirtNumberInput" placeholder="E.g. 123">
+            <div class="input-group-append">
+              <button class="btn u-btn-outline-primary g-brd-2 g-py-12 g-px-15 fixed-width-check-btn" type="button" id="checkManualShirtNumberBtn">
+                <i class="fas fa-search" id="checkIcon"></i> <span id="checkText">Check</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="g-mt-20 text-center">
+            <p class="g-mb-10">Selected Number: <strong id="selectedNumberDisplay">None</strong></p>
+            <button type="button" class="btn u-btn-primary g-brd-2 g-py-12 g-px-30" id="assignShirtNumberBtn" disabled>Assign Selected Number</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn u-btn-outline-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Request Shirt Number Modal -->
+
+<!-- Generic Success Feedback Modal -->
+<div class="modal fade" id="feedbackSuccessModal" tabindex="-1" role="dialog" aria-labelledby="feedbackSuccessModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="feedbackSuccessModalLabel">Success!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="feedbackSuccessModalBody">
+        <!-- Success message will be inserted here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn u-btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Generic Success Feedback Modal -->
+
+<!-- Generic Error Feedback Modal -->
+<div class="modal fade" id="feedbackErrorModal" tabindex="-1" role="dialog" aria-labelledby="feedbackErrorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="feedbackErrorModalLabel">Error!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="feedbackErrorModalBody">
+        <!-- Error message will be inserted here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn u-btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Generic Error Feedback Modal -->
+
 {% endblock content %}
 
 
@@ -150,4 +254,20 @@ jQuery-UI CSS must be included before Unify CSS
 {{ block.super }}
 {% include 'blocks/_focus_state_js.html' %}
 {{ form.media }}
+
+<script>
+  // Small inline script to pass dynamic Django context to external JS
+  window.CSHC_CONFIG = {
+    csrfToken: $('input[name="csrfmiddlewaretoken"]').val(),
+    maxShirtNumber: parseInt($('#requestShirtNumberModal').data('max-shirt-number')) || 199,
+    urls: {
+      availableShirtNumbers: "{% url 'available_shirt_numbers' %}",
+      checkShirtNumberAvailability: "{% url 'check_shirt_number_availability' %}",
+      assignShirtNumber: "{% url 'assign_shirt_number' %}",
+    }
+  };
+</script>
+{% compress js %}
+<script src="{% static 'js/shirt_number_picker.js' %}"></script>
+{% endcompress %}
 {% endblock %}

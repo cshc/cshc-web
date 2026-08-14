@@ -184,6 +184,9 @@ main {
   .season-team-selector {
     justify-content: flex-start;
   }
+.fixed-width-check-btn {
+  min-width: 125px;
+  text-align: center;
 }
 .form-control-feedback ul {
   list-style: none;
