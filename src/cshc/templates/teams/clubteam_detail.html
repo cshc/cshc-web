@@ -30,7 +30,7 @@
 {% include "blocks/_parallax_hero.html" with image="img/astro1.jpg" title=team.long_name %}
 {% url 'clubteam_detail' team.slug as base_team_url %}
 
-<section class="container g-mt-20 g-mt-40--md g-mb-40">
+<section class="container g-mt-20 g-mt-40--md g-mb-20">
   <div class="g-pb-10 d-flex flex-row flex-wrap justify-content-between align-items-md-center">
 
     <div class="d-flex flex-row flex-wrap align-items-center g-mb-10 g-mb-md-0 order-2 order-sm-1">
@@ -173,7 +173,7 @@
         {% lightbox_link participation.team_photo team.long_name '500' None participation.team_photo_cropping %}
         <p class="g-my-20">{{ participation.team_photo_caption|strip_new_lines|safe }}</p>
       {% else %}
-        <img class="img-fluid" src="{% static "img/teams/placeholder.jpg" %}" alt="Team photo">
+        <img class="img-fluid d-none d-md-inline-block g-opacity-0_5" src="{% static "img/teams/placeholder.jpg" %}" title="No team photo for this season" alt="Team photo placeholder">
       {% endif %}
     </div>
   </div>
