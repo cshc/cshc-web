@@ -1,5 +1,7 @@
 .match-header table {
+  width: 100%;
   table-layout: fixed;
+  min-width: 290px;
 }
 .match-header a {
   color: rgba(255, 255, 255, 0.8);
@@ -47,4 +49,76 @@ td.scorers {
 }
 .award-content {
   flex: 3;
+}
+
+/* Default scored layout */
+.match-header .team-col--scored {
+    width: 46%;
+}
+.match-header .score-col--scored {
+    width: 12%;
+}
+
+/* No score yet: just "vs" */
+.match-header .team-col--vs {
+    width: 48.5%;
+}
+.match-header .score-col--vs {
+    width: 3%;
+}
+
+/* Postponed / Cancelled */
+.match-header .team-col--off {
+    width: 40%;
+}
+.match-header .score-col--off {
+    width: 20%;
+}
+
+/* Narrow */
+@media (max-width: 600px) {
+    .match-header .team-col--scored {
+        width: 42.5%;
+    }
+    .match-header .score-col--scored {
+        width: 15%;
+    }
+
+    .match-header .team-col--vs {
+        width: 47.5%;
+    }
+    .match-header .score-col--vs {
+        width: 5%;
+    }
+
+    .match-header .team-col--off {
+        width: 37.5%;
+    }
+    .match-header .score-col--off {
+        width: 25%;
+    }
+}
+
+/* Very narrow */
+@media (max-width: 400px) {
+    .match-header .team-col--scored {
+        width: 40%;
+    }
+    .match-header .score-col--scored {
+        width: 20%;
+    }
+
+    .match-header .team-col--vs {
+        width: 46%;
+    }
+    .match-header .score-col--vs {
+        width: 8%;
+    }
+
+    .match-header .team-col--off {
+        width: 35%;
+    }
+    .match-header .score-col--off {
+        width: 30%;
+    }
 }
