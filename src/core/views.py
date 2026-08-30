@@ -215,6 +215,10 @@ class JuniorsContactSubmissionCreateView(CreateView):
             'message': str(form.cleaned_data['message']),
         }
 
+        junior_coord_name_obj, _ = ClubInfo.objects.get_or_create(
+            key='JuniorsCoordName', defaults={'value': ''})
+        context['juniors_coordinator_name'] = junior_coord_name_obj.value
+
         recipient_email = form.cleaned_data['email']
         send_templated_mail(
             from_email='juniors@cambridgesouthhockeyclub.co.uk',
