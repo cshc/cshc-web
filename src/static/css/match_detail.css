@@ -51,6 +51,10 @@ td.scorers {
   flex: 3;
 }
 
+.no-break {
+    white-space: nowrap;
+}
+
 /* Default scored layout */
 .match-header .team-col--scored {
     width: 46%;
