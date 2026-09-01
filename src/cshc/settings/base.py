@@ -1,3 +1,5 @@
+import logging
+import time
 import os
 from os.path import abspath, dirname, join, normpath
 
@@ -299,6 +301,9 @@ STATICFILES_FINDERS = (
 # ########## END STATIC FILE CONFIGURATION
 
 # ########## LOGGING CONFIGURATION
+
+# Use UTC timestamps in the Django log output
+logging.Formatter.converter = time.gmtime
 
 LOGGING = {
     'version': 1,

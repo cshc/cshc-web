@@ -4,7 +4,7 @@ Thanks for contacting us about junior hockey. We'll get back to you with more in
 
 Best regards,
 
-Kendra Seed
+{{ juniors_coordinator_name }}
 Juniors Coordinator
 
 {% if message %}

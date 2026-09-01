@@ -68,18 +68,28 @@ class MatchFilter(AndFilter):
         return queryset.filter(**kwargs)
 
     def filter_result(self, queryset, name, value):
-        # Filter for a particular result
-        final_scores_provided = Q(our_score__isnull=False) and Q(
-            opp_score__isnull=False)
-        queryset = queryset.filter(final_scores_provided)
-        if value.lower() == 'won':
-            return queryset.filter(our_score__gt=F('opp_score'))
-        elif value.lower() == 'lost':
-            return queryset.filter(our_score__lt=F('opp_score'))
-        elif value.lower() == 'drawn':
-            return queryset.filter(our_score=F('opp_score'))
-        else:
-            raise Exception('Invalid result specified: ' + value)
+        # Filter for a particular result or alternative outcome
+        value = value.lower()
+
+        final_scores_provided = Q(our_score__isnull=False) & Q(opp_score__isnull=False)
+
+        if value == 'won':
+            return queryset.filter(final_scores_provided).filter(our_score__gt=F('opp_score'))
+        elif value == 'lost':
+            return queryset.filter(final_scores_provided).filter(our_score__lt=F('opp_score'))
+        elif value == 'drawn':
+            return queryset.filter(final_scores_provided).filter(our_score=F('opp_score'))
+
+        alt_outcomes = {
+            'abandoned': 'Abandoned',
+            'cancelled': 'Cancelled',
+            'postponed': 'Postponed',
+            'walkover': 'Walkover',
+        }
+        if value in alt_outcomes:
+            return queryset.filter(alt_outcome=alt_outcomes[value])
+
+        raise Exception('Invalid result specified: ' + value)
 
     class Meta:
         model = Match

@@ -65,7 +65,16 @@ const MatchFilterSet = ({ teams, divisions, opposition_clubs, seasons, venues, m
     { value: 'Home', label: 'Home' },
     { value: 'Away', label: 'Away' },
   ];
-  const resultOptions = ['Won', 'Drawn', 'Lost'].map(r => ({ value: r.toLowerCase(), label: r }));
+  const resultOptions = [
+    'Won',
+    'Drawn',
+    'Lost',
+    'Abandoned',
+    'Cancelled',
+    'Postponed',
+    'Walkover',
+  ].map(r => ({ value: r.toLowerCase(), label: r }));
+
   const seasonOptions = seasons.map(season => ({ value: season, label: season }));
   const fixtureTypeOptions = keys(FixtureType).map(ft => ({ value: ft, label: ft }));
   const venueOptions = venues.map(venue => ({ value: String(venue.id), label: venue.name }));

@@ -5,22 +5,28 @@ to the content being displayed.
 Requires 'app_label' and 'model' variables
 
 Requires at least one of:
-   'edit_url' - the admin url for editing an item
+   'change_url' - the admin url for editing an item
    'add_url' - the admin url for adding an item
    'list_url' - the admin url for displaying the list of items
 {% endcomment %}
 
-{% if user.is_staff %}
-{% if display_admin_links %}
+{% if user.is_staff and display_admin_links %}
 
 <div class="btn-group g-pr-10">
-  <a class="btn u-btn-deeporange dropdown-toggle" data-toggle="dropdown" href="#" title="Admin actions"><i class="far fa-edit g-mr-5"></i></a>
-  <div class="dropdown-menu">
-    {% if change_url %}<a class="dropdown-item" href="{{ change_url }}" target="_blank">{% if change_label %}{{ change_label }}{% else %}Edit{% endif %}</a>{% endif %}
-    {% if add_url %}<a class="dropdown-item" href="{{ add_url }}" target="_blank">{% if add_label %}{{ add_label }}{% else %}Add{% endif %}</a>{% endif %}
-    {% if list_url %}<a class="dropdown-item" href="{{ list_url }}" target="_blank">{% if list_label %}{{ list_label }}{% else %}List{% endif %}</a>{% endif %}
-  </div>
+  {% if action_count == 1 %}
+    <a class="btn u-btn-deeporange" href="{{ single_action_url }}" target="_blank" title="{{ single_action_label }}">
+      <i class="far fa-edit g-mr-5"></i>{{ single_action_short_label }}
+    </a>
+  {% else %}
+    <a class="btn u-btn-deeporange dropdown-toggle" data-toggle="dropdown" href="#" title="Admin actions">
+      <i class="far fa-edit g-mr-5"></i>
+    </a>
+    <div class="dropdown-menu">
+      {% if change_url %}<a class="dropdown-item" href="{{ change_url }}" target="_blank">{% if change_label %}{{ change_label }}{% else %}Edit{% endif %}</a>{% endif %}
+      {% if add_url %}<a class="dropdown-item" href="{{ add_url }}" target="_blank">{% if add_label %}{{ add_label }}{% else %}Add{% endif %}</a>{% endif %}
+      {% if list_url %}<a class="dropdown-item" href="{{ list_url }}" target="_blank">{% if list_label %}{{ list_label }}{% else %}List{% endif %}</a>{% endif %}
+    </div>
+  {% endif %}
 </div>
 
-{% endif %}
 {% endif %}

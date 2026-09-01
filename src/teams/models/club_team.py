@@ -1,9 +1,12 @@
 """ The ClubTeam model represents a Cambridge South team.
 """
 
+import re
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.db.models.query import QuerySet
+from django.utils.safestring import mark_safe
+from django.utils.html import escape
 from core.models import TeamGender, TeamOrdinal, ordinal_from_TeamOrdinal
 from core.utils import get_thumbnail_url
 from competitions.models import Season
@@ -133,6 +136,22 @@ class ClubTeam(models.Model):
     def genderless_abbr_name(self):
         """ Returns the abbreviated team name without either 'Ladies' or 'Mens'. """
         return self.abbr_name().replace(" Ladies", "").replace(" Mens", "")
+
+    def abbr_name_with_break(self):
+        """Return the abbreviated team name with a preferred break before the team type."""
+        name = escape(self.abbr_name())
+
+        match = re.search(r'\s+(Mixed|Mens|Ladies)\b', name)
+
+        if match:
+            before = name[:match.start()]
+            after = name[match.start():].lstrip()
+
+            return mark_safe(
+                f'{before}<wbr> <span class="no-break">{after}</span>'
+            )
+
+        return name
 
     def current_participation(self):
         participations = self.clubteamseasonparticipation_set.current()

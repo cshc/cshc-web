@@ -4,7 +4,7 @@ Renders the match report, with title and author.
 {% load cshc_tags %}
 
 <div class="g-mb-20 g-color-main">
-  <h3>{{ match.match_title_text }}</h3>
+  <h3 class="g-font-size-18 g-font-size-20--md g-font-size-26--lg">{{ match.match_title_text }}</h3>
   {% if match.report_author %}
     <i class="fas fa-pencil-alt g-mr-5"></i>{{ match.report_author|urlise_model }}
   {% endif %}

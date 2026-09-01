@@ -373,7 +373,7 @@ def get_east_england_hockey_division(page_url, division, season_obj, team_name=N
             LOG.debug(f"Parsed team from API: {dr}")
 
     except requests.exceptions.RequestException as e:
-        LOG.error(f"API request failed for {division.name} ({season_obj.slug}): {e}", exc_info=True)
+        LOG.error(f"API request failed for {division.name} ({season_obj.slug}): {e}", exc_info=False)
         return []
     except (KeyError, TypeError, AttributeError) as e:
         LOG.error(f"API response structure unexpected for {division.name} ({season_obj.slug}). Error: {e}. "
@@ -427,4 +427,4 @@ def set_team(team, name, division):
             team.opp_team = Team.objects.get(name_q)
             team.our_team = None
     except (Team.DoesNotExist, ClubTeam.DoesNotExist):
-        LOG.error("Could not find team '{}'".format(name))
+        LOG.error("Could not find team '{}' in division '{}'".format(name, division))
