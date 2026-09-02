@@ -11,6 +11,9 @@ import { Timeline2, Timeline2Item, CustomScrollbar } from 'components/Unify';
 const EndOfSeasonAwards = ({ data }) => {
   // Group awards by season
   const grouped = groupBy(data.results, awardWinner => awardWinner.season.slug);
+  if (!data.results || !data.results.length) {
+    return <p className="g-font-style-italic text-center">(No end of season awards)</p>;
+  }
   return (
     <CustomScrollbar maxHeight="200px">
       <Timeline2 className="g-pb-40">
