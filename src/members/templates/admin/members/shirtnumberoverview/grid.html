@@ -1,0 +1,73 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">Home</a>
+    &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_label|capfirst }}</a>
+    &rsaquo; {{ opts.verbose_name_plural|capfirst }}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <div id="changelist" class="module filtered">
+        <div id="toolbar">
+            <form id="changelist-search" method="get">
+                <div>
+                    <label for="searchbar"><img src="{% static 'admin/img/search.svg' %}" alt="Search"></label>
+                    <input type="text" size="40" name="q" value="{{ search_query }}" id="searchbar" autofocus>
+                    <input type="submit" value="Search">
+                    {% if search_query %}
+                        <span class="small quiet">{{ result_count }} result{{ result_count|pluralize }} (<a href="?">{{ full_result_count }} total</a>)</span>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+
+        <div class="results">
+            <table id="result_list">
+                <thead>
+                    <tr>
+                        <th scope="col"><div class="text">Number</div></th>
+                        {% for header in column_headers %}
+                            <th scope="col"><div class="text">{{ header }}</div></th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for number, cells in page.object_list %}
+                        <tr class="{% cycle 'row1' 'row2' %}">
+                            <th scope="row">{{ number }}</th>
+                            {% for members in cells %}
+                                <td{% if members|length > 1 %} style="background-color: #fff3cd;"{% endif %}>
+                                    {% for member in members %}
+                                        <a href="{% url 'admin:members_member_change' member.pk %}">{{ member.full_name }}</a>{% if not forloop.last %}, {% endif %}
+                                    {% empty %}
+                                        &mdash;
+                                    {% endfor %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="{{ column_headers|length|add:1 }}">No shirt numbers match your search.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if paginator.num_pages > 1 %}
+        <p class="paginator">
+            {% for page_num in paginator.page_range %}
+                {% if page_num == page.number %}
+                    <span class="this-page">{{ page_num }}</span>
+                {% else %}
+                    <a href="?{% if search_query %}q={{ search_query }}&amp;{% endif %}p={{ page_num }}">{{ page_num }}</a>
+                {% endif %}
+            {% endfor %}
+            {{ paginator.count }} number{{ paginator.count|pluralize }}
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

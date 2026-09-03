@@ -364,3 +364,14 @@ class Member(models.Model):
             return self.squadmembership_set.current().first()
         except:
             return None
+
+
+class ShirtNumberOverview(Member):
+    """ Proxy model that surfaces the shirt-number overview as its own
+        entry in the Django admin index. Not a separate DB table.
+    """
+    class Meta:
+        proxy = True
+        app_label = 'members'
+        verbose_name = 'Shirt number'
+        verbose_name_plural = 'Shirt numbers'
