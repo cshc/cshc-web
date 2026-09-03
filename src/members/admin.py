@@ -25,7 +25,7 @@ class MemberAdmin(ImageCroppingMixin, admin.ModelAdmin):
     fieldsets = [
         ('Personal', {'fields': ['user', 'first_name', 'known_as', 'last_name',
                                  'gender', 'profile_pic', 'profile_pic_cropping']}),
-        ('Playing', {'fields': ['is_current', 'shirt_number',
+        ('Playing', {'fields': ['is_current', 'shirt_number', 'shirt_number_hold_until',
                                 'pref_position', 'is_umpire', 'is_coach']}),
         ('Contact', {'fields': ['email', 'phone', 'addr_street',
                                 'addr_line2', 'addr_town', 'addr_postcode', 'addr_position']}),

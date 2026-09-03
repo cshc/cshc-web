@@ -9,6 +9,7 @@
 
 import logging
 import os
+from datetime import date
 import geocoder
 from django.conf import settings
 from django.db import models
@@ -63,9 +64,11 @@ class MemberManager(models.Manager):
         """
         Helper method to build the queryset of members whose shirt numbers
         should be considered 'in use' for a given gender, respecting
-        is_current status and grace periods.
+        is_current status, grace periods, and per-member holds.
         """
         base_queryset = self.filter(gender=gender)
+
+        hold_q = Q(shirt_number_hold_until__gte=date.today())
 
         shirt_number_include_not_current_obj, _ = ClubInfo.objects.get_or_create(
                 key='ShirtNumIncNonCurr', defaults={'value': 'True'})
@@ -94,12 +97,13 @@ class MemberManager(models.Manager):
                     (Q(is_current=False) & (
                         Q(last_appearance_season_start__isnull=False) &
                         Q(last_appearance_season_start__gte=stale_cutoff_season_start_date)
-                    ))
+                    )) |
+                    hold_q
                 )
             else:
-                return annotated_queryset.filter(is_current=True)
+                return annotated_queryset.filter(Q(is_current=True) | hold_q)
         else:
-            return base_queryset.filter(is_current=True)
+            return base_queryset.filter(Q(is_current=True) | hold_q)
 
     def get_available_shirt_numbers(self, gender,
                                     max_count=None):
@@ -211,6 +215,12 @@ class Member(models.Model):
 
     shirt_number = models.CharField(max_length=4, blank=True)
     """ Players shirt number """
+
+    shirt_number_hold_until = models.DateField(
+        "Hold shirt number until", null=True, blank=True,
+        help_text="If set, this member's shirt number stays reserved until this date, "
+                  "even if they are not a current member.")
+    """ Optional date until which this member's shirt number is held reserved. """
 
     is_coach = models.NullBooleanField(
         "Coach?", null=True, blank=True, default=False, help_text='Does this member possess a hockey coaching qualification?')
