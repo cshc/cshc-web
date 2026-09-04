@@ -14,7 +14,8 @@ class MatchAwardAdmin(admin.ModelAdmin):
 @admin.register(EndOfSeasonAward)
 class EndOfSeasonAwardAdmin(admin.ModelAdmin):
     """ Admin interface definition for the EndOfSeasonAward model. """
-    pass
+    model = EndOfSeasonAward
+    search_fields = ('name',)
 
 
 @admin.register(MatchAwardWinner)
