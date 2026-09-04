@@ -85,7 +85,7 @@
                 <p>Our <strong>Ladies' 1st XI</strong> play in East Division 1 North</p>
               </div>
               <div class="col-lg-3 g-flex-centered">
-                <a class="btn btn-md u-btn-primary g-brd-2 rounded-0" href="{% url 'contact_us' %}">Find out more...</a>
+                <a class="btn btn-md u-btn-primary g-brd-2 text-uppercase" href="{% url 'contact_us' %}">Find out more</a>
               </div>
             </div>
           </div>
@@ -107,14 +107,16 @@
 
       <div class="col-md-6 align-self-center g-py-20 g-pl-40--md">
         <div>
-          <h2 class="h4 text-uppercase g-letter-spacing-1 g-mb-20">Improve your hockey skills</h2>
-          <ul class="fa-ul g-mb-40 g-font-size-20 g-line-height-1_2">
-            <li class="g-mb-20"><i class="fa-li fas fa-check-square g-mr-5"></i>Free coached men's and ladies' sessions</li>
-            <li class="g-mb-20"><i class="fa-li fas fa-check-square g-mr-5"></i>Junior hockey for players age 6-14</li>
-            <li class="g-mb-20"><i class="fa-li fas fa-check-square g-mr-5"></i>All levels from beginners upwards</li>
-            <li class="g-mb-20"><i class="fa-li fas fa-check-square g-mr-5"></i>Dedicated goalkeeper training</li>
+          <h2 class="h4 g-font-size-18 g-font-size-20--md g-font-size-26--lg text-uppercase g-letter-spacing-1 g-mb-20 text-center text-md-left">Improve your hockey skills</h2>
+          <ul class="fa-ul g-mb-40 g-font-size-16 g-font-size-18--md g-line-height-1_2">
+            <li class="g-mb-10 g-mb-15--lg"><i class="fa-li fas fa-check-square g-mr-5"></i>Free coached men's and ladies' sessions</li>
+            <li class="g-mb-10 g-mb-15--lg"><i class="fa-li fas fa-check-square g-mr-5"></i>Junior hockey for players age 6-14</li>
+            <li class="g-mb-10 g-mb-15--lg"><i class="fa-li fas fa-check-square g-mr-5"></i>All levels from beginners upwards</li>
+            <li class="g-mb-10 g-mb-15--lg"><i class="fa-li fas fa-check-square g-mr-5"></i>Dedicated goalkeeper training</li>
           </ul>
-          <a class="text-uppercase btn btn-lg u-btn-outline-primary rounded-0" href="{% url 'upcoming_trainingsession_list' %}">Come train with us</a>
+        </div>
+        <div class="text-center g-pr-80--md">
+          <a class="text-uppercase btn btn-lg u-btn-outline-primary" href="{% url 'upcoming_trainingsession_list' %}">Come train with us</a>
         </div>
       </div>
     </div>
@@ -126,8 +128,8 @@
     <div class="row">
       <div class="col-md-6 align-self-center g-py-20 g-pr-40 order-2 order-md-1">
         <div>
-          <h2 class="h4 text-uppercase g-letter-spacing-1 g-mb-20">Meet new people</h2>
-          <div class="g-mb-40 g-font-size-20">
+          <h2 class="h4 g-font-size-18 g-font-size-20--md g-font-size-26--lg text-uppercase g-letter-spacing-1 g-mb-20 text-center text-md-left">Meet new people</h2>
+          <div class="g-mb-40 g-font-size-16 g-font-size-18--md  text-center text-md-left">
             <p>Stay for match teas then grab a drink from the bar and watch the other South teams playing.</p>
             <p>In fact, why not just hang out all afternoon!</p>
             <p>And then there's the legendary nights outs...</p>
@@ -157,13 +159,15 @@
 
       <div class="col-md-6 align-self-center g-py-20 g-pl-40--md">
         <div>
-          <h2 class="h4 text-uppercase g-letter-spacing-1 g-mb-20">Great facilities and value for money</h2>
-          <ul class="fa-ul g-mb-40 g-font-size-20 g-line-height-1_2">
-            <li class="g-mb-20"><i class="fa-li fas fa-check-square g-mr-5"></i>Lowest playing fees in Cambridge</li>
-            <li class="g-mb-20"><i class="fa-li fas fa-check-square g-mr-5"></i>Cheapest student rates</li>
-            <li class="g-mb-20"><i class="fa-li fas fa-check-square g-mr-5"></i>New floodlit all-weather home pitch</li>
+          <h2 class="h4 g-font-size-18 g-font-size-20--md g-font-size-26--lg text-uppercase g-letter-spacing-1 g-mb-20 text-center text-md-left">Great value and facilities</h2>
+          <ul class="fa-ul g-mb-40 g-font-size-16 g-font-size-18--md g-line-height-1_2">
+            <li class="g-mb-10 g-mb-15--lg"><i class="fa-li fas fa-check-square g-mr-5"></i>Lowest playing fees in Cambridge</li>
+            <li class="g-mb-10 g-mb-15--lg"><i class="fa-li fas fa-check-square g-mr-5"></i>Cheapest student rates</li>
+            <li class="g-mb-10 g-mb-15--lg"><i class="fa-li fas fa-check-square g-mr-5"></i>Two floodlit all-weather home pitches</li>
           </ul>
-          <a class="text-uppercase btn btn-lg u-btn-outline-primary rounded-0" href="{% url 'contact_us' %}">Get in touch</a>
+        </div>
+        <div class="text-center g-pr-60--md">
+          <a class="text-uppercase btn btn-lg u-btn-outline-primary" href="{% url 'contact_us' %}">Get in touch</a>
         </div>
       </div>
     </div>
@@ -174,8 +178,8 @@
   {% include 'blocks/_middle_heading.html' with title="Latest News" %}
   {% get_recent_entries 3 'core/_recent_articles.html' %}
   <div class="text-center">
-    <a class="text-uppercase btn btn-lg u-btn-outline-primary rounded-0" title="More from the blog" href="{% url 'zinnia:entry_archive_index' %}">
-      More from the blog...
+    <a class="text-uppercase btn btn-lg u-btn-outline-primary" title="More from the blog" href="{% url 'zinnia:entry_archive_index' %}">
+      More from the blog
     </a>
   </div>
 </section>
