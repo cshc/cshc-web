@@ -1,7 +1,9 @@
 """ Configuration of Members models for the admin interface.
 """
 
+from django import forms
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from image_cropping import ImageCroppingMixin
 from members.models import Member, CommitteeMembership, CommitteePosition, SquadMembership
 
@@ -32,6 +34,39 @@ class MemberAdmin(ImageCroppingMixin, admin.ModelAdmin):
         ('Medical', {'fields': ['dob', 'emergency_contact',
                                 'emergency_relationship', 'emergency_phone', 'medical_notes']}),
     ]
+
+    class Media:
+        css = {
+            'all': ('css/admin.css',)
+        }
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "user":
+            User = get_user_model()
+
+            class UserChoiceField(forms.ModelChoiceField):
+                def label_from_instance(self, obj):
+                    full_name = f"{obj.first_name} {obj.last_name}".strip()
+                    email = (obj.email or "").strip()
+
+                    if full_name and email:
+                        return f"{full_name} ({email})"
+                    if full_name:
+                        return full_name
+                    if email:
+                        return email
+                    return str(obj)
+
+            kwargs["queryset"] = User.objects.all().order_by("first_name", "last_name", "email")
+            kwargs["form_class"] = UserChoiceField
+
+        formfield = super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+        if db_field.name == "user":
+            existing = formfield.widget.attrs.get("class", "")
+            formfield.widget.attrs["class"] = f"{existing} member-user-select".strip()
+
+        return formfield
 
     def full_name_with_option(self, obj):
         return "{}{} {}".format(obj.first_name, " ({})".format(obj.known_as) if obj.known_as else '', obj.last_name)
