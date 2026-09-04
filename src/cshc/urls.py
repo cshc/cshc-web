@@ -25,7 +25,7 @@ from django.conf.urls.static import static
 from core.views import JuniorsContactSubmissionCreateView, ContactSubmissionCreateView, site_webmanifest
 from members.views import profile
 from venues.views import DirectionsView
-from .views import HomeView, CalendarView, CommitteeSeasonView, CaptainsSeasonView, templateTestView, CshcGraphQLView
+from .views import HomeView, CalendarView, CommitteeSeasonView, CaptainsSeasonView, templateTestView, CshcGraphQLView, shirt_numbers_export
 from .sitemap import CshcSitemap
 
 
@@ -88,6 +88,8 @@ urlpatterns = [
     url(r'^members/', include('members.urls')),
     url(r'^teams/', include('teams.urls')),
     url(r'^training/', include('training.urls')),
+    url(r'^suppliers/shirtnumbers/?$', shirt_numbers_export,
+        name='shirt_numbers_export'),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),  # CKEditor Urls
     url(r'^accounts/profile/$', profile, name='user_profile'),

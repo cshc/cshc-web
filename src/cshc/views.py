@@ -1,20 +1,24 @@
 """ Django views that don't fit nicely into one of the other apps.
 """
 
+import csv
+import hmac
 from datetime import datetime
 from django.views.generic import TemplateView
 from django.utils import timezone
 from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.views.decorators.http import require_http_methods
+from django.http import HttpResponse, HttpResponseForbidden
 from graphene_django.views import GraphQLView
 from training.views import UpcomingTrainingSessionsView
-from core.models import TeamGender
+from core.models import TeamGender, ClubInfo, Gender
 from core.views import get_season_from_kwargs, add_season_selector
 from competitions.models import Season
 from teams.models import ClubTeam, TeamCaptaincy
 from matches.models import Match, Appearance
-from members.models import CommitteeMembership
+from members.models import CommitteeMembership, Member
 from members.utils import member_from_request
 
 
@@ -249,3 +253,67 @@ class CshcGraphQLView(UserPassesTestMixin, GraphQLView):
 
     def test_func(self):
         return self.request.method == 'POST' or self.request.user.is_superuser
+
+
+@require_http_methods(['GET', 'POST'])
+def shirt_numbers_export(request):
+    """ Password-protected CSV export of assigned shirt numbers per gender.
+
+        The password is stored in ClubInfo under the key 'SuppliersPassword'. If
+        the key is unset or empty, the endpoint returns 403 for all callers.
+
+        GET renders a small form. POST validates the submitted password and
+        streams the CSV attachment. The password only ever travels in the POST
+        body, never in the URL.
+    """
+    try:
+        expected = ClubInfo.objects.get(key='SuppliersPassword').value
+    except ClubInfo.DoesNotExist:
+        expected = ''
+
+    if not expected:
+        return HttpResponseForbidden('Forbidden')
+
+    if request.method == 'GET':
+        return render(request, 'club_info/shirt_numbers_export.html', {})
+
+    supplied = request.POST.get('password', '')
+    if not hmac.compare_digest(str(expected), str(supplied)):
+        return HttpResponseForbidden('Incorrect password.')
+
+    max_shirt_number_obj, _ = ClubInfo.objects.get_or_create(
+        key='ShirtNumMax', defaults={'value': '199'})
+    max_shirt_number = int(max_shirt_number_obj.value)
+
+    gender_columns = ((Gender.Male, "Men's"), (Gender.Female, "Ladies'"))
+
+    buckets_by_gender = {}
+    for gender_value, _label in gender_columns:
+        active = Member.objects._get_members_with_active_shirt_numbers_queryset(gender_value).only(
+            'pk', 'first_name', 'known_as', 'last_name', 'shirt_number')
+        buckets = {}
+        for member in active:
+            raw = (member.shirt_number or '').strip()
+            if not raw:
+                continue
+            try:
+                n = int(raw)
+            except ValueError:
+                continue
+            if 1 <= n <= max_shirt_number:
+                buckets.setdefault(n, []).append(member)
+        buckets_by_gender[gender_value] = buckets
+
+    response = HttpResponse(content_type='text/csv; charset=utf-8')
+    response['Content-Disposition'] = 'attachment; filename="shirt-numbers.csv"'
+    # UTF-8 BOM so Excel decodes accented characters correctly.
+    response.write('﻿')
+    writer = csv.writer(response)
+    writer.writerow(['Number'] + [label for _, label in gender_columns])
+    for n in range(1, max_shirt_number + 1):
+        row = [n]
+        for gender_value, _label in gender_columns:
+            members = buckets_by_gender[gender_value].get(n, [])
+            row.append('; '.join(m.full_name() for m in members))
+        writer.writerow(row)
+    return response

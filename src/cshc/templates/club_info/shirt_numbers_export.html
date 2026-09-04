@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load cshc_tags %}
+
+{% block title %}{{ block.super }} | Shirt Numbers Export{% endblock %}
+
+{% block content %}
+  {% heading "Shirt Numbers Export" %}
+
+  <p class="lead">Enter the supplier password to download the current shirt numbers as a CSV file.</p>
+
+  <div class="alert alert-danger" role="alert" id="csv-error" hidden></div>
+
+  <form method="post" class="row" id="csv-form">
+    {% csrf_token %}
+    <div class="col-12 col-md-6 col-lg-4 g-mb-15 g-pt-20 g-pb-20">
+      <input type="password" name="password" id="password" class="form-control" autocomplete="off" required autofocus>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn u-btn-primary text-uppercase" id="csv-submit">
+        <span id="csv-submit-idle">Submit</span>
+        <span id="csv-submit-busy" hidden>
+          <i class="fas fa-spinner fa-spin"></i>
+          Preparing download&hellip;
+        </span>
+      </button>
+    </div>
+  </form>
+{% endblock content %}
+
+{% block body_js %}
+  {{ block.super }}
+  <script>
+    (function () {
+      var form = document.getElementById('csv-form');
+      var password = document.getElementById('password');
+      var submit = document.getElementById('csv-submit');
+      var idle = document.getElementById('csv-submit-idle');
+      var busy = document.getElementById('csv-submit-busy');
+      var errorBox = document.getElementById('csv-error');
+      if (!form) return;
+
+      function setBusy(isBusy) {
+        submit.disabled = isBusy;
+        password.readOnly = isBusy;
+        idle.hidden = isBusy;
+        busy.hidden = !isBusy;
+      }
+
+      function showError(message) {
+        errorBox.textContent = message;
+        errorBox.hidden = false;
+      }
+
+      function clearError() {
+        errorBox.hidden = true;
+        errorBox.textContent = '';
+      }
+
+      function filenameFromResponse(response, fallback) {
+        var header = response.headers.get('Content-Disposition') || '';
+        var match = /filename="([^"]+)"/.exec(header);
+        return match ? match[1] : fallback;
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        clearError();
+        setBusy(true);
+
+        fetch(form.action || window.location.href, {
+          method: 'POST',
+          body: new FormData(form),
+          credentials: 'same-origin',
+        }).then(function (response) {
+          if (response.status === 403) {
+            showError('Incorrect password.');
+            return null;
+          }
+          if (!response.ok) {
+            showError('Download failed (' + response.status + ').');
+            return null;
+          }
+          return response.blob().then(function (blob) {
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = filenameFromResponse(response, 'shirt-numbers.csv');
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+          });
+        }).catch(function () {
+          showError('Download failed. Please try again.');
+        }).then(function () {
+          setBusy(false);
+        });
+      });
+    })();
+  </script>
+{% endblock body_js %}
