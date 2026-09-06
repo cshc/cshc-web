@@ -190,7 +190,7 @@ class CaptainsSeasonView(TemplateView):
         else:
             participating_teams_qs = ClubTeam.objects.filter(
                 clubteamseasonparticipation__season=season
-            ).active().order_by('position').distinct()
+            ).order_by('position').distinct()
 
         for team in participating_teams_qs:
             team.name = team.long_name
