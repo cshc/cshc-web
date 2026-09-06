@@ -160,7 +160,7 @@ class CommitteeSeasonView(TemplateView):
 
         context['general_committee'] = [
             m for m in all_committee_memberships
-            if not ("Captain" in m.position.name or "Co-Captain" in m.position.name)
+            if "Captain" not in m.position.name or "Club Captain" in m.position.name
         ]
 
         season_slug_list = list(Season.objects.filter(
