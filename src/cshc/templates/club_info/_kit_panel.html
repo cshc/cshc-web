@@ -4,37 +4,28 @@
 
 <h3 class="text-center g-pb-10">{{gender}}</h3>  
 <div class="d-flex">
-  <div class="card card-outline-info rounded-0">
-    <h3 class="card-header h5 text-center g-color-white g-bg-primary g-brd-transparent rounded-0">
-      Home
-    </h3>
-  
+  <div class="card card-outline-info rounded-1 g-mr-5">
+    <h3 class="card-header h5 text-center g-color-white g-bg-primary g-brd-transparent rounded-1 text-uppercase text-nowrap g-font-weight-600">Primary</h3>
     <div class="card-block g-pa-0">
       {% abs_static_url home_url as home_image %}
-      {% thumbnail home_image "300" as home_image_thumbnail %}
-        <img class="w-100 g-pa-15" alt="Home kit" src="{{ home_image_thumbnail.url }}"/>
-      {% endthumbnail %}
-      <div class="g-bg-gray-light-v5 text-center g-pa-15 g-font-weight-600 g-color-grey-dark-v4 g-brd-top g-brd-gray-light-v3">
-        <p>Purple shirts</p>
-        <p>Navy shorts{% if gender == 'Ladies' %} or skirts{% endif %}</p>
-        <p>Purple socks</p>
+        <img class="w-100 g-pa-15" alt="Primary kit - purple shirts, navy shorts{% if gender == 'Ladies' %} or skirts{% endif %}, purple socks" src="{{ home_image }}"/>
+      <div class="g-bg-gray-light-v5 text-center g-pa-15 g-font-weight-600 g-font-size-16 g-color-grey-dark-v4 g-brd-top g-brd-gray-light-v3">
+        <p class="g-mb-5 g-mb-10--lg">Purple shirts</p>
+        <p class="g-mb-5 g-mb-10--lg">Navy shorts{% if gender == 'Ladies' %} or skirts{% endif %}</p>
+        <p class="g-mb-5 g-mb-10--lg">Purple socks</p>
       </div>
     </div>
   </div>
-  <div class="card card-outline-info rounded-0">
-    <h3 class="card-header h5 text-center g-bg-away g-brd-transparent rounded-0">
-      Away
-    </h3>
-  
+
+  <div class="card card-outline-info rounded-1 g-ml-5">
+    <h3 class="card-header h5 text-center g-bg-away g-brd-transparent rounded-1 text-uppercase text-nowrap g-font-weight-600">Alternate</h3>
     <div class="card-block g-pa-0">
       {% abs_static_url away_url as away_image %}
-      {% thumbnail away_image "300" as away_image_thumbnail %}
-        <img class="w-100 g-pa-15" alt="Away kit" src="{{ away_image_thumbnail.url }}"/>
-      {% endthumbnail %}
-      <div class="g-bg-gray-light-v5 text-center g-pa-15 g-font-weight-600 g-color-grey-dark-v4 g-brd-top g-brd-gray-light-v3">
-        <p>Yellow shirts</p>
-        <p>Navy shorts{% if gender == 'Ladies' %} or skirts{% endif %}</p>
-        <p>Yellow socks</p>
+      <img class="w-100 g-pa-15" alt="Alternate kit - yellow shirts, navy shorts{% if gender == 'Ladies' %} or skirts{% endif %}, yellow socks" src="{{ away_image}}"/>
+      <div class="g-bg-gray-light-v5 text-center g-pa-15 g-font-weight-600 g-font-size-16 g-color-grey-dark-v4 g-brd-top g-brd-gray-light-v3">
+        <p class="g-mb-5 g-mb-10--lg">Yellow shirts</p>
+        <p class="g-mb-5 g-mb-10--lg">Navy shorts{% if gender == 'Ladies' %} or skirts{% endif %}</p>
+        <p class="g-mb-5 g-mb-10--lg">Yellow socks</p>
       </div>
     </div>
   </div>

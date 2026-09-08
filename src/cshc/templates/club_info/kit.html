@@ -4,9 +4,10 @@
 {% load cshc_tags %}
 {% load compress %}
 
-{% block title %}{{ block.super }} | Kit{% endblock %}
+{% block title %}{{ block.super }} | Colours and Kit{% endblock %}
 
 {% block link %}
+  {% include 'blocks/_dszparallaxer_css.html' %}
   {% compress css %}
   <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
   <link rel="stylesheet" href="{% static "vendor/icon-line/css/simple-line-icons.css" %}">
@@ -18,46 +19,57 @@
   {% clear_breadcrumbs %}
 {% endblock %}
 
-{% block content %}
+{% block main %}
+{% clubinfo 'SecretaryName' as secretary_name %}
+{% clubinfo 'KitOfficerName' as kitofficer_name %}
 
-{% heading "Club Colours and Kit" %}
-
-<p class="lead">Playing shirts are custom manufactured for the club by special order. New members are required to purchase a home 
-  shirt on joining the club. These are offered at a subsidised price. Away shirts are provided by the club but players may also 
-  purchase a personal shirt with the same number as their home shirt.</p>
-
-<div class="row">
-  <div class="col-12 col-lg-6 g-pb-40">
-    {% include 'club_info/_kit_panel.html' with gender="Men" home_url="img/kit/adidas_home_kit_men.png" away_url="img/kit/adidas_away_kit_men.png" %}
-  </div>
-  <div class="col-12 col-lg-6 g-pb-40">
-    {% include 'club_info/_kit_panel.html' with gender="Ladies" home_url="img/kit/adidas_home_kit_ladies.png" away_url="img/kit/adidas_away_kit_ladies.png" %}
-  </div>
-</div>
-
-{% subheading "Ordering Kit" %}
-
-<p>In addition to the playing shirts, the club also offers a variety of official playing and training kit available to order from our kit supplier 'Y1' via their <strong>
- <a href="https://y1sport.com/collections/cambridge-south-hc" target="_blank">online shop</a></strong>.</p>
-<p>The playing kit items are all constructed out of high performance fabrics and are selected to complement your club shirt. The training 
-  wear is smart and practical and incorporates the club crest and personalised embroidery and printing options.</p>
-
-
-<div class="row table-responsive g-mt-40">
-  <div class="col-12 col-md-8 col-lg-6">
-    <div class="card g-brd-primary rounded-0">
-      <h3 class="card-header g-bg-primary g-brd-transparent g-color-white g-font-size-16 rounded-0 mb-0">
-        <i class="fas fa-user g-mr-5"></i>
-        Colour Clashes
-      </h3>
-    
-      <div class="card-block g-pa-15">
-        <p class="card-text">The change strip is used away from home against clubs who wear purple or other dark colours, indicated by a <i class="g-color-yellow fas fa-user g-px-5" title="Away kit"></i> symbol on the team fixture pages</p>
-      </div>
-    
+{% include "blocks/_parallax_hero.html" with image="img/m1-5.jpg" title="Playing Kit" subtitle="Kit colours and ordering" %}
+<section class="container g-mt-20 g-mt-40--md g-mb-40 g-font-size-16 g-font-size-18--md">
+  <p>The club's primary playing strip for home and away games is a purple shirt, navy shorts or skirt, and purple socks. A yellow strip is used for away games when there is a colour clash.</p>
+  <p>New members must purchase a primary (home) shirt on joining the club. Alternate strip (away) shirts can be provided by the club when needed,
+    but many players prefer to purchase their own, personalized with the same number as their primary shirt.</p>
+  <div class="row col-12 justify-content-center g-mt-30 g-mb-30">
+    <div class="col-12 col-lg-6 g-pb-30">
+      {% include 'club_info/_kit_panel.html' with gender="Men" home_url="img/kit/y1_home_mens.jpg" away_url="img/kit/y1_away_mens.jpg" %}
+    </div>
+    <div class="col-12 col-lg-6 g-pb-30">
+      {% include 'club_info/_kit_panel.html' with gender="Ladies" home_url="img/kit/y1_home_ladies.jpg" away_url="img/kit/y1_away_ladies.jpg" %}
     </div>
   </div>
-</div>
+  <div class="row justify-content-center g-mb-20">
+    <div class="col-12 col-lg-10 g-mb-20">
+      <div class="card g-brd-primary rounded-1">
+        <h3 class="card-header g-bg-primary g-brd-transparent g-color-white g-font-size-16 rounded-1 mb-0 text-uppercase text-nowrap g-font-weight-600">
+          <i class="fas fa-user g-mr-5"></i>Colour Clashes
+        </h3>
+        <div class="card-block g-pa-15">
+          <p class="card-text g-font-size-16 g-font-size-18--md">The alternate strip is used away from home against clubs who wear purple or other dark colours, which are indicated by a 
+            <i class="g-color-yellow fas fa-user g-px-5" title="Away kit"></i> symbol on the team fixture pages.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<section class="container g-mt-20 g-mt-40--md g-pb-40 g-font-size-16 g-font-size-18--md">
+    {% include 'blocks/_middle_heading.html' with title="Ordering Kit" %}
+  <p>Club playing and training kit is available to order from our kit supplier <strong>Y1</strong> via their <a href="https://y1sport.com/collections/cambridge-south-hc" target="_blank">online shop</a>.
+    Most kit is available to order all year round, but some special made-to-order items are only available during set ordering windows.</p>
+  <p>The playing kit items are all constructed out of high performance fabrics and are selected to complement your club shirt. The training wear is smart and practical
+    and incorporates the club crest and personalised embroidery and printing options.</p>
+  <p>Some items can be personalised with your name and number. If you don't have a number, please contact the {% clubinfo_email 'KitOfficerEmail' kitofficer_name %} or {% clubinfo_email 'SecretaryEmail' secretary_name %}.</p>
+  <div class="text-center g-mt-40 g-mb-60">
+    <a class="text-uppercase btn btn-lg u-btn-outline-primary" title="Visit the Shop" href="https://y1sport.com/collections/cambridge-south-hc" target="_blank">
+      Visit the Y1 Shop
+    </a>
+  </div>
+</section>
 
-{% endblock content %}
+{% endblock main %}
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'blocks/_dszparallaxer_js.html' %}
+  {% include 'blocks/_scroll_nav_js.html' %}
+  {% include 'blocks/_focus_state_js.html' %}
+{% endblock %}
