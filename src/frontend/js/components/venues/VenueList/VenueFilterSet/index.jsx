@@ -37,52 +37,53 @@ const VenueFilterSet = ({ currentSeason, teams, divisions }) => {
   }));
 
   teamOptions.unshift({ value: NoFilter, label: 'All' });
+  divisionOptions.unshift({ value: NoFilter, label: 'All' });
   return (
-    <div>
-      <div className="text-right">
-        <button
-          className="btn btn-link"
-          onClick={() => {
-            pushUrlQuery({});
-          }}
-        >
-          Clear all
-        </button>
-      </div>
-      <TextFilter
-        filterName={FilterName.TextSearch}
-        urlQueryConfig={urlPropsQueryConfig[FilterName.TextSearch]}
-      />
-      <BooleanFilter
-        filterName={FilterName.HomeGround}
-        defaultValue={false}
-        label="Home Grounds only"
-        urlQueryConfig={urlPropsQueryConfig[FilterName.HomeGround]}
-      />
-      <BooleanFilter
-        filterName={FilterName.Season}
-        label="Current Season only"
-        defaultValue={false}
-        trueValue={currentSeason}
-        urlQueryConfig={urlPropsQueryConfig[FilterName.Season]}
-      />
-      <FilterGroup title="Team">
-        <OptionListFilter
+    <div class="g-mt-40">
+      <FilterGroup title="Search" className="g-mb-20">
+        <TextFilter
+          filterName={FilterName.TextSearch}
+          placeholder="Venue name..."
+          urlQueryConfig={urlPropsQueryConfig[FilterName.TextSearch]}
+        />
+        <BooleanFilter
+          filterName={FilterName.HomeGround}
+          defaultValue={false}
+          label="Home Grounds only"
+          urlQueryConfig={urlPropsQueryConfig[FilterName.HomeGround]}
+        />
+        <BooleanFilter
+          filterName={FilterName.Season}
+          label="Current Season only"
+          defaultValue={false}
+          trueValue={currentSeason}
+          urlQueryConfig={urlPropsQueryConfig[FilterName.Season]}
+        />
+        <SelectFilter
+          label="Team"
           filterName={FilterName.Team}
           defaultValue={NoFilter}
           options={teamOptions}
           urlQueryConfig={urlPropsQueryConfig[FilterName.Team]}
+          stacked
         />
-      </FilterGroup>
-      <FilterGroup title="Division">
         <SelectFilter
+          label="Division"
           filterName={FilterName.Division}
+          defaultValue={NoFilter}
           options={divisionOptions}
           urlQueryConfig={urlPropsQueryConfig[FilterName.Division]}
-          placeholder="Select a division..."
-          openUpwards
+          stacked
         />
       </FilterGroup>
+      <div className="text-right g-mt-15 g-mb-20">
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            pushUrlQuery({});
+          }}
+        >Clear all</button>
+      </div>
     </div>
   );
 };

@@ -12,6 +12,7 @@ const VenueTable = ({ venues, page, pageSize, onChangePage, onChangeUrlQueryPara
       data={venues || []}
       page={page}
       pageSize={pageSize}
+      minRows={venues && venues.length > 0 ? 0 : 5}
       onChangePage={onChangePage}
       onChangeUrlQueryParams={onChangeUrlQueryParams}
       columns={[
@@ -50,6 +51,7 @@ const VenueTable = ({ venues, page, pageSize, onChangePage, onChangeUrlQueryPara
         },
       ]}
     />
+    {venues && <div className="g-py-20">{venues.length} venues</div>}
   </div>
 );
 
