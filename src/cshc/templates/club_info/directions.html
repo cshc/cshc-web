@@ -1,16 +1,21 @@
 {% extends "base.html" %}
 {% load static %}
+{% load thumbnail from sorl_thumbnail %}
 {% load django_bootstrap_breadcrumbs %}
 {% load cshc_tags %}
 
 {% block title %}{{ block.super }} | Directions{% endblock %}
+
+{% block link %}
+  {% include 'blocks/_dszparallaxer_css.html' %}
+{% endblock link %}
 
 {% block breadcrumbs %}
   {{ block.super }}
   {% clear_breadcrumbs %}
 {% endblock %}
 
-{% block content %}
+{% block main %}
 
 {% url 'venue_detail' 'cantabs' as cantabs_url %}
 {% url 'venue_detail' 'queen-edith' as queen_edith_url %}
@@ -18,69 +23,83 @@
 {% url 'venue_detail' 'st-marys' as st_marys_url %}
 {% url 'venue_list' as venues_url %}
 
-{% heading "Directions" %}
+{% include "blocks/_parallax_hero.html" with image="img/ladies-2.jpg" title="Directions" subtitle="Where to find us" %}
+<section class="container g-pt-20 g-pb-40 g-font-size-16 g-font-size-18--md">
+  <div id="home-venues" class="g-pb-20 g-mt-20">
+    <p>Home matches and training are held at <a href="{{ long_road_url }}" title="Pitch details...">Long Road Sixth Form College</a>
+      and <a href="{{ st_marys_url }}" title="Venue details">St Mary's & Homerton Sports Ground</a>. Both pitches are accessed from 
+      Long Road and are easily reached by car, cycle or public transport. Parking is available at both venues.</p>
+    <p>The nearest train station is Cambridge South, which is approximately a 10-minute walk from Long Road College.</p>
+  </div>
+  <div class="text-center g-mb-40">
+    <iframe src="https://www.google.com/maps/d/embed?mid=1lIfraO305IegNjXDKFhx0G1EtIdhPxvI" width="80%" height="480"></iframe>
+  </div>
 
-<div id="home-venues" class="g-pb-20">
-  {% subheading "Home Venues" %}
+  <div id="match-teas" class="g-pb-40">
+    {% include 'blocks/_middle_heading.html' with title="Match Teas" %}
+    <p>Our post-match teas are usually served at <a href="{{ cantabs_url }}">Cantabs RUFC Club House</a>, which is also located
+      off Long Road, a short walk from the college.</p>
+    
+    <p>When the Cantabs Club House is unavailable, our alternate venue for post-match teas is 
+      <a href="{{ queen_edith_url }}">The Queen Edith</a>, a tradtional pub with a large selection
+      of beer on draught.</p>
 
-  <p class="lead">We train and play our home matches at <a href="{{ long_road_url }}" title="Pitch details...">Long Road Sixth Form College</a> and
-    <a href="{{ st_marys_url }}" title="Venue details">St Mary's & Homerton Sports Ground</a> in south Cambridge.</p>
-
-  <iframe src="https://www.google.com/maps/d/embed?mid=1lIfraO305IegNjXDKFhx0G1EtIdhPxvI" width="100%" height="480"></iframe>
-</div>
-
-<div id="away-matches" class="g-pb-20">
-  {% subheading "Away Matches" %}
-
-  <p class="lead">Details of the pitch locations of the clubs we play against can be found on the <a href="{{ venues_url }}">Venues</a> page.</p>
-  <p class="lead">Alternatively, a full list of all club astro pitches in the East Region with directions to them can be
-    found <a href="http://www.east-hockey.com/clubs/clubastrosearch.asp" target="_blank">here</a>.</p>
-</div>
-
-<div id="match-teas" class="g-pb-20">
-  {% subheading "Match Teas" %}
-
-  <figure class="row flex-md-row align-items-center">
-    <div class="col-md-6 px-0">
-      <div class="u-ns-bg-v1-bottom u-ns-bg-v1-right--md g-bg-white g-py-30 g-px-50">
-        <div class="g-mb-25">
-          <div class="g-mb-20">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 align-self-center g-py-20 g-pr-40 order-2 order-md-1">
+          <div>
             <h4 class="h4 g-color-black g-mb-5">Cantabs RUFC Club House</h4>
-          </div>
-          <p class="lead">Our post-match teas are held at <a href="{{ cantabs_url }}">Cantabs RUFC Club House</a>.</p>
-          <address class="g-font-weight-600 g-color-gray-dark-v4">
-            Sedley Taylor Road<br/>
-            Cambridge<br/>
-            CB2 8PW
-          </address>
+            <div class="g-font-size-16 g-font-size-18--md">
+              <address class="g-font-weight-600 g-color-gray-dark-v4">
+                Sedley Taylor Road<br/>
+                Cambridge<br/>
+                CB2 8PW
+              </address>
+              <p>It is best to leave your car at the college and walk to the Club House.</p>
+            </div>
+          </div> 
+        </div>
+        <div class="col-md-6 align-self-center g-py-20 order-1 order-md-2">
+          {% abs_static_url "img/cantabs.jpg" as cantabs_image %}
+          {% thumbnail cantabs_image "540" as cantabs_image_thumbnail %}
+            <img class="w-100" src="{{ cantabs_image_thumbnail.url }}" alt="Cantabs RUFC Club House">
+          {% endthumbnail %}
         </div>
       </div>
     </div>
-    <div class="col-md-6 px-0">
-      <img class="w-100" src="{% static "img/cantabs.jpg" %}" alt="Cantabs RUFC Club House">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 align-self-center g-py-20 g-pr-40 order-2 order-md-2">
+          <div>
+            <h4 class="h4 g-color-black g-mb-5">The Queen Edith Pub</h4>
+            <div class="g-font-size-16 g-font-size-18--md">
+              <address class="g-font-weight-600 g-color-gray-dark-v4">
+                Wulfstan Way<br>
+                Cambridge<br>
+                CB1 8QN<br>
+              </address>
+              <p>The pub is a five minute drive from the pitches and has a small car park and on-street parking available.</p>
+            </div>
+          </div> 
+        </div>
+        <div class="col-md-6 align-self-center g-py-20 order-1 order-md-1">
+          {% abs_static_url "img/queen-edith.jpg" as queen_edith_image %}
+          {% thumbnail queen_edith_image "540" as queen_edith_image_thumbnail %}
+            <img class="w-100" src="{{ queen_edith_image_thumbnail.url }}" alt="The Queen Edith Pub">
+          {% endthumbnail %}
+        </div>
+      </div>
     </div>
-  </figure>
+  </div>
 
-  <figure class="row flex-md-row align-items-center">
-    <div class="col-md-6 order-md-2 px-0">
-      <div class="u-ns-bg-v1-bottom u-ns-bg-v1-left--md g-bg-white g-py-30 g-px-50">
-        <div class="g-mb-25">
-          <div class="g-mb-20">
-            <h4 class="h4 g-color-black g-mb-5">The Queen Edith pub</h4>
-          </div>
-          <p class="lead">Alternate venue of post-match teas: <a href="{{ queen_edith_url }}">The Queen Edith</a>.
-            <address class="g-font-weight-600 g-color-gray-dark-v4">
-              Wulfstan Way<br>
-              Cambridge<br>
-              CB1 8QN<br>
-            </address>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 order-md-1 px-0">
-      <img class="w-100" src="{% static "img/queen-edith.jpg" %}" alt="The Queen Edith">
-    </div>
-  </figure>
-</div>
-{% endblock content %}
+  <div id="away-venues" class="g-mb-60">
+    {% include 'blocks/_middle_heading.html' with title="Away Venues" %}
+    <p>Details of the pitch locations of the clubs we play against can be found on the <a href="{{ venues_url }}">Venues</a> page.</p>
+  </div>
+</section>
+{% endblock main %}
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'blocks/_dszparallaxer_js.html' %}
+{% endblock %}
