@@ -301,12 +301,18 @@ p > a {
 }
 
 .parallax-hero-height {
-  height: 350px;
+  height: 200px;
 }
 
 @media (min-width: 768px) {
   .parallax-hero-height {
-    height: 450px;
+    height: 300px;
+  }
+}
+
+@media (min-width: 992px) {
+  .parallax-hero-height {
+    height: 400px;
   }
 }
 
