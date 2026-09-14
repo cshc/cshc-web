@@ -62,10 +62,10 @@ class LeagueTable extends React.PureComponent {
                 <th>
                   <abbr title="Lost">L</abbr>
                 </th>
-                <th>
+                <th className="d-none d-md-table-cell">
                   <abbr title="Goals For">GF</abbr>
                 </th>
-                <th>
+                <th className="d-none d-md-table-cell">
                   <abbr title="Goals Against">GA</abbr>
                 </th>
                 <th>
@@ -90,8 +90,8 @@ class LeagueTable extends React.PureComponent {
                     <td>{row.won}</td>
                     <td>{row.drawn}</td>
                     <td>{row.lost}</td>
-                    <td>{row.goalsFor}</td>
-                    <td>{row.goalsAgainst}</td>
+                    <td className="d-none d-md-table-cell">{row.goalsFor}</td>
+                    <td className="d-none d-md-table-cell">{row.goalsAgainst}</td>
                     <td>{relative(row.goalDifference)}</td>
                     <td>{row.points}</td>
                     <td>

@@ -27,29 +27,30 @@
 
 {% block main %}
 {% include 'core/_messages.html' %}
-{% include "blocks/_parallax_hero.html" with image="img/astro1.jpg" title=team.long_name %}
+{% include "blocks/_parallax_hero.html" with image="img/astro1.jpg" title=team.long_name subtitle=participation.season %}
 {% url 'clubteam_detail' team.slug as base_team_url %}
 
 <section class="container g-mt-20 g-mt-40--md g-mb-20">
-  <div class="g-pb-10 d-flex flex-row flex-wrap justify-content-between align-items-md-center">
-
-    <div class="d-flex flex-row flex-wrap align-items-center g-mb-10 g-mb-md-0 order-2 order-sm-1">
-      <h3 class="g-pr-10">{{ participation.division }}</h3>
+  <div class="g-pb-20--lg d-flex flex-row align-items-start g-mb-15">
+    <div class="d-flex flex-row flex-wrap align-items-center flex-grow-1 min-width-0 g-mb-md-0">
+      <!-- Small screens only -->
+      <h3 class="d-md-none g-font-size-20 g-font-weight-600 g-pr-10 g-mt-5 g-mb-0">
+        {{ participation.division.league }} {{ participation.div_abbr }}
+      </h3>
+      <!-- md and larger -->
+      <h3 class="d-none d-md-block g-font-size-30 g-font-size-36--lg g-pr-10 g-mb-0">
+        {{ participation.division }}
+      </h3>
       {% if participation.final_pos %}
-        <span class="g-pb-5 g-font-weight-700">
+        <span class="d-md-none g-mr-5 g-pt-2 g-font-weight-700">
+          {% division_result part=participation %}
+        </span>
+        <span class="d-none d-md-block g-mr-5 g-font-weight-700">
           {% division_result part=participation size='lg' %}
         </span>
       {% endif %}
-
     </div>
-    <div class="d-flex flex-row flex-wrap align-items-center order-1 order-sm-2 g-mb-5 g-mb-md-0">
-      <div class="g-mb-10">
-        {% if participation %}
-          {% instance_admin_links participation %}
-        {% else %}
-          {% model_admin_links 'teams' 'clubteamseasonparticipation' %}
-        {% endif %}
-      </div>
+    <div class="d-flex flex-row align-items-center flex-shrink-0 ml-auto g-mb-md-0">
       {% include 'blocks/_team_selector.html' with class='g-mr-sm-3 g-mr-10' base_url=base_team_url %}
       {% include 'blocks/_season_selector.html' with class='g-mr-sm-3' base_url=base_team_url %}
     </div>
@@ -147,12 +148,16 @@
             {% if participation and participation.division %}
               {% if participation.division_tables_url %}
                 <a href="{{ participation.division_tables_url }}" target="_blank" title="{{ participation.division }} league table" class="btn u-btn-outline-primary g-mr-10 g-mb-10">
-                  <i class="fas fa-external-link-alt g-mr-5"></i>EH League Table
+                  <i class="fas fa-external-link-alt g-mr-5"></i>
+                  <span class="d-none d-lg-inline">EH League Table</span>
+                  <span class="d-lg-none">EH Table</span>
                 </a>
               {% endif %}
               {% if participation.division_fixtures_url %}
                 <a href="{{ participation.division_fixtures_url }}" target="_blank" title="{{ participation.division }} fixtures/results" class="btn u-btn-outline-primary g-mb-10">
-                  <i class="fas fa-external-link-alt g-mr-5"></i>EH Results/Fixtures
+                  <i class="fas fa-external-link-alt g-mr-5"></i>
+                  <span class="d-none d-lg-inline">EH Results/Fixtures</span>
+                  <span class="d-lg-none">EH Results</span>
                 </a>
               {% endif %}
             {% endif %}
@@ -179,7 +184,14 @@
   </div>
 </section>
 <section class="container g-mt-20 g-mt-40--md g-mb-40">
-{% include 'react/react_div.html' %}
+  {% include 'react/react_div.html' %}
+  <div class="g-pt-20 text-right">
+    {% if participation %}
+      {% instance_admin_links participation %}
+    {% else %}
+      {% model_admin_links 'teams' 'clubteamseasonparticipation' %}
+    {% endif %}
+  </div>
 </section>
 
 {% endblock main %}
