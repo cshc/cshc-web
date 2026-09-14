@@ -17,22 +17,25 @@
   {{ block.super }}
   {% breadcrumb "Stats" "stats" %}
   {% breadcrumb "Goal King" "goal_king" %}
+  {% if not is_current_season %}
+  {% breadcrumb season.slug "goal_king" season_slug=season.slug %}
+  {% endif %}
 {% endblock %}
 
 {% block content %}
 
   {% url 'goal_king' as base_goal_king_url %}
 
-  <header class="g-mb-20 d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-    <h2 class="h1 g-font-weight-300 text-uppercase g-mb-10 g-mb-md-0">Goal King</h2>
+<header class="g-mb-20 d-flex flex-row flex-wrap justify-content-between align-items-md-center">
+  <h2 class="g-font-weight-300 text-uppercase g-mb-10 g-mb-md-0 g-mr-10 g-font-size-28 g-font-size-36--md">Goal King</h2>
     {% include 'blocks/_season_selector.html' with base_url=base_goal_king_url %}
   </header>
   
-  <p class="lead">This table includes all goals scored outdoors and indoors in competitive and friendly matches against external teams.</p>
+  <p class="g-font-size-16 g-font-size-18--md">This table includes all goals scored outdoors and indoors in competitive and friendly matches against external teams.</p>
   
-  <p class="lead">Ranking for ladies is in <span class="u-label g-bg-blue">Blue</span> and men in <span class="u-label g-bg-green g-mr-10 g-mb-15">Green</span>. 'GPG' is the average number of goals scored per game played.</p>
+  <p class="g-font-size-16 g-font-size-18--md">Ranking for ladies is in <span class="u-label g-bg-blue">Blue</span> and men in <span class="u-label g-bg-green">Green</span>. 'GPG' is the average number of goals scored per game played.</p>
 
-  <p class="g-font-style-italic">Note: If the results are filtered by a specific team, the players are ordered by how many goals they've scored <strong>for that team</strong> (as opposed to the total number of goals scored).</p>
+  <p class="g-font-size-16 g-font-size-18--md g-font-style-italic">Note: If the results are filtered by a specific team, the players are ordered by how many goals they've scored <strong>for that team</strong> (as opposed to the total number of goals scored).</p>
  
   {% include 'react/react_div.html' %}
 

@@ -17,20 +17,23 @@
   {{ block.super }}
   {% breadcrumb "Stats" "stats" %}
   {% breadcrumb "Accidental Tourist" "accidental_tourist" %}
+  {% if not is_current_season %}
+  {% breadcrumb season.slug "accidental_tourist" season_slug=season.slug %}
+  {% endif %}
 {% endblock %}
 
 {% block content %}
 
 {% url 'accidental_tourist' as base_accidental_tourist_url %}
 
-<header class="g-mb-20 d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-  <h2 class="h1 g-font-weight-300 text-uppercase g-mb-10 g-mb-md-0">Accidental Tourist</h2>
+<header class="g-mb-20 d-flex flex-row flex-wrap justify-content-between align-items-md-center">
+  <h2 class="g-font-weight-300 text-uppercase g-mb-10 g-mb-md-0 g-mr-10 g-font-size-24 g-font-size-36--md">Accidental Tourist</h2>
   {% include 'blocks/_season_selector.html' with base_url=base_accidental_tourist_url %}
 </header>
 
-<p class="lead">This table shows the total miles and miles-per-game travelled by each player during the season.</p>
+<p class="g-font-size-16 g-font-size-18--md">This table shows the total miles and miles-per-game travelled by each player during the season.</p>
 
-<p class="lead">Ranking for ladies is in <span class="u-label g-bg-blue">blue</span> and men in <span class="u-label g-bg-green">green</span>. 'MPG' is the average number of miles travelled (there and back) per game played.</p>
+<p class="g-font-size-16 g-font-size-18--md">Ranking for ladies is in <span class="u-label g-bg-blue">blue</span> and men in <span class="u-label g-bg-green">green</span>. 'MPG' is the average number of miles travelled (there and back) per game played.</p>
 
 <div class="table-responsive">
   <table class="table table-sm table-hover">
