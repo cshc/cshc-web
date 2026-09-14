@@ -1,7 +1,13 @@
-<div class="season-team-selector g-mb-10 {{ class }}">
+<div class="season-team-selector {{ class }}">
   <div class="dropdown">
-    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {{ season }}
+    <button class="btn btn-outline-primary dropdown-toggle season-team-selector-btn"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-label="Select season">
+      <i class="fas fa-calendar-alt d-lg-none"></i>
+      <span class="d-none d-lg-inline">{{ season }}</span>
     </button>
     <div class="dropdown-menu dropdown-menu-right season-team-selector__menu">
       {% if show_current_season_shortcut %}
