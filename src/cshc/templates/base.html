@@ -108,6 +108,50 @@
       $('[data-toggle="tooltip"]').tooltip();
       // initialization of go to
       $.HSCore.components.HSGoTo.init('.js-go-to');
+
+      function resetHamburgerInstantly() {
+        var $hamburger = $('.hamburger');
+        $hamburger.addClass('no-transition').removeClass('is-active');
+        setTimeout(function () {
+          $hamburger.removeClass('no-transition');
+        }, 50);
+      }
+
+      function resetNavInstantly() {
+        var $nav = $('#navBar');
+        var $hamburger = $('.hamburger');
+        var $toggler = $('[data-target="#navBar"]');
+
+        if ($nav.length) {
+          $nav.addClass('no-transition');
+          $hamburger.addClass('no-transition');
+          $toggler.addClass('no-transition');
+
+          $nav.collapse('hide');
+          $hamburger.removeClass('is-active');
+          $toggler.attr('aria-expanded', 'false');
+          $('.hs-mega-menu, .hs-sub-menu').hide();
+
+          setTimeout(function () {
+            $nav.removeClass('no-transition');
+            $hamburger.removeClass('no-transition');
+            $toggler.removeClass('no-transition');
+          }, 50);
+        }
+      }
+
+      // Reset the hamburger icon the moment a link is tapped,
+      // before the page snapshot is cached into the back-forward cache
+      $('#navBar').on('click pointerdown', 'a:not([href="#"]):not([data-toggle])', function () {
+        resetHamburgerInstantly();
+      });
+
+      window.addEventListener('pagehide', resetNavInstantly);
+      window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+          resetNavInstantly();
+        }
+      });
     });
   </script>
   {% block body_js %}{% endblock body_js %}
