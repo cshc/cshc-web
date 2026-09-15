@@ -16,7 +16,6 @@
   <link rel="stylesheet" href="{% static "vendor/fancybox/jquery.fancybox.min.css" %}">
   {% endcompress %}
   {% include 'react/react_css.html' with bundle_name='TeamDetail' %}
-  {% include 'blocks/_dszparallaxer_css.html' %}
 {% endblock link %}
 
 {% block breadcrumbs %}
@@ -27,7 +26,7 @@
 
 {% block main %}
 {% include 'core/_messages.html' %}
-{% include "blocks/_parallax_hero.html" with image="img/astro1.jpg" title=team.long_name subtitle=participation.season %}
+{% include "blocks/_background_hero.html" with image="img/astro1.jpg" title=team.long_name subtitle=participation.season %}
 {% url 'clubteam_detail' team.slug as base_team_url %}
 
 <section class="container g-mt-20 g-mt-40--md g-mb-20">
@@ -204,7 +203,6 @@
   {% endcompress %}
   {% include 'blocks/_lightbox_js.html' %}
   {% include 'react/react_js.html' with bundle_name='TeamDetail' %}
-  {% include 'blocks/_dszparallaxer_js.html' %}
   {% include 'blocks/_scroll_nav_js.html' %}
   {% include 'blocks/_focus_state_js.html' %}
   

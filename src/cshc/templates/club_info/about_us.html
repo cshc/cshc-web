@@ -8,7 +8,6 @@
 {% block title %}{{ block.super }} | About Us{% endblock %}
 
 {% block link %}
-  {% include 'blocks/_dszparallaxer_css.html' %}
   {% compress css %}
   <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
   <link rel="stylesheet" href="{% static "vendor/icon-line/css/simple-line-icons.css" %}">
@@ -25,7 +24,7 @@
 {% url 'venue_detail' 'long-road' as long_road_url %}
 {% url 'venue_detail' 'cantabs' as cantabs_url %}
 
-{% include "blocks/_parallax_hero.html" with image="img/club_night.jpg" title="Cambridge South Hockey Club" subtitle="Who - What - Where - How" %}
+{% include "blocks/_background_hero.html" with image="img/club_night.jpg" title="Cambridge South Hockey Club" subtitle="Who - What - Where - How" %}
 
 {% include 'core/_messages.html' %}
 
@@ -170,5 +169,4 @@
 
 {% block body_js %}
 {{ block.super }}
-{% include 'blocks/_dszparallaxer_js.html' %}
 {% endblock %}

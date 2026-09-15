@@ -8,7 +8,6 @@
 {% block title %}{{ block.super }} | Join Us{% endblock %}
 
 {% block link %}
-  {% include 'blocks/_dszparallaxer_css.html' %}
   {% compress css %}
   <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
   <link rel="stylesheet" href="{% static "vendor/icon-line/css/simple-line-icons.css" %}">
@@ -22,7 +21,7 @@
 
 {% block main %}
 
-{% include "blocks/_parallax_hero.html" with image="img/club_night.jpg" title="Join Us" subtitle="New members always welcome" %}
+{% include "blocks/_background_hero.html" with image="img/club_night.jpg" title="Join Us" subtitle="New members always welcome" %}
 <section class="container g-mt-20 g-mt-40--md g-mb-40">
   {% url 'juniors_index' as juniors_url %}
   <div class="row">
@@ -159,7 +158,6 @@
 
 {% block body_js %}
   {{ block.super }}
-  {% include 'blocks/_dszparallaxer_js.html' %}
   {% include 'blocks/_scroll_nav_js.html' %}
   {% include 'blocks/_focus_state_js.html' %}
 {% endblock %}

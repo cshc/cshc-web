@@ -6,10 +6,6 @@
 
 {% block title %}{{ block.super }} | Training{% endblock %}
 
-{% block link %}
-  {% include 'blocks/_dszparallaxer_css.html' %}
-{% endblock link %}
-
 {% block breadcrumbs %}
   {{ block.super }}
   {% clear_breadcrumbs %}
@@ -29,7 +25,7 @@
 {% clubinfo 'SecretaryName' as sec_name %}
 {% _in_season as in_season %}
 
-{% include "blocks/_parallax_hero.html" with image="img/training-banner.jpg" title="Training" subtitle="It never gets easier, you just get better" %}
+{% include "blocks/_background_hero.html" with image="img/training-banner.jpg" title="Training" subtitle="It never gets easier, you just get better" %}
 
 {% include 'core/_messages.html' %}
 
@@ -232,8 +228,3 @@
 </section>
 
 {% endblock main %}
-
-{% block body_js %}
-  {{ block.super }}
-  {% include 'blocks/_dszparallaxer_js.html' %}
-{% endblock %}
