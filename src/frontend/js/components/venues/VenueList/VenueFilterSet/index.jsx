@@ -39,11 +39,11 @@ const VenueFilterSet = ({ currentSeason, teams, divisions }) => {
   teamOptions.unshift({ value: NoFilter, label: 'All' });
   divisionOptions.unshift({ value: NoFilter, label: 'All' });
   return (
-    <div class="g-mt-40">
+    <div>
       <FilterGroup title="Search" className="g-mb-20">
         <TextFilter
           filterName={FilterName.TextSearch}
-          placeholder="Venue name..."
+          placeholder="Venue or town..."
           urlQueryConfig={urlPropsQueryConfig[FilterName.TextSearch]}
         />
         <BooleanFilter

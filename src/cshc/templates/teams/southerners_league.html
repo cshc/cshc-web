@@ -16,21 +16,24 @@
   {{ block.super }}
   {% breadcrumb "Stats" "stats" %}
   {% breadcrumb "Southerners League" "southerners_league" %}
+  {% if not is_current_season %}
+  {% breadcrumb season.slug "southerners_league" season_slug=season.slug %}
+  {% endif %}
 {% endblock %}
 
 {% block content %}
 
 {% url 'southerners_league' as base_league_url %}
 
-<header class="g-mb-20 d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-  <h2 class="h1 g-font-weight-300 text-uppercase g-mb-10 g-mb-md-0">Southerners League</h2>
+<header class="g-mb-20 d-flex flex-row flex-wrap justify-content-between align-items-md-center">
+  <h2 class="g-font-weight-300 text-uppercase g-mb-10 g-mb-md-0 g-mr-10 g-mt-2 g-font-size-22 g-font-size-36--md">Southerners League</h2>
   {% include 'blocks/_season_selector.html' with base_url=base_league_url %}
 </header>
 
 <div class="row g-mb-40">
-  <div class="col-12 col-lg-7">
-    <p class="lead">The Southerners League is a fun comparison between the teams in the club giving a quick view of how they're all doing in relation to each other.</p>
-    <p class="lead">Cancelled friendlies, matches awarded as walkovers and tournament games have been ignored, as have games where the scores are not known.</p>
+  <div class="col-12 col-lg-7 g-mb-10">
+    <p class="g-font-size-16 g-font-size-18--md">The Southerners League is a fun comparison between the teams in the club giving a quick view of how they're all doing in relation to each other.</p>
+    <p class="g-font-size-16 g-font-size-18--md">Cancelled friendlies, matches awarded as walkovers and tournament games have been ignored, as have games where the scores are not known.</p>
   </div>
   <div class="col-12 col-lg-5">
     <div class="card card-outline-info rounded-0">

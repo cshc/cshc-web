@@ -7,14 +7,14 @@ export const VENUE_LIST_QUERY = gql`
   query VenueList(
     $isHome: Boolean
     $matches_Season_Slug: String
-    $name_Icontains: String
+    $search: String
     $matches_OurTeam_Slug: String
     $matches_DivisionId: ID
   ) {
     venues(
       isHome: $isHome
       matches_Season_Slug: $matches_Season_Slug
-      name_Icontains: $name_Icontains
+      search: $search
       matches_OurTeam_Slug: $matches_OurTeam_Slug
       matches_DivisionId: $matches_DivisionId
     ) {
@@ -41,7 +41,7 @@ export const venueListOptions = {
     variables: {
       isHome: homeGround || undefined,
       matches_Season_Slug: season || undefined,
-      name_Icontains: textSearch || undefined,
+      search: textSearch || undefined,
       matches_OurTeam_Slug: team !== NoFilter ? team : undefined,
       matches_DivisionId: division || undefined,
     },

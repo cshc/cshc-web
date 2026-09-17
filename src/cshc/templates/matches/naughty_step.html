@@ -21,17 +21,26 @@ This displays the red, yellow and green cards received by all players.
   {{ block.super }}
   {% breadcrumb "Stats" "stats" %}
   {% breadcrumb "Naughty Step" "naughty_step" %}
+  {% if season_slug != 'All seasons' %}
+  {% breadcrumb season_slug "naughty_step" season_slug=season_slug %}
+  {% endif %}
 {% endblock %}
 
 {% block content %}
-
-<header class="g-mb-20 d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-  <h2 class="h1 g-font-weight-300 text-uppercase g-mb-10 g-mb-md-0">The Naughty Step</h2>
+{{ season.slug }}
+<header class="g-mb-20 d-flex flex-row flex-wrap justify-content-between align-items-md-center">
+  <h2 class="g-font-weight-300 text-uppercase g-mb-md-0 g-mr-10 g-font-size-28 g-font-size-36--md">The Naughty Step</h2>
   <div class="season-team-selector">
     <div class="dropdown">
-      <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{ season_slug }}
-      </button>
+    <button class="btn btn-outline-primary dropdown-toggle season-team-selector-btn"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-label="Select season">
+      <i class="fas fa-calendar-alt d-lg-none"></i>
+      <span class="d-none d-lg-inline">{{ season_slug }}</span>
+    </button>
       <div class="dropdown-menu dropdown-menu-right season-team-selector__menu">
         <a class="dropdown-item {% if season_slug == 'All seasons' %}active{% endif %}" href="{% url 'naughty_step' %}">All seasons</a>
         {% for s in season_slug_list %}
@@ -46,8 +55,8 @@ This displays the red, yellow and green cards received by all players.
 
 <div class="row g-mb-40">
   <div class="col-12 col-lg-8">
-    <p class="lead">So - who are the naughty ones? The players who can't help but accumulate cards. Find out here!</p>
-    <p class="lead">The following table orders players first by the number of red cards they've received, then yellow 
+    <p class="g-font-size-16 g-font-size-18--md">So - who are the naughty ones? The players who can't help but accumulate cards. Find out here!</p>
+    <p class="g-font-size-16 g-font-size-18--md">The following table orders players first by the number of red cards they've received, then yellow 
       and finally green. If your name is not on the list - well done!</p>
   </div>
   <div class="col-12 col-lg-4">

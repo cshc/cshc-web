@@ -7,7 +7,6 @@
 {% block title %}{{ block.super }} | Venues{% endblock %}
 
 {% block link %}
-{% include 'blocks/_dszparallaxer_css.html' %}
   {{ block.super }}
   {% compress css %}
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
@@ -21,7 +20,7 @@
 {% endblock %}
 
 {% block main %}
-{% include "blocks/_parallax_hero.html" with image="img/m1-team.jpg" title="Venue List" subtitle="Places where we play" %}
+{% include "blocks/_background_hero.html" with image="img/m1-team.jpg" title="Venue List" subtitle="Places where we play" %}
 <section class="container g-pt-40 g-pb-40">
   {% include 'react/react_div.html' %}
 </section>
@@ -30,5 +29,4 @@
   {% block body_js %}
     {{ block.super }}
     {% include 'react/react_js.html' with bundle_name='VenueList' %}
-    {% include 'blocks/_dszparallaxer_js.html' %}
   {% endblock body_js %}

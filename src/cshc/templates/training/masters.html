@@ -6,10 +6,6 @@
 
 {% block title %}{{ block.super }} | Women's Masters{% endblock %}
 
-{% block link %}
-  {% include 'blocks/_dszparallaxer_css.html' %}
-{% endblock link %}
-
 {% block breadcrumbs %}
   {{ block.super }}
   {% clear_breadcrumbs %}
@@ -20,7 +16,7 @@
 
 {% url 'venue_detail' 'long-road' as long_road_url %}
 
-{% include "blocks/_parallax_hero.html" with image="img/womens-masters-banner.jpg" title="Women's Masters Hockey" subtitle="Informal hockey for those over 30" %}
+{% include "blocks/_background_hero.html" with image="img/womens-masters-banner.jpg" title="Women's Masters Hockey" subtitle="Informal hockey for those over 30" %}
 
 {% include 'core/_messages.html' %}
 
@@ -55,9 +51,3 @@
 
 
 {% endblock main %}
-
-
-{% block body_js %}
-  {{ block.super }}
-  {% include 'blocks/_dszparallaxer_js.html' %}
-{% endblock %}

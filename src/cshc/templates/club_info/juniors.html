@@ -9,7 +9,6 @@
 {% block title %}{{ block.super }} | Juniors{% endblock %}
 
 {% block link %}
-  {% include 'blocks/_dszparallaxer_css.html' %}
   {% compress css %}
   <link rel="stylesheet" href="{% static "css/juniors.css" %}?v=1">
   <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
@@ -29,7 +28,7 @@
 {% url 'join_us' as join_us %}
 {% clubinfo 'InSeason' as in_season %}
 
-{% include "blocks/_parallax_hero.html" with image="img/l1-3b.jpg" title="Juniors" subtitle="Hockey for boys and girls aged 6 to 14" %}
+{% include "blocks/_background_hero.html" with image="img/l1-3b.jpg" title="Juniors" subtitle="Hockey for boys and girls aged 6 to 14" %}
 
 {% include 'core/_messages.html' %}
 
@@ -258,7 +257,6 @@
 
 {% block body_js %}
   {{ block.super }}
-  {% include 'blocks/_dszparallaxer_js.html' %}
   {% include 'blocks/_scroll_nav_js.html' %}
   {% include 'blocks/_focus_state_js.html' %}
 {% endblock %}

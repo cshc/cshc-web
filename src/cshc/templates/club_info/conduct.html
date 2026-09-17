@@ -6,10 +6,6 @@
 
 {% block title %}{{ block.super }} | Code of Conduct{% endblock %}
 
-{% block link %}
-  {% include 'blocks/_dszparallaxer_css.html' %}
-{% endblock link %}
-
 {% block breadcrumbs %}
   {{ block.super }}
   {% clear_breadcrumbs %}
@@ -17,7 +13,7 @@
 
 {% block main %}
 
-{% include "blocks/_parallax_hero.html" with image="img/ladies-1.jpg" title="Code of Conduct" subtitle="Keeping Cambridge's friendliest hockey club friendly" %}
+{% include "blocks/_background_hero.html" with image="img/ladies-1.jpg" title="Code of Conduct" subtitle="Keeping Cambridge's friendliest hockey club friendly" %}
 
 <section class="container g-mt-20 g-mt-40--md g-mb-40">
   <p class="lead">We're proud to be the friendliest hockey club in Cambridge. To help keep it that way, we ask all members to 
@@ -134,7 +130,6 @@
 
 {% block body_js %}
   {{ block.super }}
-  {% include 'blocks/_dszparallaxer_js.html' %}
   {% include 'blocks/_scroll_nav_js.html' %}
   {% include 'blocks/_focus_state_js.html' %}
 {% endblock %}

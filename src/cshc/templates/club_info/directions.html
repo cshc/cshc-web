@@ -6,10 +6,6 @@
 
 {% block title %}{{ block.super }} | Directions{% endblock %}
 
-{% block link %}
-  {% include 'blocks/_dszparallaxer_css.html' %}
-{% endblock link %}
-
 {% block breadcrumbs %}
   {{ block.super }}
   {% clear_breadcrumbs %}
@@ -23,7 +19,7 @@
 {% url 'venue_detail' 'st-marys' as st_marys_url %}
 {% url 'venue_list' as venues_url %}
 
-{% include "blocks/_parallax_hero.html" with image="img/ladies-2.jpg" title="Directions" subtitle="Where to find us" %}
+{% include "blocks/_background_hero.html" with image="img/ladies-2.jpg" title="Directions" subtitle="Where to find us" %}
 <section class="container g-pt-20 g-pb-40 g-font-size-16 g-font-size-18--md">
   <div id="home-venues" class="g-pb-20 g-mt-20">
     <p>Home matches and training are held at <a href="{{ long_road_url }}" title="Pitch details...">Long Road Sixth Form College</a>
@@ -98,8 +94,3 @@
   </div>
 </section>
 {% endblock main %}
-
-{% block body_js %}
-  {{ block.super }}
-  {% include 'blocks/_dszparallaxer_js.html' %}
-{% endblock %}

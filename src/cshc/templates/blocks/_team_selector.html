@@ -1,12 +1,18 @@
-<div class="season-team-selector g-mb-10 {{ class }}">
+<div class="season-team-selector {{ class }}">
   <div class="dropdown">
-    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {{ team.long_name }}
+    <button class="btn btn-outline-primary dropdown-toggle season-team-selector-btn"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-label="Select team">
+      <i class="fas fa-users d-lg-none"></i>
+      <span class="d-none d-lg-inline">{{ team.long_name }}</span>
     </button>
-    <div class="dropdown-menu">
-      {% for team in TEAMS %}
-        {% for item in team.list %}
-          <a class="dropdown-item {% if item.1 == team.long_name %}active{% endif %}" href="{% url 'clubteam_season_detail' item.0 season.slug %}">{{item.1}}</a>
+    <div class="dropdown-menu dropdown-menu-right season-team-selector__menu">
+      {% for T in TEAMS %}
+        {% for item in T.list %}
+          <a class="dropdown-item {% if item.0 == team.slug %}active{% endif %}" href="{% url 'clubteam_season_detail' item.0 season.slug %}">{{item.1}}</a>
         {% endfor %}
         {% if not forloop.last %}<div class="dropdown-divider"></div>{% endif %}
       {% endfor %}

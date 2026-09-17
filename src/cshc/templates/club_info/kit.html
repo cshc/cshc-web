@@ -7,7 +7,6 @@
 {% block title %}{{ block.super }} | Colours and Kit{% endblock %}
 
 {% block link %}
-  {% include 'blocks/_dszparallaxer_css.html' %}
   {% compress css %}
   <link rel="stylesheet" href="{% static "vendor/icon-line-pro/style.css" %}">
   <link rel="stylesheet" href="{% static "vendor/icon-line/css/simple-line-icons.css" %}">
@@ -23,7 +22,7 @@
 {% clubinfo 'SecretaryName' as secretary_name %}
 {% clubinfo 'KitOfficerName' as kitofficer_name %}
 
-{% include "blocks/_parallax_hero.html" with image="img/m1-5.jpg" title="Playing Kit" subtitle="Kit colours and ordering" %}
+{% include "blocks/_background_hero.html" with image="img/m1-5.jpg" title="Playing Kit" subtitle="Kit colours and ordering" %}
 <section class="container g-mt-20 g-mt-40--md g-mb-40 g-font-size-16 g-font-size-18--md">
   <p>The club's primary playing strip for home and away games is a purple shirt, navy shorts or skirt, and purple socks. A yellow strip is used for away games when there is a colour clash.</p>
   <p>New members must purchase a primary (home) shirt on joining the club. Alternate strip (away) shirts can be provided by the club when needed,
@@ -69,7 +68,6 @@
 
 {% block body_js %}
   {{ block.super }}
-  {% include 'blocks/_dszparallaxer_js.html' %}
   {% include 'blocks/_scroll_nav_js.html' %}
   {% include 'blocks/_focus_state_js.html' %}
 {% endblock %}
