@@ -2,7 +2,9 @@
 GraphQL Schema for Venues
 """
 
+import django_filters
 import graphene
+from django.db.models import Q
 from geoposition.fields import GeopositionField
 from graphene_django_extras.converter import convert_django_field
 from graphene_django_extras.utils import is_required
@@ -19,6 +21,15 @@ def convert_geofield_to_string(field, registry=None, input_flag=None, nested_fie
 
 
 class VenueFilter(AndFilter):
+
+    # Free-text search across the venue name and town name fields.
+    search = django_filters.CharFilter(method='filter_search')
+
+    def filter_search(self, queryset, name, value):
+        return queryset.filter(
+            Q(name__icontains=value)
+            | Q(addr_city__icontains=value)
+        )
 
     class Meta:
         model = Venue

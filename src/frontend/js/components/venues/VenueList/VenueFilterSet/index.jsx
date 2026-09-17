@@ -43,7 +43,7 @@ const VenueFilterSet = ({ currentSeason, teams, divisions }) => {
       <FilterGroup title="Search" className="g-mb-20">
         <TextFilter
           filterName={FilterName.TextSearch}
-          placeholder="Venue name..."
+          placeholder="Venue or town..."
           urlQueryConfig={urlPropsQueryConfig[FilterName.TextSearch]}
         />
         <BooleanFilter
