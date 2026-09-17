@@ -1,3 +1,6 @@
+.home-banner {
+  overflow: hidden;
+}
 .home-banner .g-color-white a {
   color: rgb(216, 221, 255);
 }
