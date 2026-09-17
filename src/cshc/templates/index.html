@@ -14,7 +14,6 @@
 
 {% block link %}
   {% compress css %}
-  <link rel="stylesheet" href="{% static "vendor/dzsparallaxer/dzsparallaxer.css" %}">
   <link rel="stylesheet" href="{% static "css/tables.css" %}">
   <link rel="stylesheet" href="{% static "css/index.css" %}">
   {% endcompress %}
@@ -24,11 +23,8 @@
 
 {% url 'match_report_rss_feed' as matches_rss %}
 {% url 'calendar' as calendar %}
-{% mobile_friendly_image 'img/astro1.jpg' as background_image %}
 
-<section class="home-banner dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll is-touch dzsprx-readyall loaded" data-options="{direction: &quot;reverse&quot;, settings_mode_oneelement_max_offset: &quot;150&quot;}">
-    <div class="divimage dzsparallaxer--target w-100 g-bg-cover g-bg-img-hero" style="height: 130%; background-image: url(&quot;{% static background_image %}&quot;); transform: translate3d(0px, -117.768px, 0px);"></div>
-
+<section class="home-banner g-flex-centered g-bg-img-hero" style="background-image: url(&quot;{% static 'img/astro-lg.jpg' %}&quot;);">
     <div class="w-100">
         <div class="container g-bg-cover__inner match-summaries">
           <div class="row justify-content-center">
@@ -208,9 +204,6 @@
 
 {% block body_js %}
   {{ block.super }}
-  {% compress js %}
-  <script src="{% static "vendor/dzsparallaxer/dzsparallaxer.js" %}"></script>
-  {% endcompress %}
 
   {% include 'blocks/_scroll_nav_js.html' %}
   {% include 'blocks/_scroll_anim_js.html' %}
