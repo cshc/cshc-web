@@ -101,6 +101,8 @@ ACCOUNT_FORMS = {
     'reset_password_from_key': 'members.forms.UnifyResetPasswordKeyForm',
 }
 
+SOCIALACCOUNT_ADAPTER = 'core.adapters.SocialAccountAdapter'
+
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'js_sdk',
