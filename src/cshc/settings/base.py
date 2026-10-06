@@ -91,6 +91,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupFormExtra'
 ACCOUNT_USER_DISPLAY = user_display
 
+LOGIN_REDIRECT_URL = '/'
+
 ACCOUNT_FORMS = {
     'signup': 'members.forms.UnifySignupForm',
     'login': 'members.forms.UnifyLoginForm',
