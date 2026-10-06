@@ -1,9 +1,12 @@
-<div class="u-info-v1-2">
-  <figure class="u-block-hover">
-    <img class="w-100" src="{{ thumbnail }}" alt="Profile Pic">
+{% load thumbnail from sorl_thumbnail %}
+<div class="u-info-v1-2 h-100 d-flex flex-column">
+  <figure class="u-block-hover text-center g-bg-white">
+    {% thumbnail thumbnail_url "180" as profile_thumbnail %}
+    <img class="g-rounded-5 g-my-15" src="{{ profile_thumbnail.url }}" alt="Profile Pic"/>
+    {% endthumbnail %}
   </figure>
 
-  <div class="g-bg-white g-pa-25">
+  <div class="g-bg-white g-pa-25 d-flex flex-column" style="flex: 1 1 auto;">
     <div class="g-mb-15 d-flex justify-content-between">
       <div>
         <h4 class="h5 g-color-black g-mb-5">{{ name }}</h4>
@@ -12,8 +15,8 @@
     </div>
     <p>{{ blurb }}</p>
     {% if email %}
-    <div class="text-center">
-      <a class="text-uppercase btn btn-md u-btn-outline-primary rounded-0" title="Contact {{ name }}" href="mailto:{{ email }}">
+    <div class="text-center mt-auto">
+      <a class="text-uppercase btn btn-md u-btn-outline-primary" title="Contact {{ name }}" href="mailto:{{ email }}">
         Contact
       </a>
     </div>
