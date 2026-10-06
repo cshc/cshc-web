@@ -91,6 +91,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupFormExtra'
 ACCOUNT_USER_DISPLAY = user_display
 
+LOGIN_REDIRECT_URL = '/'
+
 ACCOUNT_FORMS = {
     'signup': 'members.forms.UnifySignupForm',
     'login': 'members.forms.UnifyLoginForm',
@@ -100,6 +102,8 @@ ACCOUNT_FORMS = {
     'reset_password': 'members.forms.UnifyResetPasswordForm',
     'reset_password_from_key': 'members.forms.UnifyResetPasswordKeyForm',
 }
+
+SOCIALACCOUNT_ADAPTER = 'core.adapters.SocialAccountAdapter'
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {

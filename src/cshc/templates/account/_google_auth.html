@@ -1,7 +1,7 @@
 {% load account socialaccount %}
 
 <div class="text-center">
-  <a class="btn btn-secondary gsi-material-button{% if btn_style %} gsi-material-button-{{ btn_style }}{% endif %}" href="{% provider_login_url 'google' method='oauth2' %}">
+  <a class="btn btn-secondary gsi-material-button{% if btn_style %} gsi-material-button-{{ btn_style }}{% endif %}" href="{% provider_login_url 'google' method='oauth2' next=next_url %}">
     <div class="gsi-material-button-state"></div>
     <div class="gsi-material-button-content-wrapper">
       <div class="gsi-material-button-icon">

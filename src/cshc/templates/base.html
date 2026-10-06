@@ -151,8 +151,25 @@
       window.addEventListener('pageshow', function (event) {
         if (event.persisted) {
           resetNavInstantly();
+          syncCsrfTokens();
         }
       });
+
+      // Keep the hidden csrfmiddlewaretoken in each form in sync with the
+      // current csrftoken cookie. Needed because the back-forward cache can
+      // restore an HTML snapshot whose embedded token has since been rotated
+      // (e.g. by signing out), which would otherwise cause a CSRF 403 on the
+      // next form submit.
+      function getCsrfCookie() {
+        var match = document.cookie.match(/(?:^|;\s*)csrftoken=([^;]+)/);
+        return match ? decodeURIComponent(match[1]) : null;
+      }
+      function syncCsrfTokens() {
+        var token = getCsrfCookie();
+        if (!token) return;
+        $('input[name="csrfmiddlewaretoken"]').val(token);
+      }
+      $(document).on('submit', 'form', syncCsrfTokens);
     });
   </script>
   {% block body_js %}{% endblock body_js %}
