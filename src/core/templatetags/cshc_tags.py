@@ -36,6 +36,15 @@ def abs_static_url(context, url):
     return ''.join(["http://", context.request.META['HTTP_HOST'], settings.STATIC_URL, url])
 
 
+@register.filter
+def social_account_for_provider(accounts, provider_id):
+    """ Return the first SocialAccount matching the given provider id, or None """
+    for account in accounts:
+        if account.provider == provider_id:
+            return account
+    return None
+
+
 @register.simple_tag
 def social_provider_icon(provider_id):
     """ Returns the appropriate (fontawesome) icon class for a Social Account Provider ID """
