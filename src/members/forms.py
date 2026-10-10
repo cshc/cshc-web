@@ -32,6 +32,15 @@ class MemberProfileForm(forms.ModelForm):
         super(MemberProfileForm, self).__init__(*args, **kwargs)
         self.fields['dob'].input_formats = ['%d-%m-%Y']
 
+    def clean_first_name(self):
+        return (self.cleaned_data.get('first_name') or '').strip()
+
+    def clean_known_as(self):
+        return (self.cleaned_data.get('known_as') or '').strip() or None
+
+    def clean_last_name(self):
+        return (self.cleaned_data.get('last_name') or '').strip()
+
     class Meta:
         """ Meta-info for the form."""
         model = Member
