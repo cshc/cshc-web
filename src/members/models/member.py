@@ -173,6 +173,15 @@ class Member(models.Model):
         return str(self.full_name())
 
     def save(self, *args, **kwargs):
+        # Strip surrounding whitespace from name fields so stray spaces entered
+        # via admin, social signup, or imports don't persist.
+        if self.first_name:
+            self.first_name = self.first_name.strip()
+        if self.last_name:
+            self.last_name = self.last_name.strip()
+        if self.known_as:
+            self.known_as = self.known_as.strip() or None
+
         # Try to do a geocode lookup if the address is set and the position isn't known
         if self.addr_postcode and not self.addr_position:
             try:

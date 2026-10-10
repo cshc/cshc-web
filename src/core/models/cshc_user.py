@@ -59,6 +59,13 @@ class CshcUser(AbstractUser):
         verbose_name = u'CSHC user'
         verbose_name_plural = u'CSHC users'
 
+    def save(self, *args, **kwargs):
+        if self.first_name:
+            self.first_name = self.first_name.strip()
+        if self.last_name:
+            self.last_name = self.last_name.strip()
+        super().save(*args, **kwargs)
+
     def get_full_name(self):
         return u"{} {}".format(self.first_name, self.last_name).strip()
 

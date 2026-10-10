@@ -19,6 +19,12 @@ class UserProfileForm(forms.ModelForm):
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
 
+    def clean_first_name(self):
+        return (self.cleaned_data.get('first_name') or '').strip()
+
+    def clean_last_name(self):
+        return (self.cleaned_data.get('last_name') or '').strip()
+
     class Meta:
         model = CshcUser
         fields = ('email', 'first_name', 'last_name')
@@ -55,6 +61,12 @@ class SignupFormExtra(forms.Form):
                 'placeholder': 'E-mail address',
                 'class': 'g-py-15 g-pr-15',
             })
+
+    def clean_first_name(self):
+        return (self.cleaned_data.get('first_name') or '').strip()
+
+    def clean_last_name(self):
+        return (self.cleaned_data.get('last_name') or '').strip()
 
     def signup(self, request, user):
         """
