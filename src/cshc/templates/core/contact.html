@@ -66,7 +66,7 @@ Contact Us page with contact form
   <div class="row justify-content-md-center">
     <div class="col-md-8">
       {% unify_form_required_fields_footnote 'inline' %}
-      <div class="form-group">
+      <div class="form-group recaptcha">
         {{ form.captcha }}
         {% if form.errors.captcha %}<small class="form-control-feedback">{{ form.errors.captcha }}</small>{% endif %}
       </div>

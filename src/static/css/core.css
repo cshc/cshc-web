@@ -381,6 +381,26 @@ p > a {
   white-space: nowrap;
 }
 
+/* reCAPTCHA: centre the fixed-size (304x78) widget and shrink it on narrow screens */
+.recaptcha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 374.98px) {
+  .recaptcha .g-recaptcha {
+    transform: scale(0.9);
+    transform-origin: center top;
+  }
+}
+
+@media (max-width: 359.98px) {
+  .recaptcha .g-recaptcha {
+    transform: scale(0.8);
+  }
+}
+
 /* Short pages (e.g. sign in/up): stretch to the full window height so the footer
    sits at the bottom instead of the dark body background showing beneath it */
 .fill-screen {
