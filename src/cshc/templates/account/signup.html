@@ -6,6 +6,8 @@
 
 {% block title %}{{ block.super }} - Sign Up{% endblock %}
 
+{% block main_class %}fill-screen{% endblock main_class %}
+
 {% block main %}
 
 {% url 'account_login' as login_url %}
@@ -14,12 +16,12 @@
 
 {% get_providers as socialaccount_providers %}
 
-<section class="g-bg-secondary">
-  <section class="container g-py-150">
+<section class="g-bg-secondary fill-screen__content fill-screen__content--centered">
+  <section class="container g-py-30 g-py-50--md">
     <div class="row justify-content-center">
-      <div class="col-sm-8 col-lg-6">
-        <div class="u-shadow-v21 g-bg-white g-brd-around g-brd-gray-light-v4 rounded g-pa-50">
-            <header class="text-center mb-4">
+      <div class="col-md-10 col-lg-8 col-xl-6">
+        <div class="u-shadow-v21 g-bg-white g-brd-around g-brd-gray-light-v4 rounded g-pa-20 g-pa-50--md">
+            <header class="text-center mb-2">
               <h2 class="h2 g-color-black g-font-weight-600">Sign Up</h2>
             </header>
 
@@ -34,27 +36,27 @@
               <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
               {% endif %}
               <div class="row">
-                <div class="col-xs-12 col-sm-6 mb-4">
+                <div class="col-xs-12 col-sm-6 mb-2">
                   {% unify_form_field 'first_name' 'inline' %}
                 </div>
             
-                <div class="col-xs-12 col-sm-6 mb-4">
+                <div class="col-xs-12 col-sm-6 mb-2">
                   {% unify_form_field 'last_name' 'inline' %}
                 </div>
               </div>
 
               <div class="row">
-                <div class="col mb-4">
+                <div class="col mb-2">
                   {% unify_form_field 'email' 'inline' %}
                 </div>
               </div>
               
               <div class="row">
-                <div class="col-xs-12 col-sm-6 mb-4">
+                <div class="col-xs-12 col-sm-6 mb-2">
                   {% unify_form_field 'password1' 'inline' %}
                 </div>
             
-                <div class="col-xs-12 col-sm-6 mb-4">
+                <div class="col-xs-12 col-sm-6 mb-2">
                   {% unify_form_field 'password2' 'inline' %}
                 </div>
               </div>
@@ -64,7 +66,7 @@
                 {% if form.errors.captcha %}<small class="form-control-feedback">{{ form.errors.captcha }}</small>{% endif %}
               </div>
 
-              <div class="mb-4">
+              <div class="mb-4 text-center">
                 <label class="form-check-inline u-check g-color-gray-dark-v5 g-font-size-13 g-pl-25">
                   <input 
                     id="tc-checkbox" 
@@ -73,19 +75,19 @@
                   <div class="u-check-icon-checkbox-v6 g-absolute-centered--y g-left-0">
                     <i class="fas g-rounded-2" data-check-icon=""></i>
                   </div>
-                  I accept the <a href="/terms-of-use/">Terms and Conditions</a>
+                  I accept the&nbsp;<a href="/terms-of-use/">Terms and Conditions</a>
                 </label>
               </div>
             
-              <button id="signup-button" disabled class="btn btn-md btn-block u-btn-primary rounded-0 g-py-15 mb-5" type="submit">Sign Up</button>
+              <button id="signup-button" disabled class="btn btn-md btn-block u-btn-primary g-py-15 g-mb-15 g-mb-30--md text-uppercase" type="submit">Sign Up</button>
               
               {% if socialaccount_providers %}
-              <div class="d-flex justify-content-center text-center g-mb-30">
+              <div class="d-flex justify-content-center text-center g-mb-15 g-mb-30--md">
                 <div class="d-inline-block align-self-center g-width-50 g-height-1 g-bg-gray-light-v1"></div>
                 <span class="align-self-center g-color-gray-dark-v3 mx-4">OR</span>
                 <div class="d-inline-block align-self-center g-width-50 g-height-1 g-bg-gray-light-v1"></div>
               </div>
-              <div class="g-mb-20">
+              <div class="g-mb-10 g-mb-20--md">
                 {% include 'account/_google_auth.html' with btn_text='Sign up with Google' btn_style='light' %}
               </div>
               {% endif %}

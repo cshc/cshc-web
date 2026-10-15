@@ -6,18 +6,20 @@
 
 {% block title %}{{ block.super }} - Sign In{% endblock %}
 
+{% block main_class %}fill-screen{% endblock main_class %}
+
 {% block main %}
 
 {% include 'core/_messages.html' %}
 
 {% get_providers as socialaccount_providers %}
 
-<section class="g-bg-secondary">
-  <section class="container g-py-150">
+<section class="g-bg-secondary fill-screen__content fill-screen__content--centered">
+  <section class="container g-py-30 g-py-50--md">
     <div class="row justify-content-center">
-      <div class="col-sm-8 col-lg-6">
-        <div class="u-shadow-v21 g-bg-white g-brd-around g-brd-gray-light-v4 rounded g-pa-50">
-            <header class="text-center mb-4">
+      <div class="col-md-10 col-lg-8 col-xl-6">
+        <div class="u-shadow-v21 g-bg-white g-brd-around g-brd-gray-light-v4 rounded g-pa-20 g-pa-50--md">
+            <header class="text-center mb-2">
               <h2 class="h2 g-color-black g-font-weight-600">Sign In</h2>
             </header>
 
@@ -54,18 +56,18 @@
                 </div>
               </div>
 
-              <div class="mb-5">
-                <button class="btn btn-md btn-block u-btn-primary g-py-13" type="submit">Sign In</button>
+              <div class="g-mb-15 g-mb-30--md">
+                <button class="btn btn-md btn-block u-btn-primary g-py-13 text-uppercase" type="submit">Sign In</button>
               </div>
 
               
               {% if socialaccount_providers %}
-              <div class="d-flex justify-content-center text-center g-mb-30">
+              <div class="d-flex justify-content-center text-center g-mb-15 g-mb-30--md">
                 <div class="d-inline-block align-self-center g-width-50 g-height-1 g-bg-gray-light-v1"></div>
                 <span class="align-self-center g-color-gray-dark-v3 mx-4">OR</span>
                 <div class="d-inline-block align-self-center g-width-50 g-height-1 g-bg-gray-light-v1"></div>
               </div>
-              <div class="g-mb-20">
+              <div class="g-mb-10 g-mb-20--md">
                 {% include 'account/_google_auth.html' with btn_text='Sign in with Google' btn_style='light' next_url=redirect_field_value %}
               </div>
               {% endif %}
