@@ -1,6 +1,7 @@
 """ Custom forms for the Member models.
 """
 
+from captcha.fields import ReCaptchaField
 from django import forms
 from geoposition.widgets import GeopositionWidget
 from allauth.account.forms import (
@@ -98,6 +99,7 @@ class UnifyLoginForm(LoginForm):
 
 
 class UnifySignupForm(SignupForm):
+    captcha = ReCaptchaField()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
