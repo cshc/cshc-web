@@ -15,6 +15,8 @@ Contact Us page with contact form
   {% clear_breadcrumbs %}
 {% endblock %}
 
+{% block main_class %}fill-screen{% endblock main_class %}
+
 {% block content %}
 
 {% url 'upcoming_trainingsession_list' as training %}
@@ -66,13 +68,13 @@ Contact Us page with contact form
   <div class="row justify-content-md-center">
     <div class="col-md-8">
       {% unify_form_required_fields_footnote 'inline' %}
-      <div class="form-group">
+      <div class="form-group recaptcha">
         {{ form.captcha }}
         {% if form.errors.captcha %}<small class="form-control-feedback">{{ form.errors.captcha }}</small>{% endif %}
       </div>
     </div>
   </div>
-  <div class="row justify-content-md-center">
+  <div class="row justify-content-md-center text-center">
     <div class="col-md-8">
       {% unify_form_submit_button 'SEND' 'inline' %}
     </div>

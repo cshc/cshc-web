@@ -62,7 +62,7 @@
 </head>
 
 <body>
-  <main>
+  <main class="{% block main_class %}{% endblock main_class %}">
     <header id="js-header" class="u-header u-header--static" data-header-fix-moment="100" data-event="hover">
       <div class="u-header__section u-header__section--dark g-transition-0_3 g-py-10 g-bg-black" data-header-fix-moment-exclude="g-py-10" data-header-fix-moment-classes="u-shadow-v18 g-py-0">
         {% include "core/_nav.html" %}
@@ -71,7 +71,7 @@
     
     {% block main %}
       {% include 'core/_messages.html' %}
-      <section class="container g-pt-20 g-pb-40">
+      <section class="container g-pt-20 g-pb-40 fill-screen__content">
         {% render_breadcrumbs %}
         {% block content %}{% endblock content %}
       </section>
