@@ -51,7 +51,7 @@ def utils(request):
                     ('l6', 'Ladies 6ths',),
                     #('l7', 'Ladies 7ths',),
                     # Add a border above this item
-                    #('l-in', 'Ladies Indoor', True),
+                    ('l-in', 'Ladies Indoor', True),
                     ('lv', 'Ladies Vets', True),
                 ],
             },
