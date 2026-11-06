@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Bar } from 'react-chartjs-2';
 import { rounded } from 'util/cshc';
-import { getTeamColorScales, getTeamColor } from 'util/colors';
+import { getTeamColors } from 'util/colors';
 import { Panel } from 'components/Unify';
 import withWindowSize from 'util/withWindowSize';
 import { Breakpoints } from 'util/constants';
@@ -90,7 +90,7 @@ const MemberPlayingRecordChart = ({ clubTeams, data, windowWidth }) => {
   };
 
   const allTeams = getAllTeams(data);
-  const teamColorScales = getTeamColorScales(
+  const teamColors = getTeamColors(
     clubTeams.filter(ct => allTeams.find(t => t.slug === ct.slug)),
   );
 
@@ -170,7 +170,7 @@ const MemberPlayingRecordChart = ({ clubTeams, data, windowWidth }) => {
       return matching ? matching.appearanceCount : 0;
     }),
     fill: false,
-    backgroundColor: getTeamColor(teamColorScales, clubTeams, t.slug),
+    backgroundColor: teamColors[t.slug],
     yAxisID: primaryAxis,
   }));
 
