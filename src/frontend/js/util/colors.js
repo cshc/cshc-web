@@ -1,57 +1,37 @@
 import chroma from 'chroma-js';
-import { Gender } from 'util/constants';
 
 /**
- * Color scales for the different gender teams
- * 
- * These colors are named ColorBrewer scales that work with the chroma library
- * Ref: http://colorbrewer2.org/
+ * Categorical team colors, assigned in this (fixed) order.
+ *
+ * The order matters: it has been validated so that neighbouring colors remain distinguishable
+ * for people with red-green or blue-yellow color blindness.
  */
-const genderColorScales = {
-  [Gender.Mens]: 'Blues',
-  [Gender.Ladies]: 'Greens',
-  [Gender.Mixed]: 'Oranges',
-};
+const teamColors = [
+  '#2a78d6', // blue
+  '#eb6834', // orange
+  '#1baf7a', // aqua
+  '#eda100', // yellow
+  '#e87ba4', // magenta
+  '#008300', // green
+  '#6250d6', // violet
+  '#e34948', // red
+  '#b20d8f', // fuchsia
+  '#813a30', // brown
+];
 
 /**
- * Create (and return) a color scale for the specified team gender.
- * 
- * The scale 'domain' (min/max) is determined by the number of teams of that gender.
+ * Get a dictionary of colors, keyed by team slug, for the specified list of teams.
+ *
+ * Colors are assigned in the order the teams are supplied. If there are more teams than colors,
+ * the palette is re-used with progressively darker variants.
  */
-const getGenderColorScale = (teams, gender) => {
-  const genderTeams = teams.filter(t => t.gender === gender);
-  return {
-    teams: genderTeams,
-    scale: chroma.scale(genderColorScales[gender]).domain([0, genderTeams.length]),
-  };
-};
-
-/**
- * Get a dictionary of color scales, keyed by team gender, for the specified list of teams
- */
-const getTeamColorScales = (teams) => {
-  const colorScales = {};
-
-  [Gender.Mens, Gender.Ladies, Gender.Mixed].forEach((gender) => {
-    colorScales[gender] = getGenderColorScale(teams, gender);
-  });
-
-  return colorScales;
-};
-
-/**
- * Get the color representing the given team.
- * 
- * Note: the color scales dictionary (created with 'getTeamColorScales') and the list of teams
- *       must be supplied as well.
- */
-const getTeamColor = (colorScales, teams, teamSlug) => {
-  const team = teams.find(t => t.slug === teamSlug);
-  const index = colorScales[team.gender].teams.findIndex(t => t.slug === teamSlug);
-  return colorScales[team.gender].scale(colorScales[team.gender].teams.length - index);
-};
+const getTeamColors = teams => teams.reduce((acc, team, index) => {
+  const color = teamColors[index % teamColors.length];
+  const variant = Math.floor(index / teamColors.length);
+  acc[team.slug] = variant ? chroma(color).darken(0.8 * variant).hex() : color;
+  return acc;
+}, {});
 
 module.exports = {
-  getTeamColorScales,
-  getTeamColor,
+  getTeamColors,
 };
