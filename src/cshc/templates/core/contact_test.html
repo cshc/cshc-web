@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load cshc_tags %}
+{% load static %}
+{% load django_bootstrap_breadcrumbs %}
+{% load unify %}
+
+{% comment %}
+Unlisted dry-run copy of the Contact Us page (core/contact.html) for testing
+Cloudflare Turnstile and the anti-spam checks. Nothing is saved or sent.
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Contact Form Test{% endblock %}
+
+{% block meta %}<meta name="robots" content="noindex,nofollow">{% endblock meta %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% clear_breadcrumbs %}
+{% endblock %}
+
+{% block main_class %}fill-screen{% endblock main_class %}
+
+{% block content %}
+
+<div class="g-pt-80--md">
+  {% include 'blocks/_middle_heading.html' with title="Contact form test" subtitle="Test page - nothing submitted here is saved or sent" %}
+</div>
+
+<div class="row justify-content-md-center">
+  <div class="col-md-8">
+    <div class="alert alert-warning text-center" role="alert">
+      This is a test copy of the <a href="{% url 'contact_us' %}">Contact Us</a> form. Submissions are checked and the results
+      shown below, but <strong>nothing is saved and no email is sent</strong>.
+    </div>
+  </div>
+</div>
+
+{% if results %}
+<div class="row justify-content-md-center">
+  <div class="col-md-8">
+    <div class="alert {% if not results.would_send %}alert-danger{% elif results.flagged %}alert-warning{% else %}alert-success{% endif %}" role="status">
+      <h4 class="g-mb-10">Result: {{ results.verdict }}</h4>
+      <p class="g-mb-10">Anti-spam checks are {% if results.enforced %}<strong>enforced</strong>: a failed check refuses the form with a plain error{% else %}<strong>log-only</strong>: a failed check is logged but the form still goes through{% endif %}.</p>
+      <table class="table table-sm g-mb-0">
+        <tbody>
+          <tr>
+            <td>Turnstile verification</td>
+            <td>{% if results.turnstile_passed %}&#10004; Passed{% else %}&#10008; Failed{% endif %}</td>
+          </tr>
+          {% if results.turnstile %}
+          <tr>
+            <td>Turnstile hostname</td>
+            <td>{{ results.turnstile.hostname|default:"-" }}</td>
+          </tr>
+          <tr>
+            <td>Turnstile challenge time</td>
+            <td>{{ results.turnstile.challenge_ts|default:"-" }}</td>
+          </tr>
+          {% if results.turnstile_error_codes %}
+          <tr>
+            <td>Turnstile error codes</td>
+            <td>{{ results.turnstile_error_codes|join:", " }}</td>
+          </tr>
+          {% endif %}
+          {% endif %}
+          {% for description, passed in results.spam_checks %}
+          <tr>
+            <td>{{ description }}</td>
+            <td>{% if passed %}&#10004; Passed{% else %}&#10008; Failed{% endif %}</td>
+          </tr>
+          {% endfor %}
+          {% for field, errors in results.form_errors.items %}
+          <tr>
+            <td>Form error ({{ field }})</td>
+            <td>{{ errors|join:" " }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<form class="g-pt-40" action="{% url 'contact_test' %}" method="post">
+  {% unify_form_non_field_errors %}
+  {% for hidden in form.hidden_fields %}
+  {{ hidden }}
+  {% endfor %}
+  {% csrf_token %}
+  <div class="hp-field" aria-hidden="true">
+    {{ form.website.label_tag }} {{ form.website }}
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      {% unify_form_field 'first_name' 'inline' %}
+    </div>
+    <div class="col-md-4">
+      {% unify_form_field 'last_name' 'inline' %}
+    </div>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      {% unify_form_field 'email' 'inline' %}
+    </div>
+    <div class="col-md-4">
+      {% unify_form_field 'phone' 'inline' %}
+    </div>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-md-8">
+      {% unify_form_field 'message' 'inline' %}
+    </div>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-md-8">
+      {% unify_form_required_fields_footnote 'inline' %}
+      <div class="form-group captcha-widget">
+        {{ form.captcha }}
+        {% if form.errors.captcha %}<small class="form-control-feedback">{{ form.errors.captcha }}</small>{% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-md-center text-center">
+    <div class="col-md-8">
+      {% unify_form_submit_button 'SEND (TEST)' 'inline' %}
+    </div>
+  </div>
+</form>
+
+{% endblock %}
+
+
+{% block body_js %}
+  {{ block.super }}
+  {% include 'blocks/_focus_state_js.html' %}
+{% endblock %}

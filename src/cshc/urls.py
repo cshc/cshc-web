@@ -22,7 +22,7 @@ from django.contrib.flatpages import views as flatpage_views
 from django.contrib import admin
 from django.conf.urls.static import static
 
-from core.views import JuniorsContactSubmissionCreateView, ContactSubmissionCreateView, site_webmanifest
+from core.views import JuniorsContactSubmissionCreateView, ContactSubmissionCreateView, ContactTurnstileTestView, site_webmanifest
 from members.views import profile
 from venues.views import DirectionsView
 from .views import HomeView, CalendarView, CommitteeSeasonView, CaptainsSeasonView, templateTestView, CshcGraphQLView
@@ -75,6 +75,8 @@ urlpatterns = [
         name='juniors_index'),
 
     url(r'^contact/$', ContactSubmissionCreateView.as_view(), name='contact_us'),
+    # Unlisted dry-run copy of the contact form for testing Turnstile - not in the sitemap
+    url(r'^contact/test/$', ContactTurnstileTestView.as_view(), name='contact_test'),
 
     url(r'^blog/', include('zinnia.urls', namespace="zinnia")),
 
