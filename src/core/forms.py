@@ -9,6 +9,8 @@ from zinnia.models import Entry, Category
 from zinnia.admin.forms import EntryAdminForm, CategoryAdminForm
 from unify.widgets import UnifyTextInput, UnifyPhoneInput, UnifyTextarea, UnifySelect, UnifyCheckboxInput, UnifyEmailInput
 from .models import JuniorsContactSubmission, ContactSubmission, CshcUser
+from .antispam import SpamCheckFormMixin
+from .turnstile import TurnstileField, get_client_ip
 
 
 class UserProfileForm(forms.ModelForm):
@@ -98,6 +100,18 @@ class ContactSubmissionForm(forms.ModelForm):
             'message': UnifyTextarea(attrs={'placeholder': 'Message*', 'rows': '5'}),
             'mailing_list': UnifyCheckboxInput(label='I would like to join the Club mailing list'),
         }
+
+
+class ContactTestForm(SpamCheckFormMixin, forms.ModelForm):
+    """ Dry-run copy of the contact form, used by the Turnstile test page. """
+    captcha = TurnstileField()
+
+    class Meta(ContactSubmissionForm.Meta):
+        pass
+
+    def __init__(self, *args, request=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['captcha'].remote_ip = get_client_ip(request)
 
 
 class JuniorsContactSubmissionForm(forms.ModelForm):

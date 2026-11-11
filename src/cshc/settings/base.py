@@ -582,6 +582,16 @@ RECAPTCHA_PRIVATE_KEY = get_env_setting('RECAPTCHA_PRIVATE_KEY')
 
 # ########## END django-recaptcha CONFIGURATION
 
+# ########## Cloudflare Turnstile CONFIGURATION (see core/turnstile.py)
+
+# For local development use Cloudflare's test keys:
+#   always passes: site 1x00000000000000000000AA, secret 1x0000000000000000000000000000000AA
+#   always fails:  site 2x00000000000000000000AB, secret 2x0000000000000000000000000000000AA
+TURNSTILE_SITE_KEY = get_env_setting('TURNSTILE_SITE_KEY')
+TURNSTILE_SECRET_KEY = get_env_setting('TURNSTILE_SECRET_KEY')
+
+# ########## END Cloudflare Turnstile CONFIGURATION
+
 # ########## django-compressor CONFIGURATION
 # COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True

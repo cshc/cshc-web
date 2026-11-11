@@ -3,7 +3,7 @@
 
 import traceback
 import logging
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, FormView
 from django.contrib import messages
 from django.conf import settings
 from django.urls import reverse_lazy
@@ -12,7 +12,9 @@ from django.template.loader import render_to_string
 from templated_email import send_templated_mail
 from competitions.models import Season
 from .models import JuniorsContactSubmission, ContactSubmission, ClubInfo
-from .forms import JuniorsContactSubmissionForm, ContactSubmissionForm
+from .forms import JuniorsContactSubmissionForm, ContactSubmissionForm, ContactTestForm
+from . import antispam
+from .antispam import HONEYPOT_FIELD, TIMESTAMP_FIELD
 
 
 LOG = logging.getLogger(__name__)
@@ -158,6 +160,55 @@ class ContactSubmissionCreateView(CreateView):
         messages.error(
             self.request, "Please enter all the required information and check the reCAPTCHA checkbox.")
         return super(ContactSubmissionCreateView, self).form_invalid(form)
+
+
+class ContactTurnstileTestView(FormView):
+    """ Unlisted dry-run copy of the Contact Us page, for trying out Turnstile
+        and the anti-spam checks on the live site. Never saves or sends anything.
+    """
+    form_class = ContactTestForm
+    template_name = "core/contact_test.html"
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+    def results(self, form):
+        turnstile = form.fields['captcha'].last_result
+        turnstile_passed = 'captcha' not in form.errors
+        spam_reasons = getattr(form, 'spam_reasons', [])
+        if not form.is_valid():
+            verdict = 'Rejected with a visible error (the user is asked to fix the form)'
+        elif spam_reasons:
+            verdict = 'Would be sent, but logged as suspected spam: ' + ', '.join(spam_reasons)
+        else:
+            verdict = 'Would be sent'
+        return {
+            'verdict': verdict,
+            'would_send': form.is_valid(),
+            'flagged': bool(spam_reasons),
+            'enforced': antispam.ENFORCE,
+            'turnstile_passed': turnstile_passed,
+            'turnstile': turnstile,
+            'turnstile_error_codes': (turnstile or {}).get('error-codes') or [],
+            'spam_checks': form.spam_check_summary(),
+            'form_errors': form.errors,
+        }
+
+    def form_valid(self, form):
+        results = self.results(form)
+        LOG.info("Turnstile test page submission: %s", results['verdict'])
+        # Fresh form (new timestamp and Turnstile token), keeping what was typed
+        initial = {k: v for k, v in form.cleaned_data.items()
+                   if k not in ('captcha', HONEYPOT_FIELD, TIMESTAMP_FIELD)}
+        new_form = self.form_class(initial=initial, request=self.request)
+        return self.render_to_response(self.get_context_data(form=new_form, results=results))
+
+    def form_invalid(self, form):
+        results = self.results(form)
+        LOG.info("Turnstile test page submission: %s", results['verdict'])
+        return self.render_to_response(self.get_context_data(form=form, results=results))
 
 
 class JuniorsContactSubmissionCreateView(CreateView):
