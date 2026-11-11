@@ -423,3 +423,10 @@ p > a {
     padding-bottom: 8vh;
   }
 }
+
+/* Cloudflare Turnstile: centre the widget (300x65, or 150x140 in compact mode) */
+.captcha-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
