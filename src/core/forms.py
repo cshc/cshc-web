@@ -1,7 +1,6 @@
 """
 Forms for general CSHC app use
 """
-from captcha.fields import ReCaptchaField
 from django import forms
 from django.contrib.flatpages.models import FlatPage
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
@@ -80,9 +79,20 @@ class SignupFormExtra(forms.Form):
         user.save()
 
 
-class ContactSubmissionForm(forms.ModelForm):
+class ProtectedFormMixin(SpamCheckFormMixin):
+    """ Turnstile plus the (log-only) anti-spam checks, for public forms.
+        The form class must declare captcha = TurnstileField(). Views should
+        pass the request (as a 'request' kwarg) so Turnstile gets the client IP.
+    """
+
+    def __init__(self, *args, request=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['captcha'].remote_ip = get_client_ip(request)
+
+
+class ContactSubmissionForm(ProtectedFormMixin, forms.ModelForm):
     """ Form used for the contact form"""
-    captcha = ReCaptchaField()
+    captcha = TurnstileField()
 
     class Meta:
         """ Meta-info for the form. """
@@ -102,21 +112,13 @@ class ContactSubmissionForm(forms.ModelForm):
         }
 
 
-class ContactTestForm(SpamCheckFormMixin, forms.ModelForm):
-    """ Dry-run copy of the contact form, used by the Turnstile test page. """
+class ContactTestForm(ContactSubmissionForm):
+    """ The live contact form, used by the dry-run Turnstile test page. """
+
+
+class JuniorsContactSubmissionForm(ProtectedFormMixin, forms.ModelForm):
+    """ Form used for the juniors contact form"""
     captcha = TurnstileField()
-
-    class Meta(ContactSubmissionForm.Meta):
-        pass
-
-    def __init__(self, *args, request=None, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['captcha'].remote_ip = get_client_ip(request)
-
-
-class JuniorsContactSubmissionForm(forms.ModelForm):
-    """ Form used for the contact form"""
-    captcha = ReCaptchaField()
 
     class Meta:
         """ Meta-info for the form. """

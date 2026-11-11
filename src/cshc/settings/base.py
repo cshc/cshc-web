@@ -195,7 +195,6 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.linkedin_oauth2',
     'anymail',
-    'captcha',
     'ckeditor',
     'ckeditor_uploader',
     'compressor',
@@ -573,14 +572,6 @@ FLUENT_COMMENTS_FIELD_CSS_CLASS = ''
 FLUENT_COMMENTS_MULTIPART_EMAILS = True
 FLUENT_COMMENTS_USE_EMAIL_NOTIFICATION = True
 
-
-# ########## django-recaptcha CONFIGURATION
-
-NOCAPTCHA = True
-RECAPTCHA_PUBLIC_KEY = get_env_setting('RECAPTCHA_PUBLIC_KEY')
-RECAPTCHA_PRIVATE_KEY = get_env_setting('RECAPTCHA_PRIVATE_KEY')
-
-# ########## END django-recaptcha CONFIGURATION
 
 # ########## Cloudflare Turnstile CONFIGURATION (see core/turnstile.py)
 

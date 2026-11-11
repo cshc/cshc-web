@@ -98,6 +98,11 @@ class ContactSubmissionCreateView(CreateView):
     template_name = "core/contact.html"
     success_url = reverse_lazy('contact_us')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request   # for the Turnstile client IP
+        return kwargs
+
     def email_to_secretary(self, form):
         """ Send an email to the secretary with the form data. """
         email = form.cleaned_data['email']
@@ -122,10 +127,14 @@ class ContactSubmissionCreateView(CreateView):
         )
 
     def email_to_enquirer(self, form):
-        """ Send a confirmation email to the person submitting the form. """
+        """ Send a confirmation email to the person submitting the form.
+
+            Deliberately doesn't include their message: the address is
+            unverified, so echoing the message would let anyone use the form
+            to send arbitrary text to any address.
+        """
         context = {
             'first_name': str(form.cleaned_data['first_name']),
-            'message': str(form.cleaned_data['message']),
         }
         try:
             context['secretary_name'] = ClubInfo.objects.get(
@@ -158,7 +167,7 @@ class ContactSubmissionCreateView(CreateView):
 
     def form_invalid(self, form):
         messages.error(
-            self.request, "Please enter all the required information and check the reCAPTCHA checkbox.")
+            self.request, "Please enter all the required information and complete the verification check.")
         return super(ContactSubmissionCreateView, self).form_invalid(form)
 
 
@@ -219,6 +228,11 @@ class JuniorsContactSubmissionCreateView(CreateView):
     template_name = "club_info/juniors.html"
     success_url = reverse_lazy('juniors_index')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request   # for the Turnstile client IP
+        return kwargs
+
     def get_context_data(self, **kwargs):
         context = super(JuniorsContactSubmissionCreateView,
                         self).get_context_data(**kwargs)
@@ -260,10 +274,13 @@ class JuniorsContactSubmissionCreateView(CreateView):
         )
 
     def email_to_enquirer(self, form):
-        """ Send a confirmation email to the person submitting the form. """
+        """ Send a confirmation email to the person submitting the form.
+
+            Deliberately doesn't include their message (see
+            ContactSubmissionCreateView.email_to_enquirer).
+        """
         context = {
             'first_name': str(form.cleaned_data['first_name']),
-            'message': str(form.cleaned_data['message']),
         }
 
         junior_coord_name_obj, _ = ClubInfo.objects.get_or_create(
@@ -293,5 +310,5 @@ class JuniorsContactSubmissionCreateView(CreateView):
 
     def form_invalid(self, form):
         messages.error(
-            self.request, "Please enter all the required information and check the reCAPTCHA checkbox.")
+            self.request, "Please enter all the required information and complete the verification check.")
         return super(JuniorsContactSubmissionCreateView, self).form_invalid(form)

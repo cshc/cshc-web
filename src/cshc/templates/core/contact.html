@@ -44,6 +44,9 @@ Contact Us page with contact form
   {{ hidden }}
   {% endfor %}
   {% csrf_token %}
+  <div class="hp-field" aria-hidden="true">
+    {{ form.website.label_tag }} {{ form.website }}
+  </div>
   <div class="row justify-content-md-center">
     <div class="col-md-4">
       {% unify_form_field 'first_name' 'inline' %}
@@ -68,7 +71,7 @@ Contact Us page with contact form
   <div class="row justify-content-md-center">
     <div class="col-md-8">
       {% unify_form_required_fields_footnote 'inline' %}
-      <div class="form-group recaptcha">
+      <div class="form-group captcha-widget">
         {{ form.captcha }}
         {% if form.errors.captcha %}<small class="form-control-feedback">{{ form.errors.captcha }}</small>{% endif %}
       </div>
