@@ -424,6 +424,16 @@ p > a {
   }
 }
 
+/* Anti-spam honeypot: kept off-screen rather than display:none, which some bots skip */
+.hp-field {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 /* Cloudflare Turnstile: centre the widget (300x65, or 150x140 in compact mode) */
 .captcha-widget {
   display: flex;
