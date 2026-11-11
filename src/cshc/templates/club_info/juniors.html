@@ -157,6 +157,9 @@
     {{ hidden }}
     {% endfor %}
     {% csrf_token %}
+    <div class="hp-field" aria-hidden="true">
+      {{ form.website.label_tag }} {{ form.website }}
+    </div>
     {% unify_form_section_heading 'Your details' %}
     <div class="row">
       <div class="col-md-6">

@@ -98,6 +98,11 @@ class ContactSubmissionCreateView(CreateView):
     template_name = "core/contact.html"
     success_url = reverse_lazy('contact_us')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request   # for the Turnstile client IP
+        return kwargs
+
     def email_to_secretary(self, form):
         """ Send an email to the secretary with the form data. """
         email = form.cleaned_data['email']
@@ -158,7 +163,7 @@ class ContactSubmissionCreateView(CreateView):
 
     def form_invalid(self, form):
         messages.error(
-            self.request, "Please enter all the required information and check the reCAPTCHA checkbox.")
+            self.request, "Please enter all the required information and complete the verification check.")
         return super(ContactSubmissionCreateView, self).form_invalid(form)
 
 
@@ -218,6 +223,11 @@ class JuniorsContactSubmissionCreateView(CreateView):
     form_class = JuniorsContactSubmissionForm
     template_name = "club_info/juniors.html"
     success_url = reverse_lazy('juniors_index')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request   # for the Turnstile client IP
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super(JuniorsContactSubmissionCreateView,
@@ -293,5 +303,5 @@ class JuniorsContactSubmissionCreateView(CreateView):
 
     def form_invalid(self, form):
         messages.error(
-            self.request, "Please enter all the required information and check the reCAPTCHA checkbox.")
+            self.request, "Please enter all the required information and complete the verification check.")
         return super(JuniorsContactSubmissionCreateView, self).form_invalid(form)
