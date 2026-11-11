@@ -48,6 +48,10 @@ class LiveFormTestCase(TestCase):
         self.assertEqual(self.model.objects.count(), 1)
         confirmation = self.emails_to('jo@example.com')
         self.assertEqual(len(confirmation), 1)
+        # The confirmation must not echo the (unverified) sender's message
+        self.assertNotIn(MESSAGE, confirmation[0].body)
+        for content, _ in getattr(confirmation[0], 'alternatives', []):
+            self.assertNotIn(MESSAGE, content)
         # ...but the club's copy must include it
         club_copies = [m for m in mail.outbox if 'jo@example.com' not in m.to]
         self.assertEqual(len(club_copies), 1)

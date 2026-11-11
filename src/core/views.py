@@ -127,10 +127,14 @@ class ContactSubmissionCreateView(CreateView):
         )
 
     def email_to_enquirer(self, form):
-        """ Send a confirmation email to the person submitting the form. """
+        """ Send a confirmation email to the person submitting the form.
+
+            Deliberately doesn't include their message: the address is
+            unverified, so echoing the message would let anyone use the form
+            to send arbitrary text to any address.
+        """
         context = {
             'first_name': str(form.cleaned_data['first_name']),
-            'message': str(form.cleaned_data['message']),
         }
         try:
             context['secretary_name'] = ClubInfo.objects.get(
@@ -270,10 +274,13 @@ class JuniorsContactSubmissionCreateView(CreateView):
         )
 
     def email_to_enquirer(self, form):
-        """ Send a confirmation email to the person submitting the form. """
+        """ Send a confirmation email to the person submitting the form.
+
+            Deliberately doesn't include their message (see
+            ContactSubmissionCreateView.email_to_enquirer).
+        """
         context = {
             'first_name': str(form.cleaned_data['first_name']),
-            'message': str(form.cleaned_data['message']),
         }
 
         junior_coord_name_obj, _ = ClubInfo.objects.get_or_create(

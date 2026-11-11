@@ -6,8 +6,3 @@ Best regards,
 
 {{ juniors_coordinator_name }}
 Juniors Coordinator
-
-{% if message %}
-Your message:
-{{ message }}
-{% endif %}
