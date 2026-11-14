@@ -327,7 +327,7 @@ class Query(graphene.ObjectType):
         for award_winner in award_winners_qs:
             season_stats.add_award_winner(award_winner)
 
-        return season_stats.seasons.values()
+        return sorted(season_stats.seasons.values(), key=lambda s: s.season.start)
 
 
 class Mutation(graphene.ObjectType):
