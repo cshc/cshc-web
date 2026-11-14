@@ -42,7 +42,9 @@ const MemberPlayingRecordTables = ({ data, fixtureType, memberId }) => {
 
   const linkedMatchList = (content, params) => {
     const urlParams = { ...params };
-    urlParams.players = memberId;
+    if (!urlParams.pom && !urlParams.lom) {
+      urlParams.players = memberId;
+    }
     if (fixtureType !== NoFilter) {
       urlParams.fixtureType = fixtureType;
     }
