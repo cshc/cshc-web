@@ -4,6 +4,7 @@
   "sender_email": "sender@example.com",
   "child_name": "Joe Junior",
   "child_age": "7",
+  "child_school_year": "Year 2",
   "child_gender": "Male",
   "trigger": "Social media",
   "message": "Message about juniors"

@@ -101,7 +101,7 @@ class ContactFormTests(LiveFormTestCase):
 class JuniorsContactFormTests(LiveFormTestCase):
     url_name = 'juniors_index'
     model = JuniorsContactSubmission
-    extra_data = {'child_name': 'Sam', 'child_age': 'A9', 'child_gender': 'Female', 'trigger': 'web_search'}
+    extra_data = {'child_name': 'Sam', 'child_age': 'A9', 'child_school_year': 'Y4', 'child_gender': 'Female', 'trigger': 'web_search'}
 
     def test_valid_submission_is_saved_and_sent(self):
         response = self.post(self.post_data())
@@ -115,6 +115,22 @@ class JuniorsContactFormTests(LiveFormTestCase):
 
     def test_turnstile_failure_is_refused(self):
         self.post(self.post_data(), turnstile_success=False)
+        self.assertEqual(self.model.objects.count(), 0)
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_selects_start_blank(self):
+        response = self.client.get(reverse(self.url_name), HTTP_HOST='testserver')
+        form = response.context['form']
+        for name in ('child_gender', 'child_age', 'child_school_year'):
+            self.assertEqual(form.fields[name].choices[0], ('', '-- Select --'))
+            self.assertIsNone(form[name].value())
+
+    def test_missing_selection_is_refused(self):
+        for name in ('child_gender', 'child_age', 'child_school_year'):
+            with self.subTest(field=name):
+                response = self.post(self.post_data(**{name: ''}))
+                self.assertEqual(response.status_code, 200)
+                self.assertIn(name, response.context['form'].errors)
         self.assertEqual(self.model.objects.count(), 0)
         self.assertEqual(len(mail.outbox), 0)
 

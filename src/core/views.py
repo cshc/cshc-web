@@ -239,7 +239,9 @@ class JuniorsContactSubmissionCreateView(CreateView):
 
         # Sub-navigation elements
         context['sub_nav_items'] = [
+            {'id': 'about', 'label': 'About'},
             {'id': 'contact-us', 'label': 'Get In Touch'},
+            {'id': 'registration', 'label': 'Registration'},
             {'id': 'resources', 'label': 'Resources'},
             {'id': 'key_people', 'label': 'Key People'},
             {'id': 'news', 'label': 'News'},
@@ -259,6 +261,7 @@ class JuniorsContactSubmissionCreateView(CreateView):
             'sender_email': email,
             'child_name': form.cleaned_data['child_name'],
             'child_age': JuniorsContactSubmission.AGE[form.cleaned_data['child_age']],
+            'child_school_year': JuniorsContactSubmission.SCHOOL_YEAR[form.cleaned_data['child_school_year']],
             'child_gender': JuniorsContactSubmission.GENDER[form.cleaned_data['child_gender']],
             'trigger': trigger_text,
             'message': str(form.cleaned_data['message']),

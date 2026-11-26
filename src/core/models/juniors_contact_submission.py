@@ -21,6 +21,18 @@ class JuniorsContactSubmission(models.Model):
         ('A14', '14'),
         ('A15', '15'),
         ('A16', '16'))
+    SCHOOL_YEAR = Choices(
+        ('Y1', 'Year 1'),
+        ('Y2', 'Year 2'),
+        ('Y3', 'Year 3'),
+        ('Y4', 'Year 4'),
+        ('Y5', 'Year 5'),
+        ('Y6', 'Year 6'),
+        ('Y7', 'Year 7'),
+        ('Y8', 'Year 8'),
+        ('Y9', 'Year 9'),
+        ('Y10', 'Year 10'),
+        ('Y11', 'Year 11'))
     TRIGGER = Choices(
         ('not_selected', '-- Select --'),
         ('web_search', 'Web search (e.g. Google)'),
@@ -39,9 +51,11 @@ class JuniorsContactSubmission(models.Model):
                                        help_text="If you select 'yes', we'll add you to our club mailing list. Don't worry - its easy to unsubscribe too!")
 
     child_name = models.CharField(max_length=255)
-    child_age = models.CharField(max_length=10, choices=AGE, default=AGE.A6)
-    child_gender = models.CharField(
-        max_length=10, choices=GENDER, default=GENDER.Male)
+    # No defaults, so the form renders these as blank selects that must be chosen
+    child_age = models.CharField(max_length=10, choices=AGE)
+    child_school_year = models.CharField(
+        "School year", max_length=10, choices=SCHOOL_YEAR)
+    child_gender = models.CharField(max_length=10, choices=GENDER)
 
     # Optional attributes:
     phone = models.CharField("Phone number", max_length=30, blank=True)

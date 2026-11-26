@@ -52,10 +52,10 @@ class ContactSubmissionAdmin(admin.ModelAdmin):
 class JuniorsContactSubmissionAdmin(admin.ModelAdmin):
     """ Admin interface definition for the JuniorsContactSubmission model. """
     ordering = ('child_age', 'child_gender', 'child_name')
-    list_filter = ('child_age', 'child_gender')
+    list_filter = ('child_age', 'child_school_year', 'child_gender')
     search_fields = ('full_name', 'child_name', 'email')
     list_display = ('full_name', 'email', 'child_name',
-                    'child_age', 'child_gender', 'submitted')
+                    'child_age', 'child_school_year', 'child_gender', 'submitted')
 
 
 admin.site.unregister(FlatPage)

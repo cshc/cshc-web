@@ -1,5 +1,5 @@
 {% load thumbnail from sorl_thumbnail %}
-<div class="u-info-v1-2 h-100 d-flex flex-column">
+<div class="u-info-v1-2 h-100 d-flex flex-column g-brd-around g-brd-gray-light-v4">
   <figure class="u-block-hover text-center g-bg-white">
     {% thumbnail thumbnail_url "180" as profile_thumbnail %}
     <img class="g-rounded-5 g-my-15" src="{{ profile_thumbnail.url }}" alt="Profile Pic"/>
