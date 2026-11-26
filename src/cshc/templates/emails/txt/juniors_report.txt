@@ -5,7 +5,7 @@ Message from {{ name }}:
 Email address: {{ sender_email }}
 Phone: {{ phone }}
 
-Child: {{ child_name }} ({% autoescape off %}{{ child_age }}{% endautoescape %}, {{ child_gender }})
+Child: {{ child_name }} ({% autoescape off %}{{ child_age }}{% endautoescape %}, {{ child_school_year }}, {{ child_gender }})
 {% if trigger %}
 Heard about Cambridge South Junior Hockey from {{ trigger }}
 {% endif %}

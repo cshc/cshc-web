@@ -139,9 +139,17 @@ class JuniorsContactSubmissionForm(ProtectedFormMixin, forms.ModelForm):
             'child_name': UnifyTextInput(attrs={'placeholder': 'Name*'}, left_icon='fas fa-user'),
             'child_gender': UnifySelect,
             'child_age': UnifySelect,
+            'child_school_year': UnifySelect,
             'message': UnifyTextarea(attrs={'placeholder': 'Message*', 'rows': '5'}),
             'trigger': UnifySelect,
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Match the trigger field's placeholder rather than Django's '---------'
+        for name in ('child_gender', 'child_age', 'child_school_year'):
+            field = self.fields[name]
+            field.choices = [('', '-- Select --')] + [c for c in field.choices if c[0] != '']
 
 
 class FlatPageAdminForm(forms.ModelForm):
